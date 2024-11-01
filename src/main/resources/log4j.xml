@@ -12,7 +12,7 @@
 	</appender>
 	
 	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
-		<param name="file" value="C:\Trinity\trinity\logs" />
+      <param name="file" value="C:/Trinity/trinity/logs/myApp.log" />
 		<param name="append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss} %c - %m%n" />
