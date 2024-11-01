@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- 	안뇽하세용~
+ 	안뇽하세용~ 굿~
 </body>
 </html>
