@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #000000;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    width: 100%; /* 전체 폭을 사용 */
+}
+
+.icon {
+    width: 50px;
+    height: auto;
+    margin-right: 8px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    color: #8DCE4E;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px; /* 가로선과의 간격 */
+}
+
+.horizontal-line {
+    flex-grow: 1; /* 가로선이 남은 공간을 채우도록 */
+    height: 1px;
+    background-color: #ccc; /* 가로선 색상 */
+    margin-left: 10px; /* 닥터링과의 간격 */
+}
+
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 0.9rem;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.footer-links a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-info, .footer-company {
+    font-size: 16px;
+    font-weight: bold;
+    color: #636363;
+    max-width: 1000px;
+    margin: auto;
+    text-align: left;
+}
+.footer-company{
+    margin-bottom: 55px;
+}
