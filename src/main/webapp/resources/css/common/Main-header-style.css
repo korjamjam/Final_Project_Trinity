@@ -92,7 +92,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
     z-index: 1;
     border-radius: 8px; /* 모서리 둥글게 */
-    margin-top: 102px;
+    margin-top: 99px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -110,6 +110,7 @@
 .dropdown-content a:hover {
     background-color: #8DCE4E; /* 호버 시 배경색 */
     color: #ffffff; /* 호버 시 텍스트 색상 */
+    border-radius: 4px; /* 모서리 둥글게 */
 }
 
 @media (min-width: 1010px) {
