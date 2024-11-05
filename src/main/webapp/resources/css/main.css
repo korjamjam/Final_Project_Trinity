@@ -12,6 +12,10 @@ input {
 button {
     font-family: "Noto Sans KR", system-ui;
 }
+.wrapper {
+    width: 100%;
+    max-width: 1024px;
+}
 
 
 /* SearchBar */
@@ -33,10 +37,14 @@ button {
     justify-content: space-between;
 }
 .searchBar img{
-    text-align: right;
     filter: invert(71%) sepia(27%) saturate(836%) hue-rotate(48deg) brightness(100%) contrast(89%);
 }
 .searchBar_img{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
     padding-right: 10px;
 }
 
@@ -87,6 +95,7 @@ button {
 .shortCutIcon{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    place-items: center;
     gap: 20px;
     text-align: center;
     margin: 0px 30px;
