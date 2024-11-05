@@ -1,19 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>닥터링</title>
 
     <!-- searchBar icon -->
-    <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-    <link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon" />
+    <link rel="favicon" href="./img/favicon.ico" />
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
 
     <!-- font style -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,14 +19,11 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="<%=path%>/resources/css/defalut.css">
-    <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+    <link rel="stylesheet" href="./css/defalut.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-	<!-- Header -->
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp" %>
-	
-	<div class="wrapper">
+    <div class="wrapper">
         <hr>
         <br>
 
@@ -178,8 +170,5 @@
 
         <br><br>
     </div>
-	
-	<!-- Footer -->
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp" %>
 </body>
 </html>
