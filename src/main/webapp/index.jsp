@@ -24,7 +24,7 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="<%=path%>/resources/css/defalut.css">
+    <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
     <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
@@ -32,7 +32,6 @@
 	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp" %>
 	
 	<div class="wrapper">
-        <hr>
         <br>
 
         <!-- SearchBar -->
@@ -40,7 +39,7 @@
             <div class="searchBar">
                 <input type="text" placeholder="검색어를 입력하세요.">
                 <div class="searchBar_img">
-                    <a href=""><img src="./img/search.png" alt="search" width="15" height="15"></a>
+                    <a href=""><img src="<%=path%>/resources/img/search.png" alt="search" width="15" height="15"></a>
                 </div>
             </div>
         </div>
@@ -62,37 +61,37 @@
         <div class="shortCutIcon">
             <div class="icon">
                 <a href="">
-                    <img src="./img/checkReservation.png" alt="checkReservation">
+                    <img src="<%=path%>/resources/img/checkReservation.png" alt="checkReservation">
                     <p>예약 정보 확인</p>
                 </a>
             </div>
             <div class="icon">
                 <a href="">
-                    <img src="./img/openHospital.png" alt="openHospital">
+                    <img src="<%=path%>/resources/img/openHospital.png" alt="openHospital">
                     <p>열린 병원</p>
                 </a>
             </div>
             <div class="icon">
                 <a href="">
-                    <img src="./img/checkHistory.png" alt="checkHistory">
+                    <img src="<%=path%>/resources/img/checkHistory.png" alt="checkHistory">
                     <p>진료기록 확인</p>
                 </a>
             </div>
             <div class="icon">
                 <a href="">
-                    <img src="./img/checkHealthChart.png" alt="checkHealthChart">
+                    <img src="<%=path%>/resources/img/checkHealthChart.png" alt="checkHealthChart">
                     <p>건강검진기록</p>
                 </a>
             </div>
             <div class="icon">
                 <a href="">
-                    <img src="./img/reservationVaccine.png" alt="reservationVaccine">
+                    <img src="<%=path%>/resources/img/reservationVaccine.png" alt="reservationVaccine">
                     <p>백신예약</p>
                 </a>
             </div>
             <div class="icon">
                 <a href="">
-                    <img src="./img/reservationHealthCheck.png" alt="reservationHealthCheck">
+                    <img src="<%=path%>/resources/img/reservationHealthCheck.png" alt="reservationHealthCheck">
                     <p>건강검진 예약</p>
                 </a>
             </div>
@@ -121,7 +120,7 @@
                 </div>
             </div>
             <div class="board_more">
-                <a href="">더보기<img src="./img/arrow.png" alt=""></a>
+                <a href="">더보기<img src="<%=path%>/resources/img/arrow.png" alt=""></a>
             </div>
         </div>
         
@@ -129,7 +128,7 @@
 
         <!-- Commercial -->
         <div class="commercial">
-            광고판
+        	광고판
         </div>
 
         <br><br>
@@ -157,7 +156,7 @@
                         <p class="p2">무료로 병원 광고하세요!</p>
                     </div>
                     <div class="advertise2_2">
-                        <a href=""><img src="./img/go.png" alt=""></a>
+                        <a href=""><img src="<%=path%>/resources/img/go.png" alt=""></a>
                     </div>
                 </div>
             </div>
