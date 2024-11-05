@@ -13,7 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- 	안뇽하세용~ 굿~
- 	최민서입니다 잘부탁드려요
+	<jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
 </html>

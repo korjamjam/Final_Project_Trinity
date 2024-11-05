@@ -4,10 +4,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -20,12 +16,13 @@ body {
 .logo {
     display: flex;
     align-items: center;
+    
 }
 .logo-text {
     font-size: 1.5rem;
-    color: #8DCE4E;
+    color: #8DCE4E !important;
     font-weight: bold;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .icon {
@@ -47,12 +44,15 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #000;
+    color: #265708;
+
     font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .nav-links a:hover{
-    color: #686868;
+    color: #8DCE4E;
+    text-decoration: none;
 }
 
 .login-menu {
@@ -62,9 +62,14 @@ body {
 }
 
 .login-menu a {
-    text-decoration: none;
-    color: #000;
+    color: #265708;
     font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.login-menu a:hover {
+    color: #8DCE4E;
+    text-decoration: none;
 }
 
 .menu-icon {
@@ -73,9 +78,11 @@ body {
     display: block;
 }
 
-@media (min-width: 800px) {
+/* 900이상 일때 적용되는 css */
+@media (min-width: 900px) {
     .nav-links {
         display: flex;
+        
     }
 
     .menu-icon {
@@ -83,6 +90,6 @@ body {
     }
 
     .header {
-        padding: 40px 60px;
+        padding: 25px 40px;
     }
 }

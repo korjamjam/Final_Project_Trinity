@@ -1,15 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctoring Footer</title>
-    <link rel="stylesheet" href="/css/defalut.css">
-    <link rel="stylesheet" href="/css/footer-style.css">
+
+    <link rel="stylesheet" href="<%=path %>/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="<%=path %>/resources/css/common/Main-footer-style.css">
     <style>
     </style>
 </head>
 <body>
+
 
     <footer class="footer">
         <!-- a태그로 사이트 이동 -->
@@ -23,7 +28,7 @@
         </nav>
         <br>
 
-        <!--  -->
+        <!-- 푸터 기본 정보 (추후 수정) -->
         <div class="footer-info">
             <p>이용문의</p>
             <p>cs@supportgettogether.com 이메일 문의</p>
@@ -32,7 +37,7 @@
         </div>
 
         <div class="footer-logo">
-            <img src="/img/Doctoring.png" alt="주사기 아이콘" class="icon">
+            <img src="<%=path %>/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon">
             <a href="#" class="logo-text">닥터링</a>
             <div class="horizontal-line"></div>
         </div>
