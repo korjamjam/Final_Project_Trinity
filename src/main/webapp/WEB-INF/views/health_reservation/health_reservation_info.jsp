@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>검진 절차 안내</title>
     
+    <!-- css -->
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation_info.css">
+    
 </head>
 <body>
 <!-- Header -->
@@ -27,8 +31,7 @@
             <div class="health_reservation_information_wrap">
                 <div class="health_reservation_information">
                     <div class="health_reservation_colorBox" style="background-color: #FFCECE;">
-                        대상자선정<br>
-                        (국민건강보험공단)
+                        대상자선정
                     </div>
                     <div class="health_reservation_content">
                         <p>
@@ -41,8 +44,7 @@
                 <div class="health_reservation_information">
                     <div class="health_reservation_colorBox" style="background-color: #FFE79A;">
                         건강검진표<br>
-                        발송 및 수령 <br>
-                        (국민건강보험공단)
+                        발송 및 수령
                     </div>
                     <div class="health_reservation_content">
                         <p>
@@ -55,8 +57,7 @@
                 </div>
                 <div class="health_reservation_information">
                     <div class="health_reservation_colorBox" style="background-color: #EFDDFF;">
-                        건강검진<br>
-                        (검진기관)
+                        건강검진
                     </div>
                     <div class="health_reservation_content">
                         <p>
@@ -82,8 +83,7 @@
                 </div>
                 <div class="health_reservation_information">
                     <div class="health_reservation_colorBox" style="background-color: #B1DDFD;">
-                        건강검진 결과 통보<br>
-                        (검진기관)
+                        건강검진 결과 통보
                     </div>
                     <div class="health_reservation_content">
                         <p>
@@ -94,8 +94,7 @@
                 </div>
                 <div class="health_reservation_information">
                     <div class="health_reservation_colorBox" style="background-color: #FFAFB1;">
-                        확진검사<br>
-                        (병·의원-협회 포함)
+                        확진검사
                     </div>
                     <div class="health_reservation_content">
                         <p>
@@ -116,7 +115,9 @@
                     </div>
                 </div>
             </div>
-            <button id="reservation_btn" style="background-color: #8CCF4E;">예약하기</button>
+            <div>
+            	<button id="reservation_btn">예약하기</button>
+            </div>
         </div>
     </div>
     <!-- Footer -->
