@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원관리</title>
-    <link rel="stylesheet" href="<%=path %>/resources/css/default/defalut.css">
-    <link rel="stylesheet" href="<%=path %>/resources/css/admin/MemberManagement_Detail.css">
+    <title>Admin Member Management Detail</title>
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/default/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/member_management_detail.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
 
 <div class="member-management">
     <h2>회원관리</h2>
