@@ -31,6 +31,10 @@
 <!-- 
 	<!-- Header -->
 	<%@ include file="./WEB-INF/views/common/main_header.jsp" %>
+<<<<<<< HEAD
+=======
+	
+>>>>>>> parent of 259b35f (Merge branch 'main' of https://github.com/korjamjam/Final_Project_Trinity into JeonJaemin)
 	<div class="wrapper">
         <br>
 
@@ -180,5 +184,9 @@
 	
 	<!-- Footer -->
 	<%@ include file="./WEB-INF/views/common/main_footer.jsp" %>
+<<<<<<< HEAD
+=======
+	-->
+>>>>>>> parent of 259b35f (Merge branch 'main' of https://github.com/korjamjam/Final_Project_Trinity into JeonJaemin)
 </body>
 </html>
