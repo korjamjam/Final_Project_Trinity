@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ 
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
-    <<link rel="stylesheet" href="<%=path %>/resources/css/account/searchid.css">
+    <<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/searchid.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- Header -->
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
+	<%@ include file="../common/FinalHeader.jsp"%>
     <div class="container">
         <h1>아이디 찾기</h1>
         <p>아이디 찾는 방법을 선택해 주세요.</p>
@@ -60,8 +63,8 @@
         <p class="footer-text">아이디 찾기 시 문제가 있나요? <a href="#">바로가기</a></p>
     </div>
     
-    <!-- Footer -->
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/FinalFooter.jsp"%>
     
 </body>
 </html>

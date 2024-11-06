@@ -6,13 +6,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로그인</title>
-<link rel="stylesheet" href="<%=path %>/resources/css/account/login.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/login.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- Header -->
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
+	<%@ include file="../common/FinalHeader.jsp"%>
 
 <div class="login-container">
     <div class="input-group">
@@ -50,7 +50,7 @@
 </script>
 
 <!-- Footer -->
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp"%>
+	<%@ include file="../common/FinalFooter.jsp"%>
 
 
 </body>
