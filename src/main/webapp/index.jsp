@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<!-- font style -->
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <% String path = request.getContextPath(); %>
@@ -16,34 +12,25 @@
 
 <title>닥터링</title>
 
-<!-- searchBar icon -->
-<link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+	<!-- searchBar icon -->
+    <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
+    <link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon" />
 
-<!-- font style -->
+    <!-- font style -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-	rel="stylesheet">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <!-- icon -->
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+
 </head>
 <body>
-	<jsp:forward page="WEB-INF/views/main.jsp" />
 
-	<!-- icon -->
-	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
-	<!-- css -->
-	<link rel="stylesheet"
-		href="<%=path%>/resources/css/common/defalut.css">
-	<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
-</head>
-<body>
 	<!-- Header -->
 	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
 
