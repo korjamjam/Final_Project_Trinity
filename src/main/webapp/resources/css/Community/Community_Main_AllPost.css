@@ -1,0 +1,233 @@
+/* 전체 레이아웃 설정 */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* 가로 스크롤 방지 */
+}
+
+.community-container {
+    width: 100%;
+    /* 화면 너비에 맞추기 */
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 헤더 스타일 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #6cc24a;
+    color: #fff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container .icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+}
+
+.logo-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 카테고리 네비게이션 스타일 */
+.category-navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    background-color: #e6f4e6;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.category-button {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #6cc24a;
+    background-color: #fff;
+    border: 1px solid #6cc24a;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    /* 기본 링크 밑줄 제거 */
+}
+
+.category-button:hover {
+    background-color: #6cc24a;
+    color: #fff;
+    text-decoration: none;
+    /* 호버 시에도 밑줄 제거 */
+}
+
+/* 실시간 인기글 영역 */
+.popular-posts {
+    padding: 15px;
+}
+
+.posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: px;
+
+}
+
+.posts-title {
+    color: #265708;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘칠 때 말줄임표 표시 */
+    display: block; /* 말줄임표 적용을 위한 블록 요소 설정 */
+    max-width: 100%; /* 부모 요소 너비에 맞게 최대 너비 제한 */
+}
+
+
+/* 게시글 리스트 영역 */
+.post-list {
+    padding: 10px;
+}
+
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+    gap: 10px;
+    /* 요소 간 기본 간격 설정 */
+    text-decoration: none;
+    /* 링크 밑줄 제거 */
+}
+
+.post-item:hover {
+    text-decoration: none;
+    /* 호버 상태에서도 밑줄 제거 */
+    background-color: #f9f9f9;
+}
+
+.post-category-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #6cc24a;
+    white-space: nowrap;
+    min-width: 50px;
+}
+
+.post-title {
+    flex: 1;
+    color: #333;
+    font-size: 12px;
+    text-align: left;
+    min-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.post-author {
+    font-size: 11px;
+    color: #666;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    min-width: 60px;
+    /* 필요한 경우 적절한 너비 설정 */
+}
+
+.post-comments {
+    font-size: 11px;
+    color: #6cc24a;
+    font-weight: bold;
+    white-space: nowrap;
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+}
+
+
+
+/* Pagination Footer */
+.pagination-footer {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    position: relative;
+    /* relative positioning to allow absolute centering */
+}
+
+.pagination {
+    font-size: 12px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* absolute centering within the footer */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pagination span {
+    margin: 0 5px;
+    color: #265708;
+    font-weight: bold;
+}
+
+/* 글쓰기 버튼 */
+.write-button {
+    margin-left: auto;
+    /* 글쓰기 버튼을 가장 오른쪽에 위치 */
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #6cc24a;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.write-button:hover {
+    background-color: #5aa33c;
+}

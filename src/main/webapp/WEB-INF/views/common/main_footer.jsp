@@ -8,7 +8,11 @@
     <title>Doctoring Footer</title>
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/common/main_footer.jsp
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_footer_style.css">
+=======
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/Main-footer-style.css">
+>>>>>>> d76b0194e128435b25a67acca9691a9217fbfb36:src/main/webapp/WEB-INF/views/common/FinalFooter.jsp
 
 </head>
 <body>
@@ -34,8 +38,13 @@
         </div>
 
         <div class="footer-logo">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/common/main_footer.jsp
             <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="footer-icon">
             <a href="#" class="footer-logo-text">닥터링</a>
+=======
+            <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon">
+            <a href="#" class="logo-text">닥터링</a>
+>>>>>>> d76b0194e128435b25a67acca9691a9217fbfb36:src/main/webapp/WEB-INF/views/common/FinalFooter.jsp
             <div class="horizontal-line"></div>
         </div>
 
