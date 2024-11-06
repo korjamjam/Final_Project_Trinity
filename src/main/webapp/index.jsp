@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <% String path = request.getContextPath(); %>
+=======
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+>>>>>>> 56ae56c97c6985f7dead552493b709f245b90dcd
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +17,7 @@
     
     <title>닥터링</title>
 
+<<<<<<< HEAD
     <!-- searchBar icon -->
     <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
     <link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon" />
@@ -33,6 +40,13 @@
 	<%@ include file="./WEB-INF/views/common/main_header.jsp" %>
 <<<<<<< HEAD
 =======
+=======
+<title>닥터링</title>
+</head>
+<body>
+
+    <jsp:include page="/WEB-INF/views/main.jsp" />
+>>>>>>> 56ae56c97c6985f7dead552493b709f245b90dcd
 	
 >>>>>>> parent of 259b35f (Merge branch 'main' of https://github.com/korjamjam/Final_Project_Trinity into JeonJaemin)
 	<div class="wrapper">
@@ -184,9 +198,5 @@
 	
 	<!-- Footer -->
 	<%@ include file="./WEB-INF/views/common/main_footer.jsp" %>
-<<<<<<< HEAD
-=======
-	-->
->>>>>>> parent of 259b35f (Merge branch 'main' of https://github.com/korjamjam/Final_Project_Trinity into JeonJaemin)
 </body>
 </html>

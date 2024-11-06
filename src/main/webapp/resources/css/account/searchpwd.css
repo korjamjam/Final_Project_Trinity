@@ -1,0 +1,157 @@
+/* 기본 스타일 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 모바일 기본 스타일 */
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 이메일 입력창을 위한 스타일 조정 */
+.select-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 입력 필드 사이의 간격 */
+    flex-wrap: wrap;
+}
+
+.select-group input[type="text"],
+.select-group select {
+    flex: 1;
+    min-width: 120px; /* 입력 필드가 너무 작아지지 않도록 최소 너비 설정 */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.select-group span {
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #45A049;
+}
+
+.help-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.help-link a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+/* 데스크탑 화면을 위한 미디어 쿼리 */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px; /* 데스크탑에서 더 넓게 */
+        padding: 40px; /* 내부 여백을 늘려줌 */
+    }
+
+    .title {
+        font-size: 32px; /* 큰 화면에서 더 큰 폰트 */
+    }
+
+    .subtitle {
+        font-size: 18px; /* 큰 화면에서 더 큰 폰트 */
+    }
+
+    .input-group label {
+        font-size: 16px; /* 큰 화면에서 더 큰 폰트 */
+    }
+
+    .input-group input[type="text"],
+    .select-group input[type="text"],
+    .select-group select {
+        font-size: 16px;
+        padding: 12px; /* 큰 화면에서 더 여유로운 입력 필드 */
+    }
+
+    .submit-btn {
+        font-size: 18px; /* 버튼 크기 조정 */
+        padding: 14px;
+    }
+
+    .help-link {
+        font-size: 16px;
+    }
+}
