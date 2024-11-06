@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <jsp:include page="/WEB-INF/views/main.jsp" />
+    <jsp:include page="/WEB-INF/views/account/login.jsp" />
 	
 </body>
 </html>
