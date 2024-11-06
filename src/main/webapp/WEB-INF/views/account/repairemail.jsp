@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>복구 이메일 추가</title>
-  <<link rel="stylesheet" href="<%=path %>/resources/css/account/repairemail.css">
+  <<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/repairemail.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
 	rel="stylesheet">
@@ -15,7 +15,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 	<div class="recovery-email-container">
 		<h2>복구 이메일 추가</h2>
 		<form class="recovery-email-form">
@@ -32,8 +32,8 @@
 		</form>
 	</div>
 	
-	<!-- Footer -->
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 	
 </body>
 </html>

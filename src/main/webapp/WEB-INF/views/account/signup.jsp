@@ -6,13 +6,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
-<link rel="stylesheet" href="<%=path %>/resources/css/account/signup.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/signup.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- Header -->
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 
 <div class="signup-container">
     <h2>회원 가입</h2>
@@ -60,8 +60,8 @@
     <button class="signup-button">회원 가입</button>
 </div>
 
-<!-- Footer -->
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 
 </body>
 </html>

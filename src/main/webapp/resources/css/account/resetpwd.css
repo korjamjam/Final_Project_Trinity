@@ -1,0 +1,147 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 탭 메뉴 스타일 */
+.tab-menu {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: #b2dfdb;
+    color: #000;
+    font-weight: bold;
+}
+
+/* 제목과 부제목 스타일 */
+.title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* 비밀번호 재설정 폼 스타일 */
+.reset-form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    text-align: left;
+}
+
+.user-id {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #388e3c; /* 닥터링 아이디 색상 강조 */
+    font-weight: bold;
+}
+
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.password-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #45A049;
+}
+
+/* 데스크탑 화면을 위한 미디어 쿼리 */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px; /* 데스크탑에서 더 넓게 설정 */
+        padding: 40px;
+    }
+
+    .title {
+        font-size: 24px; /* 큰 화면에서 더 큰 폰트 */
+    }
+
+    .subtitle {
+        font-size: 16px; /* 큰 화면에서 더 큰 폰트 */
+    }
+
+    .tab {
+        font-size: 16px; /* 탭 메뉴 폰트 크기 조정 */
+    }
+
+    form input[type="password"] {
+        padding: 14px;
+        font-size: 16px; /* 입력 필드 폰트 크기 확대 */
+    }
+
+    .password-hint {
+        font-size: 14px;
+    }
+
+    .submit-button {
+        font-size: 18px; /* 버튼 폰트 크기 확대 */
+        padding: 14px;
+    }
+}

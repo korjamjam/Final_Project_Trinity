@@ -8,8 +8,9 @@
     <title>Doctoring Footer</title>
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/Main-footer-style.css">
-
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_footer_style.css">
+    
+    
 </head>
 <body>
 
@@ -28,15 +29,14 @@
 
         <!-- 푸터 기본 정보 (추후 수정) -->
         <div class="footer-info">
-            <p>이용문의</p>
             <p>cs@supportgettogether.com 이메일 문의</p>
             <p>평일 10:00 - 18:00 (점심시간 12:30 - 13:30 / 주말, 공휴일 제외)</p>
             <p>커뮤니티는 정보제공목적이며 당사의 입장이 아닙니다. 따라서 커뮤니티는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.</p>
         </div>
 
         <div class="footer-logo">
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon">
-            <a href="#" class="logo-text">닥터링</a>
+            <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="footer-icon">
+            <a href="#" class="footer-logo-text">닥터링</a>
             <div class="horizontal-line"></div>
         </div>
 

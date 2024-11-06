@@ -1,25 +1,40 @@
-@charset "UTF-8";
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* ±‚∫ª Ω∫≈∏¿œ */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
     background-color: #f5f5f5;
 }
 
+/* ∑Œ±◊¿Œ ∆‰¿Ã¡ˆ ∑°∆€ */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* ∑Œ±◊¿Œ ƒ¡≈◊¿Ã≥  */
 .login-container {
-    width: 280px; /* SE ÏÇ¨Ïù¥Ï¶à Í∏∞Ï§ÄÏúºÎ°ú ÏñëÏòÜ 20px Ïó¨Î∞± */
-    padding: 20px; /* ÎÇ¥Î∂Ä Ìå®Îî© */
+    width: 100%;
+    max-width: 400px; /* µ•Ω∫≈©≈æ »≠∏Èø°º≠ ≥–¿Ã∏¶ 400px∑Œ ¡¶«— */
+    padding: 30px;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    text-align: center;
     box-sizing: border-box;
 }
 
-.login-container .input-group {
+/* ∑Œ±◊¿Œ ¿Œ«≤ ±◊∑Ï */
+.login-input-group {
     position: relative;
     margin: 10px 0;
 }
@@ -31,7 +46,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
-    box-sizing: border-box;
 }
 
 .login-container input[type="text"]::placeholder,
@@ -40,8 +54,9 @@ body {
     font-size: 14px;
 }
 
-.login-container .clear-icon,
-.login-container .toggle-password {
+/* ∑Œ±◊¿Œ æ∆¿Ãƒ‹ Ω∫≈∏¿œ */
+.login-clear-icon,
+.login-toggle-password {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -50,18 +65,27 @@ body {
     color: #aaa;
 }
 
-.login-container .checkbox-group {
+/* ∑Œ±◊¿Œ √º≈©π⁄Ω∫ ±◊∑Ï */
+.login-checkbox-group {
     display: flex;
     align-items: center;
+    gap: 5px; /* ≈ÿΩ∫∆ÆøÕ √º≈©π⁄Ω∫ ∞£∞› º≥¡§ */
     margin: 10px 0;
     font-size: 14px;
+    flex-direction: row; /* √º≈©π⁄Ω∫øÕ ≈ÿΩ∫∆Æ∏¶ ∞°∑Œ∑Œ πËƒ° */
 }
 
-.login-container .checkbox-group input[type="checkbox"] {
-    margin-right: 8px;
+.login-checkbox-group input[type="checkbox"] {
+    margin: 0; /* ∫“« ø‰«— ø©πÈ ¡¶∞≈ */
 }
 
-.login-container .login-button {
+.login-checkbox-group label {
+    white-space: nowrap; /* ≈ÿΩ∫∆Æ∞° µŒ ¡Ÿ∑Œ ≥—æÓ∞°¡ˆ æ µµ∑œ º≥¡§ */
+    margin: 0; /* √ﬂ∞° ø©πÈ ¡¶∞≈ */
+}
+
+/* ∑Œ±◊¿Œ πˆ∆∞ */
+.login-button {
     width: 100%;
     padding: 10px;
     background-color: #14BF96;
@@ -71,24 +95,61 @@ body {
     font-size: 16px;
     cursor: pointer;
     margin: 10px 0;
+    transition: background-color 0.3s;
 }
 
-.login-container .login-button:hover {
-    background-color: #14BF96;
+.login-button:hover {
+    background-color: #13a888;
 }
 
-.login-container .footer-links {
+/* ∑Œ±◊¿Œ «™≈Õ ∏µ≈© */
+.login-footer-links {
     text-align: center;
     font-size: 12px;
     color: #777;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* ∞£∞› √ﬂ∞° */
+    flex-wrap: wrap; /* ¿€¿∫ »≠∏Èø°º≠ ¡ŸπŸ≤ﬁ */
 }
 
-.login-container .footer-links a {
+.login-footer-links a {
     color: #777;
     text-decoration: none;
     margin: 0 5px;
 }
 
-.login-container .footer-links a:hover {
+.login-footer-links a:hover {
     text-decoration: underline;
+}
+
+/* ≈´ »≠∏È Ω∫≈∏¿œ */
+@media (min-width: 1024px) {
+    .login-page {
+        padding: 40px;
+        background-color: #e0e0e0;
+    }
+
+    .login-container {
+        max-width: 500px; /* µ•Ω∫≈©≈æø°º≠ ¡ª ¥ı ≥–∞‘ º≥¡§ */
+        padding: 40px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        font-size: 16px; /* ¿‘∑¬ « µÂ ∆˘∆Æ ≈©±‚ »Æ¥Î */
+    }
+
+    .login-checkbox-group {
+        font-size: 16px; /* √º≈©π⁄Ω∫ ∆˘∆Æ ≈©±‚ »Æ¥Î */
+    }
+
+    .login-button {
+        font-size: 18px; /* πˆ∆∞ ∆˘∆Æ ≈©±‚ »Æ¥Î */
+        padding: 12px;
+    }
+
+    .login-footer-links {
+        font-size: 14px;
+    }
 }
