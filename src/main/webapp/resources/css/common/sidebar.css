@@ -1,0 +1,82 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    padding-top: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+}
+
+/* 사이드바 헤더 스타일 */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.login-text {
+    color: #4CAF50; /* 로그인 텍스트 색상 */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.close-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 사이드바 메뉴 스타일 */
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar-menu li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar-menu li span {
+    font-size: 16px;
+    color: #888;
+}
+
+/* 메뉴 아이템 클릭 시 스타일 (호버 효과) */
+.sidebar-menu li:hover {
+    background-color: #f0f0f0;
+}
