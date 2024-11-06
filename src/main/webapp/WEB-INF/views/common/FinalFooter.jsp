@@ -9,8 +9,7 @@
 
     <link rel="stylesheet" href="<%=path %>/resources/css/common/defalut.css">
     <link rel="stylesheet" href="<%=path %>/resources/css/common/Main-footer-style.css">
-    <style>
-    </style>
+
 </head>
 <body>
 
