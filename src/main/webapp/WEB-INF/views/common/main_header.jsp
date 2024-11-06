@@ -8,11 +8,9 @@
     <title>Doctoring Header</title>
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/common/main_header.jsp
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_header_style.css">
-=======
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/Main-header-style.css">
->>>>>>> d76b0194e128435b25a67acca9691a9217fbfb36:src/main/webapp/WEB-INF/views/common/FinalHeader.jsp
+
+
 
 </head>
 <body>
