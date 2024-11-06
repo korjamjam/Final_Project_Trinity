@@ -32,13 +32,7 @@
 <body>
 <!-- 
 	<!-- Header -->
-<<<<<<< HEAD
 	<%@ include file="./WEB-INF/views/common/main_header.jsp" %>
-	
-=======
-	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
-
->>>>>>> d76b0194e128435b25a67acca9691a9217fbfb36
 	<div class="wrapper">
 		<br>
 
@@ -210,12 +204,6 @@
 	</div>
 
 	<!-- Footer -->
-<<<<<<< HEAD
 	<%@ include file="./WEB-INF/views/common/main_footer.jsp" %>
-	-->
-=======
-	<%@ include file="./WEB-INF/views/common/FinalFooter.jsp"%>
-	
->>>>>>> d76b0194e128435b25a67acca9691a9217fbfb36
 </body>
 </html>
