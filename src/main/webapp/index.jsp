@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <jsp:include page="/WEB-INF/views/main.jsp" />
+    <jsp:include page="/WEB-INF/views/hospital_detail/hospital_list.jsp" />
 	
 </body>
 </html>
