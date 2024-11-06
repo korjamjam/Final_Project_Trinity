@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctoring Header</title>
 
-    <link rel="stylesheet" href="<%=path %>/resources/css/common/defalut.css">
-    <link rel="stylesheet" href="<%=path %>/resources/css/common/Main-header-style.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/Main-header-style.css">
 
 </head>
 <body>
 
     <header class="header">
         <div class="logo">
-            <img src="<%=path %>/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon"> 
+            <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon"> 
             <a href="#" class="logo-text">닥터링</a>
         </div>
         <nav class="nav-links">
