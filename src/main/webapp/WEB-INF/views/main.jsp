@@ -30,7 +30,7 @@
 <body>
 	
 	<!-- Header -->
-	<%@ include file="/WEB-INF/views/common/FinalHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 
 	<div class="wrapper">
 		<br>
@@ -203,7 +203,7 @@
 	</div>
 
 	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/common/FinalFooter.jsp"%>
+	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
 	
 </body>
 </html>
