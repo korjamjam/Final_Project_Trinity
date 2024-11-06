@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 30px;
+    border-bottom: 1px solid #ddd;
+<<<<<<< HEAD:src/main/webapp/resources/css/common/Main-header-style.css
+    width:100%;
+=======
+    width: 100%;
+>>>>>>> 132688a3749f226d337377ff18de33c9cada4bf3:src/main/webapp/resources/css/common/main_header_style.css
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo-text {
+    font-size: 1.5rem;
+    color: #8DCE4E !important;
+    font-weight: bold;
+    text-decoration: none !important;
+}
+
+.icon {
+    width: 48px;
+    height: auto;
+}
+
+.title {
+    font-size: 1.6rem;
+    color: #8DCE4E; /* 닥터링 색상 */
+    font-weight: bold;
+}
+
+.nav-links {
+    display: none;
+}
+    
+
+.nav-links a {
+    text-decoration: none;
+    text-align: center;
+    color: #265708;
+    padding: 40px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.nav-links a:hover{
+    color: #8DCE4E;
+    background-color: rgb(250, 250, 250);
+    text-decoration: none;
+}
+
+.login-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-menu a {
+    text-decoration: none;
+    color: #265708;
+    font-size: 1.5rem;
+}
+
+.login-menu a:hover {
+    color: #8DCE4E;
+    text-decoration: none;
+}
+
+.menu-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    display: block;
+}
+
+/* 추가 CSS */
+.dropdown {
+    position:relative; /* 드롭다운 메뉴 위치 설정 */
+    display:flex
+}
+
+
+.dropdown-content {
+    display: none; /* 기본적으로 드롭다운 메뉴 숨김 */
+    position: absolute; /* 드롭다운 메뉴 위치 설정 */
+    background-color: #ffffff; /* 드롭다운 배경색 */
+    min-width: 140px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    z-index: 1;
+    border-radius: 8px; /* 모서리 둥글게 */
+    margin-top: 99px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* 호버 시 드롭다운 메뉴 표시 */
+}
+
+.dropdown-content a {
+    font-size: 16px;
+    color: #265708; /* 텍스트 색상 */
+    padding: 20px 16px; /* 패딩 추가 */
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s; /* 부드러운 호버 효과 */
+}
+
+.dropdown-content a:hover {
+    background-color: #8DCE4E; /* 호버 시 배경색 */
+    color: #ffffff; /* 호버 시 텍스트 색상 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+    .nav-links a {
+        padding: 40px 12px; /* 패딩 변경 */
+    }
+    .dropdown-content {
+        min-width: 95px;
+        border-radius: 8px; /* 모서리 둥글게 */
+    }
+
+    .dropdown-content a {
+        font-size: 13px;
+        padding: 20px 16px; /* 패딩 추가 */
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.3s; /* 부드러운 호버 효과 */
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: none;
+    }
+
+    .header{
+        padding: 0 30px;
+    }
+}

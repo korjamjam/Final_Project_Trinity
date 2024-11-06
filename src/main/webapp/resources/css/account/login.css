@@ -1,0 +1,155 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+/* 로그인 페이지 래퍼 */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* 로그인 컨테이너 */
+.login-container {
+    width: 100%;
+    max-width: 400px; /* 데스크탑 화면에서 넓이를 400px로 제한 */
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* 로그인 인풋 그룹 */
+.login-input-group {
+    position: relative;
+    margin: 10px 0;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px 36px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-container input[type="text"]::placeholder,
+.login-container input[type="password"]::placeholder {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* 로그인 아이콘 스타일 */
+.login-clear-icon,
+.login-toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+/* 로그인 체크박스 그룹 */
+.login-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 텍스트와 체크박스 간격 설정 */
+    margin: 10px 0;
+    font-size: 14px;
+    flex-direction: row; /* 체크박스와 텍스트를 가로로 배치 */
+}
+
+.login-checkbox-group input[type="checkbox"] {
+    margin: 0; /* 불필요한 여백 제거 */
+}
+
+.login-checkbox-group label {
+    white-space: nowrap; /* 텍스트가 두 줄로 넘어가지 않도록 설정 */
+    margin: 0; /* 추가 여백 제거 */
+}
+
+/* 로그인 버튼 */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #14BF96;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #13a888;
+}
+
+/* 로그인 푸터 링크 */
+.login-footer-links {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* 간격 추가 */
+    flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
+}
+
+.login-footer-links a {
+    color: #777;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.login-footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* 큰 화면 스타일 */
+@media (min-width: 1024px) {
+    .login-page {
+        padding: 40px;
+        background-color: #e0e0e0;
+    }
+
+    .login-container {
+        max-width: 500px; /* 데스크탑에서 좀 더 넓게 설정 */
+        padding: 40px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        font-size: 16px; /* 입력 필드 폰트 크기 확대 */
+    }
+
+    .login-checkbox-group {
+        font-size: 16px; /* 체크박스 폰트 크기 확대 */
+    }
+
+    .login-button {
+        font-size: 18px; /* 버튼 폰트 크기 확대 */
+        padding: 12px;
+    }
+
+    .login-footer-links {
+        font-size: 14px;
+    }
+}
