@@ -30,10 +30,6 @@
 
 </head>
 <body>
-
-	<jsp:forward page="WEB-INF/views/health_reservation/health_reservation1.jsp" />
-	
-
 	<!-- Header -->
 	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
 
