@@ -15,7 +15,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
     <div class="container">
         <h1>아이디 찾기</h1>
         <p>아이디 찾는 방법을 선택해 주세요.</p>
@@ -64,7 +64,7 @@
     </div>
     
  <!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+	<%@ include file="../common/main_footer.jsp"%>
     
 </body>
 </html>

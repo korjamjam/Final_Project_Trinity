@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 
 <div class="login-container">
     <div class="input-group">
@@ -49,8 +49,8 @@
     }
 </script>
 
-<!-- Footer -->
-<%@ include file="../common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 
 </body>
 </html>

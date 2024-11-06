@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 
     <div class="container">
         <!-- 탭 메뉴 -->
@@ -39,7 +39,7 @@
     </div>
     
      <!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+	<%@ include file="../common/main_footer.jsp"%>
     
 </body>
 </html>

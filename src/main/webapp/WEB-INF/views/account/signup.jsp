@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 
 <div class="signup-container">
     <h2>회원 가입</h2>
@@ -60,8 +60,8 @@
     <button class="signup-button">회원 가입</button>
 </div>
 
-<!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 
 </body>
 </html>
