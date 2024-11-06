@@ -1,0 +1,103 @@
+@charset "UTF-8";
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.recovery-email-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.recovery-email-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.recovery-email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #000; /* 사용자 입력 텍스트를 검정색으로 설정 */
+}
+
+.input-group input::placeholder {
+    color: #aaa; /* 플레이스홀더 텍스트를 회색으로 설정 */
+}
+
+/* 추가하기 버튼 스타일 */
+.add-button {
+    padding: 12px;
+    background-color: #6fcf97;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #57b87d;
+}
+
+.info-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: left; 
+    line-height: 1.5;
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 480px) {
+    .recovery-email-container {
+        padding: 15px;
+    }
+
+    .recovery-email-container h2 {
+        font-size: 20px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .add-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .info-text {
+        font-size: 12px;
+    }
+}
