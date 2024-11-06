@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
     <div class="name-update-container">
         <h2>이름 업데이트</h2>
         <form class="name-update-form">
@@ -27,8 +27,8 @@
         </form>
     </div>
     
-   <!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
     
 </body>
 </html>
