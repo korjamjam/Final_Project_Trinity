@@ -8,6 +8,7 @@
     <title>Admin Hospital Management</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/default/defalut.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/hospital_management.css">
+    
 </head>
 <body>
 

@@ -11,6 +11,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
+
 <div class="member-management">
     <h2>회원관리</h2>
 

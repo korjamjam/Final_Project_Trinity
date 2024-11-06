@@ -9,11 +9,7 @@
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_header_style.css">
-<<<<<<< HEAD
-
-
-=======
->>>>>>> parent of 259b35f (Merge branch 'main' of https://github.com/korjamjam/Final_Project_Trinity into JeonJaemin)
+    
 
 </head>
 <body>

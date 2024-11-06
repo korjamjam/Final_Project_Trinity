@@ -11,6 +11,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
+
 <div class="reservation-management-detail">
     <h2>예약관리</h2>
 

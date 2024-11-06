@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/default/defalut.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/admin_header_style.css">
-
 </head>
 <body>
     <header class="header">

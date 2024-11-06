@@ -15,6 +15,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
     <main class="admin-container">
+    
         <button class="admin-button">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/MemberManagement_img.png" alt="회원관리 아이콘">
             <p>회원관리</p>

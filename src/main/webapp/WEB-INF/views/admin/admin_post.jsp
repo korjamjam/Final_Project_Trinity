@@ -11,6 +11,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
+
 <div class="post-management">
 
     <div class="content">
