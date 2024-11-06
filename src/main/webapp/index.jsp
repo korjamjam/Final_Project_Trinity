@@ -34,13 +34,6 @@
 	<title>닥터링</title>
 </head>
 <body>
-
-
-    <jsp:include page="/WEB-INF/views/account/login.jsp" />
-	
-
 	<jsp:include page="/WEB-INF/views/main.jsp" />
-
->>>>>>> b42524b2392af2366f0352f02f83399be193673f
 </body>
 </html>
