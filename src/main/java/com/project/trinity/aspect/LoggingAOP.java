@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
-@Slf4j
+@Slf4j 
 public class LoggingAOP {
 
 	@Pointcut("execution(* com.project.trinity..controller.*.*(..) )")
