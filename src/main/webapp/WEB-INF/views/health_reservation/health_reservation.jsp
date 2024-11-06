@@ -11,9 +11,13 @@
     <title>건강검진 예약안내</title>
     <!-- css -->
     <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-    <link rel="stylesheet" href="<%=path%>/resources/css/healthReservation/healthReservation.css">
+    <link rel="stylesheet" href="<%=path%>/resources/css/health_reservation/health_reservation.css">
 </head>
 <body>
+
+<!-- Header -->
+<jsp:include page="../common/FinalHeader.jsp" />
+    
     <div class="health_reservation_guide_wrap">
         <div class="health_reservation_guide">
             <div id="reservation_title">
@@ -77,5 +81,8 @@
             </div>
         </div>
     </div>
+    
+	<!-- Footer -->
+    <jsp:include page="../common/FinalFooter.jsp" />
 </body>
 </html>
