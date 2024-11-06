@@ -7,7 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_main.css">
+            <link rel="stylesheet" href="/css/community_free.css">
             <title>Customer Center</title>
         </head>
 
@@ -25,8 +25,8 @@
                         <aside class="sidebar">
 
                             <ul class="menu">
-                                <li><a href="#" class="active">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#" >자유게시판<span class="arrow">›</span></a></li>
+                                <li><a href="#">실시간 인기글<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">자유게시판<span class="arrow">›</span></a></li>
                                 <li><a href="#">메디톡<span class="arrow">›</span></a></li>
                                 <li><a href="#">이벤트<span class="arrow">›</span></a></li>
                             </ul>
@@ -40,7 +40,7 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">실시간 인기글</h2>
+                                <h2 class="content-title">자유게시판</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
@@ -226,7 +226,6 @@
                                 </div>
                                 <button class="write-button">글쓰기</button>
                             </footer>
-                            
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>

@@ -8,19 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="/css/Mobile_Community_Main_AllPost.css">
+    <link rel="stylesheet" href="/css/community_main_allpost.css">
     <title>모든 게시글</title>
 </head>
 
 <body>
     <div class="community-container">
-        <!-- Header Section -->
+          <!-- Header Section -->
         <header class="header">
-            <div class="logo-container">
-                <img src="../img/Doctoring.png" alt="주사기 아이콘" class="icon">
-                <div class="logo-text">닥터링</div>
-            </div>
-            <img src="" alt="Header Image">
+            <%@ include file="/WEB-INF/views/common/FinalHeader.jsp" %>
         </header>
 
         <!-- Main Content Section -->
