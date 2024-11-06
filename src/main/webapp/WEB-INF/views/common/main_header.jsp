@@ -8,7 +8,8 @@
     <title>Doctoring Header</title>
 
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/Main-header-style.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_header_style.css">
+    
 
 </head>
 <body>

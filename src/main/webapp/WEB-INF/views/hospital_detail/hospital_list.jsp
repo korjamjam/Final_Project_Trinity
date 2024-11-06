@@ -128,7 +128,7 @@
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="/WEB-INF/views/common/FinalHeader.jsp" />
+	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
 	
     <br><br>
 
@@ -203,7 +203,7 @@
 
 	<br><br>
 	<!-- Footer -->
-	<jsp:include page="/WEB-INF/views/common/FinalFooter.jsp" />
+	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
 
 	
 </body>

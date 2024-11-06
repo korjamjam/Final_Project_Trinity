@@ -56,40 +56,61 @@ body {
 
 .admin-container {
     display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 기본: 한 줄에 두 개 */
     gap: 20px;
     padding: 40px 0;
 }
 
+/* 기본 스타일 */
 .admin-button {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 300px;
     background-color: #8DCE4E;
-    /* 버튼 색상 */
     border: none;
     border-radius: 10px;
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+
 .admin-button img {
-    width: 60px;
-    height: 60px;
+    width: 60%;
+    height: 60%;
     margin-bottom: 10px;
 }
+
 
 .admin-button:hover {
     background-color: #98dd54;
 }
 
-/* 큰 화면 스타일 */
-@media (min-width: 768px) {
+/* 768px 이하 화면 */
+@media (max-width: 768px) {
+    .admin-button {
+        width: 200px;
+        height: 200px;
+        font-size: 1.4rem;
+    }
     .admin-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개 */
+    }
+}
+
+/* 480px 이하 화면 */
+@media (max-width: 480px) {
+    .admin-button {
+        width: 120px;
+        height: 120px;
+        font-size: 1rem;
+    }
+    .admin-container {
+        grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개 */
     }
 }
