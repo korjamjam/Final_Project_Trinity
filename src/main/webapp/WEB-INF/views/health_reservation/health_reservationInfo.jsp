@@ -9,6 +9,9 @@
     
 </head>
 <body>
+<!-- Header -->
+<jsp:include page="../common/FinalHeader.jsp" />
+
     <div class="health_reservation_normal_wrap">
         <div class="health_reservation_normal_container">
             <div class="health_reservation1_title">
@@ -116,5 +119,7 @@
             <button id="reservation_btn" style="background-color: #8CCF4E;">예약하기</button>
         </div>
     </div>
+    <!-- Footer -->
+    <jsp:include page="../common/FinalFooter.jsp" />
 </body>
 </html>
