@@ -44,6 +44,7 @@
 	<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
+	<!--
 	<!-- Header -->
 	<%@ include file="./WEB-INF/views/common/FinalHeader.jsp"%>
 
