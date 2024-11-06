@@ -17,7 +17,6 @@
     <h2>회원관리</h2>
 
     <div class="hospital-info">
-    <!-- DB연동 후 수정 -->
         <table>
             <tr>
                 <th>병원 사진</th>
