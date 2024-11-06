@@ -35,7 +35,7 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/hospital_detail/hospital_list.jsp" />
+	<jsp:include page="/WEB-INF/views/main.jsp" />
 
 </body>
 </html>

@@ -19,7 +19,7 @@
 <body>
 
 	<!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 	<div class="container">
 		<div class="title">비밀번호 찾기</div>
 		<div class="subtitle">비밀번호 찾는 방법을 선택해 주세요.</div>
@@ -73,8 +73,8 @@
 		</div>
 	</div>
 	
-	<!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+	 <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 	
 </body>
 </html>

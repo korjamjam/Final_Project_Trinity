@@ -15,7 +15,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
 	<div class="recovery-email-container">
 		<h2>복구 이메일 추가</h2>
 		<form class="recovery-email-form">
@@ -32,8 +32,8 @@
 		</form>
 	</div>
 	
-<!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 	
 </body>
 </html>

@@ -14,8 +14,8 @@
 </head>
 <body>
 
-	<!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+<!-- Header -->
+	<%@ include file="../common/main_header.jsp"%>
 	<div class="profile-container">
 		<h2>개인정보</h2>
 		<div class="profile-picture">
@@ -47,8 +47,8 @@
 		<button class="submit-button">수정하기</button>
 	</div>
 
-<!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+ <!-- Footer -->
+	<%@ include file="../common/main_footer.jsp"%>
 
 </body>
 </html>

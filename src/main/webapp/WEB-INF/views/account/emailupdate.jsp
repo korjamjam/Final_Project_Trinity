@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/FinalHeader.jsp"%>
+	<%@ include file="../common/main_header.jsp"%>
     <div class="email-update-container">
         <h2>이메일 업데이트</h2>
         <form class="email-update-form">
@@ -26,7 +26,7 @@
     </div>
     
   <!-- Footer -->
-	<%@ include file="../common/FinalFooter.jsp"%>
+	<%@ include file="../common/main_footer.jsp"%>
     
 </body>
 </html>
