@@ -6,8 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>건강검진 예약</title>
+    
+    <!-- css -->
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation1.css">
+    
 </head>
 <body>
+<!-- Header -->
+<jsp:include page="../common/FinalHeader.jsp" />
     <div class="health_reservation1_wrap">
         <div class="health_reservation1_container">
             <div class="health_reservation1_title">
@@ -107,5 +114,7 @@
             <button id="reservation_btn">다음</button>
         </div>
     </div>
+    <!-- Footer -->
+    <jsp:include page="../common/FinalFooter.jsp" />
 </body>
 </html>

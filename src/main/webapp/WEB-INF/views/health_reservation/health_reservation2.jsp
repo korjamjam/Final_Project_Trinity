@@ -12,6 +12,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
+<!-- Header -->
+<jsp:include page="../common/FinalHeader.jsp" />
+
     <div class="health_reservation1_wrap">
         <div class="health_reservation1_container">
             <div class="health_reservation1_title">
@@ -112,5 +115,7 @@
           });
         });
     </script>
+    <!-- Footer -->
+    <jsp:include page="../common/FinalFooter.jsp" />
 </body>
 </html>
