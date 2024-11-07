@@ -25,10 +25,10 @@
                         <aside class="sidebar">
 
                             <ul class="menu">
-                                <li><a href="#"class="active">공지사항<span class="arrow">›</span></a></li>
+                                <li><a href="#">고객문의<span class="arrow">›</span></a></li>
                                 <li><a href="#">FAQ<span class="arrow">›</span></a></li>
                                 <li><a href="#">Q&A<span class="arrow">›</span></a></li>
-                                <li><a href="#">알림판<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">알림판<span class="arrow">›</span></a></li>
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -40,7 +40,7 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">공지사항</h2>
+                                <h2 class="content-title">알림판</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="추천수">추천수</option>
@@ -71,113 +71,113 @@
                                     <!-- Example Post Item -->
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 11월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2023.11.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>2</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 12월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2023.12.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>3</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 1월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.01.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>4</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 2월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.02.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>5</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 3월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.03.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>6</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 4월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.04.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>7</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 5월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.05.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>8</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 6월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.06.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>9</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 7월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.07.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>10</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 8월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.08.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>11</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 9월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.09.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>12</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 10월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.10.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>13</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 11월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.11.01</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
 
                                     <tr>
                                         <td>14</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 12월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.12.01</td>
+                                        <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
                                     

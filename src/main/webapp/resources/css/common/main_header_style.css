@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
     width: 100%;
 }
@@ -145,6 +145,16 @@
     }
 
     .header{
-        padding: 0 30px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+	.logo-text{
+		font-size: 1.4rem;
+	}
+
+    .login-menu a {
+    	 visibility: hidden;
     }
 }
