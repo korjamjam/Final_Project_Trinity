@@ -34,6 +34,6 @@
 	<title>닥터링</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<jsp:include page="/WEB-INF/views/health_reservation/health_reservation_guide.jsp" />
 </body>
 </html>
