@@ -31,9 +31,13 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
+<<<<<<< HEAD
 	<title>닥터링</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/account/signup.jsp" />
+=======
+	<jsp:include page="/WEB-INF/views/main.jsp" />
+>>>>>>> d4e1b9fd74a673459a3892321613dad8e7271ea3
 </body>
 </html>
