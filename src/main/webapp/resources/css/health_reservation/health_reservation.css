@@ -60,7 +60,9 @@
 }
 
 #reservation_container2_content{
+	padding: 10px;
     display: flex;
+    gap: 20px;
     align-items: center;
     border-bottom: #c5c5c5 1px solid;
     height: 100px;
@@ -69,33 +71,50 @@
 }
 
 #reservation_container2_content > img{
-    width: auto;
-    height: 100%;
+	height: 100%;
 }
 
 #reservation_container3_content{
     display: flex;
-    margin: 50px 0px;
-    font-size: small;
+    padding: 50px 0px;
+    font-size: 12px;
     border-bottom: #c5c5c5 1px solid;
-    height: 260px;
     align-items: center;
 }
 
 @media (min-width: 768px) {
-    .nav-links {
-        display: flex;
-    }
-
-    .menu-icon {
-        display: none;
-    }
-
-    .header {
-        padding: 20px 40px;
-    }
-
     .health_reservation_guide{
         max-width: 800px;
+    }
+    
+    #health_reservation_title{
+    	font-size: 32px;
+    	color: #265708;
+    }
+    
+    #reservation_content_title{
+        font-size: 20px;
+    }
+
+    .reservation_content_title > p{
+        font-size: 14px;
+    }
+
+    #reservation_btn{
+        width: 120px;
+        height: 50px;
+        background-color: #8CCF4E;
+    }
+    
+    #reservation_container1_content{
+    	font-size: 14px;
+    }
+    
+    #reservation_container1_content > p{
+    	font-size: 14px;
+    }
+    
+    #reservation_container3_content{
+    	font-size:14px;
     }
 }
