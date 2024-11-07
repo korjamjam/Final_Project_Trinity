@@ -28,10 +28,10 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/community/community_main_writer.css">
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<jsp:include page="/WEB-INF/views/community/community_main_writer.jsp" />
 </body>
 </html>
