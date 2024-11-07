@@ -15,8 +15,7 @@
 
 <!-- searchBar icon -->
 <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+<link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon"/>
 
 <!-- font style -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +32,6 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<jsp:include page="/WEB-INF/views/main.jsp"/>
 </body>
 </html>
