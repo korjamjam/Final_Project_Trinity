@@ -101,7 +101,7 @@ body {
 @media (max-width: 480px) {
     .email-group {
         display: flex;
-        flex-direction: column; /* 모바일에서 한 열로 배치 */
+        
         align-items: stretch; /* 전체 너비로 확장 */
     }
 
