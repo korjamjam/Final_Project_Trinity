@@ -15,7 +15,7 @@
             <div>
                 <!-- Header Section -->
                 <header class="header">
-                    <%@ include file="/WEB-INF/views/common/finalHeader.jsp" %>
+                    <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
 
                 <div class="container">
