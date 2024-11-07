@@ -15,8 +15,7 @@
 
 <!-- searchBar icon -->
 <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+<link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon"/>
 
 <!-- font style -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,10 +34,13 @@
 <body>
 
 
+
 	<title>닥터링</title>
 </head>
 <body>
 	<jsp:forward page="WEB-INF/views/account/nameupdate.jsp" />
+
+
 
 
 

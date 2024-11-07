@@ -29,13 +29,13 @@
             <div class="health_reservation_info_wrap">
                 <div class="health_reservation_info">
                     <div class="health_reservation_color_box" style="background-color: #FFCECE;">
-                        대상자선정
+                        	검진표 발송 및 수령
                     </div>
                     <div id="health_reservation_info_text">
                         <p>
-                            일반건강검진 대상자는 <br>
-                            - 지역세대주, 직장가입자, 20세 이상 세대원과 피부양자, 20세~64세 의료급여수급권자 <br>
-                            ※ 매 2년마다 1회, 비사무직은 매년 실시
+                         	우편발송 <br>
+                         	주민등록 주소지로 우편발송해 드립니다.<br>
+                         	※ 검진표를 분실 또는 수령치 못한 경우에는 가까운 지사에서 재발급을 받을 수 있습니다.
                         </p>
                     </div>
                 </div>
@@ -118,5 +118,7 @@
             </div>
         </div>
     </div>
+    <!-- footer -->
+	<jsp:include page="../common/main_footer.jsp"/>
 </body>
 </html>

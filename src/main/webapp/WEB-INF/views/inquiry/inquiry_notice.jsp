@@ -6,8 +6,8 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_event.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_notice.css">
             <title>Customer Center</title>
         </head>
 
@@ -26,9 +26,10 @@
 
                             <ul class="menu">
                                 <li><a href="#">고객문의<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">알림판<span class="arrow">›</span></a></li>
                                 <li><a href="#">FAQ<span class="arrow">›</span></a></li>
                                 <li><a href="#">Q&A<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">알림판<span class="arrow">›</span></a></li>
+                                
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -43,15 +44,15 @@
                                 <h2 class="content-title">알림판</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
-                                    <option value="추천수">추천수</option>
+                                    <option value="조회수">조회수</option>
                                     <option value="번호순">번호순</option>
                                 </select>
                             </div>
                             <div class="content-controls">
-                                <p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
+                                <p class="content-description">닥터링에 등록된 병원 수정 요청을 위한 게시판입니다.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
-                                    <option value="조회수">추천수</option>
+                                    <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="번호순">번호순</option>
                                 </select>
@@ -64,7 +65,7 @@
                                         <th class="title-header">제목</th>
                                         <th class="author-header">작성자</th>
                                         <th class="date-header">작성일</th>
-                                        <th class="comment-header">추천수</th>
+                                        <th class="comment-header">조회수</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,7 +75,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">45</td>
                                     </tr>
 
                                     <tr>
@@ -82,7 +83,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>45</td>
                                     </tr>
                                     
                                     <tr>
@@ -90,7 +91,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">45</td>
                                     </tr>
 
                                     <tr>
@@ -98,7 +99,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>45</td>
                                     </tr>
                                     
                                     <tr>
@@ -106,7 +107,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">45</td>
                                     </tr>
 
                                     <tr>
@@ -114,7 +115,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>45</td>
                                     </tr>
                                     
                                     <tr>
@@ -122,7 +123,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">23</td>
                                     </tr>
 
                                     <tr>
@@ -130,7 +131,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>80</td>
                                     </tr>
                                     
                                     <tr>
@@ -138,7 +139,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">66</td>
                                     </tr>
 
                                     <tr>
@@ -146,7 +147,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>41</td>
                                     </tr>
                                     
                                     <tr>
@@ -154,7 +155,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">42</td>
                                     </tr>
 
                                     <tr>
@@ -162,7 +163,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>44</td>
                                     </tr>
                                     
                                     <tr>
@@ -170,7 +171,7 @@
                                         <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
                                         <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
-                                        <td class="comment-header">[45]</td>
+                                        <td class="comment-header">42</td>
                                     </tr>
 
                                     <tr>
@@ -178,7 +179,7 @@
                                         <td><a href="/post-detail.html?id=784">연세소아과 폐업했습니다.</a></td>
                                         <td class="author">paris3131</td>
                                         <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
+                                        <td>45</td>
                                     </tr>
                                     
 
