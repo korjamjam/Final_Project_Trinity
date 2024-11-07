@@ -7,7 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_medical.css">
+            <link rel="stylesheet" href="/css/community_free.css">
             <title>Customer Center</title>
         </head>
 
@@ -15,7 +15,7 @@
             <div>
                 <!-- Header Section -->
                 <header class="header">
-                    <%@ include file="/WEB-INF/views/common/FinalHeader.jsp" %>
+                    <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
 
                 <div class="container">
@@ -26,8 +26,8 @@
 
                             <ul class="menu">
                                 <li><a href="#">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#" >자유게시판<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">메디톡<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">자유게시판<span class="arrow">›</span></a></li>
+                                <li><a href="#">메디톡<span class="arrow">›</span></a></li>
                                 <li><a href="#">이벤트<span class="arrow">›</span></a></li>
                             </ul>
                             <div class="support-box">
@@ -40,10 +40,10 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">메디톡</h2>
+                                <h2 class="content-title">자유게시판</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
-                                    <option value="조회수">추천수</option>
+                                    <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>

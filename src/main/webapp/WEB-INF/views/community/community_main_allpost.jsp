@@ -16,7 +16,7 @@
     <div class="community-container">
           <!-- Header Section -->
         <header class="header">
-            <%@ include file="/WEB-INF/views/common/FinalHeader.jsp" %>
+            <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
         </header>
 
         <!-- Main Content Section -->
