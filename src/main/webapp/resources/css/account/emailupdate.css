@@ -1,0 +1,129 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.email-update-container {
+    width: 100%;
+    max-width: 500px; /* Slightly larger for desktop */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.email-update-container h2 {
+    font-size: 1.5rem; /* Adaptive font size */
+    margin-bottom: 10px;
+}
+
+.email-update-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    width: 100%; /* 컨테이너 너비에 맞춤 */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #000;
+}
+
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 복구 이메일 추가 버튼 스타일 */
+.recovery-email-button {
+    display: block;
+    padding: 10px;
+    background-color: #eee;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.recovery-email-button:hover {
+    background-color: #ddd;
+}
+
+/* 수정하기 버튼 스타일 */
+.update-button {
+    padding: 12px;
+    background-color: #6fcf97;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.update-button:hover {
+    background-color: #57b87d;
+}
+
+.info-text {
+    margin-top: 20px;
+    font-size: 1rem; /* Adaptive font size */
+    color: #666;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 480px) {
+    .email-update-container {
+        padding: 15px;
+    }
+
+    .email-update-container h2 {
+        font-size: 1.25rem;
+    }
+
+    .input-group input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .recovery-email-button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .update-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .info-text {
+        font-size: 0.875rem;
+    }
+}
