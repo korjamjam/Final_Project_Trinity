@@ -12,6 +12,9 @@
     
 </head>
 <body>
+	
+	<!-- header -->
+	<jsp:include page="../common/main_header.jsp"/>
     <div class="caution_wrap">
         <div class="caution_guide_container">
             <div class="caution_title">
@@ -124,5 +127,7 @@
             </div>
         </div>
     </div>
+    <!-- footer -->
+	<jsp:include page="../common/main_footer.jsp"/>
 </body>
 </html>

@@ -1,0 +1,101 @@
+/* 예약 가이드 부분 */
+.health_reservation_guide_wrap{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 16px;
+}
+
+.health_reservation_container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#health_reservation_title{
+    border-bottom: 1px solid #c5c5c5;
+    font-size: 20px;
+    width: 100%;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+#reservation_content_title{
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    font-weight: bold;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+#reservation_btn{
+    background-color: #2D5EFF;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    margin: 5px;
+    border: none;
+    color: #fff;
+    float: right;
+}
+
+#reservation_container2{
+    display: flex;
+    flex-direction: column;
+}
+
+#reservation_container1_content{
+    font-size: 12px;
+    font-weight: bold;
+    margin: 20px 0px;
+}
+
+#reservation_container1_content > p{
+    font-size: 12px;
+    font-weight: 400;
+}
+
+#reservation_container1{
+    border-bottom: 1px solid #c5c5c5;
+}
+
+#reservation_container2_content{
+    display: flex;
+    align-items: center;
+    border-bottom: #c5c5c5 1px solid;
+    height: 100px;
+    width: 100%;
+    font-size: small;
+}
+
+#reservation_container2_content > img{
+    width: auto;
+    height: 100%;
+}
+
+#reservation_container3_content{
+    display: flex;
+    margin: 50px 0px;
+    font-size: small;
+    border-bottom: #c5c5c5 1px solid;
+    height: 260px;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: none;
+    }
+
+    .header {
+        padding: 20px 40px;
+    }
+
+    .health_reservation_guide{
+        max-width: 800px;
+    }
+}
