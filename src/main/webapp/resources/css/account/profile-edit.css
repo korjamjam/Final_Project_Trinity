@@ -44,7 +44,7 @@ body {
 }
 
 .upload-button {
-    background-color: #14BF96;
+    background-color: #8CCF4E;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -78,7 +78,7 @@ body {
 
 .input-group .edit-button {
     background-color: #fff;
-    color: #14BF96;
+    color: #8CCF4E;
     border: none;
     border-radius: 5px;
     padding: 5px;
@@ -102,7 +102,7 @@ body {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #14BF96;
+    background-color: #8CCF4E;
     color: #fff;
     border: none;
     border-radius: 5px;
