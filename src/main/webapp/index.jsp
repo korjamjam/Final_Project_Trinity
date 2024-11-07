@@ -28,8 +28,9 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_notification.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/main.jsp" />
 </body>
