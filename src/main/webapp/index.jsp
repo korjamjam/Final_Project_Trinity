@@ -28,17 +28,11 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<<<<<<< HEAD
-<link rel="stylesheet" href="<%=path%>/resources/css/community/community_main_writer.css">
-=======
-<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_notification.css">
->>>>>>> a74d7abef53bf71191dec9041545c679a8ac6945
+<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-<<<<<<< HEAD
-	<jsp:include page="/WEB-INF/views/community/community_main_writer.jsp" />
-=======
-	<jsp:include page="/WEB-INF/views/inquiry/inquiry_notification.jsp" />
->>>>>>> a74d7abef53bf71191dec9041545c679a8ac6945
+	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<h3>텍스트 에디터 라이브러리 : summernote</h3>
+	<h5><a href="detail?page=summernote">view -></a></h5>
 </body>
 </html>
