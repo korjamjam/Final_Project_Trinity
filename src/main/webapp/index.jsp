@@ -28,12 +28,10 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/community/community_main_detail.css">
 </head>
+
 <body>
-	<title>닥터링</title>
-</head>
-<body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<jsp:include page="/WEB-INF/views/community/community_main_detail.jsp" />
 </body>
 </html>
