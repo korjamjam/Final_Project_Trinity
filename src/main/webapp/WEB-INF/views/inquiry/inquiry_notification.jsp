@@ -7,7 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_medical.css">
+            <link rel="stylesheet" href="/css/community_event.css">
             <title>Customer Center</title>
         </head>
 
@@ -15,11 +15,7 @@
             <div>
                 <!-- Header Section -->
                 <header class="header">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/community/community_medical.jsp
-                    <%@ include file="/WEB-INF/views/common/finalHeader.jsp" %>
-=======
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
->>>>>>> afb1d7b4462aebf3160e52d3b211d1e21e0dbf2b:src/main/webapp/WEB-INF/views/Community/community_medical.jsp
                 </header>
 
                 <div class="container">
@@ -29,10 +25,10 @@
                         <aside class="sidebar">
 
                             <ul class="menu">
-                                <li><a href="#">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#" >자유게시판<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">메디톡<span class="arrow">›</span></a></li>
-                                <li><a href="#">이벤트<span class="arrow">›</span></a></li>
+                                <li><a href="#">고객문의<span class="arrow">›</span></a></li>
+                                <li><a href="#">FAQ<span class="arrow">›</span></a></li>
+                                <li><a href="#">메디톡<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">이벤트<span class="arrow">›</span></a></li>
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -44,7 +40,7 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">메디톡</h2>
+                                <h2 class="content-title">이벤트</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">추천수</option>
@@ -56,7 +52,7 @@
                                 <p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
-                                    <option value="조회수">조회수</option>
+                                    <option value="조회수">추천수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>
@@ -69,7 +65,7 @@
                                         <th class="title-header">제목</th>
                                         <th class="author-header">작성자</th>
                                         <th class="date-header">작성일</th>
-                                        <th class="comment-header">조회수</th>
+                                        <th class="comment-header">추천수</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,6 +77,7 @@
                                         <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
+
                                     <tr>
                                         <td>의료소통</td>
                                         <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
@@ -88,48 +85,7 @@
                                         <td class="date">2024.11.01</td>
                                         <td>[45]</td>
                                     </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>의료소통</td>
-                                        <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
-                                        <td class="author">paris3131</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td>[45]</td>
-                                    </tr>
+
                                     <tr>
                                         <td>의료소통</td>
                                         <td><a href="/post-detail.html?id=784">상처에 된장 바르면 치료가 되나요?</a></td>
@@ -219,17 +175,31 @@
                                     <!-- Additional rows as needed -->
                                 </tbody>
                             </table>
-                            <!-- Pagination Footer -->
-                            <footer class="pagination-footer">
-                                <div class="pagination">
-                                    <a href="?page=1">1</a>
-                                    <a href="?page=2">2</a>
-                                    <a href="?page=3">3</a>
-                                    <a href="?page=4">4</a>
-                                    <a href="?page=5">5</a>
+                            <!-- 페이지네이션과 검색 섹션을 포함하는 div -->
+                            <div class="page-search-container">
+                                <!-- Pagination Footer -->
+                                <footer class="pagination-footer">
+                                    <div class="pagination">
+                                        <a href="?page=1">1</a>
+                                        <a href="?page=2">2</a>
+                                        <a href="?page=3">3</a>
+                                        <a href="?page=4">4</a>
+                                        <a href="?page=5">5</a>
+                                    </div>
+                                    <button class="write-button">글쓰기</button>
+                                </footer>
+                                <!-- 검색 필드 섹션 -->
+                                <div class="search-section">
+                                    <select class="search-type">
+                                        <option value="title">제목만</option>
+                                        <option value="author">글작성자</option>
+                                        <option value="content">댓글내용</option>
+                                    </select>
+                                    <input type="text" class="search-input" placeholder="검색어를 입력해주세요" />
+                                    <button class="search-button">검색</button>
                                 </div>
-                                <button class="write-button">글쓰기</button>
-                            </footer>
+                            </div>
+
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>

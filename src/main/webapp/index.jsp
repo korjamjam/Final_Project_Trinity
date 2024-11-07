@@ -32,6 +32,10 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<jsp:include page="/WEB-INF/views/community/community_main_detail.jsp" />
+=======
+	<jsp:include page="/WEB-INF/views/main.jsp" />
+>>>>>>> afb1d7b4462aebf3160e52d3b211d1e21e0dbf2b
 </body>
 </html>
