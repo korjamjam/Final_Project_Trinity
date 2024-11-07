@@ -31,6 +31,6 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/health_reservation/health_reservation_info.jsp" />
+	<jsp:include page="/WEB-INF/views/health_reservation/health_reservation_info_cancer.jsp" />
 </body>
 </html>
