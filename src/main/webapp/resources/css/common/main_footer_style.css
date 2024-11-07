@@ -24,7 +24,7 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    /* 전체 폭을 사용 */
+    /* �쟾泥� �룺�쓣 �궗�슜 */
 }
 
 .icon {
@@ -39,17 +39,17 @@ body {
     font-weight: bold;
     text-decoration: none;
     margin-right: 10px;
-    /* 가로선과의 간격 */
+    /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
 }
 
 .horizontal-line {
     flex-grow: 1;
-    /* 가로선이 남은 공간을 채우도록 */
+    /* 媛�濡쒖꽑�씠 �궓�� 怨듦컙�쓣 梨꾩슦�룄濡� */
     height: 1px;
     background-color: #ccc;
-    /* 가로선 색상 */
+    /* 媛�濡쒖꽑 �깋�긽 */
     margin-left: 10px;
-    /* 닥터링과의 간격 */
+    /* �떏�꽣留곴낵�쓽 媛꾧꺽 */
 }
 
 
@@ -73,7 +73,7 @@ body {
     font-weight: bold;
     text-decoration: none;
     margin-right: 10px;
-    /* 가로선과의 간격 */
+    /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
 }
 
 }
@@ -124,7 +124,7 @@ body {
         color: #8DCE4E;
         font-weight: bold;
         text-decoration: none;
-        margin-right: 10px; /* 가로선과의 간격 */
+        margin-right: 10px; /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
     }
     .footer-icon{
     display: none;
@@ -147,7 +147,7 @@ body {
         color: #8DCE4E;
         font-weight: bold;
         text-decoration: none;
-        margin-right: 10px; /* 가로선과의 간격 */
+        margin-right: 10px; /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
     }
     
 }
