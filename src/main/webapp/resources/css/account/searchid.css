@@ -6,7 +6,7 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.search-body {
+body {
     font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
     padding: 20px;
@@ -18,7 +18,7 @@
 }
 
 /* 컨테이너 */
-.search-container {
+.container {
     width: 100%;
     max-width: 320px;
     background-color: #fff;
@@ -27,13 +27,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-container h1 {
+.container h1 {
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.search-container p {
+.container p {
     font-size: 14px;
     color: #555;
     margin-bottom: 15px;
@@ -41,28 +41,28 @@
 }
 
 /* 인증 방법 섹션 */
-.search-method {
+.method {
     margin-bottom: 20px;
 }
 
-.search-method label {
+.method label {
     font-size: 14px;
     display: block;
     margin-bottom: 8px;
     cursor: pointer;
 }
 
-.search-input-group {
+.input-group {
     margin-bottom: 15px;
 }
 
-.search-input-group label {
+.input-group label {
     font-size: 12px;
     display: block;
     margin-bottom: 5px;
 }
 
-.search-input-group input[type="text"] {
+.input-group input[type="text"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -72,14 +72,14 @@
 }
 
 /* 이메일 입력 섹션 */
-.search-email-group .search-email-inputs {
+.email-group .email-inputs {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
 }
 
-.search-email-group input[type="text"] {
+.email-group input[type="text"] {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
@@ -87,11 +87,11 @@
     font-size: 14px;
 }
 
-.search-email-group span {
+.email-group span {
     font-size: 14px;
 }
 
-.search-email-group select {
+.email-group select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -99,7 +99,7 @@
 }
 
 /* 제출 버튼 */
-.search-submit-button {
+.submit-button {
     width: 100%;
     padding: 12px;
     background-color: #14BF96;
@@ -111,57 +111,57 @@
     margin-top: 15px;
 }
 
-.search-footer-text {
+.footer-text {
     font-size: 12px;
     text-align: center;
     margin-top: 10px;
 }
 
-.search-footer-text a {
+.footer-text a {
     color: #14BF96;
     text-decoration: none;
 }
 
-.search-footer-text a:hover {
+.footer-text a:hover {
     text-decoration: underline;
 }
 
 /* 데스크탑 화면을 위한 미디어 쿼리 */
 @media (min-width: 768px) {
-    .search-container {
+    .container {
         max-width: 500px; /* 데스크탑에서 넓게 설정 */
         padding: 40px; /* 더 넉넉한 내부 여백 */
     }
 
-    .search-container h1 {
+    h1 {
         font-size: 24px; /* 타이틀 폰트 크기 확대 */
     }
 
-    .search-container p {
+    p {
         font-size: 16px; /* 설명 텍스트 크기 확대 */
     }
 
-    .search-input-group label {
+    .input-group label {
         font-size: 14px; /* 라벨 폰트 크기 확대 */
     }
 
-    .search-input-group input[type="text"] {
+    .input-group input[type="text"] {
         padding: 12px;
         font-size: 16px; /* 입력 필드 폰트 크기 확대 */
     }
 
-    .search-email-group input[type="text"],
-    .search-email-group select {
+    .email-group input[type="text"],
+    .email-group select {
         padding: 12px;
         font-size: 16px; /* 이메일 입력 폰트 크기 확대 */
     }
 
-    .search-submit-button {
+    .submit-button {
         font-size: 18px; /* 버튼 폰트 크기 확대 */
         padding: 14px;
     }
 
-    .search-footer-text {
+    .footer-text {
         font-size: 14px;
     }
 }

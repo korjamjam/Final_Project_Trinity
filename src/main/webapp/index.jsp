@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<% String path = request.getContextPath(); %>
+<%
+	String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +33,17 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
+
+
+	<title>닥터링</title>
+</head>
+<body>
+	<jsp:forward page="WEB-INF/views/account/searchid.jsp" />
+
+
+
+
 	<jsp:include page="/WEB-INF/views/health_reservation/health_reservation_info.jsp" />
+
 </body>
 </html>
