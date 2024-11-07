@@ -7,7 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_notification.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_notice.css">
             <title>Customer Center</title>
         </head>
 
@@ -25,10 +25,10 @@
                         <aside class="sidebar">
 
                             <ul class="menu">
-                                <li><a href="#"class="active">공지사항<span class="arrow">›</span></a></li>
+                                <li><a href="#">고객문의<span class="arrow">›</span></a></li>
                                 <li><a href="#">알림판<span class="arrow">›</span></a></li>
                                 <li><a href="#">FAQ<span class="arrow">›</span></a></li>
-                                <li><a href="#">Q&A<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">Q&A<span class="arrow">›</span></a></li>                     
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -40,15 +40,15 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">공지사항</h2>
+                                <h2 class="content-title">Q&A</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
-                                    <option value="조회수">조회수</option>
+                                    <option value="추천수">추천수</option>
                                     <option value="번호순">번호순</option>
                                 </select>
                             </div>
                             <div class="content-controls">
-                                <p class="content-description">닥터링 공지사항입니다.</p>
+                                <p class="content-description">관리자와의 1:1 질문입니다.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
@@ -71,114 +71,114 @@
                                     <!-- Example Post Item -->
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 11월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2023.11.01</td>
-                                        <td class="comment-header">43</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다1</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2023.07.27</td>
+                                        <td class="comment-header">44</td>
                                     </tr>
 
                                     <tr>
                                         <td>2</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 12월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2023.12.01</td>
-                                        <td>42</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>33</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>3</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 1월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.01.01</td>
-                                        <td class="comment-header">46</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>4</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 2월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.02.01</td>
-                                        <td>65</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td>5</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 3월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.03.01</td>
-                                        <td class="comment-header">20</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>6</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 4월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.04.01</td>
-                                        <td>40</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td>7</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 5월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.05.01</td>
-                                        <td class="comment-header">55</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>8</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 6월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.06.01</td>
-                                        <td>34</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td>9</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 7월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.07.01</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">23</td>
                                     </tr>
 
                                     <tr>
-                                        <td>10</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 8월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.08.01</td>
-                                        <td>45</td>
+                                        <td>4</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>56</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>11</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 9월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.09.01</td>
+                                        <td>5</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
                                         <td class="comment-header">56</td>
                                     </tr>
 
                                     <tr>
+                                        <td>6</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>70</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>7</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">80</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>8</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>20</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>9</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">30</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>10</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>50</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>11</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">60</td>
+                                    </tr>
+
+                                    <tr>
                                         <td>12</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 10월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.10.01</td>
-                                        <td>61</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>34</td>
                                     </tr>
                                     
                                     <tr>
                                         <td>13</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 11월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.11.01</td>
-                                        <td class="comment-header">70</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">23</td>
                                     </tr>
 
                                     <tr>
                                         <td>14</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 12월 병원 정보 업데이트</a></td>
-                                        <td class="author">관리자</td>
-                                        <td class="date">2024.12.01</td>
-                                        <td>80</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>33</td>
                                     </tr>
                                     
 
