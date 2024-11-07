@@ -1,5 +1,31 @@
 @media (max-width: 767px) {
 
+.search-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: 20px auto 0; /* container와의 간격 조절 */
+    }
+    .search-input {
+    width:100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    outline: none;
+    flex-grow: 1;
+    /* 가로 공간을 자동으로 차지하게 */
+    box-sizing: border-box;
+    min-height: 36px;
+    min-width: 86px;
+}
+
     /* Mobile layout adjustments */
     .container {
         display: block;
@@ -252,9 +278,23 @@
         border-radius: 5px;
         transition: background-color 0.3s;
     }
-
-
-
+    
+    .search-section {
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+    /* 검색 필드 섹션을 가로 중앙 정렬 */
+    gap: 0;
+    width: 100%;
+    /* 전체 너비 차지 */
+    max-width: 500px;
+    /* 검색 섹션 너비 제한 */
+    padding: 10px;
+}
+.page-search-container {
+        margin-top: 15px;
+    }
 }
 
 
@@ -308,6 +348,7 @@
         white-space: nowrap;
         /* 줄 바꿈 방지 */
     }
+    
 
     .menu {
         list-style: none;
@@ -406,6 +447,8 @@
     }
 
     .content-controls {
+   		width:100%;
+   		min-width:570px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
@@ -455,6 +498,7 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        min-width: 570px;
     }
 
     .notice-table th,
@@ -536,6 +580,8 @@
         margin-top: 20px;
         border: 1px solid #ddd;
         margin-bottom: 40px;
+        width: 100%;
+        min-width: 570px;
         /* 여백 추가 */
     }
 
@@ -654,12 +700,12 @@
     flex-grow: 1;
     /* 가로 공간을 자동으로 차지하게 */
     box-sizing: border-box;
-    min-height: 36px;
+    min-height: 34px;
 }
 
 /* 검색 버튼 스타일 */
 .search-button {
-    padding: 8px 12px;
+    padding: 6px 12px;
     font-size: 14px;
     color: #fff;
     background-color: #4caf50;

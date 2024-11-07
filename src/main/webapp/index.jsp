@@ -15,8 +15,7 @@
 
 <!-- searchBar icon -->
 <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+<link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon"/>
 
 <!-- font style -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,9 +29,9 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_qna.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+	<jsp:include page="/WEB-INF/views/inquiry/inquiry_qna.jsp"/>
 </body>
 </html>

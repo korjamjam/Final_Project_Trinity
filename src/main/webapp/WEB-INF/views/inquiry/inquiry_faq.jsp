@@ -25,9 +25,9 @@
                         <aside class="sidebar">
 
                             <ul class="menu">
-                                <li><a href="#"class="active">공지사항<span class="arrow">›</span></a></li>
+                                <li><a href="#">공지사항<span class="arrow">›</span></a></li>
                                 <li><a href="#">알림판<span class="arrow">›</span></a></li>
-                                <li><a href="#">FAQ<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">FAQ<span class="arrow">›</span></a></li>
                                 <li><a href="#">Q&A<span class="arrow">›</span></a></li>
                             </ul>
                             <div class="support-box">
@@ -40,7 +40,7 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">공지사항</h2>
+                                <h2 class="content-title">FAQ</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
@@ -48,19 +48,19 @@
                                 </select>
                             </div>
                             <div class="content-controls">
-                                <p class="content-description">닥터링 공지사항입니다.</p>
+                                <p class="content-description">닥터링에게 자주 묻는 질문입니다.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
-                                    <option value="번호순">번호순</option>
+                                    <option value="카테고리순">카테고리순</option>
                                 </select>
                             </div>
                             <!-- Table for Posts -->
                             <table id="postsTable" class="notice-table">
                                 <thead>
                                     <tr>
-                                        <th class="category-header">번호</th>
+                                        <th class="category-header">카테고리</th>
                                         <th class="title-header">제목</th>
                                         <th class="author-header">작성자</th>
                                         <th class="date-header">작성일</th>
@@ -70,115 +70,115 @@
                                 <tbody>
                                     <!-- Example Post Item -->
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 11월 병원 정보 업데이트</a></td>
+                                        <td>회원관련</td>
+                                        <td><a href="/post-detail.html?id=1">회원가입은 어떻게 하나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2023.11.01</td>
-                                        <td class="comment-header">43</td>
+                                        <td class="comment-header">30</td>
                                     </tr>
 
                                     <tr>
-                                        <td>2</td>
-                                        <td><a href="/post-detail.html?id=1">2023년 12월 병원 정보 업데이트</a></td>
+                                        <td>회원관련</td>
+                                        <td><a href="/post-detail.html?id=1">아이디, 비밀번호를 분실했어요!</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2023.12.01</td>
-                                        <td>42</td>
+                                        <td>32</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>3</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 1월 병원 정보 업데이트</a></td>
+                                        <td>회원관련</td>
+                                        <td><a href="/post-detail.html?id=1">회원탈퇴는 어디서 하나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.01.01</td>
-                                        <td class="comment-header">46</td>
+                                        <td class="comment-header">31</td>
                                     </tr>
 
                                     <tr>
-                                        <td>4</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 2월 병원 정보 업데이트</a></td>
+                                        <td>사이트 이용</td>
+                                        <td><a href="/post-detail.html?id=1">모바일 사용법이 궁금해요</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.02.01</td>
-                                        <td>65</td>
+                                        <td>66</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>5</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 3월 병원 정보 업데이트</a></td>
+                                        <td>사이트 이용</td>
+                                        <td><a href="/post-detail.html?id=1">마이페이지는 어디에 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.03.01</td>
-                                        <td class="comment-header">20</td>
+                                        <td class="comment-header">32</td>
                                     </tr>
 
                                     <tr>
-                                        <td>6</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 4월 병원 정보 업데이트</a></td>
+                                        <td>사이트 이용</td>
+                                        <td><a href="/post-detail.html?id=1">저에게 꼭 맞는 정보를 찾고싶어요</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.04.01</td>
-                                        <td>40</td>
+                                        <td>33</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>7</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 5월 병원 정보 업데이트</a></td>
+                                        <td>사이트 이용</td>
+                                        <td><a href="/post-detail.html?id=1">조회수는 어디서 볼 수 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.05.01</td>
-                                        <td class="comment-header">55</td>
+                                        <td class="comment-header">34</td>
                                     </tr>
 
                                     <tr>
-                                        <td>8</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 6월 병원 정보 업데이트</a></td>
+                                        <td>커뮤니티</td>
+                                        <td><a href="/post-detail.html?id=1">커뮤니티는 어떤 공간인가요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.06.01</td>
-                                        <td>34</td>
+                                        <td>35</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>9</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 7월 병원 정보 업데이트</a></td>
+                                        <td>커뮤니티</td>
+                                        <td><a href="/post-detail.html?id=1">커뮤니티에 글을 올리고 싶어요.</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.07.01</td>
-                                        <td class="comment-header">23</td>
+                                        <td class="comment-header">36</td>
                                     </tr>
 
                                     <tr>
-                                        <td>10</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 8월 병원 정보 업데이트</a></td>
+                                        <td>커뮤니티</td>
+                                        <td><a href="/post-detail.html?id=1">커뮤니티에 작성한 글을 삭제할 수 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.08.01</td>
-                                        <td>45</td>
+                                        <td>37</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>11</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 9월 병원 정보 업데이트</a></td>
+                                        <td>커뮤니티</td>
+                                        <td><a href="/post-detail.html?id=1">삭제된 글/댓글을 복구할 수 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.09.01</td>
-                                        <td class="comment-header">56</td>
+                                        <td class="comment-header">38</td>
                                     </tr>
 
                                     <tr>
-                                        <td>12</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 10월 병원 정보 업데이트</a></td>
+                                        <td>커뮤니티</td>
+                                        <td><a href="/post-detail.html?id=1">작성한 댓글을 삭제할 수 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.10.01</td>
-                                        <td>61</td>
+                                        <td>39</td>
                                     </tr>
                                     
                                     <tr>
-                                        <td>13</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 11월 병원 정보 업데이트</a></td>
+                                        <td>이벤트</td>
+                                        <td><a href="/post-detail.html?id=1">회원이 아닌 사람도 이벤트에 참여할 수 있나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.11.01</td>
-                                        <td class="comment-header">70</td>
+                                        <td class="comment-header">40</td>
                                     </tr>
 
                                     <tr>
-                                        <td>14</td>
-                                        <td><a href="/post-detail.html?id=1">2024년 12월 병원 정보 업데이트</a></td>
+                                        <td>이벤트</td>
+                                        <td><a href="/post-detail.html?id=1">이벤트 신청만 하면 되나요?</a></td>
                                         <td class="author">관리자</td>
                                         <td class="date">2024.12.01</td>
-                                        <td>80</td>
+                                        <td>41</td>
                                     </tr>
                                     
 

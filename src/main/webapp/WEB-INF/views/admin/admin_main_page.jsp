@@ -7,15 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Main Page</title>
-
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/default/defalut.css">
+	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/admin_main_page.css">
     
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp">
+	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp" />
     <main class="admin-container">
-    
         <button class="admin-button">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/MemberManagement_img.png" alt="회원관리 아이콘">
             <p>회원관리</p>
