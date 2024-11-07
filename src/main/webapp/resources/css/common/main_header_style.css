@@ -11,7 +11,11 @@
     background-color: #fff;
     padding: 30px;
     border-bottom: 1px solid #ddd;
+<<<<<<< HEAD:src/main/webapp/resources/css/common/Main-header-style.css
+    width:100%;
+=======
     width: 100%;
+>>>>>>> 132688a3749f226d337377ff18de33c9cada4bf3:src/main/webapp/resources/css/common/main_header_style.css
 }
 
 .logo {
