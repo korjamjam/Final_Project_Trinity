@@ -15,12 +15,7 @@
             <div>
                 <!-- Header Section -->
                 <header class="header">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/community/community_medical.jsp
-                    <%@ include file="/WEB-INF/views/common/finalHeader.jsp" %>
-=======
-                    <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
->>>>>>> afb1d7b4462aebf3160e52d3b211d1e21e0dbf2b:src/main/webapp/WEB-INF/views/Community/community_medical.jsp
-                </header>
+                   <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
 
                 <div class="container">
                     <!-- Main Content Section -->
