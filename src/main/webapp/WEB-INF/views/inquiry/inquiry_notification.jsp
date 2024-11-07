@@ -27,8 +27,8 @@
                             <ul class="menu">
                                 <li><a href="#">고객문의<span class="arrow">›</span></a></li>
                                 <li><a href="#">FAQ<span class="arrow">›</span></a></li>
-                                <li><a href="#">메디톡<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">이벤트<span class="arrow">›</span></a></li>
+                                <li><a href="#">Q&A<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">알림판<span class="arrow">›</span></a></li>
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -40,7 +40,7 @@
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
-                                <h2 class="content-title">이벤트</h2>
+                                <h2 class="content-title">알림판</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">추천수</option>
@@ -61,7 +61,7 @@
                             <table id="postsTable" class="notice-table">
                                 <thead>
                                     <tr>
-                                        <th class="category-header">카테고리</th>
+                                        <th class="category-header">번호</th>
                                         <th class="title-header">제목</th>
                                         <th class="author-header">작성자</th>
                                         <th class="date-header">작성일</th>
@@ -71,9 +71,9 @@
                                 <tbody>
                                     <!-- Example Post Item -->
                                     <tr>
-                                        <td class="category-header">이벤트</td>
-                                        <td><a href="/post-detail.html?id=1">2024 수능 기념 스마일 라식 할인!</a></td>
-                                        <td class="author">관리자1</td>
+                                        <td>1</td>
+                                        <td><a href="/post-detail.html?id=1">밝은세상소아과 다른곳으로 이전 됐습니다.</a></td>
+                                        <td class="author">jjhim531</td>
                                         <td class="date">2022.07.27</td>
                                         <td class="comment-header">[45]</td>
                                     </tr>
