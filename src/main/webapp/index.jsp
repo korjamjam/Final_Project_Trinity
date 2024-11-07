@@ -32,6 +32,20 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/main.jsp"/>
+
+
+
+	<title>닥터링</title>
+</head>
+<body>
+	<jsp:forward page="WEB-INF/views/account/nameupdate.jsp" />
+
+
+
+
+
+
+
+
 </body>
 </html>

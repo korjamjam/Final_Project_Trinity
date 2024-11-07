@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>검진 전날 주의사항</title>
+    <title>검진 당일 주의사항</title>
     
      <!-- css -->
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
@@ -18,7 +18,7 @@
     <div class="caution_wrap">
         <div class="caution_guide_container">
             <div class="caution_title">
-                검진 전 주의사항
+                검진 당일 주의사항
             </div>
             <div class="caution_guide_select">
                 <select name="" id="">
@@ -29,29 +29,23 @@
                 </select>
             </div>
             <div id="caution_guide_title">
-                건강검진 전날
+                건강검진 당일
             </div>
             <div class="caution_guide_content_wrap">
                 <div class="caution_guide_content">
                     <div class="caution_guide_content_img">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_evening1.png" alt="">
+                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_dday1.png" alt="">
                     </div>
                     <div class="caution_guide_content_text">
                         <div id="caution_guide_content_title">
-                            금식
+                            약 복용
                         </div>
                         <ul>
                             <li>
-                                건강검진 2~3일 전부터는 음주, 기름진음식은 피하십시오.
+                                혈압약 : 혈압약은 건강진단 당일 새벽6시 이전에 최소량의 물과 함께 복용하십시오.단, 위장조영술을 하는 분은 약을 드시지 마시고 가져오시기 바랍니다.
                             </li>
                             <li>
-                                오전검진 : 검진 전날 저녁식사는 오후 7시까지 가볍게 드시고 밤9시 이후부터 금식하십시오.
-                            </li>
-                            <li>
-                                오후검진 : 검진 전날 밤 12시 이후부터 금식하십시오.
-                            </li>
-                            <li>
-                                금식 기간 중에는 물, 껌, 사탕, 담배는 절대 금합니다.
+                                당뇨약 : 건강검진 당일 아침 인슐린이나 당뇨약 복용을 금합니다.
                             </li>
                         </ul>
                         
@@ -59,62 +53,47 @@
                 </div>
                 <div class="caution_guide_content">
                     <div class="caution_guide_content_img">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_evening2.png" alt="">
+                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_dday2.png" alt="">
                     </div>
                     <div class="caution_guide_content_text">
                         <div id="caution_guide_content_title">
-                            약물
+                            준비물
                         </div>
                         <ul>
                             <li>
-                                평소 복용하시는 약은 가급적 2~3일전부터 드시지 마십시오.
+                                아침식사는 물론 담배, 껌, 등 아무것도 드시지 마십시오.
                             </li>
                             <li>
-                                항혈전제(아스피린, 플라빅스 등)를 복용하시는 분은 내시경 조직검사 또는 용종을 제거 시 출혈의 위험이 있으므로 주치의에게 확인 후 일주일 전부터 복용을 중단합니다.
+                                건강검진 문진표, 예약증, 채변통을 지참하여 주시기 바랍니다.
                             </li>
                             <li>
-                                단, 뇌출혈, 혈전증, 심장질환, 폐질환을 앓고 있거나 최근 3개월 이내 수술 및 입원치료를 받은 분은 출혈 위험성을 높일 수 있는 약물을 중지해도 무방한지 반드시 주치의에게 확인 후 검사여부를 결정하십시오.
+                                장신구, 귀중품은 분실의 위험이 있사오니 소지하고 오지 마십시오.
+                            </li>
+                            <li>
+                                안경이나 콘택트렌즈를 가져오시기 바랍니다.(교정시력 측정)
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="caution_guide_content">
                     <div class="caution_guide_content_img">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_evening3.png" alt="">
+                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_dday3.png" alt="">
                     </div>
                     <div class="caution_guide_content_text">
                         <div id="caution_guide_content_title">
-                            여성(추가)
+                            방문
                         </div>
                         <ul>
                             <li>
-                                생리중인 경우 검사 내용에 제한이 있을 수 있습니다.
+                                원활한 건강검진을 위해 간편한 복장으로 예약시간 20분전까지 내원하여 주십시오.                            </li>
+                            <li>
+                                하복부초음파(전립선, 방광, 난소)검사는 아침소변을 보지 마시고 많이 참은 상태에서 내원하시기 바랍니다.
                             </li>
                             <li>
-                                가임기의 모든 여성은 검진 예약 전 반드시 임신여부 확인하여 주십시오.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="caution_guide_content">
-                    <div class="caution_guide_content_img">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/img/caution_guide_evening4.png" alt="">
-                    </div>
-                    <div class="caution_guide_content_text">
-                        <div id="caution_guide_content_title">
-                            대변
-                        </div>
-                        <ul>
-                            <li>
-                                대변채취는 건강검진 전날 또는 당일 채변용기에 밤알 크기 정도(용기의 1/3정도)를 넣어 주십시오.
-
+                                수면내시경을 하시는 고객은 당일 자가운전이 불가능하오니 대중교통을 이용해 주십시오(보호자 동반)
                             </li>
                             <li>
-                                채취하신 대변은 검사의 정확도를 높이기 위해 차고 서늘하게 보관해 주십시오.
-    
-                            </li>
-                            <li>
-                                생리중에는 생리혈이 섞이지 않도록 주의 하십시오.
+                                생리중인 분은 차후 부인과 및 소변검사를 위해 재방문하셔야 합니다.
                             </li>
                         </ul>
                     </div>

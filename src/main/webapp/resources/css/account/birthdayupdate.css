@@ -1,37 +1,34 @@
-/* 기본 스타일 */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-}
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
+    background-color: #ffffff; /* 배경색을 흰색으로 변경 */
+    margin: 5;
+    padding: 0;
+    flex-direction: column; /* 세로로 정렬하여 위아래 간격 조정 가능 */
 }
 
 .birthday-update-container {
     width: 100%;
-    max-width: 500px; /* Slightly larger for desktop */
+    max-width: 500px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px; /* 헤더와의 간격 */
+    margin-bottom: 30px; /* 푸터와의 간격 */
 }
 
 .birthday-update-container h2 {
-    font-size: 1.5rem; /* Adaptive font size */
+    font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
 .info-text {
-    font-size: 1rem; /* Adaptive font size */
+    font-size: 1rem;
     color: #666;
     line-height: 1.5;
     margin-bottom: 20px;
@@ -50,10 +47,11 @@ body {
 }
 
 .input-group input {
+    width: 100%; /* 컨테이너 너비에 맞춤 */
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1rem; /* Adaptive font size */
+    font-size: 1rem;
     color: #000;
 }
 
@@ -62,12 +60,13 @@ body {
 }
 
 .update-button {
+    width: 100%; /* 너비를 100%로 설정 */
     padding: 12px;
-    background-color: #6fcf97;
+    background-color: #8CCF4E;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 1rem; /* Adaptive font size */
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -80,7 +79,7 @@ body {
 @media (max-width: 480px) {
     .birthday-update-container {
         padding: 15px;
-        max-width: 90%; /* Adapt width for smaller screens */
+        max-width: 90%; /* 작은 화면에서 너비 조정 */
     }
 
     .birthday-update-container h2 {
@@ -99,5 +98,14 @@ body {
 
     .info-text {
         font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .birthday-update-container {
+        padding: 40px; /* 데스크탑에서 내부 여백을 더 넉넉하게 설정 */
+        max-width: 600px;
+        margin-top: 50px; /* 데스크탑에서 상단 간격 */
+        margin-bottom: 50px; /* 데스크탑에서 하단 간격 */
     }
 }
