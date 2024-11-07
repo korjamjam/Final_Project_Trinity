@@ -29,9 +29,9 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_qna.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/inquiry/inquiry_qna.jsp"/>
+	<jsp:include page="/WEB-INF/views/main.jsp"/>
 </body>
 </html>
