@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<% String path = request.getContextPath(); %>
+<%
+	String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +15,7 @@
 
 <!-- searchBar icon -->
 <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+<link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon"/>
 
 <!-- font style -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +33,19 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/main.jsp" />
+
+
+	<title>닥터링</title>
+</head>
+<body>
+	<jsp:forward page="WEB-INF/views/account/nameupdate.jsp" />
+
+
+
+
+
+
+
 
 </body>
 </html>

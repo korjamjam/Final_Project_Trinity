@@ -1,0 +1,114 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+}
+
+.email-update-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.email-update-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.email-update-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #000;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 복구 이메일 추가 버튼 스타일 */
+.recovery-email-button {
+    width: 100%; /* 수정하기 버튼과 동일한 너비 설정 */
+    padding: 12px; /* 동일한 패딩 설정 */
+    background-color: #eee;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.recovery-email-button:hover {
+    background-color: #ddd;
+}
+
+/* 수정하기 버튼 스타일 */
+.update-button {
+    width: 100%; /* 동일한 너비 설정 */
+    padding: 12px; /* 동일한 패딩 설정 */
+    background-color: #8CCF4E;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.update-button:hover {
+    background-color: #57b87d;
+}
+
+.info-text {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #666;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* 반응형 미디어 쿼리 */
+@media (min-width: 768px) {
+    .email-update-container {
+        padding: 40px;
+        max-width: 600px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
