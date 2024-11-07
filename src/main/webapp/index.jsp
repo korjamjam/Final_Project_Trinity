@@ -33,9 +33,6 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/main.jsp" />
-
-
 </body>
 </html>
