@@ -1,5 +1,5 @@
 /* 예약 가이드 부분 */
-.health_reservation_guide_wrap{
+.health_reservation_wrap{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -60,7 +60,9 @@
 }
 
 #reservation_container2_content{
+	padding: 10px;
     display: flex;
+    gap: 20px;
     align-items: center;
     border-bottom: #c5c5c5 1px solid;
     height: 100px;
@@ -69,33 +71,108 @@
 }
 
 #reservation_container2_content > img{
-    width: auto;
-    height: 100%;
+	height: 100%;
 }
 
 #reservation_container3_content{
     display: flex;
-    margin: 50px 0px;
-    font-size: small;
+    padding: 50px 0px;
+    font-size: 12px;
     border-bottom: #c5c5c5 1px solid;
-    height: 260px;
     align-items: center;
 }
 
+.health_reservation_select > select{
+    width: 100%;
+    margin: 10px 0px;
+    height: 30px;
+    border-radius: 5px;
+    border: #c5c5c5 solid 1px;
+}
+
+.reservation_btn_area{
+	width:100%;
+}
+
+/*검진 안내 영역*/
+.health_reservation_info_wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.health_reservation_info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid #c5c5c5;
+    align-items: center;
+    max-width: 600px;
+    width: 60%;
+    min-width: 288px;
+}
+
+.health_reservation_color_box{
+    height: 80px;
+    width: 100%;
+    border-radius: 10px;
+    border: #9e9e9e 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#health_reservation_info_text > p{
+    font-size: 12px;
+    padding: 20px 0;
+}
+
 @media (min-width: 768px) {
-    .nav-links {
-        display: flex;
-    }
-
-    .menu-icon {
-        display: none;
-    }
-
-    .header {
-        padding: 20px 40px;
-    }
-
     .health_reservation_guide{
         max-width: 800px;
     }
+    
+    #health_reservation_title{
+    	font-size: 32px;
+    	color: #265708;
+    }
+    
+    #reservation_content_title{
+        font-size: 20px;
+    }
+
+    .reservation_content_title > p{
+        font-size: 14px;
+    }
+
+    #reservation_btn{
+        width: 120px;
+        height: 50px;
+        background-color: #8CCF4E;
+    }
+    
+    #reservation_container1_content{
+    	font-size: 14px;
+    }
+    
+    #reservation_container1_content > p{
+    	font-size: 14px;
+    }
+    
+    #reservation_container3_content{
+    	font-size:14px;
+    }
+    
+    #health_reservation_info_text > p{
+	    font-size: 14px;
+	    padding: 40px 0;
+	}
+	
+	.health_reservation_info_wrap{
+		gap: 30px;
+	}
 }

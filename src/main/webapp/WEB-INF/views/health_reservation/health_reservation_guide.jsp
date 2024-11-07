@@ -14,7 +14,7 @@
 <body>
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
-    <div class="health_reservation_guide_wrap">
+    <div class="health_reservation_wrap">
         <div class="health_reservation_container">
             <div id="health_reservation_title">
                 검진 예약 안내

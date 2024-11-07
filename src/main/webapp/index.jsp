@@ -34,12 +34,16 @@
 </head>
 <body>
 
+
 	<title>닥터링</title>
 </head>
 <body>
 	<jsp:forward page="WEB-INF/views/account/searchid.jsp" />
 
 
+
+
+	<jsp:include page="/WEB-INF/views/health_reservation/health_reservation_info.jsp" />
 
 </body>
 </html>
