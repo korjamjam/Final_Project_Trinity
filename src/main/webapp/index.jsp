@@ -32,7 +32,5 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/main.jsp" />
-	<h3>텍스트 에디터 라이브러리 : summernote</h3>
-	<h5><a href="detail?page=summernote">view -></a></h5>
 </body>
 </html>
