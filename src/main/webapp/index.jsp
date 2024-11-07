@@ -29,11 +29,15 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/community/main.css">
 </head>
 <body>
+<<<<<<< HEAD
+	<jsp:include page="/WEB-INF/views/community/main.jsp" />
+=======
 	
 	<jsp:forward page="WEB-INF/views/main.jsp" />
 
+>>>>>>> 8432f0f8ac8790a096090c30941c099d441c41a8
 </body>
 </html>
