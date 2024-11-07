@@ -1,0 +1,111 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* 배경색을 흰색으로 변경 */
+    margin: 5;
+    padding: 0;
+    flex-direction: column; /* 세로로 정렬하여 위아래 간격 조정 가능 */
+}
+
+.birthday-update-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px; /* 헤더와의 간격 */
+    margin-bottom: 30px; /* 푸터와의 간격 */
+}
+
+.birthday-update-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.info-text {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.birthday-update-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    width: 100%; /* 컨테이너 너비에 맞춤 */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #000;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+.update-button {
+    width: 100%; /* 너비를 100%로 설정 */
+    padding: 12px;
+    background-color: #8CCF4E;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.update-button:hover {
+    background-color: #57b87d;
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 480px) {
+    .birthday-update-container {
+        padding: 15px;
+        max-width: 90%; /* 작은 화면에서 너비 조정 */
+    }
+
+    .birthday-update-container h2 {
+        font-size: 1.25rem;
+    }
+
+    .input-group input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .update-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .info-text {
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .birthday-update-container {
+        padding: 40px; /* 데스크탑에서 내부 여백을 더 넉넉하게 설정 */
+        max-width: 600px;
+        margin-top: 50px; /* 데스크탑에서 상단 간격 */
+        margin-bottom: 50px; /* 데스크탑에서 하단 간격 */
+    }
+}

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이름 업데이트</title>
-     <<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/nameupdate.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/nameupdate.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>

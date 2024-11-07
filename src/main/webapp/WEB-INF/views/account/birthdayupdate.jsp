@@ -23,8 +23,7 @@
 	<div class="birthday-update-container">
 		<h2>생년월일 업데이트</h2>
 		<p class="info-text">
-			생일은 다양한 닥터링 서비스에서 계정 보안 및 맞춤설정 목적으로사용될 수 있습니다.<br>회사 또는 조직을
-			Google 계정인 경우,<br>계정 관리자의 생년월일을 입력하세요.
+			생일은 다양한 닥터링 서비스에서 계정 보안 및 맞춤설정 목적으로사용될 수 있습니다.<br>계정 관리자의 생년월일을 입력하세요.
 		</p>
 		<form class="birthday-update-form">
 			<div class="input-group">

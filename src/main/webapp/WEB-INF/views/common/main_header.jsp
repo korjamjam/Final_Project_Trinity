@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="dropdown">
-                <a href="#">커뮤니티</a>
+                <a href="community_main.me">커뮤니티</a>
                 <div class="dropdown-content">
                     <a href="#">인기</a>
                     <a href="#">자유</a>
@@ -54,9 +54,9 @@
                 <a href="#">고객문의</a>
                 <div class="dropdown-content">
                     <a href="#">공지사항</a>
+                    <a href="#">알림판</a>
                     <a href="#">FAQ</a>
                     <a href="#">Q&A</a>
-                    <a href="#">CHANGE</a>
                 </div>
             </div>
         </nav>

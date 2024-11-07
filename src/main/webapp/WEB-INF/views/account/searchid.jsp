@@ -9,7 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
-    <<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/searchid.css">
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/account/searchid.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,7 +18,10 @@
 <!-- Header -->
 	<%@ include file="../common/main_header.jsp"%>
     <div class="container">
+    
+    
         <h1>아이디 찾기</h1>
+        
         <p>아이디 찾는 방법을 선택해 주세요.</p>
 
         <div class="method">

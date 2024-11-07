@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<% String path = request.getContextPath(); %>
+<%
+	String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +15,7 @@
 
 <!-- searchBar icon -->
 <link rel="favicon" href="<%=path%>/resources/img/favicon.ico" />
-<link rel="icon" href="<%=path%>/resources/img/favicon.ico"
-	type="image/x-icon" />
+<link rel="icon" href="<%=path%>/resources/img/favicon.ico" type="image/x-icon"/>
 
 <!-- font style -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +32,12 @@
 <link rel="stylesheet" href="<%=path%>/resources/css/community/main.css">
 </head>
 <body>
+<<<<<<< HEAD
 	<jsp:include page="/WEB-INF/views/community/main.jsp" />
+=======
+	
+	<jsp:forward page="WEB-INF/views/main.jsp" />
+
+>>>>>>> 8432f0f8ac8790a096090c30941c099d441c41a8
 </body>
 </html>
