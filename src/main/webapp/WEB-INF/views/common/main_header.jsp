@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="dropdown">
-                <a href="#">커뮤니티</a>
+                <a href="community_main.me">커뮤니티</a>
                 <div class="dropdown-content">
                     <a href="#">인기</a>
                     <a href="#">자유</a>

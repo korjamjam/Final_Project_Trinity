@@ -6,8 +6,8 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_main.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
             <title>Customer Center</title>
         </head>
 
@@ -17,7 +17,8 @@
                 <header class="header">
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
-
+                
+				<form action="" method="post" id="community_main">
                 <div class="container">
                     <!-- Main Content Section -->
                     <main class="main-content">
@@ -230,6 +231,7 @@
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>
+                    </form>
                     <!-- JavaScript 코드 추가 -->
                     <script>
                         function parseDate(dateStr) {
