@@ -1,4 +1,4 @@
-/* 기본 스타일 */
+/* 기본 스타일 설정 */
 * {
     margin: 0;
     padding: 0;
@@ -11,36 +11,53 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
+    background-color: #f8f9fa; /* 배경색을 약간 회색으로 설정 */
 }
 
+/* 컨테이너 스타일 */
 .container {
     width: 100%;
     max-width: 400px;
-    padding: 20px;
-    background-color: white;
+    padding: 30px;
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-sizing: border-box;
-    margin: 0; /* 모바일에서 상하 여백 제거 */
 }
 
 /* 제목과 부제목 스타일 */
 .title {
     font-size: 24px;
-    font-weight: 700;
-    color: #4CAF50;
-    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 60px;
+    margin-bottom: 15px; /* title과 subtitle 사이 여백을 15px로 설정 */
 }
 
 .subtitle {
     font-size: 14px;
     color: #666;
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 60px;
 }
 
-/* 라디오 그룹 */
+/* 비밀번호 찾기 방법 박스 스타일 */
+.method-box {
+    background-color: #f4f6f8;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.method-box:hover {
+    transform: translateY(-2px); /* 살짝 올라오는 효과 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 추가 */
+}
+
+/* 라디오 그룹 스타일 */
 .radio-group {
     display: flex;
     align-items: center;
@@ -56,9 +73,10 @@ body {
     font-size: 14px;
     font-weight: 500;
     color: #333;
+    cursor: pointer;
 }
 
-/* 입력 그룹 */
+/* 입력 그룹 스타일 */
 .input-group {
     display: flex;
     flex-direction: column;
@@ -69,15 +87,14 @@ body {
 
 .input-group label {
     font-size: 14px;
-    font-weight: 500;
     color: #333;
     margin-bottom: 5px;
 }
 
 .input-group input[type="text"] {
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
 }
@@ -94,15 +111,30 @@ body {
 .select-group input[type="text"],
 .select-group select {
     flex: 1;
-    min-width: 0;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .select-group span {
     font-size: 14px;
+    color: #555;
+}
+
+.at-symbol {
+    display: inline;
+}
+
+/* 모바일에서 직접 입력만 표시 */
+@media (max-width: 768px) {
+    .select-group .domain-select {
+        display: none; /* 모바일에서는 도메인 선택 메뉴 숨김 */
+    }
+
+    .at-symbol {
+        display: none; /* 모바일에서 @ 기호 숨김 */
+    }
 }
 
 /* 제출 버튼 스타일 */
@@ -110,21 +142,22 @@ body {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #8CCF4E;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    transition: background-color 0.3s;
+    margin-top: 15px;
 }
 
 .submit-btn:hover {
-    background-color: #45A049;
+    background-color: #72b93f;
 }
 
-/* 도움 링크 */
+/* 도움 링크 스타일 */
 .help-link {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 14px;
     color: #666;
 }
@@ -134,36 +167,36 @@ body {
     text-decoration: none;
 }
 
-/* 데스크탑 화면 */
+.help-link a:hover {
+    text-decoration: underline;
+}
+
+/* 데스크탑 화면을 위한 미디어 쿼리 */
 @media (min-width: 768px) {
     .container {
-        max-width: 600px;
+        max-width: 500px;
         padding: 40px;
-        margin-top: 40px; /* 상하 여백 추가 */
+        margin-top: 40px;
         margin-bottom: 40px;
     }
 
     .title {
-        font-size: 32px;
+        font-size: 26px;
     }
 
     .subtitle {
-        font-size: 18px;
-    }
-
-    .tab {
         font-size: 16px;
     }
 
     .input-group label {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .input-group input[type="text"],
     .select-group input[type="text"],
     .select-group select {
-        font-size: 16px;
         padding: 12px;
+        font-size: 16px;
     }
 
     .submit-btn {
@@ -172,6 +205,6 @@ body {
     }
 
     .help-link {
-        font-size: 16px;
+        font-size: 14px;
     }
 }

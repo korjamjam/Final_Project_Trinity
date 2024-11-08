@@ -59,7 +59,7 @@
             </div>
         </nav>
         <div class="login-menu">
-            <a href="#">로그인</a>
+            <a href="login_main.me">로그인</a>
             <div class="menu-icon">&#9776;</div>
         </div>
     </header>
