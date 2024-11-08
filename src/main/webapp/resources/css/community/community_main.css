@@ -1,3 +1,7 @@
+.main-footer{
+	width:100%;
+}
+
 .pagination-footer {
 	display: flex;
 	justify-content: center;
@@ -666,5 +670,9 @@
 	}
 	.page-search-container {
 		margin-top: 15px;
+	}
+	
+	.footer{
+		display:flex;
 	}
 }
