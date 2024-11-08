@@ -29,12 +29,10 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
-</head>
-<body>
+<link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css">
 
-	<title>닥터링</title>
 </head>
+
 <body>
 	<jsp:forward page="WEB-INF/views/main.jsp" />
 </body>

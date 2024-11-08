@@ -1,4 +1,4 @@
-package com.project.trinity.etc.summernote.controller;
+package com.project.trinity.community.summernote.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.project.trinity.etc.summernote.vo.Board;
+import com.project.trinity.community.summernote.vo.Board;
 
 @Controller
-public class SummernoteController {
+public class summernoteController {
 	
 	@PostMapping("write")
 	public String insertBoard(Board b, Model m) {
