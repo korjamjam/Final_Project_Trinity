@@ -29,11 +29,11 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css
+<link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css">
+
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/community/community_main_writer.jsp" />
+	<jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
-
 </html>
