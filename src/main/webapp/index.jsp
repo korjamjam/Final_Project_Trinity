@@ -37,7 +37,7 @@
 </head>
 <body>
 
-	<jsp:forward page="WEB-INF/views/account/profile-edit.jsp" />
+	<jsp:forward page="WEB-INF/views/account/birthdayupdate.jsp" />
 
 
 
@@ -47,7 +47,7 @@
 
 
 
-	<jsp:forward page="WEB-INF/views/main.jsp" />
+	
 
 </body>
 </html>
