@@ -29,6 +29,7 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
+<<<<<<< HEAD
 <link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css">
 </head>
 <body>
@@ -39,4 +40,19 @@
 
 	<jsp:forward page="WEB-INF/views/main.jsp" />
 
+=======
+<<<<<<< HEAD
+<link rel="stylesheet" href="<%=path%>/resources/css/community/community_main_writer.css">
+=======
+<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_notification.css">
+>>>>>>> a74d7abef53bf71191dec9041545c679a8ac6945
+</head>
+<body>
+<<<<<<< HEAD
+	<jsp:include page="/WEB-INF/views/community/community_main_writer.jsp" />
+=======
+	<jsp:include page="/WEB-INF/views/inquiry/inquiry_notification.jsp" />
+>>>>>>> a74d7abef53bf71191dec9041545c679a8ac6945
+</body>
+>>>>>>> parent of 72fd086 (custom_public.css파일 생성)
 </html>
