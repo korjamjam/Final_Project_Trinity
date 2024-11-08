@@ -28,11 +28,11 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <!-- css -->
-<link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/common/default.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/community/community_detail.css">
 </head>
 
 <body>
-   <jsp:forward page="/WEB-INF/views/main.jsp" />
+   <jsp:forward page="/WEB-INF/views/community/community_detail.jsp" />
 </body>
 </html>
