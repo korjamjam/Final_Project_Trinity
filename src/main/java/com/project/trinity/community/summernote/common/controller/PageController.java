@@ -1,4 +1,4 @@
-package com.project.trinity.community.common.controller;
+package com.project.trinity.community.summernote.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,14 +8,11 @@ public class PageController {
 	
 	@RequestMapping("detail")
 	public String movePage(String page) {
-		switch(page) {
-		case "publicData":
-			return "apiSample";
-		case "summernote":
-			return "summernote";
-		}
-		
-		 return "community/summernote";
+	    if ("summernote".equals(page)) {
+	        return "community/summernote";
+	    }
+	    return "community/summernote";
 	}
+
 	
 }

@@ -1,0 +1,179 @@
+.content-container {
+    display: flex;
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    min-height: 80vh;
+    /* 화면 전체 높이 사용 */
+    flex-direction: column;
+    /* 세로로 정렬된 컨텐츠 */
+    margin: 0 auto;
+    padding: 50px;
+}
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* 양쪽 끝으로 배치 */
+    align-items: center;
+    margin-bottom: 10px;
+    /* 여백 조절 */
+    max-width: 800px;
+}
+
+.post-title-section h1 {
+ 
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.post-action-section button {
+    margin-left: 10px;
+    /* 버튼 사이 간격 */
+}
+
+.post-wrapper {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+
+}
+
+#summernote {
+    width: 100%;
+    max-width: 800px;
+    /* 원하는 최대 너비 설정 */
+    margin: 0 auto;
+    /* 가운데 정렬 */
+}
+
+
+.post-form-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post-category-select {
+    width: 48%;
+    /* 반반 나눠서 정렬 */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.post-tag-select {
+    width: 48%;
+    /* 반반 나눠서 정렬 */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.post-title-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.spacer {
+    height: 20px;
+    /* 원하는 여백의 크기 */
+}
+
+.wrapper {
+    margin-top: 20px;
+    /* wrapper 위에 여백 */
+    margin-bottom: 20px;
+    /* wrapper 아래에 여백 */
+}
+
+@media (max-width: 768px) {
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* 가로 중앙 정렬 */
+        width: 100%;
+        /* 화면 가로 너비에 맞추기 */
+        max-width: 100%;
+        /* 화면 가로 너비 초과 방지 */
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    #summernote {
+        width: 100%;
+        /* 부모 요소의 가로 너비에 맞추기 */
+        height: 300px;
+        /* 모바일 버전에서의 높이 설정 */
+        margin: 0 auto;
+        /* 가운데 정렬 */
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        /* 양쪽 끝으로 배치 */
+        align-items: center;
+        /* 세로 가운데 정렬 */
+    }
+
+    .post-title-section {
+        flex-grow: 1;
+        /* 남은 공간을 차지 */
+    }
+
+    .post-title-section h1 {
+        white-space: nowrap;
+        font-size: 18px;
+
+        color: #265708;
+    }
+
+    .post-action-section {
+        display: flex;
+        gap: 5px;
+        /* 버튼 사이 간격 조정 */
+    }
+
+    .post-action-section button {
+        margin: 0;
+        /* 버튼 사이 간격 제거 */
+        flex-grow: 1;
+        /* 버튼이 동일한 너비 */
+    }
+
+    .post-wrapper {
+        padding: 10px;
+        /* 줄어든 패딩 */
+        margin-bottom: 15px;
+        /* 줄어든 마진 */
+    }
+
+    #summernote {
+        max-width: 100%;
+        /* 최대 너비 조정 */
+        margin: 0 auto;
+        /* 가운데 정렬 */
+    }
+
+    .post-form-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .post-form-header select,
+    .post-title-input {
+        width: 100%;
+        /* 모든 요소가 세로로 정렬 */
+    }
+
+}
