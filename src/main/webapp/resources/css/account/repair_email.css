@@ -11,45 +11,41 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
+    background-color: #fff; 
 }
 
 /* 복구 이메일 컨테이너 스타일 */
 .recovery-email-container {
     width: 100%;
-    max-width: 500px;
-    padding: 20px;
+    max-width: 600px; 
+    padding: 70px; 
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 20px 0; /* 데스크탑 기본 여백 */
+    margin: 70px auto; 
 }
 
 .recovery-email-container h2 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    font-size: 1.75rem; 
+    margin-bottom: 70px; 
+   
 }
 
 .recovery-email-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
+    gap: 20px; 
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
+    padding: 15px; 
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.1rem; 
     color: #000;
 }
 
@@ -59,12 +55,12 @@ body {
 
 /* 추가하기 버튼 스타일 */
 .add-button {
-    padding: 12px;
+    padding: 15px; 
     background-color: #8CCF4E;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.1rem; 
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -74,7 +70,7 @@ body {
 }
 
 .info-text {
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 1rem;
     color: #666;
     text-align: left;
@@ -85,23 +81,23 @@ body {
 @media (max-width: 768px) {
     .recovery-email-container {
         max-width: 100%;
-        padding: 15px;
-        margin: 0; /* 상하 여백 제거 */
-        border-radius: 0; /* 모서리 둥글기 제거 */
+        padding: 20px;
+        margin: 0; 
+        border-radius: 0; 
     }
 
     .recovery-email-container h2 {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
     }
 
     .input-group input {
-        font-size: 0.9rem;
-        padding: 10px;
+        font-size: 1rem;
+        padding: 12px;
     }
 
     .add-button {
-        font-size: 0.9rem;
-        padding: 10px;
+        font-size: 1rem;
+        padding: 12px;
     }
 
     .info-text {
@@ -109,7 +105,7 @@ body {
     }
 }
 
-/* 데스크탑 화면에서 상하 여백 추가 */
+
 @media (min-width: 1024px) {
     .recovery-email-container {
         margin-top: 40px;

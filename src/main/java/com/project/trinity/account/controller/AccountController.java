@@ -1,5 +1,61 @@
 package com.project.trinity.account.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
 public class AccountController {
 
+	@RequestMapping("login_main.me")
+	public String showLoginPage() {
+		// "login_main" JSP로 포워딩
+		return "account/login";
+	}
+	@RequestMapping("birthday_update_main.me")
+	public String showbirthdayupdatePage() {
+		
+		return "account/birthday_update";
+	}
+	
+	@RequestMapping("email_update_main.me")
+	public String showemailupdatePage() {
+		return "account/email_update";
+	}
+	
+	@RequestMapping("profile_edit_main.me")
+	public String profileeditPage() {
+		return "account/profile_edit";
+	}
+	
+	@RequestMapping("repair_email_main.me")
+	public String repairemailPage() {
+		return "account/repair_email";
+	}
+	
+	@RequestMapping("reset_pwd_main.me")
+	public String resetpwdPage() {
+		return "account/reset_pwd";
+	}
+	
+	@RequestMapping("search_id_main.me")
+	public String searchidPage() {
+		return "account/search_id";
+	}
+	
+	@RequestMapping("search_pwd_main.me")
+	public String searchpwdPage() {
+		return "account/search_pwd";
+	}
+	
+	@RequestMapping("sign_up_main.me")
+	public String signupPage() {
+		return "account/sign_up";
+	}
+	
+	@RequestMapping("name_update_main.me")
+	public String nameupdatePage() {
+		return "account/name_update";
+	}
+	
 }

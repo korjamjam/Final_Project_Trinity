@@ -41,15 +41,11 @@
                 </div>
                 <div class="health_reservation_info">
                     <div class="health_reservation_color_box" style="background-color: #FFE79A;">
-                        건강검진표<br>
-                        발송 및 수령 
+                        암검진 예약 및 검진기관 방문
                     </div>
                     <div id="health_reservation_info_text">
                         <p>
-                            우편발송<br>
-                            1. 지역가입자와 직장 피부양자는 주소지로 우편 발송해 드립니다. <br>
-                            ※ 검진표를 분실 또는 수령치 못한 경우에는 가까운 지사에서 재발급 또는 국민건강보험 사이트(건강검진/검진 대상자 확인)에서 검진대상자 확인서를 출력하실 수 있습니다. <br>
-                            ※ 직장가입자의 경우 해당 사업장으로 통보됩니다.
+                            해당 검진기관을 확인한 뒤 사전예약 하시고 암검진표와 신분증을 가지고 검진기관을 방문하여 암검진 실시
                         </p>
                     </div>
                 </div>

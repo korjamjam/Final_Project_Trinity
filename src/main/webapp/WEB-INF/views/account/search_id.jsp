@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
 <link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/account/searchid.css">
+	href="${ pageContext.servletContext.contextPath }/resources/css/account/search_id.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -30,7 +30,7 @@
                 본인 확인 이메일로 인증
             </label>
             <div class="input-group">
-                <label for="name">이름</label>
+                
                 <input type="text" id="name" placeholder="이름">
             </div>
             <div class="input-group email-group">
@@ -51,10 +51,10 @@
         <div class="method">
             <label>
                 <input type="radio" name="method">
-                회원정보에 등록한 휴대전화로 인증
+                본인 휴대전화로 인증
             </label>
             <div class="input-group">
-                <label for="phone-name">이름</label>
+                
                 <input type="text" id="phone-name" placeholder="이름">
             </div>
             <div class="input-group">

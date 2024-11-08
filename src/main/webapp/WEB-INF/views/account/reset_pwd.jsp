@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 재설정</title>
-     <<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/resetpwd.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/reset_pwd.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,10 +16,7 @@
 
     <div class="container">
         <!-- 탭 메뉴 -->
-        <div class="tab-menu">
-            <span class="tab active">아이디 찾기</span>
-            <span class="tab active">비밀번호 찾기</span>
-        </div>
+        
 
         <!-- 비밀번호 재설정 제목 -->
         <h2 class="title">비밀번호 재설정</h2>
