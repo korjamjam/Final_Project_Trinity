@@ -29,15 +29,13 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/inquiry/inquiry_faq.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 <body>
-
-
 
 	<title>닥터링</title>
 </head>
 <body>
-	<jsp:forward page="WEB-INF/views/inquiry/inquiry_faq.jsp" />
+	<jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
 </html>

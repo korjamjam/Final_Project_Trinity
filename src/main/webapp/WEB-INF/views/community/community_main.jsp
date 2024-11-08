@@ -6,8 +6,14 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+            <link rel="stylesheet" href="/css/default.css">
+            <link rel="stylesheet" href="/css/community_main.css">
+            <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
+=======
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
+>>>>>>> 8432f0f8ac8790a096090c30941c099d441c41a8
             <title>Customer Center</title>
         </head>
 
@@ -225,7 +231,7 @@
                                     <a href="?page=4">4</a>
                                     <a href="?page=5">5</a>
                                 </div>
-                                <button class="write-button">글쓰기</button>
+                                <button class="round-button">글쓰기</button>
                             </footer>
 
                         </section>
