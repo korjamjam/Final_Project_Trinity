@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn">다음</button>
+                <button id="reservation_btn"  type="button" onclick="location.href='health.reservation2'">다음</button>
             </div>
         </div>
     </div>
