@@ -8,7 +8,6 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="/css/default.css">
             <link rel="stylesheet" href="/css/community_medical.css">
-            <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
             <title>Customer Center</title>
         </head>
 
@@ -225,7 +224,7 @@
                                     <a href="?page=4">4</a>
                                     <a href="?page=5">5</a>
                                 </div>
-                                <button class="round-button">글쓰기</button>
+                                <button class="write-button">글쓰기</button>
                             </footer>
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
