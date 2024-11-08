@@ -238,6 +238,8 @@
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>
+                    </div>
+                    
                     <!-- JavaScript 코드 추가 -->
                     <script>
                         function parseDate(dateStr) {

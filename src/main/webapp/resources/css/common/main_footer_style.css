@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .footer {
@@ -39,17 +40,14 @@ body {
     font-weight: bold;
     text-decoration: none;
     margin-right: 10px;
-    /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
+
 }
 
 .horizontal-line {
     flex-grow: 1;
-    /* 媛�濡쒖꽑�씠 �궓�� 怨듦컙�쓣 梨꾩슦�룄濡� */
     height: 1px;
     background-color: #ccc;
-    /* 媛�濡쒖꽑 �깋�긽 */
     margin-left: 10px;
-    /* �떏�꽣留곴낵�쓽 媛꾧꺽 */
 }
 
 
