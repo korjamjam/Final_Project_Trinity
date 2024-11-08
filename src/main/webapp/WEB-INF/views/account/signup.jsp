@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,7 +17,7 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="../common/main_header.jsp"%>
+<%@ include file="../common/main_header.jsp"%>
 
 
 	<div class="signup-container">

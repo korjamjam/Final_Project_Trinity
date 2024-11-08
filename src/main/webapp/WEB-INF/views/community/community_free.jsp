@@ -6,10 +6,15 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_free.css">
             <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
 
+=======
+            <link rel="stylesheet" href="/css/default.css">
+            <link rel="stylesheet" href="/css/community_free.css">
+>>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
             <title>Customer Center</title>
         </head>
 
@@ -232,6 +237,10 @@
                                     <a href="?page=4">4</a>
                                     <a href="?page=5">5</a>
                                 </div>
+<<<<<<< HEAD
+=======
+                                <button class="write-button">글쓰기</button>
+>>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
                             </footer>
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
