@@ -301,6 +301,7 @@
 
 @media (min-width: 768px) {
 
+	
     /* 기본적으로 .mobile-only와 .web-only를 숨김 */
     .mobile-only {
         display: none;
@@ -454,6 +455,11 @@
         align-items: flex-end;
         /* 내부 요소를 하단 정렬 */
         margin-bottom: 15px;
+    }
+    
+    .content-button{
+    	display: flex;
+    	justify-content: flex-end;
     }
 
     .content-description {
