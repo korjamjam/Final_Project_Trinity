@@ -212,7 +212,7 @@
 		</div>
 		<footer>
 			<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
-			</footer>
+		</footer>
 	
 		<!-- JavaScript 코드 추가 -->
 		<script>
