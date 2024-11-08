@@ -30,9 +30,9 @@
         </div>
         <button class="login-button">로그인</button>
         <div class="login-footer-links">
-            <a href="#">아이디 찾기</a> | 
-            <a href="#">비밀번호 찾기</a> |
-            <a href="#">회원가입</a>
+            <a href="search_id_main.me">아이디 찾기</a> | 
+            <a href="search_pwd_main.me">비밀번호 찾기</a> |
+            <a href="sign_up_main.me">회원가입</a>
         </div>
     </div>
 </div>

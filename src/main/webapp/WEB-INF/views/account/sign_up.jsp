@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/account/signup.css">
+	href="${ pageContext.servletContext.contextPath }/resources/css/account/sign_up.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
 	rel="stylesheet">

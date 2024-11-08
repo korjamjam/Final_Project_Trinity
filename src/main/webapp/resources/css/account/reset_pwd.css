@@ -15,6 +15,12 @@ body {
     background-color: #fff; /* 전체 배경을 흰색으로 설정 */
 }
 
+/* 헤더 위 여백 제거 */
+header {
+    margin-top: 0;
+}
+
+/* 컨텐츠 컨테이너 스타일 */
 .container {
     width: 90%;
     max-width: 400px;
@@ -24,6 +30,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box;
+    margin: 20px auto; /* 위아래 여백 추가 */
+    padding: 70px;
 }
 
 /* 탭 메뉴 스타일 */
@@ -40,6 +48,16 @@ body {
     text-align: center;
     color: #666;
     cursor: pointer;
+    border-radius: 8px 8px 0 0; /* 탭에 radius 적용 */
+}
+
+/* 아이디 찾기 및 비밀번호 찾기 버튼 구분 */
+.tab:first-child {
+    background-color: #f0f0f0;
+}
+
+.tab:last-child {
+    background-color: #e0f7fa;
 }
 
 .tab.active {
@@ -52,13 +70,15 @@ body {
 .title {
     font-size: 18px;
     color: #333;
-    margin-bottom: 10px;
+    margin-top: 60px; 
+    margin-bottom: 0; 
 }
 
 .subtitle {
     font-size: 14px;
     color: #666;
-    margin-bottom: 20px;
+    margin-top: 10px; 
+    margin-bottom: 60px; 
 }
 
 /* 비밀번호 재설정 폼 스타일 */
@@ -103,7 +123,7 @@ form input[type="password"] {
     padding: 12px;
     font-size: 16px;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #8DCE4E;
     border: none;
     border-radius: 5px;
     cursor: pointer;
