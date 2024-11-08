@@ -24,21 +24,7 @@
                     <!-- Main Content Section -->
                     <main class="main-content">
                         <!-- Sidebar Menu -->
-                        <aside class="sidebar">
-
-                            <ul class="menu">
-                                <li><a href="#" class="active">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#">자유게시판<span class="arrow">›</span></a></li>
-                                <li><a href="#">메디톡<span class="arrow">›</span></a></li>
-                                <li><a href="#">이벤트<span class="arrow">›</span></a></li>
-                            </ul>
-                            <div class="support-box">
-                                <p class="support-text">도움이 필요하신가요?</p>
-                                <a href="#" class="support-link">1:1 문의하기</a>
-                            </div>
-                        </aside>
-
-
+                        <%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">

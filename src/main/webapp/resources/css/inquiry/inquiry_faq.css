@@ -131,6 +131,11 @@
 
 @media ( min-width : 768px) {
 	/* 기본적으로 .mobile-only와 .web-only를 숨김 */
+	#faq{
+		color: #6cc24a;
+		font-weight: bold;
+		text-decoration: none;
+	}
 	.mobile-only {
 		display: none;
 	}

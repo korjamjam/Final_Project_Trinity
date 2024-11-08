@@ -42,19 +42,19 @@
             <div class="dropdown">
                 <a href="community_main.me">커뮤니티</a>
                 <div class="dropdown-content">
-                    <a href="#">인기</a>
-                    <a href="#">자유</a>
-                    <a href="#">의료 소통</a>
-                    <a href="#">이벤트</a>
+                    <a href="community_main.me">인기</a>
+                    <a href="community_free.me">자유</a>
+                    <a href="community_medical.me">의료 소통</a>
+                    <a href="community_event.me">이벤트</a>
                 </div>
             </div>
             <div class="dropdown">
-                <a href="#">고객문의</a>
+                <a href="inquiry_notification.me">고객문의</a>
                 <div class="dropdown-content">
-                    <a href="#">공지사항</a>
-                    <a href="#">알림판</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Q&A</a>
+                    <a href="inquiry_notification.me">공지사항</a>
+                    <a href="inquiry_notice.me">알림판</a>
+                    <a href="inquiry_faq.me">FAQ</a>
+                    <a href="inquiry_qna.me">Q&A</a>
                 </div>
             </div>
         </nav>
