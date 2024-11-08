@@ -29,7 +29,7 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css">
 </head>
 <body>
 
@@ -37,7 +37,7 @@
 </head>
 <body>
 
-	<jsp:forward page="WEB-INF/views/account/profile-edit.jsp" />
+	<jsp:forward page="WEB-INF/views/commmunity/community-detail.jsp" />
 
 
 

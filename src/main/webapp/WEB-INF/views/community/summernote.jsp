@@ -43,12 +43,12 @@
 			<div class="post-wrapper">
 				<div class="post-form-container">
 					<div class="post-form-header">
-						<select class="post-category-select">
+						<select class="post-category-select" onchange="changeCategory(this.value)">
 							<option>자유게시판</option>
 							<option>메디톡</option>
 							<option>이벤트게시판</option>
 						</select>
-						<select class="post-tag-select">
+						<select class="post-tag-select" id="post-tag-select">
 							<option>말머리 선택</option>
 							<option>말머리 선택</option>
 							<option>말머리 선택</option>
@@ -72,54 +72,59 @@
 		<script>
 			$(document).ready(function () {
 				function initializeSummernote() {
-					if (window.matchMedia("(max-width: 768px)").matches) {
-						$('#summernote').summernote({
-							height: 400, // 모바일 버전 높이
-							width: '100%', // 모바일 버전 너비
-							placeholder: '글을 입력하세요.',
-							tabsize: 2,
-							toolbar: [
-								['style', ['style']],
-								['font', ['bold', 'underline', 'clear']],
-								['color', ['color']],
-								['para', ['ul', 'ol', 'paragraph']],
-								['table', ['table']],
-								['insert', ['link', 'picture', 'video']],
-								['view', ['fullscreen', 'codeview', 'help']]
-							],
-							callbacks: {
-								onImageUpload: fileUpload
-							}
-						});
-					} else {
-						$('#summernote').summernote({
-							height: 500, // 웹 버전 높이
-							width: 800, // 웹 버전 너비
-							placeholder: '글을 입력하세요.',
-							tabsize: 2,
-							toolbar: [
-								['style', ['style']],
-								['font', ['bold', 'underline', 'clear']],
-								['color', ['color']],
-								['para', ['ul', 'ol', 'paragraph']],
-								['table', ['table']],
-								['insert', ['link', 'picture', 'video']],
-								['view', ['fullscreen', 'codeview', 'help']]
-							],
-							callbacks: {
-								onImageUpload: fileUpload
-							}
-						});
-					}
+					const isPc = !window.matchMedia("(max-width: 768px)").matches;
+
+					$('#summernote').summernote({
+						height: isPc ? 500 : 400, // 모바일 버전 높이
+						width: isPc ? 800 : '100%', // 모바일 버전 너비
+						placeholder: '글을 입력하세요.',
+						tabsize: 2,
+						toolbar: [
+							['style', ['style']],
+							['font', ['bold', 'underline', 'clear']],
+							['color', ['color']],
+							['para', ['ul', 'ol', 'paragraph']],
+							['table', ['table']],
+							['insert', ['link', 'picture', 'video']],
+							['view', ['fullscreen', 'codeview', 'help']]
+						],
+						callbacks: {
+							onImageUpload: fileUpload
+						}
+					});
+				
 				}
 
 				initializeSummernote();
 				$(window).resize(initializeSummernote); // 창 크기 변경 시 다시 초기화
 			});
 
+			function changeCategory(category) {
+				
+				let tagSelect = document.querySelector("#post-tag-select");
+				tagSelect.innerHTML = ""; //비움
+
+
+				switch(category){
+				case "자유게시판":
+					tagSelect.innerHTML = `<option>친목</option>
+										   <option>유머</option>
+										   <option>꿀팁</option>`;
+					break;
+				case "메디톡":
+					tagSelect.innerHTML = `<option>질문</option>
+										   <option>정보</option>`;
+					break;
+				case "이벤트게시판":
+					tagSelect.innerHTML = `<option>관리자</option>
+										   <option>우리동네소식</option>
+										   <option>꿀팁</option>`;
+					break;
+				}
+			}
+
 			// 이미지 업로드 처리 함수
 			function fileUpload(files) {
-				console.log(files);
 				const fd = new FormData();
 				for (let file of files) {
 					fd.append("fileList", file);
@@ -148,28 +153,6 @@
 					}
 				});
 			}
-			$(document).ready(function () {
-				$('.post-category-select').change(function () {
-					let selectedCategory = $(this).val().trim(); // 공백 제거를 추가
-					console.log("Selected category:", selectedCategory); // 디버깅용 출력
-
-					let $tagSelect = $('.post-tag-select');
-
-					$tagSelect.empty(); // 기존 옵션 제거
-
-					if (selectedCategory === '자유게시판') {
-						$tagSelect.append('<option>친목</option>');
-						$tagSelect.append('<option>유머</option>');
-						$tagSelect.append('<option>꿀팁</option>');
-					} else if (selectedCategory === '메디톡') {
-						$tagSelect.append('<option>질문</option>');
-						$tagSelect.append('<option>정보</option>');
-					} else if (selectedCategory === '이벤트게시판') {
-						$tagSelect.append('<option>관리자</option>');
-						$tagSelect.append('<option>우리동네소식</option>');
-					}
-				});
-			});
 
 		</script>
 
