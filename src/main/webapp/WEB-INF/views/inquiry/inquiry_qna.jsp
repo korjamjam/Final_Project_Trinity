@@ -7,8 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-            <link rel="stylesheet"
-                href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_qna.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_notice.css">
             <title>Customer Center</title>
         </head>
 
@@ -29,7 +28,7 @@
                                 <li><a href="#">고객문의<span class="arrow">›</span></a></li>
                                 <li><a href="#">알림판<span class="arrow">›</span></a></li>
                                 <li><a href="#">FAQ<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">Q&A<span class="arrow">›</span></a></li>
+                                <li><a href="#" class="active">Q&A<span class="arrow">›</span></a></li>                     
                             </ul>
                             <div class="support-box">
                                 <p class="support-text">도움이 필요하신가요?</p>
@@ -43,179 +42,173 @@
                             <div class="content-header">
                                 <h2 class="content-title">Q&A</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
-                                <div class="content-controls">
-                                    <div class="sort-write-container">
-                                        <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
-                                            <option value="추천수">추천수</option>
-                                            <option value="번호순">번호순</option>
-                                        </select>
-                                        <button class="write-button">글쓰기</button>
+                                <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
+                                    <option value="추천수">추천수</option>
+                                    <option value="번호순">번호순</option>
+                                </select>
+                            </div>
+                            <div class="content-controls">
+                                <p class="content-description">관리자와의 1:1 질문입니다.</p>
+                                <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <select class="sort-select web-only" onchange="sortPosts(this.value)">
+                                    <option value="조회수">조회수</option>
+                                    <option value="작성일">작성일</option>
+                                    <option value="번호순">번호순</option>
+                                </select>
+                            </div>
+                            <!-- Table for Posts -->
+                            <table id="postsTable" class="notice-table">
+                                <thead>
+                                    <tr>
+                                        <th class="category-header">번호</th>
+                                        <th class="title-header">제목</th>
+                                        <th class="author-header">작성자</th>
+                                        <th class="date-header">작성일</th>
+                                        <th class="comment-header">조회수</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Example Post Item -->
+                                    <tr>
+                                        <td>1</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다1</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2023.07.27</td>
+                                        <td class="comment-header">44</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>33</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>3</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">23</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>4</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>56</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>5</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">56</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>6</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>70</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>7</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">80</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>8</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>20</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>9</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">30</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>10</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>50</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>11</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">60</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>12</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>34</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>13</td>
+                                        <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
+                                        <td class="author">jjhim531</td>
+                                        <td class="date">2022.07.27</td>
+                                        <td class="comment-header">23</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>14</td>
+                                        <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
+                                        <td class="author">paris3131</td>
+                                        <td class="date">2024.11.01</td>
+                                        <td>33</td>
+                                    </tr>
+                                    
+
+                                    <!-- Additional rows as needed -->
+                                </tbody>
+                            </table>
+                            <!-- 페이지네이션과 검색 섹션을 포함하는 div -->
+                            <div class="page-search-container">
+                                <!-- Pagination Footer -->
+                                <footer class="pagination-footer">
+                                    <div class="pagination">
+                                        <a href="?page=1">1</a>
+                                        <a href="?page=2">2</a>
+                                        <a href="?page=3">3</a>
+                                        <a href="?page=4">4</a>
+                                        <a href="?page=5">5</a>
                                     </div>
+                                    <button class="write-button">글쓰기</button>
+                                </footer>
+                                <!-- 검색 필드 섹션 -->
+                                <div class="search-section">
+                                    <select class="search-type">
+                                        <option value="title">제목만</option>
+                                        <option value="author">글작성자</option>
+                                        <option value="content">댓글내용</option>
+                                    </select>
+                                    <input type="text" class="search-input" placeholder="검색어를 입력해주세요" />
+                                    <button class="search-button">검색</button>
                                 </div>
-                                <div class="content-controls">
-                                    <p class="content-description">관리자와의 1:1 질문입니다.</p>
-                                    <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
-                                    <div class="sort-write-container">
-                                        <select class="sort-select web-only" onchange="sortPosts(this.value)">
-                                            <option value="조회수">조회수</option>
-                                            <option value="작성일">작성일</option>
-                                            <option value="번호순">번호순</option>
-                                        </select>
-                                        <button class="write-button">글쓰기</button>
-                                    </div>
-                                </div>
-                                <!-- Table for Posts -->
-                                <table id="postsTable" class="notice-table">
-                                    <thead>
-                                        <tr>
-                                            <th class="category-header">번호</th>
-                                            <th class="title-header">제목</th>
-                                            <th class="author-header">작성자</th>
-                                            <th class="date-header">작성일</th>
-                                            <th class="comment-header">조회수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Example Post Item -->
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다1</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2023.07.27</td>
-                                            <td class="comment-header">44</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>2</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>33</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>3</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">23</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>4</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>56</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>5</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">56</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>6</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>70</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>7</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">80</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>8</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>20</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>9</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">30</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>10</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>50</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>11</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">60</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>12</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>34</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>13</td>
-                                            <td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
-                                            <td class="author">jjhim531</td>
-                                            <td class="date">2022.07.27</td>
-                                            <td class="comment-header">23</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>14</td>
-                                            <td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
-                                            <td class="author">paris3131</td>
-                                            <td class="date">2024.11.01</td>
-                                            <td>33</td>
-                                        </tr>
-
-
-                                        <!-- Additional rows as needed -->
-                                    </tbody>
-                                </table>
-                                <!-- 페이지네이션과 검색 섹션을 포함하는 div -->
-                                <div class="page-search-container">
-                                    <!-- Pagination Footer -->
-                                    <div class="pagination-footer">
-                                        <div class="pagination">
-                                            <a href="?page=1">1</a>
-                                            <a href="?page=2">2</a>
-                                            <a href="?page=3">3</a>
-                                            <a href="?page=4">4</a>
-                                            <a href="?page=5">5</a>
-                                        </div>
-                                    </div>
-                                    <!-- 검색 필드 섹션 -->
-                                    <div class="search-section">
-                                        <select class="search-type">
-                                            <option value="title">제목만</option>
-                                            <option value="author">글작성자</option>
-                                            <option value="content">댓글내용</option>
-                                        </select>
-                                        <input type="text" class="search-input" placeholder="검색어를 입력해주세요" />
-                                        <button class="search-button">검색</button>
-                                    </div>
-                                </div>
+                            </div>
 
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
