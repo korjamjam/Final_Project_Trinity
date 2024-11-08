@@ -28,12 +28,12 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <!-- css -->
-<link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css
+<link rel="stylesheet" href="<%=path%>/resources/css/common/default.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/community/community_detail.css">
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/community/community_main_writer.jsp" />
+	<jsp:include page="/WEB-INF/views/community/community_detail.jsp" />
 </body>
 
 </html>

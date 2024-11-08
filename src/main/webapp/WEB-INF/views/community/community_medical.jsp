@@ -15,12 +15,8 @@
             <div>
                 <!-- Header Section -->
                 <header class="header">
-<<<<<<< HEAD
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
-=======
-                   <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
->>>>>>> parent of 72fd086 (custom_public.css파일 생성)
 
                 <div class="container">
                     <!-- Main Content Section -->
