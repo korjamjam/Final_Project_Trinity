@@ -253,7 +253,38 @@ body{
     color: white;
 }
 
+@media (min-width: 600px) {
+    .hospital_detail_event_wrapper{
+        display: flex;
+        justify-content: center;
+        font-family: "Noto Sans KR", system-ui;
+        width: 70%;
+        margin-bottom: 30px;
+    }
+    .hospital_detail_wrapper{
+        font-family: "Noto Sans KR", system-ui;
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
 @media (min-width: 768px) {
+    .hospital_detail_event_wrapper{
+        display: flex;
+        justify-content: center;
+        font-family: "Noto Sans KR", system-ui;
+        width: 60%;
+        margin-bottom: 30px;
+    }
+    .hospital_detail_wrapper{
+        font-family: "Noto Sans KR", system-ui;
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
     .hospital_detail_doctor_row_wrapper{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
