@@ -1,0 +1,9 @@
+diff a/src/main/webapp/WEB-INF/views/community/community_event.jsp b/src/main/webapp/WEB-INF/views/community/community_event.jsp	(rejected hunks)
+@@ -8,6 +8,7 @@
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+             <link rel="stylesheet" href="/css/default.css">
+             <link rel="stylesheet" href="/css/community_event.css">
++            <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
+             <title>Customer Center</title>
+         </head>
+ 
