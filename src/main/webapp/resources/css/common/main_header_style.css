@@ -9,14 +9,9 @@
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
-
     width:100%;
-
-
-
-    width: 100%;
 
 }
 
@@ -125,19 +120,19 @@
 
 @media (max-width: 1000px) {
     .nav-links a {
-        padding: 40px 12px; /* �뙣�뵫 蹂�寃� */
+        padding: 40px 12px;
     }
     .dropdown-content {
         min-width: 95px;
-        border-radius: 8px; /* 紐⑥꽌由� �뫁湲�寃� */
+        border-radius: 8px; 
     }
 
     .dropdown-content a {
         font-size: 13px;
-        padding: 20px 16px; /* �뙣�뵫 異붽� */
+        padding: 20px 16px; 
         text-decoration: none;
         display: block;
-        transition: background-color 0.3s; /* 遺��뱶�윭�슫 �샇踰� �슚怨� */
+        transition: background-color 0.3s; 
     }
 }
 
@@ -151,7 +146,7 @@
     }
 
     .header{
-        padding: 0 20px;
+        padding: 0 40px;
     }
 }
 

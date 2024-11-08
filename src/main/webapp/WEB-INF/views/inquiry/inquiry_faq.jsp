@@ -7,14 +7,14 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
-            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_notification.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_faq.css">
             <title>Customer Center</title>
         </head>
 
         <body>
             <div>
                 <!-- Header Section -->
-                <header class="header">
+                <header>
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
 
@@ -41,12 +41,17 @@
                         <section class="notice-content">
                             <div class="content-header">
                                 <h2 class="content-title">FAQ</h2>
+                                
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <div class="content-mobile-button">
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
                                     <option value="번호순">번호순</option>
                                 </select>
+                                <button class="write-mobile-button">글쓰기</button>
+                                </div>
                             </div>
+                            
                             <div class="content-controls">
                                 <p class="content-description">닥터링에게 자주 묻는 질문입니다.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
@@ -54,7 +59,7 @@
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
-                                    <option value="카테고리순">카테고리순</option>
+                                    <option value="카테고리">카테고리</option>
                                 </select>
                                 <button class="write-button">글쓰기</button>
                                 </div>
