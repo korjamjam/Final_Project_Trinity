@@ -4,28 +4,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
-    background-color: #f5f5f5;
+    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
 }
 
+/* 모바일과 데스크탑을 위한 프로필 컨테이너 */
 .profile-container {
-    width: calc(100% - 40px);
-    max-width: 500px; /* 데스크탑 화면에서 더 넓게 */
+    width: 100%;
+    max-width: 500px;
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 1px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    margin: 20px 0; /* 데스크탑에서 위아래 여백 */
 }
 
+/* 타이틀 스타일 */
 .profile-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.5rem; /* 반응형 폰트 크기 */
+    font-size: 1.5rem;
 }
 
+/* 프로필 사진 및 수정 버튼 */
 .profile-picture {
     display: flex;
     flex-direction: column;
@@ -50,12 +52,13 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.8rem; /* 반응형 폰트 크기 */
+    font-size: 0.8rem;
     position: absolute;
     bottom: -10px;
     right: calc(50% - 25px);
 }
 
+/* 인풋 및 수정 버튼 그룹 */
 .input-group {
     display: flex;
     align-items: center;
@@ -63,7 +66,7 @@ body {
 }
 
 .input-group label {
-    flex: 0 0 70px;
+    flex: 0 0 40px;
     font-size: 1rem;
 }
 
@@ -86,6 +89,7 @@ body {
     font-size: 1rem;
 }
 
+/* 비밀번호 변경 및 수정 버튼 */
 .password-change {
     display: block;
     width: 100%;
@@ -115,11 +119,18 @@ body {
     background-color: #13a285;
 }
 
-/* 반응형 미디어 쿼리 */
+/* 모바일 화면에서 헤더와 푸터 여백 제거 */
 @media (max-width: 768px) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
     .profile-container {
-        max-width: 90%; /* 작은 화면에서 적절한 크기로 조정 */
+        margin: 0; /* 모바일에서는 상하 여백 제거 */
+        max-width: 100%;
         padding: 15px;
+        border-radius: 0;
     }
 
     .profile-container h2 {
@@ -148,30 +159,17 @@ body {
         font-size: 0.9rem;
         padding: 8px;
     }
+
+    .input-group .edit-button {
+        font-size: 0.75rem; /* 작은 화면에서 버튼 크기 조정 */
+        padding: 4px; /* 버튼의 여백 축소 */
+    }
 }
 
-@media (max-width: 480px) {
+/* 데스크탑 화면에서 여백 추가 */
+@media (min-width: 1024px) {
     .profile-container {
-        padding: 10px;
-    }
-
-    .profile-container h2 {
-        font-size: 1.1rem;
-    }
-
-    .input-group label {
-        flex: 0 0 60px; /* 작은 화면에서 레이블 너비 줄임 */
-        font-size: 0.85rem;
-    }
-
-    .input-group input {
-        font-size: 0.85rem;
-        padding: 7px;
-    }
-
-    .password-change,
-    .submit-button {
-        font-size: 0.85rem;
-        padding: 7px;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 }

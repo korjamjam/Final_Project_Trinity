@@ -1,15 +1,32 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
+}
+
 .container {
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin: 20px;
+    box-sizing: border-box;
+    margin: 0; /* 모바일에서 상하 여백 제거 */
 }
 
-
+/* 제목과 부제목 스타일 */
 .title {
     font-size: 24px;
     font-weight: 700;
@@ -23,6 +40,7 @@
     margin-bottom: 20px;
 }
 
+/* 라디오 그룹 */
 .radio-group {
     display: flex;
     align-items: center;
@@ -40,13 +58,13 @@
     color: #333;
 }
 
-
+/* 입력 그룹 */
 .input-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
     text-align: left;
-    width: 100%; 
+    width: 100%;
 }
 
 .input-group label {
@@ -61,7 +79,7 @@
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 100%; 
+    width: 100%;
 }
 
 /* 이메일 선택 그룹 */
@@ -70,13 +88,13 @@
     align-items: center;
     gap: 5px;
     flex-wrap: wrap;
-    width: 100%; 
+    width: 100%;
 }
 
 .select-group input[type="text"],
 .select-group select {
     flex: 1;
-    min-width: 0; 
+    min-width: 0;
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ddd;
@@ -87,9 +105,9 @@
     font-size: 14px;
 }
 
-
+/* 제출 버튼 스타일 */
 .submit-btn {
-    width: 100%; /* 버튼 너비 고정 */
+    width: 100%;
     padding: 12px;
     font-size: 16px;
     background-color: #4CAF50;
@@ -104,7 +122,7 @@
     background-color: #45A049;
 }
 
-
+/* 도움 링크 */
 .help-link {
     margin-top: 20px;
     font-size: 14px;
@@ -116,11 +134,13 @@
     text-decoration: none;
 }
 
-
+/* 데스크탑 화면 */
 @media (min-width: 768px) {
     .container {
         max-width: 600px;
         padding: 40px;
+        margin-top: 40px; /* 상하 여백 추가 */
+        margin-bottom: 40px;
     }
 
     .title {
@@ -129,6 +149,10 @@
 
     .subtitle {
         font-size: 18px;
+    }
+
+    .tab {
+        font-size: 16px;
     }
 
     .input-group label {

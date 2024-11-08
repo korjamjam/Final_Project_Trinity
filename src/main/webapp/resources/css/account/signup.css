@@ -1,30 +1,34 @@
+/* 기본 스타일 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
-    background-color: #f5f5f5;
+    background-color: #fff; /* 배경을 흰색으로 설정 */
 }
 
+/* 회원가입 컨테이너 */
 .signup-container {
     width: 100%;
-    max-width: 1040px; /* 1440px 화면에서 양옆에 200px 여백 */
-    padding: 20px; 
+    max-width: 1040px; /* 데스크탑 화면에서의 최대 너비 */
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     box-sizing: border-box;
+    margin: 20px 0; /* 데스크탑 화면에서 위아래 여백 */
 }
 
+/* 제목 스타일 */
 .signup-container h2 {
     text-align: center;
     font-size: 24px; /* 데스크탑 환경에서 더 큰 글꼴 크기 */
     margin-bottom: 20px;
 }
 
+/* 입력 그룹 */
 .input-group {
     display: flex;
     align-items: center;
@@ -33,7 +37,7 @@ body {
 }
 
 .input-group label {
-    flex: 0 0 100px; /* 더 넓은 레이블 고정 너비 */
+    flex: 0 0 100px; /* 레이블 고정 너비 */
     font-size: 14px;
     margin-right: 10px;
 }
@@ -61,6 +65,7 @@ body {
     box-sizing: border-box;
 }
 
+/* 이메일 입력 그룹 */
 .email-group {
     display: flex;
     align-items: center;
@@ -72,6 +77,7 @@ body {
     color: #777;
 }
 
+/* 회원가입 버튼 */
 .signup-button {
     width: 100%;
     padding: 12px;
@@ -88,20 +94,32 @@ body {
     background-color: #13a285;
 }
 
-@media (max-width: 1240px){
-    
-}
+/* 반응형 미디어 쿼리 */
 
 /* 화면 너비 0 ~ 768px */
-@media (max-width: 768px){
- 
+@media (max-width: 768px) {
+    .signup-container {
+        width: 100%; /* 모바일 화면에서 좌우 여백 제거 */
+        padding: 15px;
+        border-radius: 0; /* 모서리 둥글기를 제거하여 화면에 딱 맞춤 */
+        margin: 0; /* 모바일에서 위아래 여백 제거 */
+        box-sizing: border-box;
+    }
+
+    .input-group label {
+        flex: 0 0 80px; /* 모바일에서 레이블 너비 조정 */
+        font-size: 14px;
+    }
+
+    .signup-container h2 {
+        font-size: 20px; /* 모바일에서 타이틀 크기 조정 */
+    }
 }
 
 /* 화면 너비 0 ~ 480px */
 @media (max-width: 480px) {
     .email-group {
-        display: flex;
-        
+        flex-direction: column; /* 모바일에서 수직 정렬 */
         align-items: stretch; /* 전체 너비로 확장 */
     }
 
@@ -115,7 +133,12 @@ body {
     .email-group span {
         display: none; /* "@" 기호를 숨겨 모바일에서 공간 절약 */
     }
-
-    
 }
 
+/* 데스크탑 화면에서 여백 추가 */
+@media (min-width: 1024px) {
+    .signup-container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
