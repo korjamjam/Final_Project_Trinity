@@ -6,20 +6,20 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_medical.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
-            
             <title>Customer Center</title>
         </head>
 
         <body>
             <div>
                 <!-- Header Section -->
+
                 <header>
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
+
                 <div class="container">
                     <!-- Main Content Section -->
                     <main class="main-content">

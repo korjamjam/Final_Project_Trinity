@@ -7,7 +7,7 @@
     <title>위/대장 내시경 주의사항</title>
     
      <!-- css -->
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/caution_guide.css">
     
 </head>
