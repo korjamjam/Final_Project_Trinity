@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Post Management</title>
-     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/post_management.css">
 </head>
 <body>

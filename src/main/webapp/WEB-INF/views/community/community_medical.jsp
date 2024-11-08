@@ -6,31 +6,20 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
+=
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_medical.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
-=======
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_medical.css">
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
-            <title>Customer Center</title>
+<title>Customer Center</title>
         </head>
 
         <body>
             <div>
                 <!-- Header Section -->
-<<<<<<< HEAD
+
                 <header>
-=======
-                <header class="header">
-<<<<<<< HEAD
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
-=======
-                   <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
->>>>>>> parent of 72fd086 (custom_public.css파일 생성)
 
                 <div class="container">
                     <!-- Main Content Section -->
