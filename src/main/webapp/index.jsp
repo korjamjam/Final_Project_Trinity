@@ -33,11 +33,10 @@
 </head>
 <body>
 
-
-
 	<title>닥터링</title>
 </head>
 <body>
+
 	<jsp:forward page="WEB-INF/views/account/profile-edit.jsp" />
 
 
@@ -46,6 +45,9 @@
 
 
 
+
+
+	<jsp:forward page="WEB-INF/views/main.jsp" />
 
 </body>
 </html>

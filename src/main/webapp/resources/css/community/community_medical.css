@@ -182,24 +182,6 @@
         /* 조회수 열의 너비 */
     }
 
-    /* 글쓰기 버튼 */
-    .write-button {
-        margin-left: auto;
-        /* 글쓰기 버튼을 가장 오른쪽에 위치 */
-        padding: 6px 12px;
-        font-size: 12px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-        max-width: 100px;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
 
     /* Pagination Footer */
     .pagination-footer {
@@ -511,20 +493,7 @@
         background-color: #f0f0f0;
     }
 
-    .write-button {
-        padding: 8px 15px;
-        font-size: 14px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
+    
 
     /* 오른쪽 빈 공간 */
     .empty-space {
@@ -568,21 +537,5 @@
         /* hover 시 밑줄 제거 */
     }
 
-    /* 글쓰기 버튼 */
-    .write-button {
-        margin-left: auto;
-        /* 글쓰기 버튼을 가장 오른쪽에 위치 */
-        padding: 6px 12px;
-        font-size: 12px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
+ 
 }
