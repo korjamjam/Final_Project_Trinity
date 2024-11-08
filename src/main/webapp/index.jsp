@@ -37,7 +37,7 @@
 </head>
 <body>
 
-	<jsp:forward page="/WEB-INF/views/reservation/general_reservation.jsp" />
+	<jsp:forward page="/WEB-INF/views/main.jsp" />
 
 </body>
 </html>
