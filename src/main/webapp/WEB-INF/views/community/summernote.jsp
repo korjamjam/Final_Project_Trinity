@@ -22,8 +22,6 @@
 		<header class="header">
 			<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 		</header>
-<<<<<<< HEAD
-<<<<<<< HEAD
 		<div class="content-container">
 			<div class="top-bar">
 				<div class="post-title-section">
@@ -163,6 +161,9 @@
 =======
 
 >>>>>>> parent of 4400539 (반응형 community-write)
+=======
+
+>>>>>>> parent of 4400539 (반응형 community-write)
 	<form method="post" action="write">
 		제목 : <input type="text" name="title"> <br>
 		<br>
@@ -237,6 +238,10 @@
 	
 </body>
 <<<<<<< HEAD
+<<<<<<< HEAD
+</html>
+>>>>>>> parent of 4400539 (반응형 community-write)
+=======
 </html>
 >>>>>>> parent of 4400539 (반응형 community-write)
 =======

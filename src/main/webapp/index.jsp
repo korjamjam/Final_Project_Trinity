@@ -29,8 +29,6 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<<<<<<< HEAD
-<<<<<<< HEAD
 <link rel="stylesheet" href="<%=path%>/resources/css/commmunity/community-detail.css">
 </head>
 <body>
@@ -39,29 +37,6 @@
 </head>
 <body>
 
-	<jsp:forward page="WEB-INF/views/commmunity/community-detail.jsp" />
-
-
-
-
-
-
-
-
-
 	<jsp:forward page="WEB-INF/views/main.jsp" />
 
-=======
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
-</head>
-<body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
->>>>>>> parent of 4400539 (반응형 community-write)
-=======
-<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
-</head>
-<body>
-	<jsp:include page="/WEB-INF/views/main.jsp" />
->>>>>>> parent of 4400539 (반응형 community-write)
-</body>
 </html>

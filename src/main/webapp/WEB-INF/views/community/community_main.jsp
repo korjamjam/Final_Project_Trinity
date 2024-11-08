@@ -6,20 +6,11 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_main.css">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
-=======
+         >
+           
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
->>>>>>> 8432f0f8ac8790a096090c30941c099d441c41a8
-=======
->>>>>>> parent of 4400539 (반응형 community-write)
-=======
->>>>>>> parent of 4400539 (반응형 community-write)
+ 			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css" rel="stylesheet">
             <title>Customer Center</title>
         </head>
 
