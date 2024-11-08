@@ -19,7 +19,7 @@
 		<body>
 			<div>
 				<!-- Header Section -->
-				<header class="header">
+				<header>
 					<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
 				</header>
 

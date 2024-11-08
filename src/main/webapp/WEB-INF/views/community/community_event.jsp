@@ -6,8 +6,14 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_event.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
+=======
             <link rel="stylesheet" href="/css/default.css">
             <link rel="stylesheet" href="/css/community_event.css">
+>>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
             <title>Customer Center</title>
         </head>
 
@@ -41,21 +47,27 @@
                         <section class="notice-content">
                             <div class="content-header">
                                 <h2 class="content-title">이벤트</h2>
+                                <div class="content-mobile-button">
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">추천수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>
+                                <button class="write-mobile-button">글쓰기</button>
+                                </div>
                             </div>
                             <div class="content-controls">
                                 <p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <div class="content-button">
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">추천수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>
+                                <button class="write-button">글쓰기</button>
+                                </div>
                             </div>
                             <!-- Table for Posts -->
                             <table id="postsTable" class="notice-table">
@@ -186,7 +198,10 @@
                                         <a href="?page=4">4</a>
                                         <a href="?page=5">5</a>
                                     </div>
+<<<<<<< HEAD
+=======
                                     <button class="write-button">글쓰기</button>
+>>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
                                 </footer>
                                 <!-- 검색 필드 섹션 -->
                                 <div class="search-section">
