@@ -13,7 +13,7 @@
         </head>
 
         <body>
-            <div>
+            <div class="main-page">
                 <!-- Header Section -->
                 <header>
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
@@ -197,6 +197,10 @@
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>
+                    </div>
+                    <footer>
+					<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
+					</footer>
                     <!-- JavaScript 코드 추가 -->
                     <script>
                         function parseDate(dateStr) {
