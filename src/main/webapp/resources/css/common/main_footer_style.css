@@ -8,10 +8,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    min-height: 100vh;
 }
 
 .footer {
+    display: flex;
     width: 100%;
     padding: 20px;
     background-color: #f9f9f9;
@@ -19,13 +20,16 @@ body {
     border-top: 1px solid #ddd;
     text-align: center;
     line-height: 1.6;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer-logo {
     display: flex;
     align-items: center;
     width: 100%;
-    /* �쟾泥� �룺�쓣 �궗�슜 */
+
 }
 
 .icon {
@@ -52,6 +56,7 @@ body {
 
 
 .footer-links {
+	width: 100%;
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -71,18 +76,15 @@ body {
     font-weight: bold;
     text-decoration: none;
     margin-right: 10px;
-    /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
 }
 
-}
 .footer-info,
 .footer-company {
     font-weight: bold;
     color: #636363;
-    max-width: 1000px;
-    padding: 0 300px;
     text-align: left;
-    width:100%;
+    width: 100%;
+    max-width: 950px
 }
 
 .footer-info p,
@@ -105,6 +107,7 @@ body {
 	.footer-company p {
     font-size: 12px;
 }
+}
 
 @media (max-width: 768px) {
     .footer-links {
@@ -122,7 +125,7 @@ body {
         color: #8DCE4E;
         font-weight: bold;
         text-decoration: none;
-        margin-right: 10px; /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
+        margin-right: 10px; 
     }
     .footer-icon{
     display: none;
@@ -145,7 +148,7 @@ body {
         color: #8DCE4E;
         font-weight: bold;
         text-decoration: none;
-        margin-right: 10px; /* 媛�濡쒖꽑怨쇱쓽 媛꾧꺽 */
+        margin-right: 10px;
     }
     
 }

@@ -1,29 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<!DOCTYPE html>
-		<html lang="ko">
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-			<link rel="stylesheet"
-				href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
-			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
-				rel="stylesheet">
-			<title>Customer Center</title>
-		</head>
-
-<link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
+<link
+	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
+	rel="stylesheet">
 <title>Customer Center</title>
 </head>
 
 <body>
-	<div>
+	<div class="main-page">
 		<!-- Header Section -->
 		<header>
 			<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -32,10 +26,10 @@
 		<div class="container">
 			<!-- Main Content Section -->
 			<main class="main-content">
-			
+
 				<!-- Sidebar Menu -->
-				<%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
-				
+				<%@ include file="/WEB-INF/views/community/community_sidemenu.jsp"%>
+
 				<!-- Content Section -->
 				<section class="notice-content">
 					<div class="content-header">
@@ -215,11 +209,13 @@
 				<div class="empty-space"></div>
 				<!-- 오른쪽 빈 공간 -->
 			</main>
-			</div>
-			
-			
-			<!-- JavaScript 코드 추가 -->
-			<script>
+		</div>
+		<footer>
+			<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
+			</footer>
+	
+		<!-- JavaScript 코드 추가 -->
+		<script>
             function parseDate(dateStr) {
                 const [year, month, day] = dateStr.split(".");
                 return new Date(year, month - 1, day);
@@ -254,6 +250,5 @@
                 rows.forEach(row => table.getElementsByTagName("tbody")[0].appendChild(row));
             }
         </script>
-       
 </body>
 </html>

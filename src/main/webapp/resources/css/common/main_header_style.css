@@ -118,12 +118,12 @@
     font-weight: bold;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1010px) {
     .nav-links a {
         padding: 40px 12px;
     }
     .dropdown-content {
-        min -width: 95px;
+        min-width: 95px;
         border-radius: 8px; 
     }
 
@@ -136,7 +136,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 780px) {
     .nav-links {
         display: flex;
     }
