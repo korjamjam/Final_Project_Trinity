@@ -17,22 +17,27 @@ body {
     flex-direction: column;
 }
 
+/* 이메일 업데이트 컨테이너 */
 .email-update-container {
     width: 100%;
     max-width: 500px;
-    padding: 20px	;
+    padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 15px; /* 전체 컨테이너에 둥근 모서리 적용 */
     background-color: #fff;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0; /* 모바일에서 상하 여백 제거 */
 }
 
+/* 타이틀 스타일 */
 .email-update-container h2 {
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-top: 60px; /* 위쪽 여백 60px */
+    margin-bottom: 60px; /* 아래쪽 여백 60px */
 }
 
+/* 이메일 업데이트 폼 */
 .email-update-form {
     display: flex;
     flex-direction: column;
@@ -59,8 +64,8 @@ body {
 
 /* 복구 이메일 추가 버튼 스타일 */
 .recovery-email-button {
-    width: 100%; /* 수정하기 버튼과 동일한 너비 설정 */
-    padding: 12px; /* 동일한 패딩 설정 */
+    width: 100%;
+    padding: 12px;
     background-color: #eee;
     color: #000;
     border: 1px solid #ccc;
@@ -78,8 +83,8 @@ body {
 
 /* 수정하기 버튼 스타일 */
 .update-button {
-    width: 100%; /* 동일한 너비 설정 */
-    padding: 12px; /* 동일한 패딩 설정 */
+    width: 100%;
+    padding: 12px;
     background-color: #8CCF4E;
     color: #fff;
     border: none;
@@ -93,6 +98,7 @@ body {
     background-color: #57b87d;
 }
 
+/* 안내 텍스트 */
 .info-text {
     margin-top: 20px;
     font-size: 1rem;
@@ -102,11 +108,28 @@ body {
 }
 
 /* 반응형 미디어 쿼리 */
-@media (min-width: 768px) {
+
+/* 모바일 화면에서 헤더와 푸터 여백 제거 */
+@media (max-width: 768px) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .email-update-container {
+        margin: 0;
+        max-width: 100%;
+        padding: 15px;
+        border-radius: 10px; /* 모바일에서도 레디우스 적용 */
+    }
+}
+
+/* 데스크탑 화면에서 상하 여백 추가 */
+@media (min-width: 1024px) {
     .email-update-container {
         padding: 40px;
         max-width: 600px;
-        margin-top: 50px;
-        margin-bottom: 50px;
+        margin-top: 50px; /* 헤더와의 여백 */
+        margin-bottom: 50px; /* 푸터와의 여백 */
     }
 }

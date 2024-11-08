@@ -17,7 +17,7 @@ body {
     border: 1px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 20px 0; /* 데스크탑에서 위아래 여백 */
+    margin: 40px 0; /* 컨텐츠 위 아래 마진 추가 */
 }
 
 /* 타이틀 스타일 */
@@ -25,6 +25,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-size: 1.5rem;
+    color: #8DCE4E;
 }
 
 /* 프로필 사진 및 수정 버튼 */
@@ -32,7 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 40px; /* 프로필 사진과 입력칸 사이의 여백을 40px로 설정 */
     position: relative;
 }
 
@@ -66,7 +67,7 @@ body {
 }
 
 .input-group label {
-    flex: 0 0 40px;
+    flex: 0 0 60px; /* 라벨 고정 너비 */
     font-size: 1rem;
 }
 
@@ -77,6 +78,7 @@ body {
     border-radius: 5px;
     font-size: 1rem;
     margin-right: 5px;
+    width: 100%; /* 모든 입력칸의 크기를 동일하게 */
 }
 
 .input-group .edit-button {
@@ -163,6 +165,30 @@ body {
     .input-group .edit-button {
         font-size: 0.75rem; /* 작은 화면에서 버튼 크기 조정 */
         padding: 4px; /* 버튼의 여백 축소 */
+    }
+}
+
+/* 작은 화면 모바일 (320px)에서 입력칸 크기 조정 */
+@media (max-width: 320px) {
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .input-group label {
+        flex: 0 0 60px; /* 라벨 고정 너비 줄임 */
+        font-size: 0.85rem;
+    }
+
+    .input-group input {
+        flex: 1;
+        padding: 8px;
+        font-size: 0.85rem; /* 입력 필드 텍스트 크기 조정 */
+    }
+
+    .input-group .edit-button {
+        font-size: 0.75rem; /* 버튼 크기 축소 */
     }
 }
 
