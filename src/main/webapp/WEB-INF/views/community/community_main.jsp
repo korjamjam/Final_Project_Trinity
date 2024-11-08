@@ -2,10 +2,13 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
 		<html lang="ko">
-
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 72163489effdd793f9af4d5d6f22206f10469186
 			<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 			<link rel="stylesheet"
 				href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">

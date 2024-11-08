@@ -31,4 +31,14 @@ public class HealthReservationController {
 	public String cautionGuideCtMri() {
 		return "health_reservation/caution_guide_ct_mri";
 	}
+	
+	@GetMapping("health.reservation1")
+	public String healthReservation1() {
+		return "health_reservation/health_reservation1";
+	}
+	
+	@GetMapping("health.reservation2")
+	public String healthReservation2() {
+		return "health_reservation/health_reservation2";
+	}
 }

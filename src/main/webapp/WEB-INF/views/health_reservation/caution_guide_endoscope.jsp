@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn">
+                <button id="reservation_btn" onclick="location.href='health.reservation1'">
                     예약하기
                 </button>
             </div>
