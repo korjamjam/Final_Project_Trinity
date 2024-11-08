@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_qna.css">
             <title>Customer Center</title>
         </head>
@@ -14,7 +14,7 @@
         <body>
             <div>
                 <!-- Header Section -->
-                <header class="header">
+                <header>
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
 
@@ -41,20 +41,26 @@
                         <section class="notice-content">
                             <div class="content-header">
                                 <h2 class="content-title">Q&A</h2>
+                                <div class="content-mobile-button">
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="추천수">추천수</option>
                                     <option value="번호순">번호순</option>
                                 </select>
+                                <button class="write-mobile-button">글쓰기</button>
+                                </div>
                             </div>
                             <div class="content-controls">
                                 <p class="content-description">관리자와의 1:1 질문입니다.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <div class="content-button">
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="번호순">번호순</option>
                                 </select>
+                                <button class="write-button">글쓰기</button>
+                                </div>
                             </div>
                             <!-- Table for Posts -->
                             <table id="postsTable" class="notice-table">
@@ -196,7 +202,7 @@
                                         <a href="?page=4">4</a>
                                         <a href="?page=5">5</a>
                                     </div>
-                                    <button class="write-button">글쓰기</button>
+
                                 </footer>
                                 <!-- 검색 필드 섹션 -->
                                 <div class="search-section">
@@ -206,7 +212,7 @@
                                         <option value="content">댓글내용</option>
                                     </select>
                                     <input type="text" class="search-input" placeholder="검색어를 입력해주세요" />
-                                    <button class="search-button">검색</button>
+                                	<button class="search-button">검색</button>
                                 </div>
                             </div>
 

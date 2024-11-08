@@ -1,4 +1,4 @@
-package com.project.trinity.etc.summernote.vo;
+package com.project.trinity.community.summernote.vo;
 
 import lombok.Data;
 
