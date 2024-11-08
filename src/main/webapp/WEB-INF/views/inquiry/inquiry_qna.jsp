@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+            <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_qna.css">
             <title>Customer Center</title>
         </head>
@@ -22,19 +22,7 @@
                     <!-- Main Content Section -->
                     <main class="main-content">
                         <!-- Sidebar Menu -->
-                        <aside class="sidebar">
-
-                            <ul class="menu">
-                                <li><a href="#">고객문의<span class="arrow">›</span></a></li>
-                                <li><a href="#">알림판<span class="arrow">›</span></a></li>
-                                <li><a href="#">FAQ<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">Q&A<span class="arrow">›</span></a></li>                     
-                            </ul>
-                            <div class="support-box">
-                                <p class="support-text">도움이 필요하신가요?</p>
-                                <a href="#" class="support-link">1:1 문의하기</a>
-                            </div>
-                        </aside>
+                        <%@ include file="/WEB-INF/views/inquiry/inquiry_sidemenu.jsp" %>
 
 
                         <!-- Content Section -->

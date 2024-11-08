@@ -33,7 +33,7 @@
 
 .title {
     font-size: 1.6rem;
-    color: #8DCE4E; /* �떏�꽣留� �깋�긽 */
+    color: #8DCE4E;
     font-weight: bold;
 }
 
@@ -82,40 +82,40 @@
 
 /* 異붽� CSS */
 .dropdown {
-    position:relative; /* �뱶濡��떎�슫 硫붾돱 �쐞移� �꽕�젙 */
+    position:relative;
     display:flex
 }
 
 
 .dropdown-content {
-    display: none; /* 湲곕낯�쟻�쑝濡� �뱶濡��떎�슫 硫붾돱 �닲源� */
-    position: absolute; /* �뱶濡��떎�슫 硫붾돱 �쐞移� �꽕�젙 */
-    background-color: #ffffff; /* �뱶濡��떎�슫 諛곌꼍�깋 */
+    display: none; 
+    position: absolute;
+    background-color: #ffffff; 
     min-width: 140px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 遺��뱶�윭�슫 洹몃┝�옄 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
     z-index: 1;
-    border-radius: 8px; /* 紐⑥꽌由� �뫁湲�寃� */
+    border-radius: 8px; 
     margin-top: 99px;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block; /* �샇踰� �떆 �뱶濡��떎�슫 硫붾돱 �몴�떆 */
+    display: block;
 }
 
 .dropdown-content a {
     font-size: 16px;
-    color: #265708; /* �뀓�뒪�듃 �깋�긽 */
-    padding: 20px 16px; /* �뙣�뵫 異붽� */
+    color: #265708; 
+    padding: 20px 16px;
     text-decoration: none;
     display: block;
-    transition: background-color 0.3s; /* 遺��뱶�윭�슫 �샇踰� �슚怨� */
+    transition: background-color 0.3s; 
 }
 
 .dropdown-content a:hover {
-    background-color: #8DCE4E; /* �샇踰� �떆 諛곌꼍�깋 */
-    color: #ffffff; /* �샇踰� �떆 �뀓�뒪�듃 �깋�긽 */
-    border-radius: 4px; /* 紐⑥꽌由� �뫁湲�寃� */
+    color: #017e0b; 
+    border-radius: 4px; 
     text-decoration: none;
+    font-weight: bold;
 }
 
 @media (max-width: 1000px) {
@@ -123,7 +123,7 @@
         padding: 40px 12px;
     }
     .dropdown-content {
-        min-width: 95px;
+        min -width: 95px;
         border-radius: 8px; 
     }
 

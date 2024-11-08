@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #ffffff; /* 배경을 흰색으로 변경 */
+    background-color: #ffffff; /* 배경을 흰색으로 설정 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,11 +27,14 @@ body {
     margin: 20px 0; /* 위아래 간격 추가 */
 }
 
+/* 타이틀 스타일 */
 .name-update-container h2 {
-    font-size: 1.5rem; /* 반응형 폰트 크기 */
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    margin-top: 40px; /* 위쪽 여백 60px */
+    margin-bottom: 40px; /* 아래쪽 여백 60px */
 }
 
+/* 폼 스타일 */
 .name-update-form {
     display: flex;
     flex-direction: column;
@@ -56,6 +59,7 @@ body {
     color: #aaa;
 }
 
+/* 수정하기 버튼 스타일 */
 .update-button {
     padding: 12px;
     background-color: #8CCF4E;
@@ -71,6 +75,7 @@ body {
     background-color: #57b87d;
 }
 
+/* 안내 텍스트 */
 .info-text {
     margin-top: 20px;
     font-size: 1rem;
@@ -79,14 +84,14 @@ body {
     line-height: 1.5;
 }
 
-/* 반응형 미디어 쿼리 */
+/* 데스크탑 화면에서 위아래 간격 추가 */
 @media (min-width: 1024px) {
-    /* 데스크탑 화면에서 위아래 간격을 더 넉넉하게 설정 */
     .name-update-container {
         margin: 40px 0; /* 데스크탑에서 위아래 간격 추가 */
     }
 }
 
+/* 모바일 화면(480px 이하) */
 @media (max-width: 480px) {
     .name-update-container {
         padding: 15px;
@@ -108,5 +113,17 @@ body {
 
     .info-text {
         font-size: 0.875rem;
+    }
+}
+
+/* 모바일 화면(320px 이하)에서 헤더와 푸터 여백 제거 */
+@media (max-width: 320px) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .name-update-container {
+        margin: 0; /* 상하 여백 제거 */
     }
 }

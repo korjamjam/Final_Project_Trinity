@@ -130,6 +130,11 @@
 }
 
 @media ( min-width : 768px) {
+	#qna{
+		color: #6cc24a;
+		font-weight: bold;
+		text-decoration: none;
+	}
 	/* 기본적으로 .mobile-only와 .web-only를 숨김 */
 	.mobile-only {
 		display: none;

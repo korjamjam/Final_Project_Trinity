@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctoring Header</title>
 
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_header_style.css">
 
 </head>
@@ -42,24 +42,24 @@
             <div class="dropdown">
                 <a href="community_main.me">커뮤니티</a>
                 <div class="dropdown-content">
-                    <a href="#">인기</a>
-                    <a href="#">자유</a>
-                    <a href="#">의료 소통</a>
-                    <a href="#">이벤트</a>
+                    <a href="community_main.me">인기</a>
+                    <a href="community_free.me">자유</a>
+                    <a href="community_medical.me">의료 소통</a>
+                    <a href="community_event.me">이벤트</a>
                 </div>
             </div>
             <div class="dropdown">
-                <a href="#">고객문의</a>
+                <a href="inquiry_notification.me">고객문의</a>
                 <div class="dropdown-content">
-                    <a href="#">공지사항</a>
-                    <a href="#">알림판</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Q&A</a>
+                    <a href="inquiry_notification.me">공지사항</a>
+                    <a href="inquiry_notice.me">알림판</a>
+                    <a href="inquiry_faq.me">FAQ</a>
+                    <a href="inquiry_qna.me">Q&A</a>
                 </div>
             </div>
         </nav>
         <div class="login-menu">
-            <a href="#">로그인</a>
+            <a href="login_main.me">로그인</a>
             <div class="menu-icon">&#9776;</div>
         </div>
     </header>

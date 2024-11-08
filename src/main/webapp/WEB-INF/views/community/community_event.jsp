@@ -6,14 +6,9 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_event.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
-=======
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_event.css">
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
             <title>Customer Center</title>
         </head>
 
@@ -28,20 +23,8 @@
                     <!-- Main Content Section -->
                     <main class="main-content">
                         <!-- Sidebar Menu -->
-                        <aside class="sidebar">
-
-                            <ul class="menu">
-                                <li><a href="#">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#">자유게시판<span class="arrow">›</span></a></li>
-                                <li><a href="#">메디톡<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">이벤트<span class="arrow">›</span></a></li>
-                            </ul>
-                            <div class="support-box">
-                                <p class="support-text">도움이 필요하신가요?</p>
-                                <a href="#" class="support-link">1:1 문의하기</a>
-                            </div>
-                        </aside>
-
+                        
+                        <%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
 
                         <!-- Content Section -->
                         <section class="notice-content">
@@ -198,10 +181,6 @@
                                         <a href="?page=4">4</a>
                                         <a href="?page=5">5</a>
                                     </div>
-<<<<<<< HEAD
-=======
-                                    <button class="write-button">글쓰기</button>
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
                                 </footer>
                                 <!-- 검색 필드 섹션 -->
                                 <div class="search-section">
