@@ -6,70 +6,52 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
+
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_medical.css">
             <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
-=======
-            <link rel="stylesheet" href="/css/default.css">
-            <link rel="stylesheet" href="/css/community_medical.css">
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
+            
             <title>Customer Center</title>
         </head>
 
         <body>
             <div>
                 <!-- Header Section -->
-<<<<<<< HEAD
                 <header>
-=======
-                <header class="header">
-<<<<<<< HEAD
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
                     <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
                 </header>
-=======
-                   <%@ include file="/WEB-INF/views/common/main_header.jsp" %>
->>>>>>> parent of 72fd086 (custom_public.css파일 생성)
-
                 <div class="container">
                     <!-- Main Content Section -->
                     <main class="main-content">
+                    
                         <!-- Sidebar Menu -->
-                        <aside class="sidebar">
-
-                            <ul class="menu">
-                                <li><a href="#">실시간 인기글<span class="arrow">›</span></a></li>
-                                <li><a href="#" >자유게시판<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">메디톡<span class="arrow">›</span></a></li>
-                                <li><a href="#">이벤트<span class="arrow">›</span></a></li>
-                            </ul>
-                            <div class="support-box">
-                                <p class="support-text">도움이 필요하신가요?</p>
-                                <a href="#" class="support-link">1:1 문의하기</a>
-                            </div>
-                        </aside>
-
+                        <%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
 
                         <!-- Content Section -->
                         <section class="notice-content">
                             <div class="content-header">
                                 <h2 class="content-title">메디톡</h2>
                                 <!-- 모바일 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <div class="content-mobile-button">
                                 <select class="sort-select mobile-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">추천수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>
+                                <button class="write-mobile-button">글쓰기</button>
+                                </div>
                             </div>
                             <div class="content-controls">
                                 <p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
                                 <!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
+                                <div class="content-button">
                                 <select class="sort-select web-only" onchange="sortPosts(this.value)">
                                     <option value="조회수">조회수</option>
                                     <option value="작성일">작성일</option>
                                     <option value="카테고리">카테고리</option>
                                 </select>
+                                <button class="write-button">글쓰기</button>
+                                </div>
                             </div>
                             <!-- Table for Posts -->
                             <table id="postsTable" class="notice-table">
@@ -229,6 +211,7 @@
                                     <!-- Additional rows as needed -->
                                 </tbody>
                             </table>
+                            <div class="page-search-container">
                             <!-- Pagination Footer -->
                             <footer class="pagination-footer">
                                 <div class="pagination">
@@ -238,8 +221,20 @@
                                     <a href="?page=4">4</a>
                                     <a href="?page=5">5</a>
                                 </div>
-                                <button class="write-button">글쓰기</button>
                             </footer>
+                            
+                            <!-- 검색 필드 섹션 -->
+                                <div class="search-section">
+                                    <select class="search-type">
+                                        <option value="title">제목만</option>
+                                        <option value="author">글작성자</option>
+                                        <option value="content">댓글내용</option>
+                                    </select>
+                                    <input type="text" class="search-input" placeholder="검색어를 입력해주세요" />
+                                    <button class="search-button">검색</button>
+                                </div>
+                            </div>
+                            
                         </section>
                         <div class="empty-space"></div> <!-- 오른쪽 빈 공간 -->
                     </main>

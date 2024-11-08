@@ -22,19 +22,7 @@
                     <!-- Main Content Section -->
                     <main class="main-content">
                         <!-- Sidebar Menu -->
-                        <aside class="sidebar">
-
-                            <ul class="menu">
-                                <li><a href="#">공지사항<span class="arrow">›</span></a></li>
-                                <li><a href="#">알림판<span class="arrow">›</span></a></li>
-                                <li><a href="#" class="active">FAQ<span class="arrow">›</span></a></li>
-                                <li><a href="#">Q&A<span class="arrow">›</span></a></li>
-                            </ul>
-                            <div class="support-box">
-                                <p class="support-text">도움이 필요하신가요?</p>
-                                <a href="#" class="support-link">1:1 문의하기</a>
-                            </div>
-                        </aside>
+                        <%@ include file="/WEB-INF/views/inquiry/inquiry_sidemenu.jsp" %>
 
 
                         <!-- Content Section -->
@@ -204,7 +192,7 @@
                                         <a href="?page=4">4</a>
                                         <a href="?page=5">5</a>
                                     </div>
-                                    
+                                
                                 </footer>
                                 <!-- 검색 필드 섹션 -->
                                 <div class="search-section">

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .pagination-footer {
 	display: flex;
 	justify-content: center;
@@ -10,262 +9,6 @@
 	
 	padding-bottom: 50px;
 	/* relative positioning to allow absolute centering */
-=======
-@media (max-width: 767px) {
-
-    /* Mobile layout adjustments */
-    .container {
-        display: block;
-        padding: 10px;
-        height: auto;
-        width: 100%;
-        max-width: 100%;
-        /* 화면에 맞게 */
-        box-sizing: border-box;
-        overflow-x: hidden;
-        /* 좌우 스크롤 제거 */
-    }
-
-    .main-content {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin: 0;
-        box-sizing: border-box;
-        overflow-x: hidden;
-    }
-
-    .notice-content {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    /* 내부 요소 너비 설정 */
-    .content-header,
-    .content-controls,
-    .notice-table,
-    .pagination-footer {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        margin: 0;
-        /* 불필요한 마진 제거 */
-    }
-
-
-    /* Sidebar 숨기기 */
-    .notice-table .author-header,
-    .notice-table .date-header,
-    .author,
-    .date,
-    .content-description,
-    .empty-space,
-    .sidebar {
-        display: none;
-    }
-
-    /* .content-header와 .content-controls를 같은 줄에 배치 */
-    .content-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-    }
-
-    .content-title {
-        color: #6cc24a;
-        font-size: 18px;
-        font-weight: bold;
-        margin: 0;
-    }
-     /* 모바일에서는 .mobile-only만 표시 */
-     .mobile-only {
-        display: inline-block;
-        font-size: 12px;
-        padding: 5px 10px;
-        border: 1px solid #6cc24a;
-        border-radius: 4px;
-        color: #265708;
-        background-color: #ffffff;
-    }
-
-    .web-only {
-        display: none; /* 웹 전용 요소 숨기기 */
-    }
-    .content-controls {
-        display: none; /* 모바일에서 content-description을 숨김 */
-    }
-    /* 게시글 정렬 */
-    .menu a {
-        padding: 15px;
-        font-size: 10px;
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .sort-select {
-        font-size: 12px;
-        padding: 5px 10px;
-        border: 1px solid #6cc24a;
-        border-radius: 4px;
-        color: #265708;
-        background-color: #ffffff;
-        max-width: 80px;
-        /* 셀렉트 박스 너비 제한 */
-    }
-
-    .sort-select:focus,
-    .sort-select:active {
-        border-color: #6cc24a;
-        /* 포커스 및 활성화 상태에서도 녹색 테두리 유지 */
-        outline: none;
-    }
-
-    .sort-select option:hover {
-        background-color: #f0f0f5;
-        /* 원하는 호버 색상 */
-        color: #265708;
-    }
-
-    /* 테이블 스타일 */
-    .notice-table {
-        width: 100%;
-        table-layout: fixed;
-        /* 테이블의 열 너비를 균일하게 설정 */
-        border-collapse: collapse;
-        margin-top: 15px;
-        overflow-x: auto;
-        /* 가로 스크롤 허용 */
-    }
-
-    .notice-table th {
-        padding: 5px 5px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        /* 줄 바꿈 방지 */
-    }
-
-    .notice-table td {
-        padding: 5px 5px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        /* 줄 바꿈 방지 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* 말줄임표 표시 */
-    }
-
-    .notice-table th {
-        background-color: #6cc24a;
-        font-weight: bold;
-        color: #ffffff;
-    }
-
-    .notice-table td a {
-        display: inline-block;
-        white-space: nowrap;
-        /* 텍스트가 한 줄로 유지되도록 */
-        overflow: hidden;
-        /* 넘치는 텍스트 숨김 */
-        text-overflow: ellipsis;
-        /* 말줄임표 표시 */
-        max-width: 100%;
-        /* 셀 너비에 맞춤 */
-    }
-
-    .category-header {
-        width: 20%;
-        /* 카테고리 열의 너비 */
-    }
-
-    .title-header {
-        width: 40%;
-        /* 제목 열의 너비 */
-    }
-
-    .comment-header {
-        width: 20%;
-        /* 조회수 열의 너비 */
-    }
-
-    /* 글쓰기 버튼 */
-    .write-button {
-        margin-left: auto;
-        /* 글쓰기 버튼을 가장 오른쪽에 위치 */
-        padding: 6px 12px;
-        font-size: 12px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-        max-width: 100px;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
-
-    /* Pagination Footer */
-    .pagination-footer {
-        display: flex;
-        justify-content: center;
-        /* 가운데 정렬 */
-        align-items: center;
-        padding: 15px 0;
-        margin-top: 15px;
-        width: 100%;
-    }
-
-    /* Pagination 스타일 유지 */
-    .pagination {
-        font-size: 12px;
-        color: #265708;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        /* absolute centering within the footer */
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .pagination a {
-        font-size: 18px;
-        color: #265708;
-        text-decoration: none;
-        padding: 5px 5px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-    .pagination a:hover {
-        background-color: #f0f0f0;
-        text-decoration: none;
-        /* hover 시 밑줄 제거 */
-    }
-
-
-    .pagination-footer .pagination a {
-        font-size: 18px;
-        color: #265708;
-        text-decoration: none;
-        padding: 5px 5px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-
-
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
 }
 
 .pagination {
@@ -326,7 +69,6 @@
 	padding: 10px;
 }
 
-<<<<<<< HEAD
 .search-type, .search-input, .search-button {
 	height: 100%;
 	/* 모든 요소의 높이를 동일하게 설정 */
@@ -351,22 +93,6 @@
 	cursor: pointer;
 	min-height: 36px;
 }
-=======
-    /* Main content layout */
-    .main-content {
-        display: flex;
-        justify-content: space-between;
-        /* sidebar와 content 사이 공간 분배 */
-        padding: 20px;
-    
-        max-width: 1400px;
-        /* 화면 중앙에서 일정한 너비 유지 */
-        width: 100%;
-        height: 95vh;
-        /* 화면 높이의 80% */
-        box-sizing: border-box;
-    }
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
 
 .title{
 	
@@ -386,7 +112,6 @@
 	min-height: 36px;
 }
 
-<<<<<<< HEAD
 /* 검색 버튼 스타일 */
 .search-button {
 	padding: 6px 12px;
@@ -399,15 +124,6 @@
 	min-width: 80px;
 	min-height:36px;
 }
-=======
-    .menu {
-        list-style: none;
-        margin: 0;
-        border: 1px solid #ddd;
-        /* 테두리 설정 */
-        border-radius: 8px;
-        align-items: center; /* 메뉴 항목들을 중앙 정렬 */
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
 
 .search-button:hover {
 	background-color: #45a049;
@@ -415,6 +131,11 @@
 
 @media ( min-width : 768px) {
 	/* 기본적으로 .mobile-only와 .web-only를 숨김 */
+	#popular{
+		color: #6cc24a;
+		font-weight: bold;
+		text-decoration: none;
+	}
 	.mobile-only {
 		display: none;
 	}
@@ -897,7 +618,6 @@
 		padding: 0;
 	}
 
-<<<<<<< HEAD
 	/* Pagination 스타일 유지 */
 	.pagination {
 		font-size: 12px;
@@ -947,151 +667,4 @@
 	.page-search-container {
 		margin-top: 15px;
 	}
-=======
-    .sort-select option:hover {
-        background-color: #f0f0f5;
-        /* 원하는 호버 색상 */
-        color: #265708;
-    }
-
-    /* Table styling */
-    .notice-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    .notice-table th,
-    .notice-table td {
-        padding: 10px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-
-    }
-
-    .notice-table td {
-        line-height: 1.6;
-        /* 줄 간격을 늘려 높이 증가 */
-        white-space: nowrap;
-        /* 줄 바꿈 방지 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .notice-table th {
-        background-color: #6cc24a;
-        font-weight: bold;
-        color: #ffffff;
-    }
-
-    .notice-table td a {
-        color: #333;
-        text-decoration: none;
-
-    }
-
-    .notice-table td a:hover {
-        text-decoration: none;
-    }
-
-    /* Pagination Footer */
-    .pagination-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 0;
-        margin-top: 20px;
-        /* 간격 추가 */
-    }
-
-
-    .pagination-footer .pagination a {
-        font-size: 18px;
-        color: #265708;
-        text-decoration: none;
-        padding: 5px;
-        margin: 0 5px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-    .pagination a:hover {
-        background-color: #f0f0f0;
-    }
-
-    .write-button {
-        padding: 8px 15px;
-        font-size: 14px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
-
-    /* 오른쪽 빈 공간 */
-    .empty-space {
-        width: 180px;
-        /* sidebar와 동일한 너비 설정 */
-    }
-
-    /* Pagination Footer */
-    .pagination-footer {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        position: relative;
-        /* relative positioning to allow absolute centering */
-    }
-
-    .pagination {
-        font-size: 12px;
-        color: #265708;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        /* absolute centering within the footer */
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .pagination a {
-        font-size: 18px;
-        color: #265708;
-        text-decoration: none;
-        padding: 5px 5px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-    .pagination a:hover {
-        background-color: #f0f0f0;
-        text-decoration: none;
-        /* hover 시 밑줄 제거 */
-    }
-
-    /* 글쓰기 버튼 */
-    .write-button {
-        margin-left: auto;
-        /* 글쓰기 버튼을 가장 오른쪽에 위치 */
-        padding: 6px 12px;
-        font-size: 12px;
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .write-button:hover {
-        background-color: #5aa33c;
-    }
->>>>>>> 290805b1e68b8e982924f5d67fedb2444073e01e
 }
