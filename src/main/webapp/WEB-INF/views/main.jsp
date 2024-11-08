@@ -23,7 +23,7 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
 
 </head>

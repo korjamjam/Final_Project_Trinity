@@ -44,6 +44,27 @@
         border-color: #999;
         /* 호버 시 테두리색 */
     }
+    
+    .sort-select {
+		font-size: 12px;
+		padding: 5px 10px;
+		border: 1px solid #6cc24a;
+		border-radius: 4px;
+		color: #265708;
+		background-color: #ffffff;
+		max-width: 80px;
+		/* 셀렉트 박스 너비 제한 */
+	}
+	.sort-select:focus, .sort-select:active {
+		border-color: #6cc24a;
+		/* 포커스 및 활성화 상태에서도 녹색 테두리 유지 */
+		outline: none;
+	}
+	.sort-select option:hover {
+		background-color: #f0f0f5;
+		/* 원하는 호버 색상 */
+		color: #265708;
+	}
 
 }
 
@@ -92,5 +113,23 @@
         border-color: #999;
         /* 호버 시 테두리색 */
     }
+    .sort-select {
+		font-size: 14px;
+		padding: 5px 10px;
+		border: 1px solid #6cc24a;
+		border-radius: 4px;
+		color: #265708;
+		background-color: #ffffff;
+	}
+	.sort-select:focus, .sort-select:active {
+		border-color: #6cc24a;
+		/* 포커스 및 활성화 상태에서도 녹색 테두리 유지 */
+		outline: none;
+	}
+	.sort-select option:hover {
+		background-color: #f0f0f5;
+		/* 원하는 호버 색상 */
+		color: #265708;
+	}
 
 }

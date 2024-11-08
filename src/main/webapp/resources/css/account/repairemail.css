@@ -10,13 +10,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
+    margin: 0;
+    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
 }
 
+/* 복구 이메일 컨테이너 스타일 */
 .recovery-email-container {
-    width: calc(100% - 40px);
-    max-width: 500px; /* 데스크탑 화면에서 더 넓게 */
+    width: 100%;
+    max-width: 500px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -24,10 +25,11 @@ body {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    margin: 20px 0; /* 데스크탑 기본 여백 */
 }
 
 .recovery-email-container h2 {
-    font-size: 1.5rem; /* 반응형 폰트 크기 */
+    font-size: 1.5rem;
     margin-bottom: 15px;
 }
 
@@ -73,17 +75,19 @@ body {
 
 .info-text {
     margin-top: 20px;
-    font-size: 1rem; /* 반응형 폰트 크기 */
+    font-size: 1rem;
     color: #666;
     text-align: left;
     line-height: 1.5;
 }
 
-/* 반응형 미디어 쿼리 */
+/* 모바일 화면에서 상하 여백 제거 */
 @media (max-width: 768px) {
     .recovery-email-container {
-        max-width: 90%; /* 작은 화면에서 적절한 크기로 조정 */
+        max-width: 100%;
         padding: 15px;
+        margin: 0; /* 상하 여백 제거 */
+        border-radius: 0; /* 모서리 둥글기 제거 */
     }
 
     .recovery-email-container h2 {
@@ -105,26 +109,10 @@ body {
     }
 }
 
-@media (max-width: 480px) {
+/* 데스크탑 화면에서 상하 여백 추가 */
+@media (min-width: 1024px) {
     .recovery-email-container {
-        padding: 10px;
-    }
-
-    .recovery-email-container h2 {
-        font-size: 1.1rem;
-    }
-
-    .input-group input {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-
-    .add-button {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-
-    .info-text {
-        font-size: 0.85rem;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 }

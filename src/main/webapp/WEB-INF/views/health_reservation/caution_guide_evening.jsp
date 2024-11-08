@@ -7,7 +7,7 @@
     <title>검진 전날 주의사항</title>
     
      <!-- css -->
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/caution_guide.css">
     
 </head>
@@ -21,11 +21,12 @@
                 검진 전 주의사항
             </div>
             <div class="caution_guide_select">
-                <select name="" id="">
-                    <option value="">건강검진 전날</option>
-                    <option value="">건강검진 당일</option>
-                    <option value="">위/대장내시경</option>
-                    <option value="">CT/MRI</option>
+                <select name="" id="caution_guide_select" onchange="window.open(value,'_self');">
+                    <option value="" disabled hidden selected>주의사항</option>
+                    <option value="caution_guide_even">건강검진 전날</option>
+                    <option value="caution_guide_d">건강검진 당일</option>
+                    <option value="caution_guide_endo">위/대장내시경</option>
+                    <option value="caution_guide_ct">CT/MRI</option>
                 </select>
             </div>
             <div id="caution_guide_title">
