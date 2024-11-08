@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<!DOCTYPE html>
+		<html lang="ko">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+			<link rel="stylesheet"
+				href="${ pageContext.servletContext.contextPath }/resources/css/community/community_main.css">
+			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
+				rel="stylesheet">
+			<title>Customer Center</title>
+		</head>
 
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">

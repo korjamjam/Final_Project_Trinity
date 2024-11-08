@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px;
     background-color: #ffffff;
 }
 
@@ -30,6 +30,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     box-sizing: border-box;
+    margin-top: 70px;
+    margin-bottom: 70px;
 }
 
 /* 로그인 인풋 그룹 */
@@ -131,7 +133,7 @@ body {
 
     .login-container {
         max-width: 600px; /* 데스크탑에서 넓게 설정 */
-        padding: 50px;
+        padding: 80px;
     }
 
     .login-container input[type="text"],
