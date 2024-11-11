@@ -1,4 +1,6 @@
 .content-container {
+    max-width: 864px;
+    width: 60%;
     display: flex;
     justify-content: center;
     /* 가로 중앙 정렬 */
