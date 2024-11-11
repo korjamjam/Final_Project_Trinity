@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,12 +20,12 @@
         </div>
         <nav class="nav-links">
             <div class="dropdown">
-                <a href="#">병원찾기</a>
+                <a href="hospital_list">병원찾기</a>
             </div>
             <div class="dropdown">
                 <a href="#">종합예약</a>
                 <div class="dropdown-content">
-                    <a href="#">진료예약</a>
+                    <a href="general_reservation">진료예약</a>
                     <a href="#">백신예약</a>
                     <a href="#">예약확인</a>
                 </div>
