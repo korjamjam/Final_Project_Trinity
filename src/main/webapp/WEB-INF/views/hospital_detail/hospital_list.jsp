@@ -60,7 +60,7 @@
         <!-- list -->
         <div>
             <div class="list">
-                <div class="list_title"><p>청담이든소아청소년과의원</p></div>
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
                 <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
                 <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
                 <div class="list_tag">
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="list">
-                <div class="list_title"><p>청담이든소아청소년과의원</p></div>
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
                 <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
                 <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
                 <div class="list_tag">
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="list">
-                <div class="list_title"><p>청담이든소아청소년과의원</p></div>
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
                 <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
                 <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
                 <div class="list_tag">
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="list">
-                <div class="list_title"><p>청담이든소아청소년과의원</p></div>
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
                 <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
                 <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
                 <div class="list_tag">

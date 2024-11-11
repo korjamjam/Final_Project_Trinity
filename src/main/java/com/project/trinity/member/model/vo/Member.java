@@ -1,7 +1,18 @@
 package com.project.trinity.member.model.vo;
 
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Member {
 
 	private String userNo;
@@ -10,13 +21,13 @@ public class Member {
 	private String userName;
 	private String email;
 	private String phone;
-	private Date birthday;
+	private String birth;
 	private String gender;
 	private String address;
-	private Date enrollDate;
-	private String Status;
-	private String isadmin;
-	private String medkey;
+	private String enrollDate;
+	private String status;
+	private String isAdmin;
+	private String medKey;
 	private String hosNo;
 
 }

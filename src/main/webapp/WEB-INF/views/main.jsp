@@ -51,7 +51,7 @@
 
 		<!-- 3 Button -->
 		<div class="shortCutButton">
-			<button class="reservation">예약하기</button>
+			<button class="reservation" onclick="location.href='general_reservation'">예약하기</button>
 			<div class="find">
 				<button class="findHos">병원찾기</button>
 				<button class="findPh">가까운 약국 찾기</button>
@@ -71,7 +71,7 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href=""> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
+				<a href="hospital_list"> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
 					alt="openHospital">
 					<p>열린 병원</p>
 				</a>

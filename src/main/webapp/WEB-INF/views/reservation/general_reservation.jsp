@@ -275,6 +275,11 @@
                 border-radius: 5px;
             }
         }
+        @media (min-width: 1200px) {
+            .reservation_button{
+                margin-bottom: 93px;
+            }
+        }
 
     </style>
 
