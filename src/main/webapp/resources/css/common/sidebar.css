@@ -1,4 +1,4 @@
-/* ±âº» ½ºÅ¸ÀÏ */
+/* ê¸°ë³¸ ìŠ¤íƒ€ì¼ */
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +6,7 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-body {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-}
-
-/* »çÀÌµå¹Ù ±âº» ½ºÅ¸ÀÏ */
+/* ì‚¬ì´ë“œë°” ê¸°ë³¸ ìŠ¤íƒ€ì¼ */
 .hamburger-sidebar {
     width: 250px;
     height: 100vh;
@@ -27,14 +19,16 @@ body {
     overflow-y: auto;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column; /* ì‚¬ì´ë“œë°” ë‚´ë¶€ ìš”ì†Œ ì •ë ¬ */
 }
 
-/* »çÀÌµå¹Ù º¸ÀÌ±â (Å¬·¡½º Ãß°¡ ½Ã Àû¿ë) */
+/* ì‚¬ì´ë“œë°” ë³´ì´ê¸° (í´ë˜ìŠ¤ ì¶”ê°€ ì‹œ ì ìš©) */
 .hamburger-show-sidebar {
     transform: translateX(0);
 }
 
-/* »çÀÌµå¹Ù Çì´õ ½ºÅ¸ÀÏ */
+/* ì‚¬ì´ë“œë°” í—¤ë” ìŠ¤íƒ€ì¼ */
 .hamburger-sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -56,7 +50,7 @@ body {
     cursor: pointer;
 }
 
-/* »çÀÌµå¹Ù ¸Ş´º ½ºÅ¸ÀÏ */
+/* ì‚¬ì´ë“œë°” ë©”ë‰´ ìŠ¤íƒ€ì¼ */
 .hamburger-sidebar-menu {
     list-style-type: none;
     padding: 0;
@@ -83,12 +77,12 @@ body {
     color: #888;
 }
 
-/* ¸Ş´º ¾ÆÀÌÅÛ Å¬¸¯ ½Ã ½ºÅ¸ÀÏ (È£¹ö È¿°ú) */
+/* ë©”ë‰´ ì•„ì´í…œ í´ë¦­ ì‹œ ìŠ¤íƒ€ì¼ (í˜¸ë²„ íš¨ê³¼) */
 .hamburger-sidebar-menu li:hover {
     background-color: #f0f0f0;
 }
 
-/* 778px ÀÌÇÏ È­¸é¿¡¼­ »çÀÌµå¹Ù°¡ ÀüÃ¼¸¦ °¡¸®µµ·Ï ¼³Á¤ */
+/* 778px ì´í•˜ í™”ë©´ì—ì„œ ì‚¬ì´ë“œë°”ê°€ ì „ì²´ë¥¼ ê°€ë¦¬ë„ë¡ ì„¤ì • */
 @media (max-width: 778px) {
     .hamburger-sidebar {
         width: 100%;
