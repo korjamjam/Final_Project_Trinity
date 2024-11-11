@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f8f9fa; /* 배경색을 약간 회색으로 설정 */
+    background-color: #fff; 
 }
 
 /* 컨테이너 스타일 */
