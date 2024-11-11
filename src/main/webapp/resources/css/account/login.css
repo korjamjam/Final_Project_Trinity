@@ -106,18 +106,18 @@ body {
 /* 로그인 푸터 링크 */
 .login-footer-links {
     text-align: center;
-    font-size: 12px;
+    font-size: 10px; /* 폰트 크기 줄임 */
     color: #777;
     display: flex;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 3px; /* 간격 최소화 */
+    flex-wrap: nowrap; /* 줄바꿈 방지 */
 }
 
 .login-footer-links a {
     color: #777;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 1px; /* 링크 간의 여백을 줄임 */
 }
 
 .login-footer-links a:hover {
@@ -151,6 +151,6 @@ body {
     }
 
     .login-footer-links {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
