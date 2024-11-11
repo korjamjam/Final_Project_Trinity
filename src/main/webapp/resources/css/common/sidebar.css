@@ -1,4 +1,4 @@
-/* ±âº» ½ºÅ¸ÀÏ */
+/* æ¹²ê³•ë‚¯ ÂŠã…½ÂƒÂ€Â */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,8 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* »çÀÌµå¹Ù ±âº» ½ºÅ¸ÀÏ */
+
+/* ì‚¬ì´ë“œë°” ê¸°ë³¸ ìŠ¤íƒ€ì¼ */
 .hamburger-sidebar {
     width: 250px;
     height: 100vh;
@@ -20,15 +21,16 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     display: flex;
-    flex-direction: column; /* »çÀÌµå¹Ù ³»ºÎ ¿ä¼Ò Á¤·Ä */
+
+    flex-direction: column; /* ì‚¬ì´ë“œë°” ë‚´ë¶€ ìš”ì†Œ ì •ë ¬ */
 }
 
-/* »çÀÌµå¹Ù º¸ÀÌ±â (Å¬·¡½º Ãß°¡ ½Ã Àû¿ë) */
+/* Â‚ÑŠÂëŒ€Â“Âœè«›Â” è¹‚ëŒÂë‹¿ë¦° (ÂëŒ€ÂÂ˜ÂŠ ç•°Â”åª›Â€ Â‹Âœ ï¿½ÂÂš) */
 .hamburger-show-sidebar {
     transform: translateX(0);
 }
 
-/* »çÀÌµå¹Ù Çì´õ ½ºÅ¸ÀÏ */
+/* Â‚ÑŠÂëŒ€Â“Âœè«›Â” Â—ã…»ÂÂ” ÂŠã…½ÂƒÂ€Â */
 .hamburger-sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -50,7 +52,7 @@
     cursor: pointer;
 }
 
-/* »çÀÌµå¹Ù ¸Ş´º ½ºÅ¸ÀÏ */
+/* Â‚ÑŠÂëŒ€Â“Âœè«›Â” ï§Â”Â‰ ÂŠã…½ÂƒÂ€Â */
 .hamburger-sidebar-menu {
     list-style-type: none;
     padding: 0;
@@ -77,12 +79,12 @@
     color: #888;
 }
 
-/* ¸Ş´º ¾ÆÀÌÅÛ Å¬¸¯ ½Ã ½ºÅ¸ÀÏ (È£¹ö È¿°ú) */
+/* ï§Â”Â‰ Â•Â„ÂëŒ„Â…Âœ ÂëŒ€â”ƒ Â‹Âœ ÂŠã…½ÂƒÂ€Â (Â˜ëªƒÂ„ Âšâ‘£ë‚µ) */
 .hamburger-sidebar-menu li:hover {
     background-color: #f0f0f0;
 }
 
-/* 778px ÀÌÇÏ È­¸é¿¡¼­ »çÀÌµå¹Ù°¡ ÀüÃ¼¸¦ °¡¸®µµ·Ï ¼³Á¤ */
+/* 778px ÂëŒ„Â•Â˜ Â™Â”ï§ëŒÂ—ÂÂ„Âœ Â‚ÑŠÂëŒ€Â“Âœè«›Â”åª›Â€ ï¿½Â„ï§£ëŒ€ï¿½ åª›Â€ç”±Ñ‰Â„æ¿¡Â Â„ã…¼Â• */
 @media (max-width: 778px) {
     .hamburger-sidebar {
         width: 100%;
