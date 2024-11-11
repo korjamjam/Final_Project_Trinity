@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="sidebar.jsp" %> <!-- 사이드바 포함 -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -70,11 +71,15 @@
             document.querySelector('.hamburger-sidebar').classList.toggle('hamburger-show-sidebar');
         }
 
+
         // Close button in sidebar
         const closeBtn = document.querySelector('.hamburger-close-btn');
         if (closeBtn) {
             closeBtn.addEventListener('click', toggleSidebar);
         }
+
+        document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
+
     </script>
 </body>
 </html>
