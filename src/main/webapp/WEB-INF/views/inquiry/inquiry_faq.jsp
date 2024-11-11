@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/common/defalut.css">
+	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_faq.css">
 <title>Customer Center</title>
@@ -40,7 +40,6 @@
 								<option value="조회수">조회수</option>
 								<option value="번호순">번호순</option>
 							</select>
-							<button class="write-mobile-button">글쓰기</button>
 						</div>
 					</div>
 
@@ -50,11 +49,12 @@
 						<div class="content-button">
 							<select class="sort-select web-only"
 								onchange="sortPosts(this.value)">
-								<option value="조회수">조회수</option>
-								<option value="작성일">작성일</option>
-								<option value="카테고리">카테고리</option>
+								<option value="회원/정보관리">회원/정보관리</option>
+								<option value="사이트이용">사이트이용</option>
+								<option value="커뮤니티">커뮤니티</option>
+								<option value="이벤트">이벤트</option>
+								<option value="예약">예약</option>
 							</select>
-							<button class="write-button">글쓰기</button>
 						</div>
 					</div>
 					<!-- Table for Posts -->
@@ -204,7 +204,7 @@
 							<select class="search-type">
 								<option value="title">제목만</option>
 								<option value="author">글작성자</option>
-								<option value="content">댓글내용</option>
+								<option value="content">카테고리</option>
 							</select> <input type="text" class="search-input"
 								placeholder="검색어를 입력해주세요" />
 							<button class="search-button">검색</button>
