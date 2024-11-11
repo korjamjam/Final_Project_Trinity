@@ -39,11 +39,11 @@
 								<option value="추천수">추천수</option>
 								<option value="번호순">번호순</option>
 							</select>
-							<button class="write-mobile-button">글쓰기</button>
+							<button class="write-mobile-button">ㅍ</button>
 						</div>
 					</div>
 					<div class="content-controls">
-						<p class="content-description">관리자와의 1:1 질문입니다.</p>
+						<p class="content-description">닥터링 사이트 이용 관련 질문 게시판입니다.</p>
 						<!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
 						<div class="content-button">
 							<select class="sort-select web-only"
@@ -52,14 +52,15 @@
 								<option value="작성일">작성일</option>
 								<option value="번호순">번호순</option>
 							</select>
-							<button class="write-button">글쓰기</button>
+							<button class="write-button" onclick = "location.href = 'inquiry_qna_write.me' ">문의하기</button>
 						</div>
 					</div>
 					<!-- Table for Posts -->
 					<table id="postsTable" class="notice-table">
 						<thead>
 							<tr>
-								<th class="category-header">번호</th>
+								<th class="title-number">번호</th>
+								<th class="category-header">카테고리</th>
 								<th class="title-header">제목</th>
 								<th class="author-header">작성자</th>
 								<th class="date-header">작성일</th>
@@ -70,6 +71,7 @@
 							<!-- Example Post Item -->
 							<tr>
 								<td>1</td>
+								<td>회원관련</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다1</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2023.07.27</td>
@@ -78,6 +80,7 @@
 
 							<tr>
 								<td>2</td>
+								<td>회원관련</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -86,6 +89,7 @@
 
 							<tr>
 								<td>3</td>
+								<td>회원관련</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -94,6 +98,7 @@
 
 							<tr>
 								<td>4</td>
+								<td>회원관련</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -102,6 +107,7 @@
 
 							<tr>
 								<td>5</td>
+								<td>사이트이용</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -110,6 +116,7 @@
 
 							<tr>
 								<td>6</td>
+								<td>사이트이용</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -118,6 +125,7 @@
 
 							<tr>
 								<td>7</td>
+								<td>사이트이용</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -126,6 +134,7 @@
 
 							<tr>
 								<td>8</td>
+								<td>사이트이용</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -134,6 +143,7 @@
 
 							<tr>
 								<td>9</td>
+								<td>이벤트</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -142,6 +152,7 @@
 
 							<tr>
 								<td>10</td>
+								<td>이벤트</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -150,6 +161,7 @@
 
 							<tr>
 								<td>11</td>
+								<td>이벤트</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -158,6 +170,7 @@
 
 							<tr>
 								<td>12</td>
+								<td>커뮤니티</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -166,6 +179,7 @@
 
 							<tr>
 								<td>13</td>
+								<td>커뮤니티</td>
 								<td><a href="/post-detail.html?id=1">질문 있습니다!</a></td>
 								<td class="author">jjhim531</td>
 								<td class="date">2022.07.27</td>
@@ -174,6 +188,7 @@
 
 							<tr>
 								<td>14</td>
+								<td>예약</td>
 								<td><a href="/post-detail.html?id=784">질문 있습니다!</a></td>
 								<td class="author">paris3131</td>
 								<td class="date">2024.11.01</td>
@@ -199,7 +214,7 @@
 							<select class="search-type">
 								<option value="title">제목만</option>
 								<option value="author">글작성자</option>
-								<option value="content">댓글내용</option>
+								<option value="content">카테고리</option>
 							</select> <input type="text" class="search-input"
 								placeholder="검색어를 입력해주세요" />
 							<button class="search-button">검색</button>

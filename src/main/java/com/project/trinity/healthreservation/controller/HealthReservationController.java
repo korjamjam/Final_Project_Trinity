@@ -41,4 +41,9 @@ public class HealthReservationController {
 	public String healthReservation2() {
 		return "health_reservation/health_reservation2";
 	}
+	
+	@GetMapping("health_reservation.result")
+	public String healthReservationResult() {
+		return "health_reservation/health_reservation_result";
+	}
 }

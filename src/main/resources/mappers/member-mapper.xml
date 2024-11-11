@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="memberMapper">
+
+	<!-- 단축 설정 -->
+	<resultMap type="Member" id="memberResultSet">
+	<result column="USER_NO" property="userNo"/>
+  	<result column="USER_ID" property="userId"/>
+  	<result column="USER_PWD" property="userPwd"/>
+  	<result column="USER_NAME" property="userName"/>
+  	<result column="EMAIL" property="email"/>
+  	<result column="PHONE" property="phone"/>
+	<result column="BIRTH" property="birth"/>
+  	<result column="GENDER" property="gender"/>
+  	<result column="ADDRESS" property="address"/>
+  	<result column="ENROLL_DATE" property="enrollDate"/>
+  	<result column="STATUS" property="status"/>
+  	<result column="ISADMIN" property="isAdmin"/>
+  	<result column="MED_KEY" property="medKey"/>
+  	<result column="HOS_NO" property="hosNo"/>
+  </resultMap>
+  
+  <!-- 쿼리문 시작 -->
+  <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+    SELECT USER_NO,
+    	   USER_ID,
+		   USER_PWD,
+		   USER_NAME,
+		   EMAIL,
+		   PHONE,
+		   BIRTH,
+		   GENDER,
+		   ADDRESS,
+		   ENROLL_DATE,
+		   STATUS,
+		   ISADMIN,
+		   MED_KEY,
+		   HOS_NO
+	 FROM MEMBER
+	WHERE USER_ID = #{userId}
+	  AND USER_PWD = #{userPwd}
+	  AND STATUS = 'Y'
+  </select>
+  
+</mapper>

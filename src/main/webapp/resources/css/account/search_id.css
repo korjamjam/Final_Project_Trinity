@@ -1,213 +1,205 @@
 /* 기본 스타일 설정 */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f8f9fa; /* 배경색을 약간의 회색으로 설정 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #fff; /* 배경색을 약간의 회색으로 설정 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 
 /* 컨테이너 */
 .container {
-    width: 100%;
-    max-width: 400px;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
+	width: 100%;
+	max-width: 400px;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	text-align: center;
 }
 
 .container h1 {
-    font-size: 24px;
-    margin-top: 60px; 
-    margin-bottom: 10px; 
-    color: #333;
+	font-size: 24px;
+	margin-top: 60px;
+	margin-bottom: 10px;
+	color: #333;
 }
 
 .container p {
-    font-size: 16px;
-    color: #555;
-    margin-top: 10px; 
-    margin-bottom: 60px; 
+	font-size: 16px;
+	color: #555;
+	margin-top: 10px;
+	margin-bottom: 60px;
 }
 
 /* 인증 방법 박스 스타일 */
 .method {
-    background-color: #f4f6f8;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
+	background-color: #f4f6f8;
+	padding: 20px;
+	border-radius: 8px;
+	border: 1px solid #e0e0e0;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	transition: transform 0.3s;
 }
 
 .method:hover {
-    transform: translateY(-2px); /* 살짝 올라오는 효과 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 추가 */
+	transform: translateY(-2px); /* 살짝 올라오는 효과 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 추가 */
 }
 
 .method label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    display: block;
-    margin-bottom: 15px;
-    cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	display: block;
+	margin-bottom: 15px;
+	cursor: pointer;
 }
 
 /* 입력 그룹 */
 .input-group {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .input-group label {
-    font-size: 14px;
-    color: #666;
-    display: block;
-    margin-bottom: 5px;
+	font-size: 14px;
+	color: #666;
+	display: block;
+	margin-bottom: 5px;
 }
 
 .input-group input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
 }
 
 /* 이메일 입력 섹션 */
 .email-group .email-inputs {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	flex-wrap: wrap;
 }
 
 .email-group input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
 }
 
 .email-group span {
-    font-size: 14px;
-    color: #555;
+	font-size: 14px;
+	color: #555;
 }
 
 /* 모바일에서 직접 입력 */
-@media (max-width: 768px) {
-    .email-group select {
-        display: none; /* 모바일에서 선택 메뉴 숨김 */
-    }
-
-    .email-group span {
-        display: none; /* @ 기호 숨김 */
-    }
-
-    .footer-text {
-        font-size: 9px; /* 모바일에서 폰트 크기 축소 */
-        margin-top: 8px;
-        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-        overflow: hidden;
-        text-overflow: ellipsis; /* 글씨가 길 경우 생략(...) 처리 */
-    }
+@media ( max-width : 768px) {
+	.email-group select {
+		display: none; /* 모바일에서 선택 메뉴 숨김 */
+	}
+	.email-group span {
+		display: none; /* @ 기호 숨김 */
+	}
+	.footer-text {
+		font-size: 9px; /* 모바일에서 폰트 크기 축소 */
+		margin-top: 8px;
+		white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+		overflow: hidden;
+		text-overflow: ellipsis; /* 글씨가 길 경우 생략(...) 처리 */
+	}
 }
 
 /* 데스크탑에서 선택할 수 있도록 표시 */
-@media (min-width: 768px) {
-    .email-group select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 14px;
-    }
+@media ( min-width : 768px) {
+	.email-group select {
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 14px;
+	}
 }
 
 /* 제출 버튼 */
 .submit-button {
-    width: 100%;
-    padding: 14px;
-    background-color: #8CCF4E;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s;
+	width: 100%;
+	padding: 14px;
+	background-color: #8CCF4E;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-top: 15px;
+	transition: background-color 0.3s;
 }
 
 .submit-button:hover {
-    background-color: #72b93f;
+	background-color: #72b93f;
 }
 
 /* 하단 텍스트 */
 .footer-text {
-    font-size: 14px;
-    text-align: center;
-    margin-top: 10px;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 10px;
 }
 
 .footer-text a {
-    color: #14BF96;
-    text-decoration: none;
-    font-size: 13px;
+	color: #14BF96;
+	text-decoration: none;
+	font-size: 13px;
 }
 
 .footer-text a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* 데스크탑 화면을 위한 미디어 쿼리 */
-@media (min-width: 768px) {
-    .container {
-        max-width: 500px; /* 데스크탑에서 넓게 설정 */
-        padding: 40px; /* 더 넉넉한 내부 여백 */
-    }
-
-    h1 {
-        font-size: 26px; /* 타이틀 폰트 크기 확대 */
-    }
-
-    p {
-        font-size: 16px; /* 설명 텍스트 크기 확대 */
-    }
-
-    .input-group label {
-        font-size: 14px; /* 라벨 폰트 크기 확대 */
-    }
-
-    .input-group input[type="text"] {
-        padding: 12px;
-        font-size: 16px; /* 입력 필드 폰트 크기 확대 */
-    }
-
-    .email-group input[type="text"] {
-        padding: 12px;
-        font-size: 16px; /* 이메일 입력 폰트 크기 확대 */
-    }
-
-    .submit-button {
-        font-size: 18px; /* 버튼 폰트 크기 확대 */
-        padding: 14px;
-    }
-
-    .footer-text {
-        font-size: 14px;
-    }
+@media ( min-width : 768px) {
+	.container {
+		max-width: 500px; /* 데스크탑에서 넓게 설정 */
+		padding: 40px; /* 더 넉넉한 내부 여백 */
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+	h1 {
+		font-size: 26px; /* 타이틀 폰트 크기 확대 */
+	}
+	p {
+		font-size: 16px; /* 설명 텍스트 크기 확대 */
+	}
+	.input-group label {
+		font-size: 14px; /* 라벨 폰트 크기 확대 */
+	}
+	.input-group input[type="text"] {
+		padding: 12px;
+		font-size: 16px; /* 입력 필드 폰트 크기 확대 */
+	}
+	.email-group input[type="text"] {
+		padding: 12px;
+		font-size: 16px; /* 이메일 입력 폰트 크기 확대 */
+	}
+	.submit-button {
+		font-size: 18px; /* 버튼 폰트 크기 확대 */
+		padding: 14px;
+	}
+	.footer-text {
+		font-size: 14px;
+	}
 }
-	

@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/login.css">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -21,7 +20,7 @@
             <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
         </div>
         <div class="login-input-group">
-            <input type="password" placeholder="비밀번호">
+            <input type="password" placeholder="비밀번호" id="password-input">
             <span class="login-toggle-password" onclick="togglePassword()">👁</span>
         </div>
         <div class="login-checkbox-group">
@@ -39,14 +38,14 @@
 
 <script>
     function togglePassword() {
-        const passwordInput = document.querySelector('.login-input-group input[type=password]');
+        const passwordInput = document.getElementById('password-input');
         const eyeIcon = document.querySelector('.login-toggle-password');
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            eyeIcon.textContent = '🙈';
+            eyeIcon.textContent = '🙈'; // 비밀번호가 보이는 상태에서 눈을 감은 아이콘
         } else {
             passwordInput.type = 'password';
-            eyeIcon.textContent = '👁';
+            eyeIcon.textContent = '👁'; // 비밀번호가 숨겨진 상태에서 눈을 뜬 아이콘
         }
     }
 </script>
