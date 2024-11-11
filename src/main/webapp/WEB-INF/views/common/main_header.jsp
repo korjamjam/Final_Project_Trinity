@@ -35,7 +35,6 @@
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('show-sidebar');
         }
-
         document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
     </script>
 </body>
