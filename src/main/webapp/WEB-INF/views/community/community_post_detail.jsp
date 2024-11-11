@@ -131,13 +131,14 @@
                                                 * 본 답변은 참고용으로 의학적 판단이나 진료행위로 해석될 수 없습니다.
                                             </div>
                                             <div class="right-aligned-buttons">
-                                                <button class="like-button" onclick="incrementLike(this)">👍 <span id="like-count">123</span></button>
+                                                <button class="like-button" onclick="incrementLike(this)">👍 <span
+                                                        id="like-count">123</span></button>
                                                 <button class="white-button">신고하기</button>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                 </div>
 
 
