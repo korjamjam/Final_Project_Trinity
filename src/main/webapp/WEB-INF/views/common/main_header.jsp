@@ -65,12 +65,21 @@
         </div>
     </header>
 
-    
+    <!-- JavaScript to toggle the sidebar -->
     <script>
         function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('show-sidebar');
+            document.querySelector('.hamburger-sidebar').classList.toggle('hamburger-show-sidebar');
         }
+
+
+        // Close button in sidebar
+        const closeBtn = document.querySelector('.hamburger-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', toggleSidebar);
+        }
+
         document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
+
     </script>
 </body>
 </html>
