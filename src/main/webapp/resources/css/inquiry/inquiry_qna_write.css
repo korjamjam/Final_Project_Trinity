@@ -13,7 +13,7 @@
 	box-sizing: border-box;
 }
 
-.sidebar {
+.inquiry-sidebar {
 	width: 200px; /* 사이드바의 고정 너비 */
 	margin-right: 20px;
 }
@@ -119,7 +119,7 @@
 
 /* 미디어 쿼리: 768px 이하일 때 sidebar 숨기기 */
 @media ( max-width : 840px) {
-	.sidebar {
+	.inquiry-sidebar {
 		display: none;
 	}
 }
