@@ -15,30 +15,32 @@
 
 <div class="login-page">
     <div class="login-container">
-        <div class="login-input-group">
-            <input type="text" placeholder="아이디">
-            <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
-        </div>
-        <div class="login-input-group">
-            <input type="password" placeholder="비밀번호" id="password-input">
-            <span class="login-toggle-password" onclick="togglePassword()">👁</span>
-        </div>
-        <div class="login-checkbox-group">
-            <input type="checkbox" id="keep-logged-in">
-            <label for="keep-logged-in">로그인유지</label>
-        </div>
-        <button class="login-button">로그인</button>
-        <div class="login-footer-links">
-            <a href="search_id_main.me">아이디 찾기</a> | 
-            <a href="search_pwd_main.me">비밀번호 찾기</a> |
-            <a href="sign_up_main.me">회원가입</a>
-        </div>
+    	<form action="login_main.me" method="post">
+	        <div class="login-input-group">
+	            <input type="text" placeholder="아이디" id="userId" name="userId">
+	            <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
+	        </div>
+	        <div class="login-input-group">
+	            <input type="password" placeholder="비밀번호" id="userPwd" name="userPwd">
+	            <span class="login-toggle-password" onclick="togglePassword()">👁</span>
+	        </div>
+	        <div class="login-checkbox-group">
+	            <input type="checkbox" id="keep-logged-in">
+	            <label for="keep-logged-in">로그인유지</label>
+	        </div>
+	        <button class="login-button" onclick="location.href='login.me'">로그인</button>
+	        <div class="login-footer-links">
+	            <a href="search_id_main.me">아이디 찾기</a> | 
+	            <a href="search_pwd_main.me">비밀번호 찾기</a> |
+	            <a href="sign_up_main.me">회원가입</a>
+	        </div>
+        </form>
     </div>
 </div>
 
 <script>
     function togglePassword() {
-        const passwordInput = document.getElementById('password-input');
+        const passwordInput = document.getElementById('userPwd');
         const eyeIcon = document.querySelector('.login-toggle-password');
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';

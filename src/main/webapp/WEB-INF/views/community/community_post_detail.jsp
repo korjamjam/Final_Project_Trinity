@@ -16,6 +16,8 @@
                     href="${ pageContext.servletContext.contextPath }/resources/css/community/community_post_detail.css">
                 <link href="${ pageContext.servletContext.contextPath }/resources/css/common/comments.css"
                     rel="stylesheet">
+                    <link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_dropdown.css"
+                    rel="stylesheet">
                 <title>게시글 상세 페이지</title>
             </head>
 
@@ -61,16 +63,23 @@
                                 <tr>
                                     <!-- Breadcrumb Navigation -->
                                     <td class="breadcrumb">
-                                        <span>게시판</span> &gt;
-                                        <select class="board-category-select" onchange="location = this.value;">
-                                            <option value="freeboard.jsp" selected>실시간 인기글</option>
-                                            <option value="notice.jsp">자유 게시판</option>
-                                            <option value="qna.jsp">메디톡</option>
-                                            <option value="discussion.jsp">이벤트 게시판</option>
-                                        </select>
+                                        <span>게시판 &nbsp</span> &gt;
+                                        <!-- Custom Dropdown -->
+                                        <div class="custom-dropdown">
+                                            <div class="selected-container">
+                                                <div class="selected-option">카테고리 선택</div>
+                                                <div class="dropdown-arrow">▼</div> <!-- 화살표 추가 -->
+                                            </div>
+                                            <div class="option-list">
+                                                <div class="option-item" data-value="freeboard.jsp">실시간 인기글</div>
+                                                <div class="option-item" data-value="notice.jsp">자유 게시판</div>
+                                                <div class="option-item" data-value="qna.jsp">메디톡</div>
+                                                <div class="option-item" data-value="discussion.jsp">이벤트 게시판</div>
+                                            </div>
+                                        </div>
                                     </td>
-
                                 </tr>
+                                
                                 <tr>
                                     <td class="board-title">상처에 된장 바르면 치료가 되나요?</td>
                                 </tr>
@@ -90,7 +99,9 @@
                                         ...
                                     </div>
                                     <!-- 첨부파일 섹션 include -->
-                                    <%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
+                                    <c:if test="${not empty attachedFiles}">
+                                        <%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
+                                    </c:if>
                                 </div>
 
                                 <div class="board-content answer-content">
@@ -156,7 +167,34 @@
                             alert("게시글이 삭제되었습니다.");
                             window.location.href = 'community.jsp'; // 삭제 후 리다이렉트
                         }
-                    }
+                    } document.addEventListener("DOMContentLoaded", function () {
+                        const selectedOption = document.querySelector(".selected-option");
+                        const optionList = document.querySelector(".option-list");
+                        const options = document.querySelectorAll(".option-item");
+
+                        // 드롭다운 열기/닫기
+                        selectedOption.addEventListener("click", () => {
+                            optionList.style.display = optionList.style.display === "block" ? "none" : "block";
+                        });
+
+                        // 옵션 클릭 시 선택 및 드롭다운 닫기
+                        options.forEach(option => {
+                            option.addEventListener("click", () => {
+                                selectedOption.textContent = option.textContent;
+                                optionList.style.display = "none";
+                                const url = option.getAttribute("data-value");
+                                window.location.href = url; // 선택 시 페이지 이동
+                            });
+                        });
+
+                        // 드롭다운 외부 클릭 시 닫기
+                        document.addEventListener("click", (event) => {
+                            if (!event.target.closest(".custom-dropdown")) {
+                                optionList.style.display = "none";
+                            }
+                        });
+                    });
+
                 </script>
 
                 <footer>
