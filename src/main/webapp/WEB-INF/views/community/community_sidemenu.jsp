@@ -15,8 +15,8 @@
 <title>Community SideMenu</title>
 </head>
 <body>
-	<aside class="sidebar">
-		<ul class="menu">
+	<aside class="community-sidebar">
+		<ul class="community-menu">
 			<li><a href="community_main.me" id="popular">실시간 인기글<span class="arrow">›</span></a></li>
 			<li><a href="community_free.me" id="free">자유게시판<span class="arrow">›</span></a></li>
 			<li><a href="community_medical.me" id="meditalk">메디톡<span class="arrow">›</span></a></li>

@@ -201,6 +201,204 @@
     color: #ffffff;
 }
 
+.content-title{
+	font-size: 26px;
+    font-weight: bold;
+    color: #265708;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.content-controls{
+	padding-top: 30px;
+}
+
+.inquiry-sidebar {
+    width: 200px; /* 사이드바의 고정 너비 */
+    margin-right: 20px;
+}
+
+.inquiry-form {
+    width: 100%;
+    max-width: 600px; /* 기본 크기 설정 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #265708;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"], .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-left: 8px; /* 체크박스와 레이블 사이 간격 조정 */
+}
+
+.checkbox-label {
+    font-size: 14px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-button, .submit-button {
+    width: 48%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #f0f0f0;
+    color: #000;
+    border: 1px solid #ddd;
+}
+
+.submit-button {
+    background-color: #6cc24a;
+    color: #fff;
+    border: 1px solid #ddd;
+}
+
+.cancel-button:hover {
+    background-color: #e0e0e0;
+}
+
+.submit-button:hover {
+    background-color: #559b39;
+}
+
+/* 테이블 버튼 스타일 */
+.table-button {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #6cc24a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+/* 테이블 전체 스타일 */
+.notice-table {
+    width: 100%; /* 전체 테이블 너비 설정 */
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+
+/* thead 전체 너비 조정 */
+.notice-table thead {
+    display: table;
+    width: 100%; /* tbody와 같은 너비 */
+    table-layout: fixed;
+}
+
+/* tbody 스타일 설정 */
+.notice-table tbody {
+    display: table;
+    width: 100%; /* thead와 같은 너비 */
+    table-layout: fixed;
+}
+.notice-table th{
+	padding: 10px 0px;
+}
+
+
+.notice-table th, .notice-table td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.notice-table td {
+    line-height: 1.6;
+    padding: 10px;
+    /* 줄 간격을 늘려 높이 증가 */
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notice-table td a {
+    color: #333;
+    text-decoration: none;
+}
+
+.notice-table td a:hover {
+    text-decoration: none;
+}
+
+/* 1:1 문의하기와 내 문의내역 th 스타일 */
+.onebyone, .myinquiry {
+    color: #ffffff;
+    background-color: #6cc24a;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    width: 100%; /* 각 열이 테이블의 절반 너비를 차지하도록 */
+}
+
+/* 호버 효과 제거 */
+.onebyone:hover, .myinquiry:hover {
+    background-color: #68b458; /* 호버 시 배경색이 바뀌지 않도록 설정 */
+    color: #ffffff;
+}
+
 
 .pagination-footer {
     display: flex;
