@@ -64,71 +64,73 @@
             <p class="reservation_word">* 진료 예약취소는 예약일 3일전까지 가능합니다.</p>
         </div>
     </div>
-
+    
     <!-- Subject Select -->
-    <div class="reservation_subject_select">
-        <div class="reservation_subject_select_title " onclick="openContent(this)">
-            <p>예약 과목 선택</p>
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
-        </div>
-        <div class="reservation_subject_select_content">
-            <p>진료 과목</p>
-            <button>소아과</button>
-            <br><br>
-            <input type="text" placeholder="증상을 입력해주세요">
-        </div>
-        <div class="reservation_subject_select_title" onclick="openContent(this)">
-            <p>예약 날짜 선택</p>
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
-        </div>
-        <div class="reservation_subject_select_content">
-            <div id="datepicker"></div>
-        </div>
-        <div class="reservation_subject_select_title" onclick="openContent(this)">
-            <p>예약 시간 선택</p>
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
-        </div>
-        <div class="reservation_subject_select_content">
-            <p>오전</p>
-            <div class="reservation_time">
-                <button>10:00</button>
-                <button>10:30</button>
-                <button>11:00</button>
-                <button>11:30</button>
+    <form action="" class="general_reservation_form">
+        <div class="reservation_subject_select">
+            <div class="reservation_subject_select_title " onclick="openContent(this)">
+                <p>예약 과목 선택</p>
+                <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
-            <p>오후</p>
-            <div class="reservation_time">
-                <button>12:00</button>
-                <button>12:30</button>
-                <button>13:00</button>
-                <button>13:30</button>
-                <button>14:00</button>
-                <button>15:00</button>
-                <button>16:00</button>
-                <button>16:30</button>
+            <div class="reservation_subject_select_content">
+                <p>진료 과목</p>
+                <button>소아과</button>
+                <br><br>
+                <input type="text" placeholder="증상을 입력해주세요">
+            </div>
+            <div class="reservation_subject_select_title" onclick="openContent(this)">
+                <p>예약 날짜 선택</p>
+                <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
+            </div>
+            <div class="reservation_subject_select_content">
+                <div id="datepicker"></div>
+            </div>
+            <div class="reservation_subject_select_title" onclick="openContent(this)">
+                <p>예약 시간 선택</p>
+                <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
+            </div>
+            <div class="reservation_subject_select_content">
+                <p>오전</p>
+                <div class="reservation_time">
+                    <button>10:00</button>
+                    <button>10:30</button>
+                    <button>11:00</button>
+                    <button>11:30</button>
+                </div>
+                <p>오후</p>
+                <div class="reservation_time">
+                    <button>12:00</button>
+                    <button>12:30</button>
+                    <button>13:00</button>
+                    <button>13:30</button>
+                    <button>14:00</button>
+                    <button>15:00</button>
+                    <button>16:00</button>
+                    <button>16:30</button>
+                </div>
+            </div>
+            <div class="reservation_subject_select_title" onclick="openContent(this)">
+                <p>예약자 선택</p>
+                <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
+            </div>
+            <div class="reservation_subject_select_content">
+                <div class="reservation_isyou">
+                    <label for="isyou">
+                        회원 정보와 동일
+                        <input type="checkbox" id="isyou">
+                    </label>
+                </div>
+                <br><br>
+                <input type="text" placeholder="이름을 입력해주세요">
+                <br><br>
+                <input type="text" placeholder="생년월일을 입력해주세요">
             </div>
         </div>
-        <div class="reservation_subject_select_title" onclick="openContent(this)">
-            <p>예약자 선택</p>
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
-        </div>
-        <div class="reservation_subject_select_content">
-            <div class="reservation_isyou">
-                <label for="isyou">
-                    회원 정보와 동일
-                    <input type="checkbox" id="isyou">
-                </label>
-            </div>
-            <br><br>
-            <input type="text" placeholder="이름을 입력해주세요">
-            <br><br>
-            <input type="text" placeholder="생년월일을 입력해주세요">
-        </div>
-    </div>
 
-    <div class="reservation_button">
-        <button>예약 신청하기</button>
-    </div>
+        <div class="reservation_button">
+            <button>예약 신청하기</button>
+        </div>
+    </form>
 
     <!-- Footer -->
     <%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
