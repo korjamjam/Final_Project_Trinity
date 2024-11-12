@@ -33,7 +33,7 @@
             <div class="dropdown">
                 <a href="#">건강검진</a>
                 <div class="dropdown-content">
-                    <a href="health.guide">국가 검진 예약</a>
+                    <a href="health.reservation1">국가 검진 예약</a>
                     <a href="health.guide">검진 예약 안내</a>
                     <a href="health_reservation_info_nomal">검진 절차 예약</a>
                     <a href="health_reservation_result">검진 결과 조회</a>
