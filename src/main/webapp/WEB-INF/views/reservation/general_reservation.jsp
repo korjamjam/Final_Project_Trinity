@@ -290,7 +290,7 @@
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 
     <br><br>
-
+    
     <!-- Caution -->
     <div class="reservation_caution_wrapper">
         <div class="reservation_caution">
