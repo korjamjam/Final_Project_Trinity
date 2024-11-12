@@ -26,6 +26,7 @@
     padding: 15px;
     box-sizing: border-box;
     /* 추가: padding 포함 */
+    width: 100%;
 }
 
 .board-container {
@@ -119,7 +120,6 @@
     box-sizing: border-box;
     align-items: stretch; /* 부모 안에서 자식 요소의 높이를 늘리도록 설정 */
 }
-
 .expert-container {
     flex: 0 0 20%; /* 고정된 높이 (전체 높이의 20% 차지) */
     display: flex;
