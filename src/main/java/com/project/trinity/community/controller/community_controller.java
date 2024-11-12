@@ -1,10 +1,12 @@
 package com.project.trinity.community.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CommunityController {
+public class community_controller {
     
     // 커뮤니티 메인 페이지 연결
     @RequestMapping("community_main.me")
