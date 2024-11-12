@@ -45,7 +45,15 @@
 					<div class="content-controls">
 						<p class="content-description">닥터링에 등록된 병원 수정 요청을 위한 게시판입니다.</p>
 						<!-- 웹 버전에서만 보이도록 설정할 셀렉트 박스 -->
-						
+						<div class="content-button">
+							<select class="sort-select web-only"
+								onchange="sortPosts(this.value)">
+								<option value="조회수">조회수</option>
+								<option value="작성일">작성일</option>
+								<option value="번호순">번호순</option>
+							</select>
+							<button class="write-button">글쓰기</button>
+						</div>
 					</div>
 					<!-- Table for Posts -->
 					<table id="postsTable" class="notice-table">

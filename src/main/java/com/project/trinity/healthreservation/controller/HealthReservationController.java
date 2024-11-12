@@ -42,8 +42,18 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation2";
 	}
 	
-	@GetMapping("health_reservation.result")
+	@GetMapping("health_reservation_result")
 	public String healthReservationResult() {
 		return "health_reservation/health_reservation_result";
+	}
+	
+	@GetMapping("health_reservation_info_nomal")
+	public String healthReservationInfoNomal() {
+		return "health_reservation/health_reservation_info_nomal";
+	}
+	
+	@GetMapping("health_reservation_items_info")
+	public String healthReservationItems() {
+		return "health_reservation/health_reservation_items_info";
 	}
 }
