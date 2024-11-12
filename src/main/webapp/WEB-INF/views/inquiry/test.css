@@ -1,6 +1,8 @@
+@charset "UTF-8";
 .main-page{
 	width:100%;
 }
+
 .pagination-footer {
 	display: flex;
 	justify-content: center;
@@ -94,7 +96,7 @@
 	appearance: auto;
 	/* 기본 스타일로 변경 */
 	cursor: pointer;
-	max-height: 36px;
+	min-height: 36px;
 }
 
 .title{
@@ -133,12 +135,12 @@
 }
 
 @media ( min-width : 768px) {
-	/* 기본적으로 .mobile-only와 .web-only를 숨김 */
-	#faq{
+	#qna{
 		color: #6cc24a;
 		font-weight: bold;
 		text-decoration: none;
 	}
+	/* 기본적으로 .mobile-only와 .web-only를 숨김 */
 	.mobile-only {
 		display: none;
 	}
@@ -392,7 +394,6 @@
 	.inquiry-sidebar {
         display: none; /* 768px 이하에서 inquiry-sidebar 숨김 */
     }
-
 	.search-section {
 		display: flex;
 		align-items: center;
