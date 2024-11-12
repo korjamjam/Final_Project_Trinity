@@ -12,16 +12,6 @@ public class AccountController {
 		// "login_main" JSP로 포워딩
 		return "account/login";
 	}
-	@RequestMapping("birthday_update_main.me")
-	public String showbirthdayupdatePage() {
-		
-		return "account/birthday_update";
-	}
-	
-	@RequestMapping("email_update_main.me")
-	public String showemailupdatePage() {
-		return "account/email_update";
-	}
 	
 	@RequestMapping("profile_edit_main.me")
 	public String profileeditPage() {
