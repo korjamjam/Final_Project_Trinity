@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>닥터링</title>
+
+    <!-- Calander -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <!-- searchBar icon -->
     <link rel="favicon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
@@ -36,11 +41,6 @@
         integrity="sha256-u0L8aA6Ev3bY2HI4y0CAyr9H8FRWgX4hZ9+K7C2nzdc=" 
         crossorigin="anonymous">
     </script>
-
-    <!-- Calander -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/js/reservation/general_reservation.js"></script>
