@@ -94,7 +94,7 @@
 	appearance: auto;
 	/* 기본 스타일로 변경 */
 	cursor: pointer;
-	min-height: 36px;
+	max-height: 36px;
 }
 
 .title{
