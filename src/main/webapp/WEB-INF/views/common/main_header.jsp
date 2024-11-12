@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/main_header_style.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css">
+
+    <!-- JS -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/common/main_header.js"></script>
+    
 </head>
 <body>
     <header class="header">
@@ -26,7 +30,7 @@
             <div class="dropdown">
                 <a href="#">종합예약</a>
                 <div class="dropdown-content">
-                    <a href="general_reservation">진료예약</a>
+                    <a href="#" onclick="checkLogin()">진료예약</a>
                     <a href="#">백신예약</a>
                     <a href="#">예약확인</a>
                 </div>
