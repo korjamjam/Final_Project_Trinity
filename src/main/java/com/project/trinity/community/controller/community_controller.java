@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class community_contoller {
-    
     // 커뮤니티 메인 페이지 연결
     @RequestMapping("community_main.me")
     public String showCommunityMainPage() {
@@ -49,9 +48,10 @@ public class community_contoller {
         return "community/community_detail";
     }
     @RequestMapping("community_post_detail.me")
-public String showCommunityDetailPage(@RequestParam("category") String category, Model model) {
+    public String showCommunityDetailPage(@RequestParam("category") String category, Model model) {
     model.addAttribute("currentCategory", category);
     return "community/community_post_detail";
+    }
 }
 
-}
+
