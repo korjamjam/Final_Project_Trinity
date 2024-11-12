@@ -15,25 +15,27 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Member {
 
-	private String userNo;
-	private String userId;
-	private String userPwd;
-	private String userName;
-	private String email;
-	private String phone;
-	private String birth;
-	private String gender;
-	private String address;
-	private String enrollDate;
-	private String status;
-	private String isAdmin;
-	private String medKey;
-	private String hosNo;
+
+    private String userNo;
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String email;
+    private String phone;
+    private String birthday;
+    private String gender;
+    private String address;
+    private String enrollDate;
+    private String status;
+    private String isAdmin;
+    private String medKey;
+    private String hosNo;
 	
 	public Member(String userId, String userPwd) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
+
 
 }

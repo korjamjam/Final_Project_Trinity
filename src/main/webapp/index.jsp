@@ -29,7 +29,7 @@
 
 <!-- css -->
 <link rel="stylesheet" href="<%=path%>/resources/css/common/defalut.css">
-<link rel="stylesheet" href="<%=path%>/resources/css/community/community_post_detail.css">
+<link rel="stylesheet" href="<%=path%>/resources/css/main.css">
 </head>
 
 <body>
