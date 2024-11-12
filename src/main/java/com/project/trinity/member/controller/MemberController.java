@@ -34,14 +34,21 @@ public class MemberController {
 			model.addAttribute("errorMsg", "로그인실패"); // requestScope에 에러문구를 담는다.
 			
 			// /WEB-INF/views/common/errorPage.jsp
-			return "redirect:/";
+			return "main";
 		} else {
 			session.setAttribute("loginUser", loginMember);
 			System.out.println("로그인 성공");
 			
 			// /WEB-INF/views/main.jsp
-			return "redirect:/";
+			return "main";
 		}
+	}
+	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
 	}
 	
 }
