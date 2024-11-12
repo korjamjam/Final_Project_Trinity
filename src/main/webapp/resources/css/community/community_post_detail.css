@@ -40,6 +40,9 @@
     /* 추가: padding 포함 */
     margin-bottom: 3vh;
     /* 기본 간격 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction: column;
 }
 
 .empty-space {
@@ -155,7 +158,7 @@
 }
 
 .board-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     padding: 10px 0;
 }
