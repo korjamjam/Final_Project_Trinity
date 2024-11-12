@@ -13,30 +13,35 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    margin-left: 8px; /* '게시판 >'과 드롭다운 사이의 간격 */
+   
 }
 .selected-container {
     display: flex;
     align-items: center; /* 수직 중앙 정렬 */
-    width: 120px;
+    width: 100px;
 }
 
 .selected-option {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
     background-color: transparent;
     color: #265708;
     font-size: 14px;
-    padding: 5px;
-}
+    padding: 5px 5px 5px 12px;
+    flex-basis: 60%; /* 60% 너비 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 
+}
 .dropdown-arrow {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+    flex-basis: 30%; /* 30% 너비 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #265708;
     pointer-events: none;
 }
-
 .option-list {
     display: none; /* 처음에는 숨김 */
     position: absolute;
@@ -50,8 +55,8 @@
 }
 
 .option-item {
-    padding: 10px 5px;
-    background-color: #f9f9f9;
+    padding: 10px;
+        background-color: #ffffff;
     border-radius: 5px;
 }
 

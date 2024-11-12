@@ -34,7 +34,7 @@
             <div class="dropdown">
                 <a href="#">건강검진</a>
                 <div class="dropdown-content">
-                    <a href="health.guide">국가 검진 예약</a>
+                    <a href="health.reservation1">국가 검진 예약</a>
                     <a href="health.guide">검진 예약 안내</a>
                     <a href="health_reservation_info_nomal">검진 절차 예약</a>
                     <a href="health_reservation_result">검진 결과 조회</a>
@@ -69,7 +69,7 @@
         		</c:when>
         		<c:otherwise>
         			<label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-	                <a href="myPage.me">마이페이지</a>
+	                <a href="">마이페이지</a>
 	                <a href="logout.me">로그아웃</a>
         		</c:otherwise>
         	</c:choose>
@@ -90,7 +90,7 @@
             closeBtn.addEventListener('click', toggleSidebar);
         }
 
-        document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
+        //document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
 
     </script>
 </body>

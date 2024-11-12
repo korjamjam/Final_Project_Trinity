@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>닥터링</title>
+
+    <!-- Calander -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <!-- searchBar icon -->
     <link rel="favicon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
@@ -23,7 +28,7 @@
 
     <!-- css -->
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <!-- <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css"> -->
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reservation/general_reservation.css">
 
     <!-- jQuery -->
     <script 
@@ -37,251 +42,8 @@
         crossorigin="anonymous">
     </script>
 
-    <!-- Calander -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <style>
-        * {
-            font-family: "Noto Sans KR", system-ui;
-        }
-
-        /* Caution */
-        .reservation_caution_wrapper{
-            width: 80%;
-        }
-        .reservation_caution{
-            background-color: rgba(255, 247, 248, 235);
-            padding: 10px;
-            line-height: 15px;
-        }
-        .reservation_word{
-            color: grey;
-        }
-        .reservation_word1{
-            font-weight: bold;
-        }
-        .reservation_word2{
-            font-weight: bold;
-            color: red;
-        }
-        .reservation_word3{
-            color: red;
-        }
-
-        /* Subject Select */
-        .reservation_subject_select{
-            width: 80%;
-            padding: 10px 0px;
-        }
-        .reservation_subject_select_title{
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #dbdbdb;
-            padding: 15px 10px;
-        }
-        .reservation_subject_select_title p{
-            font-size: 20px;
-            color: #9e9e9e;
-        }
-        .reservation_subject_select_content{
-            display: none;
-            margin: 10px 0px;
-        }
-        .reservation_subject_select_content p{
-            color: grey;
-            padding-left: 10px;
-            padding-bottom: 10px;
-        }
-        .reservation_subject_select_content button{
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(248, 247, 252, 168);
-            color: grey;
-            padding: 10px 15px;
-        }
-        .reservation_subject_select_content input{
-            border: 1px solid #9e9e9e;
-            padding: 5px;
-            width: 100%;
-            border-radius: 5px;
-        }
-        .reservation_button{
-            width: 80%;
-            margin: 20px 0px;
-        } 
-        .reservation_button button{
-            width: 100%;
-            height: 40px;
-            border: none;
-            border-radius: 5px;
-            background-color: #8CCF4E;
-            color: white;
-        }
-        .reservation_time{
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-        }
-        .reservation_isyou{
-            color: grey;
-            display: flex;
-            justify-content: right;
-            gap: 10px;
-            padding-right: 10px;
-        }
-        .reservation_isyou input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #8CCF4E;
-            border-radius: 50%;
-            outline: none;
-            cursor: pointer;
-        }
-        .reservation_isyou input[type="checkbox"]:checked {
-            border-color: #7ed321;
-            background-color: #7ed321;
-        }
-        .reservation_isyou input[type="checkbox"]:checked::before {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /*Datepicker*/
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css');
-
-
-        /*datepicker*/
-        .i_datepicker input{cursor: pointer;}
-        .i_datepicker img{position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; background: url(../img/ico_datepicker.svg) no-repeat center/cover;}
-        #ui-datepicker-div{z-index: 9 !important;}
-        .ui-widget-header { border: 0px solid #dddddd; background: #fff; }
-
-        .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; }
-
-        .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; }
-
-        .ui-state-default,
-        .ui-widget-content .ui-state-default,
-        .ui-widget-header .ui-state-default,
-        .ui-button,
-        html .ui-button.ui-state-disabled:hover,
-        html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; }
-
-        .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; }
-
-        .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 100%;}
-
-        .ui-widget.ui-widget-content { border: 1px solid #eee; }
-
-        #datepicker:focus>.ui-datepicker { display: block; }
-
-        .ui-datepicker-prev,
-        .ui-datepicker-next { cursor: pointer; }
-
-        .ui-datepicker-next { float: right; }
-
-        .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); }
-
-        .ui-datepicker-title { text-align: center; padding: 10px; font-weight: bold; font-size: 20px; }
-
-        .ui-datepicker-calendar { width: 100%; }
-
-        .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; }
-
-        .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
-
-        .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; }
-
-        .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; }
-
-        .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; }
-
-        .ui-state-hover,
-        .ui-widget-content .ui-state-hover,
-        .ui-widget-header .ui-state-hover,
-        .ui-state-focus,
-        .ui-widget-content .ui-state-focus,
-        .ui-widget-header .ui-state-focus,
-        .ui-button:hover,
-        .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; }
-
-
-        .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; }
-
-        .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; }
-
-        .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; }
-
-        .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; }
-
-        .ui-state-highlight,
-        .ui-widget-content .ui-state-highlight,
-        .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 50%; padding-top: 7px; padding-bottom: 8px; }
-
-        .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; }
-        
-        @media (min-width: 500px) {
-            .reservation_caution_wrapper{
-                width: 70%;
-                max-width: 460px;
-            }
-            .reservation_subject_select{
-                width: 70%;
-                max-width: 460px;
-            }
-            .reservation_button{
-                width: 70%;
-                max-width: 460px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .reservation_caution_wrapper{
-                width: 60%;
-                max-width: 864px;
-            }
-            .reservation_subject_select{
-                width: 60%;
-                max-width: 864px;
-            }
-            .reservation_button{
-                width: 60%;
-                max-width: 864px;
-            }
-            .ui-datepicker {
-                width: 100%;
-                height: 600px;
-                margin: 5px auto 0;
-                font: 9pt Arial, sans-serif;
-            }
-
-            .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 60px; height: 80px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; }
-            .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 20px !important; font-weight: bold !important; text-decoration: none;}
-        
-            .reservation_subject_select_content input{
-                border: 1px solid #9e9e9e;
-                padding: 5px;
-                width: 60%;
-                border-radius: 5px;
-            }
-        }
-        @media (min-width: 1200px) {
-            .reservation_button{
-                margin-bottom: 93px;
-            }
-        }
-
-    </style>
+    <!-- JS -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/reservation/general_reservation.js"></script>
 
 </head>
 <body>
@@ -367,40 +129,6 @@
     <div class="reservation_button">
         <button>예약 신청하기</button>
     </div>
-
-    <script>
-        $(function() {
-          // 페이지에 바로 달력이 보이도록 설정
-          $("#datepicker").datepicker({
-            closeText: "닫기",
-            currentText: "오늘",
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            weekHeader: "주",
-            yearSuffix: '년',
-            inline: true
-          });
-
-        });
-
-        function openContent(content){
-            //this -> 클릭이벤트가 발생한 요소(div)
-            // $(this).next(); -> 선택된 요소의 뒤에있는 요소
-
-            const $p = $(content).next();
-            if($p.css("display") === "none"){
-                //$(".reservation_subject_select_content").slideUp(); // 클래스명을 일치시켜야 동작함
-                $p.slideDown();
-            } else{
-                $p.slideUp();
-            }
-        }
-    </script>
 
     <!-- Footer -->
     <%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
