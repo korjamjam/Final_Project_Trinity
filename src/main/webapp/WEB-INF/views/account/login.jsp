@@ -10,24 +10,36 @@
 </head>
 <body>
 
+<!-- 로그인 성공/실패 메시지 출력 -->
+<% if (request.getAttribute("message") != null) { %>
+    <script>
+        alert("<%= request.getAttribute("message") %>");
+    </script>
+<% } %>
+
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
 
 <div class="login-page">
     <div class="login-container">
-        <div class="login-input-group">
-            <input type="text" placeholder="아이디">
-            <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
-        </div>
-        <div class="login-input-group">
-            <input type="password" placeholder="비밀번호" id="password-input">
-            <span class="login-toggle-password" onclick="togglePassword()">👁</span>
-        </div>
-        <div class="login-checkbox-group">
-            <input type="checkbox" id="keep-logged-in">
-            <label for="keep-logged-in">로그인유지</label>
-        </div>
-        <button class="login-button">로그인</button>
+        <!-- 로그인 폼 시작 -->
+        <form action="${pageContext.request.contextPath}/login.me" method="post">
+            <div class="login-input-group">
+                <input type="text" name="userId" placeholder="아이디" required>
+                <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
+            </div>
+            <div class="login-input-group">
+                <input type="password" name="userPwd" placeholder="비밀번호" id="password-input" required>
+                <span class="login-toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+            <div class="login-checkbox-group">
+                <input type="checkbox" id="keep-logged-in">
+                <label for="keep-logged-in">로그인유지</label>
+            </div>
+            <button type="submit" class="login-button">로그인</button>
+        </form>
+        <!-- 로그인 폼 끝 -->
+
         <div class="login-footer-links">
             <a href="search_id_main.me">아이디 찾기</a> | 
             <a href="search_pwd_main.me">비밀번호 찾기</a> |
@@ -39,15 +51,24 @@
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password-input');
-        const eyeIcon = document.querySelector('.login-toggle-password');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeIcon.textContent = '🙈'; // 비밀번호가 보이는 상태에서 눈을 감은 아이콘
-        } else {
-            passwordInput.type = 'password';
-            eyeIcon.textContent = '👁'; // 비밀번호가 숨겨진 상태에서 눈을 뜬 아이콘
+        if (passwordInput) {  
+            const eyeIcon = document.querySelector('.login-toggle-password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.textContent = '👁'; 
+            }
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const eyeIcon = document.querySelector('.login-toggle-password');
+        if (eyeIcon) {  
+            eyeIcon.addEventListener("click", togglePassword);
+        }
+    });
 </script>
 
 <!-- Footer -->
