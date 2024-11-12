@@ -15,7 +15,7 @@
 
 <div class="login-page">
     <div class="login-container">
-    	<form action="login_main.me" method="post">
+    	<form action="login.me" method="post">
 	        <div class="login-input-group">
 	            <input type="text" placeholder="아이디" id="userId" name="userId">
 	            <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
