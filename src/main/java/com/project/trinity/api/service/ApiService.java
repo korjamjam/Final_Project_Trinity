@@ -12,35 +12,46 @@ public class ApiService {
     public static final String SERVICE_KEY = "HKb7iVYQRtzR%2FuEZ1Vsv4sWyTa7YRFead%2BZQkrp15xBVAuqSFv0CtG0ihJb1DhRh%2BP7FryyPkgdxnIV2y%2FqBSA%3D%3D";
 
     public String getHospitalInfo(String sido, String sigungu, String department, int pageNo, int numOfRows) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         try {
-            String url = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire";
-            url += "?serviceKey=" + SERVICE_KEY;
-            url += "&returnType=json";
-            
-            // 필터 파라미터 추가
-            url += "&Q0=" + URLEncoder.encode(sido, "UTF-8");       // 주소(시도)
-            url += "&Q1=" + URLEncoder.encode(sigungu, "UTF-8");    // 주소(시군구)
-            url += "&QD=" + URLEncoder.encode(department, "UTF-8"); // 진료과목
-            url += "&pageNo=" + pageNo;                             // 페이지 번호
-            url += "&numOfRows=" + numOfRows;                       // 목록 건수
+            StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire");
+            urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + SERVICE_KEY);
+            urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
+            urlBuilder.append("&" + URLEncoder.encode("Q0", "UTF-8") + "=" + URLEncoder.encode(sido, "UTF-8"));
+            if (sigungu != null) {
+                urlBuilder.append("&" + URLEncoder.encode("Q1", "UTF-8") + "=" + URLEncoder.encode(sigungu, "UTF-8"));
+            }
+            if (department != null) {
+                urlBuilder.append("&" + URLEncoder.encode("QD", "UTF-8") + "=" + URLEncoder.encode(department, "UTF-8"));
+            }
+            urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(pageNo), "UTF-8"));
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(numOfRows), "UTF-8"));
 
-            URL requestURL = new URL(url);
-            HttpURLConnection urlConnection = (HttpURLConnection) requestURL.openConnection();
-            urlConnection.setRequestMethod("GET");
+            URL requestURL = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) requestURL.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-type", "application/json");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            BufferedReader br;
+            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
             String line;
             while ((line = br.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
             br.close();
-            urlConnection.disconnect();
+            conn.disconnect();
+            System.out.println("API 호출 결과: " + result.toString()); // API 응답 출력
 
         } catch (Exception e) {
             e.printStackTrace();
             return "Error occurred while calling API";
         }
-        return result;
+
+        return result.toString();
     }
 }
