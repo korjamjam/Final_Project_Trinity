@@ -25,8 +25,8 @@ public class MemberController {
 	
 	//
 	@RequestMapping("login.me")
-	public String loginMember(Member m, HttpSession session, Model model) {
-
+	public String loginMember(String userId, String userPwd, HttpSession session, Model model) {
+		Member m = new Member(userId, userPwd);
 		Member loginMember = memberService.loginMember(m);
 		
 		if (loginMember == null) {
