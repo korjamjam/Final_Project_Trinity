@@ -44,29 +44,7 @@
         /* 호버 시 테두리색 */
     }
 
-    .sort-select {
-        font-size: 12px;
-        padding: 5px 10px;
-        border: 1px solid #6cc24a;
-        border-radius: 4px;
-        color: #265708;
-        background-color: #ffffff;
-        max-width: 80px;
-        /* 셀렉트 박스 너비 제한 */
-    }
 
-    .sort-select:focus,
-    .sort-select:active {
-        border-color: #6cc24a;
-        /* 포커스 및 활성화 상태에서도 녹색 테두리 유지 */
-        outline: none;
-    }
-
-    .sort-select option:hover {
-        background-color: #f0f0f5;
-        /* 원하는 호버 색상 */
-        color: #265708;
-    }
 
 }
 
@@ -121,7 +99,7 @@
 
     .navigation-links {
         width: 25%;
-        /* 부모 요소인 navigation-buttons의 30% 차지 */
+        /* 부모 요소인 navigation-buttons의 35% 차지 */
         display: flex;
         justify-content: space-between;
         /* 내부 요소들 간의 간격을 적절히 조절 */
@@ -130,6 +108,7 @@
     }
 
     .nav-links-group {
+     
         flex: 0 0 60%;
         /* navigation-links의 55% 너비 차지 */
         display: flex;
@@ -182,26 +161,25 @@
         /* 옵션 색상 */
     }
 
-    .sort-select {
-        font-size: 14px;
-        padding: 5px 10px;
-        border: 1px solid #6cc24a;
-        border-radius: 4px;
+    /* custom_public.css 파일에 추가 */
+    .board-category-select {
         color: #265708;
-        background-color: #ffffff;
+        /* 글자 색상 */
+        font-size: 14px;
+        /* 글자 크기 */
+        cursor: pointer;
+        /* 포인터 커서 */
     }
 
-    .sort-select:focus,
-    .sort-select:active {
-        border-color: #6cc24a;
-        /* 포커스 및 활성화 상태에서도 녹색 테두리 유지 */
-        outline: none;
-    }
-
-    .sort-select option:hover {
+    .board-category-select:hover {
         background-color: #f0f0f5;
         /* 원하는 호버 색상 */
         color: #265708;
+    }
+
+    .board-category-select:focus {
+        outline: none;
+        /* 포커스 시 기본 아웃라인 제거 */
     }
 
     .expert-card {

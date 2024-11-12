@@ -1,0 +1,60 @@
+/* 텍스트와 드롭다운이 한 줄에 배치되도록 설정 */
+.breadcrumb {
+    width: 100%;
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+}
+.breadcrumb-text {
+    display: inline-block;
+    vertical-align: middle;
+    color: #265708; /* 텍스트 색상 */
+}
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 8px; /* '게시판 >'과 드롭다운 사이의 간격 */
+}
+.selected-container {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 120px;
+}
+
+.selected-option {
+    background-color: transparent;
+    color: #265708;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #265708;
+    pointer-events: none;
+}
+
+.option-list {
+    display: none; /* 처음에는 숨김 */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid  #c5bebec7;;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.option-item {
+    padding: 10px 5px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.option-item:hover {
+    background-color: #d3e4d1; /* 호버 시 색상 */
+}
