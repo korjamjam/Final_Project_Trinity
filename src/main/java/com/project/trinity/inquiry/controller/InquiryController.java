@@ -8,7 +8,7 @@ public class InquiryController {
 
 	//커뮤니티 페이지 연결
     @RequestMapping("inquiry_faq.me")
-    public String showCommunityMainPage() {
+    public String showInquiryFaqPage() {
         // "community_main" JSP로 포워딩
         return "inquiry/inquiry_faq";
     }
@@ -43,4 +43,10 @@ public class InquiryController {
 //        // "community_main" JSP로 포워딩
 //        return "inquiry/community_detail";
 //    }
+    
+    @RequestMapping("inquiry_qna_write.me")
+    public String showCommunityQPage() {
+        // "community_main" JSP로 포워딩
+        return "inquiry/inquiry_qna_write";
+    }
 }

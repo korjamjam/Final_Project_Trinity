@@ -206,7 +206,7 @@
 							<select class="search-type">
 								<option value="title">제목만</option>
 								<option value="author">글작성자</option>
-								<option value="content">댓글내용</option>
+								<option value="content">카테고리</option>
 							</select> <input type="text" class="search-input"
 								placeholder="검색어를 입력해주세요" />
 							<button class="search-button">검색</button>

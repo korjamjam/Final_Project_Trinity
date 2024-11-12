@@ -9,14 +9,14 @@
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 <link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/community/community_sidemenu.css">
+	href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_sidemenu.css">
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
 <title>Community SideMenu</title>
 </head>
 <body>
-	<aside class="sidebar">
-		<ul class="menu">
+	<aside class="inquiry-sidebar">
+		<ul class="inquiry-menu">
 			<li><a href="inquiry_notification.me" id="notification">공지사항<span class="arrow">›</span></a></li>
 			<li><a href="inquiry_notice.me" id="notice">알림판<span class="arrow">›</span></a></li>
 			<li><a href="inquiry_faq.me" id="faq">FAQ<span class="arrow">›</span></a></li>

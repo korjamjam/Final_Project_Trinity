@@ -1,0 +1,217 @@
+.main-content {
+    display: flex;
+    justify-content: center;
+    /* 메인 콘텐츠를 수평 중앙에 정렬 */
+    padding: 20px;
+    max-width: 1400px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.sidemenu {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    /* 추가로 필요한 스타일은 여기에 작성 */
+    width: 20%;
+}
+
+
+
+.board-container-wrapper {
+    max-width: 864px;
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    /* 추가: padding 포함 */
+}
+
+.board-container {
+    width: 100%;
+    /* 부모 요소의 너비에 맞추기 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 900px;
+    /* 최소 높이 설정 */
+    box-sizing: border-box;
+    /* 추가: padding 포함 */
+    margin-bottom: 3vh;
+    /* 기본 간격 */
+}
+
+.empty-space {
+    width: 20%;
+    /* 화면의 20% 차지 */
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1vh;
+    width: 100%
+}
+
+
+
+.board-actions {
+    text-align: right;
+    color: #888;
+}
+
+.board-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* 수직으로 정렬 */
+}
+
+
+.board-content .like-button {
+    width: 15%;
+    /* td의 50% 너비 */
+    display: inline-flex;
+    /* 내용 정렬을 위해 사용 */
+    justify-content: space-between;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+}
+.question-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* 상하 간격을 최대로 */
+    height: 40%;
+    /* 높이 설정 */
+    min-height: 400px;
+    /* 최소 높이 설정 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    /* 줄 간격 조정 */
+    box-sizing: border-box;
+    margin-bottom: 2vh;
+
+}
+.answer-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 400px; /* 최소 높이 설정 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    box-sizing: border-box;
+    align-items: stretch; /* 부모 안에서 자식 요소의 높이를 늘리도록 설정 */
+}
+
+.expert-container {
+    flex: 0 0 20%; /* 고정된 높이 (전체 높이의 20% 차지) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 20%; /* 부모 높이에 맞춰지게 설정 */
+    margin-bottom: 2vh;
+}
+
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.board-detail {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2vh;
+
+}
+
+.board-detail td {
+    padding: 6px 16px;
+    /* 각 행의 첫 번째 셀에 대해 들여쓰기 */
+}
+
+.board-category {
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+    padding: 5px 0;
+}
+
+.board-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.board-user-info {
+    font-size: 14px;
+    color: #555;
+    padding: 10px 0;
+}
+
+.board-meta {
+    font-size: 12px;
+    color: #888;
+    padding: 5px 0;
+    text-align: right;
+}
+
+.board-meta-actions {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    padding: 5px 0;
+}
+
+
+.response-section {
+    display: flex;
+    justify-content: space-between; /* 자식 요소들을 양쪽 끝으로 배치 */
+    align-items: flex-start; /* 필요에 따라 수직 정렬 변경 */
+    width: 100%; /* 부모 요소의 전체 너비 */
+    flex-direction: column;
+    flex: 1; /* 나머지 공간을 차지 */
+}
+
+.expert-response {
+    flex: 1; /* 가능한 모든 공간을 차지 */
+    margin-right: 20px; /* 오른쪽 여백 */
+}
+
+.disclaimer-container {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+.right-aligned-buttons {
+    width: 20%; /* .disclaimer-container의 20% 너비 */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 오른쪽 끝에 정렬 */
+   
+}
+:root {
+    --button-font-size: 14px;
+    /* 이 페이지의 글씨 크기 */
+}

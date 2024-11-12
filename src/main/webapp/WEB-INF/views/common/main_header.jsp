@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="sidebar.jsp" %> <!-- 사이드바 포함 -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,24 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctoring Header</title>
 
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/main_header_style.css">
-
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/main_header_style.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css">
 </head>
 <body>
     <header class="header">
         <div class="logo">
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon"> 
+            <img src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon"> 
             <a href="main" class="logo-text">닥터링</a>
         </div>
         <nav class="nav-links">
             <div class="dropdown">
-                <a href="#">병원찾기</a>
+                <a href="hospital_list">병원찾기</a>
             </div>
             <div class="dropdown">
                 <a href="#">종합예약</a>
                 <div class="dropdown-content">
-                    <a href="#">진료예약</a>
+                    <a href="general_reservation">진료예약</a>
                     <a href="#">백신예약</a>
                     <a href="#">예약확인</a>
                 </div>
@@ -60,8 +61,25 @@
         </nav>
         <div class="login-menu">
             <a href="login_main.me">로그인</a>
-            <div class="menu-icon">&#9776;</div>
+            <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
         </div>
     </header>
+
+    <!-- JavaScript to toggle the sidebar -->
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.hamburger-sidebar').classList.toggle('hamburger-show-sidebar');
+        }
+
+
+        // Close button in sidebar
+        const closeBtn = document.querySelector('.hamburger-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', toggleSidebar);
+        }
+
+        document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
+
+    </script>
 </body>
 </html>
