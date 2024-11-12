@@ -90,7 +90,7 @@
             closeBtn.addEventListener('click', toggleSidebar);
         }
 
-        document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
+        //document.querySelector('.close-btn').addEventListener('click', toggleSidebar);
 
     </script>
 </body>
