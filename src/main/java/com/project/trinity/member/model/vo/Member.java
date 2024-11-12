@@ -15,6 +15,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Member {
 
+
     private String userNo;
     private String userId;
     private String userPwd;
@@ -29,4 +30,12 @@ public class Member {
     private String isAdmin;
     private String medKey;
     private String hosNo;
+	
+	public Member(String userId, String userPwd) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+	}
+
+
 }

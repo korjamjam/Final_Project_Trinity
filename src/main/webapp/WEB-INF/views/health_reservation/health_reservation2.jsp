@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- css -->
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_datepicker.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation2.css">
  
@@ -76,7 +77,10 @@
                     6. 날짜 및 시간
                 </div>
                 <div class="health_reservation_normal_date">
-                    <div id="datepicker"></div>
+                    <form action="">
+                        <input type="hidden">
+                        <div id="datepicker"></div>
+                    </form>
                 </div>
                 <div class="health_reservation_normal_select">
                     <select name="" id="">

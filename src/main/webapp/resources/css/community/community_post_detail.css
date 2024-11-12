@@ -26,6 +26,7 @@
     padding: 15px;
     box-sizing: border-box;
     /* 추가: padding 포함 */
+    width: 100%;
 }
 
 .board-container {
@@ -40,6 +41,9 @@
     /* 추가: padding 포함 */
     margin-bottom: 3vh;
     /* 기본 간격 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction: column;
 }
 
 .empty-space {
@@ -116,7 +120,6 @@
     box-sizing: border-box;
     align-items: stretch; /* 부모 안에서 자식 요소의 높이를 늘리도록 설정 */
 }
-
 .expert-container {
     flex: 0 0 20%; /* 고정된 높이 (전체 높이의 20% 차지) */
     display: flex;
@@ -155,7 +158,7 @@
 }
 
 .board-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     padding: 10px 0;
 }
