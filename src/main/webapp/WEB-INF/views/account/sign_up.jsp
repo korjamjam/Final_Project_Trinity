@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -79,6 +80,22 @@
         <button type="submit" class="signup-button">회원 가입</button>
     </form>
 </div>
+
+<!-- 이메일 선택 기능을 활성화하는 JavaScript -->
+<script>
+    $(document).ready(function() {
+        $('#emailSelect').change(function() {
+            var selectedDomain = $(this).val();
+            if (selectedDomain) {
+                $('#emailDomain').val(selectedDomain); // 선택된 도메인을 emailDomain에 설정
+                $('#emailDomain').prop('readonly', true); // emailDomain을 읽기 전용으로 설정
+            } else {
+                $('#emailDomain').val(''); // 값이 비어 있을 경우 emailDomain 초기화
+                $('#emailDomain').prop('readonly', false); // emailDomain을 수정 가능하도록 설정
+            }
+        });
+    });
+</script>
 
 <!-- 아이디 중복 확인 AJAX 스크립트 -->
 <script>

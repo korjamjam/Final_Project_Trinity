@@ -9,62 +9,54 @@ import java.net.URLEncoder;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ApiController {
-	public static final String SERVICE_KEY = "HKb7iVYQRtzR%2FuEZ1Vsv4sWyTa7YRFead%2BZQkrp15xBVAuqSFv0CtG0ihJb1DhRh%2BP7FryyPkgdxnIV2y%2FqBSA%3D%3D";
-    @GetMapping("/hospital")
+    public static final String SERVICE_KEY = "HKb7iVYQRtzR%2FuEZ1Vsv4sWyTa7YRFead%2BZQkrp15xBVAuqSFv0CtG0ihJb1DhRh%2BP7FryyPkgdxnIV2y%2FqBSA%3D%3D"; // 실제 서비스 키로 교체하세요.
+
+    @ResponseBody
+    @GetMapping(value = "/hospital", produces = "application/json; charset=UTF-8")
     public String getHospitalInfo(
-    		@RequestParam(required = true) String sido,
-            String sigungu,
-            String hospitalType,
-            String department,
+            @RequestParam(required = true) String sido, String sigungu,// sigungu 추가
+            String hospitalType, String department,
             @RequestParam(defaultValue = "1") String pageNo,
-            @RequestParam(defaultValue = "200") String numOfRows,
-            Model model) throws Exception {
+            @RequestParam(defaultValue = "200") String numOfRows) throws Exception {
 
-        StringBuilder urlBuilder = new StringBuilder(
-                "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire");
-        urlBuilder.append("?serviceKey=" + SERVICE_KEY);
-        urlBuilder.append("&returnType=xml");
-        urlBuilder.append("&Q0=" + URLEncoder.encode(sido, "UTF-8"));
-        if (sigungu != null) {
-            urlBuilder.append("&Q1=" + URLEncoder.encode(sigungu, "UTF-8"));
-        }
-        if (hospitalType != null) {
-            urlBuilder.append("&QZ=" + URLEncoder.encode(hospitalType, "UTF-8"));
-        }
-        if (department != null) {
-            urlBuilder.append("&QD=" + URLEncoder.encode(department, "UTF-8"));
-        }
-        urlBuilder.append("&pageNo=" + pageNo);
-        urlBuilder.append("&numOfRows=" + numOfRows);
+    	// API 요청 URL 생성
+    	// API 요청 URL 생성
+    	StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire");
+    	urlBuilder.append("?serviceKey=").append(SERVICE_KEY);
+    	urlBuilder.append("&returnType=json");
+    	urlBuilder.append("&Q0=").append(URLEncoder.encode(sido, "UTF-8")); // 시도 파라미터 설정
+    	if (sigungu != null && !sigungu.isEmpty()) {
+    	    urlBuilder.append("&Q1=").append(URLEncoder.encode(sigungu, "UTF-8")); // 시군구 파라미터 설정
+    	}
+    	if (department != null && !department.isEmpty()) {
+    	    urlBuilder.append("&QD=").append(URLEncoder.encode(department, "UTF-8")); // 진료 과목 파라미터 설정
+    	}
+    	urlBuilder.append("&pageNo=").append(pageNo);
+    	urlBuilder.append("&numOfRows=").append(numOfRows);
 
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        // API 호출
+        URL requestURL = new URL(urlBuilder.toString());
+        HttpURLConnection conn = (HttpURLConnection) requestURL.openConnection();
         conn.setRequestMethod("GET");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder xmlResult = new StringBuilder();
+        // API 응답 읽기
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        StringBuilder result = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null) {
-            xmlResult.append(line);
+            result.append(line);
         }
         br.close();
         conn.disconnect();
 
-        // 특수 문자 및 제어 문자 제거
-        String cleanXml = xmlResult.toString().replaceAll("[\\x00-\\x1F]", ""); // 제어 문자 제거
-        cleanXml = cleanXml.replaceAll("\\p{C}", ""); // 다른 숨겨진 제어 문자 제거
-
-        // XML 데이터를 JSON으로 변환
-        JSONObject jsonResult = XML.toJSONObject(cleanXml);
-        model.addAttribute("hospitalData", jsonResult.toString());
-
-        return "hospital_test";
+        // JSON으로 변환하여 반환
+        JSONObject jsonResult = XML.toJSONObject(result.toString());
+        return jsonResult.toString();
     }
-	
 }

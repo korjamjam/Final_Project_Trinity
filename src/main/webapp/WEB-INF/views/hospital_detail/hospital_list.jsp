@@ -59,47 +59,19 @@
 
         <!-- list -->
         <div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
+            <c:forEach var="h" items="${list}">
+                <div class="list">hospital_detail
+                    <div class="list_title"><a href="location.href = 'hospital_list?bno=${b.boardNo}'"><p>청담이든소아청소년과의원</p></a></div>
+                    <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
+                    <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                    <div class="list_tag">
+                        <button>어린이 국가예방접종</button>
+                        <button>영유아 검진</button>
+                        <button>주차장</button>
+                    </div>
                 </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-        </div> 
+            </c:forEach>
+        </div>  
     </div>
 
 	<br><br>
@@ -109,3 +81,45 @@
 	
 </body>
 </html>
+
+
+<!-- <div class="list">
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
+                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
+                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                <div class="list_tag">
+                    <button>어린이 국가예방접종</button>
+                    <button>영유아 검진</button>
+                    <button>주차장</button>
+                </div>
+            </div>
+            <div class="list">
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
+                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
+                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                <div class="list_tag">
+                    <button>어린이 국가예방접종</button>
+                    <button>영유아 검진</button>
+                    <button>주차장</button>
+                </div>
+            </div>
+            <div class="list">
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
+                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
+                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                <div class="list_tag">
+                    <button>어린이 국가예방접종</button>
+                    <button>영유아 검진</button>
+                    <button>주차장</button>
+                </div>
+            </div>
+            <div class="list">
+                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
+                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
+                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                <div class="list_tag">
+                    <button>어린이 국가예방접종</button>
+                    <button>영유아 검진</button>
+                    <button>주차장</button>
+                </div>
+            </div> -->

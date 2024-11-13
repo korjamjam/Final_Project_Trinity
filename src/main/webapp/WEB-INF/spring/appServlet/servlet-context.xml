@@ -29,7 +29,7 @@
 	 
 	 <interceptors>
 	 	<interceptor>
-	 		<mapping path="/general_reservation"/>
+	 		<mapping path="/reservation/form"/>
 	 		<beans:bean class="com.project.trinity.common.interceptor.LoginInterceptor" id="loginIntercetor" />
 	 	</interceptor>
 	 </interceptors>

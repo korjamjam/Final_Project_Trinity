@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.project.trinity.member.model.vo.Member" %>
+<%
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    String userName = loginUser != null ? loginUser.getUserName() : "";
+    String birthday = loginUser != null ? loginUser.getBirthday() : "";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +35,7 @@
     <!-- css -->
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reservation/general_reservation.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_datepicker.css">
 
     <!-- jQuery -->
     <script 
@@ -78,7 +85,7 @@
                 <br><br>
                 <input type="text" placeholder="증상을 입력해주세요">
             </div>
-            <div class="reservation_subject_select_title" onclick="openContent(this)">
+            <div class="reservation_subject_select_title reservation_datepicker" onclick="openContent(this)">
                 <p>예약 날짜 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
@@ -116,14 +123,14 @@
             <div class="reservation_subject_select_content">
                 <div class="reservation_isyou">
                     <label for="isyou">
-                        회원 정보와 동일
-                        <input type="checkbox" id="isyou">
+						회원 정보와 동일
+                        <input type="checkbox" id="isyou" onchange="isYouCheckChange(this.checked)">
                     </label>
                 </div>
                 <br><br>
-                <input type="text" placeholder="이름을 입력해주세요">
+                <input type="text" placeholder="이름을 입력해주세요" id="userName" data-checkvalue="${loginUser.userName}">
                 <br><br>
-                <input type="text" placeholder="생년월일을 입력해주세요">
+                <input type="text" placeholder="생년월일을 입력해주세요" id="birthday" data-checkvalue="${loginUser.birthday}">
             </div>
         </div>
 
