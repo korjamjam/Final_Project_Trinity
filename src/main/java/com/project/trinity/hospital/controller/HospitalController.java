@@ -9,26 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.project.trinity.hospital.model.vo.Hospital;
 import com.project.trinity.hospital.service.HospitalService;
 
-@Controller
+@Controller("/hospital")
 public class HospitalController {
-	
-	private final HospitalService hospitalService;
-	
-	@Autowired
-	public HospitalController(HospitalService hospitalService) {
-		this.hospitalService = hospitalService;
-	}
-	
-	@GetMapping("hospital_list")
+	@GetMapping("/list")
 	public String hospitalList() {
 		return "hospital_detail/hospital_list";
 	}
 	
-	@GetMapping("hospital_detail")
-	public String hospitalDetail(String hpId, Model m) {
-		
-	
-		
+	@GetMapping("/detail")
+	public String hospitalDetail() {
 		return "hospital_detail/hospital_detail";
 	}
 	

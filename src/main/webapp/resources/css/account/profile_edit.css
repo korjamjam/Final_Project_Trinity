@@ -33,8 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 40px; /* 프로필 사진과 입력칸 사이의 여백을 40px로 설정 */
-    position: relative;
+    margin-bottom: 40px; /* 프로필 사진과 입력칸 사이의 여백 */ !important;
 }
 
 .profile-picture img {
@@ -43,7 +42,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid #ccc;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* 프로필 사진과 버튼 사이의 여백 */ !important;
 }
 
 .upload-button {
@@ -54,20 +53,18 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.8rem;
-    position: absolute;
-    bottom: -10px;
-    right: calc(50% - 25px);
+    position: static; /* 버튼을 아래로 배치 */
 }
 
 /* 인풋 및 수정 버튼 그룹 */
 .input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* 각 항목 간의 여백을 추가하여 여유 공간 생성 */
 }
 
 .input-group label {
-    flex: 0 0 60px; /* 라벨 고정 너비 */
+    flex: 0 0 80px; /* 라벨의 고정 너비를 넓혀 여유 공간 확보 */
     font-size: 1rem;
 }
 
@@ -78,9 +75,10 @@ body {
     border-radius: 5px;
     font-size: 1rem;
     margin-right: 5px;
-    width: 100%; /* 모든 입력칸의 크기를 동일하게 */
+    width: calc(100% - 90px); /* 입력 칸 너비를 조정해 여유 공간 추가 */
 }
 
+/* 수정 버튼 스타일 */
 .input-group .edit-button {
     background-color: #fff;
     color: #8CCF4E;
