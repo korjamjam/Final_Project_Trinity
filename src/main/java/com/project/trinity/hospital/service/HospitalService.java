@@ -4,6 +4,5 @@ import com.project.trinity.hospital.model.vo.Hospital;
 
 public interface HospitalService {
 
-	Hospital selectHospital(String hpId);
 	
 }
