@@ -14,7 +14,8 @@
 
 		<!-- include summernote css/js-->
 
-		<link href="${ pageContext.servletContext.contextPath }/resources/css/community/summernote/summernote-bs5.min.css"
+		<link
+			href="${ pageContext.servletContext.contextPath }/resources/css/community/summernote/summernote-bs5.min.css"
 			rel="stylesheet">
 		<script
 			src="${ pageContext.servletContext.contextPath }/resources/css/community/summernote/summernote-bs5.min.js"></script>
@@ -36,7 +37,7 @@
 				</div>
 				<div class="post-action-section">
 					<button class="white-button">임시등록 | 0</button>
-					<button class="round-button">등록</button>
+					<button type="button" class="round-button" onclick="goToPostDetail()">등록</button>
 				</div>
 			</div>
 			<hr>
@@ -60,13 +61,14 @@
 
 				<div class="spacer"></div> <!-- 여백을 추가하기 위한 요소 -->
 
-				<form method="post" action="write">
-					<textarea id="summernote" name="content"></textarea>
-					<div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+				<form method="post" action="community_post_detail.jsp" class="post-form">
+					<textarea id="summernote" name="content" class="post-textarea"></textarea>
+					<div class="button-container">
 						<input type="submit" value="작성완료" class="round-button">
 					</div>
 				</form>
-				
+
+
 			</div>
 		</div>
 		<script>
@@ -75,7 +77,7 @@
 					const isPc = !window.matchMedia("(max-width: 768px)").matches;
 
 					$('#summernote').summernote({
-						height: isPc ? 500 : 400, // 모바일 버전 높이
+						height: isPc ? 450 : 400, // 모바일 버전 높이
 						width: isPc ? 800 : '100%', // 모바일 버전 너비
 						placeholder: '글을 입력하세요.',
 						tabsize: 2,
@@ -92,7 +94,7 @@
 							onImageUpload: fileUpload
 						}
 					});
-				
+
 				}
 
 				initializeSummernote();
@@ -100,26 +102,26 @@
 			});
 
 			function changeCategory(category) {
-				
+
 				let tagSelect = document.querySelector("#post-tag-select");
 				tagSelect.innerHTML = ""; //비움
 
 
-				switch(category){
-				case "자유게시판":
-					tagSelect.innerHTML = `<option>친목</option>
+				switch (category) {
+					case "자유게시판":
+						tagSelect.innerHTML = `<option>친목</option>
 										   <option>유머</option>
 										   <option>꿀팁</option>`;
-					break;
-				case "메디톡":
-					tagSelect.innerHTML = `<option>질문</option>
+						break;
+					case "메디톡":
+						tagSelect.innerHTML = `<option>질문</option>
 										   <option>정보</option>`;
-					break;
-				case "이벤트게시판":
-					tagSelect.innerHTML = `<option>관리자</option>
+						break;
+					case "이벤트게시판":
+						tagSelect.innerHTML = `<option>관리자</option>
 										   <option>우리동네소식</option>
 										   <option>꿀팁</option>`;
-					break;
+						break;
 				}
 			}
 
@@ -152,6 +154,10 @@
 						console.log("파일업로드 api요청 실패");
 					}
 				});
+			}
+			function goToPostDetail() {
+				// 등록 버튼 클릭 시 페이지 이동
+				window.location.href = "community_post_detail.jsp";
 			}
 
 		</script>

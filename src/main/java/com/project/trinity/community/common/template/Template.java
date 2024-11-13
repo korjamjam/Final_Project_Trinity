@@ -1,4 +1,4 @@
-package com.kh.spring.common.template;
+package com.project.trinity.community.common.template;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.spring.common.vo.PageInfo;
+import com.project.trinity.community.common.vo.PageInfo;
 
 public class Template {
 
