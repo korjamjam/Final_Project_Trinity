@@ -41,6 +41,7 @@
     padding: 40px 35px;
     font-size: 1.1rem;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .nav-links a:hover {

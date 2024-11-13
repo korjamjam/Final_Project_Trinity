@@ -95,4 +95,13 @@ public class MemberController {
             return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
         }
     }
+    
+    @RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+    
+    
 }

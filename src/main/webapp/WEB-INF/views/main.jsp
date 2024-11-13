@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
 
+	<!-- JS -->
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+
 </head>
 <body>
 	
@@ -51,7 +54,7 @@
 
 		<!-- 3 Button -->
 		<div class="shortCutButton">
-			<button class="reservation" onclick="location.href='general_reservation'">예약하기</button>
+			<button class="reservation" onclick="checkLogin()">예약하기</button>
 			<div class="find">
 				<button class="findHos">병원찾기</button>
 				<button class="findPh">가까운 약국 찾기</button>

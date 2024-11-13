@@ -27,10 +27,10 @@
 	
 	<aop:aspectj-autoproxy /> 
 	 
-	 <!-- <interceptors>
+	 <interceptors>
 	 	<interceptor>
-	 		<mapping path="적용url"/>
-	 		<beans:bean class="적용인터셉터클레스" id="아이디" />
+	 		<mapping path="/generalReservation.form"/>
+	 		<beans:bean class="com.project.trinity.common.interceptor.LoginInterceptor" id="loginIntercetor" />
 	 	</interceptor>
-	 </interceptors> -->
+	 </interceptors>
 </beans:beans>
