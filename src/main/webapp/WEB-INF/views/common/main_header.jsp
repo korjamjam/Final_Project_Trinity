@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="sidebar.jsp" %> <!-- 사이드바 포함 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -72,9 +71,8 @@
             		<div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
         		</c:when>
         		<c:otherwise>
-        			<label>${loginUser.userName}님 환영합니다</label> &nbsp;&nbsp;
-	                <a href="">마이페이지</a>
-	                <a href="logout.me">로그아웃</a>
+        			<label>${loginUser.userName}님 환영합니다.</label> &nbsp;&nbsp;
+	                <a href=""></a> 
         		</c:otherwise>
         	</c:choose>
         	
