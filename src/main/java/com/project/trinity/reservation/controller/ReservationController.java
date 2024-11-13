@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReservationController {
 	
-	@GetMapping("general_reservation")
+	@GetMapping("generalReservation.form")
 	public String generalReservation() {
 		return "reservation/general_reservation";
 	}
