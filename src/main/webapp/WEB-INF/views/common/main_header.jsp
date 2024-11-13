@@ -52,12 +52,12 @@
 				</div>
 			</div>
 			<div class="dropdown">
-                <a href="community_main.me">커뮤니티</a>
+                <a href="community/main">커뮤니티</a>
                 <div class="dropdown-content">
-                    <a href="community_main.me?type=popular">인기</a>
-                    <a href="community_main.me?type=free">자유</a>
-                    <a href="community_main.me?type=meditalk">의료 소통</a>
-                    <a href="community_main.me?type=event">이벤트</a>
+                    <a href="community/main?type=popular">인기</a>
+                    <a href="community/main?type=free">자유</a>
+                    <a href="community/main?type=meditalk">의료 소통</a>
+                    <a href="community/main?type=event">이벤트</a>
                 </div>
             </div>
 			<div class="dropdown">

@@ -42,7 +42,7 @@
 									<option value="카테고리">카테고리</option>
 								</select>
 								<c:if test="${not empty sessionScope.loginUser}">
-									<a class="round-button" href="summernote.me">글쓰기</a>
+									<a class="round-button" href="write">글쓰기</a>
 								</c:if>
 							</div>
 						</div>

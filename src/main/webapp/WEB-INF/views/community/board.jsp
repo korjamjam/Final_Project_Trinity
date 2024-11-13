@@ -14,7 +14,7 @@ if ("free".equals(boardType)) {
 } else if ("event".equals(boardType)) {
 	boardTitle = "이벤트";
 } else {
-	boardTitle = "게시판"; // 기본 제목
+	boardTitle = "실시간 인기글"; // 기본 제목
 }
 %>
 
