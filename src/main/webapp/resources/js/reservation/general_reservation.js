@@ -14,7 +14,6 @@ $(function() {
       yearSuffix: '년',
       inline: true
     });
-
   });
 
   function openContent(content){
@@ -29,3 +28,20 @@ $(function() {
           $p.slideUp();
       }
   }
+
+function isYouCheckChange(checked){
+  
+    const userNameInput = document.getElementById("userName");
+    const birthdayInput = document.getElementById("birthday");
+
+    if (checked) {
+        // 체크되면 세션의 loginUser 정보로 입력 필드를 채움
+        userNameInput.value = userNameInput.dataset.checkvalue;
+        birthdayInput.value = birthdayInput.dataset.checkvalue.substr(0,10);
+    } else {
+        // 체크 해제 시 입력 필드를 비움
+        userNameInput.value = "";
+        birthdayInput.value = "";
+    }
+
+}
