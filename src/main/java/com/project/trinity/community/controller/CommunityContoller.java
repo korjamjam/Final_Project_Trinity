@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<<< HEAD:src/main/java/com/project/trinity/community/controller/communityController.java
+
 import org.springframework.ui.Model;
 
 
@@ -47,7 +47,7 @@ public class CommunityContoller {
     public String showCommunityDetailPage() {
         return "community/community_detail";
     }
-
+    
     // 게시글 상세 페이지 연결 - 카테고리와 함께
     @RequestMapping("community_post_detail.me")
     public String showCommunityPostDetailPage(@RequestParam("category") String category, Model model) {

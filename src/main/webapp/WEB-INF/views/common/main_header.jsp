@@ -76,20 +76,6 @@
 	                <a href=""></a> 
         		</c:otherwise>
         	</c:choose>
-        	
-
-            <c:choose>
-                <c:when test="${not empty loginUser}">
-                    <a href="myPage.me">마이페이지</a>
-                    <a href="logout.me">로그아웃</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="login.me">로그인</a>
-                    <a href="register.me">회원가입</a>
-                </c:otherwise>
-            </c:choose>
-            
-           
 
         </div>
     </header>
