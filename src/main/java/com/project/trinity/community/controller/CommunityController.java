@@ -19,7 +19,7 @@ public class CommunityController {
         } else if ("event".equals(type)) {
             boardTitle = "이벤트";
         } else {
-            boardTitle = "게시판";
+            boardTitle = "실시간 인기글";
         }
         model.addAttribute("boardTitle", boardTitle);
         return "community/community_main";
@@ -37,7 +37,7 @@ public class CommunityController {
         } else if ("event".equals(type)) {
             boardTitle = "이벤트";
         } else {
-            boardTitle = "게시판";
+            boardTitle = "실시간 인기글";
         }
 
         // 모델에 속성 추가
