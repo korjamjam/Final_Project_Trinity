@@ -16,8 +16,8 @@ import org.json.XML;
 public class JsonToDatabase {
 
     private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String DB_USER = "JDBC";
-    private static final String DB_PASSWORD = "JDBC";
+    private static final String DB_USER = "TRINITY";
+    private static final String DB_PASSWORD = "TRINITY";
     private static final String API_KEY = "CgW4Hiix9takPucR5PSLrWfmoZ%2FkSPM%2FEpLAL8pcWJYFWb5qFCLs8%2BgU5m0ArTekGGo4m3e4JZ9SESlwpa3jXw%3D%3D"; // 발급받은 API 키를 입력하세요.
 
     public static void main(String[] args) {
@@ -74,7 +74,7 @@ public class JsonToDatabase {
 
                 // 데이터베이스 연결
                 Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-                String sql = "INSERT INTO Hospital (name, address, division, department, start_time, end_time, hpid, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO HOSPITAL_KID (name, address, division, department, start_time, end_time, hpid, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
                 // 각 항목을 데이터베이스에 저장

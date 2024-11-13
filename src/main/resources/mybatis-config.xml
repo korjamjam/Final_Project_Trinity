@@ -12,11 +12,13 @@
  
  	<typeAliases>
  		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
+ 		<typeAlias type="com.project.trinity.hospital.model.vo.Hospital" alias="Hospital" />
  	</typeAliases>
  	
 
  	<mappers>
  		<mapper resource="mappers/member-mapper.xml"/>
+ 		<mapper resource="mappers/hospital-mapper.xml"/>
  	</mappers>
 
  	
