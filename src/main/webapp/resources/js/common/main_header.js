@@ -1,3 +1,3 @@
 function checkLogin(){
-    location.href = "generalReservation.form"
+    location.href = "/reservation/form"
 }

@@ -33,7 +33,7 @@
 		</div>
 		<nav class="nav-links">
 			<div class="dropdown">
-				<a href="hospital.list">병원찾기</a>
+				<a href="/hospital/list">병원찾기</a>
 			</div>
 			<div class="dropdown">
 				<a href="#">종합예약</a>
