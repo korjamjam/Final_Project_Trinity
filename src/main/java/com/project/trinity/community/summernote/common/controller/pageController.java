@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class page_controller {
 	
-	@RequestMapping("createPost")
+@RequestMapping("createPost")
 	public String movePage(String page) {
 	    if ("summernote".equals(page)) {
 	        return "community/summernote";

@@ -1,4 +1,4 @@
-/* 湲곕낯 ㅽ */
+/* 전체 초기화 */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +6,7 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-
-/* 사이드바 기본 스타일 */
+/* 사이드바 스타일 */
 .hamburger-sidebar {
     width: 250px;
     height: 100vh;
@@ -21,16 +20,13 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     display: flex;
-
-    flex-direction: column; /* 사이드바 내부 요소 정렬 */
+    flex-direction: column;
 }
 
-/* ъ대諛 蹂댁닿린 (대 異媛  �) */
 .hamburger-show-sidebar {
     transform: translateX(0);
 }
 
-/* ъ대諛 ㅻ ㅽ */
 .hamburger-sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -52,39 +48,58 @@
     cursor: pointer;
 }
 
-/* ъ대諛 硫 ㅽ */
+/* 메뉴 스타일 */
 .hamburger-sidebar-menu {
     list-style-type: none;
     padding: 0;
 }
 
-.hamburger-sidebar-menu li {
+.accordion-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion-header {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    border-top: 1px solid #eee;
-    font-size: 16px;
     cursor: pointer;
-}
-
-.hamburger-sidebar-menu li a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.hamburger-sidebar-menu li span {
     font-size: 16px;
-    color: #888;
+    font-weight: bold;
 }
 
-/* 硫 댄 대┃  ㅽ (몃 ④낵) */
-.hamburger-sidebar-menu li:hover {
-    background-color: #f0f0f0;
+/* 서브메뉴 숨기기 */
+.dropdown-content {
+    display: none;
+    padding-left: 20px;
 }
 
-/* 778px 댄 硫댁 ъ대諛媛 �泥대� 媛由щ濡 ㅼ */
+.dropdown-content.active {
+    display: block;
+    padding: 10px 20px;
+}
+
+.dropdown-content li {
+    padding: 8px 0;
+}
+
+.dropdown-content li a {
+    text-decoration: none;
+    color: #555;
+    display: block;
+}
+
+/* 화살표 스타일 */
+.accordion-arrow {
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+/* 반응형 스타일 */
 @media (max-width: 778px) {
     .hamburger-sidebar {
         width: 100%;
