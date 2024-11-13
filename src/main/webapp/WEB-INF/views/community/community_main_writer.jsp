@@ -18,7 +18,6 @@
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
             <h2>게시판</h2>
-          
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                     <tr>
