@@ -18,11 +18,6 @@ public class AccountController {
 		return "account/profile_edit";
 	}
 	
-	@RequestMapping("repair_email_main.me")
-	public String repairemailPage() {
-		return "account/repair_email";
-	}
-	
 	@RequestMapping("reset_pwd_main.me")
 	public String resetpwdPage() {
 		return "account/reset_pwd";
@@ -41,11 +36,6 @@ public class AccountController {
 	@RequestMapping("sign_up_main.me")
 	public String signupPage() {
 		return "account/sign_up";
-	}
-	
-	@RequestMapping("name_update_main.me")
-	public String nameupdatePage() {
-		return "account/name_update";
 	}
 	
 }
