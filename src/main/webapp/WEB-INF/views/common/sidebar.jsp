@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사이드바 메뉴</title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/sidebar.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css">
 </head>
 <body>
     <!-- 사이드바 -->

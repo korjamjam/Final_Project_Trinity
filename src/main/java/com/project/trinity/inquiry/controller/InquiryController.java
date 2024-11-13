@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/inquiry")
 public class InquiryController {
 
 	//커뮤니티 페이지 연결

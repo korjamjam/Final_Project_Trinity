@@ -11,19 +11,17 @@
 #mainContent {
     display: flex;
     justify-content: center; /* #mainContent 자체가 화면 중앙에 위치 */
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
     box-sizing: border-box;
-    gap: 20px; /* 자식 요소들 간의 여백 */
 }
 
 #sideMenu {
     position: sticky;
     top: 215px; /* 스크롤 시 화면 상단에서 150px 아래에 고정 */
     width: 20%; /* mainContent의 20% 너비 */
-    max-width: 240px; /* 최대 너비 제한 */
+    max-width: 180px; /* 최대 너비 제한 */
     display: flex;
     justify-content: center;
     align-self: flex-start; /* flex 컨테이너에서 상단 정렬 */
@@ -32,13 +30,13 @@
 #mainWrapper {
     width: 60%; /* mainContent의 60% 유지 */
     max-width: 864px; /* 최대 너비 제한 */
-    padding: 20px;
     box-sizing: border-box;
+	padding: 20px 0;
 }
 
 .empty-space {
     width: 20%; /* mainContent의 20% 유지 */
-    max-width: 240px; /* sideMenu와 동일한 최대 너비 */
+    max-width: 180px; /* sideMenu와 동일한 최대 너비 */
 }
 
 
