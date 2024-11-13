@@ -270,7 +270,7 @@
 		min-width: 570px;
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: center;
 		/* 내부 요소를 하단 정렬 */
 		margin-bottom: 15px;
 	}
@@ -294,12 +294,13 @@
 		/* 기본 여백 제거 */
 	}
 	.sort-select {
-		font-size: 14px;
 		padding: 5px 10px;
+		font-size: 14px;
 		border: 1px solid #6cc24a;
 		border-radius: 4px;
 		color: #265708;
 		background-color: #ffffff;
+		outline: none;
 	}
 	.sort-select:focus, .sort-select:active {
 		border-color: #6cc24a;

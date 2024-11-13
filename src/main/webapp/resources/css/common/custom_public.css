@@ -1,114 +1,71 @@
-@media (max-width: 768px) {
-
-    /* 글쓰기 버튼 */
-    .round-button {
-        font-size: 14px;
-        /* 기본 폰트 크기 */
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        max-width: max-content;
-    }
-
-    .round-button:hover {
-        background-color: #5aa33c;
-    }
-
-    .white-button {
-        display: inline-block;
-        padding: 5px 5px;
-        border: 1px solid #ccc;
-        /* 기존의 테두리 색 */
-        border-radius: 8px;
-        /* 모서리 둥글게 */
-        background-color: #f5f5f5;
-        /* 배경색 */
-        font-size: 12px;
-        color: #333;
-        /* 글자색 */
-        cursor: pointer;
-        text-align: center;
-        transition: background-color 0.3s, border-color 0.3s;
-        /* 호버 시 변화를 위한 트랜지션 */
-        max-width: max-content;
-        white-space: nowrap;
-    }
-
-    .white-button:hover {
-        background-color: #e0e0e0;
-        /* 호버 시 배경색 */
-        border-color: #999;
-        /* 호버 시 테두리색 */
-    }
-
-
-
+/* 글쓰기 버튼 */
+.round-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    /* 기본 폰트 크기 */
+    color: #fff;
+    background-color: #6cc24a;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    max-width: max-content;
+    white-space: nowrap;
+    padding: 0.4em 0.5em;
 }
 
+.round-button:visited {
+    color: #fff;
+}
+.round-button:hover {
+    background-color: #5aa33c;
+    text-decoration: none;
+}
+
+.white-button {
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    /* 글꼴 크기의 비율에 따라 패딩 조절 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+    /* 호버 시 변화를 위한 트랜지션 */
+    max-width: max-content;
+    white-space: nowrap;
+}
+
+.white-button:hover {
+    background-color: #e0e0e0;
+    border-color: #999;
+}
 
 @media (min-width: 769px) {
-    .round-button {
-        padding: 0.3em 0.5em;
-        /* 글꼴 크기의 비율에 따라 패딩 조절 */
-        font-size: 14px;
-        /* 기본 폰트 크기 */
-        color: #fff;
-        background-color: #6cc24a;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        max-width: max-content;
-        white-space: nowrap;
+    .mobile-only {
+        display: none;
     }
-
-    .round-button:hover {
-        background-color: #5aa33c;
+     
+    a :visited {
+        color: #ffffff;
     }
-
-    .white-button {
-        display: inline-block;
-        padding: 0.3em 0.5em;
-        /* 글꼴 크기의 비율에 따라 패딩 조절 */
-        border: 1px solid #ccc;
-        /* 기존의 테두리 색 */
-        border-radius: 4px;
-        /* 모서리 둥글게 */
-        background-color: #f5f5f5;
-        /* 배경색 */
-        font-size: 14px;
-        color: #333;
-        /* 글자색 */
-        cursor: pointer;
-        text-align: center;
-        transition: background-color 0.3s, border-color 0.3s;
-        /* 호버 시 변화를 위한 트랜지션 */
-        max-width: max-content;
-        white-space: nowrap;
-    }
-
-    .white-button:hover {
-        background-color: #e0e0e0;
-        /* 호버 시 배경색 */
-        border-color: #999;
-        /* 호버 시 테두리색 */
-    }
-
+    
     .navigation-links {
         width: 25%;
         /* 부모 요소인 navigation-buttons의 35% 차지 */
         display: flex;
         justify-content: space-between;
-        /* 내부 요소들 간의 간격을 적절히 조절 */
         align-items: center;
-        /* 수직 중앙 정렬 */
+    
     }
 
     .nav-links-group {
-     
+
         flex: 0 0 60%;
         /* navigation-links의 55% 너비 차지 */
         display: flex;
@@ -132,7 +89,6 @@
 
     .nav-text:hover {
         color: #28a745;
-        /* 마우스 오버 시 색상 */
     }
 
     #custom-round-button {
@@ -142,38 +98,27 @@
 
     .board-category-select {
         color: #265708;
-        /* 텍스트 색상 */
-        font-weight: bold;
-        /* 텍스트 강조 */
-        border: none;
-        /* 기본 테두리 제거 */
+        font-weight: bold;   
+        border: none;    
         background: transparent;
-        /* 배경색 투명 */
-
         font-size: 16px;
-        /* 폰트 크기 */
         outline: none;
         /* 포커스 시 생기는 테두리 제거 */
     }
 
     .board-category-select option {
         color: #000;
-        /* 옵션 색상 */
     }
 
-    /* custom_public.css 파일에 추가 */
     .board-category-select {
-        color: #265708;
-        /* 글자 색상 */
-        font-size: 14px;
-        /* 글자 크기 */
+        color: #265708;     
+        font-size: 14px;   
         cursor: pointer;
-        /* 포인터 커서 */
+       
     }
 
     .board-category-select:hover {
         background-color: #f0f0f5;
-        /* 원하는 호버 색상 */
         color: #265708;
     }
 
@@ -188,9 +133,7 @@
         display: inline-flex;
         /* 내용 정렬을 위해 사용 */
         justify-content: space-between;
-        /* 가로 중앙 정렬 */
         align-items: center;
-        /* 세로 중앙 정렬 */
         border: none;
         background-color: transparent;
         cursor: pointer;
@@ -201,4 +144,18 @@
     .like-button span {
         margin-left: 5px;
     }
+}
+
+@media (max-width: 768px) {
+
+    /* 글쓰기 버튼 */
+    .round-button {
+        font-size: 12px;
+       
+    }
+
+    .white-button {
+        font-size: 12px;
+    }
+
 }
