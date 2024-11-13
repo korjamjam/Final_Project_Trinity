@@ -28,6 +28,7 @@ public class MemberController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@Autowired
+	
 	public MemberController(MemberService memberService, BCryptPasswordEncoder bcryptPasswordEncoder) {
 		this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;

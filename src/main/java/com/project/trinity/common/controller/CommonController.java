@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CommonController {
 	@GetMapping("main")
 	public String main() {
-		return "main";
+		return "redirect:/";
 	}
 }
