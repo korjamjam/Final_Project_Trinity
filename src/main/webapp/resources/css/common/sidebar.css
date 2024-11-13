@@ -1,11 +1,9 @@
-/* 湲곕낯 ㅽ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans KR', sans-serif;
 }
-
 
 /* 사이드바 기본 스타일 */
 .hamburger-sidebar {
@@ -18,19 +16,18 @@
     left: 0;
     top: 0;
     overflow-y: auto;
-    transform: translateX(-100%);
+    transform: translateX(-100%); /* 사이드바를 화면 밖으로 이동 */
     transition: transform 0.3s ease;
     display: flex;
-
-    flex-direction: column; /* 사이드바 내부 요소 정렬 */
+    flex-direction: column;
+    z-index: 1000;
 }
 
-/* ъ대諛 蹂댁닿린 (대 異媛  �) */
 .hamburger-show-sidebar {
-    transform: translateX(0);
+    transform: translateX(0); /* 사이드바가 화면에 나타나도록 설정 */
 }
 
-/* ъ대諛 ㅻ ㅽ */
+/* 사이드바 헤더 스타일 */
 .hamburger-sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -52,39 +49,48 @@
     cursor: pointer;
 }
 
-/* ъ대諛 硫 ㅽ */
+/* 사이드바 메뉴 스타일 */
 .hamburger-sidebar-menu {
-    list-style-type: none;
-    padding: 0;
+    padding: 0 20px;
 }
 
-.hamburger-sidebar-menu li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-top: 1px solid #eee;
-    font-size: 16px;
+.sidebar-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #dbdbdb;
     cursor: pointer;
 }
 
-.hamburger-sidebar-menu li a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
+.sidebar-item p {
+    font-size: 20px;
+    color: #9e9e9e;
+    margin: 0;
 }
 
-.hamburger-sidebar-menu li span {
+.sidebar-submenu {
+    display: none;
+    margin-top: 10px;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.sidebar-submenu a {
+    display: block;
+    color: #555;
     font-size: 16px;
-    color: #888;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-top: 1px solid #e0e0e0;
+    transition: background-color 0.3s;
 }
 
-/* 硫 댄 대┃  ㅽ (몃 ④낵) */
-.hamburger-sidebar-menu li:hover {
+.sidebar-submenu a:first-child {
+    border-top: none;
+}
+
+.sidebar-submenu a:hover {
     background-color: #f0f0f0;
 }
 
-/* 778px 댄 硫댁 ъ대諛媛 �泥대� 媛由щ濡 ㅼ */
 @media (max-width: 778px) {
     .hamburger-sidebar {
         width: 100%;
