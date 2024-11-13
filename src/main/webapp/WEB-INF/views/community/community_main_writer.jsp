@@ -18,11 +18,7 @@
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
             <h2>게시판</h2>
-            <br>
-            <%-- 테스트용 코드: 로그인된 사용자 시뮬레이션 --%>
-            <c:set var="loginUser" value="testUser" scope="session" />
-            
-            <br>
+          
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                     <tr>

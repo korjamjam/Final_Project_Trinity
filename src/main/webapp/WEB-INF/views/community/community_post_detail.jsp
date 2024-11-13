@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <% // 테스트 목적으로 세션에 loggedInUser 값을 설정 session.setAttribute("loggedInUser", "jjhim531" ); %>
-
             <!DOCTYPE html>
             <html lang="ko">
 
