@@ -29,7 +29,7 @@
 		<div class="logo">
 			<img
 				src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png"
-				alt="주사기 아이콘" class="icon"> <a href="main" class="logo-text">닥터링</a>
+				alt="주사기 아이콘" class="icon"> <a href="common/main" class="logo-text">닥터링</a>
 		</div>
 		<nav class="nav-links">
 			<div class="dropdown">
@@ -43,12 +43,13 @@
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="#">건강검진</a>
+				<a href="healthReservation/guide">건강검진</a>
 				<div class="dropdown-content">
-					<a href="health.reservation1">국가 검진 예약</a> <a href="health.guide">검진
-						예약 안내</a> <a href="health_reservation_info_nomal">검진 절차 예약</a> <a
-						href="health_reservation_result">검진 결과 조회</a> <a
-						href="health_reservation_items_info">검사 항목 정보</a>
+					<a href="healthReservation/reservation1">국가 검진 예약</a> 
+					<a href="healthReservation/guide">검진 예약 안내</a>
+					<a href="healthReservation/infoNomal">검진 절차 예약</a>
+					<a href="healthReservation/result">검진 결과 조회</a>
+					<a href="healthReservation/itemsInfo">검사 항목 정보</a>
 				</div>
 			</div>
 			<div class="dropdown">
@@ -61,11 +62,12 @@
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="inquiry_notification.me">고객문의</a>
+				<a href="notification">고객문의</a>
 				<div class="dropdown-content">
-					<a href="inquiry_notification.me">공지사항</a> <a
-						href="inquiry_notice.me">알림판</a> <a href="inquiry_faq.me">FAQ</a>
-					<a href="inquiry_qna.me">Q&A</a>
+					<a href="notification">공지사항</a> 
+					<a href="notice">알림판</a> 
+					<a href="faq">FAQ</a>
+					<a href="qna">Q&A</a>
 				</div>
 			</div>
 		</nav>
