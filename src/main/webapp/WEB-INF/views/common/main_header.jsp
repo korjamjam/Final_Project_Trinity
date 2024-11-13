@@ -77,7 +77,7 @@
 	                <a href="logout.me">로그아웃</a>
         		</c:otherwise>
         	</c:choose>
-        	
+        	 
         </div>
     </header>
 
