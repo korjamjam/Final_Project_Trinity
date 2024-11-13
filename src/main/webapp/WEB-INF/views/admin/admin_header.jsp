@@ -20,10 +20,10 @@
 
         <!-- a태그 클릭시 페이지 이동 -->
         <nav class="nav-links">
-            <a href="">회원관리</a>
-            <a href="#">병원관리</a>
-            <a href="#">예약관리</a>
-            <a href="#">게시글관리</a>
+            <a href="member">회원관리</a>
+            <a href="hospital">병원관리</a>
+            <a href="reservation">예약관리</a>
+            <a href="post">게시글관리</a>
         </nav>
         <div class="login-menu">
         	<div class="right-rect"></div>

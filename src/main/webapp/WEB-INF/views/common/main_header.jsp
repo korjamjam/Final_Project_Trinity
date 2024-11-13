@@ -62,11 +62,12 @@
                 </div>
             </div>
 			<div class="dropdown">
-				<a href="inquiry_notification.me">고객문의</a>
+				<a href="notification">고객문의</a>
 				<div class="dropdown-content">
-					<a href="inquiry_notification.me">공지사항</a> <a
-						href="inquiry_notice.me">알림판</a> <a href="inquiry_faq.me">FAQ</a>
-					<a href="inquiry_qna.me">Q&A</a>
+					<a href="notification">공지사항</a> 
+					<a href="notice">알림판</a> 
+					<a href="faq">FAQ</a>
+					<a href="qna">Q&A</a>
 				</div>
 			</div>
 		</nav>
