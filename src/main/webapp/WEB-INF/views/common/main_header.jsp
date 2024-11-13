@@ -24,7 +24,6 @@
 
 </head>
 <body>
-<<<<<<< HEAD
     <header class="header">
         <div class="logo">
             <img src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon"> 
