@@ -19,8 +19,7 @@ import com.google.gson.Gson;
 import com.project.trinity.community.summernote.vo.Board;
 
 @Controller
-public class summernote_controller {
-	
+public class SummernoteController {
 	@PostMapping("write")
 	public String insertBoard(Board b, Model m) {
 		System.out.println(b);
