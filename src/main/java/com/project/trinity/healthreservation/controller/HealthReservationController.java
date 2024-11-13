@@ -5,54 +5,55 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/healthReservation")
 public class HealthReservationController {
 
-	@GetMapping("health.guide")
+	@GetMapping("/guide")
 	public String healthReservationGuide() {
 		return "health_reservation/health_reservation_guide";
 	}
 	
-	@GetMapping("caution_guide_even")
+	@GetMapping("/guideEven")
 	public String cautionGuideEvening() {
 		return "health_reservation/caution_guide_evening";
 	}
 	
-	@GetMapping("caution_guide_d")
+	@GetMapping("/guideDday")
 	public String cautionGuideDday() {
 		return "health_reservation/caution_guide_dday";
 	}
 	
-	@GetMapping("caution_guide_endo")
+	@GetMapping("/guideEndo")
 	public String cautionGuideEndoscope() {
 		return "health_reservation/caution_guide_endoscope";
 	}
 	
-	@GetMapping("caution_guide_ct")
+	@GetMapping("/guideCt")
 	public String cautionGuideCtMri() {
 		return "health_reservation/caution_guide_ct_mri";
 	}
 	
-	@GetMapping("health.reservation1")
+	@GetMapping("/reservation1")
 	public String healthReservation1() {
 		return "health_reservation/health_reservation1";
 	}
 	
-	@GetMapping("health.reservation2")
+	@GetMapping("/reservation2")
 	public String healthReservation2() {
 		return "health_reservation/health_reservation2";
 	}
 	
-	@GetMapping("health_reservation_result")
+	@GetMapping("/result")
 	public String healthReservationResult() {
 		return "health_reservation/health_reservation_result";
 	}
 	
-	@GetMapping("health_reservation_info_nomal")
+	@GetMapping("/infoNomal")
 	public String healthReservationInfoNomal() {
 		return "health_reservation/health_reservation_info_nomal";
 	}
 	
-	@GetMapping("health_reservation_items_info")
+	@GetMapping("/itemsInfo")
 	public String healthReservationItems() {
 		return "health_reservation/health_reservation_items_info";
 	}
