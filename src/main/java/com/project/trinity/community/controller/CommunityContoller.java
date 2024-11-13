@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<<< HEAD:src/main/java/com/project/trinity/community/controller/communityController.java
 import org.springframework.ui.Model;
 
 
