@@ -8,7 +8,7 @@
 <body>
     <h1>병원 조회</h1>
 
-    <form action="/hospitals" method="get">
+    <form action="/hospital/detail" method="get">
         <label for="sido">시도:</label>
         <input type="text" id="sido" name="sido" placeholder="예: 서울특별시" required>
 

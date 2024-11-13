@@ -26,11 +26,11 @@
                     </div>
                     <p>검진자(성명)</p>
                         <div class="health_reservation1_content input_name">
-                            <input type="text" required>
+                            <input type="text" required id="reservation_user_name">
                         </div>
                     <p>주민번호</p>
                     <div class="health_reservation1_content input_id_num">
-                        <input type="text" required> - <input type="password" maxlength="1" required>
+                        <input type="text" required> - <input type="password" maxlength="1" required id="reservation_user_num">
                         <p>******</p>
                     </div>
                     <p>핸드폰</p>
@@ -41,11 +41,11 @@
                             <option value="">012</option>
                             <option value="">013</option>
                         </select>
-                        <input type="text" placeholder=" -없이 입력하세요" required>
+                        <input type="text" placeholder=" -없이 입력하세요" required id="reservation_user_phone">
                     </div>
                     <p>이메일</p>
                     <div class="health_reservation1_content input_email">
-                        <input type="text"> @
+                        <input type="text" id="reservation_user_email"> @
                         <select name="" id="">
                             <option value="">naver.com</option>
                             <option value="">daum.net</option>
@@ -56,7 +56,7 @@
                     <p>주소</p>
                     <div class="health_reservation1_content input_address">
                         <input type="text" disabled>
-                        <button>주소찾기</button>
+                        <button type="button">주소찾기</button>
                     </div>
                     <input type="text" disabled>
                     <input type="text" placeholder=" 상세주소">
@@ -68,8 +68,8 @@
                     <div class="use_tos">
                         <p> 개인정보 수집 및 이용에 동의 하십니까?</p>
                         <label for="">
-                            <input type="checkbox">동의함
-                            <input type="checkbox">동의하지 않음
+                            <input type="radio" name="use_tos_ans" value="yes">동의함
+                            <input type="radio" name="use_tos_ans" value="no">동의 안함
                         </label>
                     </div>
                     <p>
@@ -106,13 +106,13 @@
                     <div class="use_tos">
                         <p>국가건강검진 대상 조회에 동의하십니까?</p>
                         <label for="">
-                            <input type="checkbox">동의함
-                            <input type="checkbox">동의하지 않음
+                            <input type="radio" name="use_tos_ans" value="yes">동의함
+                            <input type="radio" name="use_tos_ans" value="no">동의 안함
                         </label>
                     </div>
                 </div>
                 <div class="reservation_btn_area">
-                    <button id="reservation_btn"  type="submit" onclick="location.href=''">다음</button>
+                    <button id="reservation_btn"  type="submit">다음</button>
                 </div>
             </form>
         </div>
