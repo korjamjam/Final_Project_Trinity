@@ -65,18 +65,19 @@
             </div>
         </nav>
         <div class="login-menu">
-            <c:choose>
-                <c:when test="${not empty loginUser}">
-                    <a href="myPage.me">마이페이지</a>
-                    <a href="logout.me">로그아웃</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="login.me">로그인</a>
-                    <a href="register.me">회원가입</a>
-                </c:otherwise>
-            </c:choose>
-            
-           
+        	<c:choose>
+        		<c:when test="${empty loginUser }">
+        			<!-- 로그인 전 -->
+        			<a href="login_main.me">로그인</a>
+            		<div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+        		</c:when>
+        		<c:otherwise>
+        			<label>${loginUser.userName}님 환영합니다.</label> &nbsp;&nbsp;
+	                <a href=""></a> 
+        		</c:otherwise>
+        	</c:choose>
+
+
         </div>
     </header>
 
