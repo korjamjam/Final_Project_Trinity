@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Page_controller {
-	
+
 	@RequestMapping("createPost")
 	public String movePage(String page) {
 	    if ("summernote".equals(page)) {

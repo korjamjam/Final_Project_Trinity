@@ -20,7 +20,6 @@ import com.project.trinity.community.summernote.vo.Board;
 
 @Controller
 public class SummernoteController {
-	
 	@PostMapping("write")
 	public String insertBoard(Board b, Model m) {
 		System.out.println(b);
