@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="sidebar.jsp" %> <!-- 사이드바 포함 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -64,7 +65,6 @@
             </div>
         </nav>
         <div class="login-menu">
-
         	<c:choose>
         		<c:when test="${empty loginUser }">
         			<!-- 로그인 전 -->
@@ -76,6 +76,7 @@
 	                <a href=""></a> 
         		</c:otherwise>
         	</c:choose>
+
 
         </div>
     </header>
