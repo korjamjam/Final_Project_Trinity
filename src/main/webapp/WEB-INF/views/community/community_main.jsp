@@ -10,7 +10,7 @@
 			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css"
 				rel="stylesheet">
 			<link rel="stylesheet"
-				href="${pageContext.servletContext.contextPath}/resources/css/community/community_main.css">
+				href="${pageContext.servletContext.contextPath}/resources/css/community/board.css">
 			<link rel="stylesheet"
 				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 			<title>Customer Center</title>

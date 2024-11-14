@@ -22,15 +22,15 @@
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="community_main.me?type=free" id="free">자유게시판</a></th>
+                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=free" id="free">자유게시판</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="community_main.me?type=meditalk" id="meditalk">메디톡</a></th>
+                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=meditalk" id="meditalk">메디톡</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="community_main.me?type=event" id="event">이벤트</a></th>
+                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=event" id="event">이벤트</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
         </table>
