@@ -115,9 +115,6 @@ body {
     transition: background-color 0.3s;
 }
 
-.submit-button:hover {
-    background-color: #13a285;
-}
 
 /* 모바일 화면에서 헤더와 푸터 여백 제거 */
 @media (max-width: 768px) {

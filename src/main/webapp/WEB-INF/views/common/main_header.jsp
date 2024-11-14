@@ -28,31 +28,40 @@
 		<div class="logo">
 			<img
 				src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png"
-				alt="주사기 아이콘" class="icon"> <a href="main" class="logo-text">닥터링</a>
+				alt="주사기 아이콘" class="icon"> <a href="${pageContext.request.contextPath}/main" class="logo-text">닥터링</a>
 		</div>
 		<nav class="nav-links">
 			<div class="dropdown">
-				<a href="hospital/list">병원찾기</a>
+				<a href="${pageContext.request.contextPath}/hospital/list">병원찾기</a>
 			</div>
 			<div class="dropdown">
 				<a href="#">종합예약</a>
 				<div class="dropdown-content">
-					<a href="#" onclick="checkLogin()">진료예약</a> <a href="#">백신예약</a> <a
+					<a href="#" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">진료예약</a> <a href="#">백신예약</a> <a
 						href="#">예약확인</a>
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="#">건강검진</a>
+				<a href="healthReservation/guide">건강검진</a>
 				<div class="dropdown-content">
-					<a href="health.reservation1">국가 검진 예약</a>
-					<a href="health.guide">검진 예약 안내</a>
-					<a href="health_reservation_info_nomal">검진 절차 예약</a>
-					<a href="health_reservation_result">검진 결과 조회</a>
-					<a href="health_reservation_items_info">검사 항목 정보</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a> 
+					<a href="${pageContext.request.contextPath}/healthReservation/guide">검진 예약 안내</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="community/main">커뮤니티</a>
+				<a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
+				<div class="dropdown-content">
+					<a href="${pageContext.request.contextPath}/community/main?type=popular">인기</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=free">자유</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=meditalk">의료 소통</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=event">이벤트</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<a href="notification">고객문의</a>
 				<div class="dropdown-content">
 					<a href="community/main?type=popular">인기</a> 
 					<a href="community/main?type=free">자유</a> 

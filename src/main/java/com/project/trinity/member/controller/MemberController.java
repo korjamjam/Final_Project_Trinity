@@ -28,7 +28,6 @@ public class MemberController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@Autowired
-	
 	public MemberController(MemberService memberService, BCryptPasswordEncoder bcryptPasswordEncoder) {
 		this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
@@ -40,9 +39,9 @@ public class MemberController {
 
 		// 비밀번호 확인
 		String userPwdConfirm = request.getParameter("userPwdConfirm");
-		if (!member.getUserPwd().equals(userPwdConfirm)) {
+		if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
 			redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "redirect:/errorPage"; // 에러 페이지로 리다이렉트
+			return "redirect:/sign_up_main.me"; // 회원가입 페이지로 리다이렉트
 		}
 
 		// 비밀번호 암호화
@@ -52,16 +51,11 @@ public class MemberController {
 		// 이메일 조합
 		String emailLocal = request.getParameter("emailLocal");
 		String emailDomain = request.getParameter("emailDomain");
-		String emailSelect = request.getParameter("emailSelect");
-
-		if ((emailDomain == null || emailDomain.isEmpty()) && emailSelect != null) {
-			emailDomain = emailSelect;
-		}
-		if (emailLocal != null && emailDomain != null) {
+		if (emailLocal != null && emailDomain != null && !emailLocal.isEmpty() && !emailDomain.isEmpty()) {
 			member.setEmail(emailLocal + "@" + emailDomain);
 		} else {
 			redirectAttributes.addFlashAttribute("message", "유효한 이메일 주소를 입력해주세요.");
-			return "redirect:/errorPage";
+			return "redirect:/sign_up_main.me";
 		}
 
 		int result = memberService.insertMember(member);

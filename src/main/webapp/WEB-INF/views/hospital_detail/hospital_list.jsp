@@ -61,9 +61,9 @@
         <div>
             <c:forEach var="h" items="${list}">
                 <div class="list">hospital_detail
-                    <div class="list_title"><a href="location.href = 'hospital_list?bno=${b.boardNo}'"><p>청담이든소아청소년과의원</p></a></div>
-                    <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                    <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
+                    <div class="list_title"><a href="location.href='hospital/detail?hno=${h.hpId}'"><p>청담이든소아청소년과의원</p></a></div>
+                    <div class="list_openTime">평일 ${h.startTime} ~ ${h.endTime} | <p>소아청소년과</p></div>
+                    <div class="list_address"><p>${h.address}</p></div>
                     <div class="list_tag">
                         <button>어린이 국가예방접종</button>
                         <button>영유아 검진</button>
