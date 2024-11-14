@@ -15,7 +15,7 @@
     <header class="header">
         <div class="logo">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon">
-            <a href="#" class="logo-text">닥터링</a>
+            <a href="main" class="logo-text">닥터링</a>
         </div>
 
         <!-- a태그 클릭시 페이지 이동 -->
