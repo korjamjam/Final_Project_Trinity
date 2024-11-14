@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn">다음</button>
+                <button id="reservation_btn" onclick="location.href='${pageContext.request.contextPath}/healthReservation/vaccinepage2'">다음</button>
             </div>
         </div>
     </div>
