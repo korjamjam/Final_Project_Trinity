@@ -6,14 +6,15 @@
 
 body {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    min-height: 100vh;
     align-items: center;
+    min-height: 100vh;
 }
 
 .footer {
     display: flex;
+    flex-direction: column;
+    
     width: 100%;
     padding: 20px;
     background-color: #f9f9f9;
@@ -21,9 +22,6 @@ body {
     border-top: 1px solid #ddd;
     text-align: center;
     line-height: 1.6;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .footer-logo {
@@ -57,7 +55,6 @@ body {
 
 
 .footer-links {
-	width: 100%;
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -83,9 +80,10 @@ body {
 .footer-company {
     font-weight: bold;
     color: #636363;
+    max-width: 1000px;
+    padding: 0 300px;
     text-align: left;
-    width: 100%;
-    max-width: 950px
+    width:100%;
 }
 
 .footer-info p,
