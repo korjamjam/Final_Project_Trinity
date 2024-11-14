@@ -1,5 +1,7 @@
 package com.project.trinity.healthreservation.service;
 
-public interface HealthReservationService {
+import com.project.trinity.reservation.model.vo.Reservation;
 
+public interface HealthReservationService {
+    void saveReservation(Reservation reservation);
 }
