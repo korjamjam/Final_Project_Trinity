@@ -1,6 +1,7 @@
+/* 기본 스타일 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #fffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,6 +33,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .input-group label {
@@ -50,19 +52,38 @@ body {
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px;
     box-sizing: border-box;
+    height: 42px; /* 버튼과 동일한 높이로 설정 */
 }
 
 .email-group {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.email-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+}
+
+.email-input-container input[type="text"],
+.email-input-container select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 42px; /* 버튼과 동일한 높이로 설정 */
+    flex: 1 1 120px; /* 최소 너비를 설정해줄 수 있음 */
 }
 
 .email-group span {
-    margin: 0 8px;
     font-size: 14px;
     color: #777;
+    padding: 0 5px; /* 간격 조정 */
 }
 
 .check-button,
@@ -74,6 +95,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
+    height: 42px; /* 입력 필드와 동일한 높이로 설정 */
 }
 
 .check-button:hover,
@@ -98,37 +120,58 @@ body {
     background-color: #388E3C;
 }
 
-/* 320px ~ 500px 모바일 화면 대응 */
-@media (max-width: 500px) and (min-width: 320px) {
+/* 768px 이하 화면 (태블릿) */
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .input-group label {
+        flex: 0 0 30%;
+        font-size: 13px;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="password"],
+    .input-group input[type="date"],
+    .input-group select {
+        flex: 1;
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .check-button,
+    .address-button {
+        padding: 8px 15px;
+        font-size: 13px;
+        height: 38px; /* 입력 필드와 동일한 높이로 설정 */
+    }
+}
+
+/* 모바일 (500px 이하) */
+@media (max-width: 500px) {
     body {
         padding: 10px;
     }
 
     .signup-container {
         max-width: 100%;
-        padding: 20px;
+        padding: 15px;
         margin: 20px auto;
-        box-shadow: none; /* 모바일에서는 그림자 제거 */
+        box-shadow: none;
+    }
+
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .input-group label {
-        flex: 0 0 70px; /* 좁은 화면에 맞춰 레이블 너비 축소 */
-    }
-
-    .email-group {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .email-group input[id="emailLocal"],
-    .email-group input[id="emailDomain"],
-    .email-group select {
+        flex: 0 0 auto;
         width: 100%;
-        margin: 5px 0;
-    }
-
-    .email-group span {
-        display: none; /* 모바일에서는 '@' 문자 숨김 */
+        font-size: 13px;
+        margin-bottom: 5px;
     }
 
     .input-group input[type="text"],
@@ -136,19 +179,42 @@ body {
     .input-group input[type="date"],
     .input-group select {
         width: 100%;
-        margin-right: 0;
+        padding: 8px;
+        font-size: 13px;
+        margin: 5px 0;
     }
 
     .check-button,
     .address-button {
         width: 100%;
-        margin-top: 10px;
         padding: 10px;
+        font-size: 14px;
         box-sizing: border-box;
+        margin-top: 5px;
+        height: 42px; /* 입력 필드와 동일한 높이로 설정 */
+    }
+
+    .email-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .email-input-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .email-input-container input[type="text"],
+    .email-input-container select {
+        width: 100%;
+    }
+
+    .email-group span {
+        display: none;
     }
 }
 
-/* 일반 데스크탑 화면 */
+/* 데스크탑 */
 @media (min-width: 1024px) {
     .signup-container {
         max-width: 600px;
