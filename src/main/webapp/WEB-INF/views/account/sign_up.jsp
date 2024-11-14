@@ -5,20 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/sign_up.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/sign_up.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
-<!-- 성공 또는 실패 메시지 출력 스크립트 -->
-<% if (request.getAttribute("message") != null) { %>
+<!-- 회원가입 성공 또는 실패 메시지 출력 스크립트 -->
+<% if (session.getAttribute("message") != null) { %>
     <script>
-        alert("<%= request.getAttribute("message") %>");
-        <% if (request.getAttribute("message").toString().contains("완료")) { %>
-            window.location.href = "${pageContext.request.contextPath}/member/login";
-        <% } %>
+        alert("<%= session.getAttribute("message") %>");
+        <% session.removeAttribute("message"); %> <!-- 메시지 한번 표시 후 제거 -->
     </script>
 <% } %>
 
@@ -32,7 +30,7 @@
         <div class="input-group">
             <label for="userId">아이디</label>
             <input type="text" id="userId" name="userId" placeholder="아이디 입력" required>
-            <button type="button" class="check-button">중복확인</button>
+            <button type="button" class="check-button" onclick="checkId()">중복확인</button>
         </div>
         <div class="input-group">
             <label for="userPwd">비밀번호</label>
@@ -46,15 +44,17 @@
         <!-- 이메일 입력 -->
         <div class="input-group email-group">
             <label for="emailLocal">이메일 주소</label>
-            <input type="text" id="emailLocal" name="emailLocal" placeholder="이메일 입력">
-            <span>@</span>
-            <input type="text" id="emailDomain" name="emailDomain" placeholder="직접 입력">
-            <select id="emailSelect">
-                <option value="">직접 입력</option>
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-            </select>
+            <div class="email-input-container">
+                <input type="text" id="emailLocal" name="emailLocal" placeholder="이메일 입력">
+                <span>@</span>
+                <input type="text" id="emailDomain" name="emailDomain" placeholder="직접 입력">
+                <select id="emailSelect">
+                    <option value="">직접 입력</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="daum.net">daum.net</option>
+                </select>
+            </div>
         </div>
 
         <!-- 주소 입력 -->
@@ -146,6 +146,29 @@
                 document.getElementById("sample6_detailAddress").focus();
             }
         }).open();
+    }
+
+    function checkId() {
+        const userId = $('#userId').val();
+        if (userId) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/member/idCheck',
+                type: 'GET',
+                data: { userId: userId },
+                success: function(result) {
+                    if (result == 0) {
+                        alert('사용 가능한 아이디입니다.');
+                    } else {
+                        alert('이미 사용 중인 아이디입니다.');
+                    }
+                },
+                error: function() {
+                    alert('아이디 중복 확인 중 오류가 발생했습니다.');
+                }
+            });
+        } else {
+            alert('아이디를 입력해주세요.');
+        }
     }
 </script>
 

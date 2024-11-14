@@ -13,6 +13,14 @@
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
 
+<% if (session.getAttribute("message") != null) { %>
+    <script>
+        alert("<%= session.getAttribute("message") %>");
+        <% session.removeAttribute("message"); %> <!-- 메시지 한번 표시 후 제거 -->
+    </script>
+<% } %>
+
+
 <div class="login-page">
     <div class="login-container">
         <form action="${pageContext.request.contextPath}/login.me" method="post">
