@@ -52,13 +52,13 @@
             소아청소년과
         </div>
         <div class="hospital_detail_name">
-            청담이든소아청소년과의원
+            ${h.name }
         </div>
         <div class="hospital_detail_address">
-            서울 강남구 테헤란로 226 (태왕빌딩) 1층
+            ${h.address }
         </div>
         <div class="hospital_detail_time">
-            금요일 09:00 ~ 1900
+            ${h.startTime } ~ ${h.endTime }
         </div>
         <div class="hospital_detail_tag">
             <button>어린이 국가예방접종</button>
