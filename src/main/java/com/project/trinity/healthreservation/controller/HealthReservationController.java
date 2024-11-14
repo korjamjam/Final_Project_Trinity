@@ -57,4 +57,14 @@ public class HealthReservationController {
 	public String healthReservationItems() {
 		return "health_reservation/health_reservation_items_info";
 	}
+	
+	@GetMapping("/vaccinepage1")
+    public String vaccineReservation1() {
+        return "health_reservation/vaccine_reservation1";
+    }
+    
+    @GetMapping("/vaccinepage2")
+    public String vaccineReservation2() {
+        return "health_reservation/vaccine_reservation2";
+    }
 }
