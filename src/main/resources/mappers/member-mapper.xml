@@ -40,23 +40,47 @@
 		ISADMIN,
 		MED_KEY,
 		HOS_NO
-		FROM MEMBER
+		FROM
+		MEMBER
 		WHERE USER_ID = #{userId}
 		AND STATUS = 'Y'
 	</select>
 
 	<!-- 아이디 중복 확인 쿼리 -->
 	<select id="idCheck" parameterType="string" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE user_id = #{checkId}
+		SELECT
+		COUNT(*) FROM MEMBER WHERE user_id = #{checkId}
 	</select>
 
 	<!-- 회원가입 쿼리 (user_no 자동 증가) -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		(user_no, user_id, user_pwd, user_name, email, phone, birthday, gender)
+		(user_no, user_id, user_pwd, user_name, email, phone, birthday,
+		gender)
 		VALUES
-		(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, #{birthday},
+		(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPwd}, #{userName},
+		#{email}, #{phone}, #{birthday},
 		#{gender})
 	</insert>
+
+
+	<!-- 관리자 회원 목록 조회 -->
+    <select id="getAllMembers" resultMap="memberResultSet">
+        SELECT 
+            USER_NO,
+            USER_ID,
+            USER_NAME,
+            EMAIL,
+            PHONE,
+            BIRTHDAY,
+            GENDER,
+            ADDRESS,
+            ENROLL_DATE,
+            STATUS,
+            ISADMIN,
+            MED_KEY,
+            HOS_NO
+        FROM MEMBER
+    </select>
 
 </mapper>
