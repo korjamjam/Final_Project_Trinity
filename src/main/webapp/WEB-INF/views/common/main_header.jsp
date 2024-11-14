@@ -21,7 +21,6 @@
 <!-- JS -->
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/common/main_header.js"></script>
-
 </head>
 <body>
 
@@ -45,26 +44,27 @@
 			<div class="dropdown">
 				<a href="#">건강검진</a>
 				<div class="dropdown-content">
-					<a href="health.reservation1">국가 검진 예약</a> <a href="health.guide">검진
-						예약 안내</a> <a href="health_reservation_info_nomal">검진 절차 예약</a> <a
-						href="health_reservation_result">검진 결과 조회</a> <a
-						href="health_reservation_items_info">검사 항목 정보</a>
+					<a href="health.reservation1">국가 검진 예약</a>
+					<a href="health.guide">검진 예약 안내</a>
+					<a href="health_reservation_info_nomal">검진 절차 예약</a>
+					<a href="health_reservation_result">검진 결과 조회</a>
+					<a href="health_reservation_items_info">검사 항목 정보</a>
 				</div>
 			</div>
 			<div class="dropdown">
-                <a href="community/main">커뮤니티</a>
-                <div class="dropdown-content">
-                    <a href="community/main?type=popular">인기</a>
-                    <a href="community/main?type=free">자유</a>
-                    <a href="community/main?type=meditalk">의료 소통</a>
-                    <a href="community/main?type=event">이벤트</a>
-                </div>
-            </div>
-			<div class="dropdown">
-				<a href="notification">고객문의</a>
+				<a href="community/main">커뮤니티</a>
 				<div class="dropdown-content">
-					<a href="notification">공지사항</a> 
-					<a href="notice">알림판</a> 
+					<a href="community/main?type=popular">인기</a> 
+					<a href="community/main?type=free">자유</a> 
+					<a href="community/main?type=meditalk">의료 소통</a>
+					<a href="community/main?type=event">이벤트</a>
+				</div>
+			</div>
+			<div class="dropdown">
+				<a href="inquiry/notification">고객문의</a>
+				<div class="dropdown-content">
+					<a href="notification">공지사항</a>
+					<a href="notice">알림판</a>
 					<a href="faq">FAQ</a>
 					<a href="qna">Q&A</a>
 				</div>
@@ -83,6 +83,7 @@
 					<label>${loginUser.userName}님 환영합니다.</label>
 					<a href="profile_edit_main.me">마이페이지</a>
 					<a href="logout.me">로그아웃</a>
+					<div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

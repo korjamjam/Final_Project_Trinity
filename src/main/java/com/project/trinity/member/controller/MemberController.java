@@ -85,19 +85,38 @@ public class MemberController {
 	// 로그인 기능
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session) {
-		Member loginMember = memberService.loginMember(m);
-		System.out.println("loginMember : " + loginMember);
-		System.out.println("isTrue  : " + bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd()));
-
-		if (loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-			session.setAttribute("loginUser", loginMember);
-			session.setAttribute("alert", "로그인에 성공했습니다.");
-			return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
-		} else {
-			session.setAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
-			return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
-		}
+	    // 입력한 사용자 정보를 통해 DB에서 해당 사용자 조회
+	    Member loginMember = memberService.loginMember(m);
+	    
+	    if (loginMember != null) {
+	        // 관리자 계정 확인
+	        if ("Y".equals(loginMember.getIsAdmin())) { // ISADMIN이 'Y'일 때 관리자 계정
+	            // 관리자 계정은 암호화 검증 없이 비밀번호를 직접 비교
+	            if (m.getUserPwd().equals(loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
+	                session.setAttribute("alert", "관리자 로그인에 성공했습니다.");
+	                return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
+	            } else {
+	                session.setAttribute("alert", "로그인 실패. 비밀번호를 확인하세요.");
+	                return "redirect:/login_main.me";
+	            }
+	        } else {
+	            // 일반 사용자 계정은 암호화된 비밀번호로 검증
+	            if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
+	                session.setAttribute("alert", "로그인에 성공했습니다.");
+	                return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
+	            } else {
+	                session.setAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
+	                return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+	            }
+	        }
+	    } else {
+	        session.setAttribute("alert", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+	        return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+	    }
 	}
+
 
 	// 로그아웃 기능
 	@RequestMapping("logout.me")

@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div class="sidebar-item">
-    		<a href="${pageContext.servletContext.contextPath}/admin/main"><p>관리자</p></a>
+    		<a href="${pageContext.servletContext.contextPath}/main"><p>메인페이지</p></a>
 			</div>
 		</div>
 	</div>
