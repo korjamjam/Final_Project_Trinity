@@ -17,5 +17,10 @@ public class HospitalServiceImpl implements HospitalService{
     @Autowired
     private HospitalDao hpDao;
 
+	@Override
+	public Hospital selectHospital(String hpId) {
+		return hpDao.selectHospital(sqlSession, hpId);
+	}
+
 	
 }

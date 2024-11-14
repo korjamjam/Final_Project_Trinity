@@ -5,7 +5,7 @@
 
 <mapper namespace="hospitalMapper">
 <!-- 단축 설정 -->
-	<resultMap type="Member" id="memberResultSet">
+	<resultMap type="Hospital" id="HospitalResultSet">
 		<result column="NAME" property="name" />
 		<result column="ADDRESS" property="address" />
 		<result column="DIVISION" property="division" />
@@ -19,7 +19,7 @@
 
 	<!-- 병원 조회 -->
 	<select id="selectHospital" parameterType="Hospital"
-		resultMap="memberResultSet">
+		resultMap="HospitalResultSet">
 		SELECT NAME,
 		ADDRESS,
 		DIVISION,
@@ -29,6 +29,7 @@
 		HPID,
 		LATITUDE,
 		LONGITUDE
+		FROM HOSPITAL_KID
 		WHERE HPID = #{hpId}
 	</select>
 
