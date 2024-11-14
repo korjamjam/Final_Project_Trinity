@@ -13,6 +13,13 @@
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
 
+<!-- 회원가입 및 로그인 성공/실패 메시지 출력 스크립트 -->
+<% if (request.getAttribute("message") != null) { %>
+    <script>
+        alert("<%= request.getAttribute("message") %>");
+    </script>
+<% } %>
+
 <div class="login-page">
     <div class="login-container">
         <form action="${pageContext.request.contextPath}/login.me" method="post">
@@ -37,13 +44,6 @@
         </div>
     </div>
 </div>
-
-<!-- 로그인 성공/실패 알림 메시지 -->
-<% if (request.getAttribute("alert") != null) { %>
-    <script>
-        alert("<%= request.getAttribute("alert") %>");
-    </script>
-<% } %>
 
 <script>
     function togglePassword() {
