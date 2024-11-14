@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn" type="button" onclick="location.href='health.reservation1'">예약하기</button>
+                <button id="reservation_btn" type="button" onclick="location.href='${pageContext.request.contextPath}/healthReservation/reservation1'">예약하기</button>
             </div>
             <div  id="reservation_container3">
                 <h4 id="reservation_content_title">3. 유의 사항</h4>

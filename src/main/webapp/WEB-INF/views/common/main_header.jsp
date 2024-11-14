@@ -29,7 +29,7 @@
 		<div class="logo">
 			<img
 				src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png"
-				alt="주사기 아이콘" class="icon"> <a href="common/main" class="logo-text">닥터링</a>
+				alt="주사기 아이콘" class="icon"> <a href="${pageContext.request.contextPath}/main" class="logo-text">닥터링</a>
 		</div>
 		<nav class="nav-links">
 			<div class="dropdown">
@@ -38,18 +38,18 @@
 			<div class="dropdown">
 				<a href="#">종합예약</a>
 				<div class="dropdown-content">
-					<a href="#" onclick="checkLogin()">진료예약</a> <a href="#">백신예약</a> <a
+					<a href="#" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">진료예약</a> <a href="#">백신예약</a> <a
 						href="#">예약확인</a>
 				</div>
 			</div>
 			<div class="dropdown">
 				<a href="healthReservation/guide">건강검진</a>
 				<div class="dropdown-content">
-					<a href="healthReservation/reservation1">국가 검진 예약</a> 
-					<a href="healthReservation/guide">검진 예약 안내</a>
-					<a href="healthReservation/infoNomal">검진 절차 예약</a>
-					<a href="healthReservation/result">검진 결과 조회</a>
-					<a href="healthReservation/itemsInfo">검사 항목 정보</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a> 
+					<a href="${pageContext.request.contextPath}/healthReservation/guide">검진 예약 안내</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
 				</div>
 			</div>
 			<div class="dropdown">
