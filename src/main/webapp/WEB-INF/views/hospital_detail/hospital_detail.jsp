@@ -3,16 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>닥터링</title>
-    
+
     <!-- searchBar icon -->
     <link rel="favicon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
     <link rel="icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" type="image/x-icon" />
-
+    
     <!-- font style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,11 +25,10 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
     <!-- JS -->
-    <!--<script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
-    -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a013e1a252e3b3abf4367f97dc7d23f"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
 </head>
 <body>
-
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 
@@ -85,31 +83,7 @@
             <div class="hospital_detail_location">
                 위치정보
             </div>
-            <div class="hospital_detail_map" id="map">
-                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a013e1a252e3b3abf4367f97dc7d23f"></script>
-                <script>
-                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                    mapOption = { 
-                        center: new kakao.maps.LatLng(parseFloat("${h.latitude}"), parseFloat("${h.longitude}")), // 지도의 중심좌표
-                        level: 3 // 지도의 확대 레벨
-                    };
-                
-                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-                
-                // 마커가 표시될 위치입니다 
-                var markerPosition  = new kakao.maps.LatLng(parseFloat("${h.latitude}"), parseFloat("${h.longitude}")); 
-                
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                    position: markerPosition
-                });
-                
-                // 마커가 지도 위에 표시되도록 설정합니다
-                marker.setMap(map);
-                
-                // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-                // marker.setMap(null);    
-                </script>
+            <div class="hospital_detail_map" id="map" onload="kakaoInit('${h.latitude}','${h.longitude}')">
             </div>
         </div>
         <div class="hospital_detail_outline_wrapper">
@@ -209,8 +183,8 @@
         </div>
 
         <div class="hospital_detail_goto_res">
-            <button>바로 접수</button>
-            <button>시간 예약</button>
+            <button onclick="">바로 접수</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/form'">시간 예약</button>
         </div>
 
     </div>

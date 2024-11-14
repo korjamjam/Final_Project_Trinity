@@ -9,7 +9,7 @@ import com.project.trinity.hospital.model.vo.Hospital;
 import com.project.trinity.hospital.service.HospitalService;
 
 @Controller
-@RequestMapping("/hospital")
+@RequestMapping("hospital")
 public class HospitalController {
 	private final HospitalService hospitalService;
 	
