@@ -13,13 +13,12 @@
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
 
-<% if (session.getAttribute("message") != null) { %>
+<!-- 회원가입 및 로그인 성공/실패 메시지 출력 스크립트 -->
+<% if (request.getAttribute("message") != null) { %>
     <script>
-        alert("<%= session.getAttribute("message") %>");
-        <% session.removeAttribute("message"); %> <!-- 메시지 한번 표시 후 제거 -->
+        alert("<%= request.getAttribute("message") %>");
     </script>
 <% } %>
-
 
 <div class="login-page">
     <div class="login-container">
@@ -45,13 +44,6 @@
         </div>
     </div>
 </div>
-
-<!-- 로그인 성공/실패 알림 메시지 -->
-<% if (request.getAttribute("alert") != null) { %>
-    <script>
-        alert("<%= request.getAttribute("alert") %>");
-    </script>
-<% } %>
 
 <script>
     function togglePassword() {
