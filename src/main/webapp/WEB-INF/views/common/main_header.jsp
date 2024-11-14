@@ -38,8 +38,9 @@
 			<div class="dropdown">
 				<a href="#">종합예약</a>
 				<div class="dropdown-content">
-					<a href="#" onclick="checkLogin()">진료예약</a> <a href="#">백신예약</a> <a
-						href="#">예약확인</a>
+					<a href="${pageContext.request.contextPath}/reservation/form" onclick="">진료예약</a>
+					<a href="#">백신예약</a> 
+					<a href="#">예약확인</a>
 				</div>
 			</div>
 			<div class="dropdown">
