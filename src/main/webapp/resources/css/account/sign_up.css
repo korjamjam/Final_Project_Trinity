@@ -1,93 +1,95 @@
-/* 기본 스타일 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
     margin: 0;
-    background-color: #fff; 
+    padding: 20px;
 }
-
 
 .signup-container {
     width: 100%;
-    max-width: 480px; 
-    padding: 20px;
-    border: 1px solid #ccc;
+    max-width: 500px;
+    padding: 30px;
+    margin: 40px auto;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 40px 0; 
 }
-
 
 .signup-container h2 {
     text-align: center;
-    font-size: 24px; /* 데스크탑 환경에서 더 큰 글꼴 크기 */
+    font-size: 26px;
+    color: #4CAF50;
     margin-bottom: 20px;
-    color: #8DCE4E; /* 제목 색상 변경 */
 }
-
 
 .input-group {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    flex-wrap: wrap;
 }
 
 .input-group label {
-    flex: 0 0 100px; /* 레이블 고정 너비 */
+    flex: 0 0 100px;
     font-size: 14px;
-    margin-right: 10px;
+    color: #333;
+    font-weight: bold;
 }
 
 .input-group input[type="text"],
 .input-group input[type="password"],
+.input-group input[type="date"],
 .input-group select {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Radius 적용 */
     font-size: 14px;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.check-button {
-    padding: 10px;
-    background-color: #ccc;
     border: 1px solid #ccc;
-    border-radius: 5px; /* Radius 적용 */
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
     box-sizing: border-box;
 }
-
 
 .email-group {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 }
 
 .email-group span {
-    margin: 0 10px;
+    margin: 0 8px;
     font-size: 14px;
     color: #777;
 }
 
+.check-button,
+.address-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.check-button:hover,
+.address-button:hover {
+    background-color: #388E3C;
+}
 
 .signup-button {
     width: 100%;
     padding: 12px;
-    background-color: #8DCE4E; 
-    color: #fff;
+    background-color: #4CAF50;
+    color: #ffffff;
     border: none;
-    border-radius: 5px; 
-    font-size: 18px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
 }
@@ -96,78 +98,60 @@ body {
     background-color: #388E3C;
 }
 
-/* 반응형 미디어 쿼리 */
+/* 320px ~ 500px 모바일 화면 대응 */
+@media (max-width: 500px) and (min-width: 320px) {
+    body {
+        padding: 10px;
+    }
 
-/* 화면 너비 0 ~ 768px */
-@media (max-width: 768px) {
     .signup-container {
-        width: 100%; 
-        padding: 15px;
-        border-radius: 10px; 
-        margin: 0; 
+        max-width: 100%;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: none; /* 모바일에서는 그림자 제거 */
     }
 
     .input-group label {
-        flex: 0 0 80px; 
-        font-size: 14px;
-    }
-
-    .signup-container h2 {
-        font-size: 20px; 
-    }
-}
-
-/* 화면 너비 0 ~ 480px */
-@media (max-width: 480px) {
-    .signup-container {
-        max-width: 320px; 
-    }
-
-    .input-group label {
-        flex: 0 0 70px; 
-        font-size: 13px;
+        flex: 0 0 70px; /* 좁은 화면에 맞춰 레이블 너비 축소 */
     }
 
     .email-group {
-        flex-direction: column; 
+        flex-direction: column;
         align-items: stretch;
     }
 
-    .email-group input[id="email"],
-    .email-group input[id="email-domain"],
+    .email-group input[id="emailLocal"],
+    .email-group input[id="emailDomain"],
     .email-group select {
-        width: 100%; 
-        margin: 5px 0; 
+        width: 100%;
+        margin: 5px 0;
     }
 
     .email-group span {
-        display: none; 
-    }
-
-    .input-group input[type="text"]::placeholder {
-        font-size: 13px; 
-    }
-}
-
-/* 화면 너비 320px 이하에서 비밀번호 확인 레이블 줄바꿈 */
-@media (max-width: 320px) {
-    .input-group label {
-        flex: 0 0 100%; /* 레이블이 한 줄로 나오도록 설정 */
-        text-align: left;
-        margin-bottom: 5px; /* 레이블과 입력창 간격 추가 */
+        display: none; /* 모바일에서는 '@' 문자 숨김 */
     }
 
     .input-group input[type="text"],
     .input-group input[type="password"],
+    .input-group input[type="date"],
     .input-group select {
-        width: 100%; /* 입력 필드 전체 너비로 확장 */
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .check-button,
+    .address-button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        box-sizing: border-box;
     }
 }
 
-/* 데스크탑 화면에서 여백 추가 */
+/* 일반 데스크탑 화면 */
 @media (min-width: 1024px) {
     .signup-container {
-        max-width: 600px; /* 데스크탑 화면에서 컨텐츠 크기 제한 */
+        max-width: 600px;
         margin-top: 40px;
         margin-bottom: 40px;
     }

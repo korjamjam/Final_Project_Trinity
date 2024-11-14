@@ -38,6 +38,13 @@
     </div>
 </div>
 
+<!-- 로그인 성공/실패 알림 메시지 -->
+<% if (request.getAttribute("alert") != null) { %>
+    <script>
+        alert("<%= request.getAttribute("alert") %>");
+    </script>
+<% } %>
+
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password-input');
