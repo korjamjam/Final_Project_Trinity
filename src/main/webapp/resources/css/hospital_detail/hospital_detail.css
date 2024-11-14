@@ -150,7 +150,7 @@ body{
 }
 .hospital_detail_map{
     width: 100%;
-    height: 189px;
+    min-height: 240px;
     border: 1px solid black;
     display: flex;
     justify-content: center;
@@ -289,5 +289,9 @@ body{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+    }
+
+    .hospital_detail_map{
+        height: 400px;
     }
 }

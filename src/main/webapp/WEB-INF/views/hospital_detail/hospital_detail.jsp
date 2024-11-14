@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
+    <!-- JS -->
+    <!--<script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
+    -->
 </head>
 <body>
 
@@ -39,7 +42,6 @@
         <div class="hospital_detail_event_img">
             이벤트 사진영역
         </div>
-
     </div>
 
     <!-- inform -->
@@ -55,10 +57,10 @@
             ${h.name }
         </div>
         <div class="hospital_detail_address">
-            ${h.address }
+            ${h.address}
         </div>
         <div class="hospital_detail_time">
-            ${h.startTime } ~ ${h.endTime }
+            ${h.startTime} ~ ${h.endTime}
         </div>
         <div class="hospital_detail_tag">
             <button>어린이 국가예방접종</button>
@@ -83,8 +85,31 @@
             <div class="hospital_detail_location">
                 위치정보
             </div>
-            <div class="hospital_detail_map">
-                지도 API
+            <div class="hospital_detail_map" id="map">
+                <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a013e1a252e3b3abf4367f97dc7d23f"></script>
+                <script>
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(parseFloat("${h.latitude}"), parseFloat("${h.longitude}")), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+                
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+                
+                // 마커가 표시될 위치입니다 
+                var markerPosition  = new kakao.maps.LatLng(parseFloat("${h.latitude}"), parseFloat("${h.longitude}")); 
+                
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+                
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+                
+                // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+                // marker.setMap(null);    
+                </script>
             </div>
         </div>
         <div class="hospital_detail_outline_wrapper">
