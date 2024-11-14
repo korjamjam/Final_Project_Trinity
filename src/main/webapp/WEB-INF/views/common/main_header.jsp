@@ -61,15 +61,6 @@
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="notification">고객문의</a>
-				<div class="dropdown-content">
-					<a href="community/main?type=popular">인기</a> 
-					<a href="community/main?type=free">자유</a> 
-					<a href="community/main?type=meditalk">의료 소통</a>
-					<a href="community/main?type=event">이벤트</a>
-				</div>
-			</div>
-			<div class="dropdown">
 				<a href="inquiry/notification">고객문의</a>
 				<div class="dropdown-content">
 					<a href="notification">공지사항</a>
