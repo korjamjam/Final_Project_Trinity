@@ -21,7 +21,6 @@
 <!-- JS -->
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/common/main_header.js"></script>
-
 </head>
 <body>
 
@@ -62,10 +61,10 @@
 				</div>
 			</div>
 			<div class="dropdown">
-				<a href="notification">고객문의</a>
+				<a href="inquiry/notification">고객문의</a>
 				<div class="dropdown-content">
-					<a href="notification">공지사항</a> 
-					<a href="notice">알림판</a> 
+					<a href="notification">공지사항</a>
+					<a href="notice">알림판</a>
 					<a href="faq">FAQ</a>
 					<a href="qna">Q&A</a>
 				</div>
@@ -84,6 +83,7 @@
 					<label>${loginUser.userName}님 환영합니다.</label>
 					<a href="profile_edit_main.me">마이페이지</a>
 					<a href="logout.me">로그아웃</a>
+					<div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사이드바 메뉴</title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사이드바 메뉴</title>
+<link rel="stylesheet"
+	href="${pageContext.servletContext.contextPath}/resources/css/sidebar.css">
 </head>
 <body>
 	<!-- 사이드바 -->
@@ -51,7 +52,7 @@
 				</div>
 			</div>
 			<div class="sidebar-item">
-    		<a href="${pageContext.servletContext.contextPath}/admin/main"><p>관리자</p></a>
+    		<a href="${pageContext.servletContext.contextPath}/main"><p>메인페이지</p></a>
 			</div>
 		</div>
 	</div>

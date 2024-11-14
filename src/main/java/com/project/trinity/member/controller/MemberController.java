@@ -33,41 +33,39 @@ public class MemberController {
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
+    // 회원가입 기능
     @PostMapping("/member/insert")
-    public String insertMember(Member member, HttpServletRequest request, HttpSession session) {
-        // 비밀번호 확인
+    public String insertMember(Member member, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String userPwdConfirm = request.getParameter("userPwdConfirm");
+        
+        // 비밀번호 확인
         if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
-            session.setAttribute("message", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/sign_up_main.me"; // 회원가입 페이지로 리다이렉트
+            redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+            return "redirect:/sign_up_main.me";
         }
 
         // 비밀번호 암호화
-        String encPassword = bcryptPasswordEncoder.encode(member.getUserPwd());
-        member.setUserPwd(encPassword);
+        member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
 
         // 이메일 조합
         String emailLocal = request.getParameter("emailLocal");
         String emailDomain = request.getParameter("emailDomain");
-        if (emailLocal != null && emailDomain != null && !emailLocal.isEmpty() && !emailDomain.isEmpty()) {
+        if (emailLocal != null && !emailLocal.isEmpty() && emailDomain != null && !emailDomain.isEmpty()) {
             member.setEmail(emailLocal + "@" + emailDomain);
         } else {
-            session.setAttribute("message", "유효한 이메일 주소를 입력해주세요.");
+            redirectAttributes.addFlashAttribute("message", "유효한 이메일 주소를 입력해주세요.");
             return "redirect:/sign_up_main.me";
         }
 
         int result = memberService.insertMember(member);
-
         if (result > 0) {
-            session.setAttribute("message", "회원가입에 성공했습니다.");
+            redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
             return "redirect:/login_main.me";
         } else {
-            session.setAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+            redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
             return "redirect:/sign_up_main.me";
         }
     }
-
-
 
     // 아이디 중복 확인
     @ResponseBody
@@ -81,13 +79,28 @@ public class MemberController {
     public String loginMember(Member m, HttpSession session, RedirectAttributes redirectAttributes) {
         Member loginMember = memberService.loginMember(m);
 
-        if (loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-            session.setAttribute("loginUser", loginMember);
-            redirectAttributes.addFlashAttribute("alert", "로그인에 성공했습니다.");
-            return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
-        } else {
+        if (loginMember != null) {
+            if ("Y".equals(loginMember.getIsAdmin())) {
+                // 관리자 계정 로그인
+                if (m.getUserPwd().equals(loginMember.getUserPwd())) {
+                    session.setAttribute("loginUser", loginMember);
+                    redirectAttributes.addFlashAttribute("alert", "관리자 로그인에 성공했습니다.");
+                    return "redirect:/main";
+                }
+            } else {
+                // 일반 사용자 로그인
+                if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
+                    session.setAttribute("loginUser", loginMember);
+                    redirectAttributes.addFlashAttribute("alert", "로그인에 성공했습니다.");
+                    return "redirect:/main";
+                }
+            }
+            // 비밀번호 오류
             redirectAttributes.addFlashAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
-            return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+            return "redirect:/login_main.me";
+        } else {
+            redirectAttributes.addFlashAttribute("alert", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+            return "redirect:/login_main.me";
         }
     }
 
@@ -105,15 +118,10 @@ public class MemberController {
 
         if (loginUser != null && loginUser.getBirthday() != null) {
             try {
-                // String 타입의 birthday 값을 Date로 변환
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date birthdayDate = inputFormat.parse(loginUser.getBirthday());
-
-                // yyyy-MM-dd 형식으로 포맷팅
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String formattedBirthday = outputFormat.format(birthdayDate);
-
-                model.addAttribute("formattedBirthday", formattedBirthday);
+                model.addAttribute("formattedBirthday", outputFormat.format(birthdayDate));
             } catch (ParseException e) {
                 e.printStackTrace();
                 model.addAttribute("formattedBirthday", "");
