@@ -37,7 +37,7 @@ public class MemberController {
     @PostMapping("/member/insert")
     public String insertMember(Member member, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String userPwdConfirm = request.getParameter("userPwdConfirm");
-        
+
         // 비밀번호 확인
         if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
             redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
@@ -84,22 +84,22 @@ public class MemberController {
                 // 관리자 계정 로그인
                 if (m.getUserPwd().equals(loginMember.getUserPwd())) {
                     session.setAttribute("loginUser", loginMember);
-                    redirectAttributes.addFlashAttribute("alert", "관리자 로그인에 성공했습니다.");
+                    redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
                     return "redirect:/main";
                 }
             } else {
                 // 일반 사용자 로그인
                 if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
                     session.setAttribute("loginUser", loginMember);
-                    redirectAttributes.addFlashAttribute("alert", "로그인에 성공했습니다.");
+                    redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
                     return "redirect:/main";
                 }
             }
             // 비밀번호 오류
-            redirectAttributes.addFlashAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
+            redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
             return "redirect:/login_main.me";
         } else {
-            redirectAttributes.addFlashAttribute("alert", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+            redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
             return "redirect:/login_main.me";
         }
     }
