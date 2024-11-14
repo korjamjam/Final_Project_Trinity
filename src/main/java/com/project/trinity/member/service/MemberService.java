@@ -13,4 +13,8 @@ public interface MemberService {
 	int deleteMember(String userId);
 
 	int insertMember(Member member);
+
+	Member findByUserId(String userId);
+
+
 }
