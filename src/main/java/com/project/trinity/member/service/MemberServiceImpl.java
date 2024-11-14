@@ -24,6 +24,8 @@ public class MemberServiceImpl implements MemberService {
     public int idCheck(String checkId) {
         return memberDao.idCheck(sqlSession, checkId);
     }
+    
+    
 
     @Override
     public int insertMember(Member m) {
@@ -39,4 +41,11 @@ public class MemberServiceImpl implements MemberService {
     public int deleteMember(String userId) {
         return memberDao.deleteMember(sqlSession, userId);
     }
+
+    @Override
+    public Member findByUserId(String userId) {
+        return memberDao.findByUserId(sqlSession, userId);
+    
+
+	}
 }

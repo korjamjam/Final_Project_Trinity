@@ -52,16 +52,23 @@
 		COUNT(*) FROM MEMBER WHERE user_id = #{checkId}
 	</select>
 
-	<!-- 회원가입 쿼리 (user_no 자동 증가) -->
+	<!-- 로그인 유지 기능 쿼리 -->
+	<select id="findByUserId" parameterType="String"
+		resultType="com.project.trinity.member.model.vo.Member">
+		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
+	</select>
+
+
 	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		(user_no, user_id, user_pwd, user_name, email, phone, birthday,
-		gender)
-		VALUES
-		(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPwd}, #{userName},
-		#{email}, #{phone}, #{birthday},
-		#{gender})
-	</insert>
+    INSERT INTO MEMBER
+    (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender)
+    VALUES
+    (SEQ_USER_NO.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{address}, #{gender})
+</insert>
+
+
+
+
 
 
 	<!-- 관리자 회원 목록 조회 -->
