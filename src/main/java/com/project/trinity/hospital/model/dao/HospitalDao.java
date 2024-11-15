@@ -1,6 +1,7 @@
 package com.project.trinity.hospital.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,7 +17,10 @@ public class HospitalDao {
 	}
 
 	public ArrayList<Hospital> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
-		Map<String, String> map = new Map(subject, order);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("subject", subject);
+		map.put("order", order);
+		
 		return sqlSession.selectMap("hospitalMapper.selectHospitalList", map);
 	}
 

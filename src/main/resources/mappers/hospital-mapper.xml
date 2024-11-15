@@ -34,7 +34,7 @@
 	</select>
 	
 	<!-- 병원 리스트 조회 -->
-	<select id="selectHospital" parameterType="Hospital"
+	<select id="selectHospitalList" parameterType="Hospital"
 		resultMap="HospitalResultSet">
 		SELECT NAME,
 		ADDRESS,
