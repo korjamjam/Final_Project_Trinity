@@ -45,15 +45,40 @@
         <!-- order by -->
         <div class="list_order">
             <select name="subject" class="list_subject">
+            	<option value="list_all" selected>전체</option>
                 <option value="list_child">소아과</option>
                 <option value="list_mother">산부인과</option>
             </select>
             <select name="orderBy" class="list_orderBy">
+            	<option value="relevant" selected>글자순</option>
                 <option value="relevant">정확도순</option>
-                <option value="popular">인기순</option>
+                <option value="popular">별점순</option>
             </select>
         </div>
-
+		
+		<script>
+		//스크롤이벤트에 부여하기
+			function getHospitalList() {
+			    const selectBox1 = document.getElementsByName("subject");
+			    const selectedValue1 = selectBox.value;
+			    const selectBox2 = document.getElementsByName("orderBy");
+			    const selectedValue2 = selectBox.value;
+			
+			
+			    $.ajax({
+			        url: "${pageContext.request.contextPath}/hospital/list", // Controller 매핑된 URL
+			        type: "GET",
+			        data: { selectedValue1: selectedValue1, selectedValue2: selectedValue2 }, // 선택된 값 전달
+			        success: function(response) {
+			            console.log("서버 응답: ", response);
+			        },
+			        error: function(error) {
+			            console.error("에러 발생:", error);
+			        }
+			    });
+			};
+		</script>
+		
         <hr>
         <br>
 
@@ -73,6 +98,20 @@
             </c:forEach>
         </div>  
     </div>
+    
+    <!-- <script>
+    	function getReplyList(data, callback){
+        	$.ajax({
+	            url: "rlist.bo",
+	            data: data,
+	            success: function(res){
+	                callback(res)
+	            },
+	            error: function(){
+	
+	            }
+	        })
+    </script> -->
 
 	<br><br>
 	<!-- Footer -->
@@ -81,45 +120,3 @@
 	
 </body>
 </html>
-
-
-<!-- <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div> -->
