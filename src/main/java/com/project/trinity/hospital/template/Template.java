@@ -1,4 +1,4 @@
-package com.project.trinity.community.hospital.template;
+package com.project.trinity.hospital.template;
 
 import java.io.File;
 import java.io.IOException;
