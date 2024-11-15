@@ -8,15 +8,14 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 
 @Repository
 public class HospitalDao {
 
 	public HospitalInfo selectHospital(SqlSessionTemplate sqlSession, String hosNo) {
-		HospitalInfo h = sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
-		System.out.println(h);
-		return h;
+		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
 	}
 
 	public ArrayList<HospitalInfo> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
@@ -26,6 +25,10 @@ public class HospitalDao {
 		System.out.println(map);
 		ArrayList<HospitalInfo> list = (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
 		return list;
+	}
+
+	public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
+		return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
 	}
 
 }
