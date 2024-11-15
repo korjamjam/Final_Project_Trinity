@@ -178,4 +178,9 @@ public class MemberController {
     public String signupPage() {
         return "account/sign_up";
     }
+    
+    @GetMapping("/repair_email")
+    public String repairemailPage() {
+        return "account/repair_email";
+    }
 }
