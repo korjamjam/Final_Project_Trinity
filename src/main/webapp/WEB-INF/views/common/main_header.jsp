@@ -30,7 +30,7 @@
             <a href="#">종합예약</a>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/reservation/form">진료예약</a>
-                <a href="#">백신예약</a> 
+                <a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a> 
                 <a href="#">예약확인</a>
             </div>
         </div>
@@ -54,12 +54,12 @@
             </div>
         </div>
         <div class="dropdown">
-            <a href="inquiry/notification">고객문의</a>
+            <a href="${pageContext.request.contextPath}/inquiry/notification">고객문의</a>
             <div class="dropdown-content">
-                <a href="notification">공지사항</a>
-                <a href="notice">알림판</a>
-                <a href="faq">FAQ</a>
-                <a href="qna">Q&A</a>
+                <a href="${pageContext.request.contextPath}/inquiry/notification">공지사항</a>
+                <a href="${pageContext.request.contextPath}/inquiry/notice">알림판</a>
+                <a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
+                <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
             </div>
         </div>
     </nav>
