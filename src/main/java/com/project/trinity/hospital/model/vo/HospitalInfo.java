@@ -15,16 +15,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Hospital {
+public class HospitalInfo {
 	
-	private String name;
-	private String address;
-	private String division;
+	private String hosNo;
+	private String hosName;
+	private String hosAddress;
+	private String hosTel;
 	private String department;
-	private String startTime;
-	private String endTime;
-	private String hpId;
-	private String latitude;
-	private String longitude;
+	private String hosStartTime1;
+	private String hosEndTime1;
+	private String hosStartTime2;
+	private String hosEndTime2;
+	private String hosLatitude;
+	private String hosLongitude;
 	
 }
