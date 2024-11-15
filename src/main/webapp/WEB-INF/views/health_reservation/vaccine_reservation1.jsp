@@ -25,7 +25,7 @@
 				<form
 					action="${pageContext.request.contextPath}/healthReservation/vaccinepage2"
 					method="post">
-					<p>검진자(성명)</p>
+					<p>접종자(성명)</p>
 					<div class="health_reservation1_content input_name">
 						<input type="text" name="patientName" required>
 					</div>
