@@ -1,4 +1,4 @@
-package com.project.trinity.community.summernote.common.controller;
+package com.project.trinity.community.board.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -11,6 +11,8 @@
  	
  	<typeAliases>
  		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
+ 		<typeAlias type="com.project.trinity.hospital.model.vo.Hospital" alias="Hospital" />
+ 		<typeAlias type="com.project.trinity.community.board.model.vo.Board" alias="Board" />
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalAccount" alias="HospitalAccount" />
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalInfo" alias="HospitalInfo" />
  		<typeAlias type="com.project.trinity.reservation.model.vo.Reservation" alias="Reservation" />
@@ -19,6 +21,7 @@
  	<mappers>
  		<mapper resource="mappers/member-mapper.xml"/>
  		<mapper resource="mappers/hospital-mapper.xml"/>
+ 			<mapper resource="mappers/board-mapper.xml"/>
  		<mapper resource="mappers/reservation-mapper.xml"/>
  	</mappers>
 

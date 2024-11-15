@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+	<resultMap type="Board" id="boardResult">
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="BOARD_TYPE" property="boardType" /> <!-- BOARD_TYPE 컬럼을 boardType 필드에 매핑 -->
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_WRITER" property="userId" /> <!-- MEMBER 테이블에서 가져온 작성자의 USER_ID를 매핑 -->
+		<result column="BOARD_CONTENT" property="boardContent" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="MODIFIED_DATE" property="modifiedDate" />
+		<result column="BOARD_VIEWS" property="boardViews" />
+		<result column="BOARD_CATEGORY" property="boardCategory" />
+		<result column="STATUS" property="status" />
+		
+		
+	</resultMap>
+
+
+	<!-- 게시글 총 갯수 조회 -->
+	<select id="selectListCount" resultType="int">
+		SELECT COUNT(*) FROM
+		BOARD
+	</select>
+	<!-- 게시글 리스트 조회 -->
+	<select id="selectList" resultType="Board">
+		SELECT BOARD_NO AS boardNo,
+		BOARD_CATEGORY AS boardCategory,
+		BOARD_TITLE AS
+		boardTitle,
+		USER_ID AS boardWriter,
+		TO_CHAR(ENROLL_DATE,
+		'YYYY-MM-DD HH24:MI:SS')
+		AS enrollDate,
+		BOARD_VIEWS AS boardViews
+		FROM
+		BOARD
+		<choose>
+			<when test="sortType == '조회수'">
+				ORDER BY BOARD_VIEWS DESC
+			</when>
+			<when test="sortType == '작성일'">
+				ORDER BY ENROLL_DATE DESC
+			</when>
+			<otherwise>
+				ORDER BY BOARD_NO DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 게시글 조회수 증가 -->
+	<update id="increaseCount">
+		UPDATE BOARD SET BOARD_VIEWS = BOARD_VIEWS + 1 WHERE
+		BOARD_NO =
+		#{bno}
+	</update>
+
+	<!-- bno로 게시글 조회 -->
+	<select id="selectBoard" resultMap="boardResult">
+		SELECT
+		B.BOARD_NO,
+		B.BOARD_CATEGORY,
+		B.BOARD_TITLE,
+		B.USER_NO,
+		M.USER_ID AS BOARD_WRITER,  <!-- 작성자의 ID를 가져옵니다 -->
+		B.BOARD_CONTENT,
+		B.BOARD_VIEWS,
+		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS "ENROLL_DATE"
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M ON B.USER_NO = M.USER_NO
+		WHERE
+		B.STATUS = 'Y'
+		AND B.BOARD_NO = #{bno}
+	</select>
+
+
+
+
+	<!-- 게시글 추가 -->
+	<insert id="insertBoard" parameterType="Board">
+    INSERT INTO BOARD (
+        USER_NO,
+        BOARD_TITLE,
+        BOARD_CONTENT,
+        BOARD_CATEGORY,
+        STATUS
+    )
+    VALUES (
+        #{userNo},
+        #{boardTitle},
+        #{boardContent},
+        #{boardCategory},
+        'Y'
+    )
+    RETURNING BOARD_NO INTO #{boardNo}
+</insert>
+
+
+
+</mapper>                                                                        
+	                                                                                                                                                                                                                                                              
