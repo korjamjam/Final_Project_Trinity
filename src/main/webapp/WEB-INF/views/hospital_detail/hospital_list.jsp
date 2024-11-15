@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_list.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- JS -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_list.js"></script>
+
 </head>
 <body>
 	<!-- Header -->
@@ -56,26 +62,6 @@
             </select>
         </div>
 
-        <!-- <script>
-            $(document).ready(function() {
-                const subject = $("#subject").val();
-                const order = $("#order").val();
-    
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/hospital/list", // Controller 매핑된 URL
-                    type: "GET",
-                    data: { subject: subject, order: order },
-                    success: function(response) {
-                        console.log("서버 응답:", response);
-                        // 성공 시 페이지 컨텐츠 로딩을 위한 코드 추가 가능
-                    },
-                    error: function(error) {
-                        console.error("에러 발생:", error);
-                    }
-                });
-            });
-        </script> -->
-
         <hr>
         <br>
 		
@@ -94,6 +80,7 @@
                 </div>
             </c:forEach>
         </div>
+        <div id="loadingLine"></div>
     </div>
 
 	<br><br>
@@ -103,45 +90,3 @@
 	
 </body>
 </html>
-
-
-<!-- <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div> -->
