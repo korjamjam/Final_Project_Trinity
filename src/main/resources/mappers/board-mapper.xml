@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+    <resultMap type="Board" id="boardResult">
+        <result column="BOARD_NO" property="boardNo" />
+        <result column="USER_ID" property="boardWriter" />
+        <result column="TITLE" property="title" />
+        <result column="CONTENT" property="content" />
+        <result column="ORIGIN_NAME" property="originName" />
+        <result column="CHANGE_NAME" property="changeName" />
+        <result column="VIEWS" property="views" />
+        <result column="CREATE_DATE" property="createDate" />
+        <result column="MODIFIED_DATE" property="modifiedDate" />
+        <result column="BOARD_CATEGORY" property="boardCategory" />
+    </resultMap>
+
+    <!-- 게시글 총 갯수 조회 -->
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*) FROM BOARD
+    </select>
+
+    <!-- 게시글 리스트 조회 -->
+    <select id="selectList" resultType="Board">
+        SELECT BOARD_NO AS boardNo,
+               BOARD_CATEGORY AS boardCategory,
+               TITLE AS boardTitle,
+               USER_ID AS boardWriter,
+               TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS createDate,
+               VIEWS AS views
+        FROM BOARD
+        <choose>
+            <when test="sortType == '조회수'">
+                ORDER BY VIEWS DESC
+            </when>
+            <when test="sortType == '작성일'">
+                ORDER BY CREATE_DATE DESC
+            </when>
+            <otherwise>
+                ORDER BY BOARD_NO DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 게시글 조회수 증가 -->
+    <update id="increaseCount">
+        UPDATE BOARD SET VIEWS = VIEWS + 1 WHERE BOARD_NO = #{bno}
+    </update>
+
+    <!-- 게시글 추가 -->
+  <insert id="insertBoard" parameterType="Board">
+    INSERT INTO BOARD (
+        BOARD_NO,
+        USER_NO,
+        TITLE,
+        CONTENT,
+        BOARD_CATEGORY,
+        STATUS
+    )
+    VALUES (
+        board_seq.NEXTVAL,
+        #{userNo},
+        #{title},
+        #{content},
+        #{boardCategory},
+        'Y'
+    )
+</insert>
+
+
+    <!-- 단일 게시글 조회 -->
+    <select id="selectBoard" resultMap="boardResult">
+        SELECT BOARD_NO,
+               USER_NO,
+               TITLE,
+               CONTENT,
+               CREATE_DATE,
+               MODIFIED_DATE,
+               ORIGIN_NAME,
+               CHANGE_NAME,
+               VIEWS,
+               BOARD_CATEGORY,
+               STATUS,
+               TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
+        FROM BOARD
+        WHERE BOARD_NO = #{bno} AND STATUS = 'Y'
+    </select>
+
+    <!-- 게시글 수정 -->
+    <update id="updateBoard" parameterType="Board">
+        UPDATE BOARD SET TITLE = #{title},
+                         CONTENT = #{content},
+                         MODIFIED_DATE = SYSDATE
+        WHERE BOARD_NO = #{boardNo} AND STATUS = 'Y'
+    </update>
+
+    <!-- 게시글 삭제 (상태 업데이트) -->
+    <update id="deleteBoard" parameterType="int">
+        UPDATE BOARD SET STATUS = 'N' WHERE BOARD_NO = #{boardNo}
+    </update>
+
+    <!-- 페이징 처리된 게시글 리스트 조회 -->
+    <select id="selectPagedBoardList" resultMap="boardResult">
+        SELECT BOARD_NO,
+               TITLE,
+               USER_NO AS boardWriter,
+               CREATE_DATE,
+               VIEWS,
+               BOARD_CATEGORY,
+               STATUS
+        FROM BOARD
+        WHERE STATUS = 'Y'
+        ORDER BY CREATE_DATE DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+    </select>
+
+    <!-- 제목이나 작성자 ID로 검색하여 게시글 조회 -->
+    <select id="searchBoardByTitleOrWriter" resultMap="boardResult">
+        SELECT BOARD_NO,
+               TITLE,
+               CONTENT,
+               USER_NO AS boardWriter,
+               CREATE_DATE,
+               VIEWS,
+               BOARD_CATEGORY,
+               STATUS
+        FROM BOARD
+        WHERE STATUS = 'Y'
+          AND (TITLE LIKE '%' || #{keyword} || '%'
+               OR USER_NO LIKE '%' || #{keyword} || '%')
+        ORDER BY CREATE_DATE DESC
+    </select>
+
+    <!-- 조회수 상위 N개의 인기 게시글 조회 -->
+    <select id="selectTopViewedBoards" resultMap="boardResult">
+        SELECT BOARD_NO,
+               TITLE,
+               USER_NO AS boardWriter,
+               CREATE_DATE,
+               VIEWS,
+               BOARD_CATEGORY,
+               STATUS
+        FROM BOARD
+        WHERE STATUS = 'Y'
+        ORDER BY VIEWS DESC
+        FETCH FIRST #{topCount} ROWS ONLY
+    </select>
+
+    <!-- 특정 카테고리의 게시글 조회 -->
+    <select id="selectBoardByCategory" resultMap="boardResult">
+        SELECT BOARD_NO,
+               TITLE,
+               CONTENT,
+               USER_NO AS boardWriter,
+               CREATE_DATE,
+               VIEWS,
+               BOARD_CATEGORY,
+               STATUS
+        FROM BOARD
+        WHERE STATUS = 'Y' AND BOARD_CATEGORY = #{category}
+        ORDER BY CREATE_DATE DESC
+    </select>
+</mapper>

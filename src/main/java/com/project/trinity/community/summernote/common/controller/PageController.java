@@ -1,18 +1,13 @@
 package com.project.trinity.community.summernote.common.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-	
-@RequestMapping("createPost")
-	public String movePage(String page) {
-	    if ("summernote".equals(page)) {
-	        return "community/summernote";
-	    }
-	    return "community/summernote";
-	}
 
-	
+    @GetMapping("/createPost")
+    public String moveToCreatePostPage() {
+        return "community/summernote"; // summernote.jsp 페이지로 이동
+    }
 }
