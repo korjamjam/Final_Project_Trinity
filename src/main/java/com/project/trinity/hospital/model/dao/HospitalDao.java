@@ -23,8 +23,9 @@ public class HospitalDao {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("subject", subject);
 		map.put("order", order);
-		
-		return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
+		System.out.println(map);
+		ArrayList<HospitalInfo> list = (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
+		return list;
 	}
 
 }
