@@ -82,22 +82,22 @@ public class MemberController {
 		return memberService.idCheck(checkId);
 	}
 
-	// 로그인 기능
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session) {
-		Member loginMember = memberService.loginMember(m);
-		System.out.println("loginMember : " + loginMember);
-		System.out.println("isTrue  : " + bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd()));
+	    Member loginMember = memberService.loginMember(m);
+	    System.out.println("loginMember : " + loginMember);
 
-		if (loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-			session.setAttribute("loginUser", loginMember);
-			session.setAttribute("alert", "로그인에 성공했습니다.");
-			return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
-		} else {
-			session.setAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
-			return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
-		}
+	    // loginMember가 null이 아닌지 먼저 확인
+	    if (loginMember != null && bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
+	        session.setAttribute("loginUser", loginMember);
+	        session.setAttribute("alert", "로그인에 성공했습니다.");
+	        return "redirect:/main"; // 로그인 성공 시 메인 화면으로 리다이렉트
+	    } else {
+	        session.setAttribute("alert", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
+	        return "redirect:/login_main.me"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+	    }
 	}
+
 
 	// 로그아웃 기능
 	@RequestMapping("logout.me")
