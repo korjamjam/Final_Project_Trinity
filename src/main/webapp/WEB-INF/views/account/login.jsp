@@ -13,9 +13,16 @@
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
 
+<!-- 메시지 알림 -->
+<% if (request.getAttribute("message") != null) { %>
+    <script>
+        alert("<%= request.getAttribute("message") %>");
+    </script>
+<% } %>
+
 <div class="login-page">
     <div class="login-container">
-        <form action="${pageContext.request.contextPath}/login.me" method="post">
+        <form action="${pageContext.request.contextPath}/member/login" method="post">
             <div class="login-input-group">
                 <input type="text" name="userId" placeholder="아이디" required>
                 <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
@@ -31,9 +38,9 @@
             <button type="submit" class="login-button">로그인</button>
         </form>
         <div class="login-footer-links">
-            <a href="search_id_main.me">아이디 찾기</a> | 
-            <a href="search_pwd_main.me">비밀번호 찾기</a> |
-            <a href="sign_up_main.me">회원가입</a>
+            <a href="${pageContext.request.contextPath}/member/search_id">아이디 찾기</a> | 
+            <a href="${pageContext.request.contextPath}/member/search_pwd">비밀번호 찾기</a> |
+            <a href="${pageContext.request.contextPath}/member/sign_up">회원가입</a>
         </div>
     </div>
 </div>
