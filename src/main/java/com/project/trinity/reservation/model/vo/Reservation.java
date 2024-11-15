@@ -15,11 +15,12 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class Reservation {
-	private int resNo;
-	private String userId;
-	private String hosNo;
-	private Date resDate;
-	private Date resTime;
-	private String resCategory;
-	private String resContent;
+    private int resNo;
+    private int userNo; // USER_NO 필드 추가
+    private String hosNo;
+    private Date resDate;
+    private Date resTime;
+    private String resCategory;
+    private String resContent;
+    private String vaccineCategory;
 }

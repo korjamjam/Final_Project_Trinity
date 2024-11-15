@@ -1,4 +1,3 @@
-<script>
 	function sendSelectValue() {
 	    const selectBox1 = document.getElementsByName("subject")[0];
 	    const selectedValue1 = selectBox1.value;
@@ -19,4 +18,3 @@
 	}
 	
 	window.onload = sendSelectValue;
-</script>

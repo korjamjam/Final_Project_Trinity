@@ -6,7 +6,7 @@ import com.project.trinity.hospital.model.vo.HospitalInfo;
 
 public interface HospitalService {
 
-	HospitalInfo selectHospital(String hpId);
+	HospitalInfo selectHospital(String hosNo);
 
 	ArrayList<HospitalInfo> selectHospitalList(String subject, String order);
 
