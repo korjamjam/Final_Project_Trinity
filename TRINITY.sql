@@ -233,3 +233,19 @@ BEGIN
     :NEW.MED_NO := SEQ_MED_NO.NEXTVAL;
 END;
 /
+
+
+INSERT INTO MEMBER (user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
+VALUES ('user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'F');
+
+INSERT INTO MEMBER (user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
+VALUES ('user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', TO_DATE('1992-02-02', 'YYYY-MM-DD'), 'Busan, Korea', 'M');
+
+INSERT INTO MEMBER (user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
+VALUES ('user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', TO_DATE('1985-03-03', 'YYYY-MM-DD'), 'Incheon, Korea', 'M');
+
+INSERT INTO MEMBER (user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
+VALUES ('user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', TO_DATE('1995-04-04', 'YYYY-MM-DD'), 'Daegu, Korea', 'F');
+
+INSERT INTO MEMBER (user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
+VALUES ('user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', TO_DATE('1988-05-05', 'YYYY-MM-DD'), 'Gwangju, Korea', 'M');
