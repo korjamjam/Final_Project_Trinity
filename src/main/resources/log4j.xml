@@ -19,7 +19,6 @@
 		</layout>
 	</appender>
 	
-	
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
