@@ -2,24 +2,27 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
-  
- <configuration>
 
- 	<settings>
- 		<setting name="jdbcTypeForNull" value="NULL"/>
- 	</settings>
- 	
- 
- 	<typeAliases>
- 		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
- 		<typeAlias type="com.project.trinity.hospital.model.vo.Hospital" alias="Hospital" />
- 	</typeAliases>
- 	
+<configuration>
 
- 	<mappers>
- 		<mapper resource="mappers/member-mapper.xml"/>
- 		<mapper resource="mappers/hospital-mapper.xml"/>
- 	</mappers>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 
- 	
- </configuration>
+
+	<typeAliases>
+		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.project.trinity.hospital.model.vo.Hospital" alias="Hospital" />
+		<typeAlias type="com.project.trinity.community.board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.project.trinity.community.board.model.vo.Reply" alias="Reply" />
+	</typeAliases>
+
+
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/hospital-mapper.xml" />
+		<mapper resource="mappers/board-mapper.xml" />
+	</mappers>
+
+
+</configuration>
