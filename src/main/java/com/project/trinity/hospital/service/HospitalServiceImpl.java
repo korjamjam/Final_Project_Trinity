@@ -1,5 +1,7 @@
 package com.project.trinity.hospital.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,11 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public Hospital selectHospital(String hpId) {
 		return hpDao.selectHospital(sqlSession, hpId);
+	}
+
+	@Override
+	public ArrayList<Hospital> selectHospitalList(String subject, String order) {
+		return hpDao.selectHospitalList(sqlSession, subject, order);
 	}
 
 	
