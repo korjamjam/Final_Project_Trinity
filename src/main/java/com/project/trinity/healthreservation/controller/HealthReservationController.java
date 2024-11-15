@@ -2,7 +2,6 @@ package com.project.trinity.healthreservation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +28,7 @@ public class HealthReservationController {
 	    public String vaccineReservation2() {
 	        return "health_reservation/vaccine_reservation2";
 	    }
+	    
 }
 //	@GetMapping("/guide")
 //	public String healthReservationGuide() {
@@ -79,4 +79,4 @@ public class HealthReservationController {
 //	public String healthReservationItems() {
 //		return "health_reservation/health_reservation_items_info";
 //	}
-}
+//}
