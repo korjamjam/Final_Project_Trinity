@@ -1,0 +1,194 @@
+.board-container-wrapper {
+    width: 60%; /* 원하는 너비 비율 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+.board-container {
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    min-height: 600px; /* 변경: 고정 높이에서 최소 높이로 */
+    box-sizing: border-box;
+}
+
+.board-container,
+.button-group {
+    width: 100%; /* 같은 너비로 설정 */
+}
+.board-header {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.board-header td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.board-category {
+    font-size: 18px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.board-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.board-writer {
+    text-align: right;
+    color: #555;
+}
+
+.writer-info {
+    font-size: 12px;
+    color: #888;
+}
+
+.board-info {
+    font-size: 14px;
+    color: #888;
+}
+
+.board-actions {
+    text-align: right;
+    color: #888;
+}
+
+.board-content {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 16px;
+    min-height: 500px;
+}
+
+.board-footer {
+    text-align: left;
+    color: #28a745;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.comment-section {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.comment-section th, .comment-section td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.comment-section th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-user-info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.comment-user-info .user-icon {
+    margin-left: 5px;
+}
+
+
+#submit-comment:hover {
+    background-color: #218838;
+}
+
+#comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    margin-top: 5px;
+    font-size: 14px;
+}
+.board-detail {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.board-category {
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+    padding: 5px 0;
+}
+
+.board-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.board-user-info {
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+    padding: 10px 0;
+}
+
+.board-meta {
+    font-size: 12px;
+    color: #888;
+    padding: 5px 0;
+}
+
+.board-meta-actions {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    padding: 5px 0;
+}
+/* 추가 스타일 조정 가능 */
+.button-group {
+    display: flex;
+    justify-content: space-between; /* 버튼들이 양 끝으로 정렬 */
+    padding: 10px 0; /* 버튼 그룹 위아래 여백 */
+}
+
+.left-button {
+    margin-left: 0;
+}
+
+.right-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+
