@@ -11,13 +11,13 @@ public interface BoardService {
 	int selectListCount();
 	
 	//게시글 목록 가져오기
-	ArrayList<Board> selectList(PageInfo pi);
+	ArrayList<Board> selectList(PageInfo pi, String sortType);
 	
 	//게시글 조회수 증가
-	int increaseCount(int bno);
+	int increaseCount(String bno);
 	
 	//boardNo로 게시글 조회
-	Board selectBoard(int bno);
+	Board selectBoard(String bno);
 	
 	//게시글 추가(insert) 
 	int insertBoard(Board b);
@@ -26,7 +26,7 @@ public interface BoardService {
 	int updateBoard(Board b);
 	
 	//댓글목록 가져오기
-	ArrayList<Reply> selectReply(int bno);
+	ArrayList<Reply> selectReply(String bno);
 	
 	//댓글 추가
 	int insertReply(Reply r);
