@@ -29,8 +29,6 @@ public class HospitalController {
 		System.out.println(order);
 		ArrayList<HospitalInfo> list = hospitalService.selectHospitalList(subject, order);
 		m.addAttribute("list", list);
-
-		System.out.println(list);
 		return "hospital_detail/hospital_list";
 	}
 	

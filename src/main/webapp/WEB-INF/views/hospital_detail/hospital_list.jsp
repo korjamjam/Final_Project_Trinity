@@ -83,7 +83,7 @@
         <div>
             <c:forEach var="h" items="${list}">
                 <div class="list">
-                    <div class="list_title"><a href="location.href='hospital/detail?hno=${h.hosNo}'"><p>${h.hosName }</p></a></div>
+                    <div class="list_title"><a href="${pageContext.request.contextPath}/hospital/detail?hosNo=${h.hosNo}"><p>${h.hosName }</p></a></div>
                     <div class="list_openTime">평일 ${h.hosStartTime1} ~ ${h.hosEndTime1} | <p>${h.department }</p></div>
                     <div class="list_address"><p>${h.hosAddress}</p></div>
                     <div class="list_tag">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </c:forEach>
-        </div>  
+        </div>
     </div>
 
 	<br><br>
