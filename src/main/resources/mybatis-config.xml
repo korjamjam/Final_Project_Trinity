@@ -16,6 +16,7 @@
  	</typeAliases>
  	
 
+
  	<mappers>
  		<mapper resource="mappers/member-mapper.xml"/>
  		<mapper resource="mappers/hospital-mapper.xml"/>
