@@ -1,5 +1,5 @@
 function checkLogin(){
-    location.href = "/reservation/form"
+    location.href = "${pageContext.request.contextPath}/reservation/form"
 }
 document.addEventListener("DOMContentLoaded", function() {
 

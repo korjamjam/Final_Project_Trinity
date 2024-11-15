@@ -3,16 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>닥터링</title>
-    
+
     <!-- searchBar icon -->
     <link rel="favicon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
     <link rel="icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" type="image/x-icon" />
-
+    
     <!-- font style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +24,11 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
+    <!-- JS -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a013e1a252e3b3abf4367f97dc7d23f"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
 </head>
 <body>
-
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 
@@ -39,7 +40,6 @@
         <div class="hospital_detail_event_img">
             이벤트 사진영역
         </div>
-
     </div>
 
     <!-- inform -->
@@ -52,13 +52,13 @@
             소아청소년과
         </div>
         <div class="hospital_detail_name">
-            청담이든소아청소년과의원
+            ${h.name }
         </div>
         <div class="hospital_detail_address">
-            서울 강남구 테헤란로 226 (태왕빌딩) 1층
+            ${h.address}
         </div>
         <div class="hospital_detail_time">
-            금요일 09:00 ~ 1900
+            ${h.startTime} ~ ${h.endTime}
         </div>
         <div class="hospital_detail_tag">
             <button>어린이 국가예방접종</button>
@@ -83,8 +83,7 @@
             <div class="hospital_detail_location">
                 위치정보
             </div>
-            <div class="hospital_detail_map">
-                지도 API
+            <div class="hospital_detail_map" id="map" onload="kakaoInit('${h.latitude}','${h.longitude}')">
             </div>
         </div>
         <div class="hospital_detail_outline_wrapper">
@@ -184,8 +183,8 @@
         </div>
 
         <div class="hospital_detail_goto_res">
-            <button>바로 접수</button>
-            <button>시간 예약</button>
+            <button onclick="">바로 접수</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/form'">시간 예약</button>
         </div>
 
     </div>

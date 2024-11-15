@@ -51,12 +51,11 @@
 
 		<br>
 		<br>
-
 		<!-- 3 Button -->
 		<div class="shortCutButton">
-			<button class="reservation" onclick="checkLogin()">예약하기</button>
+			<button class="reservation" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">예약하기</button>
 			<div class="find">
-				<button class="findHos" onclick="location.href='/hospital/list'">병원찾기</button>
+				<button class="findHos" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">병원찾기</button>
 				<button class="findPh">가까운 약국 찾기</button>
 			</div>
 		</div>
