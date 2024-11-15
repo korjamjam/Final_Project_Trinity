@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_list.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- JS -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_list.js"></script>
+
 </head>
 <body>
 	<!-- Header -->
@@ -44,11 +50,13 @@
 
         <!-- order by -->
         <div class="list_order">
-            <select name="subject" class="list_subject">
-                <option value="list_child">소아과</option>
-                <option value="list_mother">산부인과</option>
+            <select id="subject" name="subject" class="list_subject">
+                <option value="listAll" selected>전체</option>
+                <option value="listChild">소아과</option>
+                <option value="listMother">산부인과</option>
             </select>
-            <select name="orderBy" class="list_orderBy">
+            <select id="order" name="order" class="list_orderBy">
+                <option value="ASC">글자순</option>
                 <option value="relevant">정확도순</option>
                 <option value="popular">인기순</option>
             </select>
@@ -56,14 +64,14 @@
 
         <hr>
         <br>
-
+		
         <!-- list -->
         <div>
             <c:forEach var="h" items="${list}">
-                <div class="list">hospital_detail
-                    <div class="list_title"><a href="location.href='hospital/detail?hno=${h.hpId}'"><p>청담이든소아청소년과의원</p></a></div>
-                    <div class="list_openTime">평일 ${h.startTime} ~ ${h.endTime} | <p>소아청소년과</p></div>
-                    <div class="list_address"><p>${h.address}</p></div>
+                <div class="list">
+                    <div class="list_title"><a href="${pageContext.request.contextPath}/hospital/detail?hosNo=${h.hosNo}"><p>${h.hosName }</p></a></div>
+                    <div class="list_openTime">평일 ${h.hosStartTime1} ~ ${h.hosEndTime1} | <p>${h.department }</p></div>
+                    <div class="list_address"><p>${h.hosAddress}</p></div>
                     <div class="list_tag">
                         <button>어린이 국가예방접종</button>
                         <button>영유아 검진</button>
@@ -71,7 +79,8 @@
                     </div>
                 </div>
             </c:forEach>
-        </div>  
+        </div>
+        <div id="loadingLine"></div>
     </div>
 
 	<br><br>
@@ -81,45 +90,3 @@
 	
 </body>
 </html>
-
-
-<!-- <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div>
-            <div class="list">
-                <div class="list_title"><a href="hospital_detail"><p>청담이든소아청소년과의원</p></a></div>
-                <div class="list_openTime">금요일 09:00 ~ 19:00 | <p>소아청소년과</p></div>
-                <div class="list_address"><p>서울 강남구 테헤란로 226 (태왕빌딩) 1층</p></div>
-                <div class="list_tag">
-                    <button>어린이 국가예방접종</button>
-                    <button>영유아 검진</button>
-                    <button>주차장</button>
-                </div>
-            </div> -->

@@ -83,6 +83,7 @@ public class MemberController {
         return memberService.idCheck(checkId);
     }
 
+
     // 로그인 기능
     @PostMapping("/login")
     public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
@@ -98,6 +99,7 @@ public class MemberController {
             } else {
                 if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
                     session.setAttribute("loginUser", loginMember);
+                    session.setAttribute("userNo", loginMember.getUserNo());
 
                     if ("on".equals(request.getParameter("keepLoggedIn"))) {
                         Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
@@ -105,8 +107,12 @@ public class MemberController {
                         loginCookie.setPath("/");
                         response.addCookie(loginCookie);
                     }
-
+                    
+                    System.out.println("로그인 성공 - 사용자 세션에 저장된 정보: " + session.getAttribute("loginUser"));
+                    System.out.println("세션에 저장된 userNo: " + session.getAttribute("userNo"));
+                    
                     redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
+                    System.out.println("로그인 후 리다이렉트 - /main으로 이동");
                     return "redirect:/main";
                 }
             }

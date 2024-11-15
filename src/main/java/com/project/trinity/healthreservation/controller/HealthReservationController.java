@@ -1,5 +1,7 @@
 package com.project.trinity.healthreservation.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,77 +16,89 @@ import com.project.trinity.reservation.model.vo.Reservation;
 @Controller
 @RequestMapping("/healthReservation")
 public class HealthReservationController {
-	
-	@Autowired
+
+    @Autowired
     private HealthReservationService healthReservationService;
 
-	@GetMapping("/guide")
-	public String healthReservationGuide() {
-		return "health_reservation/health_reservation_guide";
-	}
-	
-	@GetMapping("/guideEven")
-	public String cautionGuideEvening() {
-		return "health_reservation/caution_guide_evening";
-	}
-	
-	@GetMapping("/guideDday")
-	public String cautionGuideDday() {
-		return "health_reservation/caution_guide_dday";
-	}
-	
-	@GetMapping("/guideEndo")
-	public String cautionGuideEndoscope() {
-		return "health_reservation/caution_guide_endoscope";
-	}
-	
-	@GetMapping("/guideCt")
-	public String cautionGuideCtMri() {
-		return "health_reservation/caution_guide_ct_mri";
-	}
-	
-	@GetMapping("/reservation1")
-	public String healthReservation1() {
-		return "health_reservation/health_reservation1";
-	}
-	
-	@GetMapping("/reservation2")
-	public String healthReservation2() {
-		return "health_reservation/health_reservation2";
-	}
-	
-	@GetMapping("/result")
-	public String healthReservationResult() {
-		return "health_reservation/health_reservation_result";
-	}
-	
-	@GetMapping("/infoNomal")
-	public String healthReservationInfoNomal() {
-		return "health_reservation/health_reservation_info_nomal";
-	}
-	
-	@GetMapping("/itemsInfo")
-	public String healthReservationItems() {
-		return "health_reservation/health_reservation_items_info";
-	}
-	
-	//백신 예약 페이지1
-	@GetMapping("/vaccinepage1")
+    // 백신 예약 페이지 1로 이동
+    @GetMapping("/vaccinepage1")
     public String vaccineReservation1() {
         return "health_reservation/vaccine_reservation1";
     }
-    
-	//백신 예약 페이지2
-    @GetMapping("/vaccinepage2")
-    public String vaccineReservation2() {
+
+    // 백신 예약 페이지 2로 이동
+    @PostMapping("/vaccinepage2")
+    public String vaccineReservation2(@ModelAttribute Reservation reservation, Model model) {
+        model.addAttribute("reservation", reservation);
         return "health_reservation/vaccine_reservation2";
     }
-    
-    // 예약 정보 저장 및 완료 페이지로 이동
-    @PostMapping("/submit")
-    public String submitReservation(@ModelAttribute Reservation reservation, Model model) {
+
+    @PostMapping("/submitReservation")
+    public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
+        System.out.println("Received Reservation: " + reservation);
+
+        String userNo = (String) session.getAttribute("userNo");
+        System.out.println("Session userNo: " + userNo);
+
+        if (userNo == null) {
+            throw new IllegalArgumentException("로그인된 사용자 정보가 없습니다.");
+        }
+
+        reservation.setUserNo(userNo);
         healthReservationService.saveReservation(reservation);
-        model.addAttribute("reservation", reservation);
-        return "health_reservation/reservation_success";
+        return "redirect:/healthReservation/vaccinepage1";
     }
+
+
 }
+
+//	@GetMapping("/guide")
+//	public String healthReservationGuide() {
+//		return "health_reservation/health_reservation_guide";
+//	}
+//	
+//	@GetMapping("/guideEven")
+//	public String cautionGuideEvening() {
+//		return "health_reservation/caution_guide_evening";
+//	}
+//	
+//	@GetMapping("/guideDday")
+//	public String cautionGuideDday() {
+//		return "health_reservation/caution_guide_dday";
+//	}
+//	
+//	@GetMapping("/guideEndo")
+//	public String cautionGuideEndoscope() {
+//		return "health_reservation/caution_guide_endoscope";
+//	}
+//	
+//	@GetMapping("/guideCt")
+//	public String cautionGuideCtMri() {
+//		return "health_reservation/caution_guide_ct_mri";
+//	}
+//	
+//	@GetMapping("/reservation1")
+//	public String healthReservation1() {
+//		return "health_reservation/health_reservation1";
+//	}
+//	
+//	@GetMapping("/reservation2")
+//	public String healthReservation2() {
+//		return "health_reservation/health_reservation2";
+//	}
+//	
+//	@GetMapping("/result")
+//	public String healthReservationResult() {
+//		return "health_reservation/health_reservation_result";
+//	}
+//	
+//	@GetMapping("/infoNomal")
+//	public String healthReservationInfoNomal() {
+//		return "health_reservation/health_reservation_info_nomal";
+//	}
+//	
+//	@GetMapping("/itemsInfo")
+//	public String healthReservationItems() {
+//		return "health_reservation/health_reservation_items_info";
+//	}
+//}

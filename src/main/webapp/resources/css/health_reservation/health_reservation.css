@@ -182,6 +182,17 @@
     width: 75%;
 }
 
+.input_address p {
+    display: block;
+    margin-bottom: 5px; /* p 태그 아래에 약간의 간격 추가 */
+}
+
+.input_address input,
+.input_address .address-button {
+    display: block;
+    margin-top: 5px; /* 각 요소 사이에 간격을 추가 */
+}
+
 .input_id_num > input[type= password]{
     width: 30px;
 }
@@ -318,7 +329,9 @@
     font-size: 24px;
     cursor: pointer;
 }
-
+#sample6_postcode{
+	
+}
 @media (min-width: 768px) {
     .health_reservation_container{
         min-width: 700px;

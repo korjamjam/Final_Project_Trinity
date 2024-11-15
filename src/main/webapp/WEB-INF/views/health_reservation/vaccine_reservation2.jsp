@@ -1,104 +1,110 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>백신 예약</title>
-        
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>백신 예약</title>
 
-    <!-- css -->
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_datepicker.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation2.css">
- 
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- css -->
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_datepicker.css">
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation2.css">
+
 </head>
 <body>
 	<!-- header -->
-	<jsp:include page="../common/main_header.jsp"/>
+	<jsp:include page="../common/main_header.jsp" />
 	<div class="health_reservation1_wrap">
-        <div class="health_reservation1_container">
-            <div class="health_reservation1_title">
-                백신 예약
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    3. 백신 종류
-                </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>검진 종류</option>
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="health_reservation2_content" style="display: none;">
-                <div id="health_reservation1_content_title">
-                    3-1. 선택 검사 항목
-                </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>검진 종류</option>
-                        <option value="">일반건강검진</option>
-                        <option value="">암검진</option>
-                        <option value="">생애주기전환검진</option>
-                    </select>
-                </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    4. 접종받을기관
-                </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>기관을 선택해주세요</option>
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    5. 특이사항
-                </div>
-                <div id="health_reservation_inputText">
-                    <textarea name="" id="" placeholder="알레르기, 부작용 반응 등 작성"></textarea>
-                </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    6. 날짜 및 시간
-                </div>
-                <div class="health_reservation_normal_date">
-                    <div id="datepicker"></div>
-                </div>
-                <div class="health_reservation_normal_select">
-                    <select name="timeOfDay" id="timeOfDaySelect">
-                        <option value="" disabled hidden selected>시간 선택</option>
-                        <option value="morning">오전</option>
-                        <option value="afternoon">오후</option>
-                    </select>
-                </div>
-                <div class="health_reservation_normal_select" style="display: none;" id="specificTimeSelectContainer">
-                    <select name="specificTime" id="specificTimeSelect">
-                        <option value="" disabled hidden selected>구체적인 시간 선택</option>
-                    </select>
-                </div>
-            </div>
-            <div class="reservation_btn_area">
-                <button id="reservation_btn">예약</button>
-            </div>
-        </div>
-    </div>
-    
-    <script>
+		<div class="health_reservation1_container">
+			<div class="health_reservation1_title">백신 예약</div>
+			<form
+				action="${pageContext.request.contextPath}/healthReservation/submitReservation"
+				method="post">
+				<input type="hidden" name="userNo" value="${param.userNo}">
+				<input type="hidden" name="patientName" value="${param.patientName}">
+				<input type="hidden" name="patientBirthday"
+					value="${param.patientBirthday}"> <input type="hidden"
+					name="phone" value="${param.phoneCode}-${param.phoneNumber}">
+				<input type="hidden" name="email"
+					value="${param.email}@${param.emailDomain}"> <input
+					type="hidden" name="address" value="${param.address}">
+				<div class="health_reservation2_content">
+					<div id="health_reservation1_content_title">3. 백신 종류</div>
+					<div class="health_reservation_normal_select">
+						<!-- 백신 종류 선택 -->
+						<select name="vaccineCategory" required>
+							<option value="" disabled hidden selected>백신 종류</option>
+							<option value="1">백신 1</option>
+							<option value="2">백신 2</option>
+							<option value="3">백신 3</option>
+						</select>
+					</div>
+				</div>
+				<div class="health_reservation2_content" style="display: none;">
+					<div id="health_reservation1_content_title">3-1. 선택 검사 항목</div>
+					<div class="health_reservation_normal_select">
+						<select name="" id="">
+							<option value="" disabled hidden selected>검진 종류</option>
+							<option value="">일반건강검진</option>
+							<option value="">암검진</option>
+							<option value="">생애주기전환검진</option>
+						</select>
+					</div>
+				</div>
+				<div class="health_reservation2_content">
+					<div id="health_reservation1_content_title">4. 접종받을기관</div>
+					<div class="health_reservation_normal_select">
+						<select name="hosNo" required>
+							<option value="" disabled hidden selected>기관 선택</option>
+							<option value="1">기관 1</option>
+							<option value="2">기관 2</option>
+							<option value="3">기관 3</option>
+						</select>
+					</div>
+				</div>
+				<div class="health_reservation2_content">
+					<div id="health_reservation1_content_title">5. 특이사항</div>
+					<div id="health_reservation_inputText">
+						<textarea name="specialNotes" placeholder="알레르기, 부작용 반응 등 작성"></textarea>
+					</div>
+				</div>
+				<div class="health_reservation2_content">
+					<div id="health_reservation1_content_title">6. 날짜 및 시간</div>
+					<div class="health_reservation_normal_date">
+						<div id="datepicker"></div>
+					</div>
+					<div class="health_reservation_normal_select">
+						<select name="timeOfDay" id="timeOfDaySelect">
+							<option value="" disabled hidden selected>시간 선택</option>
+							<option value="morning">오전</option>
+							<option value="afternoon">오후</option>
+						</select>
+					</div>
+					<div class="health_reservation_normal_select"
+						id="specificTimeSelectContainer">
+						<select name="resTime" id="specificTimeSelect" required>
+							<option value="" disabled hidden selected>구체적인 시간 선택</option>
+						</select>
+					</div>
+				</div>
+				<div class="reservation_btn_area">
+					<button id="reservation_btn" type="submit">예약</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
         $(function() {
             // 날짜 선택 달력 설정
             $("#datepicker").datepicker({
@@ -147,7 +153,7 @@
             });
         });
     </script>
-    
-    <jsp:include page="../common/main_footer.jsp"/>
+
+	<jsp:include page="../common/main_footer.jsp" />
 </body>
 </html>

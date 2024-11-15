@@ -1,13 +1,6 @@
-/* ±âº» ½ºÅ¸ÀÏ */
+/* ï¿½âº» ï¿½ï¿½Å¸ï¿½ï¿½ */
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: #fffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
 }
 
 .signup-container {
@@ -53,7 +46,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    height: 42px; /* ¹öÆ°°ú µ¿ÀÏÇÑ ³ôÀÌ·Î ¼³Á¤ */
+    height: 42px; /* ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .email-group {
@@ -76,14 +69,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    height: 42px; /* ¹öÆ°°ú µ¿ÀÏÇÑ ³ôÀÌ·Î ¼³Á¤ */
-    flex: 1 1 120px; /* ÃÖ¼Ò ³Êºñ¸¦ ¼³Á¤ÇØÁÙ ¼ö ÀÖÀ½ */
+    height: 42px; /* ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+    flex: 1 1 120px; /* ï¿½Ö¼ï¿½ ï¿½Êºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .email-group span {
     font-size: 14px;
     color: #777;
-    padding: 0 5px; /* °£°Ý Á¶Á¤ */
+    padding: 0 5px; /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .check-button,
@@ -95,7 +88,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
-    height: 42px; /* ÀÔ·Â ÇÊµå¿Í µ¿ÀÏÇÑ ³ôÀÌ·Î ¼³Á¤ */
+    height: 42px; /* ï¿½Ô·ï¿½ ï¿½Êµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 .check-button:hover,
@@ -120,7 +113,7 @@ body {
     background-color: #388E3C;
 }
 
-/* 768px ÀÌÇÏ È­¸é (ÅÂºí¸´) */
+/* 768px ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ (ï¿½Âºï¿½ï¿½ï¿½) */
 @media (max-width: 768px) {
     .signup-container {
         padding: 20px;
@@ -145,11 +138,11 @@ body {
     .address-button {
         padding: 8px 15px;
         font-size: 13px;
-        height: 38px; /* ÀÔ·Â ÇÊµå¿Í µ¿ÀÏÇÑ ³ôÀÌ·Î ¼³Á¤ */
+        height: 38px; /* ï¿½Ô·ï¿½ ï¿½Êµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     }
 }
 
-/* ¸ð¹ÙÀÏ (500px ÀÌÇÏ) */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ (500px ï¿½ï¿½ï¿½ï¿½) */
 @media (max-width: 500px) {
     body {
         padding: 10px;
@@ -191,7 +184,7 @@ body {
         font-size: 14px;
         box-sizing: border-box;
         margin-top: 5px;
-        height: 42px; /* ÀÔ·Â ÇÊµå¿Í µ¿ÀÏÇÑ ³ôÀÌ·Î ¼³Á¤ */
+        height: 42px; /* ï¿½Ô·ï¿½ ï¿½Êµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     }
 
     .email-group {
@@ -214,7 +207,7 @@ body {
     }
 }
 
-/* µ¥½ºÅ©Å¾ */
+/* ï¿½ï¿½ï¿½ï¿½Å©Å¾ */
 @media (min-width: 1024px) {
     .signup-container {
         max-width: 600px;
