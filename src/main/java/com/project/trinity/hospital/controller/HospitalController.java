@@ -33,9 +33,10 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/detail")
-	public String hospitalDetail(String hpId, Model m) {
-		HospitalInfo h = hospitalService.selectHospital(hpId);
+	public String hospitalDetail(String hosNo, Model m) {
+		HospitalInfo h = hospitalService.selectHospital(hosNo);
 		m.addAttribute("h",h);
+		System.out.println(h);
 		return "hospital_detail/hospital_detail";
 	}
 	

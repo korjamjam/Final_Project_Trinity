@@ -20,8 +20,8 @@ public class HospitalServiceImpl implements HospitalService{
     private HospitalDao hpDao;
 
 	@Override
-	public HospitalInfo selectHospital(String hpId) {
-		return hpDao.selectHospital(sqlSession, hpId);
+	public HospitalInfo selectHospital(String hosNo) {
+		return hpDao.selectHospital(sqlSession, hosNo);
 	}
 
 	@Override
