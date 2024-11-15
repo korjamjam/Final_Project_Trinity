@@ -2,12 +2,12 @@ package com.project.trinity.hospital.service;
 
 import java.util.ArrayList;
 
-import com.project.trinity.hospital.model.vo.Hospital;
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 
 public interface HospitalService {
 
-	Hospital selectHospital(String hpId);
+	HospitalInfo selectHospital(String hpId);
 
-	ArrayList<Hospital> selectHospitalList(String subject, String order);
+	ArrayList<HospitalInfo> selectHospitalList(String subject, String order);
 
 }
