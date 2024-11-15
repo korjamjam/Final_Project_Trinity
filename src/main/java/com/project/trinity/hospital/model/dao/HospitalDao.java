@@ -2,6 +2,7 @@ package com.project.trinity.hospital.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,7 +22,7 @@ public class HospitalDao {
 		map.put("subject", subject);
 		map.put("order", order);
 		
-		return sqlSession.selectMap("hospitalMapper.selectHospitalList", map);
+		return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
 	}
 
 }
