@@ -4,21 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reservationMapper">
-<!-- 단축 설정 -->
-	<resultMap type="Reservation" id="ReservationResultSet">
-		<result column="RES_NO" property="resNo" />
-		<result column="USER_ID" property="userId" />
-		<result column="HOS_NO" property="hosNo" />
-		<result column="RES_DATE" property="resDate" />
-		<result column="RES_TIME" property="resTime" />
-		<result column="RES_CATEGORY" property="resCategory" />
-		<result column="RES_CONTENT" property="resContent" />
-	</resultMap>
+    <!-- 단축 설정 -->
+    <resultMap type="Reservation" id="ReservationResultSet">
+        <result column="RES_NO" property="resNo" />
+        <result column="USER_ID" property="userId" />
+        <result column="HOS_NO" property="hosNo" />
+        <result column="RES_DATE" property="resDate" />
+        <result column="RES_TIME" property="resTime" />
+        <result column="RES_CATEGORY" property="resCategory" />
+        <result column="RES_CONTENT" property="resContent" />
+    </resultMap>
 
-	<!-- 예약 삽입 -->
-    <insert id="insertReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
-        INSERT INTO RESERVATION (USER_ID, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
-        VALUES (#{userId}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
-    </insert>
-
+    <!-- 예약 삽입 -->
 </mapper>

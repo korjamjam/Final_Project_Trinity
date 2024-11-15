@@ -8,10 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class HealthReservationDao {
 
-    @Autowired
-    private SqlSession sqlSession;
-
-    public void insertReservation(Reservation reservation) {
-        sqlSession.insert("reservationMapper.insertReservation", reservation);
-    }
 }
