@@ -33,7 +33,7 @@
 		<result column="HOS_LONGITUDE" property="hosLongitude" />
 	</resultMap>
 
-	<!-- 병원 조회 -->
+	<!-- 병원Info 조회 -->
 	<select id="selectHospital" parameterType="HospitalInfo"
 		resultMap="HospitalInfoResultSet">
 		SELECT  HOS_NO,
@@ -48,7 +48,21 @@
 				HOS_LATITUDE,
 				HOS_LONGITUDE
 		  FROM  HOSPITAL_INFO
-		  WHERE  HOS_NO = #{hosNo}
+		 WHERE  HOS_NO = #{hosNo}
+	</select>
+	
+	<!-- 병원 Account 조회 -->
+	<select id="selectHospitalInfo" parameterType="HospitalAccount"
+		resultMap="HospitalAccountResultSet">
+		SELECT  HOS_ACCOUNT_NO,
+				HOS_NO,
+				HOS_ID,
+				HOS_PWD,
+				HOS_INFO,
+				HOS_ONDUTY,
+				HOS_PARKING
+		  FROM  HOSPITAL_ACCOUNT
+		 WHERE  HOS_NO = #{hosNo}
 	</select>
 	
 	<!-- 병원 리스트 조회 -->
