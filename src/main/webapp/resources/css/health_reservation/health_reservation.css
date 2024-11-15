@@ -329,6 +329,9 @@
     font-size: 24px;
     cursor: pointer;
 }
+#sample6_postcode{
+	
+}
 @media (min-width: 768px) {
     .health_reservation_container{
         min-width: 700px;
