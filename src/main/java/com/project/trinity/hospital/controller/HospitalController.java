@@ -1,9 +1,12 @@
 package com.project.trinity.hospital.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.trinity.hospital.model.vo.Hospital;
 import com.project.trinity.hospital.service.HospitalService;
@@ -19,7 +22,13 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/list")
-	public String hospitalList() {
+	public String hospitalList(@RequestParam(value = "subject", defaultValue = "listAll") String subject,
+	        				   @RequestParam(value = "order", defaultValue = "ASC") String order, 
+	        				   Model m) {
+		System.out.println(subject);
+		System.out.println(order);
+		ArrayList<Hospital> list = hospitalService.selectHospitalList(subject, order);
+		m.addAllAttributes(list);
 		return "hospital_detail/hospital_list";
 	}
 	

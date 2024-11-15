@@ -44,23 +44,45 @@
 
         <!-- order by -->
         <div class="list_order">
-            <select name="subject" class="list_subject">
-                <option value="list_child">소아과</option>
-                <option value="list_mother">산부인과</option>
+            <select id="subject" name="subject" class="list_subject">
+                <option value="listAll" selected>전체</option>
+                <option value="listChild">소아과</option>
+                <option value="listMother">산부인과</option>
             </select>
-            <select name="orderBy" class="list_orderBy">
+            <select id="order" name="order" class="list_orderBy">
+                <option value="ASC">글자순</option>
                 <option value="relevant">정확도순</option>
                 <option value="popular">인기순</option>
             </select>
         </div>
 
+        <script>
+            $(document).ready(function() {
+                const subject = $("#subject").val();
+                const order = $("#order").val();
+    
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/hospital/list", // Controller 매핑된 URL
+                    type: "GET",
+                    data: { subject: subject, order: order },
+                    success: function(response) {
+                        console.log("서버 응답:", response);
+                        // 성공 시 페이지 컨텐츠 로딩을 위한 코드 추가 가능
+                    },
+                    error: function(error) {
+                        console.error("에러 발생:", error);
+                    }
+                });
+            });
+        </script>
+
         <hr>
         <br>
-
+		
         <!-- list -->
         <div>
             <c:forEach var="h" items="${list}">
-                <div class="list">hospital_detail
+                <div class="list">
                     <div class="list_title"><a href="location.href='hospital/detail?hno=${h.hpId}'"><p>청담이든소아청소년과의원</p></a></div>
                     <div class="list_openTime">평일 ${h.startTime} ~ ${h.endTime} | <p>소아청소년과</p></div>
                     <div class="list_address"><p>${h.address}</p></div>
