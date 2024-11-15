@@ -95,7 +95,7 @@
                 병원 소개
             </div>
             <div class="hospital_detail_introduce_content">
-                청담이든소아청소년과의원가 더 좋은 진료 환경을 위해 확장 이전하게 되었습니다.
+                ${hInfo.hosInfo }
             </div>
             <div class="hospital_detail_notice">
                 <div>
