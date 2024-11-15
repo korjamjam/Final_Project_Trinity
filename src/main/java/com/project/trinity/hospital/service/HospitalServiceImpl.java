@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.hospital.model.dao.HospitalDao;
+import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 
 
@@ -27,6 +28,11 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public ArrayList<HospitalInfo> selectHospitalList(String subject, String order) {
 		return hpDao.selectHospitalList(sqlSession, subject, order);
+	}
+
+	@Override
+	public HospitalAccount selectHospitalInfo(String hosNo) {
+		return hpDao.selectHospitalInfo(sqlSession, hosNo);
 	}
 
 	
