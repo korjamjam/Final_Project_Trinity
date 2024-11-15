@@ -51,6 +51,7 @@
 
 		<br>
 		<br>
+
 		<!-- 3 Button -->
 		<div class="shortCutButton">
 			<button class="reservation" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">예약하기</button>

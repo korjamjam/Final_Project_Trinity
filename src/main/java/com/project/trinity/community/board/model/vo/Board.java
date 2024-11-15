@@ -18,17 +18,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Board {
-
-	 private int boardNo;            // 게시글 고유 번호
-	    private String boardCategory;    // 게시판 카테고리 (예: 자유, 메디톡, 이벤트)
-	    private String title;            // 제목
-	    private String content;          // 내용
-	    private String boardWriter;      // 작성자 ID (아이디나 이름을 저장)
-	    private String userNo;             // 작성자의 고유 식별 번호 (DB 상의 ID)
-	    private Date createdDate;        // 작성일
-	    private Date modifiedDate;       // 수정일    
-	    private String originName;       // 원본 파일 이름
-	    private String changeName;       // 변경된 파일 이름
-	    private int views;               // 조회수
-	    private String status;           // 상태 (예: 'Y' or 'N')
+	private int boardNo;
+	private String boardTitle;
+	private String boardWriter;
+	private String boardContent;
+	private String originName;
+	private String changeName;
+	private int count;
+	private String createDate;
+	private String status;
 }
