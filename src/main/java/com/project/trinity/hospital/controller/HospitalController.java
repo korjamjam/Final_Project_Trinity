@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
 
@@ -29,14 +30,18 @@ public class HospitalController {
 		System.out.println(order);
 		ArrayList<HospitalInfo> list = hospitalService.selectHospitalList(subject, order);
 		m.addAttribute("list", list);
+
+		System.out.println(list);
 		return "hospital_detail/hospital_list";
 	}
 	
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
 		HospitalInfo h = hospitalService.selectHospital(hosNo);
+		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
 		m.addAttribute("h",h);
-		System.out.println(h);
+		m.addAttribute("hInfo",hInfo);
+		System.out.println(hInfo);
 		return "hospital_detail/hospital_detail";
 	}
 	
