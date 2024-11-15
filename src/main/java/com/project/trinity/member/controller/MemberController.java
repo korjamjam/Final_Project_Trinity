@@ -83,6 +83,7 @@ public class MemberController {
         return memberService.idCheck(checkId);
     }
 
+
     // 로그인 기능
     @PostMapping("/login")
     public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
@@ -105,6 +106,9 @@ public class MemberController {
                         loginCookie.setPath("/");
                         response.addCookie(loginCookie);
                     }
+
+
+
 
                     redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
                     return "redirect:/main";
@@ -177,5 +181,10 @@ public class MemberController {
     @GetMapping("/sign_up")
     public String signupPage() {
         return "account/sign_up";
+    }
+    
+    @GetMapping("/repair_email")
+    public String repairemailPage() {
+        return "account/repair_email";
     }
 }
