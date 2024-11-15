@@ -4,16 +4,36 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reservationMapper">
-    <!-- 단축 설정 -->
-    <resultMap type="Reservation" id="ReservationResultSet">
-        <result column="RES_NO" property="resNo" />
-        <result column="USER_ID" property="userId" />
-        <result column="HOS_NO" property="hosNo" />
-        <result column="RES_DATE" property="resDate" />
-        <result column="RES_TIME" property="resTime" />
-        <result column="RES_CATEGORY" property="resCategory" />
-        <result column="RES_CONTENT" property="resContent" />
+
+    <!-- ReservationWithVaccineResult 설정 -->
+    <resultMap id="ReservationWithVaccineResult" type="com.project.trinity.reservation.model.vo.Reservation">
+        <id property="resNo" column="RES_NO"/>
+        <result property="userNo" column="USER_NO"/> <!-- USER_ID 대신 USER_NO 사용 -->
+        <result property="hosNo" column="HOS_NO"/>
+        <result property="resDate" column="RES_DATE"/>
+        <result property="resTime" column="RES_TIME"/>
+        <result property="resCategory" column="RES_CATEGORY"/>
+        <result property="resContent" column="RES_CONTENT"/>
     </resultMap>
 
-    <!-- 예약 삽입 -->
+    <!-- 예약 삽입 쿼리 -->
+    <insert id="insertReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
+        INSERT INTO RESERVATION 
+        (USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
+        VALUES 
+        (#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
+    </insert>
+
+    <!-- 예약 정보와 백신 종류 조회 -->
+    <select id="selectReservationWithVaccine" resultMap="ReservationWithVaccineResult">
+        SELECT 
+            r.RES_NO, r.USER_NO, r.HOS_NO, r.RES_DATE, r.RES_TIME, 
+            r.RES_CATEGORY, r.RES_CONTENT, t.VACCINE_CATEGORY
+        FROM 
+            RESERVATION r
+        LEFT JOIN 
+            TREATMENT t ON r.RES_NO = t.RES_NO
+        WHERE 
+            r.RES_NO = #{resNo}
+    </select>
 </mapper>

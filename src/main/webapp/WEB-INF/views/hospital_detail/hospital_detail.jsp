@@ -49,7 +49,7 @@
             <button class="hospital_detail_btn2">대기자 수 확인하기</button>
         </div>
         <div class="hospital_detail_subject">
-            소아청소년과
+            ${h.department }
         </div>
         <div class="hospital_detail_name">
             ${h.hosName }
@@ -83,7 +83,8 @@
             <div class="hospital_detail_location">
                 위치정보
             </div>
-            <div class="hospital_detail_map" id="map" onload="kakaoInit('${h.hosLatitude}','${h.hosLongitude}')">
+            <div class="hospital_detail_map" id="map">
+           	<script> window.onload = kakaoInit('${h.hosLatitude}','${h.hosLongitude}')</script>
             </div>
         </div>
         <div class="hospital_detail_outline_wrapper">
@@ -94,7 +95,7 @@
                 병원 소개
             </div>
             <div class="hospital_detail_introduce_content">
-                청담이든소아청소년과의원가 더 좋은 진료 환경을 위해 확장 이전하게 되었습니다.
+                ${hInfo.hosInfo }
             </div>
             <div class="hospital_detail_notice">
                 <div>
