@@ -56,7 +56,7 @@
             </select>
         </div>
 
-        <script>
+        <!-- <script>
             $(document).ready(function() {
                 const subject = $("#subject").val();
                 const order = $("#order").val();
@@ -74,7 +74,7 @@
                     }
                 });
             });
-        </script>
+        </script> -->
 
         <hr>
         <br>
