@@ -1,0 +1,116 @@
+/* admin-style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 24px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-menu span {
+    font-size: 1rem;
+    color: #333;
+}
+
+.icons {
+    display: flex;
+    gap: 10px;
+}
+
+.user-icon,
+.menu-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.admin-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 기본: 한 줄에 두 개 */
+    gap: 20px;
+    padding: 40px 0;
+}
+
+/* 기본 스타일 */
+.admin-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    background-color: #8DCE4E;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.admin-button img {
+    width: 60%;
+    height: 60%;
+    margin-bottom: 10px;
+}
+
+
+.admin-button:hover {
+    background-color: #98dd54;
+}
+
+/* 768px 이하 화면 */
+@media (max-width: 768px) {
+    .admin-button {
+        width: 200px;
+        height: 200px;
+        font-size: 1.4rem;
+    }
+    .admin-container {
+        grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개 */
+    }
+}
+
+/* 480px 이하 화면 */
+@media (max-width: 480px) {
+    .admin-button {
+        width: 120px;
+        height: 120px;
+        font-size: 1rem;
+    }
+    .admin-container {
+        grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개 */
+    }
+}

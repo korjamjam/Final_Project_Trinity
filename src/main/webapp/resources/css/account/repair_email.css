@@ -1,0 +1,114 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #fff; 
+}
+
+/* 복구 이메일 컨테이너 스타일 */
+.recovery-email-container {
+    width: 100%;
+    max-width: 600px; 
+    padding: 70px; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin: 70px auto; 
+}
+
+.recovery-email-container h2 {
+    font-size: 1.75rem; 
+    margin-bottom: 70px; 
+   
+}
+
+.recovery-email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1rem; 
+    color: #000;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 추가하기 버튼 스타일 */
+.add-button {
+    padding: 15px; 
+    background-color: #8CCF4E;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #57b87d;
+}
+
+.info-text {
+    margin-top: 25px;
+    font-size: 1rem;
+    color: #666;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* 모바일 화면에서 상하 여백 제거 */
+@media (max-width: 768px) {
+    .recovery-email-container {
+        max-width: 100%;
+        padding: 20px;
+        margin: 0; 
+        border-radius: 0; 
+    }
+
+    .recovery-email-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-group input {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .add-button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .info-text {
+        font-size: 0.875rem;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .recovery-email-container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}

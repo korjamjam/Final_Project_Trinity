@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+
+	<!-- 단축 설정 -->
+	<resultMap type="Member" id="memberResultSet">
+		<result column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="GENDER" property="gender" />
+		<result column="ADDRESS" property="address" />
+		<result column="ENROLL_DATE" property="enrollDate" />
+		<result column="STATUS" property="status" />
+		<result column="ISADMIN" property="isAdmin" />
+		<result column="MED_KEY" property="medKey" />
+		<result column="HOS_NO" property="hosNo" />
+	</resultMap>
+
+	<!-- 로그인 쿼리 -->
+	<select id="loginMember" parameterType="Member"
+		resultMap="memberResultSet">
+		SELECT USER_NO,
+		USER_ID,
+		USER_PWD,
+		USER_NAME,
+		EMAIL,
+		PHONE,
+		BIRTHDAY,
+		GENDER,
+		ADDRESS,
+		ENROLL_DATE,
+		STATUS,
+		ISADMIN,
+		MED_KEY,
+		HOS_NO
+		FROM
+		MEMBER
+		WHERE USER_ID = #{userId}
+		AND STATUS = 'Y'
+	</select>
+
+	<!-- 아이디 중복 확인 쿼리 -->
+	<select id="idCheck" parameterType="string" resultType="int">
+		SELECT
+		COUNT(*) FROM MEMBER WHERE user_id = #{checkId}
+	</select>
+
+	<!-- 로그인 유지 기능 쿼리 -->
+	<select id="findByUserId" parameterType="String"
+		resultType="com.project.trinity.member.model.vo.Member">
+		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
+	</select>
+
+
+	<insert id="insertMember" parameterType="Member">
+    INSERT INTO MEMBER
+    (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender)
+    VALUES
+    (SEQ_USER_NO.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{email}, #{phone}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{address}, #{gender})
+</insert>
+
+
+
+
+
+
+	<!-- 관리자 회원 목록 조회 -->
+    <select id="getAllMembers" resultMap="memberResultSet">
+        SELECT 
+            USER_NO,
+            USER_ID,
+            USER_NAME,
+            EMAIL,
+            PHONE,
+            BIRTHDAY,
+            GENDER,
+            ADDRESS,
+            ENROLL_DATE,
+            STATUS,
+            ISADMIN,
+            MED_KEY,
+            HOS_NO
+        FROM MEMBER
+    </select>
+
+</mapper>

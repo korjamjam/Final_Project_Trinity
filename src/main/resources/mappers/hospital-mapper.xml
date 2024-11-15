@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hospitalMapper">
+<!-- 단축 설정 -->
+	<resultMap type="Hospital" id="HospitalResultSet">
+		<result column="NAME" property="name" />
+		<result column="ADDRESS" property="address" />
+		<result column="DIVISION" property="division" />
+		<result column="DEPARTMENT" property="department" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="HPID" property="hpId" />
+		<result column="LATITUDE" property="latitude" />
+		<result column="LONGITUDE" property="longitude" />
+	</resultMap>
+
+	<!-- 병원 조회 -->
+	<select id="selectHospital" parameterType="Hospital"
+		resultMap="HospitalResultSet">
+		SELECT NAME,
+		ADDRESS,
+		DIVISION,
+		DEPARTMENT,
+		START_TIME,
+		END_TIME,
+		HPID,
+		LATITUDE,
+		LONGITUDE
+		FROM HOSPITAL_KID
+		WHERE HPID = #{hpId}
+	</select>
+
+
+</mapper>

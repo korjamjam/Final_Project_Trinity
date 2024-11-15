@@ -1,0 +1,134 @@
+.main-page {
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.inquiry-sidebar {
+	width: 200px; /* 사이드바의 고정 너비 */
+	margin-right: 20px;
+}
+
+.inquiry-form {
+	width: 100%;
+	max-width: 600px; /* 기본 크기 설정 */
+	padding: 20px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	border-radius: 10px;
+}
+
+.form-title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-align: left;
+	color: #265708;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px; margin-bottom : 20px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.form-group input[type="text"], .form-group select, .form-group textarea
+	{
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+
+.form-group textarea {
+	resize: none;
+}
+
+.checkbox-container {
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+	margin-left: 8px; /* 체크박스와 레이블 사이 간격 조정 */
+}
+
+.checkbox-label {
+	font-size: 14px;
+}
+
+.form-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.cancel-button, .submit-button {
+	width: 48%;
+	padding: 10px;
+	font-size: 14px;
+	font-weight: bold;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.cancel-button {
+	background-color: #f0f0f0;
+	color: #000;
+	border: 1px solid #ddd;
+}
+
+.submit-button {
+	background-color: #6cc24a;
+	color:#fff;
+	border: 1px solid #ddd;
+}
+
+.cancel-button:hover {
+	background-color: #e0e0e0;
+}
+
+.submit-button:hover {
+	background-color: #559b39;
+}
+
+
+/* 미디어 쿼리: 768px 이상일 때 inquiry-form 크기 확대 */
+@media ( min-width : 700px) {
+	.inquiry-form {
+		width: 100%;
+		min-width: 600px; /* 768px 이상일 때 크기를 더 크게 설정 */
+	}
+}
+
+/* 미디어 쿼리: 768px 이하일 때 sidebar 숨기기 */
+@media ( max-width : 840px) {
+	.inquiry-sidebar {
+		display: none;
+	}
+}
+
+@media ( max-width : 700px) {
+	.inquiry-form {
+		border: none;
+	}
+}

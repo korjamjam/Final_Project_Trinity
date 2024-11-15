@@ -1,0 +1,234 @@
+#mainContent,
+#sideMenu,
+#mainWrapper,
+.content-title,
+.content-description,
+.notice-table th,
+.notice-table td,
+.pagination .page-link {
+	white-space: nowrap;
+}
+#mainContent {
+    display: flex;
+    justify-content: center; /* #mainContent 자체가 화면 중앙에 위치 */
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+#sideMenu {
+    position: sticky;
+    top: 215px; /* 스크롤 시 화면 상단에서 150px 아래에 고정 */
+    width: 20%; /* mainContent의 20% 너비 */
+    max-width: 180px; /* 최대 너비 제한 */
+    display: flex;
+    justify-content: center;
+    align-self: flex-start; /* flex 컨테이너에서 상단 정렬 */
+}
+
+#mainWrapper {
+    width: 60%; /* mainContent의 60% 유지 */
+    max-width: 864px; /* 최대 너비 제한 */
+    box-sizing: border-box;
+	padding: 20px 0;
+}
+
+.empty-space {
+    width: 20%; /* mainContent의 20% 유지 */
+    max-width: 180px; /* sideMenu와 동일한 최대 너비 */
+}
+
+
+
+
+#contentHeader,
+.notice-table,
+#paginationFooter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.content-title {
+	min-width: 530px;
+	width: 100%;
+	color: #265708;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0;
+	padding: 5px 0;
+}
+
+#contentControls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+/* content-description 스타일 수정 */
+.content-description {
+	font-size: 12px;
+	color: #666;
+	margin: 0;
+	/* display 및 align-items 설정 추가 */
+	display: flex;
+	align-items: center;
+	/* 세로 중앙 정렬 */
+}
+
+#contentButton {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+#sortSelect {
+	padding: 5px 10px;
+	font-size: 14px;
+	border: 1px solid #6cc24a;
+	border-radius: 4px;
+	color: #265708;
+	background-color: #ffffff;
+	outline: none;
+}
+
+.notice-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.notice-table th,
+.notice-table td {
+	padding: 10px;
+	text-align: center;
+	/* 가로 중앙 정렬 */
+	vertical-align: middle;
+	/* 세로 중앙 정렬 */
+}
+
+.notice-table th {
+	background-color: #6cc24a;
+	color: #ffffff;
+	font-size: 12px;
+}
+
+#pageSearchContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width: 100%;
+	min-width: 570px;
+}
+
+#pagingArea {
+	display: flex;
+	justify-content: center;
+	/* 가로 중앙 정렬 */
+	align-items: center;
+	margin-top: 20px;
+	font-size: 12px;
+	color: #265708;
+	height: 100%;
+	width: 40%;
+	/* pagingArea의 전체 너비를 40%로 설정 */
+	margin: 0 auto;
+	/* 부모 컨테이너에서 중앙 정렬 */
+}
+
+.pagination {
+	font-size: 18px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	/* pagination이 pagingArea의 100%를 차지하게 설정 */
+
+}
+
+.pagination .page-link {
+	color: #265708;
+	/* 색상 적용 */
+	text-decoration: none;
+}
+
+.pagination .page-link:hover {
+	color: #265708;
+	/* 호버 시 색상 유지 */
+	text-decoration: none;
+}
+
+/* Page number buttons (1~5) 그룹 */
+.pagination .page-numbers {
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+	/* 페이지 번호는 pagination의 60%를 차지 */
+}
+
+/* Previous and Next arrows */
+.pagination .page-arrow {
+	width: 15%;
+	/* 화살표는 각각 15% */
+	text-align: center;
+}
+
+/* search section styles */
+#searchSection {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 20px;
+	width: 70%;
+	height: 35px;
+
+}
+
+
+#searchType {
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+    height: 100%;
+    width: 23%; 
+   
+}
+
+.search-input-group {
+    display: flex;
+    height: 100%;
+  width: 75%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#searchInput {
+    flex: 1 1 85%; /* flex-grow, flex-shrink, flex-basis */
+    padding: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    height: 100%;
+}
+/* round-button과 search-button을 동시에 가진 요소에 높이 100% 적용 */
+.round-button.search-button {
+    flex: 0 0 15%; /* flex-grow를 0으로 설정하여 고정 비율로 설정 */
+    height: 100%;
+}
+
+
+@media (max-width: 768px) {
+	#contentControls {
+		flex-direction: column;
+	}
+}

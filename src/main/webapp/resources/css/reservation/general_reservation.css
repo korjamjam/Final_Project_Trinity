@@ -1,0 +1,167 @@
+* {
+    font-family: "Noto Sans KR", system-ui;
+}
+
+/* Caution */
+.reservation_caution_wrapper{
+    width: 80%;
+}
+.reservation_caution{
+    background-color: rgba(255, 247, 248, 235);
+    padding: 10px;
+    line-height: 15px;
+}
+.reservation_word{
+    color: grey;
+}
+.reservation_word1{
+    font-weight: bold;
+}
+.reservation_word2{
+    font-weight: bold;
+    color: red;
+}
+.reservation_word3{
+    color: red;
+}
+
+/* Subject Select */
+.general_reservation_form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.reservation_subject_select{
+    width: 80%;
+    padding: 10px 0px;
+}
+.reservation_subject_select_title{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 15px 10px;
+}
+.reservation_subject_select_title p{
+    font-size: 20px;
+    color: #9e9e9e;
+}
+.reservation_subject_select_content{
+    display: none;
+    margin: 10px 0px;
+}
+.reservation_subject_select_content p{
+    color: grey;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.reservation_subject_select_content button{
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(248, 247, 252, 168);
+    color: grey;
+    padding: 10px 15px;
+}
+.reservation_subject_select_content input{
+    border: 1px solid #9e9e9e;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+}
+.reservation_button{
+    width: 80%;
+    margin: 20px 0px;
+} 
+.reservation_button button{
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8CCF4E;
+    color: white;
+}
+.reservation_time{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+.reservation_isyou{
+    color: grey;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    padding-right: 10px;
+}
+.reservation_isyou input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #8CCF4E;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+}
+.reservation_isyou input[type="checkbox"]:checked {
+    border-color: #7ed321;
+    background-color: #7ed321;
+}
+.reservation_isyou input[type="checkbox"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.hasDatepicker{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 500px) {
+    .reservation_caution_wrapper{
+        width: 70%;
+        max-width: 460px;
+    }
+    .reservation_subject_select{
+        width: 70%;
+        max-width: 460px;
+    }
+    .reservation_button{
+        width: 70%;
+        max-width: 460px;
+    }
+}
+
+@media (min-width: 768px) {
+    .reservation_caution_wrapper{
+        width: 60%;
+        max-width: 864px;
+    }
+    .reservation_subject_select{
+        width: 60%;
+        max-width: 864px;
+    }
+    .reservation_button{
+        width: 60%;
+        max-width: 864px;
+    }
+    .reservation_subject_select_content input{
+        border: 1px solid #9e9e9e;
+        padding: 5px;
+        width: 60%;
+        border-radius: 5px;
+    }
+}
+@media (min-width: 1200px) {
+    .reservation_button{
+        margin-bottom: 93px;
+    }
+}

@@ -1,0 +1,204 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #fff; /* 전체 배경을 흰색으로 설정 */
+}
+
+/* 헤더 위 여백 제거 */
+header {
+    margin-top: 0;
+}
+
+/* 컨텐츠 컨테이너 스타일 */
+.container {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+    margin: 20px auto; /* 위아래 여백 추가 */
+    padding: 70px;
+}
+
+/* 탭 메뉴 스타일 */
+.tab-menu {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0; /* 탭에 radius 적용 */
+}
+
+/* 아이디 찾기 및 비밀번호 찾기 버튼 구분 */
+.tab:first-child {
+    background-color: #f0f0f0;
+}
+
+.tab:last-child {
+    background-color: #e0f7fa;
+}
+
+.tab.active {
+    background-color: #b2dfdb;
+    color: #000;
+    font-weight: bold;
+}
+
+/* 제목과 부제목 스타일 */
+.title {
+    font-size: 18px;
+    color: #333;
+    margin-top: 60px; 
+    margin-bottom: 0; 
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px; 
+    margin-bottom: 60px; 
+}
+
+/* 비밀번호 재설정 폼 스타일 */
+.reset-form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    text-align: left;
+}
+
+.user-id {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #388e3c;
+    font-weight: bold;
+}
+
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.password-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #8DCE4E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #45A049;
+}
+
+/* 모바일 화면에서 상하 여백 제거 */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: 0; /* 상하 여백 제거 */
+        border-radius: 0;
+    }
+
+    .tab-menu {
+        margin-bottom: 15px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    form input[type="password"] {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* 데스크탑 화면에서 상하 여백 추가 */
+@media (min-width: 1024px) {
+    .container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding: 40px;
+        max-width: 600px; /* 데스크탑에서 더 넓게 설정 */
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .tab {
+        font-size: 16px;
+    }
+
+    form input[type="password"] {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .password-hint {
+        font-size: 14px;
+    }
+
+    .submit-button {
+        font-size: 18px;
+        padding: 14px;
+    }
+}

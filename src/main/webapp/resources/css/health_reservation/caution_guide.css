@@ -1,0 +1,126 @@
+ul,li{
+    list-style: disc !important; 
+}
+.caution_wrap{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 16px;
+    align-items: center;
+    gap: 10px;
+}
+
+.caution_title{
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #c5c5c5;
+    padding-bottom: 10px;
+}
+
+.caution_guide_select{
+    width: 100%;
+    max-width: 600px;
+}
+
+.caution_guide_select > select{
+    width: 100%;
+    margin: 10px 0px;
+    height: 30px;
+    border-radius: 5px;
+    border: #c5c5c5 solid 1px;
+}
+
+#caution_guide_title{
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.caution_guide_content_wrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.caution_guide_content{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+#caution_guide_content_title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.caution_guide_content_img{
+    align-items: center;
+}
+
+.caution_guide_content_text{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.caution_guide_content_text > ul > li{
+    font-size: 11px;
+}
+
+.reservation_btn_area{
+    width: 100%;
+}
+
+#reservation_btn{
+    background-color: #2D5EFF;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    margin: 5px;
+    border: none;
+    color: #fff;
+    float: right;
+}
+
+@media( min-width:768px) {
+    .caution_guide_container{
+        max-width: 600px;
+    }
+
+    .caution_title{
+        font-size: 32px;
+        color: #265708;
+    }
+
+    #caution_guide_title{
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+
+    #caution_guide_content_title{
+        font-size: 20px;
+    }
+
+    .caution_guide_content_text > ul > li{
+        font-size: 14px;
+    }
+
+    #reservation_btn{
+        width: 120px;
+        height: 50px;
+        background-color: #8CCF4E;
+    }
+}

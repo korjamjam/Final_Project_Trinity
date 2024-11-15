@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+ <configuration>
+
+ 	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 	</settings>
+ 	
+ 
+ 	<typeAliases>
+ 		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
+ 		<typeAlias type="com.project.trinity.hospital.model.vo.Hospital" alias="Hospital" />
+ 	</typeAliases>
+ 	
+
+ 	<mappers>
+ 		<mapper resource="mappers/member-mapper.xml"/>
+ 		<mapper resource="mappers/hospital-mapper.xml"/>
+ 	</mappers>
+
+ 	
+ </configuration>
