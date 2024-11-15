@@ -83,10 +83,7 @@
             <div class="hospital_detail_location">
                 위치정보
             </div>
-            	<div class="hospital_detail_map" id="map">
-            	<script>
-                    window.onload = kakaoInit('${h.latitude}','${h.longitude}');
-                </script>
+            <div class="hospital_detail_map" id="map" onload="kakaoInit('${h.latitude}','${h.longitude}')">
             </div>
         </div>
         <div class="hospital_detail_outline_wrapper">
