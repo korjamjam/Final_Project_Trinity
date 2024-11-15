@@ -5,16 +5,32 @@
 
 <mapper namespace="hospitalMapper">
 <!-- 단축 설정 -->
-	<resultMap type="Hospital" id="HospitalResultSet">
-		<result column="NAME" property="name" />
-		<result column="ADDRESS" property="address" />
-		<result column="DIVISION" property="division" />
+	<resultMap type="HospitalAccount" id="HospitalAccountResultSet">
+		<result column="HOS_NO" property="hosNo" />
+		<result column="HOS_ID" property="hosId" />
+		<result column="HOS_PWD" property="hosPwd" />
+		<result column="HOS_NAME" property="hosName" />
+		<result column="HOS_ADDRESS" property="hosAddress" />
+		<result column="HOS_TEL" property="hosTel" />
+		<result column="HOS_YEAR" property="hosYear" />
+		<result column="HOS_TIME" property="hosTime" />
+		<result column="HOS_INFO" property="hosInfo" />
+		<result column="HOS_ONDUTY" property="hosOnduty" />
+		<result column="HOS_PARKING" property="hosParking" />
+	</resultMap>
+	
+	<resultMap type="HospitalInfo" id="HospitalInfoResultSet">
+		<result column="HOS_NO" property="hosNo" />
+		<result column="HOS_NAME" property="hosName" />
+		<result column="HOS_ADDRESS" property="hosAddress" />
+		<result column="HOS_TEL" property="hosTel" />
 		<result column="DEPARTMENT" property="department" />
-		<result column="START_TIME" property="startTime" />
-		<result column="END_TIME" property="endTime" />
-		<result column="HPID" property="hpId" />
-		<result column="LATITUDE" property="latitude" />
-		<result column="LONGITUDE" property="longitude" />
+		<result column="HOS_START_TIME1" property="hosStartTime1" />
+		<result column="HOS_CLOSE_TIME1" property="hosEndTime1" />
+		<result column="HOS_START_TIME2" property="hosStartTime2" />
+		<result column="HOS_CLOSE_TIME2" property="hosEndTime2" />
+		<result column="HOS_LATITUDE" property="hosLatitude" />
+		<result column="HOS_LONGITUDE" property="hosLongitude" />
 	</resultMap>
 
 	<!-- 병원 조회 -->
@@ -36,18 +52,17 @@
 	<!-- 병원 리스트 조회 -->
 	<select id="selectHospitalList" parameterType="Hospital"
 		resultMap="HospitalResultSet">
-		SELECT HOS_NO,
-		HOS_NAME,
-		HOS_ADDRESS,
-		HOS_TEL,
+		SELECT NAME,
+		ADDRESS,
+		DIVISION,
 		DEPARTMENT,
-		HOS_START_TIME1,
-		HOS_CLOSE_TIME1,
-		HOS_START_TIME2,
-		HOS_CLOSE_TIME2,
-		HOS_LATITUDE,
-		HOS_LONGITUDE
-		FROM HOSPITAL_INFO
+		START_TIME,
+		END_TIME,
+		HPID,
+		LATITUDE,
+		LONGITUDE
+		FROM HOSPITAL_KID
+		WHERE HPID = #{hpId}
 	</select>
 
 
