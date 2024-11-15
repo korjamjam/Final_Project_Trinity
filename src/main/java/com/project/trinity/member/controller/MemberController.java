@@ -82,8 +82,6 @@ public class MemberController {
     public int idCheck(@RequestParam("userId") String checkId) {
         return memberService.idCheck(checkId);
     }
-
-<<<<<<< HEAD
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session) {
 	    Member loginMember = memberService.loginMember(m);
@@ -107,7 +105,6 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
-=======
     // 로그인 기능
     @PostMapping("/login")
     public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
@@ -130,7 +127,6 @@ public class MemberController {
                         loginCookie.setPath("/");
                         response.addCookie(loginCookie);
                     }
->>>>>>> 7dbf3953a1deb47449a3bec9e848c12450e27576
 
                     redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
                     return "redirect:/main";
