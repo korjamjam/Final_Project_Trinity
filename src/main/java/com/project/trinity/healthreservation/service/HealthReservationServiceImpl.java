@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HealthReservationServiceImpl implements HealthReservationService {
 
-    @Autowired
+    @Autowired	
     private HealthReservationDao healthReservationDao;
 
     @Autowired

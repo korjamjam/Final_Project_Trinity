@@ -8,8 +8,10 @@
     <!-- ReservationWithVaccineResult 설정 -->
     <resultMap id="ReservationWithVaccineResult" type="com.project.trinity.reservation.model.vo.Reservation">
         <id property="resNo" column="RES_NO"/>
-        <result property="userNo" column="USER_NO"/> <!-- USER_ID 대신 USER_NO 사용 -->
+        <result property="userNo" column="USER_NO"/>
         <result property="hosNo" column="HOS_NO"/>
+         <result property="patientName" column="PATIENT_NAME"/> <!-- PATIENT_NAME 추가 -->
+       	<result property="patientBirthday" column="PATIENT_BIRTHDAY"/>
         <result property="resDate" column="RES_DATE"/>
         <result property="resTime" column="RES_TIME"/>
         <result property="resCategory" column="RES_CATEGORY"/>
@@ -18,17 +20,18 @@
 
     <!-- 예약 삽입 쿼리 -->
     <insert id="insertReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
-        INSERT INTO RESERVATION 
-        (USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
-        VALUES 
-        (#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
-    </insert>
+    INSERT INTO RESERVATION 
+    (USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT, PATIENT_NAME, PATIENT_BIRTHDAY)
+    VALUES 
+    (#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent}, #{patientName}, #{patientBirthday}) <!-- PATIENT_BIRTHDAY 추가 -->
+</insert>
+
 
     <!-- 예약 정보와 백신 종류 조회 -->
     <select id="selectReservationWithVaccine" resultMap="ReservationWithVaccineResult">
         SELECT 
             r.RES_NO, r.USER_NO, r.HOS_NO, r.RES_DATE, r.RES_TIME, 
-            r.RES_CATEGORY, r.RES_CONTENT, t.VACCINE_CATEGORY
+            r.RES_CATEGORY, r.RES_CONTENT, r.PATIENT_NAME, t.VACCINE_CATEGORY
         FROM 
             RESERVATION r
         LEFT JOIN 
@@ -36,4 +39,5 @@
         WHERE 
             r.RES_NO = #{resNo}
     </select>
+
 </mapper>

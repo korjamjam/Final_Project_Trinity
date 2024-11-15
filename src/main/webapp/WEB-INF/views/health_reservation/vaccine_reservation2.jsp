@@ -31,11 +31,13 @@
 				action="${pageContext.request.contextPath}/healthReservation/submitReservation"
 				method="post">
 				<input type="hidden" name="userNo" value="${param.userNo}">
-    			<input type="hidden" name="patientName" value="${param.patientName}">
-    			<input type="hidden" name="patientBirthday" value="${param.patientBirthday}">
-    			<input type="hidden" name="phone" value="${param.phoneCode}-${param.phoneNumber}">
-    			<input type="hidden" name="email" value="${param.email}@${param.emailDomain}">
-    			<input type="hidden" name="address" value="${param.address}">
+				<input type="hidden" name="patientName" value="${param.patientName}">
+				<input type="hidden" name="patientBirthday"
+					value="${param.patientBirthday}"> <input type="hidden"
+					name="phone" value="${param.phoneCode}-${param.phoneNumber}">
+				<input type="hidden" name="email"
+					value="${param.email}@${param.emailDomain}"> <input
+					type="hidden" name="address" value="${param.address}">
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">3. 백신 종류</div>
 					<div class="health_reservation_normal_select">
@@ -62,7 +64,7 @@
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">4. 접종받을기관</div>
 					<div class="health_reservation_normal_select">
-						<select name="hospitalNo" required>
+						<select name="hosNo" required>
 							<option value="" disabled hidden selected>기관 선택</option>
 							<option value="1">기관 1</option>
 							<option value="2">기관 2</option>
@@ -89,8 +91,8 @@
 						</select>
 					</div>
 					<div class="health_reservation_normal_select"
-						style="display: none;" id="specificTimeSelectContainer">
-						<select name="specificTime" id="specificTimeSelect">
+						id="specificTimeSelectContainer">
+						<select name="resTime" id="specificTimeSelect" required>
 							<option value="" disabled hidden selected>구체적인 시간 선택</option>
 						</select>
 					</div>
