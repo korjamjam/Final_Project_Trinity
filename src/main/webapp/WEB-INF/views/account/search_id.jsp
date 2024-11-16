@@ -27,19 +27,19 @@
                 <form action="find_id_email.me" method="post">
                     <div class="input-group">
                         <label for="name">이름</label>
-                        <input type="text" id="name" name="name" placeholder="이름">
+                        <input type="text" id="name" name="name" placeholder="이름" required>
                     </div>
                     <div class="input-group email-group">
                         <label for="email">이메일 주소</label>
                         <div class="email-inputs">
-                            <input type="text" id="email" name="email" placeholder="이메일 입력">
+                            <input type="text" id="email" name="email" placeholder="이메일 입력" required>
                             <span>@</span>
-                            <input type="text" name="domain" placeholder="직접입력">
+                            <input type="text" name="domain" placeholder="도메인 입력" required>
                             <select class="domain-select" name="domainSelect">
-                                <option>직접입력</option>
-                                <option>gmail.com</option>
-                                <option>naver.com</option>
-                                <option>daum.net</option>
+                                <option value="">직접입력</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="daum.net">daum.net</option>
                             </select>
                         </div>
                     </div>
@@ -55,11 +55,11 @@
                 <form action="find_id_phone.me" method="post">
                     <div class="input-group">
                         <label for="phone-name">이름</label>
-                        <input type="text" id="phone-name" name="phoneName" placeholder="이름">
+                        <input type="text" id="phone-name" name="phoneName" placeholder="이름" required>
                     </div>
                     <div class="input-group">
                         <label for="phone">휴대전화</label>
-                        <input type="text" id="phone" name="phone" placeholder="휴대전화">
+                        <input type="text" id="phone" name="phone" placeholder="휴대전화" required>
                     </div>
                     <button type="submit" class="submit-button">다음</button>
                 </form>
@@ -81,15 +81,20 @@ $(document).ready(function() {
         $(this).next(".accordion-content").slideToggle();
         // 다른 아코디언 아이템은 닫기
         $(".accordion-content").not($(this).next()).slideUp();
+        // 활성화된 헤더 스타일 변경
+        $(this).toggleClass("active");
+        $(".accordion-header").not($(this)).removeClass("active");
     });
 
     // 이메일 도메인 선택 기능
     $('.domain-select').change(function() {
-        var selectedDomain = $(this).val();
+        const selectedDomain = $(this).val();
+        const domainInput = $(this).siblings("input[name='domain']");
+
         if (selectedDomain) {
-            $(this).prev("input[name='domain']").val(selectedDomain).prop("readonly", true);
+            domainInput.val(selectedDomain).prop("readonly", true);
         } else {
-            $(this).prev("input[name='domain']").val('').prop("readonly", false);
+            domainInput.val('').prop("readonly", false);
         }
     });
 });

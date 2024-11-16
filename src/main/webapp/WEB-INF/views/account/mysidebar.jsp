@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/myidebar.css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/account/mysidebar.css">
 <title>Profile Sidebar</title>
 <style>
     .profile-sidemenu .menu-table a.active {
@@ -18,19 +18,19 @@
         <table class="menu-table">
             <tr>
                 <th><a href="${pageContext.request.contextPath}/member/email_update" id="updateemail">이메일 변경</a></th>
-                <td><span class="arrow">&gt;</span></td>
+                
             </tr>
             <tr>
-                <th><a href="${pageContext.request.contextPath}/member/recovery_email_add" id="recoveryEmail">복구 이메일 추가</a></th>
-                <td><span class="arrow">&gt;</span></td>
+                <th><a href="${pageContext.request.contextPath}/member/repair_email" id="recoveryEmail">복구 이메일 추가</a></th>
+               
             </tr>
             <tr>
                 <th><a href="${pageContext.request.contextPath}/reservation/my_reservations" id="myReservations">내 예약 확인하기</a></th>
-                <td><span class="arrow">&gt;</span></td>
+                
             </tr>
             <tr>
                 <th><a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">내 정보 수정</a></th>
-                <td><span class="arrow">&gt;</span></td>
+    
             </tr>
         </table>
         <div class="support-box">

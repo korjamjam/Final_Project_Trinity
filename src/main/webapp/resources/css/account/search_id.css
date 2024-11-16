@@ -7,11 +7,9 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #fff; 
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
 }
 
 /* 컨테이너 스타일 */
@@ -22,13 +20,14 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 100px auto; /* 중앙 정렬 */
     text-align: center;
 }
 
 .container h1 {
     font-size: 24px;
+    font-weight: bold;
     color: #333;
-    margin-top: 60px;
     margin-bottom: 15px;
 }
 
@@ -54,6 +53,12 @@ body {
     color: #333;
     cursor: pointer;
     text-align: left;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.accordion-header.active {
+    background-color: #8CCF4E;
+    color: white;
 }
 
 .accordion-content {
@@ -91,6 +96,7 @@ body {
     align-items: center;
     gap: 5px;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .email-group input[type="text"],
@@ -117,12 +123,17 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     margin-top: 15px;
 }
 
 .submit-button:hover {
     background-color: #72b93f;
+}
+
+.submit-button:active {
+    background-color: #5fa933;
+    transform: scale(0.98);
 }
 
 /* 도움 링크 스타일 */
@@ -139,4 +150,32 @@ body {
 
 .footer-text a:hover {
     text-decoration: underline;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .email-group .email-inputs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .email-group input[type="text"],
+    .email-group select {
+        width: 100%;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .accordion-header {
+        font-size: 14px;
+    }
 }
