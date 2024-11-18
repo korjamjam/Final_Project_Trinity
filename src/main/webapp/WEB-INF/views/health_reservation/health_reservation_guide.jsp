@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn" onclick="location.href='caution_guide_even'" type="button">문의하기</button>
+                <button id="reservation_btn" onclick="location.href='${pageContext.request.contextPath}/healthReservation/guideEven'" type="button">문의하기</button>
             </div>
         </div>
     </div>
