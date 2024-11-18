@@ -31,7 +31,7 @@
     width: 60%; /* mainContent의 60% 유지 */
     max-width: 864px; /* 최대 너비 제한 */
     box-sizing: border-box;
-	padding: 20px 0;
+	padding: 40px 0;
 }
 
 .empty-space {
@@ -53,7 +53,7 @@
 	min-width: 530px;
 	width: 100%;
 	color: #265708;
-	font-size: 24px;
+	font-size: 28px;
 	font-weight: bold;
 	margin: 0;
 	padding: 5px 0;

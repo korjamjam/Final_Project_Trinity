@@ -1,33 +1,28 @@
-/* 글쓰기 버튼 */
+/* 공통 스타일 */
 .round-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    /* 기본 폰트 크기 */
     color: #fff;
     background-color: #6cc24a;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    height: 100%;
     max-width: max-content;
     white-space: nowrap;
     padding: 0.4em 0.5em;
 }
 
-.round-button:visited {
-    color: #fff;
-}
 .round-button:hover {
     background-color: #5aa33c;
-    text-decoration: none;
 }
 
 .white-button {
     display: inline-block;
     padding: 0.3em 0.5em;
-    /* 글꼴 크기의 비율에 따라 패딩 조절 */
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f5f5f5;
@@ -36,15 +31,13 @@
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s, border-color 0.3s;
-    /* 호버 시 변화를 위한 트랜지션 */
-    max-width: max-content;
-    white-space: nowrap;
 }
 
 .white-button:hover {
     background-color: #e0e0e0;
     border-color: #999;
 }
+
 
 @media (min-width: 769px) {
     .mobile-only {
@@ -151,6 +144,7 @@
     /* 글쓰기 버튼 */
     .round-button {
         font-size: 12px;
+        height: 100%;
        
     }
 
