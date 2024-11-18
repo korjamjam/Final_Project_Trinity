@@ -15,8 +15,6 @@
 		<result column="BOARD_VIEWS" property="boardViews" />
 		<result column="BOARD_CATEGORY" property="boardCategory" />
 		<result column="STATUS" property="status" />
-		
-		
 	</resultMap>
 
 
@@ -52,11 +50,13 @@
 	</select>
 
 	<!-- 게시글 조회수 증가 -->
+	<!-- 게시글 조회수 증가 -->
 	<update id="increaseCount">
-		UPDATE BOARD SET BOARD_VIEWS = BOARD_VIEWS + 1 WHERE
-		BOARD_NO =
-		#{bno}
+	    UPDATE BOARD
+	    SET BOARD_VIEWS = 'BV' || LPAD(TO_NUMBER(SUBSTR(BOARD_VIEWS, 3)) + 1, 5, '0')
+	    WHERE BOARD_NO = #{boardNo}
 	</update>
+
 
 	<!-- bno로 게시글 조회 -->
 	<select id="selectBoard" resultMap="boardResult">
@@ -82,23 +82,26 @@
 
 
 	<!-- 게시글 추가 -->
-	<insert id="insertBoard" parameterType="Board">
+	
+<insert id="insertBoard" parameterType="Board">
     INSERT INTO BOARD (
         USER_NO,
         BOARD_TITLE,
         BOARD_CONTENT,
-        BOARD_CATEGORY,
-        STATUS
+        BOARD_CATEGORY
     )
     VALUES (
         #{userNo},
         #{boardTitle},
         #{boardContent},
-        #{boardCategory},
-        'Y'
+        #{boardCategory}
     )
-    RETURNING BOARD_NO INTO #{boardNo}
+    <selectKey keyProperty="boardNo" resultType="java.lang.String" order="AFTER">
+			select 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
+	</selectKey>
 </insert>
+
+
 
 
 

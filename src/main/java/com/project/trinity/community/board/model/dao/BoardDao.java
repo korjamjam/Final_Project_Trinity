@@ -29,7 +29,10 @@ public class BoardDao {
 	}
 	
 	public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
-		return sqlSession.selectOne("boardMapper.selectBoard", bno);
+		System.out.println("bno : " + bno);
+		Board b= sqlSession.selectOne("boardMapper.selectBoard", bno);
+		System.out.println(b);
+		return b;
 	}
 	
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
