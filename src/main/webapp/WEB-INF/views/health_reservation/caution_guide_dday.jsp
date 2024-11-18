@@ -23,10 +23,10 @@
             <div class="caution_guide_select">
                 <select name="" id="caution_guide_select" onchange="window.open(value,'_self');">
                     <option value="" disabled hidden selected>주의사항</option>
-                    <option value="healthReservation/guideEven">건강검진 전날</option>
-                    <option value="healthReservation/guideDday">건강검진 당일</option>
-                    <option value="healthReservation/guideEndo">위/대장내시경</option>
-                    <option value="healthReservation/guideCt">CT/MRI</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/guideEven">건강검진 전날</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/guideDday">건강검진 당일</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/guideEndo">위/대장내시경</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/guideCt">CT/MRI</option>
                 </select>
             </div>
             <div id="caution_guide_title">

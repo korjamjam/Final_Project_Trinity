@@ -27,8 +27,16 @@ public class HospitalServiceImpl implements HospitalService{
 
 	@Override
 	public ArrayList<HospitalInfo> selectHospitalList(String subject, String order) {
-		return hpDao.selectHospitalList(sqlSession, subject, order);
-	}
+        return hpDao.selectHospitalList(sqlSession, subject, order);
+    }
+
+	@Override
+    public ArrayList<HospitalInfo> selectHospitalListPaginated(String subject, String order, int page, int limit) {
+        int offset = (page - 1) * limit;
+        System.out.println("Service page : " + page);
+        System.out.println("Service offset : " + offset);
+        return hpDao.selectHospitalListPaginated(sqlSession, subject, order, offset, limit);
+    }
 
 	@Override
 	public HospitalAccount selectHospitalInfo(String hosNo) {

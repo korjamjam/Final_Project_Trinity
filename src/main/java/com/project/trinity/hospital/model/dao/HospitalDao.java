@@ -19,13 +19,22 @@ public class HospitalDao {
 	}
 
 	public ArrayList<HospitalInfo> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("subject", subject);
-		map.put("order", order);
-		System.out.println(map);
-		ArrayList<HospitalInfo> list = (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
-		return list;
-	}
+        Map<String, String> map = new HashMap<>();
+        map.put("subject", subject);
+        map.put("order", order);
+        System.out.println(map);
+        return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalList", map));
+    }
+
+    public ArrayList<HospitalInfo> selectHospitalListPaginated(SqlSessionTemplate sqlSession, String subject, String order, int offset, int limit) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("subject", subject.equals("listAll") ? "listAll" : "%" + subject + "%");
+        map.put("order", order);
+        map.put("offset", offset);
+        map.put("limit", limit);
+
+        return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map));
+    }
 
 	public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
 		return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
