@@ -30,7 +30,7 @@
 	 <interceptors>
 	 	<interceptor>
 	 		<mapping path="/reservation/form"/> <!-- ${pageContext.request.contextPath} -->
-	 		<mapping path="/community/main"/>
+	 		<mapping path="/community/write"/>
 	 		<beans:bean class="com.project.trinity.common.interceptor.LoginInterceptor" id="loginIntercetor" />
 	 	</interceptor>
 	 </interceptors>

@@ -8,7 +8,8 @@
     <result column="BOARD_NO" property="boardNo" />
     <result column="BOARD_TYPE" property="boardType" />
     <result column="BOARD_TITLE" property="boardTitle" />
-    <result column="BOARD_WRITER" property="boardWriter" /> <!-- 수정: boardWriter로 매핑 -->
+    <result column="USER_NO" property="userNo" /> <!-- 작성자의 고유 번호 -->
+    <result column="BOARD_WRITER" property="boardWriter" /> <!-- 작성자의 ID (조회 시) -->
     <result column="BOARD_CONTENT" property="boardContent" />
     <result column="ENROLL_DATE" property="enrollDate" />
     <result column="MODIFIED_DATE" property="modifiedDate" />
@@ -16,6 +17,7 @@
     <result column="BOARD_CATEGORY" property="boardCategory" />
     <result column="STATUS" property="status" />
 </resultMap>
+
 
 
 
@@ -65,7 +67,8 @@
         B.BOARD_NO,
         B.BOARD_TYPE,
         B.BOARD_TITLE,
-        M.USER_ID AS BOARD_WRITER, <!-- 작성자의 USER_ID -->
+        B.USER_NO,
+        M.USER_ID AS BOARD_WRITER, <!-- 작성자의 ID -->
         B.BOARD_CONTENT,
         TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
         TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
@@ -80,6 +83,7 @@
         B.STATUS = 'Y'
         AND B.BOARD_NO = #{bno}
 </select>
+
 
 
 

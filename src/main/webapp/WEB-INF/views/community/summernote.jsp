@@ -75,7 +75,7 @@
                     </form>
                 </div>
             </div>
-           <script>
+          <script>
     $(document).ready(function () {
         function initializeSummernote() {
             const isPc = !window.matchMedia("(max-width: 768px)").matches;
