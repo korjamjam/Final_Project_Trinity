@@ -13,6 +13,10 @@ public class HealthReservationDao {
 
     // 예약 정보를 DB에 삽입
     public void insertReservation(Reservation reservation) {
+    	
+    	// 디버깅: Reservation 객체 확인
+        System.out.println("Service Layer - Reservation Data: " + reservation);
+    	
         sqlSession.insert("reservationMapper.insertReservation", reservation);
     }
 

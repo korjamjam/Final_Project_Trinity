@@ -28,16 +28,20 @@
                 method="post">
                 <!-- 숨겨진 데이터 -->
                 <input type="hidden" name="patientName" value="${param.patientName}">
-                <input type="hidden" name="patientBirthday" value="${param.patientBirthday}">
-                <input type="hidden" name="phone" value="${param.phoneCode}-${param.phoneNumber}">
-                <input type="hidden" name="email" value="${param.email}@${param.emailDomain}">
-                <input type="hidden" name="address" value="${param.address}">
+    			<input type="hidden" name="patientBirthday" value="${param.patientBirthday}">
+    			<!--
+    			<input type="hidden" name="resDate" value="${param.resDate}">
+    			<input type="hidden" name="hosNo" value="${param.hosNo}">
+				<input type="hidden" name="phone" value="${param.phoneCode}-${param.phoneNumber}">
+				<input type="hidden" name="email" value="${param.email}@${param.emailDomain}">
+				-->
+				<input type="hidden" name="address" value="${param.address}">
 
                 <!-- 백신 종류 -->
                 <div class="health_reservation2_content">
                     <div id="health_reservation1_content_title">3. 백신 종류</div>
                     <div class="health_reservation_normal_select">
-                        <select name="vaccineCategory" required>
+                        <select name="resCategory" required>
                             <option value="" disabled hidden selected>백신 종류</option>
                             <option value="1">백신 1</option>
                             <option value="2">백신 2</option>
@@ -99,43 +103,45 @@
 
     <!-- Script -->
     <script>
-        $(function() {
-            // 날짜 선택 달력 설정
-            $("#datepicker").datepicker({
-                dateFormat: "yy-mm-dd",
-                minDate: 0, // 오늘 이후의 날짜만 선택 가능
-                closeText: "닫기",
-                currentText: "오늘",
-                prevText: '이전 달',
-                nextText: '다음 달',
-                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-                yearSuffix: '년'
-            });
+    $(function() {
+        // 날짜 선택 달력 설정
+        $("#datepicker").datepicker({
+    dateFormat: "yy-mm-dd",
+    onSelect: function(dateText) {
+        $('input[name="resDate"]').val(dateText);
+    }
+});
+        // 오전/오후 선택에 따른 시간대 표시
+        $('#timeOfDaySelect').on('change', function() {
+            const timeOfDay = $(this).val();
+            const specificTimeSelect = $('#specificTimeSelect');
+            specificTimeSelect.empty(); // 기존 옵션 제거
 
-            // 오전/오후 선택에 따른 시간대 표시
-            $('#timeOfDaySelect').on('change', function() {
-                const timeOfDay = $(this).val();
-                const specificTimeSelect = $('#specificTimeSelect');
-                specificTimeSelect.empty(); // 기존 옵션 제거
+            if (timeOfDay === 'morning') {
+                specificTimeSelect.append(new Option('9:00', '09:00'));
+                specificTimeSelect.append(new Option('9:30', '09:30'));
+                specificTimeSelect.append(new Option('10:00', '10:00'));
+                specificTimeSelect.append(new Option('10:30', '10:30'));
+                specificTimeSelect.append(new Option('11:00', '11:00'));
+                specificTimeSelect.append(new Option('11:30', '11:30'));
+            } else if (timeOfDay === 'afternoon') {
+                specificTimeSelect.append(new Option('1:00', '13:00'));
+                specificTimeSelect.append(new Option('1:30', '13:30'));
+                specificTimeSelect.append(new Option('2:00', '14:00'));
+                specificTimeSelect.append(new Option('2:30', '14:30'));
+                specificTimeSelect.append(new Option('3:00', '15:00'));
+                specificTimeSelect.append(new Option('3:30', '15:30'));
+                specificTimeSelect.append(new Option('4:00', '16:00'));
+                specificTimeSelect.append(new Option('4:30', '16:30'));
+                specificTimeSelect.append(new Option('5:00', '17:00'));
+                specificTimeSelect.append(new Option('5:30', '17:30'));
+            }
 
-                if (timeOfDay === 'morning') {
-                    specificTimeSelect.append(new Option('09:00', '09:00'));
-                    specificTimeSelect.append(new Option('09:30', '09:30'));
-                    specificTimeSelect.append(new Option('10:00', '10:00'));
-                    specificTimeSelect.append(new Option('10:30', '10:30'));
-                    specificTimeSelect.append(new Option('11:00', '11:00'));
-                } else if (timeOfDay === 'afternoon') {
-                    specificTimeSelect.append(new Option('13:00', '13:00'));
-                    specificTimeSelect.append(new Option('13:30', '13:30'));
-                    specificTimeSelect.append(new Option('14:00', '14:00'));
-                    specificTimeSelect.append(new Option('14:30', '14:30'));
-                    specificTimeSelect.append(new Option('15:00', '15:00'));
-                }
-
-                $('#specificTimeSelectContainer').show();
-            });
+            // 구체적인 시간 선택 박스를 보여줌
+            $('#specificTimeSelectContainer').show();
         });
+    });
+
     </script>
 
     <!-- Footer -->
