@@ -69,18 +69,29 @@
 	<select id="selectHospitalList" parameterType="HospitalInfo"
 		resultMap="HospitalInfoResultSet">
 		SELECT  HOS_NO,
-				HOS_NAME,
-				HOS_ADDRESS,
-				HOS_TEL,
-				DEPARTMENT,
-				HOS_START_TIME1,
-				HOS_CLOSE_TIME1,
-				HOS_START_TIME2,
-				HOS_CLOSE_TIME2,
-				HOS_LATITUDE,
-				HOS_LONGITUDE
-		  FROM HOSPITAL_INFO
-		  
+            HOS_NAME,
+            HOS_ADDRESS,
+            HOS_TEL,
+            DEPARTMENT,
+            HOS_START_TIME1,
+            HOS_CLOSE_TIME1,
+            HOS_START_TIME2,
+            HOS_CLOSE_TIME2,
+            HOS_LATITUDE,
+            HOS_LONGITUDE
+        FROM (SELECT  HOS_NO,
+            HOS_NAME,
+            HOS_ADDRESS,
+            HOS_TEL,
+            DEPARTMENT,
+            HOS_START_TIME1,
+            HOS_CLOSE_TIME1,
+            HOS_START_TIME2,
+            HOS_CLOSE_TIME2,
+            HOS_LATITUDE,
+            HOS_LONGITUDE
+        FROM  HOSPITAL_INFO)
+          WHERE ROWNUM &lt;= 10
 	</select>
 
 </mapper>
