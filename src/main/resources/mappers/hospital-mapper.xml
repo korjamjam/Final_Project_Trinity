@@ -68,7 +68,7 @@
 	<!-- 병원 리스트 조회 -->
 	<select id="selectHospitalList" parameterType="HospitalInfo"
 		resultMap="HospitalInfoResultSet">
-		SELECT  HOS_NO,
+	SELECT  HOS_NO,
             HOS_NAME,
             HOS_ADDRESS,
             HOS_TEL,
@@ -92,6 +92,39 @@
             HOS_LONGITUDE
         FROM  HOSPITAL_INFO)
           WHERE ROWNUM &lt;= 10
+	</select>
+	
+	<!-- 병원 리스트 페이징 조회 -->
+	<select id="selectHospitalListPaginated" parameterType="map" resultMap="HospitalInfoResultSet">
+	    SELECT  HOS_NO,
+            HOS_NAME,
+            HOS_ADDRESS,
+            HOS_TEL,
+            DEPARTMENT,
+            HOS_START_TIME1,
+            HOS_CLOSE_TIME1,
+            HOS_START_TIME2,
+            HOS_CLOSE_TIME2,
+            HOS_LATITUDE,
+            HOS_LONGITUDE
+    FROM HOSPITAL_INFO H1
+    WHERE DEPARTMENT LIKE 
+   		CASE 
+   			WHEN #{subject} = 'listAll' THEN '%' 
+   			ELSE #{subject} 
+   		END AND
+			(SELECT COUNT(*)
+			FROM HOSPITAL_INFO H2
+          	WHERE h2.hos_no &lt; h1.hos_no) &gt;= #{offset} AND 
+          	(SELECT COUNT(*)
+           	FROM HOSPITAL_INFO H2
+           	WHERE h2.hos_no &lt;= h1.hos_no) &lt; #{offset} + #{limit}
+    ORDER BY 
+        CASE 
+            WHEN #{order} = 'ASC' THEN HOS_NAME
+            WHEN #{order} = 'relevant' THEN HOS_TEL
+            WHEN #{order} = 'popular' THEN HOS_NO
+        END
 	</select>
 
 </mapper>
