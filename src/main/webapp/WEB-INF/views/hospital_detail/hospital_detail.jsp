@@ -33,7 +33,7 @@
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 
     <br><br>
-
+	<div class="hospital_detail_page_wrapper">
     <div class="hospital_detail_event_wrapper">
 
         <!-- event -->
@@ -41,7 +41,7 @@
             이벤트 사진영역
         </div>
     </div>
-
+	
     <!-- inform -->
     <div class="hospital_detail_wrapper">
         <div class="hospital_detail_status">
@@ -191,7 +191,7 @@
         </div>
 
     </div>
-
+	</div>
     <!-- Footer -->
     <%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
 
