@@ -30,18 +30,18 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Board> selectList(PageInfo pi) {
+	public ArrayList<Board> selectList(PageInfo pi, String sortType) {
 		
 		return boardDao.selectList(sqlSession, pi);
 	} 
 
 	@Override
-	public int increaseCount(int bno) {
+	public int increaseCount(String bno) {
 		return boardDao.increaseCount(sqlSession, bno);
 	}
 
 	@Override
-	public Board selectBoard(int bno) {
+	public Board selectBoard(String bno) {
 		return boardDao.selectBoard(sqlSession, bno);
 	}
 
@@ -58,7 +58,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public ArrayList<Reply> selectReply(int bno) {
+	public ArrayList<Reply> selectReply(String bno) {
 		return boardDao.selectReply(sqlSession, bno);
 	}
 

@@ -1,0 +1,81 @@
+/* 사이드바 전체 스타일 */
+.profile-sidemenu {
+    min-width: 160px;
+    max-width: 200px; /* 사이드바의 폭을 조정 */
+    background-color: #ffffff; /* 흰색 배경 */
+    border-radius: 10px; /* 모서리를 둥글게 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    padding: 20px; /* 내부 여백 */
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* 메뉴 테이블 스타일 */
+.menu-table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.menu-table th,
+.menu-table td {
+    padding: 5px 0; /* 각 항목 간격 조정 */
+    font-weight: normal;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+/* 링크 스타일 */
+.menu-table a {
+    color: #555; /* 기본 텍스트 색상 */
+    text-decoration: none;
+    font-size: 14px;
+    display: block; /* 한 줄로 표시 */
+    padding: 10px; /* 내부 여백 조정 */
+    border-radius: 5px; /* 링크에 둥근 테두리 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 텍스트 넘칠 경우 숨김 */
+    text-overflow: ellipsis; /* 넘친 텍스트 생략 표시 */
+    transition: all 0.3s ease; /* 호버 시 애니메이션 추가 */
+}
+
+.menu-table a:hover {
+    background-color: #e8f5e9; /* 연한 초록색 배경 */
+    color: #4caf50; /* 초록색 텍스트 */
+    font-weight: bold;
+}
+
+/* 활성화된 메뉴 항목 */
+.menu-table a.active {
+    background-color: #c8e6c9; /* 더 진한 초록색 배경 */
+    color: #388e3c; /* 진한 초록 텍스트 */
+    font-weight: bold;
+}
+
+/* 지원 박스 스타일 */
+.support-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fafafa; /* 밝은 회색 배경 */
+    border: 1px solid #e0e0e0; /* 연한 테두리 */
+    border-radius: 10px; /* 둥근 테두리 */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+}
+
+.support-text {
+    font-size: 13px;
+    color: #666; /* 연한 회색 텍스트 */
+    margin-bottom: 8px;
+}
+
+.support-link {
+    font-size: 13px;
+    color: #4caf50; /* 초록색 링크 */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.support-link:hover {
+    text-decoration: underline; /* 호버 시 밑줄 추가 */
+}

@@ -84,12 +84,12 @@
 
                                 </tr>
                                 <tr>
-                                    <td class="board-title">상처에 된장 바르면 치료가 되나요?</td>
+                                    <td class="board-title">${b.boardTitle}</td>
                                 </tr>
                                 <tr>
-                                    <td class="board-user-info">jjhim531 일반회원</td>
+                                    <td class="board-user-info">${b.boardWriter} 일반회원</td>
                                     <td class="board-meta">
-                                        <span>2024.11.06 16:18</span> | <span>조회 149</span>
+                                        <span> ${b.enrollDate}</span> | <span>조회 149</span>
                                     </td>
                                 </tr>
                             </table>
@@ -98,7 +98,7 @@
                                 <div class="board-content question-content">
                                     <!-- 게시글 내용 -->
                                     <div class="question-detail">
-                                        까스활명수를 냉장보관했는데 실온보관이 낫다고 하더라구요. <br>
+                                         ${b.boardContent} <br>
                                         ...
                                     </div>
                                     <!-- 첨부파일 섹션 include -->

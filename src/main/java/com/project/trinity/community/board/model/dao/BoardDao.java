@@ -24,11 +24,11 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
 	
-	public int increaseCount(SqlSessionTemplate sqlSession, int bno) {
+	public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
 		return sqlSession.update("boardMapper.increaseCount", bno);
 	}
 	
-	public Board selectBoard(SqlSessionTemplate sqlSession, int bno) {
+	public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
 		return sqlSession.selectOne("boardMapper.selectBoard", bno);
 	}
 	
@@ -40,7 +40,7 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 	
-	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno){
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, String bno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", bno);
 	}
 	

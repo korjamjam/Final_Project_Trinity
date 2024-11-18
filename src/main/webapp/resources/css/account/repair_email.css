@@ -7,45 +7,42 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0;
-    background-color: #fff; 
+    padding: 0;
+    background-color: #fff;
 }
 
 /* 복구 이메일 컨테이너 스타일 */
 .recovery-email-container {
     width: 100%;
-    max-width: 600px; 
-    padding: 70px; 
+    max-width: 600px;
+    padding: 40px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    margin: 70px auto; 
+    margin: 40px auto;
 }
 
 .recovery-email-container h2 {
-    font-size: 1.75rem; 
-    margin-bottom: 70px; 
-   
+    font-size: 1.75rem;
+    margin-bottom: 30px;
 }
 
 .recovery-email-form {
     display: flex;
     flex-direction: column;
-    gap: 20px; 
+    gap: 20px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 15px; 
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
     color: #000;
 }
 
@@ -55,12 +52,12 @@ body {
 
 /* 추가하기 버튼 스타일 */
 .add-button {
-    padding: 15px; 
+    padding: 15px;
     background-color: #8CCF4E;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -77,13 +74,13 @@ body {
     line-height: 1.5;
 }
 
-/* 모바일 화면에서 상하 여백 제거 */
+/* 모바일 화면 */
 @media (max-width: 768px) {
     .recovery-email-container {
-        max-width: 100%;
+        max-width: 90%; /* 더 좁게 조정 */
         padding: 20px;
-        margin: 0; 
-        border-radius: 0; 
+        margin: 20px auto; /* 상하 여백 조정 */
+        border-radius: 8px; /* 테두리 둥글기 축소 */
     }
 
     .recovery-email-container h2 {
@@ -105,10 +102,29 @@ body {
     }
 }
 
-
+/* 데스크탑 화면 */
 @media (min-width: 1024px) {
     .recovery-email-container {
+        max-width: 600px; /* 데스크탑에서는 넓게 */
         margin-top: 40px;
         margin-bottom: 40px;
+    }
+
+    .recovery-email-container h2 {
+        font-size: 1.75rem;
+    }
+
+    .input-group input {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+
+    .add-button {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+
+    .info-text {
+        font-size: 1rem;
     }
 }

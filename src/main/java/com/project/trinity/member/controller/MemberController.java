@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,6 +102,7 @@ public class MemberController {
             } else {
                 if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
                     session.setAttribute("loginUser", loginMember);
+                    session.setAttribute("userNo", loginMember.getUserNo());
 
                     if ("on".equals(request.getParameter("keepLoggedIn"))) {
                         Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
@@ -106,11 +110,12 @@ public class MemberController {
                         loginCookie.setPath("/");
                         response.addCookie(loginCookie);
                     }
-
-
-
-
+                    
+                    System.out.println("로그인 성공 - 사용자 세션에 저장된 정보: " + session.getAttribute("loginUser"));
+                    System.out.println("세션에 저장된 userNo: " + session.getAttribute("userNo"));
+                    
                     redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
+                    System.out.println("로그인 후 리다이렉트 - /main으로 이동");
                     return "redirect:/main";
                 }
             }
@@ -187,4 +192,22 @@ public class MemberController {
     public String repairemailPage() {
         return "account/repair_email";
     }
+    
+    @PostMapping("/member/update_profile")
+    public String updateProfile(@RequestParam("profileImage") MultipartFile file, HttpSession session) {
+        // 파일 저장 로직 구현
+        String fileName = file.getOriginalFilename();
+        String savePath = "path/to/save/" + fileName;
+        
+        try {
+            file.transferTo(new File(savePath));
+            // 저장 경로를 DB에 업데이트
+            // session에 저장된 유저 정보 갱신
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return "redirect:/member/profile";
+    }
+
 }
