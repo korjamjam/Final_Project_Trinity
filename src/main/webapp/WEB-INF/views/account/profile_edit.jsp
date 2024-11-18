@@ -22,6 +22,19 @@
         <!-- Main Content -->
         <main class="profile-container">
             <h2>개인정보</h2>
+
+            <!-- 메시지 출력 -->
+            <% if (request.getAttribute("message") != null) { %>
+                <script>
+                    alert("<%= request.getAttribute("message") %>");
+                </script>
+            <% } %>
+            <% if (request.getAttribute("errorMessage") != null) { %>
+                <script>
+                    alert("<%= request.getAttribute("errorMessage") %>");
+                </script>
+            <% } %>
+
             <form id="profile-form" action="${pageContext.request.contextPath}/member/update_profile" method="post" enctype="multipart/form-data">
                 <div class="profile-picture">
                     <img id="profile-preview" 
@@ -33,11 +46,11 @@
 
                 <div class="input-group">
                     <label>이름</label> 
-                    <input type="text" name="name" value="${loginUser.userName}" disabled>
+                    <input type="text" name="userName" value="${loginUser.userName}" disabled>
                 </div>
                 <div class="input-group">
                     <label>생년월일</label> 
-                    <input type="date" name="birthdate" value="${formattedBirthday}" disabled>
+                    <input type="date" name="birthday" value="${formattedBirthday}" disabled>
                 </div>
                 <div class="input-group">
                     <label>이메일</label> 
@@ -81,7 +94,7 @@
         function toggleEditSave() {
             const button = document.getElementById('edit-save-button');
             const form = document.getElementById('profile-form');
-            const editableFields = document.querySelectorAll('input[name="name"], input[name="email"], input[name="address"]');
+            const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="address"], input[name="birthday"], input[name="gender"]');
 
             if (!isEditing) {
                 // 수정 활성화 상태
@@ -92,25 +105,11 @@
                 button.textContent = "저장하기"; // 버튼 텍스트 변경
             } else {
                 // 저장 상태
+                editableFields.forEach(input => input.disabled = false); // disabled 해제
                 form.submit(); // 폼 제출
-                disableAllFields(); // 필드 비활성화
             }
 
             isEditing = !isEditing; // 상태 전환
-        }
-
-        // 모든 필드 비활성화
-        function disableAllFields() {
-            const allFields = document.querySelectorAll('input, select');
-            allFields.forEach(field => {
-                field.disabled = true; // 필드 비활성화
-                field.style.backgroundColor = '#f9f9f9'; // 비활성화된 상태 표시
-            });
-
-            // 버튼 초기화
-            const button = document.getElementById('edit-save-button');
-            button.textContent = "수정 활성화";
-            isEditing = false;
         }
     </script>
 </body>
