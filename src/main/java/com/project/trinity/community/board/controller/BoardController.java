@@ -146,7 +146,8 @@ public class BoardController {
 	   
 
 	    // 게시글 저장
-	    int result = boardService.insertBoard(b);
+	    int result = boardService.insertBoard(b, loginUser.getUserNo());
+	    System.out.println("게시글 번호: " + b.getBoardNo()); // 추가 디버
 	    if (result > 0) { // 성공 시 상세보기 페이지로 이동하며 게시글 데이터 전달
 	        Board savedBoard = boardService.selectBoard(b.getBoardNo());
 	        System.out.println("Board 객체 상태: " + b);
