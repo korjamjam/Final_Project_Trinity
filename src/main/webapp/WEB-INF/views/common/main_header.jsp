@@ -62,35 +62,52 @@
                 <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
             </div>
         </div>
-    </nav>
+   </nav>
     <div class="login-menu">
         <c:choose>
             <c:when test="${empty loginUser}">
-                <!-- 로그인 전 -->
                 <a href="${pageContext.request.contextPath}/member/login">로그인</a>
                 <a href="${pageContext.request.contextPath}/member/sign_up">회원가입</a>
-                <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+                <div class="menu-icon">&#9776;</div>
             </c:when>
             <c:otherwise>
-                <!-- 로그인 후 -->
                 <label>${loginUser.userName}님 환영합니다.</label>
                 <a href="${pageContext.request.contextPath}/member/profile_edit">마이페이지</a>
                 <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-                <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+                <div class="menu-icon">&#9776;</div>
             </c:otherwise>
         </c:choose>
     </div>
 </header>
 
+<!-- JavaScript -->
 <script>
-    function toggleSidebar() {
-        document.querySelector('.hamburger-sidebar').classList.toggle('hamburger-show-sidebar');
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) {
+                console.error("Sidebar element not found");
+                return;
+            }
+            sidebar.classList.toggle('hamburger-show-sidebar');
+        }
 
-    const closeBtn = document.querySelector('.hamburger-close-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', toggleSidebar);
-    }
+        // 닫기 버튼 이벤트 바인딩
+        const closeBtn = document.querySelector('.hamburger-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', toggleSidebar);
+        } else {
+            console.error("Close button not found");
+        }
+
+        // 메뉴 아이콘 이벤트 바인딩
+        const menuIcon = document.querySelector('.menu-icon');
+        if (menuIcon) {
+            menuIcon.addEventListener('click', toggleSidebar);
+        } else {
+            console.error("Menu icon not found");
+        }
+    });
 </script>
 </body>
 </html>

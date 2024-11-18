@@ -18,16 +18,16 @@
 		</div>
 		<div class="hamburger-sidebar-menu">
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>회원관리</p>
+				<a href="member"><p>회원관리</p></a>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>병원관리</p>
+				<a href="hospital"><p>병원관리</p></a>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>예약관리</p>
+				<a href="reservation"><p>예약관리</p></a>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>게시글관리</p>
+				<a href="post"><p>게시글관리</p></a>
 			</div>
 			<div class="sidebar-item">
     		<a href="${pageContext.servletContext.contextPath}/main"><p>메인페이지</p></a>
