@@ -16,20 +16,20 @@
 <body>
     <div class="profile-sidemenu">
         <table class="menu-table">
+            
             <tr>
-                <th><a href="${pageContext.request.contextPath}/member/email_update" id="updateemail">이메일 변경</a></th>
+                <th>
+                    <!-- 복구 이메일 추가 -->
+                    <a href="${pageContext.request.contextPath}/member/repair_email" id="recoveryEmail">복구 이메일 추가</a>
+                </th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
+            
             <tr>
-                <th><a href="${pageContext.request.contextPath}/member/recovery_email_add" id="recoveryEmail">복구 이메일 추가</a></th>
-                <td><span class="arrow">&gt;</span></td>
-            </tr>
-            <tr>
-                <th><a href="${pageContext.request.contextPath}/reservation/my_reservations" id="myReservations">내 예약 확인하기</a></th>
-                <td><span class="arrow">&gt;</span></td>
-            </tr>
-            <tr>
-                <th><a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">내 정보 수정</a></th>
+                <th>
+                    <!-- 내 정보 수정 -->
+                    <a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">내 정보 수정</a>
+                </th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
         </table>
@@ -40,6 +40,9 @@
     </div>
 
     <script>
+        // JSP에서 contextPath를 JavaScript 변수로 전달
+        const contextPath = '${pageContext.request.contextPath}';
+
         // 현재 URL에서 type 파라미터 값을 추출하여 활성화된 메뉴 표시
         const currentPath = window.location.pathname;
         document.querySelectorAll('.menu-table a').forEach(link => {
@@ -47,6 +50,16 @@
                 link.classList.add('active');
             }
         });
+
+        // 구현되지 않은 페이지 처리 함수
+        function handleUnavailablePage(event, pageName) {
+            event.preventDefault(); // 기본 동작 막기
+            alert(`${pageName} 페이지는 현재 구현되지 않았습니다.`);
+            // 일정 시간 뒤 profile_edit 페이지로 이동
+            setTimeout(() => {
+                window.location.href = `${contextPath}/member/profile_edit`;
+            }, 2000); // 2초 후 이동
+        }
     </script>
 </body>
 </html>

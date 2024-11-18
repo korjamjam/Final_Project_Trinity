@@ -100,7 +100,7 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href="health.guide"> <img
+				<a href="${pageContext.request.contextPath}/healthReservation/reservation1"> <img
 					src="${ pageContext.servletContext.contextPath }/resources/img/reservationHealthCheck.png"
 					alt="reservationHealthCheck">
 					<p>건강검진 예약</p>
