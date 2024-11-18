@@ -39,46 +39,46 @@ public class BoardController {
 	@RequestMapping("/main")
 	public String communityMain(@RequestParam(name = "type", required = false, defaultValue = "popular") String type,
 			Model model) {
-		String boardTitle;
+		String boardCategory;
 		System.out.println("type 파라미터 값: " + type); // 디버깅용
 
 		// 기본 게시판 유형 설정
 		switch (type) {
 		case "free":
-			boardTitle = "자유게시판";
+			boardCategory = "자유게시판";
 			break;
 		case "meditalk":
-			boardTitle = "메디톡";
+			boardCategory = "메디톡";
 			break;
 		case "event":
-			boardTitle = "이벤트";
+			boardCategory = "이벤트";
 			break;
 		default:
-			boardTitle = "실시간 인기글";
+			boardCategory = "실시간 인기글";
 			break;
 		}
 
-		model.addAttribute("boardTitle", boardTitle);
+		model.addAttribute("boardCategory", boardCategory);
 		return "community/community_main";
 	}
 
 	// 동적으로 커뮤니티 페이지 연결 - type 파라미터에 따라 게시판 종류를 설정
 	@RequestMapping("/board")
 	public String getBoardPage(@RequestParam(name = "type", required = false) String type, Model model) {
-		String boardTitle;
+		String boardCategory;
 
 		if ("free".equals(type)) {
-			boardTitle = "자유게시판";
+			boardCategory = "자유게시판";
 		} else if ("meditalk".equals(type)) {
-			boardTitle = "메디톡";
+			boardCategory = "메디톡";
 		} else if ("event".equals(type)) {
-			boardTitle = "이벤트";
+			boardCategory = "이벤트";
 		} else {
-			boardTitle = "실시간 인기글";
+			boardCategory = "실시간 인기글";
 		}
 
 		// 모델에 속성 추가
-		model.addAttribute("boardTitle", boardTitle);
+		model.addAttribute("boardCategory", boardCategory);
 
 		// JSP 파일 이름을 community/Board로 설정하여 Board.jsp를 찾도록 함
 		return "community/board";
@@ -122,34 +122,40 @@ public class BoardController {
 
 	@PostMapping("/write")
 	public String insertBoard(Board b, HttpSession session, Model m) {
-		  // 디버깅 로그
+	    // 디버깅 로그
 	    System.out.println("세션 상태: " + session.getAttribute("loginUser"));
-	    System.out.println("Board 객체 상태: " + b);
-		 // 필수 입력값 검증
-	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
+	  
+
+	    // 필수 입력값 검증
+	    if (b == null || b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
 	        m.addAttribute("errorMsg", "제목은 필수 입력 항목입니다.");
 	        return "/common/errorPage";
 	    }
-	    // 로그인 사용자 정보 가져와서 게시글 작성자 정보 설정
+
+	    // 로그인 사용자 정보 가져오기
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    
+	    if (loginUser == null) {
+	        m.addAttribute("errorMsg", "로그인 후에 게시글을 작성할 수 있습니다.");
+	        return "/common/errorPage";
+	    }
+
+	    // 작성자 정보 설정
 	    System.out.println("Before setting boardWriter: " + b);
 	    b.setBoardWriter(loginUser.getUserId());
-	    System.out.println("After setting boardWriter: " + b);
- 
 	    b.setUserNo(loginUser.getUserNo());
-	    if (loginUser == null) {
-	    	System.err.println("로그인 정보가 없는 상태에서 게시글 작성 시도");
-	        throw new IllegalStateException("로그인된 사용자 정보가 없습니다.");
-	    }
-	    System.out.println("loginUser.getUserId(): " + loginUser.getUserId());
-	    System.out.println("loginUser.getUserNo(): " + loginUser.getUserNo());
+	   
 
-	    // 게시글 정보와 파일 정보 저장
-	    int result = boardService.insertBoard(b);
-
+	    // 게시글 저장
+	    int result = boardService.insertBoard(b, loginUser.getUserNo());
+	    System.out.println("게시글 번호: " + b.getBoardNo()); // 추가 디버
 	    if (result > 0) { // 성공 시 상세보기 페이지로 이동하며 게시글 데이터 전달
 	        Board savedBoard = boardService.selectBoard(b.getBoardNo());
+	        System.out.println("Board 객체 상태: " + b);
+	        System.out.println("After setting boardWriter: " + b);
+	        if (savedBoard == null) {
+	            m.addAttribute("errorMsg", "게시글 저장 후 조회에 실패했습니다.");
+	            return "/common/errorPage";
+	        }
 	        m.addAttribute("b", savedBoard);
 	        session.setAttribute("alertMsg", "게시글 작성 성공");
 	        return "redirect:/community/community_board_detail?bno=" + savedBoard.getBoardNo();

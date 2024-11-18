@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.reservation.model.vo.Reservation;
@@ -74,6 +75,7 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation_guide";
 	}
 	
+	
 	@GetMapping("/guideEven")
 	public String cautionGuideEvening() {
 		return "health_reservation/caution_guide_evening";
@@ -99,8 +101,44 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
-	@GetMapping("/reservation2")
-	public String healthReservation2() {
+	@RequestMapping("/reservation2")
+	public String healthReservation2(
+			@RequestParam("reservation_user_name") String reservation_user_name,
+			@RequestParam("reservation_user_num1") String reservation_user_num1,
+			@RequestParam("reservation_user_num2") String reservation_user_num2,
+			@RequestParam("reservation_user_phone1") String reservation_user_phone1,
+			@RequestParam("reservation_user_phone2") String reservation_user_phone2,
+			@RequestParam("reservation_user_email1") String reservation_user_email1,
+			@RequestParam("reservation_user_email2") String reservation_user_email2,
+			@RequestParam("postcode") String postcode,
+			@RequestParam("address") String address,
+			@RequestParam("extraAddress") String extraAddress,
+			@RequestParam("detailAddress") String detailAddress,
+			@RequestParam("use_tos_ans1") String use_tos_ans1,
+			@RequestParam("use_tos_ans2") String use_tos_ans2
+			) {
+		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
+			return "health_reservation/health_reservation2";
+		} else {
+			return "health_reservation/health_reservation1";
+		}
+	}
+	
+	@RequestMapping("/reservation3")
+	public String healthReservation3(
+			@RequestParam("reservation_user_select") String reservation_user_select,
+			@RequestParam("reservation_user_hospital") String reservation_user_hospital,
+			@RequestParam("reservation_user_text") String reservation_user_text,
+			@RequestParam("reservation_user_date") String reservation_user_date,
+			@RequestParam("reservation_user_time") String reservation_user_time,
+			@RequestParam("reservation_user_result") String reservation_user_result
+			) {
+		System.out.println(reservation_user_select);
+		System.out.println(reservation_user_hospital);
+		System.out.println(reservation_user_text);
+		System.out.println(reservation_user_date);
+		System.out.println(reservation_user_time);
+		System.out.println(reservation_user_result);
 		return "health_reservation/health_reservation2";
 	}
 	
@@ -119,3 +157,7 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation_items_info";
 	}
 }
+
+
+
+//}

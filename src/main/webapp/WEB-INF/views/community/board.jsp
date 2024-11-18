@@ -30,7 +30,7 @@
 				<div id="mainWrapper">
 					<!-- Content Section -->
 					<div id="contentHeader">
-						<h2 class="content-title">${boardTitle}</h2>
+						<h2 class="content-title">${boardCategory}</h2>
 						<div id="contentControls">
 							<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
 
@@ -60,21 +60,129 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="b" items="${list}">
-								<tr onclick = "location.href = 'detail.bo?bno=${b.boardNo}'">
-									   <td>${b.boardCategory }</td>
-									   <td>${b.boardTitle }</td>
-									   <td>${b.boardWriter }</td>
-									   <td>${b.createDate }</td>
-									   <td>${b.count }</td>
-									   
-									   <td>
-										   <c:if test="${not empty b.originName }">
-											   ★
-										   </c:if>
-									   </td>
-								   </tr>
-							   </c:forEach>
+									<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[90]</td>
+							</tr>
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[85]</td>
+							</tr>
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[90]</td>
+							</tr> <!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+							<!-- Example Post Item -->
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
+
+
+							<tr>
+								<td class="category-header">이벤트</td>
+								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="author">관리자1</td>
+								<td class="date">2022.07.27</td>
+								<td class="comment-header">[45]</td>
+							</tr>
 						</tbody>
 							
 					</table>

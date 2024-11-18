@@ -18,7 +18,7 @@
     <div class="community-sidemenu">
         <table class="menu-table">
             <tr>
-                <th><a href="community_main.me?type=popular" id="popular">실시간 인기글</a></th>
+                <th><a href="main?type=popular" id="popular">실시간 인기글</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
@@ -36,7 +36,7 @@
         </table>
         <div class="support-box">
             <p class="support-text">도움이 필요하신가요?</p>
-            <a href="inquiry_qna.me" class="support-link">1:1 문의하기</a>
+            <a href="${ pageContext.servletContext.contextPath }/inquiry/qna" class="support-link">1:1 문의하기</a>
         </div>
     </div>
 
