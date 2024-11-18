@@ -24,6 +24,5 @@
  			<mapper resource="mappers/board-mapper.xml"/>
  		<mapper resource="mappers/reservation-mapper.xml"/>
  	</mappers>
-
  	
  </configuration>

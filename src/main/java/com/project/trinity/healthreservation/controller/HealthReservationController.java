@@ -38,19 +38,19 @@ public class HealthReservationController {
 
     @PostMapping("/submitReservation")
     public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
-    	//예약 데이터 확인 디버깅
-    	System.out.println("Received Reservation in submitReservation: " + reservation);
+        // 디버깅: 예약 데이터 확인
+        System.out.println("Received Reservation in submitReservation: " + reservation);
 
+        // 세션에서 사용자 번호 가져오기
         String userNo = (String) session.getAttribute("userNo");
-        System.out.println("Session userNo: " + userNo);
-
         if (userNo == null) {
             throw new IllegalArgumentException("로그인된 사용자 정보가 없습니다.");
         }
 
-        reservation.setUserNo(userNo);
-        healthReservationService.saveReservation(reservation);
-        return "redirect:/healthReservation/vaccinepage1";
+        reservation.setUserNo(userNo); // 사용자 번호 설정
+        healthReservationService.saveReservation(reservation); // 예약 저장
+
+        return "redirect:/healthReservation/vaccinepage1"; // 완료 후 페이지 리다이렉트
     }
 
 
