@@ -2,6 +2,13 @@ body{
     font-family: "Noto Sans KR", system-ui;
 }
 
+.hospital_detail_page_wrapper{
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* event */
 .hospital_detail_event_wrapper{
     display: flex;

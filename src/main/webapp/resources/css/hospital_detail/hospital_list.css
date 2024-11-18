@@ -2,14 +2,21 @@
         body{
             font-family: "Noto Sans KR", system-ui;
         }
+        
+        .hospitalList_list_wrapper{
+        	display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
 
         /* SearchBar */
-        .list_searchBar{
+        .hospitalList_list_searchBar{
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        .list_searchBar input{
+        .hospitalList_list_searchBar input{
             display: flex;
             justify-content: center;
             border: 1px solid grey;
@@ -19,7 +26,7 @@
             font-size: 12px;
             padding-left: 5px;
         }
-        .list_searchBar button{
+        .hospitalList_list_searchBar button{
             border: 1px solid #dbdbdb;
             border-radius: 5px;
             background-color: #f4f4f4;
@@ -28,59 +35,62 @@
         }
 
         /* Order */
-        .list_order{
+        .hospitalList_list_order_wrapper{
+            width: 90%;
+        }
+        .hospitalList_list_order{
             display: flex;
             justify-content: right;
             gap: 10px;
             margin-bottom: 10px;
         }
-        .list_subject{
+        .hospitalList_list_subject{
             border: 1px solid #dbdbdb;
             border-radius: 5px;
         }
-        .list_orderBy{
+        .hospitalList_list_orderBy{
             border: 1px solid #dbdbdb;
             border-radius: 5px;
         }
 
         /* List */
-        .list{
+        .hospitalList_list{
             border-bottom: 7px solid #ececec;
             font-family: "Noto Sans KR", system-ui;
         }
-        .list_title{
+        .hospitalList_list_title{
             padding: 10px 0px;
         }
-        .list_title p{
+        .hospitalList_list_title p{
             font-size: large;
             font-weight: bold;
             color: black;
         }
-        .list_openTime{
+        .hospitalList_list_openTime{
             padding: 5px 0px;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .list_openTime p{
+        .hospitalList_list_openTime p{
             color: #9e9e9e;
             font-weight: bold;
         }
-        .list_address{
+        .hospitalList_list_address{
             padding: 5px 0px;
         }
-        .list_address p {
+        .hospitalList_list_address p {
             color: #9e9e9e;
             font-weight: 500;
         }
-        .list_tag{
+        .hospitalList_list_tag{
             display: flex;
             justify-content: left;
             padding-top: 5px;
             padding-bottom: 20px;
             gap: 10px;
         }
-        .list_tag button{
+        .hospitalList_list_tag button{
             border: 1px solid #dbdbdb;
             border-radius: 5px;
             background-color: #f4f4f4;
@@ -90,14 +100,32 @@
             font-weight: 600;
         }
 
+        @media (min-width: 425px) {
+            .hospitalList_list_wrapper2{
+                width: 90%;
+            }
+            .hospitalList_list_order_wrapper{
+                width: 90%;
+            }
+        }
+
         @media (min-width: 768px) {
+            .hospitalList_list_order_wrapper{
+                width: 60%;
+                max-width: 800px;
+            }
+            .hospitalList_list_wrapper2{
+                width: 60%;
+                max-width: 800px;
+            }
+        	
             /* SearchBar */
-            .list_searchBar{
+            .hospitalList_list_searchBar{
                 display: flex;
                 justify-content: center;
                 gap: 20px;
             }
-            .list_searchBar input{
+            .hospitalList_list_searchBar input{
                 display: flex;
                 justify-content: center;
                 border: 1px solid grey;
@@ -108,17 +136,17 @@
             }
 
             /* Order */
-            .list_order{
+            .hospitalList_list_order{
                 display: flex;
                 justify-content: right;
                 gap: 10px;
                 margin-bottom: 10px;
             }
-            .list_subject{
+            .hospitalList_list_subject{
                 border: 1px solid #dbdbdb;
                 border-radius: 5px;
             }
-            .list_orderBy{
+            .hospitalList_list_orderBy{
                 border: 1px solid #dbdbdb;
                 border-radius: 5px;
             }
