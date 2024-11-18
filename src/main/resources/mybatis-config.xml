@@ -25,6 +25,5 @@
  		<mapper resource="mappers/reservation-mapper.xml"/>
  		<mapper resource="mappers/healthReservation-mapper.xml"/>
  	</mappers>
-
  	
  </configuration>

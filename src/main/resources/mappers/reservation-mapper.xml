@@ -19,13 +19,13 @@
     </resultMap>
 
     <!-- 예약 삽입 쿼리 -->
+    <!-- 예약 삽입 쿼리 -->
     <insert id="insertReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
-    INSERT INTO RESERVATION 
-    (USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT, PATIENT_NAME, PATIENT_BIRTHDAY)
-    VALUES 
-    (#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent}, #{patientName}, #{patientBirthday}) <!-- PATIENT_BIRTHDAY 추가 -->
-</insert>
-
+    	INSERT INTO RESERVATION
+    	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT, PATIENT_NAME, PATIENT_BIRTHDAY)
+    	VALUES
+    	(#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent}, #{patientName}, #{patientBirthday})
+	</insert>
 
     <!-- 예약 정보와 백신 종류 조회 -->
     <select id="selectReservationWithVaccine" resultMap="ReservationWithVaccineResult">
@@ -39,5 +39,5 @@
         WHERE 
             r.RES_NO = #{resNo}
     </select>
-
+    
 </mapper>
