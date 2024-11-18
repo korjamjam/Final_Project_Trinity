@@ -124,7 +124,7 @@ public class BoardController {
 	public String insertBoard(Board b, HttpSession session, Model m) {
 	    // 디버깅 로그
 	    System.out.println("세션 상태: " + session.getAttribute("loginUser"));
-	    System.out.println("Board 객체 상태: " + b);
+	  
 
 	    // 필수 입력값 검증
 	    if (b == null || b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
@@ -143,13 +143,14 @@ public class BoardController {
 	    System.out.println("Before setting boardWriter: " + b);
 	    b.setBoardWriter(loginUser.getUserId());
 	    b.setUserNo(loginUser.getUserNo());
-	    System.out.println("After setting boardWriter: " + b);
+	   
 
 	    // 게시글 저장
 	    int result = boardService.insertBoard(b);
 	    if (result > 0) { // 성공 시 상세보기 페이지로 이동하며 게시글 데이터 전달
 	        Board savedBoard = boardService.selectBoard(b.getBoardNo());
-	        
+	        System.out.println("Board 객체 상태: " + b);
+	        System.out.println("After setting boardWriter: " + b);
 	        if (savedBoard == null) {
 	            m.addAttribute("errorMsg", "게시글 저장 후 조회에 실패했습니다.");
 	            return "/common/errorPage";
