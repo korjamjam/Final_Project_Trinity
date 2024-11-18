@@ -29,13 +29,17 @@ public class HealthReservationController {
     // 백신 예약 페이지 2로 이동
     @PostMapping("/vaccinepage2")
     public String vaccineReservation2(@ModelAttribute Reservation reservation, Model model) {
+    	//예약 데이터 확인 디버깅
+    	System.out.println("Received Reservation in vaccineReservation2: " + reservation);
+    	
         model.addAttribute("reservation", reservation);
         return "health_reservation/vaccine_reservation2";
     }
 
     @PostMapping("/submitReservation")
     public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
-        System.out.println("Received Reservation: " + reservation);
+    	//예약 데이터 확인 디버깅
+    	System.out.println("Received Reservation in submitReservation: " + reservation);
 
         String userNo = (String) session.getAttribute("userNo");
         System.out.println("Session userNo: " + userNo);
