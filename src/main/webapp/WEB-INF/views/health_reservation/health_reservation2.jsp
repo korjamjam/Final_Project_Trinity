@@ -22,7 +22,7 @@
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation1_wrap">
         <div class="health_reservation1_container">
-            <form action="reservation3" method="post">
+            <form action="reservationSubmit" method="post">
                 <div class="health_reservation1_title">
                     국가 건강 검진 예약
                 </div>
@@ -78,8 +78,9 @@
                         6. 날짜 및 시간
                     </div>
                     <div class="health_reservation_normal_date">
-                        <input type="hidden" name="reservation_user_date">
                         <div id="datepicker"></div>
+                        <input type="hidden" name="reservation_user_date">
+                        
                     </div>
                     <div class="health_reservation_normal_select">
                         <select name="reservation_user_time" id="">
@@ -121,7 +122,10 @@
             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
             weekHeader: "주",
             yearSuffix: '년',
-            inline: true
+            inline: true,
+            onSelect: function(reservation_user_date) {
+            $("input[name='reservation_user_date']").val(reservation_user_date);
+            }
           });
         });
     </script>

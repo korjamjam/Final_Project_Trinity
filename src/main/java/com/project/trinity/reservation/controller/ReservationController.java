@@ -11,5 +11,6 @@ public class ReservationController {
     @GetMapping("/form")
     public String generalReservation() {
         return "reservation/general_reservation";
+        
     }
 }
