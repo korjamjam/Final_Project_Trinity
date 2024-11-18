@@ -87,5 +87,17 @@
 		HOS_NO
 		FROM MEMBER
 	</select>
+	
+	<update id="updateMember" parameterType="com.project.trinity.member.model.vo.Member">
+    UPDATE MEMBER
+    SET USER_NAME = #{userName},
+        EMAIL = #{email},
+        PHONE = #{phone},
+        BIRTHDAY = #{birthday},
+        GENDER = #{gender},
+        ADDRESS = #{address}
+    WHERE USER_ID = #{userId}
+</update>
+	
 
 </mapper>
