@@ -18,7 +18,7 @@
     <div class="community-sidemenu">
         <table class="menu-table">
             <tr>
-                <th><a href="community_main.me?type=popular" id="popular">실시간 인기글</a></th>
+                <th><a href="main?type=popular" id="popular">실시간 인기글</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
