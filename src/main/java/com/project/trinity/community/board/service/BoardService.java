@@ -20,7 +20,7 @@ public interface BoardService {
 	Board selectBoard(String bno);
 	
 	//게시글 추가(insert) 
-	int insertBoard(Board b);
+	int insertBoard(Board b, String userNo);
 	
 	//게시글 수정
 	int updateBoard(Board b);
@@ -33,6 +33,8 @@ public interface BoardService {
 	
 	//조회수 상위 5개
 	public ArrayList<Board> selectTopBoardList();
+
+
 }
 
 

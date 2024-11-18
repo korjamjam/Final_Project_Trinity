@@ -4,18 +4,19 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boardMapper">
-	<resultMap type="Board" id="boardResult">
-		<result column="BOARD_NO" property="boardNo" />
-		<result column="BOARD_TYPE" property="boardType" /> <!-- BOARD_TYPE 컬럼을 boardType 필드에 매핑 -->
-		<result column="BOARD_TITLE" property="boardTitle" />
-		<result column="BOARD_WRITER" property="userId" /> <!-- MEMBER 테이블에서 가져온 작성자의 USER_ID를 매핑 -->
-		<result column="BOARD_CONTENT" property="boardContent" />
-		<result column="ENROLL_DATE" property="enrollDate" />
-		<result column="MODIFIED_DATE" property="modifiedDate" />
-		<result column="BOARD_VIEWS" property="boardViews" />
-		<result column="BOARD_CATEGORY" property="boardCategory" />
-		<result column="STATUS" property="status" />
-	</resultMap>
+<resultMap type="Board" id="boardResult">
+    <result column="BOARD_NO" property="boardNo" />
+    <result column="BOARD_TYPE" property="boardType" />
+    <result column="BOARD_TITLE" property="boardTitle" />
+    <result column="BOARD_WRITER" property="boardWriter" /> <!-- 수정: boardWriter로 매핑 -->
+    <result column="BOARD_CONTENT" property="boardContent" />
+    <result column="ENROLL_DATE" property="enrollDate" />
+    <result column="MODIFIED_DATE" property="modifiedDate" />
+    <result column="BOARD_VIEWS" property="boardViews" />
+    <result column="BOARD_CATEGORY" property="boardCategory" />
+    <result column="STATUS" property="status" />
+</resultMap>
+
 
 
 	<!-- 게시글 총 갯수 조회 -->
@@ -59,24 +60,27 @@
 
 
 	<!-- bno로 게시글 조회 -->
-	<select id="selectBoard" resultMap="boardResult">
-		SELECT
-		B.BOARD_NO,
-		B.BOARD_CATEGORY,
-		B.BOARD_TITLE,
-		B.USER_NO,
-		M.USER_ID AS BOARD_WRITER,  <!-- 작성자의 ID를 가져옵니다 -->
-		B.BOARD_CONTENT,
-		B.BOARD_VIEWS,
-		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS "ENROLL_DATE"
-		FROM
-		BOARD B
-		JOIN
-		MEMBER M ON B.USER_NO = M.USER_NO
-		WHERE
-		B.STATUS = 'Y'
-		AND B.BOARD_NO = #{bno}
-	</select>
+<select id="selectBoard" resultMap="boardResult">
+    SELECT
+        B.BOARD_NO,
+        B.BOARD_TYPE,
+        B.BOARD_TITLE,
+        M.USER_ID AS BOARD_WRITER, <!-- 작성자의 USER_ID -->
+        B.BOARD_CONTENT,
+        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+        B.BOARD_VIEWS,
+        B.BOARD_CATEGORY,
+        B.STATUS
+    FROM
+        BOARD B
+    JOIN
+        MEMBER M ON B.USER_NO = M.USER_NO
+    WHERE
+        B.STATUS = 'Y'
+        AND B.BOARD_NO = #{bno}
+</select>
+
 
 
 
