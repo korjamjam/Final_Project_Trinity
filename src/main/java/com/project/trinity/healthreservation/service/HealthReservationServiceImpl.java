@@ -1,6 +1,7 @@
 package com.project.trinity.healthreservation.service;
 
 import com.project.trinity.healthreservation.model.dao.HealthReservationDao;
+import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.reservation.model.vo.Reservation;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,9 @@ public class HealthReservationServiceImpl implements HealthReservationService {
     public Reservation getReservationWithVaccine(int resNo) {
         return healthReservationDao.selectReservationWithVaccine(resNo);
     }
+
+	@Override
+	public int insertGuest(Guest guest) {
+		return healthReservationDao.insertGuest(guest);
+	}
 }

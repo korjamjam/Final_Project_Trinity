@@ -73,6 +73,7 @@
 						<input type="text" id="sample6_detailAddress" name="detailAddress"
 							placeholder="상세주소">
 					</div>
+                </div>
                 <div class="health_reservation1_content2">
                     <div id="reservation_content_title">
                         2. 개인정보 수집 및 이용 동의
