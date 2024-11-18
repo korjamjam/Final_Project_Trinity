@@ -75,96 +75,101 @@
                     </form>
                 </div>
             </div>
-            <script>
-                $(document).ready(function () {
-                    function initializeSummernote() {
-                        const isPc = !window.matchMedia("(max-width: 768px)").matches;
+           <script>
+    $(document).ready(function () {
+        function initializeSummernote() {
+            const isPc = !window.matchMedia("(max-width: 768px)").matches;
 
-                        $('#summernote').summernote({
-                            height: isPc ? 450 : 400, // 모바일 버전 높이
-                            width: isPc ? 800 : '100%', // 모바일 버전 너비
-                            placeholder: '글을 입력하세요.',
-                            tabsize: 2,
-                            toolbar: [
-                                ['style', ['style']],
-                                ['font', ['bold', 'underline', 'clear']],
-                                ['color', ['color']],
-                                ['para', ['ul', 'ol', 'paragraph']],
-                                ['table', ['table']],
-                                ['insert', ['link', 'picture', 'video']],
-                                ['view', ['fullscreen', 'codeview', 'help']]
-                            ],
-                            callbacks: {
-                                onImageUpload: fileUpload
-                            }
-                        });
-
-                    }
-
-                    initializeSummernote();
-                    $(window).resize(initializeSummernote); // 창 크기 변경 시 다시 초기화
-                });
-
-                function changeCategory(category) {
-
-                	let tagSelect = document.querySelector(".post-tag-select");
-                    tagSelect.innerHTML = ""; //비움
-
-
-                    switch (category) {
-                        case "자유게시판":
-                            tagSelect.innerHTML = `<option>친목</option>
-										   <option>유머</option>
-										   <option>꿀팁</option>`;
-                            break;
-                        case "메디톡":
-                            tagSelect.innerHTML = `<option>질문</option>
-										   <option>정보</option>`;
-                            break;
-                        case "이벤트게시판":
-                            tagSelect.innerHTML = `<option>관리자</option>
-										   <option>우리동네소식</option>
-										   <option>꿀팁</option>`;
-                            break;
-                    }
+            $('#summernote').summernote({
+                height: isPc ? 450 : 400, // 모바일 버전 높이
+                width: isPc ? 800 : '100%', // 모바일 버전 너비
+                placeholder: '글을 입력하세요.',
+                tabsize: 2,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ],
+                callbacks: {
+                    onImageUpload: fileUpload
                 }
+            });
+        }
 
-                // 이미지 업로드 처리 함수
-                function fileUpload(files) {
-                    const fd = new FormData();
-                    for (let file of files) {
-                        fd.append("fileList", file);
-                    }
+        initializeSummernote();
+        $(window).resize(initializeSummernote); // 창 크기 변경 시 다시 초기화
 
-                    insertFile(fd, function (nameList) {
-                        for (let name of nameList) {
-                            $("#summernote").summernote("insertImage", "/etc/resources/img/" + name);
-                        }
-                    });
-                }
+        // 작성완료 버튼 클릭 시
+        $(".post-form").on("submit", function (e) {
+            e.preventDefault(); // 기본 폼 제출 동작 막기
+            alert("게시글이 임시로 등록되었습니다.");
+        });
 
-                function insertFile(data, callback) {
-                    $.ajax({
-                    	url: "${pageContext.request.contextPath}/upload",
-                        type: "POST",
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        dataType: "json",
-                        success: function (res) {
-                            callback(res);
-                        },
-                        error: function () {
-                            console.log("파일업로드 api요청 실패");
-                        }
-                    });
-                }
-                function goToPostDetail() {
-                    // 등록 버튼 클릭 시 페이지 이동
-                    window.location.href = "community_board_detail.jsp";
-                }
+        // 등록 버튼 클릭 시
+        $(".round-button").on("click", function (e) {
+            e.preventDefault(); // 기본 버튼 동작 막기
+            alert("게시글이 등록되었습니다.");
+        });
+    });
 
-            </script>
+    function changeCategory(category) {
+        let tagSelect = document.querySelector(".post-tag-select");
+        tagSelect.innerHTML = ""; // 비움
+
+        switch (category) {
+            case "자유게시판":
+                tagSelect.innerHTML = `<option>친목</option>
+                                       <option>유머</option>
+                                       <option>꿀팁</option>`;
+                break;
+            case "메디톡":
+                tagSelect.innerHTML = `<option>질문</option>
+                                       <option>정보</option>`;
+                break;
+            case "이벤트게시판":
+                tagSelect.innerHTML = `<option>관리자</option>
+                                       <option>우리동네소식</option>
+                                       <option>꿀팁</option>`;
+                break;
+        }
+    }
+
+    // 이미지 업로드 처리 함수
+    function fileUpload(files) {
+        const fd = new FormData();
+        for (let file of files) {
+            fd.append("fileList", file);
+        }
+
+        insertFile(fd, function (nameList) {
+            for (let name of nameList) {
+                $("#summernote").summernote("insertImage", "/etc/resources/img/" + name);
+            }
+        });
+    }
+
+    function insertFile(data, callback) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/upload",
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (res) {
+                callback(res);
+            },
+            error: function () {
+                console.log("파일업로드 api요청 실패");
+            }
+        });
+    }
+</script>
+
 
 
             <!-- Footer -->
