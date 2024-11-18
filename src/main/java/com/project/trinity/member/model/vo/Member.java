@@ -37,5 +37,10 @@ public class Member {
 		this.userPwd = userPwd;
 	}
 
+	public void setProfileImage(String changeName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

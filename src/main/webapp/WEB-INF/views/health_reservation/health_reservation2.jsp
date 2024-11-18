@@ -22,86 +22,89 @@
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation1_wrap">
         <div class="health_reservation1_container">
-            <div class="health_reservation1_title">
-                국가 건강 검진 예약
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    3. 검진종류
+            <form action="reservationSubmit" method="post">
+                <div class="health_reservation1_title">
+                    국가 건강 검진 예약
                 </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>검진 종류</option>
-                        <option value="">일반건강검진</option>
-                        <option value="">암검진</option>
-                        <option value="">생애주기전환검진</option>
-                    </select>
+                <div class="health_reservation2_content">
+                    <div id="health_reservation1_content_title">
+                        3. 검진종류
+                    </div>
+                    <div class="health_reservation_normal_select">
+                        <select name="reservation_user_select" id="">
+                            <option value="" disabled hidden selected>검진 종류</option>
+                            <option value="일반건강검진">일반건강검진</option>
+                            <option value="암검진">암검진</option>
+                            <option value="생애주기전환검진">생애주기전환검진</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="health_reservation2_content" style="display: none;">
-                <div id="health_reservation1_content_title">
-                    3-1. 선택 검사 항목
+                <div class="health_reservation2_content" style="display: none;">
+                    <div id="health_reservation1_content_title">
+                        3-1. 선택 검사 항목
+                    </div>
+                    <div class="health_reservation_normal_select">
+                        <select name="" id="">
+                            <option value="" disabled hidden selected>검진 종류</option>
+                            <option value="">일반건강검진</option>
+                            <option value="">암검진</option>
+                            <option value="">생애주기전환검진</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>검진 종류</option>
-                        <option value="">일반건강검진</option>
-                        <option value="">암검진</option>
-                        <option value="">생애주기전환검진</option>
-                    </select>
+                <div class="health_reservation2_content">
+                    <div id="health_reservation1_content_title">
+                        4. 검사받을기관
+                    </div>
+                    <div class="health_reservation_normal_select">
+                        <select name="reservation_user_hospital" id="">
+                            <option value="" disabled hidden selected>기관을 선택해주세요</option>
+                            <option value="">일반건강검진</option>
+                            <option value="">암검진</option>
+                            <option value="">생애주기전환검진</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    4. 검사받을기관
+                <div class="health_reservation2_content">
+                    <div id="health_reservation1_content_title">
+                        5. 특이사항
+                    </div>
+                    <div id="health_reservation_inputText">
+                        <textarea name="reservation_user_text" id="" placeholder="알레르기, 특이사항"></textarea>
+                    </div>
                 </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>기관을 선택해주세요</option>
-                        <option value="">일반건강검진</option>
-                        <option value="">암검진</option>
-                        <option value="">생애주기전환검진</option>
-                    </select>
-                </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    5. 특이사항
-                </div>
-                <div id="health_reservation_inputText">
-                    <textarea name="" id="" placeholder="알레르기, 특이사항"></textarea>
-                </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    6. 날짜 및 시간
-                </div>
-                <div class="health_reservation_normal_date">
-                    <form action="">
-                        <input type="hidden">
+                <div class="health_reservation2_content">
+                    <div id="health_reservation1_content_title">
+                        6. 날짜 및 시간
+                    </div>
+                    <div class="health_reservation_normal_date">
                         <div id="datepicker"></div>
-                    </form>
+                        <input type="hidden" name="reservation_user_date">
+                        
+                    </div>
+                    <div class="health_reservation_normal_select">
+                        <select name="reservation_user_time" id="">
+                            <option value="" disabled hidden selected>시간 선택</option>
+                            <option value="오전">오전</option>
+                            <option value="오후">오후</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="health_reservation_normal_select">
-                    <select name="" id="">
-                        <option value="" disabled hidden selected>시간 선택</option>
-                        <option value="">오전</option>
-                        <option value="">오후</option>
-                    </select>
+                <div class="health_reservation2_content">
+                    <div id="health_reservation1_content_title">
+                        7. 결과 수령 방법
+                    </div>
+                    <div class="health_reservation1_checkbox">
+                        <label for="">
+                            <input type="radio" name="reservation_user_result" value="이메일"> 이메일
+                            <input type="radio" name="reservation_user_result" value="직접 수령"> 직접수령(주소로 배송)
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div class="health_reservation2_content">
-                <div id="health_reservation1_content_title">
-                    7. 결과 수령 방법
+                <div class="reservation_btn_area">
+                    <button id="reservation_btn" type="submit">예약</button>
                 </div>
-                <div class="health_reservation1_checkbox">
-                    <label for="">
-                        <input type="checkbox"> 이메일
-                        <input type="checkbox"> 직접수령(주소로 배송)
-                    </label>
-                </div>
-            </div>
-            <button id="reservation_btn">예약</button>
+            </form>
         </div>
     </div>
     <script>
@@ -119,7 +122,10 @@
             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
             weekHeader: "주",
             yearSuffix: '년',
-            inline: true
+            inline: true,
+            onSelect: function(reservation_user_date) {
+            $("input[name='reservation_user_date']").val(reservation_user_date);
+            }
           });
         });
     </script>

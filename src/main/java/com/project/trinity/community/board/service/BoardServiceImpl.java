@@ -45,10 +45,12 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectBoard(sqlSession, bno);
 	}
 
+	
 	@Override
-	public int insertBoard(Board b) {
-		
-		return boardDao.insertBoard(sqlSession, b);
+	public int insertBoard(Board b, String userNo) {
+	    // 로그인한 사용자의 userNo 설정
+	    b.setUserNo(userNo);
+	    return boardDao.insertBoard(sqlSession, b);
 	}
 
 	@Override

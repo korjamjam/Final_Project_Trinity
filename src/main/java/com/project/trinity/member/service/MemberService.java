@@ -1,5 +1,6 @@
 package com.project.trinity.member.service;
 
+import com.project.trinity.member.model.vo.FileTable;
 import com.project.trinity.member.model.vo.Member;
 
 public interface MemberService {
@@ -15,6 +16,10 @@ public interface MemberService {
 	int insertMember(Member member);
 
 	Member findByUserId(String userId);
+
+	boolean updateProfile(Member member);
+
+	void updateProfileImage(FileTable fileTable);
 
 
 }

@@ -4,14 +4,15 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.trinity.member.model.dao.MemberDao;
+import com.project.trinity.member.model.vo.FileTable;
 import com.project.trinity.member.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-    
+
     @Autowired
     private SqlSessionTemplate sqlSession;
-    
+
     @Autowired
     private MemberDao memberDao;
 
@@ -43,7 +44,19 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findByUserId(String userId) {
         return memberDao.findByUserId(sqlSession, userId);
-    
+    }
 
+    // 추가된 updateProfile 메서드 구현
+    @Override
+    public boolean updateProfile(Member member) {
+        int result = memberDao.updateMember(sqlSession, member); // DAO 메서드 재활용
+        return result > 0;
+    }
+
+	@Override
+	public void updateProfileImage(FileTable fileTable) {
+		// TODO Auto-generated method stub
+		
 	}
 }
+

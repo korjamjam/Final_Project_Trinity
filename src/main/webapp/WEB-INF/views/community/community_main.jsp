@@ -30,7 +30,7 @@
 				<div id="mainWrapper">
 					<!-- Content Section -->
 					<div id="contentHeader">
-						<h2 class="content-title">${boardTitle}</h2>
+						<h2 class="content-title">${boardCategory}</h2>
 						<div id="contentControls">
 							<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
 
@@ -271,39 +271,6 @@
 				// 숫자만 추출하여 정수로 변환
 				function extractNumber(text) {
 					return parseInt(text.replace(/[^0-9]/g, ''), 10);
-				}
-
-				// 테이블을 정렬하는 함수
-				function sortPosts(sortBy) {
-					const table = document.getElementById("postsTable");
-					const rows = Array.from(table.getElementsByTagName("tr")).slice(1); // 첫 번째 행(헤더)은 제외
-
-					// 정렬 기준에 따라 rows 배열 정렬
-					rows.sort((a, b) => {
-						let tdA, tdB;
-
-						if (sortBy === "조회수") {
-							// 조회수를 기준으로 정렬
-							tdA = extractNumber(a.getElementsByTagName("td")[4].innerText);
-							tdB = extractNumber(b.getElementsByTagName("td")[4].innerText);
-							return tdB - tdA; // 내림차순 정렬
-						} else if (sortBy === "작성일") {
-							// 작성일을 기준으로 정렬
-							tdA = parseDate(a.getElementsByTagName("td")[3].innerText);
-							tdB = parseDate(b.getElementsByTagName("td")[3].innerText);
-							return tdB - tdA; // 최신 글부터 내림차순 정렬
-						} else if (sortBy === "카테고리") {
-							// 카테고리명 오름차순 정렬
-							tdA = a.getElementsByTagName("td")[0].innerText;
-							tdB = b.getElementsByTagName("td")[0].innerText;
-							return tdA.localeCompare(tdB, 'ko'); // 한글 기준 비교
-						}
-						return 0;
-					});
-
-					// 정렬된 행을 tbody에 다시 추가하여 표시
-					const tbody = table.getElementsByTagName("tbody")[0];
-					rows.forEach(row => tbody.appendChild(row));
 				}
 			</script>
 

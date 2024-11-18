@@ -16,18 +16,12 @@
 <body>
     <div class="profile-sidemenu">
         <table class="menu-table">
-            <tr>
-                <th><a href="${pageContext.request.contextPath}/member/email_update" id="updateemail">이메일 변경</a></th>
-                
-            </tr>
+          
             <tr>
                 <th><a href="${pageContext.request.contextPath}/member/repair_email" id="recoveryEmail">복구 이메일 추가</a></th>
                
             </tr>
-            <tr>
-                <th><a href="${pageContext.request.contextPath}/reservation/my_reservations" id="myReservations">내 예약 확인하기</a></th>
-                
-            </tr>
+   
             <tr>
                 <th><a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">내 정보 수정</a></th>
     

@@ -22,32 +22,37 @@
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
 				<p>종합예약</p>
 				<div class="sidebar-submenu">
-					<a href="#" onclick="checkLogin()">진료예약</a> <a href="#">백신예약</a> <a
-						href="#">예약확인</a>
+					<a href="${pageContext.request.contextPath}/reservation/form" onclick="checkLogin()">진료예약</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
+					<a href="#">예약확인</a>
 				</div>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
 				<p>건강검진</p>
 				<div class="sidebar-submenu">
-					<a href="health.guide">국가 검진 예약</a> <a href="health.guide">검진
-						예약 안내</a> <a href="health_reservation_info_nomal">검진 절차 예약</a> <a
-						href="health_reservation_result">검진 결과 조회</a> <a
-						href="health_reservation_items_info">검사 항목 정보</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/guide">검진예약 안내</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a> 
+					<a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
+					<a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
 				</div>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
 				<p>커뮤니티</p>
 				<div class="sidebar-submenu">
-					<a href="community_main.me">인기</a> <a href="community_free.me">자유</a>
-					<a href="community_medical.me">의료 소통</a> <a
-						href="community_event.me">이벤트</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=popular">인기</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=free">자유</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=meditalk">의료 소통</a>
+					<a href="${pageContext.request.contextPath}/community/main?type=event">이벤트</a>
 				</div>
 			</div>
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
 				<p>고객문의</p>
 				<div class="sidebar-submenu">
-					<a href="notification">공지사항</a> <a href="notice">알림판</a> <a
-						href="faq">FAQ</a> <a href="qna">Q&A</a>
+					<a href="${pageContext.request.contextPath}/inquiry/notification">공지사항</a>
+					<a href="${pageContext.request.contextPath}/inquiry/notice">알림판</a>
+					<a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
+					<a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
 				</div>
 			</div>
 			<div class="sidebar-item">
@@ -58,10 +63,15 @@
 
 	<!-- JavaScript for Sidebar Toggle and Accordion Menu -->
 	<script>
-    function toggleSidebar() {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('hamburger-show-sidebar');
-    }
+	function toggleSidebar() {
+	    var sidebar = document.getElementById('sidebar');
+	    if (sidebar.style.transform === 'translateX(-100%)' || !sidebar.style.transform) {
+	        sidebar.style.transform = 'translateX(0)';
+	    } else {
+	        sidebar.style.transform = 'translateX(-100%)';
+	    }
+	}
+
 
     function toggleSubmenu(element) {
         var allSubmenus = document.querySelectorAll('.sidebar-submenu');

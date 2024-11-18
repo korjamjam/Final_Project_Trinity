@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/sign_up.css">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/sign_up.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
 
 <div class="signup-container">
     <h2>회원 가입</h2>
-    <form action="${pageContext.request.contextPath}/member/insert" method="post">
+    <form action="${pageContext.request.contextPath}/member/insert" method="post" onsubmit="return validateForm()">
         <!-- 기본 정보 입력 -->
         <div class="input-group">
             <label for="userId">아이디</label>
@@ -100,6 +100,31 @@
 </div>
 
 <script>
+    // 폼 유효성 검사 함수
+    function validateForm() {
+        const userId = document.getElementById("userId").value.trim();
+        const userPwd = document.getElementById("userPwd").value.trim();
+        const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
+        const emailLocal = document.getElementById("emailLocal").value.trim();
+        const emailDomain = document.getElementById("emailDomain").value.trim();
+        const postcode = document.getElementById("sample6_postcode").value.trim();
+        const address = document.getElementById("sample6_address").value.trim();
+        const detailAddress = document.getElementById("sample6_detailAddress").value.trim();
+        const userName = document.getElementById("userName").value.trim();
+        const birthday = document.getElementById("birthday").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const gender = document.getElementById("gender").value;
+
+        if (!userId || !userPwd || !userPwdConfirm || !emailLocal || !emailDomain || 
+            !postcode || !address || !detailAddress || !userName || 
+            !birthday || !phone || !gender) {
+            alert("빈칸없이 입력해주세요.");
+            return false; // 제출 중단
+        }
+        return true;
+    }
+
+    // 이메일 도메인 선택 시 값 설정
     $(document).ready(function() {
         $('#emailSelect').change(function() {
             var selectedDomain = $(this).val();
@@ -113,6 +138,7 @@
         });
     });
 
+    // 주소 검색 기능
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -136,7 +162,6 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     document.getElementById("sample6_extraAddress").value = extraAddr;
-                
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
                 }
@@ -148,6 +173,7 @@
         }).open();
     }
 
+    // 아이디 중복 확인
     function checkId() {
         const userId = $('#userId').val();
         if (userId) {
