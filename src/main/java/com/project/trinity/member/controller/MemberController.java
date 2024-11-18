@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -162,6 +163,22 @@ public class MemberController {
         model.addAttribute("loginUser", loginUser);
         return "account/profile_edit";
     }
+    
+    @PostMapping("/update_profile")
+    public String updateProfile(@ModelAttribute Member member, HttpSession session, RedirectAttributes redirectAttributes) {
+        // 서비스 호출 및 업데이트 로직 구현
+        boolean isUpdated = memberService.updateProfile(member);
+
+        if (isUpdated) {
+            session.setAttribute("loginUser", member); // 세션 갱신
+            redirectAttributes.addFlashAttribute("message", "프로필이 성공적으로 업데이트되었습니다.");
+            return "redirect:/member/profile"; // 성공 시 리다이렉트
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "프로필 업데이트에 실패했습니다.");
+            return "redirect:/member/profile";
+        }
+    }
+
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -207,7 +224,7 @@ public class MemberController {
             e.printStackTrace();
         }
         
-        return "redirect:/member/profile";
+        return "redirect:/member/profile_edit";
     }
 
 }
