@@ -46,7 +46,7 @@
                    <form method="post" action="${pageContext.request.contextPath}/community/write" class="post-form">
 
                         <!-- Hidden input for USER_ID -->
-                        <input type="hidden" name="userNo" value="${loginUser.userNo}">
+                        <input type="hidden" name="userId" value="${loginUser.userId}">
                         <!-- 카테고리, 제목, 내용 등 게시글 관련 정보 입력 -->
                         <div class="post-form-container">
                             <div class="post-form-header">
