@@ -30,6 +30,7 @@
 			<form
 				action="${pageContext.request.contextPath}/healthReservation/submitReservation"
 				method="post">
+				<input type="hidden" name="resDate" value="${param.resDate}">
 				<input type="hidden" name="userNo" value="${param.userNo}">
 				<input type="hidden" name="patientName" value="${param.patientName}">
 				<input type="hidden" name="patientBirthday"

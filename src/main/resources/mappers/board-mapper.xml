@@ -4,20 +4,21 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boardMapper">
-	<resultMap type="Board" id="boardResult">
-		<result column="BOARD_NO" property="boardNo" />
-		<result column="BOARD_TYPE" property="boardType" /> <!-- BOARD_TYPE 컬럼을 boardType 필드에 매핑 -->
-		<result column="BOARD_TITLE" property="boardTitle" />
-		<result column="BOARD_WRITER" property="userId" /> <!-- MEMBER 테이블에서 가져온 작성자의 USER_ID를 매핑 -->
-		<result column="BOARD_CONTENT" property="boardContent" />
-		<result column="ENROLL_DATE" property="enrollDate" />
-		<result column="MODIFIED_DATE" property="modifiedDate" />
-		<result column="BOARD_VIEWS" property="boardViews" />
-		<result column="BOARD_CATEGORY" property="boardCategory" />
-		<result column="STATUS" property="status" />
-		
-		
-	</resultMap>
+<resultMap type="Board" id="boardResult">
+    <result column="BOARD_NO" property="boardNo" />
+    <result column="BOARD_TYPE" property="boardType" />
+    <result column="BOARD_TITLE" property="boardTitle" />
+    <result column="USER_NO" property="userNo" /> <!-- 작성자의 고유 번호 -->
+    <result column="BOARD_WRITER" property="boardWriter" /> <!-- 작성자의 ID (조회 시) -->
+    <result column="BOARD_CONTENT" property="boardContent" />
+    <result column="ENROLL_DATE" property="enrollDate" />
+    <result column="MODIFIED_DATE" property="modifiedDate" />
+    <result column="BOARD_VIEWS" property="boardViews" />
+    <result column="BOARD_CATEGORY" property="boardCategory" />
+    <result column="STATUS" property="status" />
+</resultMap>
+
+
 
 
 	<!-- 게시글 총 갯수 조회 -->
@@ -52,53 +53,63 @@
 	</select>
 
 	<!-- 게시글 조회수 증가 -->
+	<!-- 게시글 조회수 증가 -->
 	<update id="increaseCount">
-		UPDATE BOARD SET BOARD_VIEWS = BOARD_VIEWS + 1 WHERE
-		BOARD_NO =
-		#{bno}
+	    UPDATE BOARD
+	    SET BOARD_VIEWS = 'BV' || LPAD(TO_NUMBER(SUBSTR(BOARD_VIEWS, 3)) + 1, 5, '0')
+	    WHERE BOARD_NO = #{boardNo}
 	</update>
 
+
 	<!-- bno로 게시글 조회 -->
-	<select id="selectBoard" resultMap="boardResult">
-		SELECT
-		B.BOARD_NO,
-		B.BOARD_CATEGORY,
-		B.BOARD_TITLE,
-		B.USER_NO,
-		M.USER_ID AS BOARD_WRITER,  <!-- 작성자의 ID를 가져옵니다 -->
-		B.BOARD_CONTENT,
-		B.BOARD_VIEWS,
-		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS "ENROLL_DATE"
-		FROM
-		BOARD B
-		JOIN
-		MEMBER M ON B.USER_NO = M.USER_NO
-		WHERE
-		B.STATUS = 'Y'
-		AND B.BOARD_NO = #{bno}
-	</select>
+<select id="selectBoard" resultMap="boardResult">
+    SELECT
+        B.BOARD_NO,
+        B.BOARD_TYPE,
+        B.BOARD_TITLE,
+        B.USER_NO,
+        M.USER_ID AS BOARD_WRITER, <!-- 작성자의 ID -->
+        B.BOARD_CONTENT,
+        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+        B.BOARD_VIEWS,
+        B.BOARD_CATEGORY,
+        B.STATUS
+    FROM
+        BOARD B
+    JOIN
+        MEMBER M ON B.USER_NO = M.USER_NO
+    WHERE
+        B.STATUS = 'Y'
+        AND B.BOARD_NO = #{bno}
+</select>
+
+
 
 
 
 
 	<!-- 게시글 추가 -->
-	<insert id="insertBoard" parameterType="Board">
+	
+<insert id="insertBoard" parameterType="Board">
     INSERT INTO BOARD (
         USER_NO,
         BOARD_TITLE,
         BOARD_CONTENT,
-        BOARD_CATEGORY,
-        STATUS
+        BOARD_CATEGORY
     )
     VALUES (
         #{userNo},
         #{boardTitle},
         #{boardContent},
-        #{boardCategory},
-        'Y'
+        #{boardCategory}
     )
-    RETURNING BOARD_NO INTO #{boardNo}
+    <selectKey keyProperty="boardNo" resultType="java.lang.String" order="AFTER">
+			select 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
+	</selectKey>
 </insert>
+
+
 
 
 

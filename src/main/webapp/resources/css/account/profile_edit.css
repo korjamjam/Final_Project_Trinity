@@ -133,3 +133,14 @@ body {
     transition: background-color 0.3s;
     margin: 10px 0 0;
 }
+.edit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

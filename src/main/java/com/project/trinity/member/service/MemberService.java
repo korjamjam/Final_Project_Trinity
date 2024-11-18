@@ -16,5 +16,7 @@ public interface MemberService {
 
 	Member findByUserId(String userId);
 
+	boolean updateProfile(Member member);
+
 
 }
