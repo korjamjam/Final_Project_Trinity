@@ -6,7 +6,6 @@
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 20px;
 }
 
 /* 모바일에서 사이드바와 빈 공간 숨김 */
@@ -90,6 +89,19 @@
     padding: 10px;
     text-align: center;
     vertical-align: middle;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden;    /* 넘치는 내용 숨김 */
+    text-overflow: clip; /* 기본 동작 (말줄임표 없음) */
+}
+
+
+/* 제목 열에 말줄임표 추가 */
+.notice-table th.title-header, 
+.notice-table td.title {
+    width: 55%;            /* 명확히 너비 설정 */
+    text-overflow: ellipsis; /* 말줄임표 추가 */
+    white-space: nowrap;     /* 줄바꿈 방지 */
+    overflow: hidden;        /* 넘치는 내용 숨김 */
 }
 
 .notice-table th {
@@ -100,9 +112,17 @@
 
 /* 모바일에서 작성자 숨김 */
 @media (max-width: 768px) {
-    .notice-table th.author-header,
-    .notice-table td.author {
-        display: none; /* 작성자 열 숨김 */
+	  #mainWrapper {
+        padding: 20px;
+        width: 100%; /* #mainContent와 동일하게 설정 */
+        box-sizing: border-box; /* 패딩 포함 */
+        margin: 0 auto;
+    }
+    .notice-table th.author-header, /* 작성자 열 헤더 */
+    .notice-table td.author,       /* 작성자 데이터 */
+    .notice-table th.date-header,  /* 작성일 열 헤더 */
+    .notice-table td.date {        /* 작성일 데이터 */
+        display: none; /* 모바일에서 숨김 */
     }
 
     #pageSearchContainer {
@@ -157,6 +177,20 @@
 
     .round-button.search-button:hover {
         background-color: #5aa33c;
+    }
+    .notice-table th.category-header, 
+    .notice-table td.category {
+        width: 20%; /* 카테고리 열 */
+    }
+
+    .notice-table th.title-header, 
+    .notice-table td.title {
+        width: 55%; /* 제목 열 */
+    }
+
+    .notice-table th.views-header, 
+    .notice-table td.views {
+        width: 20%; /* 조회수 열 */
     }
 }
 
