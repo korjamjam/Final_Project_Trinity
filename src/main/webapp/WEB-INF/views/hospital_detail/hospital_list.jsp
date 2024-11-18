@@ -39,9 +39,9 @@
 	
     <br><br>
 
-    <div class="list_wrapper">
+    <div class="hospitalList_list_wrapper">
         <!-- searchBar -->
-        <div class="list_searchBar">
+        <div class="hospitalList_list_searchBar">
             <input type="text">
             <button>병원 검색</button>
         </div>
@@ -49,30 +49,33 @@
         <br><br>
 
         <!-- order by -->
-        <div class="list_order">
-            <select id="subject" name="subject" class="list_subject">
-                <option value="listAll" selected>전체</option>
-                <option value="listChild">소아과</option>
-                <option value="listMother">산부인과</option>
-            </select>
-            <select id="order" name="order" class="list_orderBy">
-                <option value="ASC">글자순</option>
-                <option value="relevant">정확도순</option>
-                <option value="popular">인기순</option>
-            </select>
+        <div class="hospitalList_list_order_wrapper">
+            <div class="hospitalList_list_order">
+                <select id="hospitalList_subject" name="hospitalList_subject" class="hospitalList_list_subject">
+                    <option value="listAll" selected>전체</option>
+                    <option value="listChild">소아과</option>
+                    <option value="listMother">산부인과</option>
+                </select>
+                <select id="hospitalList_order" name="hospitalList_order" class="hospitalList_list_orderBy">
+                    <option value="ASC">글자순</option>
+                    <option value="relevant">정확도순</option>
+                    <option value="popular">인기순</option>
+                </select>
+            </div>
         </div>
 
-        <hr>
-        <br>
+
+        <div class="hospitalList_list_wrapper2">
+            <hr>
+            <br>
 		
-        <!-- list -->
-        <div>
+            <!-- list -->
             <c:forEach var="h" items="${list}">
-                <div class="list">
-                    <div class="list_title"><a href="${pageContext.request.contextPath}/hospital/detail?hosNo=${h.hosNo}"><p>${h.hosName }</p></a></div>
-                    <div class="list_openTime">평일 ${h.hosStartTime1} ~ ${h.hosEndTime1} | <p>${h.department }</p></div>
-                    <div class="list_address"><p>${h.hosAddress}</p></div>
-                    <div class="list_tag">
+                <div class="hospitalList_list">
+                    <div class="hospitalList_list_title"><a href="${pageContext.request.contextPath}/hospital/detail?hosNo=${h.hosNo}"><p>${h.hosName }</p></a></div>
+                    <div class="hospitalList_list_openTime">평일 ${h.hosStartTime1} ~ ${h.hosEndTime1} | <p>${h.department }</p></div>
+                    <div class="hospitalList_list_address"><p>${h.hosAddress}</p></div>
+                    <div class="hospitalList_list_tag">
                         <button>어린이 국가예방접종</button>
                         <button>영유아 검진</button>
                         <button>주차장</button>
