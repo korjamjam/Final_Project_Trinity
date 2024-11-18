@@ -7,11 +7,9 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #fff; 
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
 }
 
 /* 컨테이너 스타일 */
@@ -22,22 +20,21 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 100px auto;
     text-align: center;
 }
 
-.title {
+.container h1 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
-    margin-top: 60px;
     margin-bottom: 15px;
 }
 
-.subtitle {
+.container p {
     font-size: 14px;
     color: #666;
-    margin-top: 0;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 /* 아코디언 스타일 */
@@ -56,6 +53,12 @@ body {
     color: #333;
     cursor: pointer;
     text-align: left;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.accordion-header.active {
+    background-color: #8CCF4E;
+    color: white;
 }
 
 .accordion-content {
@@ -87,8 +90,8 @@ body {
     width: 100%;
 }
 
-/* 이메일 선택 그룹 */
-.select-group {
+/* 이메일 입력 섹션 */
+.email-group .email-inputs {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -96,8 +99,8 @@ body {
     width: 100%;
 }
 
-.select-group input[type="text"],
-.select-group select {
+.email-group input[type="text"],
+.email-group select {
     flex: 1;
     padding: 10px;
     font-size: 14px;
@@ -105,13 +108,13 @@ body {
     border-radius: 5px;
 }
 
-.select-group span {
+.email-group span {
     font-size: 14px;
     color: #555;
 }
 
-/* 제출 버튼 스타일 */
-.submit-btn {
+/* 제출 버튼 */
+.submit-button {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -120,26 +123,59 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     margin-top: 15px;
 }
 
-.submit-btn:hover {
+.submit-button:hover {
     background-color: #72b93f;
 }
 
+.submit-button:active {
+    background-color: #5fa933;
+    transform: scale(0.98);
+}
+
 /* 도움 링크 스타일 */
-.help-link {
+.footer-text {
     margin-top: 10px;
     font-size: 14px;
     color: #666;
 }
 
-.help-link a {
+.footer-text a {
     color: #4CAF50;
     text-decoration: none;
 }
 
-.help-link a:hover {
+.footer-text a:hover {
     text-decoration: underline;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .email-group .email-inputs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .email-group input[type="text"],
+    .email-group select {
+        width: 100%;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .accordion-header {
+        font-size: 14px;
+    }
 }

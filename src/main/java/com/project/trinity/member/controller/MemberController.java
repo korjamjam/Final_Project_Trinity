@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -189,4 +192,22 @@ public class MemberController {
     public String repairemailPage() {
         return "account/repair_email";
     }
+    
+    @PostMapping("/member/update_profile")
+    public String updateProfile(@RequestParam("profileImage") MultipartFile file, HttpSession session) {
+        // 파일 저장 로직 구현
+        String fileName = file.getOriginalFilename();
+        String savePath = "path/to/save/" + fileName;
+        
+        try {
+            file.transferTo(new File(savePath));
+            // 저장 경로를 DB에 업데이트
+            // session에 저장된 유저 정보 갱신
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return "redirect:/member/profile";
+    }
+
 }

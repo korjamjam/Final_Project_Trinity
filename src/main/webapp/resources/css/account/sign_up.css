@@ -1,4 +1,4 @@
-/* �⺻ ��Ÿ�� */
+/* 占썩본 占쏙옙타占쏙옙 */
 body {
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -46,7 +46,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    height: 42px; /* ��ư�� ������ ���̷� ���� */
+    height: 42px; /* 占쏙옙튼占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싱뤄옙 占쏙옙占쏙옙 */
 }
 
 .email-group {
@@ -69,14 +69,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    height: 42px; /* ��ư�� ������ ���̷� ���� */
-    flex: 1 1 120px; /* �ּ� �ʺ� �������� �� ���� */
+    height: 42px; /* 占쏙옙튼占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싱뤄옙 占쏙옙占쏙옙 */
+    flex: 1 1 120px; /* 占쌍쇽옙 占십븝옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙 */
 }
 
 .email-group span {
     font-size: 14px;
     color: #777;
-    padding: 0 5px; /* ���� ���� */
+    padding: 0 5px; /* 占쏙옙占쏙옙 占쏙옙占쏙옙 */
 }
 
 .check-button,
@@ -88,7 +88,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
-    height: 42px; /* �Է� �ʵ�� ������ ���̷� ���� */
+    height: 42px; /* 占쌉뤄옙 占십듸옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占싱뤄옙 占쏙옙占쏙옙 */
 }
 
 .check-button:hover,
@@ -113,7 +113,7 @@ body {
     background-color: #388E3C;
 }
 
-/* 768px ���� ȭ�� (�º���) */
+/* 768px 占쏙옙占쏙옙 화占쏙옙 (占승븝옙占쏙옙) */
 @media (max-width: 768px) {
     .signup-container {
         padding: 20px;
@@ -138,11 +138,11 @@ body {
     .address-button {
         padding: 8px 15px;
         font-size: 13px;
-        height: 38px; /* �Է� �ʵ�� ������ ���̷� ���� */
+        height: 38px; /* 占쌉뤄옙 占십듸옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占싱뤄옙 占쏙옙占쏙옙 */
     }
 }
 
-/* ����� (500px ����) */
+/* 占쏙옙占쏙옙占� (500px 占쏙옙占쏙옙) */
 @media (max-width: 500px) {
     body {
         padding: 10px;
@@ -184,7 +184,7 @@ body {
         font-size: 14px;
         box-sizing: border-box;
         margin-top: 5px;
-        height: 42px; /* �Է� �ʵ�� ������ ���̷� ���� */
+        height: 42px; /* 占쌉뤄옙 占십듸옙占� 占쏙옙占쏙옙占쏙옙 占쏙옙占싱뤄옙 占쏙옙占쏙옙 */
     }
 
     .email-group {
@@ -207,7 +207,7 @@ body {
     }
 }
 
-/* ����ũž */
+/* 占쏙옙占쏙옙크탑 */
 @media (min-width: 1024px) {
     .signup-container {
         max-width: 600px;
