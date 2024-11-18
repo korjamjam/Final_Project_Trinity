@@ -75,7 +75,7 @@
     }
 
     function navigateToLogin() {
-        window.location.href = "login_main.me"; // 로그인 페이지로 이동
+        window.location.href = "${pageContext.request.contextPath}/views/account/login.jsp"; // 로그인 페이지로 이동
     }
 </script>
 
