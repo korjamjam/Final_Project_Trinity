@@ -1,15 +1,10 @@
 package com.project.trinity.healthreservation.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,34 +30,10 @@ public class HealthReservationController {
 
     // 백신 예약 페이지 2로 이동
     @PostMapping("/vaccinepage2")
-    public String vaccineReservation2(@ModelAttribute Reservation reservation, Model model) {
-    	//예약 데이터 확인 디버깅
-    	System.out.println("Received Reservation in vaccineReservation2: " + reservation);
-    	
-        model.addAttribute("reservation", reservation);
+    public String vaccineReservation2() {
         return "health_reservation/vaccine_reservation2";
     }
 
-    @PostMapping("/submitReservation")
-    public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
-        System.out.println("Received Reservation: " + reservation);
-
-        String userNo = (String) session.getAttribute("userNo");
-        if (userNo == null) {
-            throw new IllegalArgumentException("로그인된 사용자 정보가 없습니다.");
-        }
-
-        reservation.setUserNo(userNo);
-        
-        // 디버깅: USER_NO와 HOS_NO 출력
-        System.out.println("USER_NO: " + reservation.getUserNo());
-        System.out.println("HOS_NO: " + reservation.getHosNo());
-        System.out.println("Reservation Data: " + reservation);
-        
-        healthReservationService.saveReservation(reservation);
-
-        return "redirect:/healthReservation/vaccinepage1";
-    }
 
 	@GetMapping("/guide")
 	public String healthReservationGuide() {
