@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/health_reservation/health_reservation.css">
     
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation_wrap">
         <div class="health_reservation_container">
-            <form action="main" method="post">
+            <form action="reservation2" method="post">
                 <div id="health_reservation_title">
                     국가 건강 검진 예약
                 </div>
@@ -26,40 +27,52 @@
                     </div>
                     <p>검진자(성명)</p>
                         <div class="health_reservation1_content input_name">
-                            <input type="text" required id="reservation_user_name">
+                            <input type="text" required name="reservation_user_name">
                         </div>
                     <p>주민번호</p>
                     <div class="health_reservation1_content input_id_num">
-                        <input type="text" required> - <input type="password" maxlength="1" required id="reservation_user_num">
+                        <input type="text" required name="reservation_user_num1"> - <input type="password" maxlength="1" required name="reservation_user_num2">
                         <p>******</p>
                     </div>
                     <p>핸드폰</p>
                     <div class="health_reservation1_content input_phone">
-                        <select name="" id="">
-                            <option value="">010</option>
-                            <option value="">011</option>
-                            <option value="">012</option>
-                            <option value="">013</option>
+                        <select name="reservation_user_phone1">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="012">012</option>
+                            <option value="013">013</option>
                         </select>
-                        <input type="text" placeholder=" -없이 입력하세요" required id="reservation_user_phone">
+                        <input type="text" placeholder=" -없이 입력하세요" required name="reservation_user_phone2">
                     </div>
                     <p>이메일</p>
                     <div class="health_reservation1_content input_email">
-                        <input type="text" id="reservation_user_email"> @
-                        <select name="" id="">
-                            <option value="">naver.com</option>
-                            <option value="">daum.net</option>
-                            <option value="">gmail.com</option>
-                            <option value="">hanmail.com</option>
+                        <input type="text" name="reservation_user_email1"> @
+                        <select name="reservation_user_email2" id="">
+                            <option value="naver.com">naver.com</option>
+                            <option value="daum.net">daum.net</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="hanmail.com">hanmail.com</option>
                         </select>
                     </div>
                     <p>주소</p>
-                    <div class="health_reservation1_content input_address">
-                        <input type="text" disabled>
-                        <button type="button">주소찾기</button>
-                    </div>
-                    <input type="text" disabled>
-                    <input type="text" placeholder=" 상세주소">
+					<div class="health_reservation1_content input_address">
+						<input type="text" id="sample6_postcode" name="postcode"
+							placeholder="우편번호">
+						<button type="button" class="address-button"
+							onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+					</div>
+					<div class="health_reservation1_content input_address">
+						<input type="text" id="sample6_address" name="address"
+							placeholder="주소">
+					</div>
+					<div class="health_reservation1_content input_address">
+						<input type="text" id="sample6_extraAddress" name="extraAddress"
+							placeholder="참고사항">
+					</div>
+					<div class="health_reservation1_content input_address">
+						<input type="text" id="sample6_detailAddress" name="detailAddress"
+							placeholder="상세주소">
+					</div>
                 </div>
                 <div class="health_reservation1_content2">
                     <div id="reservation_content_title">
@@ -68,8 +81,8 @@
                     <div class="use_tos">
                         <p> 개인정보 수집 및 이용에 동의 하십니까?</p>
                         <label for="">
-                            <input type="radio" name="use_tos_ans" value="yes">동의함
-                            <input type="radio" name="use_tos_ans" value="no">동의 안함
+                            <input type="radio" name="use_tos_ans1" value="yes">동의함
+                            <input type="radio" name="use_tos_ans1" value="no">동의 안함
                         </label>
                     </div>
                     <p>
@@ -106,8 +119,8 @@
                     <div class="use_tos">
                         <p>국가건강검진 대상 조회에 동의하십니까?</p>
                         <label for="">
-                            <input type="radio" name="use_tos_ans" value="yes">동의함
-                            <input type="radio" name="use_tos_ans" value="no">동의 안함
+                            <input type="radio" name="use_tos_ans2" value="yes">동의함
+                            <input type="radio" name="use_tos_ans2" value="no">동의 안함
                         </label>
                     </div>
                 </div>
@@ -117,6 +130,51 @@
             </form>
         </div>
     </div>
+    <script>
+			function sample6_execDaumPostcode() {
+				new daum.Postcode(
+						{
+							oncomplete : function(data) {
+								var addr = '';
+								var extraAddr = '';
+
+								if (data.userSelectedType === 'R') {
+									addr = data.roadAddress;
+								} else {
+									addr = data.jibunAddress;
+								}
+
+								if (data.userSelectedType === 'R') {
+									if (data.bname !== ''
+											&& /[동|로|가]$/g.test(data.bname)) {
+										extraAddr += data.bname;
+									}
+									if (data.buildingName !== ''
+											&& data.apartment === 'Y') {
+										extraAddr += (extraAddr !== '' ? ', '
+												+ data.buildingName
+												: data.buildingName);
+									}
+									if (extraAddr !== '') {
+										extraAddr = ' (' + extraAddr + ')';
+									}
+									document
+											.getElementById("sample6_extraAddress").value = extraAddr;
+
+								} else {
+									document
+											.getElementById("sample6_extraAddress").value = '';
+								}
+
+								document.getElementById('sample6_postcode').value = data.zonecode;
+								document.getElementById("sample6_address").value = addr;
+								document
+										.getElementById("sample6_detailAddress")
+										.focus();
+							}
+						}).open();
+			}
+		</script>
     <!-- footer -->
 	<jsp:include page="../common/main_footer.jsp"/>
 </body>

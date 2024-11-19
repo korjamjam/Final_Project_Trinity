@@ -31,7 +31,7 @@
 					</div>
 					<p>주민번호</p>
 					<div class="health_reservation1_content input_id_num">
-						<input type="text" name="patientBirthday" required>
+						<input type="text" name="patientBirthday" maxlength="6" required>
 						<!-- YYMMDD 형식으로 입력 -->
 						- <input type="password" maxlength="1">
 						<p>******</p>
@@ -43,17 +43,17 @@
 							<option value="">011</option>
 							<option value="">012</option>
 							<option value="">013</option>
-						</select> <input type="text" name="phoneNumber" required
+						</select> <input type="text" name="phoneNumber" maxlength="8" required
 							placeholder=" -없이 입력하세요">
 					</div>
 					<p>이메일</p>
 					<div class="health_reservation1_content input_email">
 						<input type="text" name="email" required> @ <select
 							name="emailDomain">
-							<option value="">naver.com</option>
-							<option value="">daum.net</option>
-							<option value="">gmail.com</option>
-							<option value="">hanmail.com</option>
+							<option value="naver.com">naver.com</option>
+							<option value="daum.net">daum.net</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="hanmail.com">hanmail.com</option>
 						</select>
 					</div>
 					<p>주소</p>

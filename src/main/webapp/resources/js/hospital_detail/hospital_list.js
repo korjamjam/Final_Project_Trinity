@@ -1,33 +1,87 @@
-function checkVisible( element, check = 'above' ) {
+let contextPath = "";
+
+// 무한 스크롤 데이터 로드 여부
+let isVisible = false;
+let page = 2; // 첫 페이지는 이미 로드되었으므로 2부터 시작
+
+// 초기 설정 및 이벤트 등록
+function hospitalListInit(path){
+    contextPath = path;
+    // 스크롤 이벤트 등록 (무한 스크롤)
+    $(window).on('scroll', func);
+
+    // 첫 페이지는 이미 로드되어 있으므로 func 호출하지 않음
+};
+
+// 특정 요소가 화면에 보이는지 확인하는 함수
+function checkVisible(element, check = 'above') {
     const viewportHeight = $(window).height(); // Viewport Height
     const scrolltop = $(window).scrollTop(); // Scroll Top
-    const y = $(element).offset().top;
-    const elementHeight = $(element).height();   
-    
-    // 반드시 요소가 화면에 보여야 할경우
-    if (check == "visible") 
-    	return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
+    const y = $(element).offset().top; // Element Top
+    const elementHeight = $(element).height(); // Element Height
+
+    if (check === "visible") 
+        return ((y < (viewportHeight + scrolltop)) && (y > (scrolltop - elementHeight)));
         
-    // 화면에 안보여도 요소가 위에만 있으면 (페이지를 로드할때 스크롤이 밑으로 내려가 요소를 지나쳐 버릴경우)
-    if (check == "above") 
-    	return ((y < (viewportHeight + scrolltop)));
+    if (check === "above") 
+        return ((y < (viewportHeight + scrolltop)));
 }
 
-// 리소스가 로드 되면 함수 실행을 멈출지 말지 정하는 변수
-let isVisible = false;
+// 병원 목록을 추가하는 함수
+function addHospitalList(hospitals) {
+    hospitals.forEach(hospital => {
+        $('.hospitalList_wrapper').append(`
+            <div class="hospitalList_list_wrapper2">
+                <div class="hospitalList_list">
+                    <div class="hospitalList_listTitle">
+                        <a href="${contextPath}/hospital/detail?hosNo=${hospital.hosNo}">
+                            <p>${hospital.hosName}</p>
+                        </a>
+                    </div>
+                    <div class="hospitalList_listOpenTime">
+                        <span>평일 ${hospital.hosStartTime1} ~ ${hospital.hosEndTime1}</span>
+                        <span>${hospital.department}</span>
+                    </div>
+                    <div class="hospitalList_listAddress">
+                        <p>${hospital.hosAddress}</p>
+                    </div>
+                    <div class="hospitalList_listTag">
+                        <button>어린이 국가예방접종</button>
+                        <button>영유아 검진</button>
+                        <button>주차장</button>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+}
 
-// 이벤트에 등록할 함수
+// AJAX 요청으로 데이터 로드
 const func = function () {
-    if ( !isVisible && checkVisible('#loadingLine') ) {
-        alert("이곳에 ajax 적용");
-        console.log("이곳에 ajax 적용");
-        
+    if (!isVisible && checkVisible('#loadingLine')) {
         isVisible = true;
-    }
-    
-    // 만일 리소스가 로드가 되면 더이상 이벤트 스크립트가 있을 필요가 없으니 삭제
-    isVisible && window.removeEventListener('scroll', func);
-}
 
-// 스크롤 이벤트 등록
-window.addEventListener('scroll', func);
+        console.log(page);
+
+        $.ajax({
+            url: contextPath + `/hospital/list/api`, // 데이터 API 경로
+            type: "GET",
+            data: { page: page, limit: 10 }, // 현재 페이지와 제한 개수
+            dataType: "json",
+            success: function(response) {
+                if (response && response.length > 0) {
+                    addHospitalList(response); // 데이터를 병원 리스트에 추가
+                    page++; // 페이지 증가
+                    isVisible = false; // 추가 요청 가능
+                } else {
+                    console.log("더 이상 데이터가 없습니다.");
+                    $('#loadingLine').hide(); // 더 이상 데이터가 없으면 `loadingLine` 숨김
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(url);
+                console.log("데이터를 가져오는데 실패했습니다:", error);
+            }
+        });
+    }
+};

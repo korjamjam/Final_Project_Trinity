@@ -86,9 +86,25 @@ public class BoardController {
 
 	// 글쓰기 페이지 이동 매핑
 	@GetMapping("/write")
-	public String showSummernote() {
-		return "community/summernote";
+	public String showSummernote(@RequestParam(name = "type", required = false, defaultValue = "자유게시판") String type, 
+	                              Model m) {
+	    // 기본 카테고리 설정
+	    String boardCategory;
+
+	    if ("meditalk".equals(type)) {
+	        boardCategory = "메디톡";
+	    } else if ("event".equals(type)) {
+	        boardCategory = "이벤트게시판";
+	    } else {
+	        boardCategory = "자유게시판";
+	    }
+
+	    // 모델에 카테고리 추가
+	    m.addAttribute("boardCategory", boardCategory);
+
+	    return "community/summernote"; // JSP 페이지로 이동
 	}
+
 
 	@RequestMapping("/list.bo")
 	public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
@@ -104,66 +120,47 @@ public class BoardController {
 	    return "community/board";
 	}
 
-	@PostMapping("/boardDetail")
-	public String selectBoard(@RequestParam("bno") String bno, Model model) {
-	    // 조회수 증가 메서드 호출
-	    boardService.increaseCount(bno);
-	    
-	    // 게시글 조회 메서드 호출
+	@GetMapping("/boardDetail")
+	public String selectBoard(@RequestParam("bno") String bno, Model m) {
+	    // 게시글 조회
 	    Board b = boardService.selectBoard(bno);
-	    if (b != null) {
-	        model.addAttribute("b", b);
-	        return "community/community_board_detail";
-	    } else {
-	        model.addAttribute("errorMsg", "게시글이 존재하지 않습니다.");
+
+	    if (b != null) { // 게시글이 존재할 경우
+	        m.addAttribute("b", b);
+	        m.addAttribute("boardCategory", b.getBoardCategory()); // 카테고리 전달
+	        return "community/community_board_detail"; // 상세 페이지로 이동
+	    } else { // 게시글이 없을 경우
+	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
 	    }
 	}
 
+
 	@PostMapping("/write")
 	public String insertBoard(Board b, HttpSession session, Model m) {
-	    // 디버깅 로그
-	    System.out.println("세션 상태: " + session.getAttribute("loginUser"));
-	  
-
-	    // 필수 입력값 검증
-	    if (b == null || b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
-	        m.addAttribute("errorMsg", "제목은 필수 입력 항목입니다.");
-	        return "/common/errorPage";
-	    }
-
 	    // 로그인 사용자 정보 가져오기
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    if (loginUser == null) {
+
+	    if (loginUser == null) { // 로그인 여부 확인
 	        m.addAttribute("errorMsg", "로그인 후에 게시글을 작성할 수 있습니다.");
 	        return "/common/errorPage";
 	    }
 
-	    // 작성자 정보 설정
-	    System.out.println("Before setting boardWriter: " + b);
-	    b.setBoardWriter(loginUser.getUserId());
+	    // 게시글 작성자 정보 설정
 	    b.setUserNo(loginUser.getUserNo());
-	   
+	    b.setBoardWriter(loginUser.getUserId());
 
 	    // 게시글 저장
 	    int result = boardService.insertBoard(b, loginUser.getUserNo());
-	    System.out.println("게시글 번호: " + b.getBoardNo()); // 추가 디버
-	    if (result > 0) { // 성공 시 상세보기 페이지로 이동하며 게시글 데이터 전달
-	        Board savedBoard = boardService.selectBoard(b.getBoardNo());
-	        System.out.println("Board 객체 상태: " + b);
-	        System.out.println("After setting boardWriter: " + b);
-	        if (savedBoard == null) {
-	            m.addAttribute("errorMsg", "게시글 저장 후 조회에 실패했습니다.");
-	            return "/common/errorPage";
-	        }
-	        m.addAttribute("b", savedBoard);
-	        session.setAttribute("alertMsg", "게시글 작성 성공");
-	        return "redirect:/community/community_board_detail?bno=" + savedBoard.getBoardNo();
+
+	    if (result > 0) { // 성공 시 상세 페이지로 리다이렉트
+	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
 	    } else { // 실패 시 에러 페이지로 이동
-	        m.addAttribute("errorMsg", "게시글 작성 실패");
+	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 	        return "/common/errorPage";
 	    }
 	}
+
 
 
   
