@@ -19,16 +19,6 @@ public class HealthReservationServiceImpl implements HealthReservationService {
     @Autowired
     private SqlSession sqlSession;
 
-    @Override
-    public void saveReservation(Reservation reservation) {
-        healthReservationDao.insertReservation(reservation);
-    }
-
-    @Override
-    public Reservation getReservationWithVaccine(int resNo) {
-        return healthReservationDao.selectReservationWithVaccine(resNo);
-    }
-
 	@Override
 	public int insertGuest(Guest guest) {
 		return healthReservationDao.insertGuest(guest);

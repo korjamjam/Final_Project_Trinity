@@ -24,17 +24,11 @@
         <div class="health_reservation1_container">
             <div class="health_reservation1_title">백신 예약</div>
             <form
-                action="${pageContext.request.contextPath}/healthReservation/submitReservation"
+                action="${pageContext.request.contextPath}/vaccineReservation/submitReservation"
                 method="post">
                 <!-- 숨겨진 데이터 -->
                 <input type="hidden" name="patientName" value="${param.patientName}">
     			<input type="hidden" name="patientBirthday" value="${param.patientBirthday}">
-    			<!--
-    			<input type="hidden" name="resDate" value="${param.resDate}">
-    			<input type="hidden" name="hosNo" value="${param.hosNo}">
-				<input type="hidden" name="phone" value="${param.phoneCode}-${param.phoneNumber}">
-				<input type="hidden" name="email" value="${param.email}@${param.emailDomain}">
-				-->
 				<input type="hidden" name="address" value="${param.address}">
 
                 <!-- 백신 종류 -->

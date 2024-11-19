@@ -23,7 +23,7 @@
 			<div class="health_reservation1_content">
 				<div id="reservation_content_title">1. 접종자 정보</div>
 				<form
-					action="${pageContext.request.contextPath}/healthReservation/vaccinepage2"
+					action="${pageContext.request.contextPath}/vaccineReservation/vaccinepage2"
 					method="post">
 					<p>접종자(성명)</p>
 					<div class="health_reservation1_content input_name">
@@ -56,7 +56,7 @@
 							<option value="hanmail.com">hanmail.com</option>
 						</select>
 					</div>
-					<p>주소</p>
+					<!-- <p>주소</p>
 					<div class="health_reservation1_content input_address">
 						<input type="text" id="sample6_postcode" name="postcode"
 							placeholder="우편번호">
@@ -74,7 +74,7 @@
 					<div class="health_reservation1_content input_address">
 						<input type="text" id="sample6_detailAddress" name="detailAddress"
 							placeholder="상세주소">
-					</div>
+					</div> -->
 					<div class="health_reservation1_content2">
 						<div id="reservation_content_title">2. 개인정보 수집 및 이용 동의</div>
 						<div class="health_reservation1_tos">
