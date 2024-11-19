@@ -380,7 +380,56 @@
 	justify-content: space-between; /* 오른쪽 끝에 정렬 */
 }
 
-:root { -
+:root { 
 	-button-font-size: 14px;
 	/* 이 페이지의 글씨 크기 */
+}
+.board-attachments {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.board-attachments h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.attachment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.attachment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.attachment-item:last-child {
+    border-bottom: none;
+}
+
+.attachment-name {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.download-button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
 }
