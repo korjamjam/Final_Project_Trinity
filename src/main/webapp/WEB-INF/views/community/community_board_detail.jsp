@@ -39,17 +39,21 @@
 			<div class="navigation-buttons">
 				<!-- 왼쪽 섹션: 수정, 삭제 -->
 				<div class="left-section">
-					<button class="white-button">수정</button>
-					<button class="white-button">삭제</button>
+					<button class="white-button"
+						onclick="location.href='edit.bo?bno=${b.boardNo}'">수정</button>
+					<button class="white-button" onclick="deletePost(${b.boardNo})">삭제</button>
+
 				</div>
 
 				<!-- 오른쪽 섹션: 목록 보기, 이전글, 다음글 -->
 				<div class="right-section">
 					<button class="round-button">목록 보기</button>
 					<div class="nav-links-group">
-						<span class="nav-text">&laquo; 이전글</span> <span class="nav-text">다음글
-							&raquo;</span>
+						<a href="detail.bo?bno=${prevBoardNo}" class="nav-text">&laquo;
+							이전글</a> <a href="detail.bo?bno=${nextBoardNo}" class="nav-text">다음글
+							&raquo;</a>
 					</div>
+
 				</div>
 			</div>
 
@@ -99,7 +103,7 @@
 							class="${sessionScope.loginUser != null && sessionScope.loginUser.userId == b.boardWriter ? 'highlight-user' : ''}">
 								${b.boardWriter} </span>일반회원&nbsp</td>
 						<td class="board-meta"><span>${b.enrollDate}</span> | <span>조회
-								149</span></td>
+								${b.boardViews }</span></td>
 					</tr>
 
 				</table>
@@ -109,6 +113,7 @@
 						<!-- 게시글 내용 -->
 						<div class="question-content">
 							${b.boardContent} <br> ...
+
 						</div>
 						<!-- 첨부파일 섹션 include -->
 						<c:if test="${not empty attachedFiles}">
@@ -170,7 +175,12 @@
                             }
                         });
                     });
-
+                    
+                    function deletePost(boardNo) {
+                        if (confirm("정말 삭제하시겠습니까?")) {
+                            location.href = `delete.bo?bno=${boardNo}`;
+                        }
+                    }
                 </script>
 
 	<footer>

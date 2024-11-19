@@ -22,6 +22,16 @@
     	(GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER, GST_ADDRESS)
     	VALUES
     	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_DATE(#{gstBirth}, 'YYMMDD'), #{gstGender}, #{gstAddress})
+    <selectKey keyProperty="gstNo" resultType="java.lang.String" order="AFTER">
+			select 'G' || SEQ_GST_NO.CURRVAL FROM DUAL
+	</selectKey>
     </insert>
-
+    
+    <select id="selectGstNo" resultType="string">
+	    SELECT gstNo 
+	    FROM guest 
+	    WHERE name = #{name} AND phone = #{phone}
+	    ORDER BY created_at DESC
+	    LIMIT 1
+	</select>
 </mapper>
