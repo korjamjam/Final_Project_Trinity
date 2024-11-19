@@ -1,5 +1,9 @@
 package com.project.trinity.member.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.trinity.member.model.vo.FileTable;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/member") // 모든 경로에 /member를 붙여 구조화
@@ -162,80 +159,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/update_profile")
-	public String updateProfile(@RequestParam(value = "profileImage", required = false) MultipartFile file,
-			@ModelAttribute Member member, HttpSession session, RedirectAttributes redirectAttributes) {
+	public String updateProfile(Member m, MultipartFile profileImage, HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		if (loginUser == null) {
-			redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
-			return "redirect:/member/login";
-		}
 
-		// 프로필 사진 처리
-		if (file != null && !file.isEmpty()) {
-			String originName = file.getOriginalFilename();
-			String changeName = System.currentTimeMillis() + "_" + originName;
-			String savePath = "C:/upload/" + changeName;
-
-			try {
-				file.transferTo(new File(savePath));
-
-				// 파일 정보를 DB에 저장
-				FileTable fileTable = new FileTable();
-				fileTable.setUserNo(loginUser.getUserNo());
-				fileTable.setOriginName(originName);
-				fileTable.setChangeName(changeName);
-
-				memberService.updateProfileImage(fileTable);
-				loginUser.setProfileImage(changeName);
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				redirectAttributes.addFlashAttribute("errorMessage", "프로필 이미지 저장에 실패했습니다.");
-				return "redirect:/member/profile_edit";
-			}
-		}
-
-		// 개인정보 수정 처리
-		loginUser.setUserName(member.getUserName());
-		loginUser.setBirthday(member.getBirthday());
-		loginUser.setEmail(member.getEmail());
-		loginUser.setGender(member.getGender());
-		loginUser.setAddress(member.getAddress());
-
-		boolean updateSuccess = memberService.updateProfile(loginUser);
-		if (updateSuccess) {
-			redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 업데이트되었습니다.");
-		} else {
-			redirectAttributes.addFlashAttribute("errorMessage", "정보 업데이트에 실패했습니다.");
-		}
-
-		session.setAttribute("loginUser", loginUser); // 세션 갱신
-		return "redirect:/member/profile_edit";
-	}
-
-	// 사용자 정보 업데이트
-	@PostMapping("/update_info")
-	public String updateUserInfo(@ModelAttribute Member member, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		if (loginUser == null) {
-			redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
-			return "redirect:/member/login";
-		}
-
-		loginUser.setUserName(member.getUserName());
-		loginUser.setBirthday(member.getBirthday());
-		loginUser.setEmail(member.getEmail());
-		loginUser.setGender(member.getGender());
-		loginUser.setAddress(member.getAddress());
-
-		boolean updateSuccess = memberService.updateProfile(loginUser);
-		if (updateSuccess) {
-			redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 업데이트되었습니다.");
-		} else {
-			redirectAttributes.addFlashAttribute("errorMessage", "정보 업데이트에 실패했습니다.");
-		}
-
+		
+		System.out.println(m);
+		System.out.println(loginUser);
+		System.out.println(profileImage);
+		
 		return "redirect:/member/profile_edit";
 	}
 
