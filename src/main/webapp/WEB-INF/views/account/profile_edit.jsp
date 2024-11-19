@@ -104,7 +104,7 @@
      function toggleEditSave() {
     const button = document.getElementById('edit-save-button');
     const form = document.getElementById('profile-form');
-    const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"]');
+    const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
 
     if (!isEditing) {
         // 수정 활성화
