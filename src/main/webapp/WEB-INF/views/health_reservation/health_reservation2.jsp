@@ -83,10 +83,15 @@
                         
                     </div>
                     <div class="health_reservation_normal_select">
-                        <select name="reservation_user_time" id="">
+                        <select name="timeOfDay" id="timeOfDaySelect" required>
                             <option value="" disabled hidden selected>시간 선택</option>
-                            <option value="오전">오전</option>
-                            <option value="오후">오후</option>
+                            <option value="morning">오전</option>
+                            <option value="afternoon">오후</option>
+                        </select>
+                    </div>
+                    <div class="health_reservation_normal_select" id="specificTimeSelectContainer">
+                        <select name="reservation_user_time" id="specificTimeSelect" required>
+                            <option value="" disabled hidden selected>구체적인 시간 선택</option>
                         </select>
                     </div>
                 </div>
@@ -127,6 +132,35 @@
             $("input[name='reservation_user_date']").val(reservation_user_date);
             }
           });
+
+          $('#timeOfDaySelect').on('change', function() {
+            const timeOfDay = $(this).val();
+            const specificTimeSelect = $('#specificTimeSelect');
+            specificTimeSelect.empty(); // 기존 옵션 제거
+
+            if (timeOfDay === 'morning') {
+                specificTimeSelect.append(new Option('9:00', '09:00'));
+                specificTimeSelect.append(new Option('9:30', '09:30'));
+                specificTimeSelect.append(new Option('10:00', '10:00'));
+                specificTimeSelect.append(new Option('10:30', '10:30'));
+                specificTimeSelect.append(new Option('11:00', '11:00'));
+                specificTimeSelect.append(new Option('11:30', '11:30'));
+            } else if (timeOfDay === 'afternoon') {
+                specificTimeSelect.append(new Option('1:00', '13:00'));
+                specificTimeSelect.append(new Option('1:30', '13:30'));
+                specificTimeSelect.append(new Option('2:00', '14:00'));
+                specificTimeSelect.append(new Option('2:30', '14:30'));
+                specificTimeSelect.append(new Option('3:00', '15:00'));
+                specificTimeSelect.append(new Option('3:30', '15:30'));
+                specificTimeSelect.append(new Option('4:00', '16:00'));
+                specificTimeSelect.append(new Option('4:30', '16:30'));
+                specificTimeSelect.append(new Option('5:00', '17:00'));
+                specificTimeSelect.append(new Option('5:30', '17:30'));
+            }
+
+            // 구체적인 시간 선택 박스를 보여줌
+            $('#specificTimeSelectContainer').show();
+        });
         });
     </script>
     <!-- footer -->
