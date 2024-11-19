@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.project.trinity.member.model.vo.Member" %>
+<%
+    Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +31,7 @@
                     </div>
                     <p>검진자(성명)</p>
                         <div class="health_reservation1_content input_name">
-                            <input type="text" required name="reservation_user_name">
+                            <input type="text" required name="reservation_user_name" value="<%= loginUser != null ? loginUser.getUserName() : "" %>">
                         </div>
                     <p>주민번호</p>
                     <div class="health_reservation1_content input_id_num">
@@ -37,21 +41,21 @@
                     <p>핸드폰</p>
                     <div class="health_reservation1_content input_phone">
                         <select name="reservation_user_phone1">
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="012">012</option>
-                            <option value="013">013</option>
+                            <option value="010" <%= loginUser != null && loginUser.getPhone().startsWith("010") ? "selected" : "" %>>010</option>
+                            <option value="011" <%= loginUser != null && loginUser.getPhone().startsWith("011") ? "selected" : "" %>>011</option>
                         </select>
-                        <input type="text" placeholder=" -없이 입력하세요" required name="reservation_user_phone2">
+                        <input type="text" placeholder=" -없이 입력하세요" 
+                        required name="reservation_user_phone2"
+                        value="<%= loginUser != null ? loginUser.getPhone().substring(3) : "" %>">
                     </div>
                     <p>이메일</p>
                     <div class="health_reservation1_content input_email">
-                        <input type="text" name="reservation_user_email1"> @
+                        <input type="text" name="reservation_user_email1"
+                        value="<%= loginUser != null ? loginUser.getEmail().split("@")[0] : "" %>"> @
                         <select name="reservation_user_email2" id="">
-                            <option value="naver.com">naver.com</option>
-                            <option value="daum.net">daum.net</option>
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="hanmail.com">hanmail.com</option>
+                            <option value="naver.com" <%= loginUser != null && loginUser.getEmail().endsWith("naver.com") ? "selected" : "" %>>naver.com</option>
+                            <option value="daum.net" <%= loginUser != null && loginUser.getEmail().endsWith("daum.net") ? "selected" : "" %>>daum.net</option>
+                            <option value="gmail.com" <%= loginUser != null && loginUser.getEmail().endsWith("gmail.com") ? "selected" : "" %>>gmail.com</option>
                         </select>
                     </div>
                     <p>주소</p>
@@ -63,7 +67,8 @@
 					</div>
 					<div class="health_reservation1_content input_address">
 						<input type="text" id="sample6_address" name="address"
-							placeholder="주소">
+							placeholder="주소"
+							value="<%= loginUser != null ? loginUser.getAddress() : "" %>">
 					</div>
 					<div class="health_reservation1_content input_address">
 						<input type="text" id="sample6_extraAddress" name="extraAddress"

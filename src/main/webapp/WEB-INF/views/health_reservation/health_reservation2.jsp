@@ -59,9 +59,9 @@
                     <div class="health_reservation_normal_select">
                         <select name="reservation_user_hospital" id="">
                             <option value="" disabled hidden selected>기관을 선택해주세요</option>
-                            <option value="">일반건강검진</option>
-                            <option value="">암검진</option>
-                            <option value="">생애주기전환검진</option>
+                            <option value="H1">Seoul Pediatrics Clinic</option>
+                            <option value="H2">Busan Kids Health</option>
+                            <option value="H3">Incheon Pediatric Center</option>
                         </select>
                     </div>
                 </div>

@@ -7,4 +7,5 @@ public interface HealthReservationService {
     void saveReservation(Reservation reservation);
     Reservation getReservationWithVaccine(int resNo);
 	int insertGuest(Guest guest);
+	String selectGuest(String gstName, String gstPhone);
 }
