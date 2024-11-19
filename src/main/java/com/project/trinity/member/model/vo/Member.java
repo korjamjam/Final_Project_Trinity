@@ -14,7 +14,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
 public class Member {
     private String userNo;
     private String userId;
@@ -36,11 +35,5 @@ public class Member {
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
-
-	public void setProfileImage(String changeName) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

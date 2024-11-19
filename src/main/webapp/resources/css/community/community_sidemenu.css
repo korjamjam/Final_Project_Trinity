@@ -1,5 +1,5 @@
 .community-sidemenu {
-	min-width: 140px;
+	min-width: 150px;
 	max-width: 160px;
 	width: 100%;
 	padding: 10px;
@@ -23,26 +23,30 @@
 	table-layout: fixed;
 }
 
-
-
-.menu-table th,
-.menu-table td {
-	padding:  10px 5px 10px 10px;
+.menu-table th{
+	width: 75%; /* `tr`의 70% */
+	padding:  18px 5px 15px 15px;
 	background-color: #fff;
 	font-weight: normal;
 	border-radius: 0;
 	/* 개별 셀의 둥근 모서리 제거 */
+	text-align: left;
+	white-space: nowrap;
 }
 
-.menu-table th {
-	width: 70%;
-	text-align: center;
-}
+
 
 .menu-table td {
-	width: 30%;
+	width: 25%; /* `tr`의 30% */
+	padding:  10px 0;
+	background-color: #fff;
+	font-weight: normal;
+	border-radius: 0;
+	/* 개별 셀의 둥근 모서리 제거 */
 	text-align: center;
 }
+
+
 
 /* 링크 스타일 */
 .menu-table a {
@@ -51,8 +55,6 @@
 	color: #333;
 	text-decoration: none;
 	font-size: 14px;
-	padding: 10px 5px;
-	/* 내부 여백 조정 */
 }
 
 /* Sidebar 메뉴 Hover 효과 */
@@ -71,10 +73,11 @@
 	/* 밑줄 제거 */
 }
 
-/* 화살표 스타일 */
-.arrow {
-	color: #6cc24a;
-	font-weight: bold;
+
+.menu-table .arrow {
+    font-size: 1.5em; /* 화살표 크기 키움 */
+    color: #6cc24a; /* 화살표 색상 (원하는 색상으로 변경 가능) */
+    vertical-align: middle; /* 텍스트와 수직 중앙 정렬 */
 }
 
 
