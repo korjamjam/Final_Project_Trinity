@@ -19,7 +19,6 @@ public class PageInfo {
 	int pageLimit; //페이지 하단에 보여질 페이징바의 수 
 	int boardLimit; //한 페이지내에 보여질 게시글 최대갯수 
 	//위 4개의 값을 기준으로 아래 3개의 값을 구할 수 있음
-	
 	int maxPage; //가장 마지막 페이지(총 페이지의 수)
 	int startPage; //페이징바의 시작 수
 	int endPage; //페이징방의 마지막 끝수
