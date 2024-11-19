@@ -13,12 +13,16 @@
 <body>
 
 <!-- 회원가입 성공 또는 실패 메시지 출력 스크립트 -->
-<% if (session.getAttribute("message") != null) { %>
+<% 
+    if (session.getAttribute("message") != null) { 
+%>
     <script>
         alert("<%= session.getAttribute("message") %>");
-        <% session.removeAttribute("message"); %> <!-- 메시지 한번 표시 후 제거 -->
     </script>
-<% } %>
+<%
+        session.removeAttribute("message");
+    }
+%>
 
 <!-- Header -->
 <%@ include file="../common/main_header.jsp"%>
@@ -45,9 +49,9 @@
         <div class="input-group email-group">
             <label for="emailLocal">이메일 주소</label>
             <div class="email-input-container">
-                <input type="text" id="emailLocal" name="emailLocal" placeholder="이메일 입력">
+                <input type="text" id="emailLocal" name="emailLocal" placeholder="이메일 입력" required>
                 <span>@</span>
-                <input type="text" id="emailDomain" name="emailDomain" placeholder="직접 입력">
+                <input type="text" id="emailDomain" name="emailDomain" placeholder="직접 입력" required>
                 <select id="emailSelect">
                     <option value="">직접 입력</option>
                     <option value="gmail.com">gmail.com</option>
@@ -60,14 +64,14 @@
         <!-- 주소 입력 -->
         <div class="input-group">
             <label for="sample6_postcode">주소</label>
-            <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
+            <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" required>
             <button type="button" class="address-button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
         </div>
         <div class="input-group">
-            <input type="text" id="sample6_address" name="address" placeholder="주소">
+            <input type="text" id="sample6_address" name="address" placeholder="주소" required>
         </div>
         <div class="input-group">
-            <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
+            <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소" required>
         </div>
         <div class="input-group">
             <input type="text" id="sample6_extraAddress" name="extraAddress" placeholder="참고항목">
@@ -80,15 +84,15 @@
         </div>
         <div class="input-group">
             <label for="birthday">생년월일</label>
-            <input type="date" id="birthday" name="birthday" placeholder="생년월일 입력">
+            <input type="date" id="birthday" name="birthday" placeholder="생년월일 입력" required>
         </div>
         <div class="input-group">
             <label for="phone">전화번호</label>
-            <input type="text" id="phone" name="phone" placeholder="전화번호 입력">
+            <input type="text" id="phone" name="phone" placeholder="전화번호 입력" required>
         </div>
         <div class="input-group">
             <label for="gender">성별</label>
-            <select id="gender" name="gender">
+            <select id="gender" name="gender" required>
                 <option value="">선택</option>
                 <option value="M">남성</option>
                 <option value="F">여성</option>
@@ -102,39 +106,22 @@
 <script>
     // 폼 유효성 검사 함수
     function validateForm() {
-        const userId = document.getElementById("userId").value.trim();
         const userPwd = document.getElementById("userPwd").value.trim();
         const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
-        const emailLocal = document.getElementById("emailLocal").value.trim();
-        const emailDomain = document.getElementById("emailDomain").value.trim();
-        const postcode = document.getElementById("sample6_postcode").value.trim();
-        const address = document.getElementById("sample6_address").value.trim();
-        const detailAddress = document.getElementById("sample6_detailAddress").value.trim();
-        const userName = document.getElementById("userName").value.trim();
-        const birthday = document.getElementById("birthday").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const gender = document.getElementById("gender").value;
 
-        if (!userId || !userPwd || !userPwdConfirm || !emailLocal || !emailDomain || 
-            !postcode || !address || !detailAddress || !userName || 
-            !birthday || !phone || !gender) {
-            alert("빈칸없이 입력해주세요.");
+        if (userPwd !== userPwdConfirm) {
+            alert("비밀번호가 일치하지 않습니다.");
             return false; // 제출 중단
         }
+
         return true;
     }
 
     // 이메일 도메인 선택 시 값 설정
     $(document).ready(function() {
         $('#emailSelect').change(function() {
-            var selectedDomain = $(this).val();
-            if (selectedDomain) {
-                $('#emailDomain').val(selectedDomain); 
-                $('#emailDomain').prop('readonly', true); 
-            } else {
-                $('#emailDomain').val('');
-                $('#emailDomain').prop('readonly', false); 
-            }
+            const selectedDomain = $(this).val();
+            $('#emailDomain').val(selectedDomain).prop('readonly', !!selectedDomain);
         });
     });
 
@@ -142,60 +129,41 @@
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                var addr = ''; 
-                var extraAddr = ''; 
-
-                if (data.userSelectedType === 'R') { 
-                    addr = data.roadAddress;
-                } else { 
-                    addr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
-
+                const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
                 document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById('sample6_address').value = addr;
+                document.getElementById('sample6_detailAddress').focus();
             }
         }).open();
     }
 
     // 아이디 중복 확인
-    function checkId() {
-        const userId = $('#userId').val();
-        if (userId) {
-            $.ajax({
-                url: '${pageContext.request.contextPath}/member/idCheck',
-                type: 'GET',
-                data: { userId: userId },
-                success: function(result) {
-                    if (result == 0) {
-                        alert('사용 가능한 아이디입니다.');
-                    } else {
-                        alert('이미 사용 중인 아이디입니다.');
-                    } 
-                },
-                error: function() {
-                    alert('아이디 중복 확인 중 오류가 발생했습니다.');
-                }
-            });
-        } else {
-            alert('아이디를 입력해주세요.');
-        }
+   function checkId() {
+    const userId = $('#userId').val().trim();
+    if (!userId) {
+        alert('아이디를 입력해주세요.');
+        return;
     }
+
+    $.ajax({
+        url: '${pageContext.request.contextPath}/member/idCheck',
+        type: 'GET',
+        data: { userId: userId },
+        success: function(result) {
+            const isAvailable = parseInt(result, 10); // 숫자로 변환
+            if (isAvailable === 0) {
+                alert('사용 가능한 아이디입니다.');
+            } else {
+                alert('이미 사용 중인 아이디입니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+            alert('아이디 중복 확인 중 오류가 발생했습니다.');
+        }
+    });
+}
+
 </script>
 
 <%@ include file="../common/main_footer.jsp"%>

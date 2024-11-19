@@ -35,6 +35,7 @@ public class HospitalServiceImpl implements HospitalService{
         int offset = (page - 1) * limit;
         System.out.println("Service page : " + page);
         System.out.println("Service offset : " + offset);
+        System.out.println();
         return hpDao.selectHospitalListPaginated(sqlSession, subject, order, offset, limit);
     }
 
