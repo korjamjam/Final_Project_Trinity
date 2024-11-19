@@ -1,234 +1,250 @@
-#mainContent,
-#sideMenu,
-#mainWrapper,
-.content-title,
-.content-description,
-.notice-table th,
-.notice-table td,
-.pagination .page-link {
-	white-space: nowrap;
-}
+/* 기본 (모바일 버전) */
 #mainContent {
     display: flex;
-    justify-content: center; /* #mainContent 자체가 화면 중앙에 위치 */
-    max-width: 1400px;
+    flex-direction: column; /* 세로 배치 */
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
-#sideMenu {
-    position: sticky;
-    top: 215px; /* 스크롤 시 화면 상단에서 150px 아래에 고정 */
-    width: 20%; /* mainContent의 20% 너비 */
-    max-width: 180px; /* 최대 너비 제한 */
+/* 모바일에서 사이드바와 빈 공간 숨김 */
+#sideMenu, .empty-space {
+    display: none; /* 모바일에서는 보이지 않음 */
+}
+
+#contentHeader {
     display: flex;
-    justify-content: center;
-    align-self: flex-start; /* flex 컨테이너에서 상단 정렬 */
-}
-
-#mainWrapper {
-    width: 60%; /* mainContent의 60% 유지 */
-    max-width: 864px; /* 최대 너비 제한 */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 0;
     box-sizing: border-box;
-	padding: 40px 0;
-}
-
-.empty-space {
-    width: 20%; /* mainContent의 20% 유지 */
-    max-width: 180px; /* sideMenu와 동일한 최대 너비 */
-}
-
-
-
-
-#contentHeader,
-.notice-table,
-#paginationFooter {
-	width: 100%;
-	box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .content-title {
-	min-width: 530px;
-	width: 100%;
-	color: #265708;
-	font-size: 28px;
-	font-weight: bold;
-	margin: 0;
-	padding: 5px 0;
+    font-size: 20px; /* 모바일용 기본 크기 */
+    font-weight: bold;
+    color: #265708;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 텍스트 말줄임표 */
 }
 
 #contentControls {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    justify-content: flex-end;
 }
 
-/* content-description 스타일 수정 */
 .content-description {
-	font-size: 12px;
-	color: #666;
-	margin: 0;
-	/* display 및 align-items 설정 추가 */
-	display: flex;
-	align-items: center;
-	/* 세로 중앙 정렬 */
+    display: none; /* 모바일에서는 숨김 */
 }
 
 #contentButton {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
 #sortSelect {
-	padding: 5px 10px;
-	font-size: 14px;
-	border: 1px solid #6cc24a;
-	border-radius: 4px;
-	color: #265708;
-	background-color: #ffffff;
-	outline: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #6cc24a;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #265708;
+}
+
+.round-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #6cc24a;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.round-button:hover {
+    background-color: #5aa33c;
 }
 
 .notice-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
-	margin-bottom: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed; /* 컬럼 고정 */
 }
 
-.notice-table th,
-.notice-table td {
-	padding: 10px;
-	text-align: center;
-	/* 가로 중앙 정렬 */
-	vertical-align: middle;
-	/* 세로 중앙 정렬 */
+.notice-table th, .notice-table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden;    /* 넘치는 내용 숨김 */
+    text-overflow: clip; /* 기본 동작 (말줄임표 없음) */
+}
+
+
+/* 제목 열에 말줄임표 추가 */
+.notice-table th.title-header, 
+.notice-table td.title {
+    width: 55%;            /* 명확히 너비 설정 */
+    text-overflow: ellipsis; /* 말줄임표 추가 */
+    white-space: nowrap;     /* 줄바꿈 방지 */
+    overflow: hidden;        /* 넘치는 내용 숨김 */
 }
 
 .notice-table th {
-	background-color: #6cc24a;
-	color: #ffffff;
-	font-size: 12px;
+    background-color: #6cc24a;
+    color: #ffffff;
+    font-size: 12px;
 }
 
-#pageSearchContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 40px;
-	margin-bottom: 40px;
-	width: 100%;
-	min-width: 570px;
-}
-
-#pagingArea {
-	display: flex;
-	justify-content: center;
-	/* 가로 중앙 정렬 */
-	align-items: center;
-	margin-top: 20px;
-	font-size: 12px;
-	color: #265708;
-	height: 100%;
-	width: 40%;
-	/* pagingArea의 전체 너비를 40%로 설정 */
-	margin: 0 auto;
-	/* 부모 컨테이너에서 중앙 정렬 */
-}
-
-.pagination {
-	font-size: 18px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	/* pagination이 pagingArea의 100%를 차지하게 설정 */
-
-}
-
-.pagination .page-link {
-	color: #265708;
-	/* 색상 적용 */
-	text-decoration: none;
-}
-
-.pagination .page-link:hover {
-	color: #265708;
-	/* 호버 시 색상 유지 */
-	text-decoration: none;
-}
-
-/* Page number buttons (1~5) 그룹 */
-.pagination .page-numbers {
-	display: flex;
-	justify-content: space-between;
-	width: 50%;
-	/* 페이지 번호는 pagination의 60%를 차지 */
-}
-
-/* Previous and Next arrows */
-.pagination .page-arrow {
-	width: 15%;
-	/* 화살표는 각각 15% */
-	text-align: center;
-}
-
-/* search section styles */
-#searchSection {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-top: 20px;
-	width: 70%;
-	height: 35px;
-
-}
-
-
-#searchType {
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    background-color: #fff;
-    box-sizing: border-box;
-    height: 100%;
-    width: 23%; 
-   
-}
-
-.search-input-group {
-    display: flex;
-    height: 100%;
-  width: 75%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-#searchInput {
-    flex: 1 1 85%; /* flex-grow, flex-shrink, flex-basis */
-    padding: 6px;
-    font-size: 14px;
-    box-sizing: border-box;
-    height: 100%;
-}
-/* round-button과 search-button을 동시에 가진 요소에 높이 100% 적용 */
-.round-button.search-button {
-    flex: 0 0 15%; /* flex-grow를 0으로 설정하여 고정 비율로 설정 */
-    height: 100%;
-}
-
-
+/* 모바일에서 작성자 숨김 */
 @media (max-width: 768px) {
-	#contentControls {
-		flex-direction: column;
-	}
+	  #mainWrapper {
+        padding: 20px;
+        width: 100%; /* #mainContent와 동일하게 설정 */
+        box-sizing: border-box; /* 패딩 포함 */
+        margin: 0 auto;
+    }
+    .notice-table th.author-header, /* 작성자 열 헤더 */
+    .notice-table td.author,       /* 작성자 데이터 */
+    .notice-table th.date-header,  /* 작성일 열 헤더 */
+    .notice-table td.date {        /* 작성일 데이터 */
+        display: none; /* 모바일에서 숨김 */
+    }
+
+    #pageSearchContainer {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    #pagingArea {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    #searchSection {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-input-group {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+    }
+
+    #searchInput {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .round-button.search-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        background-color: #6cc24a;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .round-button.search-button:hover {
+        background-color: #5aa33c;
+    }
+    .notice-table th.category-header, 
+    .notice-table td.category {
+        width: 20%; /* 카테고리 열 */
+    }
+
+    .notice-table th.title-header, 
+    .notice-table td.title {
+        width: 55%; /* 제목 열 */
+    }
+
+    .notice-table th.views-header, 
+    .notice-table td.views {
+        width: 20%; /* 조회수 열 */
+    }
+}
+
+/* 768px 이상 (웹 버전 확장) */
+@media (min-width: 768px) {
+    #mainContent {
+        flex-direction: row; /* 가로 배치 */
+        justify-content: center;
+        max-width: 1400px;
+    }
+
+    #contentHeader {
+        justify-content: space-between;
+        gap: 10px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 10px 0;
+    }
+
+    .content-title {
+        font-size: 28px; /* 웹 버전 크기 확장 */
+    }
+
+    #contentControls {
+        gap: 20px;
+    }
+
+    .content-description {
+        display: block; /* 웹에서는 표시 */
+        font-size: 12px;
+        color: #666;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .notice-table {
+        margin: 20px 0;
+    }
+
+    #pageSearchContainer {
+        width: 100%;
+        max-width: 1400px; /* 웹 버전의 최대 너비 */
+        margin: 0 auto;
+    }
+
+    #pagingArea {
+        font-size: 16px;
+    }
+
+    /* 웹에서 작성자 열 표시 */
+    .notice-table th.author-header,
+    .notice-table td.author {
+        display: table-cell; /* 작성자 열 표시 */
+    }
 }

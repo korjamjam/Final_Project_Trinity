@@ -1,6 +1,9 @@
 package com.project.trinity.healthreservation.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.trinity.healthreservation.service.HealthReservationService;
+import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Controller
 @RequestMapping("/healthReservation")
 public class HealthReservationController {
+	
+	
 
     @Autowired
     private HealthReservationService healthReservationService;
@@ -39,18 +45,22 @@ public class HealthReservationController {
 
     @PostMapping("/submitReservation")
     public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
-    	//예약 데이터 확인 디버깅
-    	System.out.println("Received Reservation in submitReservation: " + reservation);
+        System.out.println("Received Reservation: " + reservation);
 
         String userNo = (String) session.getAttribute("userNo");
-        System.out.println("Session userNo: " + userNo);
-
         if (userNo == null) {
             throw new IllegalArgumentException("로그인된 사용자 정보가 없습니다.");
         }
 
         reservation.setUserNo(userNo);
+        
+        // 디버깅: USER_NO와 HOS_NO 출력
+        System.out.println("USER_NO: " + reservation.getUserNo());
+        System.out.println("HOS_NO: " + reservation.getHosNo());
+        System.out.println("Reservation Data: " + reservation);
+        
         healthReservationService.saveReservation(reservation);
+
         return "redirect:/healthReservation/vaccinepage1";
     }
 
@@ -99,10 +109,31 @@ public class HealthReservationController {
 			@RequestParam("extraAddress") String extraAddress,
 			@RequestParam("detailAddress") String detailAddress,
 			@RequestParam("use_tos_ans1") String use_tos_ans1,
-			@RequestParam("use_tos_ans2") String use_tos_ans2
-			) {
+			@RequestParam("use_tos_ans2") String use_tos_ans2,
+			HttpSession session) {
+		System.out.println(reservation_user_name);
 		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
-			return "health_reservation/health_reservation2";
+			String gstName = reservation_user_name;
+			String gstBirth = reservation_user_num1;
+			String gstGender = "";
+			if(Integer.parseInt(reservation_user_num2) %2 ==0) {
+				gstGender = "F";
+			} else {
+				gstGender = "M";
+			}
+			String gstPhone = reservation_user_phone1 + reservation_user_phone2;
+			String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
+			String gstAddress = address + extraAddress + detailAddress;
+			Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
+			System.out.println(guest);
+			int result = healthReservationService.insertGuest(guest);
+			if(result > 0) {
+				return "health_reservation/health_reservation2";
+			}
+			else {
+				return "health_reservation/health_reservation1";
+			}
+			
 		} else {
 			return "health_reservation/health_reservation1";
 		}
@@ -115,9 +146,11 @@ public class HealthReservationController {
 			@RequestParam("reservation_user_text") String reservation_user_text,
 			@RequestParam("reservation_user_date") String reservation_user_date,
 			@RequestParam("reservation_user_time") String reservation_user_time,
-			@RequestParam("reservation_user_result") String reservation_user_result
-			) {
+			@RequestParam("reservation_user_result") String reservation_user_result,
+			HttpSession session) {
+		String reservation_user_name = (String) session.getAttribute("reservation_user_name");
 		System.out.println(reservation_user_select);
+		System.out.println(reservation_user_name);
 		System.out.println(reservation_user_hospital);
 		System.out.println(reservation_user_text);
 		System.out.println(reservation_user_date);
