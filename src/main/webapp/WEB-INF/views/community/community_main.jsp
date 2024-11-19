@@ -63,7 +63,7 @@
 							<!-- Example Post Item -->
 							<tr>
 								<td class="category-header">이벤트</td>
-								<td>2024 수능 기념 스마일 라식 할인!</td>
+								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
 								<td class="author">관리자1</td>
 								<td class="date">2022.07.27</td>
 								<td class="comment-header">[90]</td>
