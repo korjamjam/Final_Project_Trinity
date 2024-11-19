@@ -30,6 +30,7 @@
 /* 사이드바 헤더 스타일 */
 .hamburger-sidebar-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
@@ -39,7 +40,7 @@
 .hamburger-login-text {
     color: #4CAF50;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .hamburger-close-btn {
@@ -67,10 +68,10 @@
 }
 
 .sidebar-submenu {
-    display: none;
-    margin-top: 10px;
-    padding: 0;
+    max-height: 0; /* 초기 상태에서 높이를 0으로 설정 */
+    overflow: hidden; /* 넘치는 콘텐츠 숨기기 */
     background-color: #f9f9f9;
+    transition: max-height 0.3s ease, padding 0.3s ease; /* 애니메이션 추가 */
 }
 
 .sidebar-submenu a {
@@ -81,6 +82,12 @@
     text-decoration: none;
     border-top: 1px solid #e0e0e0;
     transition: background-color 0.3s;
+}
+
+/* 서브메뉴 활성화 시 스타일 */
+.sidebar-submenu.active {
+    max-height: 200px; /* 적당한 높이 설정 (컨텐츠 크기에 따라 조정 가능) */
+    margin-top: 15px;
 }
 
 .sidebar-submenu a:first-child {
