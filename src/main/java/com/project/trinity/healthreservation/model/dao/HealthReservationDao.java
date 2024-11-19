@@ -2,6 +2,9 @@ package com.project.trinity.healthreservation.model.dao;
 
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.reservation.model.vo.Reservation;
+
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,5 +27,9 @@ public class HealthReservationDao {
 
 	public int insertGuest(Guest guest) {
 		return sqlSession.insert("healthReservationMapper.insertGuest", guest);
+	}
+	
+	public String selectGuest(HashMap<String, String> map) {
+		return sqlSession.selectOne("healthReservationMapper.selectGstNo", map);
 	}
 }
