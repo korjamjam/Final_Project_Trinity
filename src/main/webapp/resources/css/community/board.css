@@ -1,7 +1,8 @@
 /* 기본 (모바일 버전) */
 #mainContent {
     display: flex;
-    flex-direction: column; /* 세로 배치 */
+    flex-direction: column;
+    /* 세로 배치 */
     justify-content: center;
     width: 100%;
     margin: 0 auto;
@@ -9,8 +10,9 @@
 }
 
 /* 모바일에서 사이드바와 빈 공간 숨김 */
-#sideMenu, .empty-space {
-    display: none; /* 모바일에서는 보이지 않음 */
+#sideMenu,
+.empty-space {
+    display: none;
 }
 
 #contentHeader {
@@ -26,25 +28,26 @@
 }
 
 .content-title {
-    font-size: 20px; /* 모바일용 기본 크기 */
+    font-size: 20px;
     font-weight: bold;
     color: #265708;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* 텍스트 말줄임표 */
+    text-overflow: ellipsis;
 }
 
 #contentControls {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    flex-wrap: nowrap;
     justify-content: flex-end;
 }
 
 .content-description {
-    display: none; /* 모바일에서는 숨김 */
+    display: none;
+    /* 모바일에서 숨김 */
 }
 
 #contentButton {
@@ -63,45 +66,43 @@
     color: #265708;
 }
 
-.round-button {
-    padding: 8px 12px;
-    font-size: 14px;
+/* default.css의 round-button 스타일 덮어쓰기 */
+#contentControls .round-button {
     color: #fff;
+    /* 하얀색으로 덮어쓰기 */
     background-color: #6cc24a;
-    border: none;
-    border-radius: 4px;
-    white-space: nowrap;
-    cursor: pointer;
+    /* 기본 배경 유지 */
+    text-decoration: none;
+    /* 링크 밑줄 제거 */
+    font-weight: bold;
+    /* 텍스트 강조 */
 }
 
-.round-button:hover {
-    background-color: #5aa33c;
-}
 
 .notice-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    table-layout: fixed; /* 컬럼 고정 */
+    table-layout: fixed;
+    /* 컬럼 고정 */
 }
 
-.notice-table th, .notice-table td {
+.notice-table th,
+.notice-table td {
     padding: 10px;
     text-align: center;
     vertical-align: middle;
-    white-space: nowrap; /* 줄바꿈 방지 */
-    overflow: hidden;    /* 넘치는 내용 숨김 */
-    text-overflow: clip; /* 기본 동작 (말줄임표 없음) */
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
 }
 
-
-/* 제목 열에 말줄임표 추가 */
-.notice-table th.title-header, 
+.notice-table th.title-header,
 .notice-table td.title {
-    width: 55%;            /* 명확히 너비 설정 */
-    text-overflow: ellipsis; /* 말줄임표 추가 */
-    white-space: nowrap;     /* 줄바꿈 방지 */
-    overflow: hidden;        /* 넘치는 내용 숨김 */
+    width: 55%;
+    /* 명확히 너비 설정 */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .notice-table th {
@@ -110,117 +111,277 @@
     font-size: 12px;
 }
 
-/* 모바일에서 작성자 숨김 */
-@media (max-width: 768px) {
-	  #mainWrapper {
-        padding: 20px;
-        width: 100%; /* #mainContent와 동일하게 설정 */
-        box-sizing: border-box; /* 패딩 포함 */
-        margin: 0 auto;
-    }
-    .notice-table th.author-header, /* 작성자 열 헤더 */
-    .notice-table td.author,       /* 작성자 데이터 */
-    .notice-table th.date-header,  /* 작성일 열 헤더 */
-    .notice-table td.date {        /* 작성일 데이터 */
-        display: none; /* 모바일에서 숨김 */
-    }
+/* Page Search Container */
+#pageSearchContainer {
+    width: 100%;
+    /* mainWrapper와 같은 width */
+    height: 120px;
+    /* 부모 요소가 차지할 전체 높이 */
+    max-width: 1400px;
+    /* mainWrapper와 동일한 최대 너비 설정 */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* 세로 배치 */
+}
 
-    #pageSearchContainer {
+#pagingArea {
+    width: 100%;
+    /* 페이지 번호가 전체 너비를 차지 */
+    height: 50%;
+    /* 부모의 50% 높이 */
+    display: flex;
+    justify-content: center;
+    /* 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+}
+
+.pagination {
+    list-style: none;
+    /* 기본 목록 스타일 제거 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* 가로 정렬 */
+    gap: 5px;
+    /* 페이지 번호 간 간격 */
+}
+
+.page-item {
+    display: inline-block;
+}
+
+/* 기본 스타일: 다른 페이지 */
+.page-item .page-link {
+    color: black;
+    /* 기본 검은색 */
+    text-decoration: none;
+}
+
+/* 활성화된 페이지 스타일: 현재 페이지 */
+.page-item.active .page-link {
+    color: #6cc24a;
+    /* 연두색 */
+    font-weight: bold;
+    /* 강조 */
+    cursor: default;
+    /* 클릭할 수 없게 표시 */
+    text-decoration: none;
+    /* 밑줄 제거 */
+}
+
+/* 마우스 오버 효과: 활성화된 페이지가 아닌 경우 */
+.page-item .page-link:hover:not(.active) {
+    color: #6cc24a;
+    /* 연두색 강조 */
+}
+
+#pageSearchContainer {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* Search Section: 아래쪽 50% */
+#searchSection {
+    width: 100%;
+    /* 검색 섹션이 전체 너비를 차지 */
+    height: 50%;
+    /* 부모의 50% 높이 */
+    display: flex;
+    flex-direction: row;
+    /* 검색 타입과 입력을 가로로 배치 */
+    justify-content: space-between;
+    /* 양 끝 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
+    box-sizing: border-box;
+    /* 패딩 포함 */
+    padding: 5px 0;
+}
+
+#searchType {
+    width: 23%;
+    /* 드롭다운 23% */
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    /* 둥근 모서리 */
+    outline: none;
+    /* 포커스 테두리 제거 */
+    box-sizing: border-box;
+    /* 패딩 포함 */
+}
+
+.search-input-group {
+    width: 75%;
+    /* 부모의 전체 너비 */
+    display: flex;
+    /* 내부 요소를 가로 배치 */
+    align-items: center;
+    /* 세로 정렬 */
+    justify-content: space-between;
+    height: 100%;
+    /* 부모 높이에 맞춤 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#searchInput {
+    width: 75%;
+    /* 입력 필드 85% 너비 */
+    height: 100%;
+    /* 부모 높이와 동일 */
+    padding: 8px;
+    box-sizing: border-box;
+    /* 패딩 포함 */
+
+}
+
+.round-button.search-button {
+    width: 25%;
+    /* 버튼 10% 너비 */
+    height: 100%;
+    /* 부모 높이와 동일 */
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    /* 왼쪽 둥근 모서리 */
+    font-size: 18px;
+}
+
+.round-button.search-button:hover {
+    background-color: #5aa33c;
+}
+
+/* 모바일에서 작성자 숨김 */
+@media (max-width: 1000px) {
+
+    #mainWrapper {
+        padding: 20px;
         width: 100%;
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 0;
+        margin: 0 auto;
     }
 
-    #pagingArea {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
+    .notice-table th.author-header,
+    .notice-table td.author,
+    .notice-table th.date-header,
+    .notice-table td.date {
+        display: none;
     }
 
-    #searchSection {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
 
-    .search-input-group {
-        width: 100%;
-        display: flex;
-        gap: 10px;
-    }
 
-    #searchInput {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .round-button.search-button {
-        padding: 8px 12px;
-        font-size: 14px;
-        background-color: #6cc24a;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        white-space: nowrap;
-    }
-
-    .round-button.search-button:hover {
-        background-color: #5aa33c;
-    }
-    .notice-table th.category-header, 
+    .notice-table th.category-header,
     .notice-table td.category {
-        width: 20%; /* 카테고리 열 */
+        width: 23%;
     }
 
-    .notice-table th.title-header, 
+    .notice-table th.title-header,
     .notice-table td.title {
-        width: 55%; /* 제목 열 */
+        width: 55%;
     }
 
-    .notice-table th.views-header, 
+    .notice-table th.views-header,
     .notice-table td.views {
-        width: 20%; /* 조회수 열 */
+        width: 20%;
     }
 }
 
 /* 768px 이상 (웹 버전 확장) */
-@media (min-width: 768px) {
+@media (min-width: 1001px) {
     #mainContent {
-        flex-direction: row; /* 가로 배치 */
-        justify-content: center;
-        max-width: 1400px;
+        display: flex;
+        /* 가로 배치 */
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        /* 전체 화면 너비 */
+        max-width: none;
+        /* 제한 없이 확장 */
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    #sideMenu {
+        display: flex; /* Flexbox 사용 */
+        justify-content: center; /* 가로 방향 중앙 정렬 */
+        width: 20%; /* 전체의 20% */
+        position: fixed; /* 화면에 고정 */
+        top: 200px; /* 화면 상단에 고정 */
+        left: 80px; /* 왼쪽에 고정 */
+        height: 100vh; /* 화면 전체 높이 */
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+        z-index: 1000; /* 다른 요소보다 위에 표시 */
+    }
+    .empty-space {
+        display: block;
+        /* 웹에서는 표시 */
+        width: 20%;
+        /* 전체의 20% */
+    }
+
+    #mainWrapper {
+        margin-left: 20%;
+        /* 고정된 `sideMenu`를 고려 */
+        width: 60%;
+        /* 전체의 60% */
+        max-width: 864px;
+        /* 최대 너비 설정 */
+        margin: 0 auto;
+        /* 중앙 정렬 */
+        box-sizing: border-box;
+        padding: 20px;
     }
 
     #contentHeader {
-        justify-content: space-between;
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         max-width: 1400px;
         margin: 0 auto;
-        padding: 10px 0;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
+
+
+
     .content-title {
-        font-size: 28px; /* 웹 버전 크기 확장 */
+        font-size: 28px;
+        font-weight: bold;
+        color: #265708;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        /* 추가된 스타일 */
+        margin-right: auto;
+        /* 왼쪽 정렬 */
     }
 
     #contentControls {
-        gap: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 
     .content-description {
-        display: block; /* 웹에서는 표시 */
-        font-size: 12px;
+        display: block;
+        font-size: 14px;
         color: #666;
         margin: 0;
         white-space: nowrap;
@@ -229,12 +390,13 @@
     }
 
     .notice-table {
-        margin: 20px 0;
+        margin: 20px auto;
+        max-width: 1400px;
     }
 
     #pageSearchContainer {
         width: 100%;
-        max-width: 1400px; /* 웹 버전의 최대 너비 */
+        max-width: 1400px;
         margin: 0 auto;
     }
 
@@ -242,9 +404,12 @@
         font-size: 16px;
     }
 
-    /* 웹에서 작성자 열 표시 */
+    /* 웹에서 작성자, 작성일 표시 */
     .notice-table th.author-header,
-    .notice-table td.author {
-        display: table-cell; /* 작성자 열 표시 */
+    .notice-table td.author,
+    .notice-table th.date-header,
+    .notice-table td.date {
+        display: table-cell;
     }
+
 }
