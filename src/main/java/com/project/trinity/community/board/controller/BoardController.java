@@ -112,6 +112,9 @@ public class BoardController {
 	                         Model model) {
 	    int boardCount = boardService.selectListCount();
 	    PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 5);
+	    System.out.println("startPage: " + pi.getStartPage());
+	    System.out.println("endPage: " + pi.getEndPage());
+	    System.out.println("maxPage: " + pi.getMaxPage());
 	    ArrayList<Board> list = boardService.selectList(pi, sortType);
 	    System.out.println("게시글 수: " + list.size()); // 게시글 수 출력
 	    model.addAttribute("list", list);

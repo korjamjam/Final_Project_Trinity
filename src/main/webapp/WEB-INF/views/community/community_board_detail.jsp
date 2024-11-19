@@ -99,7 +99,7 @@
 							class="${sessionScope.loginUser != null && sessionScope.loginUser.userId == b.boardWriter ? 'highlight-user' : ''}">
 								${b.boardWriter} </span>일반회원&nbsp</td>
 						<td class="board-meta"><span>${b.enrollDate}</span> | <span>조회
-								149</span></td>
+								${b.boardViews }</span></td>
 					</tr>
 
 				</table>
