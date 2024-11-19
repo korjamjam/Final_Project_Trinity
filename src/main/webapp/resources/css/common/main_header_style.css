@@ -53,21 +53,31 @@
 }
 
 .login-menu a {
+    display: flex;
     text-decoration: none;
     color: #265708;
-    font-size: 1.5rem;
-    white-space: nowrap;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    align-items: center;
 }
 
 .login-menu a:hover {
     color: #8DCE4E;
     text-decoration: none;
 }
+.mypage-icon{
+	width: 36px;
+    height: auto;
+}
 
 .menu-icon {
+	color: #265708;
     font-size: 2rem;
     cursor: pointer;
     display: block;
+    width: 29px;
+    height: 36px;
 }
 
 .dropdown {
@@ -106,7 +116,7 @@
     font-weight: bold;
 }
 
-@media (max-width: 1010px) {
+@media (max-width: 1000px) {
     .nav-links a {
         padding: 40px 12px;
     }
@@ -121,14 +131,14 @@
         display: block;
         transition: background-color 0.3s;
     }
+    .user-Name {
+        font-size: 1.3rem;
+    }
 }
 
-@media (min-width: 780px) {
+@media (min-width: 768px) {
     .nav-links {
         display: flex;
-    }
-    .menu-icon {
-        display: none;
     }
     .header {
         padding: 0 40px;
@@ -140,6 +150,10 @@
         font-size: 1.4rem;
     }
     .login-menu a {
+        display: none;
+    }
+    
+    .user-Name {
         visibility: hidden;
     }
 }
