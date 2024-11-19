@@ -14,11 +14,11 @@ import com.project.trinity.hospital.model.vo.HospitalInfo;
 @Repository
 public class HospitalDao {
 
-	public HospitalInfo selectHospital(SqlSessionTemplate sqlSession, String hosNo) {
-		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
-	}
+   public HospitalInfo selectHospital(SqlSessionTemplate sqlSession, String hosNo) {
+      return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
+   }
 
-	public ArrayList<HospitalInfo> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
+   public ArrayList<HospitalInfo> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
         Map<String, String> map = new HashMap<>();
         map.put("subject", subject);
         map.put("order", order);
@@ -36,8 +36,8 @@ public class HospitalDao {
         return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map));
     }
 
-	public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
-		return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
-	}
+   public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
+      return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
+   }
 
 }

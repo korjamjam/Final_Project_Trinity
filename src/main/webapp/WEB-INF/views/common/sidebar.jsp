@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,8 +13,18 @@
 	<!-- 사이드바 -->
 	<div class="hamburger-sidebar" id="sidebar">
 		<div class="hamburger-sidebar-header">
+		<c:choose>
+
+            <c:when test="${empty loginUser}">
 			<span class="hamburger-login-text" onclick="navigateToLogin()">로그인</span>
 			<button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
+			</c:when>
+			
+			<c:otherwise>
+			<span class="hamburger-login-text" onclick="navigateToLogout()">로그아웃</span>
+			<button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
+			</c:otherwise>
+        </c:choose>
 		</div>
 		<div class="hamburger-sidebar-menu">
 			<div class="sidebar-item" onclick="toggleSubmenu(this)">
@@ -61,32 +72,40 @@
 		</div>
 	</div>
 
-	<!-- JavaScript for Sidebar Toggle and Accordion Menu -->
-	<script>
-	function toggleSidebar() {
-	    var sidebar = document.getElementById('sidebar');
-	    if (sidebar.style.transform === 'translateX(-100%)' || !sidebar.style.transform) {
-	        sidebar.style.transform = 'translateX(0)';
-	    } else {
-	        sidebar.style.transform = 'translateX(-100%)';
-	    }
-	}
-
-
+<script>
     function toggleSubmenu(element) {
-        var allSubmenus = document.querySelectorAll('.sidebar-submenu');
-        for (var i = 0; i < allSubmenus.length; i++) {
-            allSubmenus[i].style.display = 'none';
-        }
+        //var allSubmenus = document.querySelectorAll('.sidebar-submenu');
+        //for (var i = 0; i < allSubmenus.length; i++) {
+        //    allSubmenus[i].style.display = 'none';
+        //}
 
-        var submenu = element.querySelector('.sidebar-submenu');
+        //var submenu = element.querySelector('.sidebar-submenu');
+        //if (submenu) {
+        //    submenu.style.display = 'block';
+        //}
+        
+        const allSubmenus = document.querySelectorAll('.sidebar-submenu');
+
+        // 다른 서브메뉴 닫기
+        allSubmenus.forEach((submenu) => {
+            if (submenu !== element.querySelector('.sidebar-submenu')) {
+                submenu.classList.remove('active');
+            }
+        });
+
+        // 클릭된 서브메뉴 토글
+        const submenu = element.querySelector('.sidebar-submenu');
         if (submenu) {
-            submenu.style.display = 'block';
+            submenu.classList.toggle('active');
         }
     }
 
     function navigateToLogin() {
-        window.location.href = "login_main.me"; // 로그인 페이지로 이동
+        window.location.href = "${pageContext.request.contextPath}/member/login";
+    }
+
+    function navigateToLogout() {
+        window.location.href = "${pageContext.request.contextPath}/member/logout";
     }
 </script>
 

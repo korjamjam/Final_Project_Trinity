@@ -92,17 +92,21 @@ public class MemberController {
         Member loginMember = memberService.loginMember(m);
 
         if (loginMember != null) {
+            // 일반 사용자와 관리자 구분
             if ("Y".equals(loginMember.getIsAdmin())) {
+                // 관리자 로그인
                 if (m.getUserPwd().equals(loginMember.getUserPwd())) {
-                    session.setAttribute("loginUser", loginMember);
+                    session.setAttribute("loginUser", loginMember); // 세션에 관리자 정보 저장
                     redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
                     return "redirect:/main";
                 }
             } else {
+                // 일반 사용자 로그인
                 if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-                    session.setAttribute("loginUser", loginMember);
+                    session.setAttribute("loginUser", loginMember); // 세션에 사용자 정보 저장
                     session.setAttribute("userNo", loginMember.getUserNo());
 
+                    // 로그인 유지 쿠키 설정
                     if ("on".equals(request.getParameter("keepLoggedIn"))) {
                         Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
                         loginCookie.setMaxAge(60 * 60 * 24 * 30);
@@ -116,11 +120,13 @@ public class MemberController {
             }
             redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
             return "redirect:/member/login";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
-            return "redirect:/member/login";
         }
+
+        redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+        return "redirect:/member/login";
     }
+
+
 
     // 로그아웃 기능
     @RequestMapping("/logout")
