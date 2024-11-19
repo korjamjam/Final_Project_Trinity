@@ -14,18 +14,18 @@
 <%@ include file="../common/main_header.jsp"%>
 
 <!-- 메시지 알림 -->
-<% if (request.getAttribute("message") != null) { %>
-    <script>
+<script>
+    <% if (request.getAttribute("message") != null) { %>
         alert("<%= request.getAttribute("message") %>");
-    </script>
-<% } %>
+    <% } %>
+</script>
 
 <div class="login-page">
     <div class="login-container">
         <form action="${pageContext.request.contextPath}/member/login" method="post">
             <div class="login-input-group">
                 <input type="text" name="userId" placeholder="아이디" required>
-                <span class="login-clear-icon" onclick="document.querySelector('.login-input-group input[type=text]').value = '';">✖</span>
+                <span class="login-clear-icon" onclick="clearInput('userId')">✖</span>
             </div>
             <div class="login-input-group">
                 <input type="password" name="userPwd" placeholder="비밀번호" id="password-input" required>
@@ -33,7 +33,7 @@
             </div>
             <div class="login-checkbox-group">
                 <input type="checkbox" id="keep-logged-in" name="keepLoggedIn">
-                <label for="keep-logged-in">로그인유지</label>
+                <label for="keep-logged-in">로그인 유지</label>
             </div>
             <button type="submit" class="login-button">로그인</button>
         </form>
@@ -46,6 +46,7 @@
 </div>
 
 <script>
+    // 비밀번호 표시/숨기기
     function togglePassword() {
         const passwordInput = document.getElementById('password-input');
         const eyeIcon = document.querySelector('.login-toggle-password');
@@ -55,6 +56,14 @@
         } else {
             passwordInput.type = 'password';
             eyeIcon.textContent = '👁';
+        }
+    }
+
+    // 입력 필드 초기화
+    function clearInput(inputName) {
+        const input = document.querySelector(`input[name="${inputName}"]`);
+        if (input) {
+            input.value = '';
         }
     }
 </script>
