@@ -4,9 +4,12 @@
 
 /* Caution */
 .reservation_caution_wrapper{
-    width: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .reservation_caution{
+    width: 80%;
     background-color: rgba(255, 247, 248, 235);
     padding: 10px;
     line-height: 15px;
@@ -127,6 +130,12 @@
 
 @media (min-width: 500px) {
     .reservation_caution_wrapper{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .reservation_caution{
         width: 70%;
         max-width: 460px;
     }
@@ -142,6 +151,12 @@
 
 @media (min-width: 768px) {
     .reservation_caution_wrapper{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .reservation_caution{
         width: 60%;
         max-width: 864px;
     }
