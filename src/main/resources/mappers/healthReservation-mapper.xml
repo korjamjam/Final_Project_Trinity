@@ -16,7 +16,7 @@
         <result property="gstAddress" column="GST_ADDRESS"/>
     </resultMap>
     
-    <resultMap type="HealthResrvation" id="HealthResrvationResultSet" >
+    <resultMap type="HealthReservation" id="HealthReservationResultSet" >
         <result property="hResNo" column="HRES_NO"/>
         <result property="userNo" column="USER_NO"/>
         <result property="gstNo" column="GST_NO"/> <!-- PATIENT_NAME 추가 -->
@@ -42,7 +42,7 @@
     </insert>
     
     <!-- 건강검진 예약 삽입 쿼리 -->
-    <insert id="insertHealthReservationUser">
+    <!--  <insert id="insertHealthReservationUser">
     	INSERT INTO HEALTH_RESERVATION (
     	USER_NO,
     	HOS_NO,
@@ -53,7 +53,11 @@
     	PATIENT_BIRTHDAY,
     	PATIENT_EMAIL,
     	PATIENT_GENDER    	
+    	) VALUES (
+    	#{userNo},
+    	#{}
     	)
-    </insert>
+    	
+    </insert>-->
     
 </mapper>
