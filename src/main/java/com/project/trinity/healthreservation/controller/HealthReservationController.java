@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Guest;
+import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Controller
@@ -87,7 +89,7 @@ public class HealthReservationController {
 		//이용약관 두개 다 동의 한 경우만 다음 페이지 리턴
 		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
 			//로그인 유저 정보 없으면 게스트 저장하고 게스트 넘버 반환
-			if(session.getAttribute("loginUser") != null) {
+			if(session.getAttribute("loginUser") == null) {
 				String gstName = reservation_user_name;
 				String gstBirth = reservation_user_num1;
 				String gstGender = "";
@@ -114,6 +116,8 @@ public class HealthReservationController {
 				}
 			}//로그인 유저 정보 있으면 유저번호 반환
 			else {
+				System.out.println(session.getAttribute("loginUser"));
+				System.out.println(session.getAttribute("userNo"));
 				return "health_reservation/health_reservation2";
 			}
 		//이용약관 동의 안하면 원래 페이지 리턴	
@@ -132,14 +136,24 @@ public class HealthReservationController {
 			@RequestParam("reservation_user_time") String reservation_user_time,
 			@RequestParam("reservation_user_result") String reservation_user_result,
 			HttpSession session) {
-		//로그인한 회원이 예약하는 경우
-		if(session.getAttribute("loginUser") != null) {
-			
-		} else {
-			Guest guest = (Guest)session.getAttribute("guest");
-			System.out.println(guest);
-//			String selectGstNo = healthReservationService.selectGuest(guest.getGstName(),guest.getGstPhone());
+		//로그인 한 경우
+		if(session.getAttribute("loginUser")!=null) {
+			HealthReservation healthReservation = new HealthReservation();
+			healthReservation.setUserNo((String)session.getAttribute("userNo"));
+			healthReservation.setHossNo(reservation_user_hospital);
+			healthReservation.setResDate(reservation_user_date);
+			healthReservation.setResTime(reservation_user_time);
+			healthReservation.setResCategory(reservation_user_select);
+			healthReservation.setPatientName((String)session.getAttribute("userName"));
+			healthReservation.setPatientEmail((String)session.getAttribute("email"));
+			healthReservation.setPatientBirthday((String)session.getAttribute("birthday"));
+			healthReservation.setPatientGender((String)session.getAttribute("gender"));
+			System.out.println(healthReservation);
+		} //로그인 안한 경우 
+		else {
+			//int result = healthReservationService.insertHealthReservation((int)session.getAttribute(""));
 		}
+		
 		return "health_reservation/health_reservation2";
 	}
 	
