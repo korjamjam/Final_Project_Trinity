@@ -3,6 +3,15 @@
 <%@ page import="com.project.trinity.member.model.vo.Member" %>
 <%
     Member loginUser = (Member)session.getAttribute("loginUser");
+
+	//로그인 유저 생일 정보 YYMMDD로 변환
+	String userBirth = loginUser.getBirthday().substring(2,4)
+					   + loginUser.getBirthday().substring(5,7)
+					   + loginUser.getBirthday().substring(8,10);
+	int userGender = 1;
+	if(loginUser.getGender() == "F"){
+		userGender = 2;
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -35,7 +44,8 @@
                         </div>
                     <p>주민번호</p>
                     <div class="health_reservation1_content input_id_num">
-                        <input type="text" required name="reservation_user_num1"> - <input type="password" maxlength="1" required name="reservation_user_num2">
+                        <input type="text" required name="reservation_user_num1"  value="<%= loginUser != null ? userBirth : "" %>"> - 
+                        <input type="password" maxlength="1" required name="reservation_user_num2" value="<%= loginUser != null ? userGender : "" %>">
                         <p>******</p>
                     </div>
                     <p>핸드폰</p>
