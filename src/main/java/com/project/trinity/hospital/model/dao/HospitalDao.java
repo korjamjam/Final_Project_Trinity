@@ -1,8 +1,7 @@
 package com.project.trinity.hospital.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -38,5 +37,4 @@ public class HospitalDao {
    public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
       return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
    }
-
 }
