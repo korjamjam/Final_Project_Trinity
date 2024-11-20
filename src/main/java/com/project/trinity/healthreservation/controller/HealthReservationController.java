@@ -153,12 +153,11 @@ public class HealthReservationController {
 			System.out.println(healthReservation);
 			
 			int result = healthReservationService.insertHealthReservation(healthReservation);
-			System.out.println(healthReservation.getResDate());
-			System.out.println(result);
 			redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
 			return "main";
 		} //로그인 안한 경우 
 		else {
+			
 			//int result = healthReservationService.insertHealthReservation((int)session.getAttribute(""));
 		}
 		
