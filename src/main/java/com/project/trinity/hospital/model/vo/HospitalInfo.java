@@ -1,7 +1,5 @@
 package com.project.trinity.hospital.model.vo;
 
-import com.project.trinity.member.model.vo.Member;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

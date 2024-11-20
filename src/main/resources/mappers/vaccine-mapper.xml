@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservationMapper">
+
+    <!-- ReservationWithVaccineResult 설정 -->
+    <resultMap id="ReservationWithVaccineResult" type="com.project.trinity.reservation.model.vo.Reservation">
+        <id property="vresNo" column="V_RES_NO"/>						<!-- 백신 예약 번호-->
+        <result property="userNo" column="USER_NO"/> 					<!--사용자 번호(로그인)-->
+        <result property="hosNo" column="HOS_NO"/>						<!--병원 번호-->
+        <result property="gstNo" column="GST_NO"/>						<!--게스트 번호(비로그인)-->
+        <result property="patientName" column="PATIENT_NAME"/> 			<!-- 접종자 이름 -->
+       	<result property="patientBirthday" column="PATIENT_BIRTHDAY"/>  <!--점종자 생년월일 -->
+        <result property="vresDate" column="V_RES_DATE"/> 				<!--백신 접종 날짜-->
+        <result property="vresTime" column="V_RES_TIME"/> 				<!--백신 접종 시간-->
+        <result property="vType" column="V_TYPE"/> 						<!--백신 종류--> 
+        <result property="resContent" column="RES_CONTENT"/> 			<!--특이 사항-->
+    </resultMap>
+</mapper>
