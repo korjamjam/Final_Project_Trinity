@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.healthreservation.service.HealthReservationService;
@@ -104,9 +105,11 @@ public class HealthReservationController {
 				
 				//게스트 정보 게스트 테이블에 추가
 				int result = healthReservationService.insertGuest(guest);
+				System.out.println(result + "게스트 추가 성공");
 				//성공
 				if(result > 0) {
 					session.setAttribute("gstNo", guest.getGstNo());
+					System.out.println((String)session.getAttribute("gstNo"));
 					return "health_reservation/health_reservation2";
 				//실패
 				} else {
@@ -114,8 +117,6 @@ public class HealthReservationController {
 				}
 			}//로그인 유저 정보 있으면 유저번호 반환
 			else {
-				System.out.println(session.getAttribute("loginUser"));
-				System.out.println(session.getAttribute("userNo"));
 				return "health_reservation/health_reservation2";
 			}
 		//이용약관 동의 안하면 원래 페이지 리턴	
@@ -133,20 +134,29 @@ public class HealthReservationController {
 			@RequestParam("reservation_user_date") String reservation_user_date,
 			@RequestParam("reservation_user_time") String reservation_user_time,
 			@RequestParam("reservation_user_result") String reservation_user_result,
-			HttpSession session) {
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
 		//로그인 한 경우
 		if(session.getAttribute("loginUser")!=null) {
+			Member m = (Member)session.getAttribute("loginUser");
 			HealthReservation healthReservation = new HealthReservation();
-			healthReservation.setUserNo((String)session.getAttribute("userNo"));
-			healthReservation.setHossNo(reservation_user_hospital);
+			healthReservation.setUserNo(m.getUserNo());
+			healthReservation.setHosNo(reservation_user_hospital);
 			healthReservation.setResDate(reservation_user_date);
 			healthReservation.setResTime(reservation_user_time);
 			healthReservation.setResCategory(reservation_user_select);
-			healthReservation.setPatientName((String)session.getAttribute("userName"));
-			healthReservation.setPatientEmail((String)session.getAttribute("email"));
-			healthReservation.setPatientBirthday((String)session.getAttribute("birthday"));
-			healthReservation.setPatientGender((String)session.getAttribute("gender"));
+			healthReservation.setPatientResult(reservation_user_result);
+			healthReservation.setPatientName(m.getUserName());
+			healthReservation.setPatientEmail(m.getEmail());
+			healthReservation.setPatientBirthday(m.getBirthday());
+			healthReservation.setPatientGender(m.getGender());
 			System.out.println(healthReservation);
+			
+			int result = healthReservationService.insertHealthReservation(healthReservation);
+			System.out.println(healthReservation.getResDate());
+			System.out.println(result);
+			redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
+			return "main";
 		} //로그인 안한 경우 
 		else {
 			//int result = healthReservationService.insertHealthReservation((int)session.getAttribute(""));

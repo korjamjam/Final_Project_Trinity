@@ -20,7 +20,7 @@
         <result property="hResNo" column="HRES_NO"/>
         <result property="userNo" column="USER_NO"/>
         <result property="gstNo" column="GST_NO"/> <!-- PATIENT_NAME 추가 -->
-       	<result property="hossNo" column="HOS_NO"/>
+       	<result property="hosNo" column="HOS_NO"/>
         <result property="resDate" column="RES_DATE"/>
         <result property="resTime" column="RES_TIME"/>
         <result property="resCategory" column="RES_CATEGORY"/>
@@ -28,6 +28,7 @@
         <result property="patientBirthday" column="PATIENT_BIRTHDAY"/>
         <result property="patientEmail" column="PATIENT_EMAIL"/>
         <result property="patientGender" column="PATIENT_GENDER"/>
+        <result property="patientResult" column="PATIENT_RESULT"/>
     </resultMap>
 
     <!-- 비회원 정보 삽입 쿼리 -->
@@ -42,7 +43,7 @@
     </insert>
     
     <!-- 건강검진 예약 삽입 쿼리 -->
-    <!--  <insert id="insertHealthReservationUser">
+    <insert id="insertHealthReservation" parameterType="HealthReservation">
     	INSERT INTO HEALTH_RESERVATION (
     	USER_NO,
     	HOS_NO,
@@ -52,12 +53,20 @@
     	PATIENT_NAME,
     	PATIENT_BIRTHDAY,
     	PATIENT_EMAIL,
-    	PATIENT_GENDER    	
+    	PATIENT_GENDER,
+    	PATIENT_RESULT	
     	) VALUES (
     	#{userNo},
-    	#{}
+    	#{hosNo},
+    	TO_DATE(#{resDate},'MM/DD/YYYY'),
+    	#{resTime},
+    	#{resCategory},
+    	#{patientName},
+    	#{patientBirthday},
+    	#{patientEmail},
+    	#{patientGender},
+    	#{patientResult}
     	)
-    	
-    </insert>-->
+    </insert>
     
 </mapper>
