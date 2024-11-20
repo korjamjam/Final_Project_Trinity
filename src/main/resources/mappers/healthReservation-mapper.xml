@@ -21,7 +21,7 @@
     	INSERT INTO GUEST
     	(GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER, GST_ADDRESS)
     	VALUES
-    	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_DATE(#{gstBirth}, 'YYMMDD'), #{gstGender}, #{gstAddress})
+    	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_NUMBER(#{gstBirth}), #{gstGender}, #{gstAddress})
     </insert>
 
 </mapper>
