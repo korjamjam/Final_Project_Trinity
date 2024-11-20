@@ -34,6 +34,8 @@ public interface BoardService {
 	//조회수 상위 5개
 	public ArrayList<Board> selectTopBoardList();
 
+	int deleteBoard(String boardNo);
+
 
 }
 

@@ -49,7 +49,7 @@
 						class="upload-button">사진 변경</label> <input type="file"
 						id="profile-upload" name="profileImage" accept="image/*"
 						onchange="previewImage(event)" hidden>
-				</div>
+				</div> 	
 
 				<div class="input-group">
 					<label>이름</label> <input type="text" name="userName"
@@ -101,26 +101,30 @@
         let isEditing = false; // 수정 상태 변수
 
         // 수정 활성화 및 저장 동작
-       function toggleEditSave() {
+     function toggleEditSave() {
     const button = document.getElementById('edit-save-button');
     const form = document.getElementById('profile-form');
-    const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="address"], input[name="birthday"], input[name="gender"]');
+    const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
 
     if (!isEditing) {
-        // 수정 활성화 상태
+        // 수정 활성화
         editableFields.forEach(input => {
             input.disabled = false; // 필드 활성화
             input.style.backgroundColor = '#fff'; // 수정 가능 상태 표시
         });
-        button.textContent = "저장하기"; // 버튼 텍스트 변경
+        button.textContent = "저장하기";
     } else {
-        // 저장 상태
-        editableFields.forEach(input => input.disabled = false); // 모든 필드 비활성화 해제
+        // 저장하기: disabled 속성 제거 후 제출
+        editableFields.forEach(input => {
+            input.disabled = false; // 반드시 제거
+        });
         form.submit(); // 폼 제출
     }
 
-    isEditing = !isEditing; // 상태 전환
+    isEditing = !isEditing;
 }
+
+
 
     </script>
 </body>

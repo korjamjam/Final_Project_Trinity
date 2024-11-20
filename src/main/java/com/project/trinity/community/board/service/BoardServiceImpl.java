@@ -35,10 +35,6 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectList(sqlSession, pi);
 	} 
 
-	@Override
-	public int increaseCount(String bno) {
-		return boardDao.increaseCount(sqlSession, bno);
-	}
 
 	@Override
 	public Board selectBoard(String bno) {
@@ -55,9 +51,9 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int updateBoard(Board b) {
-		
-		return boardDao.updateBoard(sqlSession, b);
+	    return boardDao.updateBoard(sqlSession, b);
 	}
+
 
 	@Override
 	public ArrayList<Reply> selectReply(String bno) {
@@ -72,6 +68,18 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public ArrayList<Board> selectTopBoardList() {
 		return boardDao.selectTopBoardList(sqlSession);
+	}
+
+	@Override
+	public int increaseCount(String bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteBoard(String boardNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,59 +40,38 @@ public class BoardController {
 
 	@RequestMapping("/main")
 	public String communityMain(@RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-			Model model) {
-		String boardCategory;
-		System.out.println("type 파라미터 값: " + type); // 디버깅용
+	                            Model model) {
+	    String boardCategory = "free".equals(type) ? "자유게시판"
+	                        : "meditalk".equals(type) ? "메디톡"
+	                        : "event".equals(type) ? "이벤트"
+	                        : "실시간 인기글";
 
-		// 기본 게시판 유형 설정
-		switch (type) {
-		case "free":
-			boardCategory = "자유게시판";
-			break;
-		case "meditalk":
-			boardCategory = "메디톡";
-			break;
-		case "event":
-			boardCategory = "이벤트";
-			break;
-		default:
-			boardCategory = "실시간 인기글";
-			break;
-		}
-
-		model.addAttribute("boardCategory", boardCategory);
-		return "community/community_main";
+	    model.addAttribute("boardCategory", boardCategory);
+	    return "community/community_main";
 	}
+
 
 	// 동적으로 커뮤니티 페이지 연결 - type 파라미터에 따라 게시판 종류를 설정
 	@RequestMapping("/board")
-	public String getBoardPage(@RequestParam(name = "type", required = false) String type, Model model) {
-		String boardCategory;
+	public String getBoardPage(@RequestParam(name = "type", required = false, defaultValue = "popular") String type, Model model) {
+	    String boardCategory = "popular".equals(type) ? "실시간 인기글"
+	                        : "free".equals(type) ? "자유게시판"
+	                        : "meditalk".equals(type) ? "메디톡"
+	                        : "event".equals(type) ? "이벤트"
+	                        : "실시간 인기글";
 
-		if ("free".equals(type)) {
-			boardCategory = "자유게시판";
-		} else if ("meditalk".equals(type)) {
-			boardCategory = "메디톡";
-		} else if ("event".equals(type)) {
-			boardCategory = "이벤트";
-		} else {
-			boardCategory = "실시간 인기글";
-		}
-
-		// 모델에 속성 추가
-		model.addAttribute("boardCategory", boardCategory);
-
-		// JSP 파일 이름을 community/Board로 설정하여 Board.jsp를 찾도록 함
-		return "community/board";
+	    model.addAttribute("boardCategory", boardCategory);
+	    return "community/board";
 	}
 
-	// 글쓰기 페이지 이동 매핑
+
 	@GetMapping("/write")
-	public String showSummernote(@RequestParam(name = "type", required = false, defaultValue = "자유게시판") String type, 
-	                              Model m) {
-	    // 기본 카테고리 설정
+	public String showSummernote(
+	        @RequestParam(name = "type", required = false, defaultValue = "자유게시판") String type,
+	        Model m) {
 	    String boardCategory;
 
+	    // type 값에 따라 카테고리 설정
 	    if ("meditalk".equals(type)) {
 	        boardCategory = "메디톡";
 	    } else if ("event".equals(type)) {
@@ -99,37 +80,32 @@ public class BoardController {
 	        boardCategory = "자유게시판";
 	    }
 
-	    // 모델에 카테고리 추가
 	    m.addAttribute("boardCategory", boardCategory);
-
-	    return "community/summernote"; // JSP 페이지로 이동
+	    return "community/summernote";
 	}
 
 
+
 	@RequestMapping("/list.bo")
-	public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-	                         @RequestParam(value = "sortType", required = false) String sortType,
-	                         Model model) {
-	    int boardCount = boardService.selectListCount();
-	    PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 5);
-	    ArrayList<Board> list = boardService.selectList(pi, sortType);
-	    System.out.println("게시글 수: " + list.size()); // 게시글 수 출력
-	    model.addAttribute("list", list);
-	    model.addAttribute("pi", pi);
-	  
+	public String selectList(
+	        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+	        @RequestParam(value = "sortType", required = false) String sortType,
+	        Model model) {
+	    PageInfo pi = Template.getPageInfo(boardService.selectListCount(), currentPage, 10, 5);
+	    model.addAttribute("list", boardService.selectList(pi, sortType))
+	         .addAttribute("pi", pi);
 	    return "community/board";
 	}
 
 	@GetMapping("/boardDetail")
 	public String selectBoard(@RequestParam("bno") String bno, Model m) {
-	    // 게시글 조회
 	    Board b = boardService.selectBoard(bno);
 
-	    if (b != null) { // 게시글이 존재할 경우
+	    if (b != null) { 
 	        m.addAttribute("b", b);
-	        m.addAttribute("boardCategory", b.getBoardCategory()); // 카테고리 전달
+	        m.addAttribute("boardCategory", b.getBoardCategory());
 	        return "community/community_board_detail"; // 상세 페이지로 이동
-	    } else { // 게시글이 없을 경우
+	    } else { 
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
 	    }
@@ -138,59 +114,95 @@ public class BoardController {
 
 	@PostMapping("/write")
 	public String insertBoard(Board b, HttpSession session, Model m) {
-	    // 로그인 사용자 정보 가져오기
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-
-	    if (loginUser == null) { // 로그인 여부 확인
+	    if (loginUser == null) {
 	        m.addAttribute("errorMsg", "로그인 후에 게시글을 작성할 수 있습니다.");
 	        return "/common/errorPage";
 	    }
 
-	    // 게시글 작성자 정보 설정
 	    b.setUserNo(loginUser.getUserNo());
 	    b.setBoardWriter(loginUser.getUserId());
 
-	    // 게시글 저장
-	    int result = boardService.insertBoard(b, loginUser.getUserNo());
+	    return boardService.insertBoard(b, loginUser.getUserNo()) > 0 
+	            ? "redirect:/community/boardDetail?bno=" + b.getBoardNo() 
+	            : m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.").toString();
+	}
 
-	    if (result > 0) { // 성공 시 상세 페이지로 리다이렉트
-	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
-	    } else { // 실패 시 에러 페이지로 이동
-	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
-	        return "/common/errorPage";
+	@GetMapping("edit.bo")
+	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {
+		// 게시글 정보 가져오기
+		Board b = boardService.selectBoard(boardNo);
+
+		if (b != null) {
+			m.addAttribute("b", b); // 게시글 정보를 Model에 추가
+			return "community/summernoteUpdateForm"; // 수정 페이지 JSP
+		} else {
+			m.addAttribute("errorMsg", "게시글을 불러오는데 실패했습니다.");
+			return "common/errorPage";
+		}
+	}
+
+	@PostMapping("/update")
+	public String updateBoard(Board b, Model m) {
+		// 수정된 데이터 처리
+		int result = boardService.updateBoard(b); // 데이터베이스 업데이트
+		if (result > 0) {
+			return "redirect:/community/boardDetail?bno=" + b.getBoardNo(); // 성공 시 상세 페이지로 이동
+		} else {
+			m.addAttribute("errorMsg", "게시글 수정 실패");
+			return "common/errorPage";
+		}
+	}
+
+	@ResponseBody
+	@PostMapping("/upload")
+	public String uploadImages(@RequestParam("fileList") List<MultipartFile> fileList, HttpSession session) {
+		List<String> changeNameList = new ArrayList<>();
+		for (MultipartFile f : fileList) {
+			String changeName = saveFile(f, session, "/resources/img/");
+			 changeNameList.add("/resources/img/" + changeName); // 경로 포함
+		}
+		return new Gson().toJson(changeNameList);
+	}
+
+	
+	
+	public String saveFile(MultipartFile upfile, HttpSession session, String path) {
+	    String originName = upfile.getOriginalFilename(); // 파일 원본명
+	    if (originName == null || originName.isEmpty()) return null;
+
+	    String ext = originName.substring(originName.lastIndexOf(".")); // 확장자 추출
+	    String changeName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+	            + "_" + ((int) (Math.random() * 90000) + 10000) + ext;
+
+	    String savePath = session.getServletContext().getRealPath(path) + changeName;
+	    System.out.println("파일 저장 경로: " + savePath);
+
+	    try {
+	        upfile.transferTo(new File(savePath));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null; // 예외 발생 시 null 반환
 	    }
+
+	    return changeName; // 변경된 파일명 반환
+	}
+
+
+	@ResponseBody
+	@PostMapping("/deleteFile")
+	public String deleteFile(@RequestBody Map<String, String> fileData, HttpSession session) {
+	    String fileName = fileData.get("fileName");
+
+	    if (fileName == null || fileName.contains("..") || fileName.contains("/") || fileName.contains("\\")) {
+	        return "유효하지 않은 파일 이름입니다.";
+	    }
+
+	    File file = new File(session.getServletContext().getRealPath("/resources/img/") + fileName);
+
+	    return (file.exists() && file.delete()) ? "삭제 성공" : "파일 삭제 실패 또는 파일이 존재하지 않습니다.";
 	}
 
 
 
-  
-
-    // AJAX를 통해 단일 파일 업로드 처리
-    @ResponseBody
-    @PostMapping("/upload")
-    public String upload(MultipartFile upfile, HttpSession session) {
-        // 파일 저장 후 변경된 파일명 반환
-        String changeName = saveFile(upfile, session, "/resources/img/");
-        List<String> changeNameList = new ArrayList<>();
-        changeNameList.add(changeName);
-        return new Gson().toJson(changeNameList);
-    }
-
-    // 파일 저장 메서드
-    public String saveFile(MultipartFile upfile, HttpSession session, String path) {
-        String originName = upfile.getOriginalFilename();
-        String ext = originName.substring(originName.lastIndexOf("."));
-        String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        int randNum = (int) (Math.random() * 90000) + 10000;
-        String changeName = currentTime + "_" + randNum + ext;
-
-        String savePath = session.getServletContext().getRealPath(path);
-        try {
-            upfile.transferTo(new File(savePath + changeName));
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-        return changeName;
-    }
-    
 }

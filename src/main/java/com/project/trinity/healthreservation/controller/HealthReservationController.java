@@ -1,15 +1,10 @@
 package com.project.trinity.healthreservation.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,34 +30,10 @@ public class HealthReservationController {
 
     // 백신 예약 페이지 2로 이동
     @PostMapping("/vaccinepage2")
-    public String vaccineReservation2(@ModelAttribute Reservation reservation, Model model) {
-    	//예약 데이터 확인 디버깅
-    	System.out.println("Received Reservation in vaccineReservation2: " + reservation);
-    	
-        model.addAttribute("reservation", reservation);
+    public String vaccineReservation2() {
         return "health_reservation/vaccine_reservation2";
     }
 
-    @PostMapping("/submitReservation")
-    public String submitReservation(@ModelAttribute Reservation reservation, HttpSession session) {
-        System.out.println("Received Reservation: " + reservation);
-
-        String userNo = (String) session.getAttribute("userNo");
-        if (userNo == null) {
-            throw new IllegalArgumentException("로그인된 사용자 정보가 없습니다.");
-        }
-
-        reservation.setUserNo(userNo);
-        
-        // 디버깅: USER_NO와 HOS_NO 출력
-        System.out.println("USER_NO: " + reservation.getUserNo());
-        System.out.println("HOS_NO: " + reservation.getHosNo());
-        System.out.println("Reservation Data: " + reservation);
-        
-        healthReservationService.saveReservation(reservation);
-
-        return "redirect:/healthReservation/vaccinepage1";
-    }
 
 	@GetMapping("/guide")
 	public String healthReservationGuide() {
@@ -90,6 +61,7 @@ public class HealthReservationController {
 		return "health_reservation/caution_guide_ct_mri";
 	}
 	
+	// 건강검진 
 	@GetMapping("/reservation1")
 	public String healthReservation1() {
 		return "health_reservation/health_reservation1";
@@ -128,6 +100,8 @@ public class HealthReservationController {
 			System.out.println(guest);
 			int result = healthReservationService.insertGuest(guest);
 			if(result > 0) {
+				session.setAttribute("guest", guest);
+				System.out.println(guest);
 				return "health_reservation/health_reservation2";
 			}
 			else {
@@ -139,7 +113,7 @@ public class HealthReservationController {
 		}
 	}
 	
-	@RequestMapping("/reservation3")
+	@RequestMapping("/reservationSubmit")
 	public String healthReservation3(
 			@RequestParam("reservation_user_select") String reservation_user_select,
 			@RequestParam("reservation_user_hospital") String reservation_user_hospital,
@@ -148,14 +122,14 @@ public class HealthReservationController {
 			@RequestParam("reservation_user_time") String reservation_user_time,
 			@RequestParam("reservation_user_result") String reservation_user_result,
 			HttpSession session) {
-		String reservation_user_name = (String) session.getAttribute("reservation_user_name");
-		System.out.println(reservation_user_select);
-		System.out.println(reservation_user_name);
-		System.out.println(reservation_user_hospital);
-		System.out.println(reservation_user_text);
-		System.out.println(reservation_user_date);
-		System.out.println(reservation_user_time);
-		System.out.println(reservation_user_result);
+		Reservation reservation = new Reservation();
+		if(session.getAttribute("loginUser") != null) {
+			reservation.setUserNo((String)session.getAttribute("userNo"));
+		} else {
+			Guest guest = (Guest)session.getAttribute("guest");
+			System.out.println(guest);
+//			String selectGstNo = healthReservationService.selectGuest(guest.getGstName(),guest.getGstPhone());
+		}
 		return "health_reservation/health_reservation2";
 	}
 	
