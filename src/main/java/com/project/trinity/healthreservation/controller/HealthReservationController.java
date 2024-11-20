@@ -18,10 +18,8 @@ import com.project.trinity.reservation.model.vo.Reservation;
 @Controller
 @RequestMapping("/healthReservation")
 public class HealthReservationController {
-	
-	
 
-    @Autowired
+	@Autowired
     private HealthReservationService healthReservationService;
 
     // 백신 예약 페이지 1로 이동
