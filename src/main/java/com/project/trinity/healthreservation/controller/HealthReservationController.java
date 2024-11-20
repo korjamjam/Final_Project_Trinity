@@ -67,6 +67,7 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
+	// 건강검진 받는 사용자 정보 받아주는 컨트롤러
 	@RequestMapping("/reservation2")
 	public String healthReservation2(
 			@RequestParam("reservation_user_name") String reservation_user_name,
@@ -83,36 +84,45 @@ public class HealthReservationController {
 			@RequestParam("use_tos_ans1") String use_tos_ans1,
 			@RequestParam("use_tos_ans2") String use_tos_ans2,
 			HttpSession session) {
-		System.out.println(reservation_user_name);
+		//이용약관 두개 다 동의 한 경우만 다음 페이지 리턴
 		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
-			String gstName = reservation_user_name;
-			String gstBirth = reservation_user_num1;
-			String gstGender = "";
-			if(Integer.parseInt(reservation_user_num2) %2 ==0) {
-				gstGender = "F";
-			} else {
-				gstGender = "M";
-			}
-			String gstPhone = reservation_user_phone1 + reservation_user_phone2;
-			String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
-			String gstAddress = address + extraAddress + detailAddress;
-			Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
-			System.out.println(guest);
-			int result = healthReservationService.insertGuest(guest);
-			if(result > 0) {
-				session.setAttribute("guest", guest);
-				System.out.println(guest);
+			//로그인 유저 정보 없으면 게스트 저장하고 게스트 넘버 반환
+			if(session.getAttribute("loginUser") != null) {
+				String gstName = reservation_user_name;
+				String gstBirth = reservation_user_num1;
+				String gstGender = "";
+				//주민번호 뒷자리 홀수면 M, 짝수면 F로 반환
+				if(Integer.parseInt(reservation_user_num2) %2 ==0) {
+					gstGender = "F";
+				} else {
+					gstGender = "M";
+				}
+				String gstPhone = reservation_user_phone1 + reservation_user_phone2;
+				String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
+				String gstAddress = address + extraAddress + detailAddress;
+				Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
+				
+				//게스트 정보 게스트 테이블에 추가
+				int result = healthReservationService.insertGuest(guest);
+				//성공
+				if(result > 0) {
+					session.setAttribute("gstNo", guest.getGstNo());
+					return "health_reservation/health_reservation2";
+				//실패
+				} else {
+					return "health_reservation/health_reservation1";
+				}
+			}//로그인 유저 정보 있으면 유저번호 반환
+			else {
 				return "health_reservation/health_reservation2";
 			}
-			else {
-				return "health_reservation/health_reservation1";
-			}
-			
+		//이용약관 동의 안하면 원래 페이지 리턴	
 		} else {
 			return "health_reservation/health_reservation1";
 		}
 	}
 	
+	//
 	@RequestMapping("/reservationSubmit")
 	public String healthReservation3(
 			@RequestParam("reservation_user_select") String reservation_user_select,
@@ -122,9 +132,9 @@ public class HealthReservationController {
 			@RequestParam("reservation_user_time") String reservation_user_time,
 			@RequestParam("reservation_user_result") String reservation_user_result,
 			HttpSession session) {
-		Reservation reservation = new Reservation();
+		//로그인한 회원이 예약하는 경우
 		if(session.getAttribute("loginUser") != null) {
-			reservation.setUserNo((String)session.getAttribute("userNo"));
+			
 		} else {
 			Guest guest = (Guest)session.getAttribute("guest");
 			System.out.println(guest);

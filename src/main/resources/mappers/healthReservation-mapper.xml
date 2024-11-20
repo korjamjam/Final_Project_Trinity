@@ -27,11 +27,5 @@
 	</selectKey>
     </insert>
     
-    <select id="selectGstNo" resultType="string">
-	    SELECT gstNo 
-	    FROM guest 
-	    WHERE name = #{name} AND phone = #{phone}
-	    ORDER BY created_at DESC
-	    LIMIT 1
-	</select>
+    
 </mapper>
