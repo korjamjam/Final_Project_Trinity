@@ -93,6 +93,7 @@ public class MemberController {
 	    Member loginMember = memberService.loginMember(m);
 
 	    if (loginMember != null) {
+	        // 관리자 로그인 처리
 	        if ("Y".equals(loginMember.getIsAdmin())) {
 	            if (m.getUserPwd().equals(loginMember.getUserPwd())) {
 	                session.setAttribute("loginUser", loginMember);
@@ -100,9 +101,11 @@ public class MemberController {
 	                return "redirect:/main";
 	            }
 	        } else {
+	            // 일반 사용자 로그인 처리
 	            if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-	                session.setAttribute("loginUser", loginMember);
+	                session.setAttribute("loginUser", loginMember); // 프로필 정보 포함한 사용자 객체 세션 저장
 
+	                // 자동 로그인 처리
 	                if ("on".equals(request.getParameter("keepLoggedIn"))) {
 	                    Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
 	                    loginCookie.setMaxAge(60 * 60 * 24 * 30);
@@ -114,13 +117,17 @@ public class MemberController {
 	                return "redirect:/main";
 	            }
 	        }
+
+	        // 비밀번호 불일치
 	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
 	        return "redirect:/member/login";
 	    } else {
+	        // 로그인 실패
 	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
 	        return "redirect:/member/login";
 	    }
 	}
+
 
 
 
