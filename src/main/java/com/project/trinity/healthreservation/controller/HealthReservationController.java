@@ -1,5 +1,10 @@
 package com.project.trinity.healthreservation.controller;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +112,7 @@ public class HealthReservationController {
 				System.out.println(result + "게스트 추가 성공");
 				//성공
 				if(result > 0) {
-					session.setAttribute("gstNo", guest.getGstNo());
-					System.out.println((String)session.getAttribute("gstNo"));
+					session.setAttribute("Guest", guest);
 					return "health_reservation/health_reservation2";
 				//실패
 				} else {
@@ -126,41 +130,56 @@ public class HealthReservationController {
 	
 	//
 	@RequestMapping("/reservationSubmit")
-	public String healthReservation3(
-			@RequestParam("reservation_user_select") String reservation_user_select,
-			@RequestParam("reservation_user_hospital") String reservation_user_hospital,
-			@RequestParam("reservation_user_text") String reservation_user_text,
-			@RequestParam("reservation_user_date") String reservation_user_date,
-			@RequestParam("reservation_user_time") String reservation_user_time,
-			@RequestParam("reservation_user_result") String reservation_user_result,
-			HttpSession session,
-			RedirectAttributes redirectAttributes) {
+	public String healthReservation3(@RequestParam String reservation_user_select,
+	        @RequestParam String reservation_user_hospital,
+	        @RequestParam String reservation_user_text,
+	        @RequestParam String reservation_user_date,
+	        @RequestParam String reservation_user_time,
+	        @RequestParam String reservation_user_result,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+		
+		HealthReservation healthReservation = new HealthReservation();
+		//날짜 받아온거 yyyy-mm-dd로 바꾸기
+		String useDate = reservation_user_date.substring(6)
+				   + "-" +reservation_user_date.substring(0,2)
+				   + "-" +reservation_user_date.substring(3,5);
+		
+		healthReservation.setHosNo(reservation_user_hospital);
+		healthReservation.setResDate(useDate);
+		healthReservation.setResTime(reservation_user_time);
+		healthReservation.setResCategory(reservation_user_select);
+		healthReservation.setPatientResult(reservation_user_result);
+		
 		//로그인 한 경우
 		if(session.getAttribute("loginUser")!=null) {
 			Member m = (Member)session.getAttribute("loginUser");
-			HealthReservation healthReservation = new HealthReservation();
+			
+			
+			String userBirthDay = m.getBirthday().substring(2,4)
+					   			+ m.getBirthday().substring(5,7)
+					   			+ m.getBirthday().substring(8,10);
+			
 			healthReservation.setUserNo(m.getUserNo());
-			healthReservation.setHosNo(reservation_user_hospital);
-			healthReservation.setResDate(reservation_user_date);
-			healthReservation.setResTime(reservation_user_time);
-			healthReservation.setResCategory(reservation_user_select);
-			healthReservation.setPatientResult(reservation_user_result);
 			healthReservation.setPatientName(m.getUserName());
 			healthReservation.setPatientEmail(m.getEmail());
-			healthReservation.setPatientBirthday(m.getBirthday());
+			healthReservation.setPatientBirthday(userBirthDay);
 			healthReservation.setPatientGender(m.getGender());
-			System.out.println(healthReservation);
 			
-			int result = healthReservationService.insertHealthReservation(healthReservation);
-			redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
-			return "main";
 		} //로그인 안한 경우 
 		else {
-			
+			Guest g = (Guest)session.getAttribute("Guest");
+			healthReservation.setGstNo(g.getGstNo());
+			healthReservation.setPatientName(g.getGstName());
+			healthReservation.setPatientEmail(g.getGstEmail());
+			healthReservation.setPatientBirthday(g.getGstBirth());
+			healthReservation.setPatientGender(g.getGstGender());
 			//int result = healthReservationService.insertHealthReservation((int)session.getAttribute(""));
 		}
-		
-		return "health_reservation/health_reservation2";
+		int result = healthReservationService.insertHealthReservation(healthReservation);
+		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
+		System.out.println(result);
+		return "main";
 	}
 	
 	@GetMapping("/result")

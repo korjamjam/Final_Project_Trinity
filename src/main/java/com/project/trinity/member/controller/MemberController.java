@@ -1,5 +1,7 @@
 package com.project.trinity.member.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -161,14 +163,78 @@ public class MemberController {
 
 	@PostMapping("/update_profile")
 	public String updateProfile(Member member, MultipartFile profileImage, HttpSession session) {
-		
+
+	   
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 
 	    System.out.println(member);
 	    System.out.println(profileImage);
 
-	    return "redirect:/member/profile_edit";
+	    
+	    
+	
+	    member.setUserNo(loginUser.getUserNo());
+	    member.setUserId(loginUser.getUserId());
+	    member.setUserPwd(loginUser.getUserPwd());
+
+	    System.out.println("Updated member object: " + member);
+	    
+
+
+	    
+	    if (loginUser.getUserProfile() != null) {
+	        String deletePath = session.getServletContext().getRealPath(loginUser.getUserProfile());
+	        File oldFile = new File(deletePath);
+	        if (oldFile.exists()) {
+	            System.out.println("Deleting existing profile image: " + deletePath);
+	            oldFile.delete();
+	        } else {
+	            System.out.println("No existing profile image to delete.");
+	        }
+	    }
+
+	    // 새로운 프로필 이미지 저장
+	    if (profileImage != null && !profileImage.isEmpty()) {
+	        System.out.println("Uploading new profile image: " + profileImage.getOriginalFilename());
+
+	        String savePath = "/resources/upload/profile/";
+	        String realPath = session.getServletContext().getRealPath(savePath);
+
+	        File uploadDir = new File(realPath);
+	        if (!uploadDir.exists()) {
+	            uploadDir.mkdirs();
+	        }
+
+	        String originalFilename = profileImage.getOriginalFilename();
+	        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+	        String newFilename = loginUser.getUserId() + "_profile" + ext;
+
+	        try {
+	            // 파일 저장
+	            profileImage.transferTo(new File(realPath + newFilename));
+	            // Member 객체에 프로필 이미지 경로 설정
+	            member.setUserProfile(savePath + newFilename);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return "redirect:/member/profile_edit?error=uploadFailed";
+	        }
+	    } else {
+	        // 새로운 이미지가 업로드되지 않은 경우 기존 경로 유지
+	        member.setUserProfile(loginUser.getUserProfile());
+	    }
+
+	    // 데이터베이스 업데이트
+	    int result = memberService.updateMember(member);
+	    if (result > 0) {
+	        // 세션 정보 업데이트
+	        session.setAttribute("loginUser", member);
+	        return "redirect:/member/profile_edit";
+	    } else {
+	        return "redirect:/member/profile_edit?error=up	dateFailed";
+	    }
 	}
+
+	
 
 
 	// 기타 페이지 매핑

@@ -29,7 +29,7 @@ public class Member {
     private String isAdmin;   //관리자면 'Y', 아니면 'N'
     private String medKey;
     private String hosNo;
-    private String USER_PROFILE;
+    private String userProfile;
 	
 	public Member(String userId, String userPwd) {
 		super();

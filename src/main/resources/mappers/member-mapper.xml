@@ -91,15 +91,16 @@
 	</select>
 
 	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER
-		SET
-		USER_NAME = #{userName},
-		BIRTHDAY = #{birthday},
-		EMAIL = #{email},
-		ADDRESS = #{address},
-		PROFILE_IMAGE = #{profileImage}
-		WHERE USER_ID = #{userId}
-	</update>
+    UPDATE MEMBER
+    SET USER_NAME = #{userName},
+        BIRTHDAY = #{birthday},
+        EMAIL = #{email},
+        ADDRESS = #{address},
+        USERPROFILE = #{userProfile} <!-- 프로필 이미지 경로 추가 -->
+    WHERE USER_ID = #{userId}
+</update>
+
+
 
 
 
