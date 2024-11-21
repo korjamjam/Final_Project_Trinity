@@ -17,27 +17,13 @@
         <result property="resCategory" column="RES_CATEGORY"/>
         <result property="resContent" column="RES_CONTENT"/>
     </resultMap>
-
-    <!-- 예약 삽입 쿼리 -->
-    <!-- 예약 삽입 쿼리 -->
-    <insert id="insertReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
+    
+    <!-- 일반 진료 예약 -->
+    <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
     	INSERT INTO RESERVATION
-    	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT, PATIENT_NAME, PATIENT_BIRTHDAY)
+    	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
     	VALUES
-    	(#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent}, #{patientName}, #{patientBirthday})
-	</insert>
-
-    <!-- 예약 정보와 백신 종류 조회 -->
-    <select id="selectReservationWithVaccine" resultMap="ReservationWithVaccineResult">
-        SELECT 
-            r.RES_NO, r.USER_NO, r.HOS_NO, r.RES_DATE, r.RES_TIME, 
-            r.RES_CATEGORY, r.RES_CONTENT, r.PATIENT_NAME, t.VACCINE_CATEGORY
-        FROM 
-            RESERVATION r
-        LEFT JOIN 
-            TREATMENT t ON r.RES_NO = t.RES_NO
-        WHERE 
-            r.RES_NO = #{resNo}
-    </select>
+    	(#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
+    </insert>
     
 </mapper>

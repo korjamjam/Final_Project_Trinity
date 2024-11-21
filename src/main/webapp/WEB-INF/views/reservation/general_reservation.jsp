@@ -6,6 +6,7 @@
     String userName = loginUser != null ? loginUser.getUserName() : "";
     String birthday = loginUser != null ? loginUser.getBirthday() : "";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,7 @@
     </div>
     
     <!-- Subject Select -->
-    <form action="" class="general_reservation_form">
+    <form action="/gReservation" class="general_reservation_form">
         <div class="reservation_subject_select">
             <div class="reservation_subject_select_title " onclick="openContent(this)">
                 <p>예약 과목 선택</p>
@@ -81,9 +82,9 @@
             </div>
             <div class="reservation_subject_select_content">
                 <p>진료 과목</p>
-                <button>소아과</button>
+                <li>${ hInfo.department}</li>
                 <br><br>
-                <input type="text" placeholder="증상을 입력해주세요">
+                <input type="text" name="content" placeholder="증상을 입력해주세요">
             </div>
             <div class="reservation_subject_select_title reservation_datepicker" onclick="openContent(this)">
                 <p>예약 날짜 선택</p>
@@ -91,30 +92,36 @@
             </div>
             <div class="reservation_subject_select_content">
                 <div id="datepicker"></div>
+                <input type="hidden" name="gReservation_date">
             </div>
             <div class="reservation_subject_select_title" onclick="openContent(this)">
                 <p>예약 시간 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
-            <div class="reservation_subject_select_content">
+            <div class="reservation_subject_select_content" name="resTime">
                 <p>오전</p>
-                <div class="reservation_time">
-                    <button>10:00</button>
-                    <button>10:30</button>
-                    <button>11:00</button>
-                    <button>11:30</button>
-                </div>
+                <ul class="reservation_time">
+                    <li data-time="09:00">09:00</li>
+                    <li data-time="09:30">09:30</li>
+                    <li data-time="10:00">10:00</li>
+                    <li data-time="10:30">10:30</li>
+                    <li data-time="11:00">11:00</li>
+                    <li data-time="11:30">11:30</li>
+                </ul>
                 <p>오후</p>
-                <div class="reservation_time">
-                    <button>12:00</button>
-                    <button>12:30</button>
-                    <button>13:00</button>
-                    <button>13:30</button>
-                    <button>14:00</button>
-                    <button>15:00</button>
-                    <button>16:00</button>
-                    <button>16:30</button>
-                </div>
+                <ul class="reservation_time">
+                    <li data-time="13:00">13:00</li>
+                    <li data-time="13:30">13:30</li>
+                    <li data-time="14:00">14:00</li>
+                    <li data-time="14:30">14:30</li>
+                    <li data-time="15:00">15:00</li>
+                    <li data-time="15:30">15:30</li>
+                    <li data-time="16:00">16:00</li>
+                    <li data-time="16:30">16:30</li>
+                    <li data-time="17:00">17:00</li>
+                    <li data-time="17:30">17:30</li>
+                </ul>
+                <input type="hidden" id="resTime" name="resTime">
             </div>
             <div class="reservation_subject_select_title" onclick="openContent(this)">
                 <p>예약자 선택</p>
@@ -128,9 +135,15 @@
                     </label>
                 </div>
                 <br><br>
-                <input type="text" placeholder="이름을 입력해주세요" id="userName" data-checkvalue="${loginUser.userName}">
+                <input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName" data-checkvalue="${loginUser.userName}">
                 <br><br>
-                <input type="text" placeholder="생년월일을 입력해주세요" id="birthday" data-checkvalue="${loginUser.birthday}">
+                <input type="text" placeholder="생년월일을 입력해주세요" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
+                <br><br>
+                <select name="gender" name="gender">
+                    <option selected disabled>성별</option>
+                    <option value="M">남성</option>
+                    <option value="F">여성</option>
+                </select>
             </div>
         </div>
 

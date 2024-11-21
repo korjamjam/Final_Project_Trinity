@@ -186,8 +186,8 @@
         </div>
 
         <div class="hospital_detail_goto_res">
-            <button onclick="">바로 접수</button>
-            <button onclick="location.href='${pageContext.request.contextPath}/reservation/form'">시간 예약</button>
+            <button onclick="">당일 시간 예약</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${h.hosNo }'">미래 시간 예약</button>
         </div>
 
     </div>
