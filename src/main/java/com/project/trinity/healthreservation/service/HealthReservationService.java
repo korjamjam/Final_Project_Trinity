@@ -1,9 +1,8 @@
 package com.project.trinity.healthreservation.service;
 
-import com.project.trinity.healthreservation.model.vo.HealthReservation;
+
 import com.project.trinity.member.model.vo.Guest;
-import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.reservation.model.vo.HealthReservation;
 
 public interface HealthReservationService {
 	int insertGuest(Guest guest);
