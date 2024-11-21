@@ -70,7 +70,7 @@
     	#{patientResult}
     	)
    	<selectKey keyProperty="hResNo" resultType="java.lang.String" order="AFTER">
-		select 'HR' || SEQ_GST_NO.CURRVAL FROM DUAL
+		select 'HR' || SEQ_H_RES_NO.CURRVAL FROM DUAL
 	</selectKey>
     </insert>
     
