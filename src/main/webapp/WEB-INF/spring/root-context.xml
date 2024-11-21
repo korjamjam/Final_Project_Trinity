@@ -16,9 +16,9 @@
   </bean>
 	  
   <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
-  	<property name="configLocation" value="classpath:mybatis-config.xml"/>
-  	<property name="dataSource" ref="dataSource"/>
-  </bean>
+    <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    <property name="dataSource" ref="dataSource"/>
+</bean>
    
   <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
    	<constructor-arg ref="sqlSessionFactory"/>
@@ -29,7 +29,7 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
  
-	<context:component-scan base-package="com.project.aop" use-default-filters="false">
+	<context:component-scan base-package="com.project.trinity" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
 	</context:component-scan>
 	
