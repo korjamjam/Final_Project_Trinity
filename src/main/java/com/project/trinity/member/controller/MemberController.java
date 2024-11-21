@@ -159,16 +159,16 @@ public class MemberController {
 	}
 
 	@PostMapping("/update_profile")
-	public String updateProfile(Member m, MultipartFile profileImage, HttpSession session) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
+	public String updateProfile(Member member, MultipartFile profileImage, HttpSession session) {
+		
+	    Member loginUser = (Member) session.getAttribute("loginUser");
 
-		
-		System.out.println(m);
-		System.out.println(loginUser);
-		System.out.println(profileImage);
-		
-		return "redirect:/member/profile_edit";
+	    System.out.println(member);
+	    System.out.println(profileImage);
+
+	    return "redirect:/member/profile_edit";
 	}
+
 
 	// 기타 페이지 매핑
 	@GetMapping("/login")
