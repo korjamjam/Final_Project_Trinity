@@ -1,5 +1,10 @@
 package com.project.trinity.healthreservation.controller;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.reservation.model.vo.HealthReservation;
 
 @Controller
 @RequestMapping("/healthReservation")
@@ -128,18 +132,27 @@ public class HealthReservationController {
 	//
 	@RequestMapping("/reservationSubmit")
 	public String healthReservation3(
-			@RequestParam("reservation_user_select") String reservation_user_select,
-			@RequestParam("reservation_user_hospital") String reservation_user_hospital,
-			@RequestParam("reservation_user_text") String reservation_user_text,
-			@RequestParam("reservation_user_date") String reservation_user_date,
-			@RequestParam("reservation_user_time") String reservation_user_time,
-			@RequestParam("reservation_user_result") String reservation_user_result,
+			String reservation_user_select,
+			String reservation_user_hospital,
+			String reservation_user_text,
+	        String reservation_user_date,
+			String reservation_user_time,
+			String reservation_user_result,
 			HttpSession session,
 			RedirectAttributes redirectAttributes) {
 		//로그인 한 경우
 		if(session.getAttribute("loginUser")!=null) {
 			Member m = (Member)session.getAttribute("loginUser");
 			HealthReservation healthReservation = new HealthReservation();
+			
+			String userBirthDay = m.getBirthday().substring(2,4)
+					   			+ m.getBirthday().substring(5,7)
+					   			+ m.getBirthday().substring(8,10);
+			
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date useDate = formatter. parse(reservation_user_date);
+			
+			System.out.println(reservation_user_date);
 			healthReservation.setUserNo(m.getUserNo());
 			healthReservation.setHosNo(reservation_user_hospital);
 			healthReservation.setResDate(reservation_user_date);
@@ -148,7 +161,7 @@ public class HealthReservationController {
 			healthReservation.setPatientResult(reservation_user_result);
 			healthReservation.setPatientName(m.getUserName());
 			healthReservation.setPatientEmail(m.getEmail());
-			healthReservation.setPatientBirthday(m.getBirthday());
+			healthReservation.setPatientBirthday(userBirthDay);
 			healthReservation.setPatientGender(m.getGender());
 			System.out.println(healthReservation);
 			
