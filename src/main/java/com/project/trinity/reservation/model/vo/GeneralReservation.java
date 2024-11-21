@@ -17,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class GnernalReservation {
+public class GeneralReservation {
 	private String gresNo;              // 일반 진료 예약 번호
     private String userNo; 				// 사용자 번호(로그인)
     private String hosNo; 				// 병원 번호

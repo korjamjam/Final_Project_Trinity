@@ -15,23 +15,63 @@
         <result property="gstGender" column="GST_GENDER"/>
         <result property="gstAddress" column="GST_ADDRESS"/>
     </resultMap>
+    
+    <resultMap type="HealthReservation" id="HealthReservationResultSet" >
+        <result property="hResNo" column="HRES_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="gstNo" column="GST_NO"/> <!-- PATIENT_NAME 추가 -->
+       	<result property="hosNo" column="HOS_NO"/>
+        <result property="resDate" column="RES_DATE"/>
+        <result property="resTime" column="RES_TIME"/>
+        <result property="resCategory" column="RES_CATEGORY"/>
+        <result property="patientName" column="PATIENT_NAME"/>
+        <result property="patientBirthday" column="PATIENT_BIRTH"/>
+        <result property="patientEmail" column="PATIENT_EMAIL"/>
+        <result property="patientGender" column="PATIENT_GENDER"/>
+        <result property="patientResult" column="PATIENT_RESULT"/>
+    </resultMap>
 
     <!-- 비회원 정보 삽입 쿼리 -->
     <insert id="insertGuest" parameterType="Guest">
     	INSERT INTO GUEST
     	(GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER, GST_ADDRESS)
     	VALUES
-    	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_DATE(#{gstBirth}, 'YYMMDD'), #{gstGender}, #{gstAddress})
+    	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_NUMBER(#{gstBirth}), #{gstGender}, #{gstAddress})
     <selectKey keyProperty="gstNo" resultType="java.lang.String" order="AFTER">
 			select 'G' || SEQ_GST_NO.CURRVAL FROM DUAL
 	</selectKey>
     </insert>
     
-    <select id="selectGstNo" resultType="string">
-	    SELECT gstNo 
-	    FROM guest 
-	    WHERE name = #{name} AND phone = #{phone}
-	    ORDER BY created_at DESC
-	    LIMIT 1
-	</select>
+    <!-- 건강검진 예약 삽입 쿼리 -->
+    <insert id="insertHealthReservation" parameterType="HealthReservation">
+    	INSERT INTO HEALTH_RESERVATION (
+    	USER_NO,
+    	HOS_NO,
+    	GST_NO,
+    	RES_DATE,
+    	RES_TIME,
+    	RES_CATEGORY,
+    	PATIENT_NAME,
+    	PATIENT_BIRTH,
+    	PATIENT_EMAIL,
+    	PATIENT_GENDER,
+    	PATIENT_RESULT	
+    	) VALUES (
+    	#{userNo},
+    	#{hosNo},
+    	#{gstNo},
+    	TO_DATE(#{resDate},'YYYY-MM-DD'),
+    	#{resTime},
+    	#{resCategory},
+    	#{patientName},
+    	#{patientBirthday},
+    	#{patientEmail},
+    	#{patientGender},
+    	#{patientResult}
+    	)
+   	<selectKey keyProperty="hResNo" resultType="java.lang.String" order="AFTER">
+		select 'HR' || SEQ_H_RES_NO.CURRVAL FROM DUAL
+	</selectKey>
+    </insert>
+    
 </mapper>

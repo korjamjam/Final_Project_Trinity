@@ -1,113 +1,130 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
+    pageEncoding="UTF-8"%> <!-- JSP 페이지 지시어: UTF-8 설정 -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사이드바 메뉴</title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css">
+<meta charset="UTF-8"> <!-- 문서의 문자 인코딩 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹을 위한 뷰포트 설정 -->
+<title>사이드바 메뉴</title>
+<link rel="stylesheet"
+    href="${pageContext.servletContext.contextPath}/resources/css/common/sidebar.css"> <!-- CSS 파일 연결 -->
 </head>
 <body>
-	<!-- 사이드바 -->
-	<div class="hamburger-sidebar" id="sidebar">
-		<div class="hamburger-sidebar-header">
-		<c:choose>
-
-            <c:when test="${empty loginUser}">
-			<span class="hamburger-login-text" onclick="navigateToLogin()">로그인</span>
-			<button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
-			</c:when>
-			
-			<c:otherwise>
-			<span class="hamburger-login-text" onclick="navigateToLogout()">로그아웃</span>
-			<button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
-			</c:otherwise>
-        </c:choose>
-		</div>
-		<div class="hamburger-sidebar-menu">
-			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>병원찾기</p>
-			</div>
-			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>종합예약</p>
-				<div class="sidebar-submenu">
-					<a href="${pageContext.request.contextPath}/reservation/form" onclick="checkLogin()">진료예약</a>
-					<a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
-					<a href="#">예약확인</a>
-				</div>
-			</div>
-			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>건강검진</p>
-				<div class="sidebar-submenu">
-					<a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a>
-					<a href="${pageContext.request.contextPath}/healthReservation/guide">검진예약 안내</a>
-					<a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a> 
-					<a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
-					<a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
-				</div>
-			</div>
-			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>커뮤니티</p>
-				<div class="sidebar-submenu">
-					<a href="${pageContext.request.contextPath}/community/main?type=popular">인기</a>
-					<a href="${pageContext.request.contextPath}/community/main?type=free">자유</a>
-					<a href="${pageContext.request.contextPath}/community/main?type=meditalk">의료 소통</a>
-					<a href="${pageContext.request.contextPath}/community/main?type=event">이벤트</a>
-				</div>
-			</div>
-			<div class="sidebar-item" onclick="toggleSubmenu(this)">
-				<p>고객문의</p>
-				<div class="sidebar-submenu">
-					<a href="${pageContext.request.contextPath}/inquiry/notification">공지사항</a>
-					<a href="${pageContext.request.contextPath}/inquiry/notice">알림판</a>
-					<a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
-					<a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
-				</div>
-			</div>
-			<div class="sidebar-item">
-    		<a href="${pageContext.servletContext.contextPath}/admin/main"><p>관리자</p></a>
-			</div>
-		</div>
-	</div>
-
-<script>
-    function toggleSubmenu(element) {
-        //var allSubmenus = document.querySelectorAll('.sidebar-submenu');
-        //for (var i = 0; i < allSubmenus.length; i++) {
-        //    allSubmenus[i].style.display = 'none';
-        //}
-
-        //var submenu = element.querySelector('.sidebar-submenu');
-        //if (submenu) {
-        //    submenu.style.display = 'block';
-        //}
+    <!-- 사이드바 -->
+    <div class="hamburger-sidebar" id="sidebar">
+    
+        <!-- 사이드바 헤더 -->
+        <div class="hamburger-sidebar-header">
         
-        const allSubmenus = document.querySelectorAll('.sidebar-submenu');
+            <c:choose> <%-- 로그인 상태에 따라 분기 처리 --%>
+                <c:when test="${empty loginUser}"> <%-- 로그인되지 않은 경우 --%>
+                    <span class="hamburger-login-text" onclick="navigateToLogin()">로그인</span>
+                    <button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
+                </c:when>
+                
+                <c:otherwise> <%-- 로그인된 경우 --%>
+                    <span class="hamburger-login-text" onclick="navigateToLogout()">로그아웃</span>
+                    <button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        
+        <!-- 사이드바 메뉴 -->
+        <div class="hamburger-sidebar-menu">
+        
+            <!-- 병원찾기 메뉴 -->
+            <div class="sidebar-item" onclick="toggleSubmenu(this)">
+                <div class="sidebar-main">병원찾기</div>
+            </div>
+            
+            <!-- 종합예약 메뉴 -->
+            <div class="sidebar-item">
+                <div class="sidebar-main">
+                    <a href="${pageContext.request.contextPath}/reservation/form">종합예약</a> <!-- 종합예약 링크 -->
+                    <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button> <!-- 서브메뉴 토글 버튼 -->
+                </div>
+                <div class="sidebar-submenu"> <!-- 종합예약의 서브메뉴 -->
+                    <a href="${pageContext.request.contextPath}/reservation/form" onclick="checkLogin()">진료예약</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
+                    <a href="#">예약확인</a>
+                </div>
+            </div>
+            
+            <!-- 건강검진 메뉴 -->
+            <div class="sidebar-item" onclick="toggleSubmenu(this)">
+                <div class="sidebar-main">
+                    <a href="${pageContext.request.contextPath}/healthReservation/reservation1">건강검진</a>
+                    <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
+                </div>
+                <div class="sidebar-submenu">
+                    <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가검진예약</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/guide">검진예약안내</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진절차예약</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/result">검진결과 조회</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사항목 정보</a>
+                </div>
+            </div>
+            
+            <!-- 커뮤니티 메뉴 -->
+            <div class="sidebar-item" onclick="toggleSubmenu(this)">
+                <div class="sidebar-main">
+                    <a href="${pageContext.request.contextPath}/community/main?type=popular">커뮤니티</a>
+                    <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
+                </div>
+                <div class="sidebar-submenu">
+                    <a href="${pageContext.request.contextPath}/community/main?type=popular">인기</a>
+                    <a href="${pageContext.request.contextPath}/community/main?type=free">자유</a>
+                    <a href="${pageContext.request.contextPath}/community/main?type=meditalk">의료소통</a>
+                    <a href="${pageContext.request.contextPath}/community/main?type=event">이벤트</a>
+                </div>
+            </div>
+            
+            <!-- 고객문의 메뉴 -->
+            <div class="sidebar-item" onclick="toggleSubmenu(this)">
+                <div class="sidebar-main">
+                    <a href="${pageContext.request.contextPath}/inquiry/notification">고객문의</a>
+                    <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
+                </div>
+                <div class="sidebar-submenu">
+                    <a href="${pageContext.request.contextPath}/inquiry/notification">공지사항</a>
+                    <a href="${pageContext.request.contextPath}/inquiry/notice">알림판</a>
+                    <a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
+                    <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
+                </div>
+            </div>
+            
+            <!-- 관리자 메뉴 (관리자 계정일 경우에만 보임) -->
+            <c:choose>
+                <c:when test="${loginUser != null && loginUser.isAdmin == 'Y'}">
+                    <div class="sidebar-item">
+                        <a href="${pageContext.request.contextPath}/admin/main">
+                            <div class="sidebar-main">관리자</div>
+                        </a>
+                    </div>
+                </c:when>
+            </c:choose>
+        </div>
+    </div>
 
-        // 다른 서브메뉴 닫기
-        allSubmenus.forEach((submenu) => {
-            if (submenu !== element.querySelector('.sidebar-submenu')) {
-                submenu.classList.remove('active');
-            }
-        });
-
-        // 클릭된 서브메뉴 토글
-        const submenu = element.querySelector('.sidebar-submenu');
-        if (submenu) {
-            submenu.classList.toggle('active');
+    <script>
+        // 서브메뉴 토글 함수
+        function toggleSubmenu(button) {
+            const submenu = button.parentElement.nextElementSibling; // 서브메뉴 요소 찾기
+            submenu.classList.toggle('active'); // 서브메뉴 활성화/비활성화
+            button.classList.toggle('active'); // 화살표 회전
         }
-    }
 
-    function navigateToLogin() {
-        window.location.href = "${pageContext.request.contextPath}/member/login";
-    }
+        // 로그인 페이지 이동
+        function navigateToLogin() {
+            window.location.href = "${pageContext.request.contextPath}/member/login";
+        }
 
-    function navigateToLogout() {
-        window.location.href = "${pageContext.request.contextPath}/member/logout";
-    }
-</script>
+        // 로그아웃 처리
+        function navigateToLogout() {
+            window.location.href = "${pageContext.request.contextPath}/member/logout";
+        }
+    </script>
 
 </body>
 </html>

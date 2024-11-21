@@ -12,9 +12,31 @@ $(function() {
       dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
       weekHeader: "주",
       yearSuffix: '년',
-      inline: true
+      inline: true,
+      onSelect: function(gReservation_date) {
+        $("input[name='gReservation_date']").val(gReservation_date);
+        var hiddenValue = document.getElementById("gReservation_date").value;
+        console.log(hiddenValue);
+        }
     });
+
+    const timeList = document.querySelectorAll(".reservation_time li");
+    for(timeLi of timeList) {
+        timeLi.onclick = timeSelectFunk;
+    }
   });
+
+  function timeSelectFunk(ev){
+    const timeLi = ev.target;
+    console.log(timeLi.dataset.time);
+    const timeValue = timeLi.dataset.time
+    $("input[name='resTime']").val(timeValue);
+    $("li").css("border", "none");
+    $(timeLi).css({
+        border: "2px solid #007BFF", // 원하는 색상으로 변경 가능
+        borderRadius: "4px", // 선택적으로 둥글게
+    });
+  }
 
   function openContent(content){
       //this -> 클릭이벤트가 발생한 요소(div)
@@ -33,15 +55,23 @@ function isYouCheckChange(checked){
   
     const userNameInput = document.getElementById("userName");
     const birthdayInput = document.getElementById("birthday");
+    const userNoInput = document.getElementById("userNo");
 
     if (checked) {
         // 체크되면 세션의 loginUser 정보로 입력 필드를 채움
         userNameInput.value = userNameInput.dataset.checkvalue;
         birthdayInput.value = birthdayInput.dataset.checkvalue.substr(0,10);
+        userNoInput.value = userNoInput.dataset.checkvalue;
+        const genderValue = $("#gender").data("checkvalue"); // data-checkvalue에서 가져옴
+        if (genderValue) {
+            $("#gender").val(genderValue); // <select>에서 해당 값 선택
+        }
+        console.log(userNoInput.dataset.checkvalue);
     } else {
         // 체크 해제 시 입력 필드를 비움
         userNameInput.value = "";
         birthdayInput.value = "";
+        $("#gender").val("select");
     }
 
 }

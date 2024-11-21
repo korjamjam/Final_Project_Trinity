@@ -10,53 +10,65 @@ import com.project.trinity.member.model.vo.Member;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired
-    private SqlSessionTemplate sqlSession;
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 
-    @Autowired
-    private MemberDao memberDao;
+	@Autowired
+	private MemberDao memberDao;
 
-    @Override
-    public Member loginMember(Member m) {
-        return memberDao.loginMember(sqlSession, m);
-    }
+	// 로그인 처리
+	@Override
+	public Member loginMember(Member m) {
+		return memberDao.loginMember(sqlSession, m);
+	}
 
-    @Override
-    public int idCheck(String checkId) {
-        return memberDao.idCheck(sqlSession, checkId);
-    }
+	// 아이디 중복 확인
+	@Override
+	public int idCheck(String checkId) {
+		return memberDao.idCheck(sqlSession, checkId);
+	}
 
-    @Override
-    public int insertMember(Member m) {
-        return memberDao.insertMember(sqlSession, m);
-    }
+	// 회원가입
+	@Override
+	public int insertMember(Member m) {
+		return memberDao.insertMember(sqlSession, m);
+	}
 
-    @Override
-    public int updateMember(Member m) {
-        return memberDao.updateMember(sqlSession, m);
-    }
+	// 회원정보 업데이트
+	@Override
+	public int updateMember(Member member) {
+		return memberDao.updateMember(sqlSession, member);
+	}
 
-    @Override
-    public int deleteMember(String userId) {
-        return memberDao.deleteMember(sqlSession, userId);
-    }
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(String userId) {
+		return memberDao.deleteMember(sqlSession, userId);
+	}
 
-    @Override
-    public Member findByUserId(String userId) {
-        return memberDao.findByUserId(sqlSession, userId);
-    }
+	// userId로 회원 정보 조회
+	@Override
+	public Member findByUserId(String userId) {
+		return memberDao.findByUserId(sqlSession, userId);
+	}
 
-    // 추가된 updateProfile 메서드 구현
-    @Override
-    public boolean updateProfile(Member member) {
-        int result = memberDao.updateMember(sqlSession, member); // DAO 메서드 재활용
-        return result > 0;
-    }
+	// 프로필 정보 업데이트
+	@Override
+	public boolean updateProfile(Member member) {
+		int result = memberDao.updateMember(sqlSession, member);
+		return result > 0;
+	}
 
 	@Override
-	public void updateProfileImage(FileTable fileTable) {
-		// TODO Auto-generated method stub
-		
+	public void updateProfileImage(Member member) {
+		if (member != null) {
+			memberDao.updateProfileImage(sqlSession, member);
+		}
+	}
+
+	// userId로 회원 정보 조회 (중복 메서드 제거 필요)
+	@Override
+	public Member selectMemberById(String userId) {
+		return memberDao.findByUserId(sqlSession, userId); // 중복된 메서드 findByUserId 활용
 	}
 }
-

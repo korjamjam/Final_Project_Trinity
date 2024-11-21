@@ -22,7 +22,7 @@ public class HospitalDao {
         map.put("subject", subject);
         map.put("order", order);
         System.out.println(map);
-        return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalList", map));
+        return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalList", map);
     }
 
     public ArrayList<HospitalInfo> selectHospitalListPaginated(SqlSessionTemplate sqlSession, String subject, String order, int offset, int limit) {
@@ -31,12 +31,16 @@ public class HospitalDao {
         map.put("order", order);
         map.put("offset", offset);
         map.put("limit", limit);
-
-        return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map));
+        
+        return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map);
     }
 
    public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
       return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
    }
+
+	public HospitalInfo selectHospitalOne(SqlSessionTemplate sqlSession, String hosNo) {
+		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
+	}
 
 }

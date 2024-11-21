@@ -1,5 +1,10 @@
 package com.project.trinity.healthreservation.controller;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +13,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Guest;
-import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.reservation.model.vo.HealthReservation;
 
 @Controller
 @RequestMapping("/healthReservation")
 public class HealthReservationController {
-	
-	
 
-    @Autowired
+	@Autowired
     private HealthReservationService healthReservationService;
 
     // 백신 예약 페이지 1로 이동
@@ -67,6 +72,7 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
+	// 건강검진 받는 사용자 정보 받아주는 컨트롤러
 	@RequestMapping("/reservation2")
 	public String healthReservation2(
 			@RequestParam("reservation_user_name") String reservation_user_name,
@@ -83,54 +89,97 @@ public class HealthReservationController {
 			@RequestParam("use_tos_ans1") String use_tos_ans1,
 			@RequestParam("use_tos_ans2") String use_tos_ans2,
 			HttpSession session) {
-		System.out.println(reservation_user_name);
+		//이용약관 두개 다 동의 한 경우만 다음 페이지 리턴
 		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
-			String gstName = reservation_user_name;
-			String gstBirth = reservation_user_num1;
-			String gstGender = "";
-			if(Integer.parseInt(reservation_user_num2) %2 ==0) {
-				gstGender = "F";
-			} else {
-				gstGender = "M";
-			}
-			String gstPhone = reservation_user_phone1 + reservation_user_phone2;
-			String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
-			String gstAddress = address + extraAddress + detailAddress;
-			Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
-			System.out.println(guest);
-			int result = healthReservationService.insertGuest(guest);
-			if(result > 0) {
-				session.setAttribute("guest", guest);
-				System.out.println(guest);
+			//로그인 유저 정보 없으면 게스트 저장하고 게스트 넘버 반환
+			if(session.getAttribute("loginUser") == null) {
+				String gstName = reservation_user_name;
+				String gstBirth = reservation_user_num1;
+				String gstGender = "";
+				//주민번호 뒷자리 홀수면 M, 짝수면 F로 반환
+				if(Integer.parseInt(reservation_user_num2) %2 ==0) {
+					gstGender = "F";
+				} else {
+					gstGender = "M";
+				}
+				String gstPhone = reservation_user_phone1 + reservation_user_phone2;
+				String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
+				String gstAddress = address + extraAddress + detailAddress;
+				Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
+				
+				//게스트 정보 게스트 테이블에 추가
+				int result = healthReservationService.insertGuest(guest);
+				//성공
+				if(result > 0) {
+					session.setAttribute("Guest", guest);
+					return "health_reservation/health_reservation2";
+				//실패
+				} else {
+					return "health_reservation/health_reservation1";
+				}
+			}//로그인 유저 정보 있으면 유저번호 반환
+			else {
 				return "health_reservation/health_reservation2";
 			}
-			else {
-				return "health_reservation/health_reservation1";
-			}
-			
+		//이용약관 동의 안하면 원래 페이지 리턴	
 		} else {
 			return "health_reservation/health_reservation1";
 		}
 	}
 	
+	//
 	@RequestMapping("/reservationSubmit")
-	public String healthReservation3(
-			@RequestParam("reservation_user_select") String reservation_user_select,
-			@RequestParam("reservation_user_hospital") String reservation_user_hospital,
-			@RequestParam("reservation_user_text") String reservation_user_text,
-			@RequestParam("reservation_user_date") String reservation_user_date,
-			@RequestParam("reservation_user_time") String reservation_user_time,
-			@RequestParam("reservation_user_result") String reservation_user_result,
-			HttpSession session) {
-		Reservation reservation = new Reservation();
-		if(session.getAttribute("loginUser") != null) {
-			reservation.setUserNo((String)session.getAttribute("userNo"));
-		} else {
-			Guest guest = (Guest)session.getAttribute("guest");
-			System.out.println(guest);
-//			String selectGstNo = healthReservationService.selectGuest(guest.getGstName(),guest.getGstPhone());
+	public String healthReservation3(@RequestParam String reservation_user_select,
+	        @RequestParam String reservation_user_hospital,
+	        @RequestParam String reservation_user_text,
+	        @RequestParam String reservation_user_date,
+	        @RequestParam String reservation_user_time,
+	        @RequestParam String reservation_user_result,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+		
+		HealthReservation healthReservation = new HealthReservation();
+		//날짜 받아온거 yyyy-mm-dd로 바꾸기
+		String useDate = reservation_user_date.substring(6)
+				   + "-" +reservation_user_date.substring(0,2)
+				   + "-" +reservation_user_date.substring(3,5);
+		
+		healthReservation.setHosNo(reservation_user_hospital);
+		healthReservation.setResDate(useDate);
+		healthReservation.setResTime(reservation_user_time);
+		healthReservation.setResCategory(reservation_user_select);
+		healthReservation.setPatientResult(reservation_user_result);
+		
+		//로그인 한 경우
+		if(session.getAttribute("loginUser")!=null) {
+			Member m = (Member)session.getAttribute("loginUser");
+			
+			
+			String userBirthDay = m.getBirthday().substring(2,4)
+					   			+ m.getBirthday().substring(5,7)
+					   			+ m.getBirthday().substring(8,10);
+			
+			healthReservation.setUserNo(m.getUserNo());
+			healthReservation.setPatientName(m.getUserName());
+			healthReservation.setPatientEmail(m.getEmail());
+			healthReservation.setPatientBirthday(userBirthDay);
+			healthReservation.setPatientGender(m.getGender());
+			
+		} //로그인 안한 경우 
+		else {
+			Guest g = (Guest)session.getAttribute("Guest");
+			healthReservation.setGstNo(g.getGstNo());
+			healthReservation.setPatientName(g.getGstName());
+			healthReservation.setPatientEmail(g.getGstEmail());
+			healthReservation.setPatientBirthday(g.getGstBirth());
+			healthReservation.setPatientGender(g.getGstGender());
+			//int result = healthReservationService.insertHealthReservation((int)session.getAttribute(""));
 		}
-		return "health_reservation/health_reservation2";
+		int result = healthReservationService.insertHealthReservation(healthReservation);
+		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
+		session.setAttribute("hResNo", healthReservation.getHResNo());
+		System.out.println(healthReservation.getHResNo());
+		return "main";
 	}
 	
 	@GetMapping("/result")
