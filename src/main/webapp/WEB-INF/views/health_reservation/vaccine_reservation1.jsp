@@ -22,16 +22,14 @@
 			<div id="health_reservation_title">백신 예약</div>
 			<div class="health_reservation1_content">
 				<div id="reservation_content_title">1. 접종자 정보</div>
-				<form
-					action="${pageContext.request.contextPath}/vaccineReservation/vaccinepage2"
-					method="post">
+				<form action="${pageContext.request.contextPath}/vaccineReservation/vaccinepage2" method="post">
 					<p>접종자(성명)</p>
 					<div class="health_reservation1_content input_name">
 						<input type="text" name="patientName" required>
 					</div>
 					<p>주민번호</p>
 					<div class="health_reservation1_content input_id_num">
-						<input type="text" name="patientBirthday" maxlength="6" required>
+						<input type="text" name="patientBirthday" maxlength="6" placeholder="yymmdd"required>
 						<!-- YYMMDD 형식으로 입력 -->
 						- <input type="password" maxlength="1">
 						<p>******</p>
@@ -39,10 +37,10 @@
 					<p>핸드폰</p>
 					<div class="health_reservation1_content input_phone">
 						<select name="phoneCode">
-							<option value="">010</option>
-							<option value="">011</option>
-							<option value="">012</option>
-							<option value="">013</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="012">012</option>
+							<option value="013">013</option>
 						</select> <input type="text" name="phoneNumber" maxlength="8" required
 							placeholder=" -없이 입력하세요">
 					</div>
@@ -56,25 +54,9 @@
 							<option value="hanmail.com">hanmail.com</option>
 						</select>
 					</div>
-					<!-- <p>주소</p>
-					<div class="health_reservation1_content input_address">
-						<input type="text" id="sample6_postcode" name="postcode"
-							placeholder="우편번호">
-						<button type="button" class="address-button"
-							onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-					</div>
-					<div class="health_reservation1_content input_address">
-						<input type="text" id="sample6_address" name="address"
-							placeholder="주소">
-					</div>
-					<div class="health_reservation1_content input_address">
-						<input type="text" id="sample6_extraAddress" name="extraAddress"
-							placeholder="참고사항">
-					</div>
-					<div class="health_reservation1_content input_address">
-						<input type="text" id="sample6_detailAddress" name="detailAddress"
-							placeholder="상세주소">
-					</div> -->
+					<!-- 기타 정보둘 -->
+					<input type="hidden" name="userNo" value="${sessionScope.userNo}">
+					
 					<div class="health_reservation1_content2">
 						<div id="reservation_content_title">2. 개인정보 수집 및 이용 동의</div>
 						<div class="health_reservation1_tos">

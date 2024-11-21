@@ -18,15 +18,16 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class VaccineReservation {
-	private String vresNo;              // 백신 예약 번호
-    private String userNo; 				// 사용자 번호(로그인)
-    private String hosNo; 				// 병원 번호
-    private String gstNo;				// 게스트 번호(비로그인)
-    private String patientName;         // 접종자 이름
-    private int patientBirthday;        // 점종자 생년월일
-    private Date vresDate;			    // 백신 접종 날짜
-    private Date vresTime; 				// 백신 접종 시간
-    private String vType;				// 백신 종류
-    private String resContent;          // 특이 사항
+	private String vresNo;          // 예약 번호
+    private String userNo;          // 사용자 번호
+    private String hosNo;           // 병원 번호
+    private String gstNo;           // 게스트 번호
+    private String patientName;     // 접종자 이름
+    private String patientBirthday;    // 생년월일
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date vresDate;
+    private String vresTime;        // 예약 시간
+    private String vType;           // 백신 종류
+    private String resContent;      // 특이 사항
 
 }
