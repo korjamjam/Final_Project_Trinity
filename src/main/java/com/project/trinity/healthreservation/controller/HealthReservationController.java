@@ -109,7 +109,6 @@ public class HealthReservationController {
 				
 				//게스트 정보 게스트 테이블에 추가
 				int result = healthReservationService.insertGuest(guest);
-				System.out.println(result + "게스트 추가 성공");
 				//성공
 				if(result > 0) {
 					session.setAttribute("Guest", guest);
@@ -178,7 +177,8 @@ public class HealthReservationController {
 		}
 		int result = healthReservationService.insertHealthReservation(healthReservation);
 		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
-		System.out.println(result);
+		session.setAttribute("hResNo", healthReservation.getHResNo());
+		System.out.println(healthReservation.getHResNo());
 		return "main";
 	}
 	
