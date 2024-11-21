@@ -80,7 +80,6 @@
                     <div class="health_reservation_normal_date">
                         <div id="datepicker"></div>
                         <input type="hidden" name="reservation_user_date">
-                        
                     </div>
                     <div class="health_reservation_normal_select">
                         <select name="timeOfDay" id="timeOfDaySelect" required>

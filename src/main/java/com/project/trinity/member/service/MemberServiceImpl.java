@@ -32,9 +32,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int updateMember(Member m) {
-        return memberDao.updateMember(sqlSession, m);
+    public int updateMember(Member member) {
+        return memberDao.updateMember(sqlSession, member);
     }
+
+
 
     @Override
     public int deleteMember(String userId) {

@@ -27,27 +27,13 @@
 		<main class="profile-container">
 			<h2>개인정보</h2>
 
-			<!-- 메시지 출력 -->
-			<% if (request.getAttribute("message") != null) { %>
-			<script>
-                    alert("<%= request.getAttribute("message") %>");
-                </script>
-			<% } %>
-			<% if (request.getAttribute("errorMessage") != null) { %>
-			<script>
-                    alert("<%= request.getAttribute("errorMessage") %>");
-                </script>
-			<% } %>
-
-			<form id="profile-form"
-				action="${pageContext.request.contextPath}/member/update_profile"
-				method="post" enctype="multipart/form-data">
+			<form id="profile-form" action="${pageContext.request.contextPath}/member/update_profile" method="post" enctype="multipart/form-data">
 				<div class="profile-picture">
 					<img id="profile-preview"
 						src="${pageContext.servletContext.contextPath}/resources/img/profile.png"
 						alt="프로필 사진"> <label for="profile-upload"
 						class="upload-button">사진 변경</label> <input type="file"
-						id="profile-upload" name="profileImage" accept="image/*"
+						id="profile-upload" name="userprofileImage" accept="image/*"
 						onchange="previewImage(event)" hidden>
 				</div> 	
 

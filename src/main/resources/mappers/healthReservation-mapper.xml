@@ -25,7 +25,7 @@
         <result property="resTime" column="RES_TIME"/>
         <result property="resCategory" column="RES_CATEGORY"/>
         <result property="patientName" column="PATIENT_NAME"/>
-        <result property="patientBirthday" column="PATIENT_BIRTHDAY"/>
+        <result property="patientBirthday" column="PATIENT_BIRTH"/>
         <result property="patientEmail" column="PATIENT_EMAIL"/>
         <result property="patientGender" column="PATIENT_GENDER"/>
         <result property="patientResult" column="PATIENT_RESULT"/>
@@ -47,18 +47,20 @@
     	INSERT INTO HEALTH_RESERVATION (
     	USER_NO,
     	HOS_NO,
+    	GST_NO,
     	RES_DATE,
     	RES_TIME,
     	RES_CATEGORY,
     	PATIENT_NAME,
-    	PATIENT_BIRTHDAY,
+    	PATIENT_BIRTH,
     	PATIENT_EMAIL,
     	PATIENT_GENDER,
     	PATIENT_RESULT	
     	) VALUES (
     	#{userNo},
     	#{hosNo},
-    	TO_DATE(#{resDate},'MM/DD/YYYY'),
+    	#{gstNo},
+    	TO_DATE(#{resDate},'YYYY-MM-DD'),
     	#{resTime},
     	#{resCategory},
     	#{patientName},
