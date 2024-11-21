@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.reservation.model.vo.HealthReservation;
 
 @Controller
 @RequestMapping("/healthReservation")

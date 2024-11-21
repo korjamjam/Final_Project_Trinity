@@ -31,45 +31,45 @@ public class AdminController {
         return "admin/admin_member";
     }
     
-//    //회원관리 상세페이지
-//    @RequestMapping("/memberDetail")
-//    public String showAdminMemeberDetail() {
-//        return "admin/admin_member_detail";
-//    }
-//    
-//    //병원관리 페이지
-//    @RequestMapping("/hospital")
-//    public String showAdminHospital() {
-//        return "admin/admin_hospital";
-//    }
-//    
-//    //병원관리 상세페이지
-//    @RequestMapping("/hospitalDetail")
-//    public String showAdminHospitalDetail() {
-//        return "admin/admin_hospital_detail";
-//    }
-//    
-//    //예약관리 페이지
-//    @RequestMapping("/reservation")
-//    public String showAdminReservation() {
-//        return "admin/admin_reservation";
-//    }
-//    
-//    //예약관리 상세 페이지
-//    @RequestMapping("/reservationDetail")
-//    public String showAdminReservationDetail() {
-//        return "admin/admin_reservation_detail";
-//    }
-//    
-//    //게시글관리 페이지
-//    @RequestMapping("/post")
-//    public String showAdminPost() {
-//        return "admin/admin_post";
-//    }
-//    
-//    //게시글관리 상세 페이지
-//    @RequestMapping("/postDetail")
-//    public String showAdminPostDetail() {
-//        return "admin/admin_post_detail";
-//    }   
+    //회원관리 상세페이지
+    @RequestMapping("/memberDetail")
+    public String showAdminMemeberDetail() {
+        return "admin/admin_member_detail";
+    }
+    
+    //병원관리 페이지
+    @RequestMapping("/hospital")
+    public String showAdminHospital() {
+        return "admin/admin_hospital";
+    }
+    
+    //병원관리 상세페이지
+    @RequestMapping("/hospitalDetail")
+    public String showAdminHospitalDetail() {
+        return "admin/admin_hospital_detail";
+    }
+    
+    //예약관리 페이지
+    @RequestMapping("/reservation")
+    public String showAdminReservation() {
+        return "admin/admin_reservation";
+    }
+    
+    //예약관리 상세 페이지
+    @RequestMapping("/reservationDetail")
+    public String showAdminReservationDetail() {
+        return "admin/admin_reservation_detail";
+    }
+    
+    //게시글관리 페이지
+    @RequestMapping("/post")
+    public String showAdminPost() {
+        return "admin/admin_post";
+    }
+    
+    //게시글관리 상세 페이지
+    @RequestMapping("/postDetail")
+    public String showAdminPostDetail() {
+        return "admin/admin_post_detail";
+    }   
 }
