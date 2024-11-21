@@ -280,4 +280,43 @@
 		width: 100%;
 		/* 모든 요소가 세로로 정렬 */
 	}
+	/* 첨부파일 입력 스타일 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    width: 100%;
+}
+
+#upfile {
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    padding: 6px 12px;
+    width: 100%;
+}
+
+#uploadFileButton {
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 14px;
+}
+	
 }
