@@ -31,11 +31,16 @@ public class HospitalDao {
         map.put("order", order);
         map.put("offset", offset);
         map.put("limit", limit);
-
+        
         return new ArrayList<>(sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map));
     }
 
    public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
       return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
    }
+
+	public HospitalInfo selectHospitalOne(SqlSessionTemplate sqlSession, String hosNo) {
+		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
+	}
+
 }

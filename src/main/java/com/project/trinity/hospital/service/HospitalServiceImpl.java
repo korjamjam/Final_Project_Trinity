@@ -44,5 +44,10 @@ public class HospitalServiceImpl implements HospitalService{
 		return hpDao.selectHospitalInfo(sqlSession, hosNo);
 	}
 
+	@Override
+	public HospitalInfo selectHospitalOne(String hosNo) {
+		return hpDao.selectHospitalOne(sqlSession, hosNo);
+	}
+
 	
 }
