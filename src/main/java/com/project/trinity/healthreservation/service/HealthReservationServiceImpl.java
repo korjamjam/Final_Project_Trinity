@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.healthreservation.model.dao.HealthReservationDao;
-import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.member.model.vo.Guest;
-import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.reservation.model.vo.HealthReservation;
 
 @Service
 public class HealthReservationServiceImpl implements HealthReservationService {
