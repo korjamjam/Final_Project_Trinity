@@ -90,39 +90,39 @@ public class MemberController {
 	// 로그인 기능
 	@PostMapping("/login")
 	public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes redirectAttributes) {
-		Member loginMember = memberService.loginMember(m);
+	                          RedirectAttributes redirectAttributes) {
+	    Member loginMember = memberService.loginMember(m);
 
-		if (loginMember != null) {
-			if ("Y".equals(loginMember.getIsAdmin())) {
-				if (m.getUserPwd().equals(loginMember.getUserPwd())) {
-					session.setAttribute("loginUser", loginMember);
-					redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
-					return "redirect:/main";
-				}
-			} else {
-				if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-					session.setAttribute("loginUser", loginMember);
-					session.setAttribute("userNo", loginMember.getUserNo());
+	    if (loginMember != null) {
+	        if ("Y".equals(loginMember.getIsAdmin())) {
+	            if (m.getUserPwd().equals(loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
+	                redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
+	                return "redirect:/main";
+	            }
+	        } else {
+	            if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
 
-					if ("on".equals(request.getParameter("keepLoggedIn"))) {
-						Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
-						loginCookie.setMaxAge(60 * 60 * 24 * 30);
-						loginCookie.setPath("/");
-						response.addCookie(loginCookie);
-					}
+	                if ("on".equals(request.getParameter("keepLoggedIn"))) {
+	                    Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
+	                    loginCookie.setMaxAge(60 * 60 * 24 * 30);
+	                    loginCookie.setPath("/");
+	                    response.addCookie(loginCookie);
+	                }
 
-					redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
-					return "redirect:/main";
-				}
-			}
-			redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
-			return "redirect:/member/login";
-		} else {
-			redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
-			return "redirect:/member/login";
-		}
+	                redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
+	                return "redirect:/main";
+	            }
+	        }
+	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
+	        return "redirect:/member/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+	        return "redirect:/member/login";
+	    }
 	}
+
 
 	// 로그아웃 기능
 	@RequestMapping("/logout")
@@ -162,40 +162,20 @@ public class MemberController {
 
 	@PostMapping("/update_profile")
 	public String updateProfile(Member member, MultipartFile profileImage, HttpSession session) {
-
-	   
 	    Member loginUser = (Member) session.getAttribute("loginUser");
+
+	    if (loginUser == null) {
+	        return "redirect:/member/login?error=notLoggedIn";
+	    }
 
 	    System.out.println(member);
 	    System.out.println(profileImage);
-
 	    
-	    
-	
 	    member.setUserNo(loginUser.getUserNo());
 	    member.setUserId(loginUser.getUserId());
 	    member.setUserPwd(loginUser.getUserPwd());
 
-	    System.out.println("Updated member object: " + member);
-	    
-
-
-	    
-	    if (loginUser.getUserProfile() != null) {
-	        String deletePath = session.getServletContext().getRealPath(loginUser.getUserProfile());
-	        File oldFile = new File(deletePath);
-	        if (oldFile.exists()) {
-	            System.out.println("Deleting existing profile image: " + deletePath);
-	            oldFile.delete();
-	        } else {
-	            System.out.println("No existing profile image to delete.");
-	        }
-	    }
-
-	    // 새로운 프로필 이미지 저장
 	    if (profileImage != null && !profileImage.isEmpty()) {
-	        System.out.println("Uploading new profile image: " + profileImage.getOriginalFilename());
-
 	        String savePath = "/resources/upload/profile/";
 	        String realPath = session.getServletContext().getRealPath(savePath);
 
@@ -209,29 +189,26 @@ public class MemberController {
 	        String newFilename = loginUser.getUserId() + "_profile" + ext;
 
 	        try {
-	            // 파일 저장
 	            profileImage.transferTo(new File(realPath + newFilename));
-	            // Member 객체에 프로필 이미지 경로 설정
 	            member.setUserProfile(savePath + newFilename);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            return "redirect:/member/profile_edit?error=uploadFailed";
 	        }
 	    } else {
-	        // 새로운 이미지가 업로드되지 않은 경우 기존 경로 유지
 	        member.setUserProfile(loginUser.getUserProfile());
 	    }
 
-	    // 데이터베이스 업데이트
 	    int result = memberService.updateMember(member);
 	    if (result > 0) {
-	        // 세션 정보 업데이트
 	        session.setAttribute("loginUser", member);
-	        return "redirect:/member/profile_edit";
+	        return "redirect:/member/profile_edit?success=updated";
 	    } else {
-	        return "redirect:/member/profile_edit?error=up	dateFailed";
+	        return "redirect:/member/profile_edit?error=updateFailed";
 	    }
 	}
+
+
 
 	
 
