@@ -29,7 +29,7 @@ public class Member {
     private String isAdmin;
     private int medKey;
     private String hosNo;
-    private String USER_PROFILE;
+    private String userProfile;
 	
 	public Member(String userId, String userPwd) {
 		super();
