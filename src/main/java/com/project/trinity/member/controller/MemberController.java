@@ -90,39 +90,40 @@ public class MemberController {
 	// 로그인 기능
 	@PostMapping("/login")
 	public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes redirectAttributes) {
-		Member loginMember = memberService.loginMember(m);
+	                          RedirectAttributes redirectAttributes) {
+	    Member loginMember = memberService.loginMember(m);
 
-		if (loginMember != null) {
-			if ("Y".equals(loginMember.getIsAdmin())) {
-				if (m.getUserPwd().equals(loginMember.getUserPwd())) {
-					session.setAttribute("loginUser", loginMember);
-					redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
-					return "redirect:/main";
-				}
-			} else {
-				if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
-					session.setAttribute("loginUser", loginMember);
-					session.setAttribute("userNo", loginMember.getUserNo());
+	    if (loginMember != null) {
+	        if ("Y".equals(loginMember.getIsAdmin())) {
+	            if (m.getUserPwd().equals(loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
+	                redirectAttributes.addFlashAttribute("message", "관리자 로그인에 성공했습니다.");
+	                return "redirect:/main";
+	            }
+	        } else {
+	            if (bcryptPasswordEncoder.matches(m.getUserPwd(), loginMember.getUserPwd())) {
+	                session.setAttribute("loginUser", loginMember);
+	                session.setAttribute("userNo", loginMember.getUserNo());
 
-					if ("on".equals(request.getParameter("keepLoggedIn"))) {
-						Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
-						loginCookie.setMaxAge(60 * 60 * 24 * 30);
-						loginCookie.setPath("/");
-						response.addCookie(loginCookie);
-					}
+	                if ("on".equals(request.getParameter("keepLoggedIn"))) {
+	                    Cookie loginCookie = new Cookie("keepLoggedIn", loginMember.getUserId());
+	                    loginCookie.setMaxAge(60 * 60 * 24 * 30);
+	                    loginCookie.setPath("/");
+	                    response.addCookie(loginCookie);
+	                }
 
-					redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
-					return "redirect:/main";
-				}
-			}
-			redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
-			return "redirect:/member/login";
-		} else {
-			redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
-			return "redirect:/member/login";
-		}
+	                redirectAttributes.addFlashAttribute("message", "로그인에 성공했습니다.");
+	                return "redirect:/main";
+	            }
+	        }
+	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 아이디와 비밀번호를 확인하세요.");
+	        return "redirect:/member/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "로그인 실패. 해당 아이디가 존재하지 않습니다.");
+	        return "redirect:/member/login";
+	    }
 	}
+
 
 	// 로그아웃 기능
 	@RequestMapping("/logout")

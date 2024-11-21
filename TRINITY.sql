@@ -40,7 +40,7 @@ CREATE SEQUENCE SEQ_HOS_ACCOUNT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_G_RES_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_V_RES_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_H_RES_NO START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE SEQ_USER_NO START WITH 6 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE SEQ_USER_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_BOARD_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_REVIEW_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_FILE_NO START WITH 1 INCREMENT BY 1 NOCACHE;
@@ -96,7 +96,7 @@ CREATE TABLE MEMBER (
     ADDRESS VARCHAR2(200),
     ENROLL_DATE DATE DEFAULT SYSDATE,
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),
-    ISADMIN VARCHAR2(10) DEFAULT 'N',
+    ISADMIN CHAR(1) DEFAULT 'N',
     MED_KEY VARCHAR2(10),
     HOS_NO VARCHAR2(10),
     USERPROFILE VARCHAR2(255),
@@ -296,6 +296,8 @@ BEGIN
 END;
 /
 
+
+
 CREATE OR REPLACE TRIGGER trg_board_id
 BEFORE INSERT ON BOARD
 FOR EACH ROW
@@ -346,21 +348,23 @@ END;
 /
 
 -- 더미데이터 --------------------------------------------------------------------------------------------------------
+INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender, isadmin) 
+VALUES ('U1','admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111',  TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'M', 'Y');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U1','user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'F');
+VALUES ('U2','user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'F');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U2','user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', TO_DATE('1992-02-02', 'YYYY-MM-DD'), 'Busan, Korea', 'M');
+VALUES ('U3','user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', TO_DATE('1992-02-02', 'YYYY-MM-DD'), 'Busan, Korea', 'M');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U3','user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', TO_DATE('1985-03-03', 'YYYY-MM-DD'), 'Incheon, Korea', 'M');
+VALUES ('U4','user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', TO_DATE('1985-03-03', 'YYYY-MM-DD'), 'Incheon, Korea', 'M');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U4','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', TO_DATE('1995-04-04', 'YYYY-MM-DD'), 'Daegu, Korea', 'F');
+VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', TO_DATE('1995-04-04', 'YYYY-MM-DD'), 'Daegu, Korea', 'F');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U5','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', TO_DATE('1988-05-05', 'YYYY-MM-DD'), 'Gwangju, Korea', 'M');
+VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', TO_DATE('1988-05-05', 'YYYY-MM-DD'), 'Gwangju, Korea', 'M');
 
 INSERT INTO HOSPITAL_INFO (
     HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, 

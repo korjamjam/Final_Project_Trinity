@@ -26,8 +26,8 @@ public class Member {
     private String address;
     private Date enrollDate;
     private String status;
-    private String isAdmin;
-    private int medKey;
+    private String isAdmin;   //관리자면 'Y', 아니면 'N'
+    private String medKey;
     private String hosNo;
     private String userProfile;
 	
