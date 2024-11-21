@@ -23,10 +23,8 @@ public class Reservation {
     private String patientName;         // 환자 이름
     private int patientBirthday;        // 환자 생년월일 (YYYYMMDD 형식)
     private String hosNo;               // 병원 번호
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date resDate;
-    @DateTimeFormat(pattern = "HH:mm")
-    private Date resTime;
+    private String resTime;
     private String resCategory;         // 예약 카테고리
     private String resContent;          // 예약 내용
 }
