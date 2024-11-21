@@ -31,12 +31,12 @@
 					<div class="health_reservation1_content input_id_num">
 						<input type="text" name="patientBirthday" maxlength="6" placeholder="yymmdd"required>
 						<!-- YYMMDD 형식으로 입력 -->
-						- <input type="password" maxlength="1">
+						- <input type="text" name="gender" maxlength="1">
 						<p>******</p>
 					</div>
 					<p>핸드폰</p>
 					<div class="health_reservation1_content input_phone">
-						<select name="phoneCode">
+						<select name="phoneNumber">
 							<option value="010">010</option>
 							<option value="011">011</option>
 							<option value="012">012</option>

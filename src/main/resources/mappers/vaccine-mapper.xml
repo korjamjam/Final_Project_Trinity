@@ -13,6 +13,9 @@
         <result property="gstNo" column="GST_NO"/>						<!--게스트 번호(비로그인)-->
         <result property="patientName" column="PATIENT_NAME"/> 			<!-- 접종자 이름 -->
        	<result property="patientBirthday" column="PATIENT_BIRTHDAY"/>  <!--점종자 생년월일 -->
+       	<result property="gender" column="GENDER"/>
+       	<result property="phoneNumber" column="PHONE"/>
+       	<result property="email" column="EMAIL"/>
         <result property="vresDate" column="V_RES_DATE"/> 				<!--백신 접종 날짜-->
         <result property="vresTime" column="V_RES_TIME"/> 				<!--백신 접종 시간-->
         <result property="vType" column="V_TYPE"/> 						<!--백신 종류--> 
@@ -21,14 +24,25 @@
     
     <!-- 예약 삽입 -->
     <insert id="insertVaccineReservation" parameterType="com.project.trinity.vaccine.model.vo.VaccineReservation">
-        INSERT INTO VACCINE_RESERVATION (
-            V_RES_NO, USER_NO, HOS_NO, GST_NO, PATIENT_NAME, PATIENT_BIRTHDAY, 
-            V_RES_DATE, V_RES_TIME, V_TYPE, RES_CONTENT
-        ) VALUES (
-            SEQ_V_RES_NO.NEXTVAL, #{userNo}, #{hosNo}, #{gstNo}, #{patientName}, #{patientBirthday}, 
-            #{vresDate}, #{vresTime}, #{vType}, #{resContent}
-        )
-    </insert>
+    INSERT INTO VACCINE_RESERVATION (
+        V_RES_NO, USER_NO, HOS_NO, GST_NO, PATIENT_NAME, PATIENT_BIRTHDAY, 
+        V_RES_DATE, V_RES_TIME, V_TYPE, RES_CONTENT, GENDER, PHONE, EMAIL
+    ) VALUES (
+        SEQ_V_RES_NO.NEXTVAL, 
+        #{userNo}, 
+        #{hosNo}, 
+        #{gstNo}, 
+        #{patientName}, 
+        #{patientBirthday}, 
+        #{vresDate}, 
+        #{vresTime}, 
+        #{vType}, 
+        #{resContent}, 
+        #{gender}, 
+        #{phoneNumber}, 
+        #{email}
+    )
+</insert>
 
     <!-- 병원 목록 조회 -->
     <select id="selectAllHospitals" resultType="com.project.trinity.hospital.model.vo.HospitalInfo">

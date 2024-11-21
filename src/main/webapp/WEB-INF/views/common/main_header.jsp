@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <a href="healthReservation/guide">건강검진</a>
+            <a href="${pageContext.request.contextPath}/healthReservation/guide">건강검진</a>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a> 
                 <a href="${pageContext.request.contextPath}/healthReservation/guide">검진 예약 안내</a>
