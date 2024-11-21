@@ -47,6 +47,7 @@
     	INSERT INTO HEALTH_RESERVATION (
     	USER_NO,
     	HOS_NO,
+    	GST_NO,
     	RES_DATE,
     	RES_TIME,
     	RES_CATEGORY,
@@ -58,7 +59,8 @@
     	) VALUES (
     	#{userNo},
     	#{hosNo},
-    	#{resDate},
+    	#{gstNo},
+    	TO_DATE(#{resDate},'YYYY-MM-DD'),
     	#{resTime},
     	#{resCategory},
     	#{patientName},
