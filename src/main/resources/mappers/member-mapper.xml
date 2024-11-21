@@ -21,6 +21,7 @@
 		<result column="ISADMIN" property="isAdmin" />
 		<result column="MED_KEY" property="medKey" />
 		<result column="HOS_NO" property="hosNo" />
+		<result column="USERPROFILE" property="userProfile" />
 	</resultMap>
 
 	<!-- 로그인 쿼리 -->
@@ -39,7 +40,8 @@
 		STATUS,
 		ISADMIN,
 		MED_KEY,
-		HOS_NO
+		HOS_NO,
+		USERPROFILE
 		FROM
 		MEMBER
 		WHERE USER_ID = #{userId}

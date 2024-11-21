@@ -31,7 +31,7 @@
 				action="${pageContext.request.contextPath}/member/update_profile"
 				method="post" enctype="multipart/form-data">
 				<div class="profile-picture">
-				${loginUser.userProfile }
+				
 					<c:choose>
 						<c:when test="${not empty loginUser.userProfile}">
 							<img id="profile-preview"
