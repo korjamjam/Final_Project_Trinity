@@ -42,7 +42,6 @@ public class HospitalController {
                                                          @RequestParam(value = "order", defaultValue = "ASC") String order,
                                                          @RequestParam(value = "page", defaultValue = "1") int page,
                                                          @RequestParam(value = "limit", defaultValue = "10") int limit) {
-		System.out.println("api 연결...");
         return hospitalService.selectHospitalListPaginated(subject, order, page, limit);
     }
 	

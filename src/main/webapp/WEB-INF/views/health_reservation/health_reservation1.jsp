@@ -3,14 +3,20 @@
 <%@ page import="com.project.trinity.member.model.vo.Member" %>
 <%
     Member loginUser = (Member)session.getAttribute("loginUser");
-
+	
+	String userBirth = "";
+	String userGender = "";
 	//로그인 유저 생일 정보 YYMMDD로 변환
-	String userBirth = loginUser.getBirthday().substring(2,4)
-					   + loginUser.getBirthday().substring(5,7)
-					   + loginUser.getBirthday().substring(8,10);
-	int userGender = 1;
-	if(loginUser.getGender() == "F"){
-		userGender = 2;
+	if(loginUser != null){
+		userBirth = loginUser.getBirthday().substring(2,4)
+				   + loginUser.getBirthday().substring(5,7)
+				   + loginUser.getBirthday().substring(8,10);
+		userGender = "1";
+		if(loginUser.getGender() == "F"){
+			userGender = "2";
+		}
+	} else{
+		
 	}
 %>
 <!DOCTYPE html>
@@ -26,6 +32,16 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
+<% 
+    if (session.getAttribute("message") != null) { 
+%>
+    <script>
+        alert("<%= session.getAttribute("message") %>");
+    </script>
+<%
+        session.removeAttribute("message");
+    }
+%>
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation_wrap">
