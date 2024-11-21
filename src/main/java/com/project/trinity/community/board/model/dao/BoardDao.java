@@ -7,57 +7,91 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Reply;
 import com.project.trinity.community.common.vo.PageInfo;
 
 @Repository
 public class BoardDao {
 
-	public int selectListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("boardMapper.selectListCount");
-	}
+    // 게시글 총 갯수 가져오기
+    public int selectListCount(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectOne("boardMapper.selectListCount");
+    }
+
+    // 게시글 목록 가져오기
+    public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return new ArrayList<>(sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
+    }
+
+    // 게시글 조회수 증가
+    public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.update("boardMapper.increaseCount", bno);
+    }
+
+    // 게시글 조회
+    public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectOne("boardMapper.selectBoard", bno);
+    }
+
+    // 게시글 추가
+    public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
+        return sqlSession.insert("boardMapper.insertBoard", b);
+    }
+
+    // 첨부파일 추가
+    public int insertFile(SqlSessionTemplate sqlSession, BoardFile bf) {
+        return sqlSession.insert("boardMapper.insertFile", bf);
+    }
+
+    // 게시글 수정
+    public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+        return sqlSession.update("boardMapper.updateBoard", b);
+    }
+
+    // BoardDao.java
+    public BoardFile getSingleFile(SqlSessionTemplate sqlSession, String fileNo) {
+        return sqlSession.selectOne("boardMapper.getSingleFile", fileNo);
+    }
+
+    // 특정 게시글의 첨부파일 조회
+    public ArrayList<BoardFile> getFilesList(SqlSessionTemplate sqlSession, String bno) {
+        return new ArrayList<>(sqlSession.selectList("boardMapper.getFilesList", bno));
+    }
+
+    // 특정 게시글의 첨부파일 삭제
+    public int deleteFilesByBoardNo(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.deleteFilesByBoardNo", bno);
+    }
+
+    // 특정 파일 삭제
+    public int deleteFile(SqlSessionTemplate sqlSession, String fileNo) {
+        return sqlSession.delete("boardMapper.deleteFile", fileNo);
+    }
+
+    // 댓글 목록 가져오기
+    public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, String bno) {
+        return new ArrayList<>(sqlSession.selectList("boardMapper.selectReply", bno));
+    }
+
+    // 댓글 추가
+    public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+        return sqlSession.insert("boardMapper.insertReply", r);
+    }
+
+    // 조회수 상위 게시글 목록
+    public ArrayList<Board> selectTopBoardList(SqlSessionTemplate sqlSession) {
+        return new ArrayList<>(sqlSession.selectList("boardMapper.selectTopBoardList"));
+    }
+
+    // 게시글 삭제
+    public int deleteBoard(SqlSessionTemplate sqlSession, String boardNo) {
+        return sqlSession.delete("boardMapper.deleteBoard", boardNo);
+    }
+
 	
-	public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi){
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
-	}
-	
-	public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
-		return sqlSession.update("boardMapper.increaseCount", bno);
-	}
-	
-	public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
-		System.out.println("bno : " + bno);
-		Board b= sqlSession.selectOne("boardMapper.selectBoard", bno);
-		System.out.println(b);
-		return b;
-	}
-	
-	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("boardMapper.insertBoard", b);
-	}
-	
-	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.updateBoard", b);
-	}
-	
-	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, String bno){
-		return (ArrayList)sqlSession.selectList("boardMapper.selectReply", bno);
-	}
-	
-	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
-		return sqlSession.insert("boardMapper.insertReply", r);
-	}
-	
-	public ArrayList<Board> selectTopBoardList(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("boardMapper.selectTopBoardList");
-	}
+
+   
 }
-
-
-
-
-
-

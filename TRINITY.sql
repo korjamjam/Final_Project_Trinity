@@ -15,7 +15,6 @@ DROP TABLE GUEST CASCADE CONSTRAINTS;
 DROP TABLE H_SUBJECT CASCADE CONSTRAINTS;
 DROP TABLE LIKES_TABLE CASCADE CONSTRAINTS;
 
-
 --시퀀스 초기화----------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE SEQ_HOS_NO;
@@ -607,5 +606,3 @@ VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
-
-DESC VACCINE_RESEVATION;

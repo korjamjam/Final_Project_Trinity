@@ -15,35 +15,38 @@
 </head>
 
 <body>
-	<div class="attached-file-section">
-		<div class="attached-header">
-			<h4>첨부파일 :&nbsp</h4>
-			<button class="white-button">모두저장</button>
-		</div>
+	<!-- 첨부파일이 있는 경우에만 표시 -->
+	<c:if test="${not empty attachedFiles}">
+		<div class="attached-file-section">
+			<div class="attached-header">
+				<h4>첨부파일 :&nbsp</h4>
+				<button class="white-button" onclick="downloadAllFiles()">모두저장</button>
+			</div>
 
-		<!-- 첨부파일 리스트 반복문 - 최대 3개의 파일만 표시 -->
-		<c:forEach var="file" items="${attachedFiles}" varStatus="status">
-			<c:if test="${status.index < 3}">
+			<!-- 첨부파일 리스트 반복문 -->
+			<c:forEach var="file" items="${attachedFiles}" varStatus="status">
 				<div class="file-container">
 					<div class="file-info">
-						<span class="file-name"> ${file.name} </span> <span
-							class="file-size">(${file.size}MB)</span>
-					</div>
-					<div class="file-download">
-						<c:choose>
-							<c:when test="${file.isDownloadable}">
-								<button class="download-button">&#8681;</button>
-							</c:when>
-							<c:otherwise>
-								<span class="download-button disabled">&#128274;</span>
-								<!-- 자물쇠 아이콘 -->
-							</c:otherwise>
-						</c:choose>
+						<span class="file-name"> <!-- allowDownload 조건에 따라 다운로드 링크 표시 -->
+							<c:if test="${bf.allowDownload == 'Y'}">
+								<a
+									href="${pageContext.request.contextPath}/downloadFile?fileName=${file.changeName}&boardNo=${file.boardNo}"
+									download="${file.originName}"> ${file.originName} (다운로드 가능)
+								</a>
+							</c:if> <c:if test="${bf.allowDownload != 'Y'}">
+                                ${file.originName} (다운로드 불가)
+                            </c:if>
+						</span>
+						<c:forEach var="file" items="${board.attachedFiles}">
+    ${file.fileSize} <!-- 올바른 참조 -->
+						</c:forEach>
+
 					</div>
 				</div>
-			</c:if>
-		</c:forEach>
-	</div>
+			</c:forEach>
+		</div>
+	</c:if>
+
 </body>
 
 </html>
