@@ -74,7 +74,7 @@
     </div>
     
     <!-- Subject Select -->
-    <form action="/gReservation" class="general_reservation_form">
+    <form action="${pageContext.request.contextPath}/reservation/gReservation" class="general_reservation_form" method="POST">
         <div class="reservation_subject_select">
             <div class="reservation_subject_select_title " onclick="openContent(this)">
                 <p>예약 과목 선택</p>
@@ -82,7 +82,10 @@
             </div>
             <div class="reservation_subject_select_content">
                 <p>진료 과목</p>
+                <ul>
                 <li>${ hInfo.department}</li>
+                <input type="hidden" id="hosNo" name="hosNo" value="${hInfo.hosNo}">
+                <input type="hidden" id="subject" name="subject" value="${hInfo.department}">
                 <br><br>
                 <input type="text" name="content" placeholder="증상을 입력해주세요">
             </div>
@@ -92,7 +95,7 @@
             </div>
             <div class="reservation_subject_select_content">
                 <div id="datepicker"></div>
-                <input type="hidden" name="gReservation_date">
+                <input type="hidden" id="gReservation_date" name="gReservation_date">
             </div>
             <div class="reservation_subject_select_title" onclick="openContent(this)">
                 <p>예약 시간 선택</p>
@@ -133,16 +136,17 @@
 						회원 정보와 동일
                         <input type="checkbox" id="isyou" onchange="isYouCheckChange(this.checked)">
                     </label>
+                    <input type="hidden" id="userNo" name="userNo" data-checkvalue="${loginUser.userNo}">
                 </div>
                 <br><br>
                 <input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName" data-checkvalue="${loginUser.userName}">
                 <br><br>
                 <input type="text" placeholder="생년월일을 입력해주세요" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
                 <br><br>
-                <select name="gender" name="gender">
-                    <option selected disabled>성별</option>
-                    <option value="M">남성</option>
-                    <option value="F">여성</option>
+                <select id="gender" name="gender" data-checkvalue="${loginUser.gender}">
+                    <option id="select" selected disabled>성별</option>
+                    <option id="male" value="M">남성</option>
+                    <option id="female" value="F">여성</option>
                 </select>
             </div>
         </div>

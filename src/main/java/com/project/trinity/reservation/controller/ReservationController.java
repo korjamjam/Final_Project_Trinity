@@ -1,6 +1,5 @@
 package com.project.trinity.reservation.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,12 @@ public class ReservationController {
     }
     
     @RequestMapping("/gReservation")
-    public String gReservation(String userNo, String hosNo, Date resDate, String resTime, String subject, String content) {
+    public String gReservation(String userNo, String hosNo,String gReservation_date, String resTime, String subject, String content) {
+    	String resDate = gReservation_date;
+    	System.out.println("Controller start");
     	int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
-    	return "/hospital/detail?hosNo=" + hosNo;
+    	System.out.println("Controller end");
+    	return "/main";
     }
     
 }

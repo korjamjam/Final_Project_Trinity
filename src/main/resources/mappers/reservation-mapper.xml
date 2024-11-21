@@ -20,10 +20,10 @@
     
     <!-- 일반 진료 예약 -->
     <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
-    	INSERT INTO RESERVATION
+    	INSERT INTO GENERAL_RESERVATION
     	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
-    	VALUES
-    	(#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
+		VALUES
+    	(#{userNo}, #{hosNo}, TO_DATE(#{resDate}, 'YYYY-MM-DD'), #{resTime}, #{resCategory}, #{resContent})
     </insert>
     
 </mapper>

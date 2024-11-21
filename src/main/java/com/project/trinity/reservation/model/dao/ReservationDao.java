@@ -1,6 +1,5 @@
 package com.project.trinity.reservation.model.dao;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +13,10 @@ public class ReservationDao {
 	@Autowired
     private SqlSession sqlSession;
 	
-	public int insertgReservation(String userNo, String hosNo, Date resDate, String resTime,
+	public int insertgReservation(String userNo, String hosNo, String resDate, String resTime,
 			String subject, String content) {
-		Map<String, Object> map = new HashMap<>();
+		System.out.println(resDate);
+		Map<String, String> map = new HashMap<>();
 		map.put("userNo", userNo);
 		map.put("HosNo", hosNo);
 //		map.put("userName", userName);
