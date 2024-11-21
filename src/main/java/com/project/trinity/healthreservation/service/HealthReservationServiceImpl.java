@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.healthreservation.model.dao.HealthReservationDao;
+import com.project.trinity.healthreservation.model.vo.HealthReservation;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
 
@@ -20,6 +21,14 @@ public class HealthReservationServiceImpl implements HealthReservationService {
 	@Override
 	public int insertGuest(Guest guest) {
 		return healthReservationDao.insertGuest(guest);
+	}
+
+	@Override
+	public int insertHealthReservation(HealthReservation healthReservation) {
+		int r =	healthReservationDao.insertHealthReservation(healthReservation);
+		System.out.println("r :" + r);
+		System.out.println("healthReservation : " + healthReservation);
+		return r;
 	}
 
 		

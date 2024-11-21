@@ -7,7 +7,7 @@ public class HealthReservation {
 	private String hResNo;
 	private String userNo;
 	private String gstNo;
-	private String hossNo;
+	private String hosNo;
 	private String resDate;
 	private String resTime;
 	private String resCategory;
@@ -15,4 +15,5 @@ public class HealthReservation {
 	private String patientBirthday;
 	private String patientEmail;
 	private String patientGender;
+	private String patientResult;
 }
