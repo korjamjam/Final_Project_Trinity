@@ -87,7 +87,6 @@ public class MemberController {
 		return memberService.idCheck(checkId);
 	}
 
-	// 로그인 기능
 	@PostMapping("/login")
 	public String loginMember(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response,
 	                          RedirectAttributes redirectAttributes) {
@@ -122,6 +121,7 @@ public class MemberController {
 	        return "redirect:/member/login";
 	    }
 	}
+
 
 
 	// 로그아웃 기능
