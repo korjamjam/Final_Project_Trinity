@@ -60,7 +60,9 @@
     padding-left: 10px;
     padding-bottom: 10px;
 }
-.reservation_subject_select_content button{
+.reservation_subject_select_content li{
+    display: flex;
+    justify-content: center;
     border: none;
     border-radius: 5px;
     background-color: rgba(248, 247, 252, 168);

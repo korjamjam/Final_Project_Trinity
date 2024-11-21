@@ -12,9 +12,28 @@ $(function() {
       dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
       weekHeader: "주",
       yearSuffix: '년',
-      inline: true
+      inline: true,
+      onSelect: function(gReservation_date) {
+        $("input[name='gReservation_date']").val(gReservation_date);
+        }
     });
+
+    const timeList = document.querySelectorAll(".reservation_time li");
+    for(timeLi of timeList) {
+        timeLi.onclick = timeSelectFunk;
+    }
   });
+
+  function timeSelectFunk(ev){
+    const timeLi = ev.target;
+    console.log(timeLi.dataset.time);
+    $("input[name='resTime']").val(timeLi.dataset);
+    $("li").css("border", "none");
+    $(timeLi).css({
+        border: "2px solid #007BFF", // 원하는 색상으로 변경 가능
+        borderRadius: "4px", // 선택적으로 둥글게
+    });
+  }
 
   function openContent(content){
       //this -> 클릭이벤트가 발생한 요소(div)

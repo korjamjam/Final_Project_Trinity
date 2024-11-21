@@ -17,5 +17,13 @@
         <result property="resCategory" column="RES_CATEGORY"/>
         <result property="resContent" column="RES_CONTENT"/>
     </resultMap>
-
+    
+    <!-- 일반 진료 예약 -->
+    <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
+    	INSERT INTO RESERVATION
+    	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
+    	VALUES
+    	(#{userNo}, #{hosNo}, #{resDate}, #{resTime}, #{resCategory}, #{resContent})
+    </insert>
+    
 </mapper>
