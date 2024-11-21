@@ -61,10 +61,25 @@
     cursor: pointer;
 }
 
-.sidebar-item p {
+.sidebar-main {
+	display: flex;
+	justify-content: space-between;
     font-size: 20px;
     color: #9e9e9e;
     margin: 0;
+}
+
+.sidebar-main {
+	display: flex;
+	justify-content: space-between;
+    font-size: 20px;
+    color: #9e9e9e;
+    margin: 0;
+    text-decoration: none;
+}
+
+.sidebar-main a {
+    color: #9e9e9e;
 }
 
 .sidebar-submenu {
@@ -90,6 +105,7 @@
     margin-top: 15px;
 }
 
+
 .sidebar-submenu a:first-child {
     border-top: none;
 }
@@ -97,6 +113,53 @@
 .sidebar-submenu a:hover {
     background-color: #f0f0f0;
 }
+
+
+.submenu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    width: 50%; /* 너비 */
+    height: 20px; /* 높이 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    padding-right: 15px;
+}
+
+.submenu-toggle::before,
+.submenu-toggle::after {
+    content: '';
+    position: absolute;
+    width: 15px; /* 선 길이 */
+    height: 2px; /* 선 두께 */
+    background-color: #9e9e9e; /* 선 색상 */
+}
+.submenu-toggle.active{
+	padding-top: 8px;
+	padding-bottom: 0px;
+}
+
+.submenu-toggle::before {
+    transform: rotate(-45deg) translateY(7px); /* 왼쪽 대각선 */
+}
+
+.submenu-toggle::after {
+    transform: rotate(45deg) translateY(7px); /* 오른쪽 대각선 */
+}
+
+.submenu-toggle.active::before {
+    transform: rotate(45deg) translateY(-7px); /* 아래로 향하는 왼쪽 대각선 */
+}
+
+.submenu-toggle.active::after {
+    transform: rotate(-45deg) translateY(-7px); /* 아래로 향하는 오른쪽 대각선 */
+}
+
+
+
 
 @media (max-width: 778px) {
     .hamburger-sidebar {
