@@ -168,6 +168,21 @@
 	margin-bottom: 20px;
 	/* wrapper 아래에 여백 */
 }
+.note-toolbar .note-btn.file-upload {
+    height: 34px; /* 다른 버튼들과 동일한 높이 설정 */
+    padding: 6px 12px; /* 패딩 조정 */
+    font-size: 14px; /* 글꼴 크기 조정 */
+    line-height: 1.42857143; /* 줄 간격 조정 */
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+   
+    border: 1px solid rgba(0, 0, 0, .196); /* 테두리 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    margin: 0 2px; /* 버튼 간격 */
+}
 
 @media ( max-width : 768px) {
 	.content-container {
