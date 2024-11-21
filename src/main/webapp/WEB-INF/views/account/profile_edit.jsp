@@ -27,15 +27,27 @@
 		<main class="profile-container">
 			<h2>개인정보</h2>
 
-			<form id="profile-form" action="${pageContext.request.contextPath}/member/update_profile" method="post" enctype="multipart/form-data">
+			<form id="profile-form"
+				action="${pageContext.request.contextPath}/member/update_profile"
+				method="post" enctype="multipart/form-data">
 				<div class="profile-picture">
-					<img id="profile-preview"
-						src="${pageContext.servletContext.contextPath}/resources/img/profile.png"
-						alt="프로필 사진"> <label for="profile-upload"
-						class="upload-button">사진 변경</label> <input type="file"
-						id="profile-upload" name="userprofileImage" accept="image/*"
-						onchange="previewImage(event)" hidden>
-				</div> 	
+				${loginUser.userProfile }
+					<c:choose>
+						<c:when test="${not empty loginUser.userProfile}">
+							<img id="profile-preview"
+								src="${pageContext.servletContext.contextPath}${loginUser.userProfile}"
+								alt="프로필 사진">
+						</c:when>
+						<c:otherwise>
+							<img id="profile-preview"
+								src="${pageContext.servletContext.contextPath}/resources/img/profile.png"
+								alt="프로필 사진">
+						</c:otherwise>
+					</c:choose>
+					<label for="profile-upload" class="upload-button">사진 변경</label> <input
+						type="file" id="profile-upload" name="profileImage"
+						accept="image/*" onchange="previewImage(event)" hidden>
+				</div>
 
 				<div class="input-group">
 					<label>이름</label> <input type="text" name="userName"
@@ -73,7 +85,11 @@
 	<!-- Footer -->
 	<%@ include file="../common/main_footer.jsp"%>
 
-	<script>
+<body>
+    <!-- Your HTML content -->
+
+    <!-- Script -->
+    <script>
         // 이미지 미리보기
         function previewImage(event) {
             const reader = new FileReader();
@@ -86,32 +102,30 @@
 
         let isEditing = false; // 수정 상태 변수
 
-        // 수정 활성화 및 저장 동작
-     function toggleEditSave() {
-    const button = document.getElementById('edit-save-button');
-    const form = document.getElementById('profile-form');
-    const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
+        function toggleEditSave() {
+            const button = document.getElementById('edit-save-button');
+            const form = document.getElementById('profile-form');
+            const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
 
-    if (!isEditing) {
-        // 수정 활성화
-        editableFields.forEach(input => {
-            input.disabled = false; // 필드 활성화
-            input.style.backgroundColor = '#fff'; // 수정 가능 상태 표시
-        });
-        button.textContent = "저장하기";
-    } else {
-        // 저장하기: disabled 속성 제거 후 제출
-        editableFields.forEach(input => {
-            input.disabled = false; // 반드시 제거
-        });
-        form.submit(); // 폼 제출
-    }
+            if (!isEditing) {
+                // 수정 활성화
+                editableFields.forEach(input => {
+                    input.disabled = false; // 필드 활성화
+                    input.style.backgroundColor = '#fff'; // 수정 가능 상태 표시
+                });
+                button.textContent = "저장하기";
+            } else {
+                // 저장하기: disabled 속성 제거 후 제출
+                editableFields.forEach(input => {
+                    input.disabled = false; // 반드시 제거
+                });
+                form.submit(); // 폼 제출
+            }
 
-    isEditing = !isEditing;
-}
-
-
-
+            isEditing = !isEditing;
+        }
     </script>
+</body>
+
 </body>
 </html>

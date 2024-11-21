@@ -129,7 +129,7 @@ CREATE TABLE DOCTOR_REVIEW (
 
 CREATE TABLE GENERAL_RESERVATION (
     G_RES_NO VARCHAR2(10) PRIMARY KEY,
-    USER_NO VARCHAR2(10) NOT NULL,
+    USER_NO VARCHAR2(10),
     HOS_NO VARCHAR2(10) NOT NULL,
     GST_NO VARCHAR2(10),
     G_PATIENT_NAME VARCHAR2(20) NOT NULL,
@@ -605,4 +605,3 @@ VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
 
-DESC MEMBER;
