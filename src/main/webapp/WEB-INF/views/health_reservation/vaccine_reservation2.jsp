@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,6 +20,8 @@
 	href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/health_reservation/health_reservation2.css">
+<link rel="stylesheet"
+	href="${pageContext.servletContext.contextPath}/resources/css/common/custom_datepicker.css">
 </head>
 <body>
 	<!-- Header -->
@@ -27,7 +30,7 @@
 	<div class="health_reservation1_wrap">
 		<div class="health_reservation1_container">
 			<div class="health_reservation1_title">백신 예약</div>
-			<form
+			<form id="reservationForm"
 				action="${pageContext.request.contextPath}/vaccineReservation/submitReservation"
 				method="post">
 				<input type="hidden" name="patientName"
@@ -35,6 +38,11 @@
 					type="hidden" name="patientBirthday"
 					value="${vaccineReservation.patientBirthday}"> <input
 					type="hidden" name="userNo" value="${vaccineReservation.userNo}">
+				<input type="hidden" name="gender"
+					value="${vaccineReservation.gender}"> <input type="hidden"
+					name="phoneNumber" value="${vaccineReservation.phoneNumber}">
+				<input type="hidden" name="email"
+					value="${vaccineReservation.email}">
 
 				<!-- 백신 종류 -->
 				<div class="health_reservation2_content">
@@ -49,21 +57,16 @@
 						</select>
 					</div>
 				</div>
-
 				<!-- 접종받을 기관 -->
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">4. 접종받을 기관</div>
 					<div class="health_reservation_normal_select">
 						<select name="hosNo" required>
 							<c:forEach var="hospital" items="${hospitalList}">
-
+								<option value="" disabled hidden selected>접종받을 기관</option>
 								<option value="${hospital.hosNo}">${hospital.hosName}</option>
 							</c:forEach>
 						</select>
-						<!--<option value="" disabled hidden selected>기관 선택</option>
-                            <option value="기관 1">기관 1</option>
-                            <option value="기관 2">기관 2</option>
-                            <option value="기관 3">기관 3</option>-->
 					</div>
 				</div>
 
@@ -80,9 +83,11 @@
 					<div id="health_reservation1_content_title">6. 날짜 및 시간</div>
 					<div class="health_reservation_normal_date">
 						<div id="datepicker">
-							<input type="date" name="vresDate" placeholder="예약 날짜를 선택하세요" required>
+							<input type="date" name="vresDate" class="styled-date-input"
+								placeholder="예약 날짜를 선택하세요" required>
 						</div>
 					</div>
+
 					<div class="health_reservation_normal_select">
 						<select name="timeOfDay" id="timeOfDaySelect" required>
 							<option value="" disabled hidden selected>시간 선택</option>
@@ -108,45 +113,94 @@
 
 	<!-- Script -->
 	<script>
-    $(function() {
-        // 날짜 선택 달력 설정
-        $("#datepicker").datepicker({
-    dateFormat: "yy-mm-dd",
-    onSelect: function(dateText) {
-        $('input[name="vresDate"]').val(dateText);
-    }
-});
-        // 오전/오후 선택에 따른 시간대 표시
-        $('#timeOfDaySelect').on('change', function() {
-            const timeOfDay = $(this).val();
-            const specificTimeSelect = $('#specificTimeSelect');
-            specificTimeSelect.empty(); // 기존 옵션 제거
+	$(function() {
+	    // 오늘 날짜 가져오기
+	    const today = new Date();
 
-            if (timeOfDay === 'morning') {
-                specificTimeSelect.append(new Option('9:00', '09:00'));
-                specificTimeSelect.append(new Option('9:30', '09:30'));
-                specificTimeSelect.append(new Option('10:00', '10:00'));
-                specificTimeSelect.append(new Option('10:30', '10:30'));
-                specificTimeSelect.append(new Option('11:00', '11:00'));
-                specificTimeSelect.append(new Option('11:30', '11:30'));
-            } else if (timeOfDay === 'afternoon') {
-                specificTimeSelect.append(new Option('1:00', '13:00'));
-                specificTimeSelect.append(new Option('1:30', '13:30'));
-                specificTimeSelect.append(new Option('2:00', '14:00'));
-                specificTimeSelect.append(new Option('2:30', '14:30'));
-                specificTimeSelect.append(new Option('3:00', '15:00'));
-                specificTimeSelect.append(new Option('3:30', '15:30'));
-                specificTimeSelect.append(new Option('4:00', '16:00'));
-                specificTimeSelect.append(new Option('4:30', '16:30'));
-                specificTimeSelect.append(new Option('5:00', '17:00'));
-                specificTimeSelect.append(new Option('5:30', '17:30'));
-            }
+	    // 날짜 선택 달력 설정
+	    $("#datepicker").datepicker({
+	        dateFormat: "yy-mm-dd",
+	        minDate: today, // 오늘 이후 날짜만 선택 가능
+	        onSelect: function(dateText) {
+	            $('input[name="vresDate"]').val(dateText);
+	        }
+	    });
 
-            // 구체적인 시간 선택 박스를 보여줌
-            $('#specificTimeSelectContainer').show();
-        });
-    });
+	    // 오전/오후 선택에 따른 시간대 표시
+	    $('#timeOfDaySelect').on('change', function() {
+	        const timeOfDay = $(this).val();
+	        const specificTimeSelect = $('#specificTimeSelect');
+	        specificTimeSelect.empty(); // 기존 옵션 제거
 
+	        if (timeOfDay === 'morning') {
+	            specificTimeSelect.append(new Option('9:00', '09:00'));
+	            specificTimeSelect.append(new Option('9:30', '09:30'));
+	            specificTimeSelect.append(new Option('10:00', '10:00'));
+	            specificTimeSelect.append(new Option('10:30', '10:30'));
+	            specificTimeSelect.append(new Option('11:00', '11:00'));
+	            specificTimeSelect.append(new Option('11:30', '11:30'));
+	        } else if (timeOfDay === 'afternoon') {
+	            specificTimeSelect.append(new Option('1:00', '13:00'));
+	            specificTimeSelect.append(new Option('1:30', '13:30'));
+	            specificTimeSelect.append(new Option('2:00', '14:00'));
+	            specificTimeSelect.append(new Option('2:30', '14:30'));
+	            specificTimeSelect.append(new Option('3:00', '15:00'));
+	            specificTimeSelect.append(new Option('3:30', '15:30'));
+	            specificTimeSelect.append(new Option('4:00', '16:00'));
+	            specificTimeSelect.append(new Option('4:30', '16:30'));
+	            specificTimeSelect.append(new Option('5:00', '17:00'));
+	            specificTimeSelect.append(new Option('5:30', '17:30'));
+	        }
+
+	        // 구체적인 시간 선택 박스를 보여줌
+	        $('#specificTimeSelectContainer').show();
+	    });
+	});
+
+	$("#reservationForm").submit(function(event) {
+	    event.preventDefault();
+
+	    const gender = $("#gender").val();
+	    const phoneNumber = $("#phoneNumber").val();
+	    const email = $("#email").val();
+
+	    // Gender validation
+	    if (!["1", "2", "3", "4"].includes(gender)) {
+	        alert("올바른 성별 값을 입력하세요.");
+	        return;
+	    }
+
+	    // Phone number validation
+	    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneNumber)) {
+	        alert("올바른 전화번호 형식을 입력하세요 (예: 010-1234-5678).");
+	        return;
+	    }
+
+	    // Email validation
+	    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+	        alert("올바른 이메일 형식을 입력하세요.");
+	        return;
+	    }
+
+	    // AJAX 요청 전송
+	    $.ajax({
+	        type: "POST",
+	        url: "/trinity/vaccineReservation/submitReservation",
+	        data: $(this).serialize(),
+	        success: function(response) {
+	            if (response === "success") {
+	                alert("예약이 완료되었습니다.");
+	                window.location.href = "/trinity/main";
+	            } else {
+	                alert("예약 중 문제가 발생했습니다.");
+	            }
+	        },
+	        error: function(xhr) {
+	            alert("서버와의 통신 중 오류가 발생했습니다.");
+	        }
+	    });
+	});
+	
     </script>
 
 	<!-- Footer -->

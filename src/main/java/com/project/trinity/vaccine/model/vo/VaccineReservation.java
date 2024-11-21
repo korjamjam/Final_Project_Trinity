@@ -29,5 +29,8 @@ public class VaccineReservation {
     private String vresTime;        // 예약 시간
     private String vType;           // 백신 종류
     private String resContent;      // 특이 사항
+    private String gender;          // 성별
+    private String phoneNumber;     // 휴대폰 번호
+    private String email;           // 이메일
 
 }
