@@ -233,6 +233,9 @@ CREATE TABLE LIKES_TABLE (
 );
 
 ALTER TABLE FILE_TABLE ADD ALLOW_DOWNLOAD CHAR(1) DEFAULT 'Y'; -- Y: 허용, N: 비허용
+ALTER TABLE FILE_TABLE ADD file_size NUMBER;
+
+
 
 -- 트리거 생성----------------------------------------------------------------------------------------------------------
 
