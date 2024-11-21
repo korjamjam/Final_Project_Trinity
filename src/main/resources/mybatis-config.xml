@@ -16,6 +16,7 @@
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalAccount" alias="HospitalAccount" />
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalInfo" alias="HospitalInfo" />
  		<typeAlias type="com.project.trinity.reservation.model.vo.Reservation" alias="Reservation" />
+ 		<typeAlias type="com.project.trinity.reservation.model.vo.HealthReservation" alias="HealthReservation" />
  		<typeAlias type="com.project.trinity.vaccine.model.vo.VaccineReservation" alias="VaccineReservation" />
  		<typeAlias type="com.project.trinity.reservation.model.vo.HealthReservation" alias="HealthReservation" />
  	</typeAliases>
