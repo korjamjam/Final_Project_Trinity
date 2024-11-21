@@ -9,7 +9,7 @@ public interface MemberService {
 
 	int idCheck(String checkId);
 
-	int updateMember(Member m);
+	int updateMember(Member member);
 
 	int deleteMember(String userId);
 
@@ -20,6 +20,7 @@ public interface MemberService {
 	boolean updateProfile(Member member);
 
 	void updateProfileImage(FileTable fileTable);
+	
 
 
 }

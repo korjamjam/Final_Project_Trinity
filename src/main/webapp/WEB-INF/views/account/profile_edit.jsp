@@ -27,18 +27,6 @@
 		<main class="profile-container">
 			<h2>개인정보</h2>
 
-			<!-- 메시지 출력 -->
-			<% if (request.getAttribute("message") != null) { %>
-			<script>
-                    alert("<%= request.getAttribute("message") %>");
-                </script>
-			<% } %>
-			<% if (request.getAttribute("errorMessage") != null) { %>
-			<script>
-                    alert("<%= request.getAttribute("errorMessage") %>");
-                </script>
-			<% } %>
-
 			<form id="profile-form"
 				action="${pageContext.request.contextPath}/member/update_profile"
 				method="post" enctype="multipart/form-data">
