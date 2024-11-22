@@ -9,42 +9,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>백신 예약</title>
 
-<!-- jQuery 및 jQuery UI -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- jQuery 및 jQuery UI 스타일 및 스크립트 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- CSS -->
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/health_reservation/health_reservation2.css">
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/common/custom_datepicker.css">
+<!-- 프로젝트의 공통 CSS -->
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/health_reservation/health_reservation2.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/custom_datepicker.css">
 </head>
 <body>
-	<!-- Header -->
+	<!-- Header 포함 -->
 	<jsp:include page="../common/main_header.jsp" />
 
 	<div class="health_reservation1_wrap">
 		<div class="health_reservation1_container">
+			<!-- 페이지 타이틀 -->
 			<div class="health_reservation1_title">백신 예약</div>
+			<!-- 예약 폼 시작 -->
 			<form id="reservationForm"
 				action="${pageContext.request.contextPath}/vaccineReservation/submitReservation"
 				method="post">
-				<input type="hidden" name="patientName"
-					value="${vaccineReservation.patientName}"> <input
-					type="hidden" name="patientBirthday"
-					value="${vaccineReservation.patientBirthday}"> <input
-					type="hidden" name="userNo" value="${vaccineReservation.userNo}">
-				<input type="hidden" name="gender"
-					value="${vaccineReservation.gender}"> <input type="hidden"
-					name="phoneNumber" value="${vaccineReservation.phoneNumber}">
-				<input type="hidden" name="email"
-					value="${vaccineReservation.email}">
+				
+				<!-- 백신 예약 1단계에서 전달된 데이터들 (숨김 필드로 유지) -->
+				<input type="hidden" name="patientName" value="${vaccineReservation.patientName}">
+				<input type="hidden" name="patientBirthday" value="${vaccineReservation.patientBirthday}">
+				<input type="hidden" name="userNo" value="${vaccineReservation.userNo}">
+				<input type="hidden" name="gender" value="${vaccineReservation.gender}">
+				<input type="hidden" name="phonCode" id="phoneCode" value="${vaccineReservation.phoneCode}">
+				<input type="hidden" name="phoneNumber" id="phoneNumber" value="${vaccineReservation.phoneNumber}">
+				<input type="hidden" name="emailLocal" id="emailLocal" value="${vaccineReservation.emailLocal}">
+				<input type="hidden" name="emailDomain" id="emailDomain" value="${vaccineReservation.emailDomain}">
 
-				<!-- 백신 종류 -->
+				<!-- 백신 종류 선택 -->
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">3. 백신 종류</div>
 					<div class="health_reservation_normal_select">
@@ -57,20 +55,21 @@
 						</select>
 					</div>
 				</div>
-				<!-- 접종받을 기관 -->
+
+				<!-- 접종받을 기관 선택 -->
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">4. 접종받을 기관</div>
 					<div class="health_reservation_normal_select">
 						<select name="hosNo" required>
 							<c:forEach var="hospital" items="${hospitalList}">
-								<option value="" disabled hidden selected>접종받을 기관</option>
+								<!-- 병원 목록 동적 렌더링 -->
 								<option value="${hospital.hosNo}">${hospital.hosName}</option>
 							</c:forEach>
 						</select>
 					</div>
 				</div>
 
-				<!-- 특이사항 -->
+				<!-- 특이사항 입력 -->
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">5. 특이사항</div>
 					<div id="health_reservation_inputText">
@@ -78,7 +77,7 @@
 					</div>
 				</div>
 
-				<!-- 날짜 및 시간 -->
+				<!-- 날짜 및 시간 선택 -->
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">6. 날짜 및 시간</div>
 					<div class="health_reservation_normal_date">
@@ -95,8 +94,7 @@
 							<option value="afternoon">오후</option>
 						</select>
 					</div>
-					<div class="health_reservation_normal_select"
-						id="specificTimeSelectContainer">
+					<div class="health_reservation_normal_select" id="specificTimeSelectContainer">
 						<select name="vresTime" id="specificTimeSelect" required>
 							<option value="" disabled hidden selected>구체적인 시간 선택</option>
 						</select>
@@ -117,16 +115,16 @@
 	    // 오늘 날짜 가져오기
 	    const today = new Date();
 
-	    // 날짜 선택 달력 설정
+	    // jQuery UI의 날짜 선택기 설정
 	    $("#datepicker").datepicker({
-	        dateFormat: "yy-mm-dd",
+	        dateFormat: "yy-mm-dd", // 날짜 포맷 설정
 	        minDate: today, // 오늘 이후 날짜만 선택 가능
 	        onSelect: function(dateText) {
-	            $('input[name="vresDate"]').val(dateText);
+	            $('input[name="vresDate"]').val(dateText); // 선택한 날짜를 입력 필드에 설정
 	        }
 	    });
 
-	    // 오전/오후 선택에 따른 시간대 표시
+	    // 오전/오후 선택 시 시간 옵션 동적 업데이트
 	    $('#timeOfDaySelect').on('change', function() {
 	        const timeOfDay = $(this).val();
 	        const specificTimeSelect = $('#specificTimeSelect');
@@ -152,58 +150,71 @@
 	            specificTimeSelect.append(new Option('5:30', '17:30'));
 	        }
 
-	        // 구체적인 시간 선택 박스를 보여줌
+	        // 시간 선택 필드 표시
 	        $('#specificTimeSelectContainer').show();
 	    });
 	});
 
-	$("#reservationForm").submit(function(event) {
-	    event.preventDefault();
+	// 폼 제출 시 데이터 검증 및 AJAX 요청 처리
+	$("#reservationForm").submit(function (event) {
+	    event.preventDefault(); // 기본 폼 제출 방지
 
-	    const gender = $("#gender").val();
-	    const phoneNumber = $("#phoneNumber").val();
-	    const email = $("#email").val();
-
-	    // Gender validation
-	    if (!["1", "2", "3", "4"].includes(gender)) {
-	        alert("올바른 성별 값을 입력하세요.");
+	    // 성별 값 검증
+	    const gender = $("input[name='gender']").val();
+	    if (!gender || !["1", "2", "3", "4"].includes(gender)) {
+	        alert("올바른 성별을 입력하세요.");
 	        return;
 	    }
 
-	    // Phone number validation
-	    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneNumber)) {
-	        alert("올바른 전화번호 형식을 입력하세요 (예: 010-1234-5678).");
+	    // 이메일 값 검증
+	    const emailLocal = $('#emailLocal').val();
+	    const emailDomain = $('#emailDomain').val();
+	    const email = emailLocal + "@" + emailDomain;
+
+	    if (!emailLocal || !emailDomain) {
+	        alert("이메일을 입력하세요.");
 	        return;
 	    }
-
-	    // Email validation
 	    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 	        alert("올바른 이메일 형식을 입력하세요.");
 	        return;
 	    }
 
-	    // AJAX 요청 전송
+	    // 전화번호 값 검증
+	    const phoneCode = $("#phoneCode").val();
+	    const phoneNumber = $("#phoneNumber").val();
+	    const fullPhoneNumber = phoneCode + phoneNumber;
+	    if (!/^\d{10,11}$/.test(fullPhoneNumber)) {
+	        alert("올바른 전화번호 형식을 입력하세요 (예: 01012345678).");
+	        return;
+	    }
+
+	    // 서버로 보낼 데이터 구성
+	    const formData = $(this).serializeArray();
+	    formData.push({ name: "fullPhoneNumber", value: fullPhoneNumber });
+	    formData.push({ name: "email", value: email });
+
+	    // AJAX 요청
 	    $.ajax({
 	        type: "POST",
-	        url: "/trinity/vaccineReservation/submitReservation",
-	        data: $(this).serialize(),
-	        success: function(response) {
+	        url: "/trinity/vaccineReservation/submitReservationAjax",
+	        data: formData,
+	        success: function (response) {
 	            if (response === "success") {
 	                alert("예약이 완료되었습니다.");
 	                window.location.href = "/trinity/main";
 	            } else {
-	                alert("예약 중 문제가 발생했습니다.");
+	                alert("예약 중 문제가 발생했습니다: " + response);
 	            }
 	        },
-	        error: function(xhr) {
+	        error: function (xhr) {
 	            alert("서버와의 통신 중 오류가 발생했습니다.");
 	        }
 	    });
 	});
-	
-    </script>
+	</script>
 
-	<!-- Footer -->
+	<!-- Footer 포함 -->
 	<jsp:include page="../common/main_footer.jsp" />
 </body>
 </html>
