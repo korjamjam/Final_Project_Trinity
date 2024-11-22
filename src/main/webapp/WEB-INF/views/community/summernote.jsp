@@ -6,26 +6,38 @@
 <head>
 <meta charset="UTF-8">
 <title>${boardCategory}글쓰기</title>
-
-<!-- include libraries(jQuery, bootstrap) -->
+<head>
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	rel="stylesheet">
 
-<!-- include summernote css/js -->
+
+<!-- Summernote -->
 <link
 	href="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.css"
 	rel="stylesheet">
 <script
 	src="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.js"></script>
+
+<!-- Custom CSS -->
 <link
 	href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css"
 	rel="stylesheet">
+
+<!-- Custom JS -->
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/community/summernote.js"></script>
 </head>
 
 <body>
@@ -90,120 +102,23 @@
 							(각 파일 최대 5MB)</small><br> <br> <br>
 
 					</div>
+					<!-- 선택된 파일 리스트 표시 -->
+					<div id="file-list-container">
+						<div id="file-list"></div>
+					</div>
 
+					<div id="file-list"></div>
 				</div>
-
-
-				<div class="button-container">
-					<!-- 작성완료 버튼 -->
-					<input type="submit" value="작성완료" class="round-button">
-				</div>
-			</form>
 		</div>
+
+
+		<div class="button-container">
+			<!-- 작성완료 버튼 -->
+			<input type="submit" value="작성완료" class="round-button">
+		</div>
+		</form>
 	</div>
-
-	<script>
-			$(document).ready(function () {
-				initializeSummernote();
-
-				// 창 크기 변경 시 Summernote 크기 조정
-				$(window).on('resize', syncSummernoteWidth);
-			});
-
-			// Summernote 초기화
-			function initializeSummernote() {
-				$('#summernote').summernote({
-					minHeight: 400,
-					maxHeight: null,
-					placeholder: '글을 입력하세요.',
-					tabsize: 2,
-					toolbar: [
-						['style', ['style']],
-						['font', ['bold', 'underline', 'clear']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link', 'picture', 'video']],
-						['view', ['fullscreen', 'codeview', 'help']]
-					],
-					callbacks: {
-						onImageUpload: fileUpload, // 이미지 업로드 콜백
-						onChange: adjustHeight // 글 내용 변경 시 높이 자동 조정
-					}
-				});
-
-				syncSummernoteWidth();
-			}
-
-			// Summernote 너비 동기화
-			function syncSummernoteWidth() {
-				const wrapperWidth = $('.post-wrapper').width();
-				$('.note-editor').css('width', wrapperWidth);
-			}
-
-			// 글 내용에 따라 Summernote 높이 조정
-			function adjustHeight(contents) {
-				const editableArea = $('.note-editable');
-				const scrollHeight = editableArea.prop('scrollHeight');
-				editableArea.css('height', `${scrollHeight}px`);
-			}
-
-		
-			// 이미지 업로드 처리 (Summernote 연동)
-		function fileUpload(imgs) {
-		    const fd = new FormData();
-		    for (let i = 0; i < imgs.length; i++) {
-		        fd.append("fileList", imgs[i]);
-		    }
-		
-		    $.ajax({
-		        url: "${pageContext.request.contextPath}/community/upload",
-		        type: "POST",
-		        data: fd,
-		        processData: false,
-		        contentType: false,
-		        dataType: "json",
-		        success: function (response) {
-		        	console.log(response)
-		    
-		            response.forEach(filePath => {
-		            	console.log(filePath)
-		                $('#summernote').summernote('insertImage', filePath);
-		            });
-		        },
-		        error: function () {
-		            alert("이미지 업로드 실패! 다시 시도해주세요.");
-		        }
-		    });
-		}
-
-
-
-		// 파일 검증 로직
-		function checkFileValidation(input) {
-		    const files = input.files;
-		    const maxFileSize = 5 * 1024 * 1024; // 5MB
-		    const maxFileCount = 3;
-
-		    // 파일 개수 체크
-		    if (files.length > maxFileCount) {
-		        alert("파일은 최대 3개까지만 선택할 수 있습니다.");
-		        input.value = ""; // 선택된 파일 초기화
-		        return;
-		    }
-
-		    // 파일 크기 체크
-		    for (let file of files) {
-		        if (file.size > maxFileSize) {
-		            alert(`파일 "${file.name}"의 크기가 5MB를 초과합니다.`);
-		            input.value = ""; // 선택된 파일 초기화
-		            return;
-		        }
-		    }
-		}
-
-
-		</script>
+	</div>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
