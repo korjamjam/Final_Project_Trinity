@@ -21,4 +21,11 @@ public interface MemberService {
     void updateProfileImage(Member member); 
     
     Member selectMemberById(String userId);
+    
+    String findIdByEmail(String name, String email);
+        
+    String findIdByPhone(String name, String phone);
+    
 }
+
+

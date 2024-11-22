@@ -24,7 +24,7 @@
         <div class="accordion-item">
             <div class="accordion-header">본인 확인 이메일로 인증</div>
             <div class="accordion-content">
-                <form action="find_id_email.me" method="post">
+                <form id="emailForm" action="${pageContext.servletContext.contextPath}/member/find_id_email" method="post">
                     <div class="input-group">
                         <label for="name">이름</label>
                         <input type="text" id="name" name="name" placeholder="이름" required>
@@ -52,7 +52,7 @@
         <div class="accordion-item">
             <div class="accordion-header">본인 휴대전화로 인증</div>
             <div class="accordion-content">
-                <form action="find_id_phone.me" method="post">
+                <form id="phoneForm" action="${pageContext.servletContext.contextPath}/member/find_id_phone" method="post">
                     <div class="input-group">
                         <label for="phone-name">이름</label>
                         <input type="text" id="phone-name" name="phoneName" placeholder="이름" required>
@@ -76,12 +76,10 @@
 
 <script>
 $(document).ready(function() {
+    // 아코디언 메뉴 기능
     $(".accordion-header").click(function() {
-        // 클릭한 아코디언 아이템의 내용을 토글
         $(this).next(".accordion-content").slideToggle();
-        // 다른 아코디언 아이템은 닫기
         $(".accordion-content").not($(this).next()).slideUp();
-        // 활성화된 헤더 스타일 변경
         $(this).toggleClass("active");
         $(".accordion-header").not($(this)).removeClass("active");
     });
@@ -90,12 +88,39 @@ $(document).ready(function() {
     $('.domain-select').change(function() {
         const selectedDomain = $(this).val();
         const domainInput = $(this).siblings("input[name='domain']");
-
         if (selectedDomain) {
             domainInput.val(selectedDomain).prop("readonly", true);
         } else {
             domainInput.val('').prop("readonly", false);
         }
+    });
+
+    // Ajax 요청 처리
+    $("form").submit(function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+        const form = $(this);
+        const actionUrl = form.attr("action");
+
+        $.ajax({
+            url: actionUrl,
+            method: "POST",
+            data: form.serialize(),
+            success: function(response) {
+                if (response.status === "success") {
+                    alert("사용자의 아이디는: " + response.userId + "입니다.");
+                    window.location.href = "${pageContext.servletContext.contextPath}/member/login"; // 로그인 페이지로 이동
+                } else if (response.status === "fail") {
+                    alert(response.message);
+                } else {
+                    alert("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: ", xhr.status, xhr.statusText);
+                console.error("Error details: ", error);
+                alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
     });
 });
 </script>
