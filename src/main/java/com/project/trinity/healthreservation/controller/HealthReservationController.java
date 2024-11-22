@@ -80,12 +80,14 @@ public class HealthReservationController {
 	public String healthReservationSearch() {
 		return "health_reservation/health_reservation_search";
 	}
-	
+	//예약번호 받아서 예약내용 조회
 	@RequestMapping("/searchResult")
 	public String healthReservationSearchResult(String hResNo, Model m) {
 		HealthReservation healthReservation = healthReservationService.selectHealthReservation(hResNo);
+		//예약날짜 뒤에 시간 짜르기
+		healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
 		m.addAttribute("healthReservation",healthReservation);
-		System.out.println(healthReservation);
+		
 		return "health_reservation/health_reservation_search_result";
 	}
 	
@@ -170,7 +172,7 @@ public class HealthReservationController {
 		healthReservation.setResTime(reservation_user_time);
 		healthReservation.setResCategory(reservation_user_select);
 		healthReservation.setPatientResult(reservation_user_result);
-		
+		healthReservation.setResComment(reservation_user_text);
 		//로그인 한 경우
 		if(session.getAttribute("loginUser")!=null) {
 			Member m = (Member)session.getAttribute("loginUser");
