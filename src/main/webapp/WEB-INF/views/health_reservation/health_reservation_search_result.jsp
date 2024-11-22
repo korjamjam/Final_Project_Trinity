@@ -21,6 +21,10 @@
             </div>
             <div class="health_reservation_result">
                 <table>
+                	<tr>
+                        <td>예약번호</td>
+                        <td>${hResNo }</td>
+                    </tr>
                     <tr>
                         <td>이름</td>
                         <td>${healthReservation.patientName }</td>

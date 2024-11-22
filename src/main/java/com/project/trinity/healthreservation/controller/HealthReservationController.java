@@ -86,6 +86,7 @@ public class HealthReservationController {
 		HealthReservation healthReservation = healthReservationService.selectHealthReservation(hResNo);
 		//예약날짜 뒤에 시간 짜르기
 		healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
+		m.addAttribute("hResNo", hResNo);
 		m.addAttribute("healthReservation",healthReservation);
 		
 		return "health_reservation/health_reservation_search_result";
@@ -201,8 +202,12 @@ public class HealthReservationController {
 		int result = healthReservationService.insertHealthReservation(healthReservation);
 		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
 		session.setAttribute("hResNo", healthReservation.getHResNo());
-		System.out.println(healthReservation.getHResNo());
-		return "main";
+		
+		HealthReservation healthReservationResult = healthReservationService.selectHealthReservation(healthReservation.getHResNo());
+		//예약날짜 뒤에 시간 짜르기
+		healthReservationResult.setResDate(healthReservationResult.getResDate().substring(0,10));
+		session.setAttribute("healthReservation",healthReservationResult);
+		return "health_reservation/health_reservation_search_result";
 	}
 	
 	@GetMapping("/result")
