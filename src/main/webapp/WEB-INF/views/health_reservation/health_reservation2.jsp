@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -59,10 +60,10 @@
                     <div class="health_reservation_normal_select">
                         <select name="reservation_user_hospital" id="">
                             <option value="" disabled hidden selected>기관을 선택해주세요</option>
-                            <option value="H1">Seoul Pediatrics Clinic</option>
-                            <option value="H2">Busan Kids Health</option>
-                            <option value="H3">Incheon Pediatric Center</option>
-                        </select>
+                            <c:forEach var="hospital" items="${hospitalList}">
+								<option value="${hospital.hosNo}">${hospital.hosName}</option>
+							</c:forEach>
+                            </select>
                     </div>
                 </div>
                 <div class="health_reservation2_content">
