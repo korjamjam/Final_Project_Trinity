@@ -24,6 +24,7 @@
         <result property="resDate" column="RES_DATE"/>
         <result property="resTime" column="RES_TIME"/>
         <result property="resCategory" column="RES_CATEGORY"/>
+        <result property="resComment" column="RES_COMMENT"/>
         <result property="patientName" column="PATIENT_NAME"/>
         <result property="patientBirthday" column="PATIENT_BIRTH"/>
         <result property="patientEmail" column="PATIENT_EMAIL"/>
@@ -51,6 +52,7 @@
     	RES_DATE,
     	RES_TIME,
     	RES_CATEGORY,
+    	RES_COMMENT,
     	PATIENT_NAME,
     	PATIENT_BIRTH,
     	PATIENT_EMAIL,
@@ -63,6 +65,7 @@
     	TO_DATE(#{resDate},'YYYY-MM-DD'),
     	#{resTime},
     	#{resCategory},
+    	#{resComment},
     	#{patientName},
     	#{patientBirthday},
     	#{patientEmail},
@@ -102,6 +105,7 @@
 			   RES_DATE,
 			   RES_TIME,
 			   RES_CATEGORY,
+			   RES_COMMENT,
 			   PATIENT_BIRTH,
 			   PATIENT_EMAIL,
 			   PATIENT_GENDER,
