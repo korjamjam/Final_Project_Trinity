@@ -4,6 +4,7 @@ package com.project.trinity.healthreservation.controller;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.healthreservation.service.HealthReservationService;
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.reservation.model.vo.HealthReservation;
@@ -72,6 +74,12 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
+	//예약조회
+	@RequestMapping("/search")
+	public String healthReservationSearch() {
+		return "health_reservation/health_reservation_search";
+	}
+	
 	// 건강검진 받는 사용자 정보 받아주는 컨트롤러
 	@RequestMapping("/reservation2")
 	public String healthReservation2(
@@ -91,6 +99,10 @@ public class HealthReservationController {
 			HttpSession session) {
 		//이용약관 두개 다 동의 한 경우만 다음 페이지 리턴
 		if((use_tos_ans1.equals("yes"))&&(use_tos_ans1.equals("yes"))) {
+			
+			//병원 정보 불러오기
+			ArrayList<HospitalInfo> hospitalList = (ArrayList<HospitalInfo>) healthReservationService.selectHospitalList();
+			session.setAttribute("hospitalList", hospitalList);
 			//로그인 유저 정보 없으면 게스트 저장하고 게스트 넘버 반환
 			if(session.getAttribute("loginUser") == null) {
 				String gstName = reservation_user_name;
