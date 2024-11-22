@@ -30,4 +30,5 @@ public class HealthReservation {
     private String patientEmail;	    // 검진자 이메일
     private String patientGender;       // 성별
     private String patientResult;		// 결과 수령방법
+    private String hosName;				// 병원 이름
 }
