@@ -74,6 +74,12 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
+	//예약조회
+	@RequestMapping("/search")
+	public String healthReservationSearch() {
+		return "health_reservation/health_reservation_search";
+	}
+	
 	// 건강검진 받는 사용자 정보 받아주는 컨트롤러
 	@RequestMapping("/reservation2")
 	public String healthReservation2(
