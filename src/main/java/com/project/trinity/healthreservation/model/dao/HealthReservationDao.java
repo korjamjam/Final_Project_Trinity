@@ -28,6 +28,10 @@ public class HealthReservationDao {
 		return (ArrayList)sqlSession.selectList("healthReservationMapper.selectHospitalList");
 	}
 
+	public HealthReservation selectHealthReservation(String hResNo) {
+		return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", hResNo);
+	}
+
 	
 	
 	

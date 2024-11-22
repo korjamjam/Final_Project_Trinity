@@ -13,4 +13,6 @@ public interface HealthReservationService {
 
 	ArrayList<HospitalInfo> selectHospitalList();
 
+	HealthReservation selectHealthReservation(String hResNo);
+
 }
