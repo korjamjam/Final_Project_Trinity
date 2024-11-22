@@ -41,87 +41,83 @@
 </head>
 
 <body>
-	<!-- Header Section -->
-	<header>
-		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
-	</header>
+	<body>
+    <!-- Base URL을 data-* 속성으로 전달 -->
+    <div id="context-path" data-base-url="${pageContext.request.contextPath}"></div> <!-- 여기에 baseUrl을 전달 -->
 
-	<div class="content-container">
-		<div class="top-bar">
-			<div class="left-section">
-				<h1>${boardCategory}
-					<span>글쓰기</span>
-				</h1>
-			</div>
-			<div class="right-section">
-				<!-- 임시등록 버튼 -->
-				<button class="white-button">임시등록 | 0</button>
-				<!-- 등록 버튼 -->
-				<button type="submit" form="postForm" class="round-button">등록</button>
-			</div>
-		</div>
-		<hr>
+    <!-- Header Section -->
+    <header>
+        <%@ include file="/WEB-INF/views/common/main_header.jsp"%>
+    </header>
 
-		<div class="post-wrapper">
-			<form id="postForm" method="post"
-				action="${pageContext.request.contextPath}/community/write"
-				class="post-form" enctype="multipart/form-data">
+    <div class="content-container">
+        <div class="top-bar">
+            <div class="left-section">
+                <h1>${boardCategory}
+                    <span>글쓰기</span>
+                </h1>
+            </div>
+            <div class="right-section">
+                <!-- 임시등록 버튼 -->
+                <button class="white-button">임시등록 | 0</button>
+                <!-- 등록 버튼 -->
+                <button type="submit" form="postForm" class="round-button">등록</button>
+            </div>
+        </div>
+        <hr>
 
-				<!-- Hidden input for USER_ID -->
-				<input type="hidden" name="userId" value="${loginUser.userId}">
+        <div class="post-wrapper">
+            <form id="postForm" method="post"
+                action="${pageContext.request.contextPath}/community/write"
+                class="post-form" enctype="multipart/form-data">
 
-				<!-- 카테고리와 제목 입력 -->
-				<div class="post-form-container">
-					<div class="post-form-header">
-						<select class="form-select" name="boardCategory"
-							onchange="changeCategory(this.value)">
-							<option>자유게시판</option>
-							<option>메디톡</option>
-							<option>이벤트게시판</option>
-						</select> <select class="form-select" name="tag">
-							<option>말머리 선택</option>
-						</select>
-					</div>
-					<input type="text" name="boardTitle" placeholder="제목을 입력해 주세요."
-						class="form-control mt-3" required>
-				</div>
+                <!-- Hidden input for USER_ID -->
+                <input type="hidden" name="userId" value="${loginUser.userId}">
 
-				<!-- 내용 입력(Summernote) -->
-				<textarea id="summernote" name="boardContent"
-					class="post-textarea form-control mt-3"></textarea>
+                <!-- 카테고리와 제목 입력 -->
+                <div class="post-form-container">
+                    <div class="post-form-header">
+                        <select class="form-select" name="boardCategory"
+                            onchange="changeCategory(this.value)">
+                            <option>자유게시판</option>
+                            <option>메디톡</option>
+                            <option>이벤트게시판</option>
+                        </select> 
+                        <select class="form-select" name="tag">
+                            <option>말머리 선택</option>
+                        </select>
+                    </div>
+                    <input type="text" name="boardTitle" placeholder="제목을 입력해 주세요."
+                        class="form-control mt-3" required>
+                </div>
 
-				<!-- 첨부파일 입력 -->
-				<div class="mt-4">
-					<!-- 첨부파일 필드 -->
-					<div class="form-group">
-						<label for="upfile" class="form-label">첨부파일</label> <input
-							type="file" id="upfile" name="upfiles" class="form-control"
-							aria-describedby="fileHelp" multiple
-							onchange="checkFileValidation(this)"> <small
-							id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다.
-							(각 파일 최대 5MB)</small><br> <br> <br>
+                <!-- 내용 입력(Summernote) -->
+                <textarea id="summernote" name="boardContent"
+                    class="post-textarea form-control mt-3"></textarea>
 
-					</div>
-					<!-- 선택된 파일 리스트 표시 -->
-					<div id="file-list-container">
-						<div id="file-list"></div>
-					</div>
+                <!-- 첨부파일 입력 -->
+                <div class="mt-4">
+                    <!-- 첨부파일 필드 -->
+                    <div class="form-group">
+                        <label for="upfile" class="form-label">첨부파일</label> 
+                        <input
+                            type="file" id="upfile" name="upfiles" class="form-control"
+                            aria-describedby="fileHelp" multiple
+                            onchange="checkFileValidation(this)"> 
+                        <small id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다.
+                            (각 파일 최대 5MB)</small><br> <br> <br>
 
-					<div id="file-list"></div>
-				</div>
-		</div>
+                    </div>
+                    <!-- 선택된 파일 리스트 표시 -->
+                    <div id="file-list-container">
+                        <div id="file-list"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-
-		<div class="button-container">
-			<!-- 작성완료 버튼 -->
-			<input type="submit" value="작성완료" class="round-button">
-		</div>
-		</form>
-	</div>
-	</div>
-
-	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
+    <!-- Footer -->
+    <%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
 </body>
-
 </html>
