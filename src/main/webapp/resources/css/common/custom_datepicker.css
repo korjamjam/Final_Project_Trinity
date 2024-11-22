@@ -20,9 +20,23 @@ html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background
 
 .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; }
 
-.ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px;}
+.ui-datepicker {
+	display: none;
+	background-color: #fff;
+	border-radius: 4px;
+	margin: 10px auto; /* 가운데 정렬 */
+	padding: 20px;
+	padding-bottom: 10px;
+	width: 100%; /* 달력의 너비를 부모 요소와 동일하게 설정 */
+    max-width: 800px; /* 최대 너비 제한 */
+}
 
-.ui-widget.ui-widget-content { border: 1px solid #eee; }
+.ui-widget.ui-widget-content { border: 1px solid #eee; width: 100%;}
+
+#datepicker {
+    width: 100%; /* 달력의 너비를 부모 요소와 동일하게 설정 */
+    max-width: 800px; /* 최대 너비 제한 */
+}
 
 #datepicker:focus>.ui-datepicker { display: block; }
 

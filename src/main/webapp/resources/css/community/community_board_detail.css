@@ -295,6 +295,7 @@
 	width: 100%;
 	height: 20%; /* 부모 높이에 맞춰지게 설정 */
 	margin-bottom: 2vh;
+	flex-direction: column;
 }
 
 .action-buttons {

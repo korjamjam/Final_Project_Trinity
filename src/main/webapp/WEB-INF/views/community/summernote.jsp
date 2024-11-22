@@ -8,12 +8,11 @@
 <title>${boardCategory}글쓰기</title>
 
 <!-- include libraries(jQuery, bootstrap) -->
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
-	href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
-<script type="text/javascript"
-	src="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- include summernote css/js -->
 <link
@@ -24,8 +23,9 @@
 <link
 	href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css">
+<link
+	href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css"
+	rel="stylesheet">
 </head>
 
 <body>
@@ -33,11 +33,12 @@
 	<header>
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 	</header>
+
 	<div class="content-container">
 		<div class="top-bar">
 			<div class="left-section">
-				<h1>
-					${boardCategory} <span>글쓰기</span>
+				<h1>${boardCategory}
+					<span>글쓰기</span>
 				</h1>
 			</div>
 			<div class="right-section">
@@ -48,34 +49,51 @@
 			</div>
 		</div>
 		<hr>
+
 		<div class="post-wrapper">
-			<!-- form ID 추가 -->
 			<form id="postForm" method="post"
 				action="${pageContext.request.contextPath}/community/write"
-				class="post-form">
+				class="post-form" enctype="multipart/form-data">
+
 				<!-- Hidden input for USER_ID -->
 				<input type="hidden" name="userId" value="${loginUser.userId}">
-				<!-- 카테고리, 제목, 내용 등 게시글 관련 정보 입력 -->
+
+				<!-- 카테고리와 제목 입력 -->
 				<div class="post-form-container">
 					<div class="post-form-header">
-						<select class="post-category-select" name="boardCategory"
+						<select class="form-select" name="boardCategory"
 							onchange="changeCategory(this.value)">
 							<option>자유게시판</option>
 							<option>메디톡</option>
 							<option>이벤트게시판</option>
-						</select> <select class="post-tag-select" name="tag">
+						</select> <select class="form-select" name="tag">
 							<option>말머리 선택</option>
 						</select>
 					</div>
 					<input type="text" name="boardTitle" placeholder="제목을 입력해 주세요."
-						class="post-title-input">
+						class="form-control mt-3" required>
 				</div>
 
-				<div class="spacer"></div>
-				<!-- 여백을 추가하기 위한 요소 -->
 				<!-- 내용 입력(Summernote) -->
-				<textarea id="summernote" name="boardContent" class="post-textarea"
-					required></textarea>
+				<textarea id="summernote" name="boardContent"
+					class="post-textarea form-control mt-3"></textarea>
+
+				<!-- 첨부파일 입력 -->
+				<div class="mt-4">
+					<!-- 첨부파일 필드 -->
+					<div class="form-group">
+						<label for="upfile" class="form-label">첨부파일</label> <input
+							type="file" id="upfile" name="upfiles" class="form-control"
+							aria-describedby="fileHelp" multiple
+							onchange="checkFileValidation(this)"> <small
+							id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다.
+							(각 파일 최대 5MB)</small><br> <br> <br>
+
+					</div>
+
+				</div>
+
+
 				<div class="button-container">
 					<!-- 작성완료 버튼 -->
 					<input type="submit" value="작성완료" class="round-button">
@@ -83,84 +101,109 @@
 			</form>
 		</div>
 	</div>
+
 	<script>
-	$(document).ready(function () {
-	    function initializeSummernote() {
-	        $('#summernote').summernote({
-	            minHeight: 400, // 최소 높이 설정
-	            maxHeight: null, // 최대 높이 제한 없음
-	            placeholder: '글을 입력하세요.',
-	            tabsize: 2,
-	            toolbar: [
-	                ['style', ['style']],
-	                ['font', ['bold', 'underline', 'clear']],
-	                ['color', ['color']],
-	                ['para', ['ul', 'ol', 'paragraph']],
-	                ['table', ['table']],
-	                ['insert', ['link', 'picture', 'video']],
-	                ['view', ['fullscreen', 'codeview', 'help']]
-	            ],
-	            callbacks: {
-	                onImageUpload: fileUpload,
-	                onChange: adjustHeight // 글 내용 변경 시 높이 자동 조정
-	            }
-	        });
+			$(document).ready(function () {
+				initializeSummernote();
 
-	        syncSummernoteWidth();
-	    }
+				// 창 크기 변경 시 Summernote 크기 조정
+				$(window).on('resize', syncSummernoteWidth);
+			});
 
-	    function syncSummernoteWidth() {
-	        const wrapperWidth = $('.post-wrapper').width();
-	        $('.note-editor').css('width', wrapperWidth); // .note-editor의 너비 동기화
-	    }
+			// Summernote 초기화
+			function initializeSummernote() {
+				$('#summernote').summernote({
+					minHeight: 400,
+					maxHeight: null,
+					placeholder: '글을 입력하세요.',
+					tabsize: 2,
+					toolbar: [
+						['style', ['style']],
+						['font', ['bold', 'underline', 'clear']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link', 'picture', 'video']],
+						['view', ['fullscreen', 'codeview', 'help']]
+					],
+					callbacks: {
+						onImageUpload: fileUpload, // 이미지 업로드 콜백
+						onChange: adjustHeight // 글 내용 변경 시 높이 자동 조정
+					}
+				});
 
-	    // 글 내용에 따라 Summernote 높이 조정
-	    function adjustHeight(contents) {
-	        const editableArea = $('.note-editable'); // 텍스트 입력 영역
-	        const scrollHeight = editableArea.prop('scrollHeight'); // 입력 영역의 전체 높이
-	        editableArea.css('height', `${scrollHeight}px`); // 높이를 스크롤 높이에 맞춤
-	    }
+				syncSummernoteWidth();
+			}
 
-	    initializeSummernote();
+			// Summernote 너비 동기화
+			function syncSummernoteWidth() {
+				const wrapperWidth = $('.post-wrapper').width();
+				$('.note-editor').css('width', wrapperWidth);
+			}
 
-	    // 창 크기 변경 시 Summernote 크기 재조정
-	    $(window).on('resize', syncSummernoteWidth);
-	});
+			// 글 내용에 따라 Summernote 높이 조정
+			function adjustHeight(contents) {
+				const editableArea = $('.note-editable');
+				const scrollHeight = editableArea.prop('scrollHeight');
+				editableArea.css('height', `${scrollHeight}px`);
+			}
 
-	function fileUpload(files) {
-	    const fd = new FormData();
-	    for (let file of files) {
-	        fd.append("fileList", file);
-	    }
-
-	    insertFile(fd, function (nameList) {
-	        for (let name of nameList) {
-	            $("#summernote").summernote("insertImage", "/etc/resources/img/" + name);
-	        }
-	    });
-	}
-
-	function insertFile(data, callback) {
-	    $.ajax({
-	        url: "${pageContext.request.contextPath}/upload",
-	        type: "POST",
-	        data: data,
-	        processData: false,
-	        contentType: false,
-	        dataType: "json",
-	        success: function (res) {
-	            callback(res);
-	        },
-	        error: function () {
-	            alert("이미지 업로드 실패! 다시 시도해주세요.");
-	        }
-	    });
-	}
-
-    </script>
-	
+		
+			// 이미지 업로드 처리 (Summernote 연동)
+		function fileUpload(imgs) {
+		    const fd = new FormData();
+		    for (let i = 0; i < imgs.length; i++) {
+		        fd.append("fileList", imgs[i]);
+		    }
+		
+		    $.ajax({
+		        url: "${pageContext.request.contextPath}/community/upload",
+		        type: "POST",
+		        data: fd,
+		        processData: false,
+		        contentType: false,
+		        dataType: "json",
+		        success: function (response) {
+		        	console.log(response)
+		    
+		            response.forEach(filePath => {
+		            	console.log(filePath)
+		                $('#summernote').summernote('insertImage', filePath);
+		            });
+		        },
+		        error: function () {
+		            alert("이미지 업로드 실패! 다시 시도해주세요.");
+		        }
+		    });
+		}
 
 
+
+		// 파일 검증 로직
+		function checkFileValidation(input) {
+		    const files = input.files;
+		    const maxFileSize = 5 * 1024 * 1024; // 5MB
+		    const maxFileCount = 3;
+
+		    // 파일 개수 체크
+		    if (files.length > maxFileCount) {
+		        alert("파일은 최대 3개까지만 선택할 수 있습니다.");
+		        input.value = ""; // 선택된 파일 초기화
+		        return;
+		    }
+
+		    // 파일 크기 체크
+		    for (let file of files) {
+		        if (file.size > maxFileSize) {
+		            alert(`파일 "${file.name}"의 크기가 5MB를 초과합니다.`);
+		            input.value = ""; // 선택된 파일 초기화
+		            return;
+		        }
+		    }
+		}
+
+
+		</script>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
