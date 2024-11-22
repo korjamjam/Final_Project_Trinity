@@ -32,16 +32,6 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-<% 
-    if (session.getAttribute("message") != null) { 
-%>
-    <script>
-        alert("<%= session.getAttribute("message") %>");
-    </script>
-<%
-        session.removeAttribute("message");
-    }
-%>
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation_wrap">
