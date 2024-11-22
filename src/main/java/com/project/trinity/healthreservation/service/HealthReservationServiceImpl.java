@@ -35,5 +35,10 @@ public class HealthReservationServiceImpl implements HealthReservationService {
 		return healthReservationDao.selectHospitalList();
 	}
 
+	@Override
+	public HealthReservation selectHealthReservation(String hResNo) {
+		return healthReservationDao.selectHealthReservation(hResNo);
+	}
+
 		
 }

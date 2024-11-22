@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,14 @@ public class HealthReservationController {
 	@RequestMapping("/search")
 	public String healthReservationSearch() {
 		return "health_reservation/health_reservation_search";
+	}
+	
+	@RequestMapping("/searchResult")
+	public String healthReservationSearchResult(String hResNo, Model m) {
+		HealthReservation healthReservation = healthReservationService.selectHealthReservation(hResNo);
+		m.addAttribute("healthReservation",healthReservation);
+		System.out.println(healthReservation);
+		return "health_reservation/health_reservation_search_result";
 	}
 	
 	// 건강검진 받는 사용자 정보 받아주는 컨트롤러
