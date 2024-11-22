@@ -36,7 +36,7 @@
     if (session.getAttribute("message") != null) { 
 %>
     <script>
-        alert("<%= session.getAttribute("message") %>");
+        alert("<%= session.getAttribute('message') %>");
     </script>
 <%
         session.removeAttribute("message");
