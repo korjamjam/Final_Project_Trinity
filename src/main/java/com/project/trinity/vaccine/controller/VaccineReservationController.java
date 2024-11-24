@@ -148,6 +148,7 @@ public class VaccineReservationController {
 
             // 예약 정보 삽입
             vaccineReservationService.insertReservation(vaccineReservation);
+            System.out.println("DEBUG: 최종 vaccineReservation 객체 - " + vaccineReservation);
 
             return "success";
         } catch (IllegalArgumentException e) {

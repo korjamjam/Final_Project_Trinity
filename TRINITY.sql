@@ -277,6 +277,17 @@ BEGIN
     :NEW.G_RES_NO := 'GR' || TO_CHAR(SEQ_G_RES_NO.NEXTVAL);
 END;
 /
+CREATE OR REPLACE TRIGGER trg_before_insert_vaccine
+BEFORE INSERT ON VACCINE_RESERVATION
+FOR EACH ROW
+BEGIN
+    IF :NEW.gender = '1' OR :NEW.gender = '3' THEN
+        :NEW.gender := 'M';
+    ELSIF :NEW.gender = '2' OR :NEW.gender = '4' THEN
+        :NEW.gender := 'F';
+    END IF;
+END;
+/
 
 CREATE OR REPLACE TRIGGER TRG_VACCINE_RESERVATION_ID
 BEFORE INSERT ON VACCINE_RESERVATION
@@ -613,7 +624,3 @@ VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
-
-SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE, SEARCH_CONDITION
-FROM USER_CONSTRAINTS
-WHERE TABLE_NAME = 'VACCINE_RESERVATION';
