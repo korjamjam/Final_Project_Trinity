@@ -102,8 +102,9 @@ function updateFileList(input) {
                  data-index="${index}" data-file-name="${file.name}" data-file-size="${file.size}">
                 <span>${file.name} (${fileSizeInKB} KB)</span>
                 <div class="d-flex align-items-center">
+                    <input type="hidden" name="allowDownload[${index}]" value="Y"> <!-- 기본값: Y -->
                     <button type="button" class="btn btn-sm btn-outline-primary allow-download-btn me-2" 
-                            data-allow="true" data-index="${index}" onclick="toggleDownload(this)">
+                            data-allow="true" data-index="${index}" onclick="toggleDownload(this, ${index})">
                         <i class="bi bi-arrow-down-circle"></i>
                     </button>
                     <button type="button" class="btn btn-sm btn-outline-danger" 
@@ -130,18 +131,22 @@ function updateFileList(input) {
 }
 
 // 다운로드 허용 토글
-function toggleDownload(button) {
+function toggleDownload(button, index) {
+    const hiddenInput = document.querySelector(`input[name="allowDownload[${index}]"]`);
     const isAllowed = button.getAttribute("data-allow") === "true";
+
     if (isAllowed) {
         button.setAttribute("data-allow", "false");
         button.classList.remove("btn-outline-primary");
         button.classList.add("btn-outline-secondary");
         button.innerHTML = '<i class="bi bi-lock"></i>'; // 다운로드 비활성화 아이콘
+        hiddenInput.value = "N";
     } else {
         button.setAttribute("data-allow", "true");
         button.classList.remove("btn-outline-secondary");
         button.classList.add("btn-outline-primary");
         button.innerHTML = '<i class="bi bi-arrow-down-circle"></i>'; // 다운로드 활성화 아이콘
+        hiddenInput.value = "Y";
     }
 }
 

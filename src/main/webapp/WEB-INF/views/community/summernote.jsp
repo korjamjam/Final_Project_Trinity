@@ -67,14 +67,26 @@
                     <input type="file" id="upfile" name="upfiles" class="form-control" multiple
                         onchange="checkFileValidation(this)">
                     <small id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다. (각 파일 최대 5MB)</small>
-                    <div id="file-list-container" style="display: none;">
-                        <div id="file-list" class="mt-3 border p-3"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
+                  	<!-- 선택된 파일 리스트 표시 -->
+					<div id="file-list-container">
+						<div id="file-list"></div>
+					</div>
+
+					<div id="file-list"></div>
+				</div>
+		</div>
+
+
+		<div class="button-container">
+			<!-- 작성완료 버튼 -->
+			<input type="submit" value="작성완료" class="round-button">
+		</div>
+		</form>
+	</div>
+	</div>
+
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
 </body>
 
 </html>
