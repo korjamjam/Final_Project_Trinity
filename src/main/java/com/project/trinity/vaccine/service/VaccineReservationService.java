@@ -3,6 +3,7 @@ package com.project.trinity.vaccine.service;
 import java.util.List;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
+import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.vaccine.model.vo.VaccineReservation;
 
 public interface VaccineReservationService {
@@ -20,4 +21,6 @@ public interface VaccineReservationService {
      * @return 병원 정보가 담긴 HospitalInfo 객체의 리스트
      */
     List<HospitalInfo> getAllHospitals(); // 병원 목록 조회
+    
+    String insertGuest(Guest guest); // 비회원 정보를 삽입하고 GST_NO 반환
 }

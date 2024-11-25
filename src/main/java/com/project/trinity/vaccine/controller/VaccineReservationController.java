@@ -2,6 +2,8 @@ package com.project.trinity.vaccine.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
+import com.project.trinity.member.model.vo.Guest;
+import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.vaccine.model.vo.VaccineReservation;
 import com.project.trinity.vaccine.service.VaccineReservationService;
 
@@ -35,6 +39,7 @@ public class VaccineReservationController {
      */
     @PostMapping("/vaccinepage2")
     public String vaccineReservation2(VaccineReservation vaccineReservation, Model model) {
+
         // 병원 목록 가져오기
         List<HospitalInfo> hospitalList = vaccineReservationService.getAllHospitals(); // 병원 정보를 서비스에서 가져옴
         model.addAttribute("vaccineReservation", vaccineReservation); // 전달받은 예약 데이터를 모델에 추가
@@ -48,34 +53,57 @@ public class VaccineReservationController {
      */
     @PostMapping("/submitReservation")
     public String submitReservation(
-        VaccineReservation vaccineReservation, // 예약 데이터 객체
-        @RequestParam("gender") String genderInput, // 성별 입력값
-        @RequestParam("phoneCode") String phoneCode, // 전화번호 앞자리
-        @RequestParam("phoneNumber") String phoneNumber, // 전화번호 뒷자리
-        @RequestParam("emailLocal") String emailLocal, // 이메일 아이디
-        @RequestParam("emailDomain") String emailDomain // 이메일 도메인
+        VaccineReservation vaccineReservation,
+        HttpSession session,
+        @RequestParam("gender") String genderInput,
+        @RequestParam("phoneCode") String phoneCode,
+        @RequestParam("phoneNumber") String phoneNumber,
+        @RequestParam("emailLocal") String emailLocal,
+        @RequestParam("emailDomain") String emailDomain
     ) {
         System.out.println("DEBUG: 일반 폼 예약 처리 시작");
-        try {
-            // 이메일 값을 객체에 설정
-            vaccineReservation.setEmailLocal(emailLocal); // 이메일 아이디 설정
-            vaccineReservation.setEmailDomain(emailDomain); // 이메일 도메인 설정
-            vaccineReservation.setEmail(emailLocal + "@" + emailDomain); // 전체 이메일 설정
 
-            // 나머지 값 설정
-            setReservationDetails(vaccineReservation, genderInput, phoneCode, phoneNumber, emailLocal, emailDomain);
+        try {
+            // 로그인 여부 확인
+            Member loginUser = (Member) session.getAttribute("loginUser");
+            if (loginUser != null) {
+                // 로그인 상태: USER_NO 설정
+                vaccineReservation.setUserNo(loginUser.getUserNo());
+                System.out.println("DEBUG: 로그인 상태 - USER_NO: " + loginUser.getUserNo());
+            } else {
+                // 비회원 상태: GUEST 테이블에 삽입 후 GST_NO 가져오기
+				System.out.println("DEBUG: 비회원 상태, GUEST 테이블에 데이터 삽입 시작");
+
+				Guest guest = new Guest();
+				guest.setGstName(vaccineReservation.getPatientName());
+				guest.setGstEmail(emailLocal + "@" + emailDomain);
+				guest.setGstPhone(phoneCode + phoneNumber);
+				guest.setGstBirth(vaccineReservation.getPatientBirthday());
+				guest.setGstGender(genderInput);
+
+				String guestNo = vaccineReservationService.insertGuest(guest);
+				vaccineReservation.setGstNo(guestNo);
+				System.out.println("DEBUG: 삽입된 GST_NO: " + guestNo);
+            }
+
+            // 이메일 설정
+            vaccineReservation.setEmail(emailLocal + "@" + emailDomain);
 
             // 예약 정보 삽입
-            vaccineReservationService.insertReservation(vaccineReservation); // 예약 데이터를 DB에 저장
+            vaccineReservationService.insertReservation(vaccineReservation);
+            System.out.println("DEBUG: 예약 정보 삽입 완료");
 
-            return "redirect:/main"; // 성공 시 메인 페이지로 리다이렉트
+            return "redirect:/main"; // 성공 시 리다이렉트
         } catch (IllegalArgumentException e) {
-            return "error/error_page"; // 입력 오류 시 에러 페이지
+            System.err.println("ERROR: 입력 검증 실패 - " + e.getMessage());
+            return "error/error_page"; // 오류 시 에러 페이지
         } catch (Exception e) {
+            System.err.println("ERROR: 서버 오류 발생");
             e.printStackTrace();
             return "error/error_page"; // 서버 오류 시 에러 페이지
         }
     }
+
 
     /**
      * 예약 처리 - AJAX 요청 방식
@@ -83,43 +111,55 @@ public class VaccineReservationController {
     @PostMapping("/submitReservationAjax")
     @ResponseBody
     public String submitReservationAjax(
-        VaccineReservation vaccineReservation, // 예약 데이터 객체
-        @RequestParam("gender") String genderInput, // 성별 입력값
-        @RequestParam("fullPhoneNumber") String fullPhoneNumber, // 전체 전화번호
-        @RequestParam("emailLocal") String emailLocal, // 이메일 아이디
-        @RequestParam("emailDomain") String emailDomain // 이메일 도메인
+        VaccineReservation vaccineReservation, 
+        HttpSession session,
+        @RequestParam("gender") String genderInput, 
+        @RequestParam("fullPhoneNumber") String fullPhoneNumber, 
+        @RequestParam("emailLocal") String emailLocal, 
+        @RequestParam("emailDomain") String emailDomain
     ) {
         try {
             // 이메일 값 설정
-            vaccineReservation.setEmailLocal(emailLocal); // 이메일 아이디 설정
-            vaccineReservation.setEmailDomain(emailDomain); // 이메일 도메인 설정
-            vaccineReservation.setEmail(emailLocal + "@" + emailDomain); // 전체 이메일 설정
+            vaccineReservation.setEmail(emailLocal + "@" + emailDomain);
 
-            // 성별 설정
+            // 성별 검증 및 변환
+            String gender;
             if ("1".equals(genderInput) || "3".equals(genderInput)) {
-                vaccineReservation.setGender("M"); // 남성
+                gender = "M";
             } else if ("2".equals(genderInput) || "4".equals(genderInput)) {
-                vaccineReservation.setGender("F"); // 여성
+                gender = "F";
             } else {
-                throw new IllegalArgumentException("잘못된 성별 값입니다."); // 성별 값 검증 실패
+                throw new IllegalArgumentException("잘못된 성별 값입니다: " + genderInput);
             }
+            System.out.println("DEBUG: 변환된 성별 값 - " + gender);
 
-            // 전화번호 설정
-            vaccineReservation.setPhoneNumber(fullPhoneNumber); // 전화번호 설정
+            // GUEST 테이블에 데이터 삽입
+            Guest guest = new Guest();
+            guest.setGstName(vaccineReservation.getPatientName());
+            guest.setGstEmail(emailLocal + "@" + emailDomain);
+            guest.setGstPhone(fullPhoneNumber);
+            guest.setGstBirth(vaccineReservation.getPatientBirthday());
+            guest.setGstGender(gender); // 변환된 성별 설정
+
+            System.out.println("DEBUG: GUEST 객체 - " + guest);
+
+            String guestNo = vaccineReservationService.insertGuest(guest);
+            vaccineReservation.setGstNo(guestNo);
 
             // 예약 정보 삽입
-            vaccineReservationService.insertReservation(vaccineReservation); // 예약 데이터를 DB에 저장
+            vaccineReservationService.insertReservation(vaccineReservation);
+            System.out.println("DEBUG: 최종 vaccineReservation 객체 - " + vaccineReservation);
 
-            return "success"; // 성공 응답 반환
-        }
-        catch (IllegalArgumentException e) {
-            return "fail: " + e.getMessage(); // 입력 오류 시 실패 메시지 반환
-        }
-        catch (Exception e) {
+            return "success";
+        } catch (IllegalArgumentException e) {
+            return "fail: " + e.getMessage();
+        } catch (Exception e) {
             e.printStackTrace();
-            return "fail: 서버 오류가 발생했습니다."; // 서버 오류 시 실패 메시지 반환
+            return "fail: 서버 오류가 발생했습니다.";
         }
     }
+
+
 
     /**
      * 예약 정보 설정 메서드
