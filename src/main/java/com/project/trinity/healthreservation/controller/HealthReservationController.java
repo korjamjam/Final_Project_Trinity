@@ -18,10 +18,9 @@ import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.HealthReservation;
-import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
+import com.project.trinity.vaccine.model.vo.VaccineReservation;
 import com.project.trinity.vaccine.service.VaccineReservationService;
 
 @Controller
@@ -30,7 +29,9 @@ public class HealthReservationController {
 
 	@Autowired
     private HealthReservationService healthReservationService;
+	@Autowired
 	private ReservationService reservationService;
+	@Autowired
 	private VaccineReservationService vaccineReservationService;
 	
     // 백신 예약 페이지 1로 이동
@@ -94,19 +95,23 @@ public class HealthReservationController {
 		
 		switch (reservationCategory) {
 		case "general":
-			Reservation reservation = reservationSer
 			break;
-		case "vaccine":
 			
-			break;
+		case "vaccine":
+			VaccineReservation vaccineReservation = vaccineReservationService.selectReservation(resNo);
+			m.addAttribute("vaccineReservation", vaccineReservation);
+			m.addAttribute("resNo",resNo);
+			System.out.println(vaccineReservation);
+			return "health_reservation/vaccine_reservation_search_result";
+			
 		case "health":
 			HealthReservation healthReservation = healthReservationService.selectHealthReservation(resNo);
 			//예약날짜 뒤에 시간 짜르기
 			healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
-			m.addAttribute("resNo", resNo);
+			m.addAttribute("hResNo", resNo);
 			m.addAttribute("healthReservation",healthReservation);
 			
-			return "health_reservation/reservation_search_result";
+			return "health_reservation/health_reservation_search_result";
 
 		default:
 			break;

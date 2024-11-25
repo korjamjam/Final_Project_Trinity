@@ -83,5 +83,23 @@
     )
 </insert>
 
+<!-- 예약번호로 조회 -->
+<select id="selectReservation" resultType="com.project.trinity.vaccine.model.vo.VaccineReservation">
+	SELECT V_RES_NO as vresNo,
+		   USER_NO as userNo,
+		   HOS_NO as hosNo,
+		   GST_NO as gstNo,
+		   PATIENT_NAME as patientName,
+		   PATIENT_BIRTHDAY as patientBirthday,
+		   GENDER as gender,
+		   EMAIL as email,
+		   V_RES_DATE as vresDate,
+		   V_RES_TIME as vresTime,
+		   V_TYPE as vType,
+		   RES_CONTENT as resContent
+	  FROM VACCINE_RESERVATION
+	 WHERE V_RES_NO = #{resNo}
+</select>
+
 </mapper>
                                         
