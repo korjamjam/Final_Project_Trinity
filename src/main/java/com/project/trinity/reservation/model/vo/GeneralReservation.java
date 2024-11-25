@@ -23,7 +23,7 @@ public class GeneralReservation {
     private String hosNo; 				// 병원 번호
     private String gstNo;				// 게스트 번호(비로그인)
     private String gpatientName;        // 접종자 이름
-    private int gpatientBirthday;       // 점종자 생년월일
+    private String gpatientBirthday;       // 점종자 생년월일
     private Date gresDate;			    // 백신 접종 날짜
     private String gresTime; 		    // 백신 접종 시간
     private String gresSubject;         // 예약 진료 과목

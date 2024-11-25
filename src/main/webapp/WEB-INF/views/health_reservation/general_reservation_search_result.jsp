@@ -28,35 +28,31 @@
                     </tr>
                     <tr>
                         <td>이름</td>
-                        <td>${vaccineReservation.patientName }</td>
+                        <td>${generealReservation.gpatientName }</td>
                     </tr>
                     <tr>
                         <td>병원</td>
-                        <td>${vaccineReservation.hosNo }</td>
+                        <td>${generealReservation.hosNo }</td>
                     </tr>
                     <tr>
-                        <td>백신 종류</td>
-                        <td>${vaccineReservation.vaccineType}</td>
+                        <td>진료 종류</td>
+                        <td>${generealReservation.gresSubject}</td>
                     </tr>
                     <tr>
                         <td>특이사항</td>
-                        <td>${vaccineReservation.resContent }</td>
+                        <td>${generealReservation.gresContent }</td>
                     </tr>
                     <tr>
                         <td>생년월일</td>
-                        <td>${vaccineReservation.patientBirthday }</td>
-                    </tr>
-                    <tr>
-                        <td>이메일</td>
-                        <td>${vaccineReservation.email }</td>
+                        <td>${generealReservation.gpatientBirthday }</td>
                     </tr>
                     <tr>
                         <td>날짜</td>
-                        <td>${vaccineReservation.vresDate }</td>
+                        <td>${generealReservation.gresDate }</td>
                     </tr>
                     <tr>
                         <td>시간</td>
-                        <td>${vaccineReservation.vresTime }</td>
+                        <td>${generealReservation.gresTime }</td>
                     </tr>
                 </table>    
             </div>

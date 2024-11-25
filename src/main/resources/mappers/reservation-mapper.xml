@@ -44,4 +44,21 @@
         (SELECT GENDER FROM MEMBER WHERE USER_NO = #{userNo}))
     </insert>
     
+    <!-- 예약번호로 조회 -->
+	<select id="selectReservation" resultType="com.project.trinity.reservation.model.vo.GeneralReservation">
+		SELECT G_RES_NO as gresNo,
+			   USER_NO as userNo,
+			   HOS_NO as hosNo,
+			   GST_NO as gstNo,
+			   G_PATIENT_NAME as gpatientName,
+			   G_PATIENT_BIRTHDAY as gpatientBirthday,
+			   G_RES_DATE as gresDate,
+			   G_RES_TIME as gresTime,
+			   G_RES_SUBJECT as gresSubject,
+			   G_RES_CONTENT as gresContent,
+			   G_RES_GENDER as gender
+		  FROM GENERAL_RESERVATION
+		 WHERE G_RES_NO = #{resNo}
+	</select>
+    
 </mapper>
