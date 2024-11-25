@@ -98,6 +98,11 @@ public class BoardDao {
         return sqlSession.delete("boardMapper.deleteBoard", boardNo);
     }
 
+    public int updateFileAllowDownload(SqlSessionTemplate sqlSession, BoardFile bf) {
+        return sqlSession.update("boardMapper.updateFileAllowDownload", bf);
+    }
+
+
 	
 
    

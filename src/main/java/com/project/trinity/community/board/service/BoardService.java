@@ -59,4 +59,7 @@ public interface BoardService {
     // 특정 게시글의 모든 첨부파일 삭제 (롤백 처리 지원)
     int deleteAllFilesByBoardNo(String boardNo);
 
+ // 특정 파일의 다운로드 허용 여부 업데이트
+    int updateFileAllowDownload(BoardFile bf);
+
 }
