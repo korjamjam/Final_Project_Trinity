@@ -1,5 +1,8 @@
 package com.project.trinity.member.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +86,23 @@ public class MemberServiceImpl implements MemberService {
     public Member selectMemberById(String userId) {
         return memberDao.findByUserId(sqlSession, userId);
     }
+    
+    @Override
+    public Member findMemberForResetPassword(String userId, String userName, String email) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("userName", userName);
+        params.put("email", email);
+        return memberDao.findMemberForResetPassword(sqlSession, params);
+    }
+
+    @Override
+    public int updateTemporaryPassword(String userId, String encryptedPassword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("encryptedPassword", encryptedPassword);
+        return memberDao.updateTemporaryPassword(sqlSession, params);
+    }
+
 
 }
