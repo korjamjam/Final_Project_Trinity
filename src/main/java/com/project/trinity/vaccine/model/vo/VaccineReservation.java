@@ -35,5 +35,4 @@ public class VaccineReservation {
     private String emailLocal; // 이메일 앞부분
     private String emailDomain; // 이메일 뒷부분
     private String email;
-
 }
