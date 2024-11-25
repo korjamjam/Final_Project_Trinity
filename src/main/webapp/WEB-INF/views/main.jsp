@@ -67,7 +67,7 @@
 		<!-- 6 Icon -->
 		<div class="shortCutIcon">
 			<div class="icon">
-				<a href=""> <img
+				<a href="${pageContext.request.contextPath}/healthReservation/reservationSearch"> <img
 					src="${ pageContext.servletContext.contextPath }/resources/img/checkReservation.png"
 					alt="checkReservation">
 					<p>예약 정보 확인</p>

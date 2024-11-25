@@ -1,9 +1,6 @@
 package com.project.trinity.healthreservation.controller;
 
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +18,11 @@ import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.HealthReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.reservation.service.ReservationService;
+import com.project.trinity.vaccine.service.VaccineReservationService;
 
 @Controller
 @RequestMapping("/healthReservation")
@@ -29,7 +30,9 @@ public class HealthReservationController {
 
 	@Autowired
     private HealthReservationService healthReservationService;
-
+	private ReservationService reservationService;
+	private VaccineReservationService vaccineReservationService;
+	
     // 백신 예약 페이지 1로 이동
     @GetMapping("/vaccinepage1")
     public String vaccineReservation1() {
@@ -75,6 +78,44 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation1";
 	}
 	
+	@RequestMapping("reservationSearch")
+	public String ReservationSearch() {
+		return "health_reservation/reservation_search_all";
+	}
+	
+	@RequestMapping("reservationSearchAll")
+	public String ReservationSearchAll(
+			@RequestParam("reservationCategory") String reservationCategory,
+			@RequestParam("resNo") String resNo,
+			Model m
+			) {
+		System.out.println(reservationCategory);
+		System.out.println(resNo);
+		
+		switch (reservationCategory) {
+		case "general":
+			Reservation reservation = reservationSer
+			break;
+		case "vaccine":
+			
+			break;
+		case "health":
+			HealthReservation healthReservation = healthReservationService.selectHealthReservation(resNo);
+			//예약날짜 뒤에 시간 짜르기
+			healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
+			m.addAttribute("resNo", resNo);
+			m.addAttribute("healthReservation",healthReservation);
+			
+			return "health_reservation/reservation_search_result";
+
+		default:
+			break;
+		}
+		
+		return "health_reservation/reservation_search_all";
+	}
+	
+	
 	//예약조회
 	@RequestMapping("/search")
 	public String healthReservationSearch() {
@@ -86,6 +127,7 @@ public class HealthReservationController {
 		HealthReservation healthReservation = healthReservationService.selectHealthReservation(hResNo);
 		//예약날짜 뒤에 시간 짜르기
 		healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
+		m.addAttribute("hResNo", hResNo);
 		m.addAttribute("healthReservation",healthReservation);
 		
 		return "health_reservation/health_reservation_search_result";
@@ -201,8 +243,12 @@ public class HealthReservationController {
 		int result = healthReservationService.insertHealthReservation(healthReservation);
 		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
 		session.setAttribute("hResNo", healthReservation.getHResNo());
-		System.out.println(healthReservation.getHResNo());
-		return "main";
+		
+		HealthReservation healthReservationResult = healthReservationService.selectHealthReservation(healthReservation.getHResNo());
+		//예약날짜 뒤에 시간 짜르기
+		healthReservationResult.setResDate(healthReservationResult.getResDate().substring(0,10));
+		session.setAttribute("healthReservation",healthReservationResult);
+		return "health_reservation/health_reservation_search_result";
 	}
 	
 	@GetMapping("/result")

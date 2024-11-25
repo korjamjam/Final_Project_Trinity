@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +30,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.service.EmailService;
 import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("/member") // 모든 경로에 /member를 붙여 구조화
 public class MemberController {
+	
+	@Autowired
+	private EmailService emailService;
 
 	private final MemberService memberService;
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -262,9 +267,51 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); // HTTP 500 상태로 반환
 		}
 	}
+		
+	 @PostMapping("/reset_pwd_email")
+	    public ResponseEntity<Map<String, Object>> resetPasswordByEmail(
+	            @RequestParam("id") String userId,
+	            @RequestParam("name") String userName,
+	            @RequestParam("email") String email) {
+
+	        Map<String, Object> response = new HashMap<>();
+	        Member member = memberService.findMemberForResetPassword(userId, userName, email);
+
+	        if (member != null) {
+	            String tempPassword = UUID.randomUUID().toString().substring(0, 8);
+	            String encryptedPassword = bcryptPasswordEncoder.encode(tempPassword);
+
+	            int updateResult = memberService.updateTemporaryPassword(userId, encryptedPassword);
+
+	            if (updateResult > 0) {
+	                try {
+	                    String subject = "임시 비밀번호 발급";
+	                    String content = "임시 비밀번호는 " + tempPassword + " 입니다. 로그인 후 비밀번호를 변경해주세요.";
+	                    emailService.sendEmail(email, subject, content);
+
+	                    response.put("status", "success");
+	                    response.put("message", "임시 비밀번호가 이메일로 발송되었습니다.");
+	                } catch (Exception e) {
+	                    response.put("status", "fail");
+	                    response.put("message", "이메일 발송 중 오류가 발생했습니다.");
+	                }
+	            } else {
+	                response.put("status", "fail");
+	                response.put("message", "임시 비밀번호 업데이트 중 오류가 발생했습니다.");
+	            }
+	        } else {
+	            response.put("status", "fail");
+	            response.put("message", "입력 정보와 일치하는 사용자가 없습니다.");
+	        }
+
+	        return ResponseEntity.ok(response);
+	    }
+
+
+	
 
 	// 기타 페이지 매핑
-	@GetMapping("/login")
+	@GetMapping("/login") 
 	public String showLoginPage() {
 		return "account/login";
 	}
