@@ -36,7 +36,6 @@ public class ReservationController {
     @RequestMapping("/gReservation")
     public String gReservation(String userNo, String hosNo,String gReservation_date, String resTime, String subject, String content) {
     	String resDate = gReservation_date;
-    	System.out.println("Controller start");
     	int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
     	System.out.println("Controller end");
     	return "/main";

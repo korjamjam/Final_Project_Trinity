@@ -21,9 +21,27 @@
     <!-- 일반 진료 예약 -->
     <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
     	INSERT INTO GENERAL_RESERVATION
-    	(USER_NO, HOS_NO, RES_DATE, RES_TIME, RES_CATEGORY, RES_CONTENT)
+    	(	USER_NO, 
+	    	HOS_NO, 
+	    	G_PATIENT_NAME, 
+	    	G_PATIENT_BIRTHDAY,
+	    	G_RES_DATE, 
+	    	G_RES_TIME, 
+	    	G_RES_SUBJECT, 
+	    	G_RES_CONTENT, 
+	    	G_RES_GENDER
+    	)
 		VALUES
-    	(#{userNo}, #{hosNo}, TO_DATE(#{resDate}, 'YYYY-MM-DD'), #{resTime}, #{resCategory}, #{resContent})
+    	(
+    	#{userNo},
+        #{hosNo},
+        (SELECT USER_NAME FROM MEMBER WHERE USER_NO = #{userNo}),
+        (SELECT BIRTHDAY FROM MEMBER WHERE USER_NO = #{userNo}),
+        TO_DATE(#{resDate}, 'YYYY-MM-DD'),
+        #{resTime},
+        #{subject},
+        #{content},
+        (SELECT GENDER FROM MEMBER WHERE USER_NO = #{userNo}))
     </insert>
     
 </mapper>
