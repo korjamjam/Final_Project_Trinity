@@ -24,10 +24,10 @@ public class VaccineReservation {
     private String gstNo;           // 게스트 번호
     private String patientName;     // 접종자 이름
     private String patientBirthday;    // 생년월일
+    private String vType;           // 백신 종류
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date vresDate;
     private String vresTime;        // 예약 시간
-    private String vType;           // 백신 종류
     private String resContent;      // 특이 사항
     private String gender;          // 성별
     private String phoneCode;       // 전화번호 앞자리

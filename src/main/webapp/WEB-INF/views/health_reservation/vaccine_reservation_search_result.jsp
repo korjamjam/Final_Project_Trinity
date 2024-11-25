@@ -23,43 +23,39 @@
                 <table>
                 	<tr>
                         <td>예약번호</td>
-                        <td>${hResNo }</td>
+                        <td>${resNo }</td>
                     </tr>
                     <tr>
                         <td>이름</td>
-                        <td>${healthReservation.patientName }</td>
+                        <td>${vaccineReservation.patientName }</td>
                     </tr>
                     <tr>
                         <td>병원</td>
-                        <td>${healthReservation.hosName }</td>
+                        <td>${vaccineReservation.hosNo }</td>
                     </tr>
                     <tr>
-                        <td>검진 내용</td>
-                        <td>${healthReservation.resCategory }</td>
+                        <td>백신 종류</td>
+                        <td>${vaccineReservation.vType}</td>
                     </tr>
                     <tr>
                         <td>특이사항</td>
-                        <td>${healthReservation.resComment }</td>
+                        <td>${vaccineReservation.resContent }</td>
                     </tr>
                     <tr>
                         <td>생년월일</td>
-                        <td>${healthReservation.patientBirthday }</td>
+                        <td>${vaccineReservation.patientBirthday }</td>
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td>${healthReservation.patientEmail }</td>
-                    </tr>
-                    <tr>
-                        <td>수령방법</td>
-                        <td>${healthReservation.patientResult }</td>
+                        <td>${vaccineReservation.email }</td>
                     </tr>
                     <tr>
                         <td>날짜</td>
-                        <td>${healthReservation.resDate }</td>
+                        <td>${vaccineReservation.vresDate }</td>
                     </tr>
                     <tr>
                         <td>시간</td>
-                        <td>${healthReservation.resTime }</td>
+                        <td>${vaccineReservation.vresTime }</td>
                     </tr>
                 </table>    
             </div>

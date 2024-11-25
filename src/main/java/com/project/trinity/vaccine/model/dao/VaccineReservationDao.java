@@ -42,4 +42,9 @@ public class VaccineReservationDao {
 	    System.out.println("DEBUG: 삽입된 GUEST 정보: " + guest);
 	    return guest.getGstNo(); // 생성된 GST_NO 반환
 	}
+
+	public VaccineReservation selectReservation(SqlSessionTemplate sqlSession, String resNo) {
+		VaccineReservation vaccineReservation = sqlSession.selectOne("vaccineMapper.selectReservation", resNo);
+		return vaccineReservation;
+	}
 }
