@@ -32,6 +32,14 @@
                 </th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
+            
+            <tr>
+                <th>
+                    <!-- 의사 신청 -->
+                    <a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">의사 신청</a>
+                </th>
+                <td><span class="arrow">&gt;</span></td>
+            </tr>
         </table>
         <div class="support-box">
             <p class="support-text">도움이 필요하신가요?</p>

@@ -20,7 +20,7 @@ public class ReservationDao {
 		System.out.println(resDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("userNo", userNo);
-		map.put("HosNo", hosNo);
+		map.put("hosNo", hosNo);
 //		map.put("userName", userName);
 //		map.put("birthday", birthday);
 //		map.put("gender", gender);
@@ -28,6 +28,7 @@ public class ReservationDao {
 		map.put("resTime", resTime);
 		map.put("subject", subject);
 		map.put("content", content);
+		System.out.println(map);
 		return sqlSession.insert("reservationMapper.insertgReservation", map);
 	}
 
