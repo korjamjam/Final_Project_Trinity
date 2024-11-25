@@ -72,21 +72,23 @@
 					
 					<!-- 개인정보 수집 및 이용 동의 -->
 					<div class="health_reservation1_content2">
-						<div id="reservation_content_title">2. 개인정보 수집 및 이용 동의</div>
+						<div id="reservation_content_title">2. 개인정보 수집 및 이용 </div>
 						<div class="health_reservation1_tos">
 							<table>
-								<thead>
+								<thead style="height: 50px;text-align: center;">
 									<tr>
 										<td>이용목적</td>
-										<td>수집항목</td>
+										<td style="border: 0.5px solid lightgray;">수집항목</td>
 										<td>보유 및 이용 기간</td>
 									</tr>
 								</thead>
-								<tr>
-									<td>검진예약</td>
-									<td>*필수항목: 성명, 성별, 생년 월일, 휴대폰 번호, 결과받을 주소 <br> *선택항목: 이메일</td>
+								<tbody style="text-align: center;">
+								<tr style="height: 100px; line-height: normal; border: 0.5px solid lightgray">
+									<td>접종예약</td>
+									<td style="border: 0.5px solid lightgray;">*필수항목: 성명, 성별, 생년 월일, 휴대폰 번호 <br> *선택항목: 이메일</td>
 									<td>계약 및 청약철회 등에 관한 기록 : 5년 <br> 대금결제 및 재화 등의 공급에 관한 기록 : 5년 <br> 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년</td>
 								</tr>
+								</tbody>
 							</table>
 						</div>
 						<!-- 다음 버튼 -->

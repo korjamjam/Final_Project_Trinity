@@ -52,4 +52,12 @@ public class VaccineReservationServiceImpl implements VaccineReservationService 
         System.out.println("DEBUG: GUEST 테이블 삽입 완료 - GST_NO: " + guestNo);
         return guestNo;
     }
+
+	@Override
+	public VaccineReservation selectReservation(String resNo) {
+		VaccineReservation vaccineReservation = vaccineReservationDao.selectReservation(sqlSession, resNo);
+		return vaccineReservation;
+	}
+
+
 }

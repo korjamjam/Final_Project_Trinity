@@ -23,4 +23,6 @@ public interface VaccineReservationService {
     List<HospitalInfo> getAllHospitals(); // 병원 목록 조회
     
     String insertGuest(Guest guest); // 비회원 정보를 삽입하고 GST_NO 반환
+
+	VaccineReservation selectReservation(String resNo);
 }

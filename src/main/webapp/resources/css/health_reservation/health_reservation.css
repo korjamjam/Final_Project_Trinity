@@ -163,14 +163,15 @@
 }
 
 .input_name{
-    max-width: 600px;
+    max-width: 21%;
 }
 
 .input_id_num{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    max-width: 60%;
 }
 
 .input_address{
@@ -200,12 +201,17 @@
 .input_phone{
     display: flex;
     flex-direction: row;
-    max-width: 600px;
+    max-width: 200px;
 }
 
 .input_email{
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+#gender{
+    max-width: 30px;
+    text-align: center;
 }
 
 .health_reservation1_content2{
@@ -338,6 +344,11 @@
     padding: 10px;
 }
 
+.health_reservation1_tos > table td{
+    
+}
+
+
 @media (min-width: 768px) {
     .health_reservation_container{
         min-width: 700px;
@@ -401,7 +412,7 @@
     }
 
     .input_id_num{
-        max-width: 50%;
+        max-width: 33%;
     }
 
     .input_email{
