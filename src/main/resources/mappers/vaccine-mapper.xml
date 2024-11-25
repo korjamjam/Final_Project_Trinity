@@ -95,7 +95,7 @@
 		   EMAIL as email,
 		   V_RES_DATE as vresDate,
 		   V_RES_TIME as vresTime,
-		   V_TYPE as vType,
+		   V_TYPE as vaccineType,
 		   RES_CONTENT as resContent
 	  FROM VACCINE_RESERVATION
 	 WHERE V_RES_NO = #{resNo}

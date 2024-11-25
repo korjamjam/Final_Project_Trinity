@@ -12,6 +12,7 @@
     
 </head>
 <body>
+  
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation_wrap">
@@ -35,7 +36,7 @@
                     </tr>
                     <tr>
                         <td>백신 종류</td>
-                        <td>${vaccineReservation.vType}</td>
+                        <td>${vaccineReservation.vaccineType}</td>
                     </tr>
                     <tr>
                         <td>특이사항</td>
