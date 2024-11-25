@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.reservation.model.dao.ReservationDao;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Service
 public class RerservationServiceImpl implements ReservationService{
@@ -17,6 +18,11 @@ public class RerservationServiceImpl implements ReservationService{
 		System.out.println("Service start");
 		int result = rDao.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
 		return result;
+	}
+
+	@Override
+	public Reservation selectReservation(String resNo) {
+		return rDao.selectReservation(resNo);
 	}
 
 }
