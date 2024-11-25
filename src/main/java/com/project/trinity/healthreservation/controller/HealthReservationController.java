@@ -101,7 +101,7 @@ public class HealthReservationController {
 			VaccineReservation vaccineReservation = vaccineReservationService.selectReservation(resNo);
 			m.addAttribute("vaccineReservation", vaccineReservation);
 			m.addAttribute("resNo",resNo);
-			System.out.println(vaccineReservation);
+			System.out.println("vaccineReservation: " + vaccineReservation);
 			return "health_reservation/vaccine_reservation_search_result";
 			
 		case "health":
