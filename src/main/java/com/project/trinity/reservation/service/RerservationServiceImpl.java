@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.reservation.model.dao.ReservationDao;
+import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Service
@@ -24,8 +25,9 @@ public class RerservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public Reservation selectReservation(String resNo) {
+	public GeneralReservation selectReservation(String resNo) {
 		return rDao.selectReservation(resNo);
 	}
+
 
 }

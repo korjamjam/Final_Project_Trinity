@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Repository
@@ -32,8 +33,9 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertgReservation", map);
 	}
 
-	public Reservation selectReservation(String resNo) {
+	public GeneralReservation selectReservation(String resNo) {
 		return sqlSession.selectOne("reservationMapper.selectReservation", resNo);
 	}
+
 
 }
