@@ -18,7 +18,9 @@ import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.HealthReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 import com.project.trinity.vaccine.model.vo.VaccineReservation;
 import com.project.trinity.vaccine.service.VaccineReservationService;
@@ -95,7 +97,10 @@ public class HealthReservationController {
 		
 		switch (reservationCategory) {
 		case "general":
-			break;
+			GeneralReservation generealReservation = reservationService.selectReservation(resNo);
+			m.addAttribute("generealReservation", generealReservation);
+			m.addAttribute("resNo",resNo);
+			return "health_reservation/general_reservation_search_result";
 			
 		case "vaccine":
 			VaccineReservation vaccineReservation = vaccineReservationService.selectReservation(resNo);
