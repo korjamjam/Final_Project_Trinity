@@ -86,6 +86,8 @@ CREATE TABLE MEDICAL_FIELD (
     MEDICAL_FIELD_ID VARCHAR2(20) NOT NULL
 );
 
+
+
 CREATE TABLE MEMBER (
     USER_NO VARCHAR2(10) PRIMARY KEY,
     USER_ID VARCHAR2(20) NOT NULL UNIQUE,
@@ -93,7 +95,7 @@ CREATE TABLE MEMBER (
     USER_NAME VARCHAR2(20) NOT NULL,
     EMAIL VARCHAR2(50) NOT NULL,
     PHONE VARCHAR2(20) NOT NULL,
-    BIRTHDAY DATE NOT NULL,
+    BIRTHDAY VARCHAR2(6) NOT NULL,
     GENDER CHAR(1) DEFAULT 'M' CHECK (GENDER IN ('M', 'F')),
     ADDRESS VARCHAR2(200),
     ENROLL_DATE DATE DEFAULT SYSDATE,
@@ -390,22 +392,22 @@ END;
 
 -- 더미데이터 --------------------------------------------------------------------------------------------------------
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender, isadmin) 
-VALUES ('U1','admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111',  TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'M', 'Y');
+VALUES ('U1','admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111',  '801212', 'Seoul, Korea', 'M', 'Y');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U2','user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Seoul, Korea', 'F');
+VALUES ('U2','user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', '801212', 'Seoul, Korea', 'F');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U3','user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', TO_DATE('1992-02-02', 'YYYY-MM-DD'), 'Busan, Korea', 'M');
+VALUES ('U3','user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', '801212', 'Busan, Korea', 'M');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U4','user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', TO_DATE('1985-03-03', 'YYYY-MM-DD'), 'Incheon, Korea', 'M');
+VALUES ('U4','user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', '801212', 'Incheon, Korea', 'M');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', TO_DATE('1995-04-04', 'YYYY-MM-DD'), 'Daegu, Korea', 'F');
+VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '801212', 'Daegu, Korea', 'F');
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', TO_DATE('1988-05-05', 'YYYY-MM-DD'), 'Gwangju, Korea', 'M');
+VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
 
 INSERT INTO HOSPITAL_INFO (
     HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, 
@@ -614,34 +616,34 @@ VALUES ('M10', '의사', '산부인과');
 
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1001', 'doc1', 'password1', '김의사', 'doc1@example.com', '010-1111-1111', TO_DATE('1980-01-15', 'YYYY-MM-DD'), 'M', '서울특별시 강남구', 'M1');
+VALUES ('U1001', 'doc1', 'password1', '김의사', 'doc1@example.com', '010-1111-1111', '801212' , 'M', '서울특별시 강남구', 'M1');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1002', 'doc2', 'password2', '이의사', 'doc2@example.com', '010-2222-2222', TO_DATE('1985-03-25', 'YYYY-MM-DD'), 'F', '부산광역시 해운대구', 'M2');
+VALUES ('U1002', 'doc2', 'password2', '이의사', 'doc2@example.com', '010-2222-2222','801212', 'F', '부산광역시 해운대구', 'M2');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1003', 'doc3', 'password3', '박의사', 'doc3@example.com', '010-3333-3333', TO_DATE('1978-07-10', 'YYYY-MM-DD'), 'M', '대구광역시 중구', 'M3');
+VALUES ('U1003', 'doc3', 'password3', '박의사', 'doc3@example.com', '010-3333-3333', '801212', 'M', '대구광역시 중구', 'M3');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1004', 'doc4', 'password4', '최의사', 'doc4@example.com', '010-4444-4444', TO_DATE('1990-12-05', 'YYYY-MM-DD'), 'F', '인천광역시 남동구', 'M4');
+VALUES ('U1004', 'doc4', 'password4', '최의사', 'doc4@example.com', '010-4444-4444', '801212', 'F', '인천광역시 남동구', 'M4');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1005', 'doc5', 'password5', '정의사', 'doc5@example.com', '010-5555-5555', TO_DATE('1982-02-14', 'YYYY-MM-DD'), 'M', '광주광역시 북구', 'M5');
+VALUES ('U1005', 'doc5', 'password5', '정의사', 'doc5@example.com', '010-5555-5555', '801212', 'M', '광주광역시 북구', 'M5');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1006', 'doc6', 'password6', '강의사', 'doc6@example.com', '010-6666-6666', TO_DATE('1988-09-20', 'YYYY-MM-DD'), 'F', '대전광역시 서구', 'M6');
+VALUES ('U1006', 'doc6', 'password6', '강의사', 'doc6@example.com', '010-6666-6666', '801212', 'F', '대전광역시 서구', 'M6');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1007', 'doc7', 'password7', '윤의사', 'doc7@example.com', '010-7777-7777', TO_DATE('1983-11-11', 'YYYY-MM-DD'), 'M', '울산광역시 남구', 'M7');
+VALUES ('U1007', 'doc7', 'password7', '윤의사', 'doc7@example.com', '010-7777-7777', '801212', 'M', '울산광역시 남구', 'M7');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1008', 'doc8', 'password8', '장은사', 'doc8@example.com', '010-8888-8888', TO_DATE('1979-06-03', 'YYYY-MM-DD'), 'F', '경기도 수원시', 'M8');
+VALUES ('U1008', 'doc8', 'password8', '장은사', 'doc8@example.com', '010-8888-8888', '801212', 'F', '경기도 수원시', 'M8');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1009', 'doc9', 'password9', '하의사', 'doc9@example.com', '010-9999-9999', TO_DATE('1981-04-27', 'YYYY-MM-DD'), 'M', '강원도 춘천시', 'M9');
+VALUES ('U1009', 'doc9', 'password9', '하의사', 'doc9@example.com', '010-9999-9999', '801212', 'M', '강원도 춘천시', 'M9');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY)
-VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', TO_DATE('1987-08-18', 'YYYY-MM-DD'), 'F', '제주특별자치도 제주시', 'M10');
+VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M10');
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
