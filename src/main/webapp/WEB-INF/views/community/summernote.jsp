@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <div id="context-path" data-base-url="${pageContext.request.contextPath}"></div>
+	<div id="context-path" data-base-url="${pageContext.request.contextPath}"></div>
 
     <header>
         <%@ include file="/WEB-INF/views/common/main_header.jsp"%>
