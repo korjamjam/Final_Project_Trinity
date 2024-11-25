@@ -43,7 +43,7 @@
 		ISADMIN,
 		MED_KEY,
 		HOS_NO
-	
+
 		FROM MEMBER
 		WHERE USER_ID = #{userId}
 		AND STATUS = 'Y'
@@ -61,17 +61,22 @@
 		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
 	</select>
 
-	<!-- 회원가입 -->
 	<insert id="insertMember"
 		parameterType="com.project.trinity.member.model.vo.Member">
 		INSERT INTO MEMBER (USER_ID, USER_PWD, USER_NAME, EMAIL,
-		PHONE, BIRTHDAY,
-		ADDRESS, GENDER)
-		VALUES (#{userId}, #{userPwd},
-		#{userName}, #{email}, #{phone},
-		TO_DATE(#{birthday}, 'YYYY-MM-DD'),
-		#{address}, #{gender})
+		PHONE, BIRTHDAY, ADDRESS, GENDER)
+		VALUES (
+		#{userId},
+		#{userPwd},
+		#{userName},
+		#{email},
+		#{phone},
+		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
+		#{address},
+		#{gender}
+		)
 	</insert>
+
 
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
