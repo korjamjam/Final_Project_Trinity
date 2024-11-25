@@ -23,7 +23,7 @@ public class BoardDao {
     public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-        return new ArrayList<>(sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
+        return (ArrayList)(sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
     }
 
     // 게시글 조회수 증가
@@ -58,7 +58,7 @@ public class BoardDao {
 
     // 특정 게시글의 첨부파일 조회
     public ArrayList<BoardFile> getFilesList(SqlSessionTemplate sqlSession, String bno) {
-        return new ArrayList<>(sqlSession.selectList("boardMapper.getFilesList", bno));
+        return (ArrayList)(sqlSession.selectList("boardMapper.getFilesList", bno));
     }
 
     // 특정 게시글의 첨부파일 삭제
@@ -73,7 +73,7 @@ public class BoardDao {
 
     // 댓글 목록 가져오기
     public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, String bno) {
-        return new ArrayList<>(sqlSession.selectList("boardMapper.selectReply", bno));
+        return (ArrayList)(sqlSession.selectList("boardMapper.selectReply", bno));
     }
 
     // 댓글 추가
@@ -83,7 +83,7 @@ public class BoardDao {
 
     // 조회수 상위 게시글 목록
     public ArrayList<Board> selectTopBoardList(SqlSessionTemplate sqlSession) {
-        return new ArrayList<>(sqlSession.selectList("boardMapper.selectTopBoardList"));
+        return (ArrayList)(sqlSession.selectList("boardMapper.selectTopBoardList"));
     }
 
     // 게시글 삭제

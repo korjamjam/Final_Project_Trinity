@@ -27,6 +27,7 @@ public class HealthReservation {
     private String resDate;			    // 검진 날짜
     private String resTime; 		    // 검진 시작 시간
     private String resCategory;         // 진료 카테고리
+    private String resComment;         // 진료 특이사항
     private String patientEmail;	    // 검진자 이메일
     private String patientGender;       // 성별
     private String patientResult;		// 결과 수령방법

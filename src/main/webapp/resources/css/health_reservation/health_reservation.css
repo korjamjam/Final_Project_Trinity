@@ -329,9 +329,15 @@
     font-size: 24px;
     cursor: pointer;
 }
-#sample6_postcode{
-	
+
+.health_reservation_result > table tr td{
+    border: 1px solid #8CCF4E;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
 }
+
 @media (min-width: 768px) {
     .health_reservation_container{
         min-width: 700px;
@@ -449,5 +455,10 @@
     .modal_text > p {
         font-size: 14px;
         font-weight: bold;
+    }
+
+    .health_reservation_result > table tr td{
+        font-size: 16px;
+        padding: 20px 10px;
     }
 }

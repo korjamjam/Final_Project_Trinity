@@ -112,47 +112,49 @@ public class BoardController {
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
-	public String insertBoard(Board b, 
-	                          @RequestParam(value = "allowDownload", defaultValue = "Y") String allowDownload, // 기본값 "Y" 설정
-	                          ArrayList<MultipartFile> upfiles, 
-	                          HttpSession session, 
+	public String insertBoard(Board b,
+	                          @RequestParam(value = "allowDownload", required = false) List<String> allowDownloadList,
+	                          @RequestParam("upfiles") ArrayList<MultipartFile> upfiles,
+	                          HttpSession session,
 	                          Model m) {
 	    // 로그인 사용자 확인 -> 인터셉터
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 
-	    // 게시글 제목 검증 (필수)
+	    // 게시글 제목 검증
 	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
 	        m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
 	        return "/common/errorPage";
 	    }
 
 	    // 파일 업로드 개수 검사
-	    if (upfiles != null && !upfiles.isEmpty() && upfiles.size() > 3) {
+	    if (upfiles != null && upfiles.size() > 3) {
 	        m.addAttribute("errorMsg", "파일은 최대 3개까지만 업로드할 수 있습니다.");
 	        return "/common/errorPage";
 	    }
-
-	    // 게시글 작성자 정보 설정
-	    b.setUserNo(loginUser.getUserNo());
-	    b.setBoardWriter(loginUser.getUserId());
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
 	    if (boardResult > 0) {
 	        // 파일 업로드 처리
 	        if (upfiles != null && !upfiles.isEmpty()) {
-	            for (MultipartFile upfile : upfiles) {
+	            for (int i = 0; i < upfiles.size(); i++) {
+	                MultipartFile upfile = upfiles.get(i);
 	                if (!upfile.isEmpty()) {
 	                    String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
 	                    if (changeName != null) {
-	                        // 파일 정보를 파일 테이블에 저장
+	                        // 파일 정보 설정
 	                        BoardFile bf = new BoardFile();
 	                        bf.setBoardNo(b.getBoardNo());
 	                        bf.setUserNo(loginUser.getUserNo());
 	                        bf.setOriginName(upfile.getOriginalFilename());
 	                        bf.setChangeName("/resources/uploadFile/" + changeName);
-	                        bf.setAllowDownload(allowDownload); // 다운로드 허용 여부 설정
-	                        bf.setFileSize(upfile.getSize()); // 파일 크기 저장
+	                        bf.setFileSize(upfile.getSize());
+
+	                        // 기본값 설정 (allowDownload가 null이거나 인덱스 초과 시 기본값 "Y")
+	                        String allowDownload = (allowDownloadList != null && allowDownloadList.size() > i) 
+	                                               ? allowDownloadList.get(i) 
+	                                               : "Y";
+	                        bf.setAllowDownload(allowDownload);
 
 	                        int fileResult = boardService.insertFile(bf);
 	                        if (fileResult <= 0) {
@@ -217,37 +219,32 @@ public class BoardController {
 	}
 
 	@GetMapping("/downloadFile")
-	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName,
-			@RequestParam("fileNo") String fileNo) {
+	public ResponseEntity<Resource> downloadFile(@RequestParam("fileNo") String fileNo) {
 
-		// 파일 정보 가져오기
-		BoardFile bf = boardService.getSingleFile(fileNo);
+	    // 파일 정보 가져오기
+	    BoardFile bf = boardService.getSingleFile(fileNo);
 
-		// 파일이 없으면 404 응답
-		if (bf == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 파일이 존재하지 않음
-		}
+	    // 파일 정보 검증
+	    if (bf == null || !"Y".equals(bf.getAllowDownload())) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 파일이 없거나 다운로드 불가
+	    }
 
-		// 다운로드 비허용이면 403 응답
-		if (!"Y".equals(bf.getAllowDownload())) {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // 다운로드 비허용
-		}
+	    // 파일 경로 설정
+	    String filePath = "파일 저장 경로/" + bf.getChangeName();
+	    File file = new File(filePath);
 
-		// 파일 경로 설정
-		String filePath = "파일 저장 경로/" + bf.getChangeName();
-		File file = new File(filePath);
+	    // 파일이 실제로 존재하지 않으면 404 응답
+	    if (!file.exists()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
 
-		// 파일이 실제로 없으면 404 응답
-		if (!file.exists()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 파일이 서버에 없음
-		}
-
-		// 파일 다운로드 응답
-		Resource resource = new FileSystemResource(file);
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bf.getOriginName() + "\"")
-				.body(resource);
+	    // 파일 다운로드 응답
+	    Resource resource = new FileSystemResource(file);
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bf.getOriginName() + "\"")
+	            .body(resource);
 	}
+	
 
 	@GetMapping("edit.bo")
 	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {

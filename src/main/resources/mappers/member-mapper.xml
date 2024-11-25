@@ -42,8 +42,8 @@
 		STATUS,
 		ISADMIN,
 		MED_KEY,
-		HOS_NO,
-		USERPROFILE
+		HOS_NO
+	
 		FROM MEMBER
 		WHERE USER_ID = #{userId}
 		AND STATUS = 'Y'

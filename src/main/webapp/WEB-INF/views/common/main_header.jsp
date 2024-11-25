@@ -42,6 +42,7 @@
                 <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a>
                 <a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
                 <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
+                <a href="${pageContext.request.contextPath}/healthReservation/search">검진 예약 조회</a>
             </div>
         </div>
         <div class="dropdown">

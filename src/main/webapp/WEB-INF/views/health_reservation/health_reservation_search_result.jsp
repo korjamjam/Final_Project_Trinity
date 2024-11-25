@@ -19,36 +19,46 @@
             <div id="health_reservation_title">
                 검진 예약 조회
             </div>
-            <table>
-                <tr>
-                    <td>병원</td>
-                    <td>${healthReservation.hosNo }</td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td>${healthReservation.patientName }</td>
-                </tr>
-                <tr>
-                    <td>생년월일</td>
-                    <td>${healthReservation.patientBirthday }</td>
-                </tr>
-                <tr>
-                    <td>이메일</td>
-                    <td>${healthReservation.patientEmail }</td>
-                </tr>
-                <tr>
-                    <td>수령방법</td>
-                    <td>${healthReservation.patientResult }</td>
-                </tr>
-                <tr>
-                    <td>날짜</td>
-                    <td>${healthReservation.resDate }</td>
-                </tr>
-                <tr>
-                    <td>시간</td>
-                    <td>${healthReservation.resTime }</td>
-                </tr>
-            </table>
+            <div class="health_reservation_result">
+                <table>
+                    <tr>
+                        <td>이름</td>
+                        <td>${healthReservation.patientName }</td>
+                    </tr>
+                    <tr>
+                        <td>병원</td>
+                        <td>${healthReservation.hosName }</td>
+                    </tr>
+                    <tr>
+                        <td>검진 내용</td>
+                        <td>${healthReservation.resCategory }</td>
+                    </tr>
+                    <tr>
+                        <td>특이사항</td>
+                        <td>${healthReservation.resComment }</td>
+                    </tr>
+                    <tr>
+                        <td>생년월일</td>
+                        <td>${healthReservation.patientBirthday }</td>
+                    </tr>
+                    <tr>
+                        <td>이메일</td>
+                        <td>${healthReservation.patientEmail }</td>
+                    </tr>
+                    <tr>
+                        <td>수령방법</td>
+                        <td>${healthReservation.patientResult }</td>
+                    </tr>
+                    <tr>
+                        <td>날짜</td>
+                        <td>${healthReservation.resDate }</td>
+                    </tr>
+                    <tr>
+                        <td>시간</td>
+                        <td>${healthReservation.resTime }</td>
+                    </tr>
+                </table>    
+            </div>
         </div>
     </div>
     <!-- footer -->

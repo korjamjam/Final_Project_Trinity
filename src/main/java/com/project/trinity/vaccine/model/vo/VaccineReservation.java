@@ -30,7 +30,9 @@ public class VaccineReservation {
     private String vType;           // 백신 종류
     private String resContent;      // 특이 사항
     private String gender;          // 성별
-    private String phoneNumber;     // 휴대폰 번호
-    private String email;           // 이메일
-
+    private String phoneCode;       // 전화번호 앞자리
+    private String phoneNumber;     // 전화번호 
+    private String emailLocal; // 이메일 앞부분
+    private String emailDomain; // 이메일 뒷부분
+    private String email;
 }
