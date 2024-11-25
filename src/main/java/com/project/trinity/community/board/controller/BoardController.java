@@ -1,10 +1,10 @@
 package com.project.trinity.community.board.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.Gson;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Reply;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.template.Template;
 import com.project.trinity.community.common.vo.PageInfo;
@@ -53,6 +53,33 @@ public class BoardController {
 		model.addAttribute("boardCategory", boardCategory);
 		return "community/community_main";
 	}
+	
+	// 총 게시글 리스트(단 조회수)
+	@GetMapping("/main")
+	public String popularList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+	    int listCount = boardService.selectListCount();
+	    int boardLimit = 16;
+	    int pageLimit = 5;
+
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+	    int startRow = (currentPage - 1) * boardLimit + 1;
+	    int endRow = startRow + boardLimit - 1;
+
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("startRow", startRow);
+	    params.put("endRow", endRow);
+
+	    ArrayList<Board> popularList = boardService.selectPopularList(params);
+	    model.addAttribute("popularList", popularList);
+	    model.addAttribute("pi", pi);
+	    
+	    System.out.println("popularList: " + popularList);
+
+	    return "community/community_main";
+	}
+
+
+
 
 	// 동적으로 커뮤니티 페이지 연결 - type 파라미터에 따라 게시판 종류를 설정
 	@RequestMapping("/board")

@@ -51,209 +51,83 @@
 
 					<!-- Table for Posts -->
 					<table id="postsTable" class="notice-table">
-						<thead>
-							<tr>
-								<th class="category-header">카테고리</th>
-								<th class="title-header">제목</th>
-								<th class="author-header">작성자</th>
-								<th class="date-header">작성일</th>
-								<th class="comment-header">조회수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category-header">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment-header">[90]</td>
-							</tr>
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-								<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr> <!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
+				<thead>
+					<tr>
+						<th class="category-header">카테고리</th>
+						<th class="title-header">제목</th>
+						<th class="author-header">작성자</th>
+						<th class="date-header">작성일</th>
+						<th class="comment-header">조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="board" items="${popularList}">
+						<tr>
+							<td class="category">${board.boardCategory}</td>
+							<td class="title"><a href="boardDetail?bno=${board.boardNo}">${board.boardTitle}</a>
+							</td>
+							<td class="author">${board.boardWriter}</td>
+							<td class="date">${board.enrollDate}</td>
+							<td class="views">${board.boardViews}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-								<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-							<!-- Example Post Item -->
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
+			<!-- Pagination Footer -->
+			<div id="pageSearchContainer">
+				<div id="pagingArea">
+					<ul class="pagination">
+						<!-- Previous Button -->
+						<c:if test="${pi.currentPage > 1}">
+							<li class="page-item"><a class="page-link"
+								href="main?cpage=${pi.currentPage - 1}">&#60;</a></li>
+						</c:if>
 
+						<!-- Page Numbers -->
+						<c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
+							<c:choose>
+								<c:when test="${page == pi.currentPage}">
+									<li class="page-item active"><a class="page-link"
+										href="main?cpage=${page}">${page}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="main?cpage=${page}">${page}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 
-							<tr>
-								<td class="category">이벤트</td>
-								<td class="title">2024 수능 기념 스마일 라식 할인!</td>
-								<td class="author">관리자1</td>
-								<td class="date">2022.07.27</td>
-								<td class="comment">[45]</td>
-							</tr>
-
-							<!-- Additional rows here -->
-						</tbody>
-					</table>
-
-					<!-- Pagination Footer -->
-					<div id="pageSearchContainer">
-						<div id="pagingArea">
-							<ul class="pagination">
-								<!-- Previous Button -->
-								<c:choose>
-									<c:when test="${pi.currentPage eq 1}">
-										<li class="page-item disabled"><a class="page-link" href="#">&#60;</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link"
-												href="list.bo?cpage=${pi.currentPage - 1}">&#60;</a></li>
-									</c:otherwise>
-								</c:choose>
-
-								<!-- Page Number Links (1 to 5) -->
-								<div class="page-numbers"> <!-- page-numbers 클래스 추가 -->
-									<c:forEach var="p" begin="1" end="5">
-										<c:choose>
-											<c:when test="${p eq pi.currentPage}">
-												<!-- Active page style -->
-												<li class="page-item active"><a class="page-link"
-														href="list.bo?cpage=${p}">${p}</a></li>
-											</c:when>
-											<c:otherwise>
-												<li class="page-item"><a class="page-link"
-														href="list.bo?cpage=${p}">${p}</a></li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
-
-								<!-- Next Button -->
-								<c:choose>
-									<c:when test="${pi.currentPage eq pi.maxPage}">
-										<li class="page-item disabled"><a class="page-link" href="#">&#62;</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link"
-												href="list.bo?cpage=${pi.currentPage + 1}">&#62;</a></li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
-						</div>
-
-
-						<!-- 검색 필드 섹션 -->
-						<div id="searchSection">
-							<select id="searchType" name="searchType">
-								<option value="title">제목만</option>
-								<option value="author">글작성자</option>
-								<option value="content">댓글내용</option>
-							</select>
-
-							<!-- input과 돋보기 아이콘을 그룹으로 묶기 -->
-							<div class="search-input-group">
-								<input type="text" id="searchInput" placeholder="검색어를 입력해주세요" />
-								<button class="round-button search-button"><i class="fas fa-search"></i></button>
-							</div>
-						</div>
-
-					</div>
-
+						<!-- Next Button -->
+						<c:if test="${pi.currentPage < pi.maxPage}">
+							<li class="page-item"><a class="page-link"
+								href="main?cpage=${pi.currentPage + 1}">&#62;</a></li>
+						</c:if>
+					</ul>
 				</div>
+
+
+
+				<!-- 검색 필드 섹션 -->
+				<div id="searchSection">
+					<select id="searchType" name="searchType">
+						<option value="title">제목만</option>
+						<option value="author">글작성자</option>
+						<option value="content">댓글내용</option>
+					</select>
+
+					<!-- input과 돋보기 아이콘을 그룹으로 묶기 -->
+					<div class="search-input-group">
+						<input type="text" id="searchInput" placeholder="검색어를 입력해주세요" />
+						<button class="round-button search-button">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
 				<!-- 오른쪽 빈 공간 -->
 				<div class="empty-space"></div>
 			</main>
