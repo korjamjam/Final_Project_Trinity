@@ -40,8 +40,8 @@
     ) VALUES (
         SEQ_V_RES_NO.NEXTVAL, 
         #{userNo}, 
-        #{hosNo}, 
-        #{gstNo}, 
+        #{hosNo},
+        #{gstNo},
         #{patientName}, 
         #{patientBirthday}, 
         #{vresDate}, 

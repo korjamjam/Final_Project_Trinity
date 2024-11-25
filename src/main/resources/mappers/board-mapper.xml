@@ -70,7 +70,7 @@
 		LPAD(TO_NUMBER(SUBSTR(BOARD_VIEWS, 3)) + 1, 5,
 		'0')
 		WHERE BOARD_NO =
-		#{bno}
+		#{boardNo}
 	</update>
 
 
@@ -191,7 +191,7 @@
     WHERE
         B.STATUS = 'Y'
     AND
-        B.BOARD_NO = #{bno}
+        B.BOARD_NO = #{boardNo}
 </select>
 
 	
@@ -205,10 +205,29 @@
 		WHERE BOARD_NO
 		= #{boardNo}
 	</update>
-
-
-
-
+	
+<select id="selectPopularList" resultMap="boardResult" parameterType="map">
+    SELECT * 
+    FROM (
+        SELECT a.*, ROWNUM AS row_number
+        FROM (
+            SELECT 
+                BOARD_NO, 
+                BOARD_TITLE, 
+                USER_NO, 
+                (SELECT USER_ID FROM MEMBER WHERE USER_NO = BOARD.USER_NO) AS BOARD_WRITER,
+                BOARD_CONTENT, 
+                TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, 
+                BOARD_VIEWS, 
+                BOARD_CATEGORY
+            FROM BOARD
+            WHERE STATUS = 'Y'
+            ORDER BY TO_NUMBER(BOARD_VIEWS) DESC
+        ) a
+        WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE row_number &gt;= #{startRow}
+</select>
 
 </mapper>                                                                        
 	                                                                                                                                                                                                                                                              
