@@ -96,4 +96,15 @@ public class MemberDao {
         System.out.println("[DEBUG] findIdByPhone 결과: " + result);
         return result;
     }
+	
+	
+	public Member findMemberForResetPassword(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+	    return sqlSession.selectOne("memberMapper.findMemberForResetPassword", params);
+	}
+
+	public int updateTemporaryPassword(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+	    return sqlSession.update("memberMapper.updateTemporaryPassword", params);
+	}
+
+
 }

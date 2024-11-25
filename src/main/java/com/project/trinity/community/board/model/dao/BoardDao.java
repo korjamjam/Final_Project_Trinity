@@ -77,7 +77,7 @@ public class BoardDao {
     }
 
     // 댓글 추가
-    public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+    public int insertReply(SqlSessionTemplate sqlSession, Reply r) { 
         return sqlSession.insert("boardMapper.insertReply", r);
     }
 

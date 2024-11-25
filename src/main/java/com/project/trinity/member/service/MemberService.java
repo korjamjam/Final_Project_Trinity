@@ -26,6 +26,11 @@ public interface MemberService {
         
     String findIdByPhone(String name, String phone);
     
+    Member findMemberForResetPassword(String userId, String userName, String email);
+
+    int updateTemporaryPassword(String userId, String encryptedPassword);
+
+    
 }
 
 
