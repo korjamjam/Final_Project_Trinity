@@ -14,7 +14,10 @@ public class RerservationServiceImpl implements ReservationService{
 	@Override
 	public int insertgReservation(String userNo, String hosNo, String resDate, String resTime,
 			String subject, String content) {
-		System.out.println("Service start");
+		String month = resDate.substring(0, 2);
+		String day = resDate.substring(3, 5);
+		String year = resDate.substring(6, 10);
+		resDate = year + "-" + month + "-" + day;
 		int result = rDao.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
 		return result;
 	}
