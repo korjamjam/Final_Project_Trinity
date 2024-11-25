@@ -217,37 +217,32 @@ public class BoardController {
 	}
 
 	@GetMapping("/downloadFile")
-	public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName,
-			@RequestParam("fileNo") String fileNo) {
+	public ResponseEntity<Resource> downloadFile(@RequestParam("fileNo") String fileNo) {
 
-		// 파일 정보 가져오기
-		BoardFile bf = boardService.getSingleFile(fileNo);
+	    // 파일 정보 가져오기
+	    BoardFile bf = boardService.getSingleFile(fileNo);
 
-		// 파일이 없으면 404 응답
-		if (bf == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 파일이 존재하지 않음
-		}
+	    // 파일 정보 검증
+	    if (bf == null || !"Y".equals(bf.getAllowDownload())) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 파일이 없거나 다운로드 불가
+	    }
 
-		// 다운로드 비허용이면 403 응답
-		if (!"Y".equals(bf.getAllowDownload())) {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null); // 다운로드 비허용
-		}
+	    // 파일 경로 설정
+	    String filePath = "파일 저장 경로/" + bf.getChangeName();
+	    File file = new File(filePath);
 
-		// 파일 경로 설정
-		String filePath = "파일 저장 경로/" + bf.getChangeName();
-		File file = new File(filePath);
+	    // 파일이 실제로 존재하지 않으면 404 응답
+	    if (!file.exists()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
 
-		// 파일이 실제로 없으면 404 응답
-		if (!file.exists()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 파일이 서버에 없음
-		}
-
-		// 파일 다운로드 응답
-		Resource resource = new FileSystemResource(file);
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bf.getOriginName() + "\"")
-				.body(resource);
+	    // 파일 다운로드 응답
+	    Resource resource = new FileSystemResource(file);
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bf.getOriginName() + "\"")
+	            .body(resource);
 	}
+	
 
 	@GetMapping("edit.bo")
 	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {

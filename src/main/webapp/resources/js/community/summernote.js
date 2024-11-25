@@ -7,7 +7,6 @@ $(document).ready(function () {
     $(window).on('resize', syncSummernoteWidth);
 });
 
-// Summernote 초기화
 function initializeSummernote() {
     $('#summernote').summernote({
         minHeight: 400,
@@ -18,19 +17,22 @@ function initializeSummernote() {
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
             ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
+            ['para', ['height', 'ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']]
         ],
+        height: ['1.0', '1.5', '1.75', '2.0'], // 줄간격 설정
         callbacks: {
-            onImageUpload: fileUpload, // 이미지 업로드 콜백
-            onChange: adjustHeight // 글 내용 변경 시 높이 자동 조정
+            onImageUpload: fileUpload,
+            onChange: adjustHeight
         }
     });
 
     syncSummernoteWidth();
 }
+
+
 
 // Summernote 너비 동기화
 function syncSummernoteWidth() {

@@ -203,15 +203,18 @@
     padding: 8px;
 	justify-content: space-between;
 }
-
-/* 파일 이름과 크기 스타일 */
-.file-item span {
-    font-size: 14px;
-    color: #333;
+.file-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .file-item div:first-child {
     flex-grow: 1;
+}
+
+.allow-download-btn {
+    margin-right: 5px;
 }
 
 .btn-outline-primary {
@@ -234,6 +237,11 @@
     color: #fff;
 }
 
+/* 파일 이름과 크기 스타일 */
+.file-item span {
+    font-size: 14px;
+    color: #333;
+}
 
 /* 다운로드 버튼 기본 스타일 */
 .allow-download-btn {
@@ -270,8 +278,6 @@
     background-color: #ffcdd2;
     color: #c62828;
 }
-
-
 
 
 @media ( max-width : 768px) {
