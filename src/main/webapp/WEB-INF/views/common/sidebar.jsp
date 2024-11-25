@@ -47,7 +47,7 @@
                 <div class="sidebar-submenu"> <!-- 종합예약의 서브메뉴 -->
                     <a href="${pageContext.request.contextPath}/reservation/form" onclick="checkLogin()">진료예약</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
-                    <a href="#">예약확인</a>
+                    <a href="${pageContext.request.contextPath}/healthReservation/reservationSearch">예약확인</a>
                 </div>
             </div>
             
