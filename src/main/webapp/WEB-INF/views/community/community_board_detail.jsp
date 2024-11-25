@@ -40,7 +40,7 @@
 				<!-- 왼쪽 섹션: 수정, 삭제 -->
 				<div class="left-section">
 					<button class="white-button"
-						onclick="location.href='edit.bo?bno=${b.boardNo}'">수정</button>
+						onclick="location.href='edit?bno=${b.boardNo}'">수정</button>
 					<button class="white-button" onclick="deletePost(${b.boardNo})">삭제</button>
 
 				</div>
