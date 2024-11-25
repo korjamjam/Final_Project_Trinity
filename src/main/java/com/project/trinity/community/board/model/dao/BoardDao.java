@@ -1,6 +1,8 @@
 package com.project.trinity.community.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,7 +27,12 @@ public class BoardDao {
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         return (ArrayList)(sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
     }
-
+    
+    
+    public ArrayList<Board> selectPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return (ArrayList) sqlSession.selectList("boardMapper.selectPopularList", params);
+    }
+    
     // 게시글 조회수 증가
     public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
         return sqlSession.update("boardMapper.increaseCount", bno);
@@ -77,7 +84,7 @@ public class BoardDao {
     }
 
     // 댓글 추가
-    public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+    public int insertReply(SqlSessionTemplate sqlSession, Reply r) { 
         return sqlSession.insert("boardMapper.insertReply", r);
     }
 

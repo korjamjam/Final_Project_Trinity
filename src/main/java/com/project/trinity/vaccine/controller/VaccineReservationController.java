@@ -67,23 +67,25 @@ public class VaccineReservationController {
             // 로그인 여부 확인
             Member loginUser = (Member) session.getAttribute("loginUser");
             if (loginUser != null) {
-                // 로그인 상태: USER_NO 설정
+                // 로그인 상태: USER_NO 설정, GST_NO는 null로 설정
                 vaccineReservation.setUserNo(loginUser.getUserNo());
+                vaccineReservation.setGstNo(null);
                 System.out.println("DEBUG: 로그인 상태 - USER_NO: " + loginUser.getUserNo());
             } else {
-                // 비회원 상태: GUEST 테이블에 삽입 후 GST_NO 가져오기
-				System.out.println("DEBUG: 비회원 상태, GUEST 테이블에 데이터 삽입 시작");
+                // 비회원 상태: GST_NO 설정, USER_NO는 null로 설정
+                System.out.println("DEBUG: 비회원 상태, GUEST 테이블에 데이터 삽입 시작");
 
-				Guest guest = new Guest();
-				guest.setGstName(vaccineReservation.getPatientName());
-				guest.setGstEmail(emailLocal + "@" + emailDomain);
-				guest.setGstPhone(phoneCode + phoneNumber);
-				guest.setGstBirth(vaccineReservation.getPatientBirthday());
-				guest.setGstGender(genderInput);
+                Guest guest = new Guest();
+                guest.setGstName(vaccineReservation.getPatientName());
+                guest.setGstEmail(emailLocal + "@" + emailDomain);
+                guest.setGstPhone(phoneCode + phoneNumber);
+                guest.setGstBirth(vaccineReservation.getPatientBirthday());
+                guest.setGstGender(genderInput);
 
-				String guestNo = vaccineReservationService.insertGuest(guest);
-				vaccineReservation.setGstNo(guestNo);
-				System.out.println("DEBUG: 삽입된 GST_NO: " + guestNo);
+                String guestNo = vaccineReservationService.insertGuest(guest);
+                vaccineReservation.setGstNo(guestNo);
+                vaccineReservation.setUserNo(null);
+                System.out.println("DEBUG: 삽입된 GST_NO: " + guestNo);
             }
 
             // 이메일 설정
@@ -104,10 +106,6 @@ public class VaccineReservationController {
         }
     }
 
-
-    /**
-     * 예약 처리 - AJAX 요청 방식
-     */
     @PostMapping("/submitReservationAjax")
     @ResponseBody
     public String submitReservationAjax(
@@ -133,18 +131,24 @@ public class VaccineReservationController {
             }
             System.out.println("DEBUG: 변환된 성별 값 - " + gender);
 
-            // GUEST 테이블에 데이터 삽입
-            Guest guest = new Guest();
-            guest.setGstName(vaccineReservation.getPatientName());
-            guest.setGstEmail(emailLocal + "@" + emailDomain);
-            guest.setGstPhone(fullPhoneNumber);
-            guest.setGstBirth(vaccineReservation.getPatientBirthday());
-            guest.setGstGender(gender); // 변환된 성별 설정
+            Member loginUser = (Member) session.getAttribute("loginUser");
+            if (loginUser != null) {
+                // 로그인 상태: USER_NO 설정, GST_NO는 null로 설정
+                vaccineReservation.setUserNo(loginUser.getUserNo());
+                vaccineReservation.setGstNo(null);
+            } else {
+                // 비회원 상태: GST_NO 설정, USER_NO는 null로 설정
+                Guest guest = new Guest();
+                guest.setGstName(vaccineReservation.getPatientName());
+                guest.setGstEmail(emailLocal + "@" + emailDomain);
+                guest.setGstPhone(fullPhoneNumber);
+                guest.setGstBirth(vaccineReservation.getPatientBirthday());
+                guest.setGstGender(gender);
 
-            System.out.println("DEBUG: GUEST 객체 - " + guest);
-
-            String guestNo = vaccineReservationService.insertGuest(guest);
-            vaccineReservation.setGstNo(guestNo);
+                String guestNo = vaccineReservationService.insertGuest(guest);
+                vaccineReservation.setGstNo(guestNo);
+                vaccineReservation.setUserNo(null);
+            }
 
             // 예약 정보 삽입
             vaccineReservationService.insertReservation(vaccineReservation);

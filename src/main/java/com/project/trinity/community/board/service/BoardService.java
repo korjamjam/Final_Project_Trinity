@@ -1,6 +1,7 @@
 package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
@@ -14,12 +15,15 @@ public interface BoardService {
 
     // 게시글 목록 가져오기
     ArrayList<Board> selectList(PageInfo pi, String sortType);
+    
+    ArrayList<Board> selectPopularList(Map<String, Object> params);
 
     // 게시글 조회수 증가
     int increaseCount(String bno);
 
     // 게시글 번호로 게시글 조회
     Board selectBoard(String bno);
+   
 
     // 게시글 추가(insert)
     int insertBoard(Board b, String userNo);
@@ -47,8 +51,6 @@ public interface BoardService {
 
     // 게시글 삭제
     int deleteBoard(String boardNo);
-
-
 
 
     // 특정 파일 삭제

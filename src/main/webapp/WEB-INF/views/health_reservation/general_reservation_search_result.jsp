@@ -12,6 +12,7 @@
     
 </head>
 <body>
+  
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
 	<div class="health_reservation_wrap">
@@ -23,43 +24,35 @@
                 <table>
                 	<tr>
                         <td>예약번호</td>
-                        <td>${hResNo }</td>
+                        <td>${resNo }</td>
                     </tr>
                     <tr>
                         <td>이름</td>
-                        <td>${healthReservation.patientName }</td>
+                        <td>${generealReservation.gpatientName }</td>
                     </tr>
                     <tr>
                         <td>병원</td>
-                        <td>${healthReservation.hosName }</td>
+                        <td>${generealReservation.hosNo }</td>
                     </tr>
                     <tr>
-                        <td>검진 내용</td>
-                        <td>${healthReservation.resCategory }</td>
+                        <td>진료 종류</td>
+                        <td>${generealReservation.gresSubject}</td>
                     </tr>
                     <tr>
                         <td>특이사항</td>
-                        <td>${healthReservation.resComment }</td>
+                        <td>${generealReservation.gresContent }</td>
                     </tr>
                     <tr>
                         <td>생년월일</td>
-                        <td>${healthReservation.patientBirthday }</td>
-                    </tr>
-                    <tr>
-                        <td>이메일</td>
-                        <td>${healthReservation.patientEmail }</td>
-                    </tr>
-                    <tr>
-                        <td>수령방법</td>
-                        <td>${healthReservation.patientResult }</td>
+                        <td>${generealReservation.gpatientBirthday }</td>
                     </tr>
                     <tr>
                         <td>날짜</td>
-                        <td>${healthReservation.resDate }</td>
+                        <td>${generealReservation.gresDate }</td>
                     </tr>
                     <tr>
                         <td>시간</td>
-                        <td>${healthReservation.resTime }</td>
+                        <td>${generealReservation.gresTime }</td>
                     </tr>
                 </table>    
             </div>
