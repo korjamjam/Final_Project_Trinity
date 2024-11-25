@@ -1,9 +1,7 @@
-
-
 $(document).ready(function () {
     initializeSummernote();
 
-    // 창 크기 변경 시 Summernote 크기 조정
+    // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
 });
 
@@ -28,8 +26,7 @@ function initializeSummernote() {
             onChange: adjustHeight
         }
     });
-
-    syncSummernoteWidth();
+    syncSummernoteWidth(); // 초기 너비 동기화
 }
 
 
@@ -40,48 +37,16 @@ function syncSummernoteWidth() {
     $('.note-editor').css('width', wrapperWidth);
 }
 
-// 글 내용에 따라 Summernote 높이 조정
-function adjustHeight(contents) {
-    const editableArea = $('.note-editable');
-    const scrollHeight = editableArea.prop('scrollHeight');
-    editableArea.css('height', `${scrollHeight}px`);
-}
-
-// 이미지 업로드 처리 (Summernote 연동)
-function fileUpload(imgs) {
-    const fd = new FormData();
-    for (let i = 0; i < imgs.length; i++) {
-        fd.append("fileList", imgs[i]);
-    }
-
-    $.ajax({
-        url: `${pageContext.request.contextPath}/community/upload`,
-        type: "POST",
-        data: fd,
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        success: function (response) {
-            response.forEach(filePath => {
-                $('#summernote').summernote('insertImage', filePath);
-            });
-        },
-        error: function () {
-            alert("이미지 업로드 실패! 다시 시도해주세요.");
-        }
-    });
-}
-
-// 파일 검증 로직
+// 파일 검증 및 목록 업데이트
 function checkFileValidation(input) {
     const files = input.files;
-    const maxFileSize = 5 * 1024 * 1024; // 5MB
-    const maxFileCount = 3;
+    const maxFileSize = 5 * 1024 * 1024; // 최대 파일 크기 5MB
+    const maxFileCount = 3; // 최대 파일 개수 3개
 
     // 파일 개수 체크
     if (files.length > maxFileCount) {
-        alert("파일은 최대 3개까지만 선택할 수 있습니다.");
-        input.value = ""; // 선택된 파일 초기화
+        alert(`파일은 최대 ${maxFileCount}개까지만 업로드할 수 있습니다.`);
+        input.value = ""; // 선택 초기화
         return;
     }
 
@@ -89,64 +54,132 @@ function checkFileValidation(input) {
     for (let file of files) {
         if (file.size > maxFileSize) {
             alert(`파일 "${file.name}"의 크기가 5MB를 초과합니다.`);
-            input.value = ""; // 선택된 파일 초기화
+            input.value = ""; // 선택 초기화
             return;
         }
     }
 
-    // 파일 목록 업데이트
-    updateFileList(input);
+    updateFileList(input); // 파일 목록 업데이트
 }
 
-
-// 첨부파일 목록 업데이트
+// 파일 목록 업데이트
 function updateFileList(input) {
-    const fileListDiv = document.getElementById("file-list-container"); // file-list를 감싸는 상위 컨테이너
-    const fileList = document.getElementById("file-list");
-    fileList.innerHTML = ""; // 기존 내용 초기화
+    const fileListDiv = document.getElementById("file-list"); // 파일 목록 DOM
+    const fileListContainer = document.getElementById("file-list-container"); // 파일 목록 컨테이너
+    const dataTransfer = new DataTransfer(); // DataTransfer 객체를 사용하여 파일 관리
 
-    const files = input.files;
+    // 기존 파일 정보 수집
+    const existingFileElements = Array.from(fileListDiv.querySelectorAll(".file-item"));
+    const existingFiles = existingFileElements.map((fileElement) => {
+        const fileName = fileElement.getAttribute("data-file-name");
+        const fileSize = parseInt(fileElement.getAttribute("data-file-size"), 10);
+        return new File([], fileName, { size: fileSize });
+    });
 
-    // 파일이 없을 때 컨테이너를 숨김
-    if (!files || files.length === 0) {
-        fileListDiv.style.display = "none"; // 컨테이너 숨기기
+    // 새로 선택된 파일 가져오기
+    const selectedFiles = Array.from(input.files);
+
+    // 기존 파일과 새로 선택된 파일 병합
+    const allFiles = [...existingFiles, ...selectedFiles];
+
+    // 중복 제거
+    const uniqueFiles = allFiles.filter(
+        (file, index, self) =>
+            index === self.findIndex((f) => f.name === file.name && f.size === file.size)
+    );
+
+    // UI 초기화
+    fileListDiv.innerHTML = "";
+
+    // 파일이 없을 경우 컨테이너 숨기기
+    if (uniqueFiles.length === 0) {
+        fileListContainer.style.display = "none";
         return;
     }
 
-    fileListDiv.style.display = "block"; // 파일이 있을 때 컨테이너 보이기
-    Array.from(files).forEach((file, index) => {
-        const fileSizeInKB = (file.size / 1024).toFixed(1); // 파일 크기를 KB로 변환
+    // 파일이 있으면 컨테이너 표시
+    fileListContainer.style.display = "block";
+
+    // 파일 목록 표시
+    uniqueFiles.forEach((file, index) => {
+        const fileSizeInKB = (file.size / 1024).toFixed(1); // KB 단위 파일 크기
         const fileRow = `
-            <div class="file-item">
-                <div>
-                    <span>${file.name} (${fileSizeInKB} KB)</span>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-sm btn-outline-primary allow-download-btn" 
-                            data-allow="true" data-index="${index}" 
-                            onclick="toggleDownload(this)">
+            <div class="file-item d-flex justify-content-between align-items-center border-bottom py-2" 
+                 data-index="${index}" data-file-name="${file.name}" data-file-size="${file.size}">
+                <span>${file.name} (${fileSizeInKB} KB)</span>
+                <div class="d-flex align-items-center">
+                    <input type="hidden" name="allowDownload[${index}]" value="Y"> <!-- 기본값: Y -->
+                    <button type="button" class="btn btn-sm btn-outline-primary allow-download-btn me-2" 
+                            data-allow="true" data-index="${index}" onclick="toggleDownload(this, ${index})">
                         <i class="bi bi-arrow-down-circle"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                            onclick="removeFile(${index}, '${file.name}')">
+                        <i class="bi bi-x-circle"></i>
                     </button>
                 </div>
             </div>
         `;
-        fileList.innerHTML += fileRow;
+        fileListDiv.innerHTML += fileRow;
+
+        // DataTransfer에 파일 추가
+        dataTransfer.items.add(file);
     });
+
+    // input.files를 갱신
+    input.files = dataTransfer.files;
+
+    // 파일 개수 업데이트
+    const fileCountLabel = document.querySelector(".file-count-label");
+    if (fileCountLabel) {
+        fileCountLabel.textContent = `파일 ${uniqueFiles.length}개`;
+    }
 }
 
-
 // 다운로드 허용 토글
-function toggleDownload(button) {
+function toggleDownload(button, index) {
+    const hiddenInput = document.querySelector(`input[name="allowDownload[${index}]"]`);
     const isAllowed = button.getAttribute("data-allow") === "true";
+
     if (isAllowed) {
         button.setAttribute("data-allow", "false");
         button.classList.remove("btn-outline-primary");
         button.classList.add("btn-outline-secondary");
-        button.innerHTML = '<i class="bi bi-lock"></i>'; // 자물쇠 아이콘
+        button.innerHTML = '<i class="bi bi-lock"></i>'; // 다운로드 비활성화 아이콘
+        hiddenInput.value = "N";
     } else {
         button.setAttribute("data-allow", "true");
         button.classList.remove("btn-outline-secondary");
         button.classList.add("btn-outline-primary");
-        button.innerHTML = '<i class="bi bi-arrow-down-circle"></i>'; // 다운로드 아이콘
+        button.innerHTML = '<i class="bi bi-arrow-down-circle"></i>'; // 다운로드 활성화 아이콘
+        hiddenInput.value = "Y";
+    }
+}
+
+// 파일 삭제
+function removeFile(index, fileName) {
+    const input = document.getElementById("upfile");
+    const dataTransfer = new DataTransfer();
+
+    // 삭제 대상 파일 제외하고 다시 추가
+    Array.from(input.files).forEach((file, i) => {
+        if (i !== index) {
+            dataTransfer.items.add(file);
+        }
+    });
+
+    // input.files 갱신
+    input.files = dataTransfer.files;
+
+    // DOM에서 파일 행 제거
+    const fileRow = document.querySelector(`[data-index="${index}"]`);
+    if (fileRow) fileRow.remove();
+
+    alert(`"${fileName}" 파일이 삭제되었습니다.`);
+
+    // 파일 리스트가 비었을 경우 컨테이너 숨기기
+    const fileListDiv = document.getElementById("file-list");
+    if (fileListDiv.children.length === 0) {
+        document.getElementById("file-list-container").style.display = "none";
     }
 }
