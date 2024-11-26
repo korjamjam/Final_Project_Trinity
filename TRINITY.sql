@@ -728,10 +728,9 @@ INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REV
 VALUES('RV9', 'U9', '평범한 병원', '특별히 나쁘지도, 좋지도 않았습니다.', SYSDATE, SYSDATE, '60', 3);
 
 INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_VIEWS, REVIEW_RATING) 
-VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적인 진료를 받았습니다.', SYSDATE, SYSDATE, '180', 5);
-
+VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적인 진료를 받았습니다.', SYSDATE, SYSDATE, '180', 5)
 
 --커밋--------------------------------------------------------------------------------------------------------
-COMMIT;
+COMMIT; 
 
 SELECT * FROM RANKUP;

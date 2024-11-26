@@ -54,5 +54,11 @@ public class HospitalServiceImpl implements HospitalService{
 		return hpDao.searchHospital(sqlSession, keyword);
 	}
 
+	@Override
+	public ArrayList<HospitalInfo> openHospitalList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
