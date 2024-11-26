@@ -126,5 +126,20 @@
             WHEN #{order} = 'popular' THEN HOS_NO
         END
    </select>
+   <select id="searchHospital" resultMap="HospitalInfoResultSet">
+   		SELECT  HOS_NO,
+            HOS_NAME,
+            HOS_ADDRESS,
+            HOS_TEL,
+            DEPARTMENT,
+            HOS_START_TIME1,
+            HOS_CLOSE_TIME1,
+            HOS_START_TIME2,
+            HOS_CLOSE_TIME2,
+            HOS_LATITUDE,
+            HOS_LONGITUDE
+    	FROM HOSPITAL_INFO
+    	WHERE HOS_NAME LIKE '%' ||  #{keyword} || '%'
+   </select>
 
 </mapper>

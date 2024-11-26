@@ -16,4 +16,6 @@ public interface HospitalService {
 	HospitalAccount selectHospitalInfo(String hosNo);
 	
 	HospitalInfo selectHospitalOne(String hosNo);
+
+	ArrayList<HospitalInfo> searchHospital(String keyword);
 }

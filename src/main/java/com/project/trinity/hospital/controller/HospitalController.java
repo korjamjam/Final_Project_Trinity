@@ -55,4 +55,11 @@ public class HospitalController {
 		return "hospital_detail/hospital_detail";
 	}
 	
+	@RequestMapping("/search")
+	public String SearchHospital(@RequestParam("keyword") String keyword, Model m) {
+		ArrayList<HospitalInfo> searchList = hospitalService.searchHospital(keyword);
+		
+		m.addAttribute("list", searchList);
+		return "hospital_detail/hospital_list";
+	}
 }
