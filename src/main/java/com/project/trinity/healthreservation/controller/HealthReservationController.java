@@ -20,7 +20,6 @@ import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.HealthReservation;
-import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 import com.project.trinity.vaccine.model.vo.VaccineReservation;
 import com.project.trinity.vaccine.service.VaccineReservationService;
@@ -166,20 +165,20 @@ public class HealthReservationController {
 			//병원 정보 불러오기
 			ArrayList<HospitalInfo> hospitalList = (ArrayList<HospitalInfo>) healthReservationService.selectHospitalList();
 			session.setAttribute("hospitalList", hospitalList);
+			String gstName = reservation_user_name;
+			String gstBirth = reservation_user_num1;
+			String gstGender = "";
+			//주민번호 뒷자리 홀수면 M, 짝수면 F로 반환
+			if(Integer.parseInt(reservation_user_num2) %2 ==0) {
+				gstGender = "F";
+			} else {
+				gstGender = "M";
+			}
+			String gstPhone = reservation_user_phone1 + reservation_user_phone2;
+			String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
+			String gstAddress = address + extraAddress + detailAddress;
 			//로그인 유저 정보 없으면 게스트 저장하고 게스트 넘버 반환
 			if(session.getAttribute("loginUser") == null) {
-				String gstName = reservation_user_name;
-				String gstBirth = reservation_user_num1;
-				String gstGender = "";
-				//주민번호 뒷자리 홀수면 M, 짝수면 F로 반환
-				if(Integer.parseInt(reservation_user_num2) %2 ==0) {
-					gstGender = "F";
-				} else {
-					gstGender = "M";
-				}
-				String gstPhone = reservation_user_phone1 + reservation_user_phone2;
-				String gstEmail = reservation_user_email1 + "@" + reservation_user_email2;
-				String gstAddress = address + extraAddress + detailAddress;
 				Guest guest = new Guest(gstName, gstEmail, gstPhone, gstBirth, gstGender, gstAddress);
 				
 				//게스트 정보 게스트 테이블에 추가
@@ -194,6 +193,14 @@ public class HealthReservationController {
 				}
 			}//로그인 유저 정보 있으면 유저번호 반환
 			else {
+				Member m = new Member();
+				m.setUserName(gstName);
+				m.setBirthday(gstBirth);
+				m.setGender(gstGender);
+				m.setPhone(gstPhone);
+				m.setEmail(gstEmail);
+				m.setAddress(gstAddress);
+				session.setAttribute("m", m);
 				return "health_reservation/health_reservation2";
 			}
 		//이용약관 동의 안하면 원래 페이지 리턴	
@@ -227,17 +234,12 @@ public class HealthReservationController {
 		healthReservation.setResComment(reservation_user_text);
 		//로그인 한 경우
 		if(session.getAttribute("loginUser")!=null) {
-			Member m = (Member)session.getAttribute("loginUser");
-			
-			
-			String userBirthDay = m.getBirthday().substring(2,4)
-					   			+ m.getBirthday().substring(5,7)
-					   			+ m.getBirthday().substring(8,10);
-			
-			healthReservation.setUserNo(m.getUserNo());
+			Member m = (Member)session.getAttribute("m");
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			healthReservation.setUserNo(loginUser.getUserNo());
 			healthReservation.setPatientName(m.getUserName());
 			healthReservation.setPatientEmail(m.getEmail());
-			healthReservation.setPatientBirthday(userBirthDay);
+			healthReservation.setPatientBirthday(m.getBirthday());
 			healthReservation.setPatientGender(m.getGender());
 			
 		} //로그인 안한 경우 
