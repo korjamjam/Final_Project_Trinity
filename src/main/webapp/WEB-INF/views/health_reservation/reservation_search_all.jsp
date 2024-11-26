@@ -32,7 +32,7 @@
                     예약 번호로 검색
                 </div>
                 <p>예약번호</p>
-                <div class="health_reservation1_content input_name">
+                <div class="health_reservation1_content">
                     <input type="text" name="resNo">
                 </div>
             </div>
