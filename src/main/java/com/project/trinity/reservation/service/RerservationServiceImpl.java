@@ -18,8 +18,12 @@ public class RerservationServiceImpl implements ReservationService{
 		String day = resDate.substring(3, 5);
 		String year = resDate.substring(6, 10);
 		resDate = year + "-" + month + "-" + day;
-		int result = rDao.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
-		return result;
+		return rDao.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
+	}
+
+	@Override
+	public int insertgGuest(String userName, String birthday, String phone, String email, String gender) {
+		return rDao.insertgGuest(userName, birthday, phone, email, gender);
 	}
 
 }

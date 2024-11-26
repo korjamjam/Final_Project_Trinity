@@ -4,4 +4,7 @@ public interface ReservationService {
 
 	int insertgReservation(String userNo, String hosNo, String resDate, String resTime, String subject, String content);
 
+	int insertgGuest(String userName, String birthday, String phone, String email, String gender);
+
+
 }
