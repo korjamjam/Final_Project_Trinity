@@ -11,6 +11,8 @@
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
+	flex-direction: column;
+	align-items: center;
 }
 
 #side-menu {
