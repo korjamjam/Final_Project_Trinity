@@ -44,7 +44,8 @@
 		MED_KEY,
 		HOS_NO
 
-		FROM MEMBER
+		FROM
+		MEMBER
 		WHERE USER_ID = #{userId}
 		AND STATUS = 'Y'
 	</select>
@@ -71,7 +72,8 @@
 		#{userName},
 		#{email},
 		#{phone},
-		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
+		TO_CHAR(TO_DATE(#{birthday},
+		'YYYY-MM-DD'), 'YYMMDD'),
 		#{address},
 		#{gender}
 		)
@@ -147,6 +149,8 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
+
+	
 
 
 

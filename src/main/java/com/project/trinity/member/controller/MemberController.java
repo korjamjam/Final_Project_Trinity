@@ -357,4 +357,9 @@ public class MemberController {
 	public String repairemailPage() {
 		return "account/repair_email";
 	}
+	
+	@GetMapping("/apply_doctor")
+	public String applydoctorpage() {
+		return "account/apply_doctor";
+	}
 }

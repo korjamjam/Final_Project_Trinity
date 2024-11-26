@@ -26,6 +26,14 @@
                 <th><a href="${pageContext.request.contextPath}/member/profile_edit" id="profileEdit">내 정보 수정</a></th>
     
             </tr>
+            <tr>
+                <th><a href="${pageContext.request.contextPath}/member/repair_email" id="reservation_check">예약 확인</a></th>
+    
+            </tr>
+            <tr>
+                <th><a href="${pageContext.request.contextPath}/member/apply_doctor" id="apply_doctor">의사 신청</a></th>
+    
+            </tr>
         </table>
         <div class="support-box">
             <p class="support-text">도움이 필요하신가요?</p>

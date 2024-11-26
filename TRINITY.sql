@@ -734,6 +734,4 @@ VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적�
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
 
-SELECT *
-FROM BOARD
-WHERE STATUS = 'Y' AND USER_NO IS NULL;
+SELECT * FROM RANKUP;
