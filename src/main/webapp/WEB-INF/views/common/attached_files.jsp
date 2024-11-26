@@ -46,12 +46,12 @@
                                     <c:choose>
                                         <c:when test="${file.allowDownload == 'Y'}">
                                             <span class="badge bg-success">
-                                                <i class="bi bi-check-circle"></i> 가능
+                                                <i class="bi bi-check-circle"></i>
                                             </span>
                                         </c:when>
                                         <c:otherwise>
                                             <span class="badge bg-danger">
-                                                <i class="bi bi-x-circle"></i> 제한
+                                                <i class="bi bi-x-circle"></i>
                                             </span>
                                         </c:otherwise>
                                     </c:choose>
