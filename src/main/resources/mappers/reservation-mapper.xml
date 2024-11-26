@@ -5,6 +5,17 @@
 
 <mapper namespace="reservationMapper">
 
+	<!-- Guest -->
+	<resultMap type="Guest" id="GuestResultSet" >
+        <result property="gstNo" column="GST_NO"/>
+        <result property="gstName" column="GST_NAME"/>
+        <result property="gstEmail" column="GST_EMAIL"/> <!-- PATIENT_NAME 추가 -->
+       	<result property="gstPhone" column="GST_PHONE"/>
+        <result property="gstBirth" column="GST_BIRTH"/>
+        <result property="gstGender" column="GST_GENDER"/>
+        <result property="gstAddress" column="GST_ADDRESS"/>
+    </resultMap>
+
     <!-- ReservationWithVaccineResult 설정 -->
     <resultMap id="ReservationWithVaccineResult" type="com.project.trinity.reservation.model.vo.Reservation">
         <id property="resNo" column="RES_NO"/>
@@ -18,7 +29,7 @@
         <result property="resContent" column="RES_CONTENT"/>
     </resultMap>
     
-    <!-- 일반 진료 예약 -->
+    <!-- 일반 진료 회원 예약 -->
     <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
     	INSERT INTO GENERAL_RESERVATION
     	(	USER_NO, 
@@ -42,6 +53,26 @@
         #{subject},
         #{content},
         (SELECT GENDER FROM MEMBER WHERE USER_NO = #{userNo}))
+    </insert>
+    
+    <!-- 게스트 삽입 -->
+    <insert id="insertgReservation" parameterType="com.project.trinity.reservation.model.vo.Reservation">
+    	INSERT INTO GUEST
+    	(	
+            GST_NAME,
+            GST_EMAIL,
+            GST_PHONE,
+            GST_BIRTH,
+            GST_GENDER
+    	)
+		VALUES
+    	(
+            #{userName},
+            #{email},
+            #{phone},
+            #{birthday},
+            #{gender}
+        )
     </insert>
     
     <!-- 예약번호로 조회 -->

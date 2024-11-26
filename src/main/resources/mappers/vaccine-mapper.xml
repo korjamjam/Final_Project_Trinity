@@ -18,7 +18,7 @@
        	<result property="email" column="EMAIL"/>
         <result property="vresDate" column="V_RES_DATE"/> 				<!--백신 접종 날짜-->
         <result property="vresTime" column="V_RES_TIME"/> 				<!--백신 접종 시간-->
-        <result property="vType" column="V_TYPE"/> 						<!--백신 종류--> 
+        <result property="vaccineType" column="V_TYPE"/> 						<!--백신 종류--> 
         <result property="resContent" column="RES_CONTENT"/> 			<!--특이 사항-->
     </resultMap>
     
@@ -46,7 +46,7 @@
         #{patientBirthday}, 
         #{vresDate}, 
         #{vresTime}, 
-        #{vType}, 
+        #{vaccineType}, 
         #{resContent}, 
         #{gender}, 
         #{phoneNumber}, 

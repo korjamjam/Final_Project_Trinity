@@ -141,7 +141,11 @@
                 <br><br>
                 <input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName" data-checkvalue="${loginUser.userName}">
                 <br><br>
-                <input type="text" placeholder="생년월일을 입력해주세요" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
+                <input type="text" placeholder="생년월일 ex) 991201" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
+                <br><br>
+                <input type="text" placeholder="전화번호 ex) 010-0000-0000" id="phone" name="phone" data-checkvalue="${loginUser.phone}">
+                <br><br>
+                <input type="text" placeholder="이메일을 입력해주세요" id="email" name="email" data-checkvalue="${loginUser.email}">
                 <br><br>
                 <select id="gender" name="gender" data-checkvalue="${loginUser.gender}">
                     <option id="select" selected disabled>성별</option>

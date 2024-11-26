@@ -134,4 +134,10 @@ public class BoardServiceImpl implements BoardService {
 		return 0;
 	}
 
+	@Override
+	public int updateFileAllowDownload(BoardFile bf) {
+	    return boardDao.updateFileAllowDownload(sqlSession, bf);
+	}
+
+
 }

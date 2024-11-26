@@ -18,7 +18,6 @@ public class ReservationDao {
 	
 	public int insertgReservation(String userNo, String hosNo, String resDate, String resTime,
 			String subject, String content) {
-		System.out.println(resDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("userNo", userNo);
 		map.put("hosNo", hosNo);
@@ -29,8 +28,17 @@ public class ReservationDao {
 		map.put("resTime", resTime);
 		map.put("subject", subject);
 		map.put("content", content);
-		System.out.println(map);
 		return sqlSession.insert("reservationMapper.insertgReservation", map);
+	}
+
+	public int insertgGuest(String userName, String birthday, String phone, String email, String gender) {
+		Map<String, String> map = new HashMap<>();
+		map.put("userName", userName);
+		map.put("birthday", birthday);
+		map.put("phone", phone);
+		map.put("email", email);
+		map.put("gender", gender);
+		return sqlSession.insert("reservationMapper.insertgGuest", map);
 	}
 
 	public GeneralReservation selectReservation(String resNo) {

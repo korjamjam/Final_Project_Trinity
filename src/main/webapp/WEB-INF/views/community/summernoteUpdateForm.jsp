@@ -26,9 +26,22 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css">
+
+<!-- Bootstrap Icons 추가 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<!-- Custom JS -->
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/community/summernoteUpdate.js"></script>
 </head>
 
+
 <body>
+	<div id="context-path"
+		data-base-url="${pageContext.request.contextPath}"></div>
+
 	<!-- Header Section -->
 	<header>
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -77,6 +90,21 @@
 				<!-- 여백을 추가하기 위한 요소 -->
 				<!-- 내용 입력(Summernote) -->
 				<textarea id="summernote" name="boardContent" class="post-textarea">${b.boardContent}</textarea>
+				<div class="mt-4">
+                    <label for="upfile" class="form-label">첨부파일</label>
+                    <input type="file" id="upfile" name="upfiles" class="form-control" multiple
+                        onchange="checkFileValidation(this)">
+                    <small id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다. (각 파일 최대 5MB)</small>
+                  	<!-- 선택된 파일 리스트 표시 -->
+					<div id="file-list-container">
+						<div id="file-list"></div>
+					</div>
+					
+
+				
+				</div>
+		</div>
+
 				<div class="button-container">
 					<!-- 작성완료 버튼 -->
 					<input type="submit" value="작성완료" class="round-button">
@@ -84,106 +112,16 @@
 			</form>
 		</div>
 	</div>
-	<script>
-	$(document).ready(function () {
-	    function initializeSummernote() {
-	        $('#summernote').summernote({
-	            minHeight: 400, // 최소 높이 설정
-	            maxHeight: null, // 최대 높이 제한 없음
-	            placeholder: '글을 입력하세요.',
-	            tabsize: 2,
-	            toolbar: [
-	                ['style', ['style']],
-	                ['font', ['bold', 'underline', 'clear']],
-	                ['color', ['color']],
-	                ['para', ['ul', 'ol', 'paragraph']],
-	                ['table', ['table']],
-	                ['insert', ['link', 'picture', 'video']],
-	                ['view', ['fullscreen', 'codeview', 'help']]
-	            ],
-	            callbacks: {
-	                onImageUpload: fileUpload,// 이미지 업로드 처리
-	                onMediaDelete: fileDelete, // 이미지 삭제 처리
-	                onChange: adjustHeight // 글 내용 변경 시 높이 자동 조정
-	            }
-	        });
-
-	        syncSummernoteWidth();
-	    }
-
-	    function syncSummernoteWidth() {
-	        const wrapperWidth = $('.post-wrapper').width();
-	        $('.note-editor').css('width', wrapperWidth); // .note-editor의 너비 동기화
-	    }
-
-	    // 글 내용에 따라 Summernote 높이 조정
-	    function adjustHeight(contents) {
-	        const editableArea = $('.note-editable'); // 텍스트 입력 영역
-	        const scrollHeight = editableArea.prop('scrollHeight'); // 입력 영역의 전체 높이
-	        editableArea.css('height', `${scrollHeight}px`); // 높이를 스크롤 높이에 맞춤
-	    }
-
-	    initializeSummernote();
-
-	    // 창 크기 변경 시 Summernote 크기 재조정
-	    $(window).on('resize', syncSummernoteWidth);
-	});
-
-	function fileUpload(files) {
-	    const fd = new FormData();
-	    for (let file of files) {
-	        fd.append("fileList", file);
-	    }
-
-	    // AJAX 요청으로 파일 업로드 처리
-	    $.ajax({
-	        url: "${pageContext.request.contextPath}/community/upload",
-	        type: "POST",
-	        data: fd,
-	        processData: false,
-	        contentType: false,
-	        success: function (response) {
-	            // JSON 응답 파싱
-	            const nameList = JSON.parse(response);
-	            for (let name of nameList) {
-	                // Summernote에 이미지 삽입
-	                $("#summernote").summernote("insertImage", "/etc/resources/img/" + name);
-	            }
-	        },
-	        error: function () {
-	            alert("이미지 업로드 실패! 다시 시도해주세요.");
-	        }
-	    });
-	}
-
-
-    // 파일 삭제 처리
-   function fileDelete(target) {
-    // 삭제할 파일 경로 가져오기
-    const fileName = $(target).attr("src").split("/").pop();
-
-    // AJAX 요청으로 파일 삭제 처리
-    $.ajax({
-        url: "${pageContext.request.contextPath}/deleteFile",
-        type: "POST",
-        data: JSON.stringify({ fileName: fileName }), // JSON 데이터로 파일명 전송
-        contentType: "application/json; charset=utf-8",
-        success: function (response) {
-            console.log("이미지 삭제 성공:", response);
-        },
-        error: function () {
-            alert("이미지 삭제 실패! 다시 시도해주세요.");
-        }
-    });
-}
-
-    </script>
-
-
 
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
+	<script>
+    var attachedFilesJson = ${attachedFiles != null ? attachedFiles : '[]'};
+</script>
+
+	
 </body>
 
 </html>
+
