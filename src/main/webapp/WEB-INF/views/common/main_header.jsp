@@ -49,9 +49,10 @@
             <a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
             <div class="dropdown-content">
                 <a href="${pageContext.request.contextPath}/community/main?type=popular">인기</a>
-                <a href="${pageContext.request.contextPath}/community/main?type=free">자유</a>
-                <a href="${pageContext.request.contextPath}/community/main?type=meditalk">의료 소통</a>
-                <a href="${pageContext.request.contextPath}/community/main?type=event">이벤트</a>
+                <a href="${pageContext.servletContext.contextPath}/community/board?type=free" id="free">자유게시판</a>
+        		<a href="${pageContext.servletContext.contextPath}/community/board?type=meditalk" id="meditalk">메디톡</a>
+        		<a href="${pageContext.servletContext.contextPath}/community/board?type=event" id="event">이벤트게시판</a>
+    </div>
             </div>
         </div>
         <div class="dropdown">

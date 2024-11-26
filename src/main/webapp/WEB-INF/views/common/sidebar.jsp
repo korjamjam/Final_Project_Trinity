@@ -35,7 +35,9 @@
         
             <!-- 병원찾기 메뉴 -->
             <div class="sidebar-item" onclick="toggleSubmenu(this)">
-                <div class="sidebar-main">병원찾기</div>
+                <a href="${pageContext.request.contextPath}/hospital/list">
+	                <div class="sidebar-main">병원찾기</div>
+                </a> 
             </div>
             
             <!-- 종합예약 메뉴 -->
