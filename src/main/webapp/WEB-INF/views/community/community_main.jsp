@@ -49,8 +49,9 @@
 						</div>
 					</div>
 
-					<!-- Table for Posts -->
-					<table id="postsTable" class="notice-table">
+					<!-- 최근 인기 게시글 리스트 -->
+
+			<table id="recentPopularPosts" class="notice-table">
 				<thead>
 					<tr>
 						<th class="category-header">카테고리</th>
@@ -61,11 +62,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="board" items="${popularList}">
+					<c:forEach var="board" items="${recentPopularList}">
 						<tr>
 							<td class="category">${board.boardCategory}</td>
-							<td class="title"><a href="boardDetail?bno=${board.boardNo}">${board.boardTitle}</a>
-							</td>
+							<td class="title"><a href="boardDetail?bno=${board.boardNo}">${board.boardTitle}</a></td>
 							<td class="author">${board.boardWriter}</td>
 							<td class="date">${board.enrollDate}</td>
 							<td class="views">${board.boardViews}</td>
@@ -74,40 +74,8 @@
 				</tbody>
 			</table>
 
-			<!-- Pagination Footer -->
+
 			<div id="pageSearchContainer">
-				<div id="pagingArea">
-					<ul class="pagination">
-						<!-- Previous Button -->
-						<c:if test="${pi.currentPage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="main?cpage=${pi.currentPage - 1}">&#60;</a></li>
-						</c:if>
-
-						<!-- Page Numbers -->
-						<c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
-							<c:choose>
-								<c:when test="${page == pi.currentPage}">
-									<li class="page-item active"><a class="page-link"
-										href="main?cpage=${page}">${page}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link"
-										href="main?cpage=${page}">${page}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-
-						<!-- Next Button -->
-						<c:if test="${pi.currentPage < pi.maxPage}">
-							<li class="page-item"><a class="page-link"
-								href="main?cpage=${pi.currentPage + 1}">&#62;</a></li>
-						</c:if>
-					</ul>
-				</div>
-
-
-
 				<!-- 검색 필드 섹션 -->
 				<div id="searchSection">
 					<select id="searchType" name="searchType">
@@ -115,6 +83,7 @@
 						<option value="author">글작성자</option>
 						<option value="content">댓글내용</option>
 					</select>
+
 
 					<!-- input과 돋보기 아이콘을 그룹으로 묶기 -->
 					<div class="search-input-group">

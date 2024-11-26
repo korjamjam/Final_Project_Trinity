@@ -3,6 +3,7 @@ package com.project.trinity.reservation.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.reservation.model.dao.ReservationDao;
 import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
@@ -33,5 +34,19 @@ public class RerservationServiceImpl implements ReservationService{
 		return rDao.selectReservation(resNo);
 	}
 
+	@Override
+	public Guest selectGuest(String phone, String email) {
+		return rDao.selectGuest(phone, email);
+	}
+
+	@Override
+	public int insertgGuestReservation(String hosNo, String guestNo, String userName, String birthday, String resDate,
+			String resTime, String subject, String content, String gender) {
+		String month = resDate.substring(0, 2);
+		String day = resDate.substring(3, 5);
+		String year = resDate.substring(6, 10);
+		resDate = year + "-" + month + "-" + day;
+		return rDao.insertgGuestReservation(hosNo, guestNo, userName, birthday, resDate, resTime, subject, content, gender);
+	}
 
 }

@@ -21,12 +21,49 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectListCount");
 	}
 
-	// 게시글 목록 가져오기
-	public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) (sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
-	}
+    // 게시글 목록 가져오기
+    public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return (ArrayList)(sqlSession.selectList("boardMapper.selectList", sortType, rowBounds));
+    }
+    
+    
+    // 최근 7일 내 인기 게시글 조회
+    public ArrayList<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return (ArrayList) sqlSession.selectList("boardMapper.selectRecentPopularList", params);
+    }
+    
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String boardCategory, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        int limit = pi.getBoardLimit();
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("boardCategory", boardCategory);
+        params.put("startRow", offset + 1);
+        params.put("endRow", offset + limit);
+        
+        ArrayList<Board> result = (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
+
+        // 디버깅 출력
+        System.out.println("쿼리 결과:");
+        for (Board board : result) {
+            System.out.println("Board: " + board);
+        }
+
+        return result;
+    }
+
+
+
+    public int selectCountCategoryList(SqlSessionTemplate sqlSession, String boardCategory) {
+        return sqlSession.selectOne("boardMapper.selectCountCategoryList", boardCategory);
+    }
+    
+    // 게시글 조회수 증가
+    public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.update("boardMapper.increaseCount", bno);
+    }
 
 	public ArrayList<Board> selectPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
 		return (ArrayList) sqlSession.selectList("boardMapper.selectPopularList", params);

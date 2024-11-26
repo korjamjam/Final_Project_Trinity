@@ -40,15 +40,19 @@
 
 		<!-- SearchBar -->
 		<div class="searchBar_wrapper">
-			<div class="searchBar">
-				<input type="text" placeholder="검색어를 입력하세요.">
-				<div class="searchBar_img">
-					<a href=""><img src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
-						alt="search" width="15" height="15"></a>
+				<div class="searchBar">
+					<form action="hospital/list/search" class="searchBar_form">
+						<input type="text" placeholder="검색어를 입력하세요." name="keyword">
+						<button type="submit" id="main_search_btn">
+						<div class="searchBar_img">
+							<img src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
+								alt="search" width="15" height="15">
+						</div>
+						</button>
+					</form>
 				</div>
-			</div>
 		</div>
-
+		
 		<br>
 		<br>
 

@@ -55,4 +55,19 @@ public class HospitalController {
 		return "hospital_detail/hospital_detail";
 	}
 	
+	@RequestMapping("/list/search")
+	public String SearchHospital(@RequestParam("keyword") String keyword, Model m) {
+		ArrayList<HospitalInfo> searchList = hospitalService.searchHospital(keyword);
+		
+		m.addAttribute("list", searchList);
+		return "hospital_detail/hospital_list";
+	}
+	
+	@RequestMapping("/list/openHos")
+	public String OpenHospital(Model m) {
+		ArrayList<HospitalInfo> searchList = hospitalService.openHospitalList();
+		//여기부터 고치면됨. requestparam 추가하고 리스트 띄우기
+		m.addAttribute("list", searchList);
+		return "hospital_detail/hospital_list";
+	}
 }

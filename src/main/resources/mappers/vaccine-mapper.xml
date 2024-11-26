@@ -6,7 +6,7 @@
 <mapper namespace="vaccineMapper">
 
     <!-- ReservationWithVaccineResult 설정 -->
-    <resultMap id="ReservationWithVaccineResult" type="com.project.trinity.reservation.model.vo.VaccineReservation">
+    <resultMap id="ReservationWithVaccineResult" type="VaccineReservation">
         <id property="vresNo" column="V_RES_NO"/>						<!-- 백신 예약 번호-->
         <result property="userNo" column="USER_NO"/> 					<!--사용자 번호(로그인)-->
         <result property="hosNo" column="HOS_NO"/>						<!--병원 번호-->
@@ -22,7 +22,7 @@
         <result property="resContent" column="RES_CONTENT"/> 			<!--특이 사항-->
     </resultMap>
     
-    <resultMap id="guestResultMap" type="com.project.trinity.member.model.vo.Guest">
+    <resultMap id="guestResultMap" type="Guest">
     <id property="gstNo" column="GST_NO"/>
     <result property="gstName" column="GST_NAME"/>
     <result property="gstEmail" column="GST_EMAIL"/>
@@ -33,7 +33,7 @@
 </resultMap>
     
     <!-- 예약 삽입 -->
-    <insert id="insertVaccineReservation" parameterType="com.project.trinity.vaccine.model.vo.VaccineReservation">
+    <insert id="insertVaccineReservation" parameterType="VaccineReservation">
     INSERT INTO VACCINE_RESERVATION (
         V_RES_NO, USER_NO, HOS_NO, GST_NO, PATIENT_NAME, PATIENT_BIRTHDAY, 
         V_RES_DATE, V_RES_TIME, V_TYPE, RES_CONTENT, GENDER, PHONE, EMAIL
@@ -56,7 +56,7 @@
 
 
     <!-- 병원 목록 조회 -->
-    <select id="selectAllHospitals" resultType="com.project.trinity.hospital.model.vo.HospitalInfo">
+    <select id="selectAllHospitals" resultType="VaccineReservation">
     SELECT 
         HOS_NO as hosNo,
         HOS_NAME as hosName,
@@ -72,7 +72,7 @@
     FROM HOSPITAL_INFO
 </select>
 
-<insert id="insertGuest" parameterType="com.project.trinity.member.model.vo.Guest">
+<insert id="insertGuest" parameterType="VaccineReservation">
     <selectKey keyProperty="gstNo" resultType="java.lang.String" order="BEFORE">
         SELECT 'G' || TO_CHAR(SEQ_GST_NO.NEXTVAL) AS GST_NO FROM DUAL
     </selectKey>
@@ -84,7 +84,7 @@
 </insert>
 
 <!-- 예약번호로 조회 -->
-<select id="selectReservation" resultType="com.project.trinity.vaccine.model.vo.VaccineReservation">
+<select id="selectReservation" resultType="VaccineReservation">
 	SELECT V_RES_NO as vresNo,
 		   USER_NO as userNo,
 		   HOS_NO as hosNo,

@@ -1,0 +1,104 @@
+/* 기본 설정 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fffff; /* 전체 배경색 */
+}
+
+/* 컨테이너 스타일 */
+.container {
+    max-width: 600px; /* 페이지의 너비 */
+    margin: 50px auto; /* 중앙 정렬 */
+    padding: 20px;
+    background-color: #ffffff; /* 흰색 배경 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    border: 1px solid #e0e0e0; /* 외곽선 */
+}
+
+/* 제목 스타일 */
+.container h2 {
+    text-align: center;
+    color: #4caf50; /* 초록색 강조 */
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* 폼 스타일 */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 입력 필드 간격 */
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 라벨과 입력 필드 간격 */
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+/* 입력 필드 스타일 */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="file"]:focus {
+    border-color: #4caf50; /* 초록색 포커스 */
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* 초록빛 그림자 */
+}
+
+/* 제출 버튼 스타일 */
+.submit-button {
+    padding: 15px;
+    background-color: #4caf50; /* 메인 색상 */
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #45a049; /* 더 어두운 초록 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="file"] {
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
