@@ -71,15 +71,16 @@
 					<div id="file-list-container">
 						<div id="file-list"></div>
 					</div>
+					
 
-					<div id="file-list"></div>
+				
 				</div>
 		</div>
 
 
 		<div class="button-container">
 			<!-- 작성완료 버튼 -->
-			<input type="submit" value="작성완료" class="round-button">
+			<button type="submit" value="작성완료" class="round-button">
 		</div>
 		</form>
 	</div>

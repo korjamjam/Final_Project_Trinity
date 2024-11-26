@@ -194,7 +194,7 @@ CREATE TABLE BOARD (
     BOARD_CONTENT VARCHAR2(4000),
     ENROLL_DATE DATE DEFAULT SYSDATE,
     MODIFIED_DATE DATE DEFAULT SYSDATE,
-    BOARD_VIEWS VARCHAR2(10),
+    BOARD_VIEWS VARCHAR2(10) DEFAULT '0', -- 기본값 설정
     BOARD_CATEGORY VARCHAR2(20),
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
@@ -408,6 +408,55 @@ VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
+
+DECLARE
+    CURSOR c_user_no IS
+        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
+    v_user_no MEMBER.USER_NO%TYPE;
+BEGIN
+    FOR i IN 1..50 LOOP
+        -- 랜덤한 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
+            ORDER BY DBMS_RANDOM.VALUE
+        ) WHERE ROWNUM = 1;
+
+        -- BOARD 데이터 삽입
+        INSERT INTO BOARD (
+            BOARD_NO, 
+            BOARD_TYPE, 
+            USER_NO, 
+            BOARD_TITLE, 
+            BOARD_CONTENT, 
+            ENROLL_DATE, 
+            MODIFIED_DATE, 
+            BOARD_VIEWS, 
+            BOARD_CATEGORY, 
+            STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
+            MOD(i, 3) + 1,                       -- BOARD_TYPE (1, 2, 3)
+            v_user_no,                           -- USER_NO (랜덤 회원)
+            '게시글 제목 ' || i,                  -- BOARD_TITLE
+            '게시글 내용 ' || i || '입니다.',      -- BOARD_CONTENT
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
+            TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
+            CASE MOD(i, 3) 
+                WHEN 0 THEN '자유' 
+                WHEN 1 THEN '메디톡' 
+                ELSE '이벤트' 
+            END,                                 -- BOARD_CATEGORY
+            'Y'                                  -- STATUS (항상 Y)
+        );
+    END LOOP;
+    COMMIT;
+END;
+/
+
+
+
 
 INSERT INTO HOSPITAL_INFO (
     HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, 
@@ -647,3 +696,7 @@ VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
+
+SELECT *
+FROM BOARD
+WHERE STATUS = 'Y' AND USER_NO IS NULL;

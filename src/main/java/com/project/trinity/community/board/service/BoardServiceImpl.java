@@ -1,6 +1,7 @@
 package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ArrayList<Board> selectList(PageInfo pi, String sortType) {
 		return boardDao.selectList(sqlSession, pi, sortType);
+	}
+	
+	@Override
+	public ArrayList<Board> selectPopularList(Map<String, Object> params) {
+	    return boardDao.selectPopularList(sqlSession, params);
 	}
 
 	// 게시글 상세 조회
@@ -127,5 +133,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int updateFileAllowDownload(BoardFile bf) {
+	    return boardDao.updateFileAllowDownload(sqlSession, bf);
+	}
+
 
 }

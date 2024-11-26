@@ -70,7 +70,7 @@
 		LPAD(TO_NUMBER(SUBSTR(BOARD_VIEWS, 3)) + 1, 5,
 		'0')
 		WHERE BOARD_NO =
-		#{bno}
+		#{boardNo}
 	</update>
 
 
@@ -114,27 +114,21 @@
 		#{userNo},
 		#{originName},
 		#{changeName},
-		#{allowDownload},
+		CASE WHEN #{allowDownload} IS NULL THEN 'Y' ELSE #{allowDownload} END,
 		#{fileSize}
 		)
 	</insert>
 
-	<select id="getSingleFile" parameterType="String"
-		resultType="BoardFile">
-		SELECT
-		FILE_NO AS fileNo,
-		BOARD_NO AS boardNo,
-		USER_NO AS
-		userNo,
-		ORIGIN_NAME AS originName,
-		CHANGE_NAME AS changeName,
-		ALLOW_DOWNLOAD AS allowDownload,
-		File_Size AS fileSize
-		FROM
-		FILE_TABLE
-		WHERE
-		FILE_NO = #{fileNo}
-	</select>
+	<update id="updateFileAllowDownload" parameterType="BoardFile">
+		UPDATE FILE_TABLE
+		SET ALLOW_DOWNLOAD = #{allowDownload}
+		WHERE FILE_NO = #{fileNo}
+	</update>
+	
+	<delete id="deleteFile" parameterType="String">
+		DELETE FROM FILE_TABLE
+		WHERE FILE_NO = #{fileNo}
+	</delete>
 
 	<select id="getFilesList" parameterType="String"
 		resultType="BoardFile">
@@ -153,11 +147,27 @@
 		BOARD_NO = #{boardNo}
 	</select>
 
-
+	<select id="getSingleFile" parameterType="String"
+		resultType="BoardFile">
+		SELECT
+		FILE_NO AS fileNo,
+		BOARD_NO AS boardNo,
+		USER_NO AS
+		userNo,
+		ORIGIN_NAME AS originName,
+		CHANGE_NAME AS changeName,
+		ALLOW_DOWNLOAD AS allowDownload,
+		File_Size AS fileSize
+		FROM
+		FILE_TABLE
+		WHERE
+		FILE_NO = #{fileNo}
+	</select>
+	
 	<update id="updateAllowDownload" parameterType="map">
 		UPDATE FILE_TABLE
 		SET ALLOW_DOWNLOAD = #{allowDownload}
-		WHERE BOARD_NO = #{boardNo}
+		WHERE BOARD_NO = #{BOARD_NO}
 	</update>
 
 
@@ -191,10 +201,42 @@
     WHERE
         B.STATUS = 'Y'
     AND
-        B.BOARD_NO = #{bno}
+        B.BOARD_NO = #{boardNo}
 </select>
 
-	
+	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
+	<select id="selectBoard" resultMap="boardResult">
+		SELECT
+		B.BOARD_NO,
+		B.BOARD_TYPE,
+		B.BOARD_TITLE,
+		B.USER_NO,
+		M.USER_ID AS BOARD_WRITER, -- 작성자의 ID
+		B.BOARD_CONTENT,
+		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+		B.BOARD_VIEWS,
+		B.BOARD_CATEGORY,
+		B.STATUS,
+		-- 첨부파일 정보
+		F.FILE_NO,
+		F.ORIGIN_NAME,
+		F.CHANGE_NAME,
+		F.ALLOW_DOWNLOAD,
+		F.FILE_SIZE -- 마지막 쉼표 제거
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M ON B.USER_NO = M.USER_NO
+		LEFT JOIN
+		FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO -- 첨부파일 조인
+		WHERE
+		B.STATUS = 'Y'
+		AND
+		B.BOARD_NO = #{bno}
+	</select>
+
+
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD
 		SET
@@ -205,10 +247,29 @@
 		WHERE BOARD_NO
 		= #{boardNo}
 	</update>
-
-
-
-
+	
+<select id="selectPopularList" resultMap="boardResult" parameterType="map">
+    SELECT * 
+    FROM (
+        SELECT a.*, ROWNUM AS row_number
+        FROM (
+            SELECT 
+                BOARD_NO, 
+                BOARD_TITLE, 
+                USER_NO, 
+                (SELECT USER_ID FROM MEMBER WHERE USER_NO = BOARD.USER_NO) AS BOARD_WRITER,
+                BOARD_CONTENT, 
+                TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, 
+                BOARD_VIEWS, 
+                BOARD_CATEGORY
+            FROM BOARD
+            WHERE STATUS = 'Y'
+            ORDER BY TO_NUMBER(BOARD_VIEWS) DESC
+        ) a
+        WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE row_number &gt;= #{startRow}
+</select>
 
 </mapper>                                                                        
 	                                                                                                                                                                                                                                                              

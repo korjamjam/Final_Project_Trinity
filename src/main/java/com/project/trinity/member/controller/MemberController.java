@@ -150,76 +150,93 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 개인정보 수정 페이지 접근
 	@RequestMapping("/profile_edit")
 	public String editProfile(HttpSession session, Model model) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
+	    Member loginUser = (Member) session.getAttribute("loginUser");
 
-		if (loginUser != null && loginUser.getBirthday() != null) {
-			try {
-				SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-				Date birthdayDate = inputFormat.parse(loginUser.getBirthday());
-				SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-				model.addAttribute("formattedBirthday", outputFormat.format(birthdayDate));
-			} catch (ParseException e) {
-				e.printStackTrace();
-				model.addAttribute("formattedBirthday", "");
-			}
-		} else {
-			model.addAttribute("formattedBirthday", "");
-		}
+	    if (loginUser != null && loginUser.getBirthday() != null) {
+	        String birthday = loginUser.getBirthday(); // VARCHAR2(6) 형식: YYMMDD
+	        if (birthday.length() == 6) {
+	            String formattedBirthday = "20" + birthday.substring(0, 2) + "-" + birthday.substring(2, 4) + "-" + birthday.substring(4, 6);
+	            model.addAttribute("formattedBirthday", formattedBirthday);
+	        } else {
+	            model.addAttribute("formattedBirthday", ""); // 형식이 잘못된 경우
+	        }
+	    } else {
+	        model.addAttribute("formattedBirthday", "");
+	    }
 
-		model.addAttribute("loginUser", loginUser);
-		return "account/profile_edit";
+	    model.addAttribute("loginUser", loginUser);
+	    return "account/profile_edit";
 	}
+
 
 	@PostMapping("/update_profile")
 	public String updateProfile(Member member, MultipartFile profileImage, HttpSession session) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
+	    Member loginUser = (Member) session.getAttribute("loginUser");
 
-		if (loginUser == null) {
-			return "redirect:/member/login?error=notLoggedIn";
-		}
+	    if (loginUser == null) {
+	        return "redirect:/member/login?error=notLoggedIn";
+	    }
 
-		System.out.println(member);
-		System.out.println(profileImage);
+	    System.out.println(member);
+	    System.out.println(profileImage);
 
-		member.setUserNo(loginUser.getUserNo());
-		member.setUserId(loginUser.getUserId());
-		member.setUserPwd(loginUser.getUserPwd());
+	    // 로그인 사용자 정보 복사
+	    member.setUserNo(loginUser.getUserNo());
+	    member.setUserId(loginUser.getUserId());
+	    member.setUserPwd(loginUser.getUserPwd());
 
-		if (profileImage != null && !profileImage.isEmpty()) {
-			String savePath = "/resources/upload/profile/";
-			String realPath = session.getServletContext().getRealPath(savePath);
+	    // 프로필 이미지 업로드 처리
+	    if (profileImage != null && !profileImage.isEmpty()) {
+	        String savePath = "/resources/upload/profile/";
+	        String realPath = session.getServletContext().getRealPath(savePath);
 
-			File uploadDir = new File(realPath);
-			if (!uploadDir.exists()) {
-				uploadDir.mkdirs();
-			}
+	        File uploadDir = new File(realPath);
+	        if (!uploadDir.exists()) {
+	            uploadDir.mkdirs();
+	        }
 
-			String originalFilename = profileImage.getOriginalFilename();
-			String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-			String newFilename = loginUser.getUserId() + "_profile" + ext;
+	        String originalFilename = profileImage.getOriginalFilename();
+	        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+	        String newFilename = loginUser.getUserId() + "_profile" + ext;
 
-			try {
-				profileImage.transferTo(new File(realPath + newFilename));
-				member.setUserProfile(savePath + newFilename);
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "redirect:/member/profile_edit?error=uploadFailed";
-			}
-		} else {
-			member.setUserProfile(loginUser.getUserProfile());
-		}
+	        try {
+	            profileImage.transferTo(new File(realPath + newFilename));
+	            member.setUserProfile(savePath + newFilename);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return "redirect:/member/profile_edit?error=uploadFailed";
+	        }
+	    } else {
+	        member.setUserProfile(loginUser.getUserProfile());
+	    }
 
-		int result = memberService.updateMember(member);
-		if (result > 0) {
-			session.setAttribute("loginUser", member);
-			return "redirect:/member/profile_edit?success=updated";
-		} else {
-			return "redirect:/member/profile_edit?error=updateFailed";
-		}
+	    // 생년월일 데이터 변환 (YYYY-MM-DD -> YYMMDD)
+	    String birthday = member.getBirthday(); // YYYY-MM-DD 형식의 데이터
+	    if (birthday != null && !birthday.isEmpty()) {
+	        try {
+	            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            SimpleDateFormat targetFormat = new SimpleDateFormat("yyMMdd");
+	            Date date = originalFormat.parse(birthday); // YYYY-MM-DD 형식을 Date로 변환
+	            member.setBirthday(targetFormat.format(date)); // YYMMDD 형식으로 변환 후 저장
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	            return "redirect:/member/profile_edit?error=dateFormatError";
+	        }
+	    }
+
+	    // 회원 정보 업데이트 처리
+	    int result = memberService.updateMember(member);
+	    if (result > 0) {
+	        session.setAttribute("loginUser", member);
+	        return "redirect:/member/profile_edit?success=updated";
+	    } else {
+	        return "redirect:/member/profile_edit?error=updateFailed";
+	    }
 	}
+
+
 
 	@PostMapping("/find_id_email")
 	@ResponseBody

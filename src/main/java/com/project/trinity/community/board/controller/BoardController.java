@@ -1,10 +1,10 @@
 package com.project.trinity.community.board.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.Gson;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Reply;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.template.Template;
 import com.project.trinity.community.common.vo.PageInfo;
@@ -53,6 +53,33 @@ public class BoardController {
 		model.addAttribute("boardCategory", boardCategory);
 		return "community/community_main";
 	}
+	
+	// 총 게시글 리스트(단 조회수)
+	@GetMapping("/main")
+	public String popularList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+	    int listCount = boardService.selectListCount();
+	    int boardLimit = 16;
+	    int pageLimit = 5;
+
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+	    int startRow = (currentPage - 1) * boardLimit + 1;
+	    int endRow = startRow + boardLimit - 1;
+
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("startRow", startRow);
+	    params.put("endRow", endRow);
+
+	    ArrayList<Board> popularList = boardService.selectPopularList(params);
+	    model.addAttribute("popularList", popularList);
+	    model.addAttribute("pi", pi);
+	    
+	    System.out.println("popularList: " + popularList);
+
+	    return "community/community_main";
+	}
+
+
+
 
 	// 동적으로 커뮤니티 페이지 연결 - type 파라미터에 따라 게시판 종류를 설정
 	@RequestMapping("/board")
@@ -113,10 +140,17 @@ public class BoardController {
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
 	public String insertBoard(Board b,
-	                          @RequestParam(value = "allowDownload", required = false) List<String> allowDownloadList,
-	                          @RequestParam("upfiles") ArrayList<MultipartFile> upfiles,
+			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload, // 기본값 "Y" 설정,
+			@RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> upfiles ,
 	                          HttpSession session,
 	                          Model m) {
+		
+		System.out.println("upfiles : " + upfiles);
+		System.out.println("-------------------------");
+		System.out.println(allowDownload);
+		System.out.println("-------------------------");
+		
+	
 	    // 로그인 사용자 확인 -> 인터셉터
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -126,11 +160,7 @@ public class BoardController {
 	        return "/common/errorPage";
 	    }
 
-	    // 파일 업로드 개수 검사
-	    if (upfiles != null && upfiles.size() > 3) {
-	        m.addAttribute("errorMsg", "파일은 최대 3개까지만 업로드할 수 있습니다.");
-	        return "/common/errorPage";
-	    }
+	    
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
@@ -150,11 +180,12 @@ public class BoardController {
 	                        bf.setChangeName("/resources/uploadFile/" + changeName);
 	                        bf.setFileSize(upfile.getSize());
 
-	                        // 기본값 설정 (allowDownload가 null이거나 인덱스 초과 시 기본값 "Y")
-	                        String allowDownload = (allowDownloadList != null && allowDownloadList.size() > i) 
-	                                               ? allowDownloadList.get(i) 
-	                                               : "Y";
-	                        bf.setAllowDownload(allowDownload);
+	                        // allowDownload 값 설정
+	                        if (allowDownload != null && allowDownload.size() > i) {
+	                            bf.setAllowDownload(allowDownload.get(i)); // 다운로드 허용 여부 설정
+	                        } else {
+	                            bf.setAllowDownload("Y"); // 기본값 설정
+	                        }
 
 	                        int fileResult = boardService.insertFile(bf);
 	                        if (fileResult <= 0) {
@@ -220,70 +251,111 @@ public class BoardController {
 
 	@GetMapping("/downloadFile")
 	public ResponseEntity<Resource> downloadFile(@RequestParam("fileNo") String fileNo) {
-
-	    // 파일 정보 가져오기
-	    BoardFile bf = boardService.getSingleFile(fileNo);
-
-	    // 파일 정보 검증
-	    if (bf == null || !"Y".equals(bf.getAllowDownload())) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 파일이 없거나 다운로드 불가
-	    }
-
-	    // 파일 경로 설정
-	    String filePath = "파일 저장 경로/" + bf.getChangeName();
-	    File file = new File(filePath);
-
-	    // 파일이 실제로 존재하지 않으면 404 응답
-	    if (!file.exists()) {
+	    BoardFile file = boardService.getSingleFile(fileNo);
+	    if (file == null || !"Y".equals(file.getAllowDownload())) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	    }
 
-	    // 파일 다운로드 응답
-	    Resource resource = new FileSystemResource(file);
+	    // 파일 경로로 실제 파일 제공
+	    String filePath = "파일 저장 경로/" + file.getChangeName();
+	    Resource resource = new FileSystemResource(new File(filePath));
 	    return ResponseEntity.ok()
-	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bf.getOriginName() + "\"")
-	            .body(resource);
+	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getOriginName() + "\"")
+	        .body(resource);
 	}
-	
 
-	@GetMapping("edit.bo")
+	
+//수정버튼 클릭 시 
+	@GetMapping("/edit")
 	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {
 		// 게시글 정보 가져오기
 		Board b = boardService.selectBoard(boardNo);
+		 // 첨부파일 정보 가져오기
+	    List<BoardFile> attachedFiles = boardService.getFilesList(boardNo);
 
 		if (b != null) {
-			m.addAttribute("b", b); // 게시글 정보를 Model에 추가
+			 m.addAttribute("b", b); // 게시글 정보
+		        m.addAttribute("attachedFiles", attachedFiles); // 첨부파일 정보
+		        System.out.println("첨부파일 리스트: " + attachedFiles);
+
 			return "community/summernoteUpdateForm"; // 수정 페이지 JSP
 		} else {
 			m.addAttribute("errorMsg", "게시글을 불러오는데 실패했습니다.");
 			return "common/errorPage";
 		}
 	}
-
+//수정 완료 후
 	@PostMapping("/update")
-	public String updateBoard(Board b, Model m) {
-		// 수정된 데이터 처리
-		int result = boardService.updateBoard(b); // 데이터베이스 업데이트
-		if (result > 0) {
-			return "redirect:/community/boardDetail?bno=" + b.getBoardNo(); // 성공 시 상세 페이지로 이동
-		} else {
-			m.addAttribute("errorMsg", "게시글 수정 실패");
-			return "common/errorPage";
-		}
+	public String updateBoard(Board b,
+	                          @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
+	                          @RequestParam(value = "existingFileNos", required = false) List<String> existingFileNos,
+	                          @RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles,
+	                          HttpSession session, Model m) {
+
+	    // 게시글 수정
+	    int boardResult = boardService.updateBoard(b);
+
+	    if (boardResult > 0) {
+	        // 기존 첨부파일 다운로드 허용 상태 업데이트
+	        if (allowDownload != null && existingFileNos != null) {
+	            for (int i = 0; i < existingFileNos.size(); i++) {
+	                String fileNo = existingFileNos.get(i);
+	                String allow = allowDownload.get(i);
+
+	                BoardFile bf = new BoardFile();
+	                bf.setFileNo(fileNo);
+	                bf.setAllowDownload(allow);
+
+	                boardService.updateFileAllowDownload(bf); // 기존 파일 상태 업데이트
+	            }
+	        }
+
+	        // 새 파일 업로드 처리
+	        if (newFiles != null && !newFiles.isEmpty()) {
+	            for (MultipartFile file : newFiles) {
+	                if (!file.isEmpty()) {
+	                    String changeName = Template.saveFile(file, session, "/resources/uploadFile/");
+	                    if (changeName != null) {
+	                        BoardFile bf = new BoardFile();
+	                        bf.setBoardNo(b.getBoardNo());
+	                        bf.setUserNo(b.getUserNo());
+	                        bf.setOriginName(file.getOriginalFilename());
+	                        bf.setChangeName("/resources/uploadFile/" + changeName);
+	                        bf.setFileSize(file.getSize());
+	                        bf.setAllowDownload("Y");
+
+	                        boardService.insertFile(bf); // 새 파일 추가
+	                    }
+	                }
+	            }
+	        }
+
+	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
+	    } else {
+	        m.addAttribute("errorMsg", "게시글 수정 실패");
+	        return "common/errorPage";
+	    }
 	}
 
-	@ResponseBody
+
 	@PostMapping("/deleteFile")
-	public String deleteFile(@RequestBody Map<String, String> fileData, HttpSession session) {
-		String fileName = fileData.get("fileName");
+	public String deleteFile(@RequestBody Map<String, String> fileData) {
+	    String fileNo = fileData.get("fileNo");
+	    BoardFile file = boardService.getSingleFile(fileNo);
 
-		if (fileName == null || fileName.contains("..") || fileName.contains("/") || fileName.contains("\\")) {
-			return "유효하지 않은 파일 이름입니다.";
-		}
+	    if (file == null) {
+	        return "파일이 존재하지 않습니다.";
+	    }
 
-		File file = new File(session.getServletContext().getRealPath("/resources/img/") + fileName);
-
-		return (file.exists() && file.delete()) ? "삭제 성공" : "파일 삭제 실패 또는 파일이 존재하지 않습니다.";
+	    // 실제 파일 삭제
+	    File targetFile = new File("파일 저장 경로/" + file.getChangeName());
+	    if (targetFile.exists() && targetFile.delete()) {
+	        boardService.deleteFile(fileNo); // 데이터베이스에서도 삭제
+	        return "삭제 성공";
+	    } else {
+	        return "파일 삭제 실패";
+	    }
 	}
+
 
 }

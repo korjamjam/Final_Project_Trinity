@@ -46,7 +46,7 @@
 				<div class="health_reservation2_content">
 					<div id="health_reservation1_content_title">3. 백신 종류</div>
 					<div class="health_reservation_normal_select">
-						<select name="vType" required>
+						<select name="vaccineType" required>
 							<option value="" disabled hidden selected>백신 종류</option>
 							<option value="독감">독감</option>
 							<option value="코로나">코로나</option>
