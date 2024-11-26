@@ -50,6 +50,7 @@ button {
 #main_search_btn{
 	border : none;
 	background-color : transparent;
+	float: right;
 }
 
 .searchBar_form {
