@@ -29,6 +29,8 @@
  		<mapper resource="mappers/reservation-mapper.xml"/>
  		<mapper resource="mappers/healthReservation-mapper.xml"/>
  		<mapper resource="mappers/vaccine-mapper.xml"/>
+        <mapper resource="mappers/doctor-mapper.xml"/>
+   
  	</mappers>
  	
  </configuration>
