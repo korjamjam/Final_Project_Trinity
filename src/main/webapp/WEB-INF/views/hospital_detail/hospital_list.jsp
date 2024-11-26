@@ -41,11 +41,14 @@
 
     <div class="hospitalList_wrapper">
         <!-- searchBar -->
+        <form action="search">
         <div class="hospitalList_searchBar">
-            <input type="text">
-            <button>병원 검색</button>
+        	
+	            <input type="text" name="keyword">
+	            <button>병원 검색</button>
+            
         </div>
-
+</form>
         <br><br>
 
         <!-- order by -->

@@ -1,7 +1,5 @@
 package com.project.trinity.member.model.vo;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

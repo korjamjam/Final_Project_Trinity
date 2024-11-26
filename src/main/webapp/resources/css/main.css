@@ -30,12 +30,14 @@ button {
 .searchBar_wrapper{
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 .searchBar {
     padding: 7px 0px 7px 0px;
     border: 1px solid #8CCF4E;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 0px 40px 0px 40px;
     border-radius: 5px;
     width: 80%;
@@ -43,6 +45,15 @@ button {
     padding-left: 10px;
     flex-direction: row;
     justify-content: space-between;
+}
+
+#main_search_btn{
+	border : none;
+	background-color : transparent;
+}
+
+.searchBar_form {
+	width:100%;
 }
 .searchBar img{
     filter: invert(71%) sepia(27%) saturate(836%) hue-rotate(48deg) brightness(100%) contrast(89%);
@@ -428,5 +439,9 @@ button {
         align-items: center;
         width: 30px;
         height: 30px;
+    }
+    
+    .searchBar_form > input{
+    	width: 90%;
     }
 }
