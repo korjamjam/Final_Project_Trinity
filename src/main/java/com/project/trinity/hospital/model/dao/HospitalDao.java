@@ -43,4 +43,8 @@ public class HospitalDao {
 		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
 	}
 
+	public ArrayList<HospitalInfo> searchHospital(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("hospitalMapper.searchHospital", keyword);
+	}
+
 }
