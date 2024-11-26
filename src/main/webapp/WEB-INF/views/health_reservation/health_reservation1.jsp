@@ -8,9 +8,6 @@
 	String userGender = "";
 	//로그인 유저 생일 정보 YYMMDD로 변환
 	if(loginUser != null){
-		userBirth = loginUser.getBirthday().substring(2,4)
-				   + loginUser.getBirthday().substring(5,7)
-				   + loginUser.getBirthday().substring(8,10);
 		userGender = "1";
 		if(loginUser.getGender() == "F"){
 			userGender = "2";
@@ -50,7 +47,7 @@
                         </div>
                     <p>주민번호</p>
                     <div class="health_reservation1_content input_id_num">
-                        <input type="text" required name="reservation_user_num1"  value="<%= loginUser != null ? userBirth : "" %>"> - 
+                        <input type="text" required name="reservation_user_num1"  value="<%= loginUser != null ? loginUser.getBirthday() : "" %>"> - 
                         <input type="password" maxlength="1" required name="reservation_user_num2" value="<%= loginUser != null ? userGender : "" %>">
                         <p>******</p>
                     </div>
