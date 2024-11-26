@@ -204,38 +204,6 @@
         B.BOARD_NO = #{boardNo}
 </select>
 
-	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
-	<select id="selectBoard" resultMap="boardResult">
-		SELECT
-		B.BOARD_NO,
-		B.BOARD_TYPE,
-		B.BOARD_TITLE,
-		B.USER_NO,
-		M.USER_ID AS BOARD_WRITER, -- 작성자의 ID
-		B.BOARD_CONTENT,
-		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-		TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
-		B.BOARD_VIEWS,
-		B.BOARD_CATEGORY,
-		B.STATUS,
-		-- 첨부파일 정보
-		F.FILE_NO,
-		F.ORIGIN_NAME,
-		F.CHANGE_NAME,
-		F.ALLOW_DOWNLOAD,
-		F.FILE_SIZE -- 마지막 쉼표 제거
-		FROM
-		BOARD B
-		JOIN
-		MEMBER M ON B.USER_NO = M.USER_NO
-		LEFT JOIN
-		FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO -- 첨부파일 조인
-		WHERE
-		B.STATUS = 'Y'
-		AND
-		B.BOARD_NO = #{bno}
-	</select>
-
 
 	<update id="updateBoard" parameterType="Board">
 		UPDATE BOARD
