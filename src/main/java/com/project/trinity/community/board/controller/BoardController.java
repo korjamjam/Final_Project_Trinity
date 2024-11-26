@@ -43,25 +43,45 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	
 
 	@RequestMapping("/main")
-	public String communityMain(@RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-			Model model) {
-		String boardCategory = "free".equals(type) ? "자유게시판"
-				: "meditalk".equals(type) ? "메디톡" : "event".equals(type) ? "이벤트" : "실시간 인기글";
+	public String communityMain(
+	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+	    Model model
+	) {
+	    String boardCategory = "free".equals(type) ? "자유게시판"
+	            : "meditalk".equals(type) ? "메디톡"
+	            : "event".equals(type) ? "이벤트"
+	            : "실시간 인기글";
 
-		model.addAttribute("boardCategory", boardCategory);
-		return "community/community_main";
+	    model.addAttribute("boardCategory", boardCategory);
+
+	    // 최근 인기 게시글 추가
+	    if ("popular".equals(type)) {
+	        int boardLimit = 20;
+	        int startRow = (currentPage - 1) * boardLimit + 1;
+	        int endRow = startRow + boardLimit - 1;
+
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("startRow", startRow);
+	        params.put("endRow", endRow);
+
+	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
+	        model.addAttribute("recentPopularList", recentPopularList);
+	        System.out.println("최근 인기 게시글: " + recentPopularList);
+	    }
+
+	    return "community/community_main";
 	}
-	
-	// 총 게시글 리스트(단 조회수)
-	@GetMapping("/main")
-	public String popularList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
-	    int listCount = boardService.selectListCount();
-	    int boardLimit = 16;
-	    int pageLimit = 5;
 
-	    PageInfo pi = Template.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+	
+	// 실시간 인기글 추가 메소드
+	@GetMapping("/popular-recent")
+	public String recentPopularList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+	    int boardLimit = 20; // 한 페이지에 게시글 20개
+
 	    int startRow = (currentPage - 1) * boardLimit + 1;
 	    int endRow = startRow + boardLimit - 1;
 
@@ -69,28 +89,57 @@ public class BoardController {
 	    params.put("startRow", startRow);
 	    params.put("endRow", endRow);
 
-	    ArrayList<Board> popularList = boardService.selectPopularList(params);
-	    model.addAttribute("popularList", popularList);
-	    model.addAttribute("pi", pi);
+	    // 서비스 호출
+	    ArrayList<Board> recentPopularList = boardService.selectRecentPopularList(params);
+	    model.addAttribute("recentPopularList", recentPopularList);
 	    
-	    System.out.println("popularList: " + popularList);
+	    System.out.println("최근 인기 게시글: " + recentPopularList);
 
-	    return "community/community_main";
+	    return "community/community_main"; // 기존 메인 페이지와 같은 뷰 사용
 	}
 
 
 
-
-	// 동적으로 커뮤니티 페이지 연결 - type 파라미터에 따라 게시판 종류를 설정
+	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/board")
-	public String getBoardPage(@RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-			Model model) {
-		String boardCategory = "popular".equals(type) ? "실시간 인기글"
-				: "free".equals(type) ? "자유게시판"
-						: "meditalk".equals(type) ? "메디톡" : "event".equals(type) ? "이벤트" : "실시간 인기글";
+	public String getBoardPage(
+	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+	    Model model) {
 
-		model.addAttribute("boardCategory", boardCategory);
-		return "community/board";
+	    // DB와 매칭되는 한글 카테고리 이름으로 변환
+	    String boardCategory = "popular".equals(type) ? "실시간 인기글"
+	            : "free".equals(type) ? "자유게시판"
+	            : "meditalk".equals(type) ? "메디톡"
+	            : "event".equals(type) ? "이벤트게시판"
+	            : "실시간 인기글";
+
+	    // 카테고리 정보 모델에 추가
+	    model.addAttribute("boardCategory", boardCategory);
+	    System.out.println("현재 카테고리: " + boardCategory);
+
+	    // 인기글(비게시글)일 경우 페이징 처리 및 게시글 조회 생략
+	    if ("popular".equals(type)) {
+	        System.out.println("실시간 인기글 요청입니다.");
+	        return "community/board";
+	    }
+
+	    // 카테고리별 게시글 수 조회
+	    int listCount = boardService.selectCountCategoryList(boardCategory);
+	    System.out.println("게시글 수: " + listCount);
+
+	    // 페이징 정보 설정
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
+
+	    // 게시글 목록 조회
+	    ArrayList<Board> boardList = boardService.selectListByCategory(boardCategory, pi);
+	    System.out.println("게시글 목록: " + boardList);
+
+	    // 모델에 데이터 추가
+	    model.addAttribute("boardList", boardList);
+	    model.addAttribute("pi", pi);
+
+	    return "community/board";
 	}
 
 	// 게시판에서 글쓰기 버튼 누를 때
@@ -112,13 +161,6 @@ public class BoardController {
 		return "community/summernote";
 	}
 
-	@RequestMapping("/list.bo")
-	public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "sortType", required = false) String sortType, Model model) {
-		PageInfo pi = Template.getPageInfo(boardService.selectListCount(), currentPage, 10, 5);
-		model.addAttribute("list", boardService.selectList(pi, sortType)).addAttribute("pi", pi);
-		return "community/board";
-	}
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
