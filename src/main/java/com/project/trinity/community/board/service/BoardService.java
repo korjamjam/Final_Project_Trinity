@@ -13,10 +13,6 @@ public interface BoardService {
 	// 게시글 총 갯수 가져오기
 	int selectListCount();
 
-<<<<<<< HEAD
-	// 게시글 목록 가져오기
-	ArrayList<Board> selectList(PageInfo pi, String sortType);
-=======
     // 게시글 목록 가져오기
     ArrayList<Board> selectList(PageInfo pi, String sortType);
     
@@ -30,7 +26,6 @@ public interface BoardService {
     ArrayList<Board> selectListByCategory(String type, PageInfo pi);
 
 
->>>>>>> 26f49db99ca975a81c5fde1a16f23e7a9be1b8c0
 
 	ArrayList<Board> selectPopularList(Map<String, Object> params);
 

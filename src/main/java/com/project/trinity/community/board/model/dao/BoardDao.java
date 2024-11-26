@@ -60,11 +60,6 @@ public class BoardDao {
         return sqlSession.selectOne("boardMapper.selectCountCategoryList", boardCategory);
     }
     
-    // 게시글 조회수 증가
-    public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
-        return sqlSession.update("boardMapper.increaseCount", bno);
-    }
-
 	public ArrayList<Board> selectPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
 		return (ArrayList) sqlSession.selectList("boardMapper.selectPopularList", params);
 	}

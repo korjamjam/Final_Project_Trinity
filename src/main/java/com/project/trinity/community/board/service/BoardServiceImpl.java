@@ -156,4 +156,10 @@ public class BoardServiceImpl implements BoardService {
 	    return boardDao.updateLikeCount(sqlSession, commentNo);
 	}
 
+	@Override
+	public ArrayList<Board> selectPopularList(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
