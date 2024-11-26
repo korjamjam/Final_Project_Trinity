@@ -34,10 +34,23 @@ public class ReservationController {
     }
     
     @RequestMapping("/gReservation")
-    public String gReservation(String userNo, String hosNo,String gReservation_date, String resTime, String subject, String content) {
+    public String gReservation(String userNo, String hosNo,String gReservation_date, 
+    						   String resTime, String subject, String content, 
+    						   String userName, String birthday, String phone, 
+    						   String email, String gender) {
     	String resDate = gReservation_date;
-    	int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
-    	System.out.println("Controller end");
+    	if(userNo != null) {
+    		int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
+    	} else {
+    		int result = rService.insertgGuest(userName, birthday, phone, email, gender);
+    		if(result != 0) {	//성공
+    			System.out.println("게스트 입력 성공");
+    			//여기부터 작성하면됨
+    			//게스트를 일반 예약 테이블에 삽입하는 과정
+    		} else {	//실패
+    			System.out.println("게스트 입력 실패");
+    		}
+    	}
     	return "/main";
     }
     
