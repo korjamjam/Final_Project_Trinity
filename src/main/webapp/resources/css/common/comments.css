@@ -9,19 +9,11 @@
     color: #333;
 }
 
-.comment-header h3 {
-    margin: 0;
-    /* 여백 제거 */
-    font-size: 20px;
-    font-weight: bold;
-    color: #555;
-    /* 부드러운 색상 */
+.comment-section-wrapper {
+    padding: 0 20px;
+    /* 좌우 여백 추가 */
 }
 
-/* 댓글 섹션 스타일 */
-.comment-section-wrapper {
-    padding: 10px;
-}
 
 /* 댓글 섹션이 숨겨졌을 때 스타일 */
 .comment-section-wrapper.hidden {
@@ -39,12 +31,7 @@
     margin-left: 10px;
 }
 
-.comment-section-wrapper {
-    padding: 0 20px;
-    /* 좌우 여백 추가 */
-}
-
-.comment-section {
+.comment-table {
     width: 100%;
     /* 테이블 전체 너비 */
     table-layout: fixed;
@@ -53,39 +40,39 @@
     /* 테두리 결합 */
 }
 
-.comment-section th {
+.comment-table th {
     border-bottom: 1px solid #ddd;
     /* 첫 번째 행의 밑에만 두꺼운 테두리 */
 }
 
-.comment-section th,
-.comment-section td {
+.comment-table th,
+.comment-table td {
     padding: 10px;
     text-align: center;
     font-size: 14px;
 }
 
-.comment-section th:first-child,
-.comment-section td:first-child {
+.comment-table th:first-child,
+.comment-table td:first-child {
     width: 10%;
     /* 작성자 열 너비 고정 */
 }
 
-.comment-section td:nth-child(2) {
+.comment-table td:nth-child(2) {
     text-align: left;
     /* 두 번째 열의 텍스트를 왼쪽 정렬 */
 }
 
 /* 세 번째 열의 너비를 고정 */
-.comment-section th:nth-child(3),
-.comment-section td:nth-child(3) {
+.comment-table th:nth-child(3),
+.comment-table td:nth-child(3) {
     width: 20%;
     /* 너비 조정 */
 }
 
 /* 네 번째 열의 너비를 고정 */
-.comment-section th:nth-child(4),
-.comment-section td:nth-child(4) {
+.comment-table th:nth-child(4),
+.comment-table td:nth-child(4) {
     width: 15%; /* 기존 설정 유지 */
     text-align: center; /* 수평 중앙 정렬 */
     vertical-align: middle; /* 수직 중앙 정렬 */
@@ -107,9 +94,6 @@
     font-size: 14px;
 }
 
-.comment-user-info .user-icon {
-    margin-left: 5px;
-}
 
 #comment-form textarea {
     width: 100%;
@@ -121,3 +105,5 @@
     margin-top: 5px;
     font-size: 14px;
 }
+
+

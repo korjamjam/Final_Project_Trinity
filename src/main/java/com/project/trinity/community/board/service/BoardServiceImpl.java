@@ -31,15 +31,21 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectListCount(sqlSession);
 	}
 
+	// 조회수 증가
+	@Override
+	public int increaseCount(String bno) {
+		return boardDao.increaseCount(sqlSession, bno);
+	}
+
 	// 게시글 목록 조회
 	@Override
 	public ArrayList<Board> selectList(PageInfo pi, String sortType) {
 		return boardDao.selectList(sqlSession, pi, sortType);
 	}
-	
+
 	@Override
 	public ArrayList<Board> selectPopularList(Map<String, Object> params) {
-	    return boardDao.selectPopularList(sqlSession, params);
+		return boardDao.selectPopularList(sqlSession, params);
 	}
 
 	// 게시글 상세 조회
@@ -63,8 +69,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardFile getSingleFile(String fileNo) {
-	    // DAO를 통해 단일 파일 정보 가져오기
-	    return boardDao.getSingleFile(sqlSession, fileNo);
+		// DAO를 통해 단일 파일 정보 가져오기
+		return boardDao.getSingleFile(sqlSession, fileNo);
 	}
 
 	// 특정 게시글의 모든 첨부파일 목록 조회
@@ -72,55 +78,6 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<BoardFile> getFilesList(String bno) {
 		return boardDao.getFilesList(sqlSession, bno);
 	}
-
-	// 다운로드 허용 여부 업데이트 
-	public int updateAllowDownload(SqlSessionTemplate sqlSession, String fileNo, String allowDownload) {
-	    BoardFile bf = new BoardFile();
-	    bf.setFileNo(fileNo); // 파일 번호 설정
-	    bf.setAllowDownload(allowDownload); // BoardFile 객체의 allowDownload 설정
-	    return sqlSession.update("boardMapper.updateAllowDownload", bf);
-	}
-	// 특정 게시글의 다운로드 허용 여부 조회
-	public String selectAllowDownload(SqlSessionTemplate sqlSession, String bno) {
-		return sqlSession.selectOne("boardMapper.selectAllowDownload", bno);
-	}
-
-	// 게시글 수정
-	@Override
-	public int updateBoard(Board b) {
-		return boardDao.updateBoard(sqlSession, b);
-	}
-
-	// 댓글 조회
-	@Override
-	public ArrayList<Reply> selectReply(String bno) {
-		return boardDao.selectReply(sqlSession, bno);
-	}
-
-	// 댓글 작성
-	@Override
-	public int insertReply(Reply r) {
-		return boardDao.insertReply(sqlSession, r);
-	}
-
-	// 상위 인기 게시글 조회
-	@Override
-	public ArrayList<Board> selectTopBoardList() {
-		return boardDao.selectTopBoardList(sqlSession);
-	}
-
-	// 조회수 증가
-	@Override
-	public int increaseCount(String bno) {
-		return boardDao.increaseCount(sqlSession, bno);
-	}
-
-	// 게시글 삭제
-	@Override
-	public int deleteBoard(String bno) {
-		return boardDao.deleteBoard(sqlSession, bno);
-	}
-
 
 	// 특정 파일 삭제
 	@Override
@@ -136,8 +93,56 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updateFileAllowDownload(BoardFile bf) {
-	    return boardDao.updateFileAllowDownload(sqlSession, bf);
+		return boardDao.updateFileAllowDownload(sqlSession, bf);
 	}
 
+	// 다운로드 허용 여부 업데이트
+	public int updateAllowDownload(SqlSessionTemplate sqlSession, String fileNo, String allowDownload) {
+		BoardFile bf = new BoardFile();
+		bf.setFileNo(fileNo); // 파일 번호 설정
+		bf.setAllowDownload(allowDownload); // BoardFile 객체의 allowDownload 설정
+		return sqlSession.update("boardMapper.updateAllowDownload", bf);
+	}
+
+	// 특정 게시글의 다운로드 허용 여부 조회
+	public String selectAllowDownload(SqlSessionTemplate sqlSession, String bno) {
+		return sqlSession.selectOne("boardMapper.selectAllowDownload", bno);
+	}
+
+	// 게시글 수정
+	@Override
+	public int updateBoard(Board b) {
+		return boardDao.updateBoard(sqlSession, b);
+	}
+
+	// 게시글 삭제
+	@Override
+	public int deleteBoard(String bno) {
+		return boardDao.deleteBoard(sqlSession, bno);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReply(String bno) {
+		return boardDao.selectReply(sqlSession, bno);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return boardDao.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Board> selectTopBoardList() {
+		return boardDao.selectTopBoardList(sqlSession);
+	}
+	@Override
+	public int deleteReply(String replyNo) {
+	    return boardDao.deleteReply(sqlSession, replyNo);
+	}
+
+	@Override
+	public int updateLikeCount(String commentNo) {
+	    return boardDao.updateLikeCount(sqlSession, commentNo);
+	}
 
 }

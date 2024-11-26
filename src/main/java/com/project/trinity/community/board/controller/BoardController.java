@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.Reply;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.template.Template;
 import com.project.trinity.community.common.vo.PageInfo;
@@ -355,6 +356,68 @@ public class BoardController {
 	    } else {
 	        return "파일 삭제 실패";
 	    }
+	}
+	
+	//댓글을 DB에 저장
+	@ResponseBody
+	@RequestMapping("rinsert.bo")
+	public String ajaxInsertReply(Reply r) {
+		 
+		 System.out.println("댓글 데이터: " + r); // 전달받은 댓글 데이터 확인
+		//성공했을 때 success, 실패했을 때 fail
+		return boardService.insertReply(r) > 0 ? "success" : "fail";
+	}
+	
+	
+	//특정 게시물의 댓글목록을 json형식으로 반환
+	@ResponseBody
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(String bno) {
+		  System.out.println("댓글 목록 요청 - 게시글 번호: " + bno);
+	
+		  try {
+		        ArrayList<Reply> list = boardService.selectReply(bno);
+		        System.out.println("댓글 목록: " + list);
+		        return new Gson().toJson(list);
+		    } catch (Exception e) {
+		        System.err.println("댓글 목록 조회 중 오류 발생: " + e.getMessage());
+		        e.printStackTrace();
+		        return null;
+		    }
+	}
+	@PostMapping("updateLike.bo")
+	@ResponseBody
+	public String updateLikeCount(@RequestParam("commentNo") String commentNo) {
+	    try {
+	        // 좋아요 카운트를 증가시키는 서비스 호출
+	        int result = boardService.updateLikeCount(commentNo);
+
+	        if (result > 0) {
+	            return "success";
+	        } else {
+	            return "fail";
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error";
+	    }
+	}
+
+
+	
+	
+	@ResponseBody
+	@RequestMapping(value="topList.bo", produces="application/json; charset-UTF-8")
+	public String ajaxTopBoardList() {
+		return new Gson().toJson(boardService.selectTopBoardList());
+	}
+	
+	@ResponseBody
+	@RequestMapping("rdelete.bo")
+	public String deleteReply(String replyNo) {
+	    int result = boardService.deleteReply(replyNo);
+
+	    return result > 0 ? "success" : "fail";
 	}
 
 
