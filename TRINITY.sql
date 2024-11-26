@@ -415,7 +415,7 @@ DECLARE
         SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
     v_user_no MEMBER.USER_NO%TYPE;
 BEGIN
-    FOR i IN 1..50 LOOP
+    FOR i IN 1..100 LOOP
         -- 랜덤한 USER_NO 가져오기
         SELECT USER_NO INTO v_user_no
         FROM (
@@ -445,9 +445,9 @@ BEGIN
             SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
             TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
             CASE MOD(i, 3) 
-                WHEN 0 THEN '자유' 
+                WHEN 0 THEN '자유게시판' 
                 WHEN 1 THEN '메디톡' 
-                ELSE '이벤트' 
+                ELSE '이벤트게시판' 
             END,                                 -- BOARD_CATEGORY
             'Y'                                  -- STATUS (항상 Y)
         );

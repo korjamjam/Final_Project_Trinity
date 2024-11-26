@@ -37,9 +37,20 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectList(sqlSession, pi, sortType);
 	}
 	
+	//7일이내에 인기글 목록 조회
 	@Override
-	public ArrayList<Board> selectPopularList(Map<String, Object> params) {
-	    return boardDao.selectPopularList(sqlSession, params);
+	public ArrayList<Board> selectRecentPopularList(Map<String, Object> params) {
+	    return boardDao.selectRecentPopularList(sqlSession, params);
+	}
+	
+	@Override
+	public int selectCountCategoryList(String type) {
+	    return boardDao.selectCountCategoryList(sqlSession, type);
+	}
+
+	@Override
+	public ArrayList<Board> selectListByCategory(String type, PageInfo pi) {
+	    return boardDao.selectListByCategory(sqlSession, type, pi);
 	}
 
 	// 게시글 상세 조회

@@ -16,7 +16,16 @@ public interface BoardService {
     // 게시글 목록 가져오기
     ArrayList<Board> selectList(PageInfo pi, String sortType);
     
-    ArrayList<Board> selectPopularList(Map<String, Object> params);
+    // 최근 7일 내 인기 게시글 조회
+    ArrayList<Board> selectRecentPopularList(Map<String, Object> params);
+    
+    // 카테고리별 게시글 수 조회 메서드
+    int selectCountCategoryList(String type);
+
+    // 카테고리별 게시글 목록 조회 메서드 (기존 유지)
+    ArrayList<Board> selectListByCategory(String type, PageInfo pi);
+
+
 
     // 게시글 조회수 증가
     int increaseCount(String bno);

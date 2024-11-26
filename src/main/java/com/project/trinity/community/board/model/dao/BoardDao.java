@@ -29,8 +29,35 @@ public class BoardDao {
     }
     
     
-    public ArrayList<Board> selectPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
-        return (ArrayList) sqlSession.selectList("boardMapper.selectPopularList", params);
+    // 최근 7일 내 인기 게시글 조회
+    public ArrayList<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return (ArrayList) sqlSession.selectList("boardMapper.selectRecentPopularList", params);
+    }
+    
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String boardCategory, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        int limit = pi.getBoardLimit();
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("boardCategory", boardCategory);
+        params.put("startRow", offset + 1);
+        params.put("endRow", offset + limit);
+        
+        ArrayList<Board> result = (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
+
+        // 디버깅 출력
+        System.out.println("쿼리 결과:");
+        for (Board board : result) {
+            System.out.println("Board: " + board);
+        }
+
+        return result;
+    }
+
+
+
+    public int selectCountCategoryList(SqlSessionTemplate sqlSession, String boardCategory) {
+        return sqlSession.selectOne("boardMapper.selectCountCategoryList", boardCategory);
     }
     
     // 게시글 조회수 증가

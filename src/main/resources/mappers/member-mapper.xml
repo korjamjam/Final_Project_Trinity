@@ -58,12 +58,12 @@
 
 	<!-- userId로 회원 정보 조회 -->
 	<select id="findByUserId" parameterType="string"
-		resultType="com.project.trinity.member.model.vo.Member">
+		resultType="member">
 		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
 	</select>
 
-	<insert id="insertMember"
-		parameterType="com.project.trinity.member.model.vo.Member">
+
+	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER (USER_ID, USER_PWD, USER_NAME, EMAIL,
 		PHONE, BIRTHDAY, ADDRESS, GENDER)
 		VALUES (
@@ -72,12 +72,12 @@
 		#{userName},
 		#{email},
 		#{phone},
-		TO_CHAR(TO_DATE(#{birthday},
-		'YYYY-MM-DD'), 'YYMMDD'),
+		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
 		#{address},
 		#{gender}
 		)
 	</insert>
+
 
 
 	<!-- 관리자 회원 목록 조회 -->
@@ -100,7 +100,7 @@
 
 	<!-- 회원 정보 업데이트 -->
 	<update id="updateMember"
-		parameterType="com.project.trinity.member.model.vo.Member">
+		parameterType="member">
 		UPDATE MEMBER
 		SET USER_NAME = #{userName},
 		BIRTHDAY =
@@ -150,7 +150,7 @@
 	</update>
 
 
-	
+
 
 
 
