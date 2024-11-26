@@ -18,4 +18,6 @@ public interface HospitalService {
 	HospitalInfo selectHospitalOne(String hosNo);
 
 	ArrayList<HospitalInfo> searchHospital(String keyword);
+
+	ArrayList<HospitalInfo> openHospitalList();
 }
