@@ -331,6 +331,100 @@ public class MemberController {
 
 	    return ResponseEntity.ok(response);
 	}
+	
+	@PostMapping("/reset_pwd_confirm")
+	public String resetPasswordConfirm(
+	        @RequestParam("newPassword") String newPassword,
+	        @RequestParam("confirmPassword") String confirmPassword,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+
+	    System.out.println("[DEBUG] resetPasswordConfirm 호출됨");
+
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        System.out.println("[DEBUG] 로그인 사용자 없음");
+	        redirectAttributes.addFlashAttribute("message", "로그인 상태에서만 비밀번호를 변경할 수 있습니다.");
+	        return "redirect:/member/login";
+	    }
+
+	    System.out.println("[DEBUG] 로그인 사용자: " + loginUser.getUserId());
+
+	    if (!newPassword.equals(confirmPassword)) {
+	        System.out.println("[DEBUG] 비밀번호가 일치하지 않음");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/member/reset_pwd";
+	    }
+
+	    if (!isValidPassword(newPassword)) {
+	        System.out.println("[DEBUG] 비밀번호 유효성 검사 실패");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
+	        return "redirect:/member/reset_pwd";
+	    }
+
+	    String encryptedPassword = bcryptPasswordEncoder.encode(newPassword);
+	    System.out.println("[DEBUG] 암호화된 비밀번호: " + encryptedPassword);
+
+	    loginUser.setUserPwd(encryptedPassword);
+	    int result = memberService.updateMember(loginUser);
+
+	    System.out.println("[DEBUG] DB 업데이트 결과: " + result);
+
+	    if (result > 0) {
+	        System.out.println("[DEBUG] 비밀번호 변경 성공");
+	        session.setAttribute("loginUser", loginUser);
+	        redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+	        return "redirect:/member/profile_edit";
+	    } else {
+	        System.out.println("[DEBUG] 비밀번호 변경 실패");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/reset_pwd";
+	    }
+	}
+
+
+
+	// 비밀번호 유효성 검사 메서드 (예시)
+	private boolean isValidPassword(String password) {
+	    return password.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,16}$");
+	}
+	
+	@PostMapping("/withdraw")
+	public String withdrawMember(
+	        @RequestParam("password") String password,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+
+	    if (loginUser == null) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
+	        return "redirect:/member/login";
+	    }
+
+	    // 비밀번호 검증
+	    if (!bcryptPasswordEncoder.matches(password, loginUser.getUserPwd())) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 틀렸습니다. 다시 시도해주세요.");
+	        return "redirect:/member/profile_edit";
+	    }
+
+	    // 회원탈퇴 처리
+	    int result = memberService.deleteMember(loginUser.getUserId());
+	    if (result > 0) {
+	        session.invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/main";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "회원탈퇴에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/profile_edit";
+	    }
+	}
+
+
+
+
+
+
 
 
 
