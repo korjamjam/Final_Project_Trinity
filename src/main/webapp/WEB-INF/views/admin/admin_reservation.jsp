@@ -26,7 +26,7 @@
         </div>
 
         <div class="reservation-list">
-            <a href="#" class="reservation-item">
+            <a href="reservationDetail" class="reservation-item">
                 <p>
                     <span>홍길동</span> 
                     <span>User01</span> 

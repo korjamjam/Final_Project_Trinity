@@ -107,7 +107,31 @@
 .status.active {
     color: green;
 }
+.button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
+    .button-container a,
+    .button-container select {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .button-container a:hover {
+        background-color: #f0f0f0;
+    }
+
+    .button-container select {
+        cursor: pointer;
+    }
 
 
 /* 큰 화면 (800px 이상) */

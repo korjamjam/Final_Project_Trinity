@@ -28,7 +28,7 @@
         </div>
 
         <div class="hospital-list">
-            <a href="#" class="hospital-item">
+            <a href="hospitalDetail" class="hospital-item">
                 <p>
                     <span>밝은소아과</span> 
                     <span>hos01</span> 
