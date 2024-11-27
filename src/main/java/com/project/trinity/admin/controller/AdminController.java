@@ -37,6 +37,20 @@ public class AdminController {
         return "admin/admin_member_detail";
     }
     
+ // 회원관리 페이지
+    @RequestMapping("/rankup")
+    public String showAdminRankUp(Model model) {
+        List<Member> memberList = adminService.getAllMembers(); // 모든 회원 목록 가져오기
+        model.addAttribute("memberList", memberList); // JSP로 전달
+        return "admin/admin_rankup";
+    }
+    
+    //회원관리 상세페이지
+    @RequestMapping("/rankupDetail")
+    public String showAdminRankUpDetail() {
+        return "admin/admin_rankup_detail";
+    }
+    
     //병원관리 페이지
     @RequestMapping("/hospital")
     public String showAdminHospital() {

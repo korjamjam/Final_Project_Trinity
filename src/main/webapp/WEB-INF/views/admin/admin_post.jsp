@@ -32,7 +32,7 @@
         </div>
 
         <div class="post-list">
-            <a href="#" class="post-item">
+            <a href="postDetail" class="post-item">
                 <p>
                     <span>홍길동</span> 
                     <span>User01</span> 

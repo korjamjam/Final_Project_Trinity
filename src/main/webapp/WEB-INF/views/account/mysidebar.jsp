@@ -19,12 +19,6 @@
 	<div class="profile-sidemenu">
 		<table class="menu-table">
 
-			<tr>
-				<th><a
-					href="${pageContext.request.contextPath}/member/repair_email"
-					id="recoveryEmail">복구 이메일 추가</a></th>
-
-			</tr>
 
 			<tr>
 				<th><a
@@ -50,6 +44,8 @@
 					id="reset_pwd">비밀번호 변경</a></th>
 
 			</tr>
+			
+
 		</table>
 		<div class="support-box">
 			<p class="support-text">도움이 필요하신가요?</p>

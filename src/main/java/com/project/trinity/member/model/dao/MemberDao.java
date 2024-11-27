@@ -3,6 +3,7 @@ package com.project.trinity.member.model.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -105,6 +106,9 @@ public class MemberDao {
 	public int updateTemporaryPassword(SqlSessionTemplate sqlSession, Map<String, Object> params) {
 	    return sqlSession.update("memberMapper.updateTemporaryPassword", params);
 	}
-
+	
+	 public int updatePassword(SqlSession sqlSession, Map<String, String> params) {
+	        return sqlSession.update("memberMapper.updatePassword", params);
+	    }
 
 }

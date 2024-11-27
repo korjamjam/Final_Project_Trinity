@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인정보 수정</title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/profile_edit.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/account/profile_edit.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,9 +13,14 @@
     <%@ include file="../common/main_header.jsp"%>
 
     <!-- Flash 메시지가 있을 경우 alert 표시 -->
-    <c:if test="${not empty message}">
+    <c:if test="${not empty errorMessage}">
         <script>
-            alert("${message}");
+            alert("${errorMessage}");
+        </script>
+    </c:if>
+    <c:if test="${not empty successMessage}">
+        <script>
+            alert("${successMessage}");
         </script>
     </c:if>
 
@@ -68,55 +73,84 @@
                 <button type="button" id="edit-save-button" class="edit-button" onclick="toggleEditSave()">수정 활성화</button>
             </form>
 
-            <!-- 비밀번호 변경 버튼 -->
-            <button type="button" class="password-change" onclick="location.href='${pageContext.request.contextPath}/member/search_pwd'">비밀번호 변경하기</button>
+            <!-- 회원탈퇴 버튼 -->
+            <button type="button" class="password-change" onclick="confirmWithdrawal()">회원탈퇴</button>
         </main>
     </div>
 
     <!-- Footer -->
     <%@ include file="../common/main_footer.jsp"%>
 
-    <body>
-        <!-- Your HTML content -->
+    <script>
+        // 이미지 미리보기
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const preview = document.getElementById('profile-preview');
+                preview.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-        <!-- Script -->
-        <script>
-            // 이미지 미리보기
-            function previewImage(event) {
-                const reader = new FileReader();
-                reader.onload = function () {
-                    const preview = document.getElementById('profile-preview');
-                    preview.src = reader.result;
-                };
-                reader.readAsDataURL(event.target.files[0]);
+        let isEditing = false; // 수정 상태 변수
+
+        function toggleEditSave() {
+            const button = document.getElementById('edit-save-button');
+            const form = document.getElementById('profile-form');
+            const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
+
+            if (!isEditing) {
+                // 수정 활성화
+                editableFields.forEach(input => {
+                    input.disabled = false; // 필드 활성화
+                    input.style.backgroundColor = '#fff'; // 수정 가능 상태 표시
+                });
+                button.textContent = "저장하기";
+            } else {
+                // 저장하기: disabled 속성 제거 후 제출
+                editableFields.forEach(input => {
+                    input.disabled = false; // 반드시 제거
+                });
+                form.submit(); // 폼 제출
             }
 
-            let isEditing = false; // 수정 상태 변수
+            isEditing = !isEditing;
+        }
 
-            function toggleEditSave() {
-                const button = document.getElementById('edit-save-button');
-                const form = document.getElementById('profile-form');
-                const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
+        // 회원탈퇴 확인 및 비밀번호 입력
+        function confirmWithdrawal() {
+            // 비밀번호를 입력받는 prompt 창
+            const password = prompt("정말로 탈퇴하시겠습니까?\n비밀번호를 입력해주세요.");
+            if (password) {
+                // 동적으로 폼 생성
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '${pageContext.request.contextPath}/member/withdraw';
 
-                if (!isEditing) {
-                    // 수정 활성화
-                    editableFields.forEach(input => {
-                        input.disabled = false; // 필드 활성화
-                        input.style.backgroundColor = '#fff'; // 수정 가능 상태 표시
-                    });
-                    button.textContent = "저장하기";
-                } else {
-                    // 저장하기: disabled 속성 제거 후 제출
-                    editableFields.forEach(input => {
-                        input.disabled = false; // 반드시 제거
-                    });
-                    form.submit(); // 폼 제출
-                }
+                // 비밀번호 필드 추가
+                const passwordInput = document.createElement('input');
+                passwordInput.type = 'hidden';
+                passwordInput.name = 'password';
+                passwordInput.value = password;
 
-                isEditing = !isEditing;
+                // CSRF 토큰 추가 (Spring Security 사용 시)
+                const csrfToken = '${_csrf.token}';
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '${_csrf.parameterName}';
+                csrfInput.value = csrfToken;
+
+                // 폼에 필드 추가
+                form.appendChild(passwordInput);
+                form.appendChild(csrfInput);
+
+                // 폼을 문서에 추가한 뒤 전송
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                alert("탈퇴가 취소되었습니다.");
             }
-        </script>
-    </body>
-
+        }
+    </script>
 </body>
 </html>
