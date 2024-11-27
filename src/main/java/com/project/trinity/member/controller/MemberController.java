@@ -285,44 +285,53 @@ public class MemberController {
 		}
 	}
 		
-	 @PostMapping("/reset_pwd_email")
-	    public ResponseEntity<Map<String, Object>> resetPasswordByEmail(
-	            @RequestParam("id") String userId,
-	            @RequestParam("name") String userName,
-	            @RequestParam("email") String email) {
+	@PostMapping("/reset_pwd_email")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> resetPasswordByEmail(
+	        @RequestParam("id") String userId,
+	        @RequestParam("name") String userName,
+	        @RequestParam("email") String email,
+	        @RequestParam("domain") String domain) {
 
-	        Map<String, Object> response = new HashMap<>();
-	        Member member = memberService.findMemberForResetPassword(userId, userName, email);
+	    Map<String, Object> response = new HashMap<>();
+	    String fullEmail = email + "@" + domain;
+
+	    try {
+	        // 사용자를 데이터베이스에서 조회
+	        Member member = memberService.findMemberForResetPassword(userId, userName, fullEmail);
 
 	        if (member != null) {
+	            // 임시 비밀번호 생성 및 암호화
 	            String tempPassword = UUID.randomUUID().toString().substring(0, 8);
 	            String encryptedPassword = bcryptPasswordEncoder.encode(tempPassword);
 
+	            // 데이터베이스에 임시 비밀번호 저장
 	            int updateResult = memberService.updateTemporaryPassword(userId, encryptedPassword);
 
 	            if (updateResult > 0) {
-	                try {
-	                    String subject = "임시 비밀번호 발급";
-	                    String content = "임시 비밀번호는 " + tempPassword + " 입니다. 로그인 후 비밀번호를 변경해주세요.";
-	                    emailService.sendEmail(email, subject, content);
+	                // 이메일 발송
+	                String subject = "임시 비밀번호 발급";
+	                String content = "안녕하세요, " + userName + "님. 임시 비밀번호는 " + tempPassword + " 입니다. 로그인 후 반드시 비밀번호를 변경해주세요.";
+	                emailService.sendEmail(fullEmail, subject, content);
 
-	                    response.put("status", "success");
-	                    response.put("message", "임시 비밀번호가 이메일로 발송되었습니다.");
-	                } catch (Exception e) {
-	                    response.put("status", "fail");
-	                    response.put("message", "이메일 발송 중 오류가 발생했습니다.");
-	                }
+	                response.put("status", "success");
+	                response.put("message", "임시 비밀번호가 이메일로 발송되었습니다.");
 	            } else {
 	                response.put("status", "fail");
-	                response.put("message", "임시 비밀번호 업데이트 중 오류가 발생했습니다.");
+	                response.put("message", "임시 비밀번호 저장 중 오류가 발생했습니다.");
 	            }
 	        } else {
 	            response.put("status", "fail");
 	            response.put("message", "입력 정보와 일치하는 사용자가 없습니다.");
 	        }
-
-	        return ResponseEntity.ok(response);
+	    } catch (Exception e) {
+	        response.put("status", "error");
+	        response.put("message", "서버 처리 중 오류가 발생했습니다.");
 	    }
+
+	    return ResponseEntity.ok(response);
+	}
+
 
 
 	

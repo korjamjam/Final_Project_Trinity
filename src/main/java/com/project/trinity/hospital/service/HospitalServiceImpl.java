@@ -54,5 +54,19 @@ public class HospitalServiceImpl implements HospitalService{
 		return hpDao.searchHospital(sqlSession, keyword);
 	}
 
+	@Override
+	public ArrayList<HospitalInfo> selectOpenHospitalList() {
+		return hpDao.selectOpenHospitalList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<HospitalInfo> selectOpenHospitalListPaginated(String subject, String order, int page, int limit) {
+		int offset = (page - 1) * limit;
+        System.out.println("Service page : " + page);
+        System.out.println("Service offset : " + offset);
+        System.out.println();
+        return hpDao.selectOpenHospitalListPaginated(sqlSession, subject, order, offset, limit);
+	}
+
 	
 }

@@ -18,4 +18,9 @@ public interface HospitalService {
 	HospitalInfo selectHospitalOne(String hosNo);
 
 	ArrayList<HospitalInfo> searchHospital(String keyword);
+
+	ArrayList<HospitalInfo> selectOpenHospitalList();
+
+	ArrayList<HospitalInfo> selectOpenHospitalListPaginated(String subject, String order, int page, int limit);
+
 }

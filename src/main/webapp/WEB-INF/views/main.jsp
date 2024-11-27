@@ -78,7 +78,8 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href="hospital_list"> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
+				<a href="${pageContext.request.contextPath}/hospital/list/openHos"> 
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
 					alt="openHospital">
 					<p>열린 병원</p>
 				</a>
