@@ -64,7 +64,8 @@
 
 
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER (USER_ID, USER_PWD, USER_NAME, EMAIL,
+		INSERT INTO MEMBER
+		(USER_ID, USER_PWD, USER_NAME, EMAIL,
 		PHONE, BIRTHDAY, ADDRESS, GENDER)
 		VALUES (
 		#{userId},
@@ -99,17 +100,18 @@
 	</select>
 
 	<!-- 회원 정보 업데이트 -->
-	<update id="updateMember"
-		parameterType="member">
+	<update id="updateMember" parameterType="member">
 		UPDATE MEMBER
-		SET USER_NAME = #{userName},
+		SET
+		USER_NAME = #{userName},
 		BIRTHDAY =
 		#{birthday},
 		EMAIL = #{email},
 		ADDRESS = #{address},
 		USERPROFILE =
 		#{userProfile}
-		WHERE USER_ID = #{userId}
+		WHERE USER_ID =
+		#{userId}
 	</update>
 
 	<!-- 이메일로 아이디 찾기 -->
@@ -130,24 +132,22 @@
 		PHONE = #{phone}
 	</select>
 
-	<!-- 이메일로 사용자 확인 -->
 	<select id="findMemberForResetPassword" parameterType="map"
-		resultMap="memberResultSet">
+		resultType="com.project.trinity.member.model.vo.Member">
 		SELECT *
 		FROM MEMBER
 		WHERE USER_ID = #{userId}
-		AND USER_NAME =
-		#{userName}
+		AND USER_NAME = #{userName}
 		AND EMAIL = #{email}
-		AND STATUS = 'Y'
 	</select>
 
-	<!-- 임시 비밀번호 업데이트 -->
+
 	<update id="updateTemporaryPassword" parameterType="map">
 		UPDATE MEMBER
 		SET USER_PWD = #{encryptedPassword}
 		WHERE USER_ID = #{userId}
 	</update>
+
 
 
 
