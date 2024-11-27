@@ -11,6 +11,7 @@ $(function () {
     getReplyList(sendData, function (replyList) {
         console.log("댓글 목록 요청 데이터:", data); // 요청 데이터 출력
         console.log("갱신된 댓글 목록:", replyList);
+
         if (!Array.isArray(replyList)) {
             console.error("replyList가 배열이 아닙니다. 서버 응답을 확인하세요.");
             return;
@@ -32,19 +33,27 @@ $(function () {
 
 function drawReplyList(tBody, replyList) {
     console.log("tBody 값:", tBody); // tBody의 현재 값 출력
-    console.log("replyList:", replyList);
+    console.log("replyList:", replyList); // 서버에서 받은 댓글 목록 확인
+
+    // replyList가 배열인지 확인
+    if (!Array.isArray(replyList)) {
+        console.error("replyList가 배열이 아닙니다:", replyList);
+        return;
+    }
+
     if (!tBody || !(tBody instanceof HTMLElement)) {
         console.error("drawReplyList: 유효하지 않은 tbody 요소입니다.");
         return;
     }
 
-    $(tBody).empty(); // 기존 댓글 목록 초기화
+    // 기존 댓글 목록 초기화
+    $(tBody).empty();
 
-    replyList.forEach(reply => {
-        console.log("댓글 데이터:", reply); // 각 댓글 데이터 확인
+    // 댓글 목록 렌더링
+    replyList.forEach((reply, index) => {
+        console.log(`댓글 데이터 [${index}]:`, reply); // 각 댓글 데이터 확인
 
-        // 댓글 row 생성
-        const replyRow = document.createElement("tr");
+
 
         // 댓글 데이터 필드 확인 및 기본값 설정
         const replyWriter = reply.replyWriter || "알 수 없음";
@@ -53,12 +62,19 @@ function drawReplyList(tBody, replyList) {
         const likeCount = reply.likeCount || 0;
         const replyId = reply.replyNo || `temp_${Math.random().toString(36).substr(2, 9)}`; // replyNo가 없을 경우 기본값
 
+        // 댓글 row 생성
+        const replyRow = document.createElement("tr");
+
+        // `data-comment-no` 속성 설정
+        replyRow.setAttribute("data-comment-no", replyId);
+
+        // 댓글 내용을 설정
         replyRow.innerHTML = `
             <td>${replyWriter}</td>
             <td>${replyContent}</td>
             <td>${createDate}</td>
             <td>
-                <button class="like-button" onclick="incrementLike(this)">
+                <button class="like-button" onclick="toggleLike(this)">
                     👍 <span>${likeCount}</span>
                 </button>
             </td>
@@ -77,6 +93,7 @@ function drawReplyList(tBody, replyList) {
         };
     });
 }
+
 
 
 
@@ -100,7 +117,7 @@ function getReplyList(data, callback) {
 }
 
 function addReply() {
-    
+
     const boardNo = $("#bno").val(); // bno 값을 숨겨진 input에서 가져옴
     const userId = $("#loginUserId").val(); // userId 값을 숨겨진 input에서 가져옴
     const userNo = $("#loginUserNo").val(); // 사용자 번호
@@ -118,14 +135,14 @@ function addReply() {
             replyWriter: userId,
             replyContent: content
         },
-       
+
         function (res) {
             if (res === "success") {
                 $("#content").val(""); // 댓글 입력창 초기화
 
                 getReplyList({ bno: boardNo }, function (replyList) {
                     setReplyCount(replyList.length);
-                    drawReplyList (document.querySelector("#commentList"), replyList);
+                    drawReplyList(document.querySelector("#commentList"), replyList);
                 });
             }
         }
@@ -134,7 +151,7 @@ function addReply() {
 
 function addReplyAjax(data, callback) {
     console.log("서버로 전송할 데이터:", data); // 요청 데이터 확인
-    $.ajax({
+    $.ajax({// 페이지 로드 시 사용자 정보를 설정
         url: "rinsert.bo",
         type: "POST",
         data: data,
@@ -147,14 +164,24 @@ function addReplyAjax(data, callback) {
     });
 }
 function toggleLike(button) {
+    console.log("toggleLike 실행됨"); // 함수 호출 여부 확인
     const commentNo = button.closest("tr").getAttribute("data-comment-no");
-
+    console.log(commentNo);
+    // CURRENT_USER_NO 초기화 및 확인
+    const CURRENT_USER_NO = $("#loginUserNo").val();
+    if (!CURRENT_USER_NO) {
+        console.error("로그인 사용자 정보가 없습니다. 로그인 후 이용해주세요.");
+    } else {
+        console.log("CURRENT_USER_NO:", CURRENT_USER_NO);
+    }
     if (commentNo) {
+
         $.ajax({
             url: "toggleLike.bo",
             type: "POST",
             data: { commentNo, userNo: CURRENT_USER_NO },
             success: function (response) {
+
                 console.log("서버 응답:", response); // 서버 응답 확인
                 if (response.success) {
                     const likeCount = button.querySelector("span");
@@ -176,27 +203,7 @@ function toggleLike(button) {
         });
     }
 }
-function incrementLike(button) {
-    const likeCount = button.querySelector("span");
-    const currentCount = parseInt(likeCount.textContent);
-    likeCount.textContent = currentCount + 1;
 
-    // 서버로 좋아요 업데이트 요청을 보낼 수도 있습니다.
-    const commentNo = button.closest("tr").getAttribute("data-comment-no");
-    if (commentNo) {
-        $.ajax({
-            url: "updateLike.bo", // 서버에서 좋아요 카운트 업데이트 처리
-            type: "POST",
-            data: { commentNo },
-            success: function (res) {
-                console.log("좋아요 업데이트 성공:", res);
-            },
-            error: function () {
-                console.error("좋아요 업데이트 실패");
-            }
-        });
-    }
-}
 
 
 function toggleComments() {

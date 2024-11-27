@@ -325,7 +325,7 @@
 	</delete>
 
 	<!-- 좋아요 상태 확인 -->
-	<select id="checkLikeStatus" parameterType="map"
+	<select id="checkLike" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM LIKES_TABLE
@@ -333,7 +333,7 @@
 	</select>
 
 	<!-- 댓글별 좋아요 수 가져오기 -->
-	<select id="getLikeCountByComment" parameterType="int"
+	<select id="getLikeCount" parameterType="int"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM LIKES_TABLE

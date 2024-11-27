@@ -138,11 +138,11 @@ public class BoardDao {
 		return 0;
 	}
     // 좋아요 상태 확인
-    public int checkLikeStatus(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+    public int checkLike(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
         Map<String, Object> params = new HashMap<>();
         params.put("commentNo", commentNo);
         params.put("userNo", userNo);
-        return sqlSession.selectOne("boardMapper.checkLikeStatus", params);
+        return sqlSession.selectOne("boardMapper.checkLike", params);
     }
 
     // 좋아요 추가
@@ -163,8 +163,13 @@ public class BoardDao {
 
     // 댓글별 좋아요 수 조회
     public int getLikeCount(SqlSessionTemplate sqlSession, String commentNo) {
-        return sqlSession.selectOne("boardMapper.getLikeCountByComment", commentNo);
+        return sqlSession.selectOne("boardMapper.getLikeCount", commentNo);
     }
+
+
+
+
+	
 	
 
 

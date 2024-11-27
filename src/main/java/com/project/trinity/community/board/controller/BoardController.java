@@ -433,13 +433,12 @@ public class BoardController {
 	public Map<String, Object> toggleLike(
 	        @RequestParam("commentNo") String commentNo,
 	        @RequestParam("userNo") String userNo) {
-	    Map<String, Object> response = new HashMap<>();
+	    System.out.println("컨트롤러 진입 - commentNo: " + commentNo + ", userNo: " + userNo);
 
+	    Map<String, Object> response = new HashMap<>();
 	    try {
-	        // 좋아요 상태 확인 및 추가/삭제 처리
 	        int isLiked = boardService.toggleLike(commentNo, userNo);
-	        int likeCount = boardService.getLikeCount(commentNo); // 최신 좋아요 수 가져오기
-	        System.out.println(" isLiked: " + isLiked);
+	        int likeCount = boardService.getLikeCount(commentNo);
 	        response.put("success", true);
 	        response.put("isLiked", isLiked);
 	        response.put("likeCount", likeCount);
@@ -447,9 +446,10 @@ public class BoardController {
 	        e.printStackTrace();
 	        response.put("success", false);
 	    }
-
 	    return response;
 	}
+
+
 
 
 	

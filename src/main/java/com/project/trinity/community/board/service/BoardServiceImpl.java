@@ -146,19 +146,32 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> selectTopBoardList() {
 		return boardDao.selectTopBoardList(sqlSession);
 	}
+	
+	// 좋아요 상태 변경
+	@Override
+	public int toggleLike(String commentNo, String userNo) {
+	    System.out.println("toggleLike 호출 - commentNo: " + commentNo + ", userNo: " + userNo);
+	    try {
+	        int isLiked = boardDao.checkLike(sqlSession, commentNo, userNo);
+	        System.out.println("현재 좋아요 상태: " + isLiked);
 
-	// 좋아요 상태 토글
-    @Override
-    public int toggleLike(String commentNo, String userNo) {
-        // 좋아요 상태 확인
-        boolean isLiked = boardDao.checkLikeStatus(sqlSession, commentNo, userNo) > 0;
+	        if (isLiked > 0) {
+	            int result = boardDao.deleteLike(sqlSession, commentNo, userNo);
+	            System.out.println("좋아요 삭제 결과: " + result);
+	            return 0;
+	        } else {
+	            int result = boardDao.insertLike(sqlSession, commentNo, userNo);
+	            System.out.println("좋아요 추가 결과: " + result);
+	            return 1;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("예외 발생: " + e.getMessage());
+	        return -1; // 예외 발생 시 처리
+	    }
+	}
 
-        if (isLiked) {
-            return boardDao.deleteLike(sqlSession, commentNo, userNo); // 좋아요 취소
-        } else {
-            return boardDao.insertLike(sqlSession, commentNo, userNo); // 좋아요 추가
-        }
-    }
+
 
     // 특정 댓글의 좋아요 수 가져오기
     @Override
@@ -167,8 +180,8 @@ public class BoardServiceImpl implements BoardService {
     }
 	
 	@Override
-	public int deleteReply(String replyNo) {
-	    return boardDao.deleteReply(sqlSession, replyNo);
+	public int deleteReply(String commentNo) {
+	    return boardDao.deleteReply(sqlSession, commentNo);
 	}
 
 	
