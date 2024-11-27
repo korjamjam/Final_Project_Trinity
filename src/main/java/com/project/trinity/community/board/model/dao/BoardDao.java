@@ -133,5 +133,39 @@ public class BoardDao {
 	    return sqlSession.update("boardMapper.updateLikeCount", commentNo);
 	}
 
+	public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+    // 좋아요 상태 확인
+    public int checkLikeStatus(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentNo", commentNo);
+        params.put("userNo", userNo);
+        return sqlSession.selectOne("boardMapper.checkLikeStatus", params);
+    }
+
+    // 좋아요 추가
+    public int insertLike(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentNo", commentNo);
+        params.put("userNo", userNo);
+        return sqlSession.insert("boardMapper.insertLike", params);
+    }
+
+    // 좋아요 취소
+    public int deleteLike(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentNo", commentNo);
+        params.put("userNo", userNo);
+        return sqlSession.delete("boardMapper.deleteLike", params);
+    }
+
+    // 댓글별 좋아요 수 조회
+    public int getLikeCount(SqlSessionTemplate sqlSession, String commentNo) {
+        return sqlSession.selectOne("boardMapper.getLikeCountByComment", commentNo);
+    }
+	
+
 
 }

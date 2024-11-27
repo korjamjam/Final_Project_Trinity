@@ -146,16 +146,32 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> selectTopBoardList() {
 		return boardDao.selectTopBoardList(sqlSession);
 	}
+
+	// 좋아요 상태 토글
+    @Override
+    public int toggleLike(String commentNo, String userNo) {
+        // 좋아요 상태 확인
+        boolean isLiked = boardDao.checkLikeStatus(sqlSession, commentNo, userNo) > 0;
+
+        if (isLiked) {
+            return boardDao.deleteLike(sqlSession, commentNo, userNo); // 좋아요 취소
+        } else {
+            return boardDao.insertLike(sqlSession, commentNo, userNo); // 좋아요 추가
+        }
+    }
+
+    // 특정 댓글의 좋아요 수 가져오기
+    @Override
+    public int getLikeCount(String commentNo) {
+        return boardDao.getLikeCount(sqlSession, commentNo); // 좋아요 수 조회
+    }
+	
 	@Override
 	public int deleteReply(String replyNo) {
 	    return boardDao.deleteReply(sqlSession, replyNo);
 	}
 
-	@Override
-	public int updateLikeCount(String commentNo) {
-	    return boardDao.updateLikeCount(sqlSession, commentNo);
-	}
-
+	
 	@Override
 	public ArrayList<Board> selectPopularList(Map<String, Object> params) {
 		// TODO Auto-generated method stub

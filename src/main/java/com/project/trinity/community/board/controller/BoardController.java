@@ -427,22 +427,28 @@ public class BoardController {
 		        return null;
 		    }
 	}
-	@PostMapping("updateLike.bo")
+	
+	@PostMapping("toggleLike.bo")
 	@ResponseBody
-	public String updateLikeCount(@RequestParam("commentNo") String commentNo) {
-	    try {
-	        // 좋아요 카운트를 증가시키는 서비스 호출
-	        int result = boardService.updateLikeCount(commentNo);
+	public Map<String, Object> toggleLike(
+	        @RequestParam("commentNo") String commentNo,
+	        @RequestParam("userNo") String userNo) {
+	    Map<String, Object> response = new HashMap<>();
 
-	        if (result > 0) {
-	            return "success";
-	        } else {
-	            return "fail";
-	        }
+	    try {
+	        // 좋아요 상태 확인 및 추가/삭제 처리
+	        int isLiked = boardService.toggleLike(commentNo, userNo);
+	        int likeCount = boardService.getLikeCount(commentNo); // 최신 좋아요 수 가져오기
+	        System.out.println(" isLiked: " + isLiked);
+	        response.put("success", true);
+	        response.put("isLiked", isLiked);
+	        response.put("likeCount", likeCount);
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "error";
+	        response.put("success", false);
 	    }
+
+	    return response;
 	}
 
 

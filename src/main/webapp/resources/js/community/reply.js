@@ -9,13 +9,19 @@ $(function () {
     };
 
     getReplyList(sendData, function (replyList) {
-        console.log("갱신된 댓글 목록:", replyList); // 갱신된 댓글 목록 확인
+        console.log("댓글 목록 요청 데이터:", data); // 요청 데이터 출력
+        console.log("갱신된 댓글 목록:", replyList);
+        if (!Array.isArray(replyList)) {
+            console.error("replyList가 배열이 아닙니다. 서버 응답을 확인하세요.");
+            return;
+        }
 
         // 댓글 갯수 표시
         setReplyCount(replyList.length);
 
         // 댓글 목록 렌더링
         const replyBody = document.querySelector("#commentList");
+
         if (!replyBody) {
             console.error("#commentList 요소를 찾을 수 없습니다.");
             return;
@@ -25,32 +31,55 @@ $(function () {
 });
 
 function drawReplyList(tBody, replyList) {
-    console.log(tBody)
-    if (!tBody) {
+    console.log("tBody 값:", tBody); // tBody의 현재 값 출력
+    console.log("replyList:", replyList);
+    if (!tBody || !(tBody instanceof HTMLElement)) {
         console.error("drawReplyList: 유효하지 않은 tbody 요소입니다.");
         return;
     }
+
     $(tBody).empty(); // 기존 댓글 목록 초기화
 
     replyList.forEach(reply => {
+        console.log("댓글 데이터:", reply); // 각 댓글 데이터 확인
+
+        // 댓글 row 생성
         const replyRow = document.createElement("tr");
+
+        // 댓글 데이터 필드 확인 및 기본값 설정
+        const replyWriter = reply.replyWriter || "알 수 없음";
+        const replyContent = reply.replyContent || "내용 없음";
+        const createDate = reply.createDate || "날짜 없음";
+        const likeCount = reply.likeCount || 0;
+        const replyId = reply.replyNo || `temp_${Math.random().toString(36).substr(2, 9)}`; // replyNo가 없을 경우 기본값
+
         replyRow.innerHTML = `
-            <td>${reply.replyWriter}</td>
-            <td>${reply.replyContent}</td>
-            <td>${reply.createDate}</td>
-          <td>
+            <td>${replyWriter}</td>
+            <td>${replyContent}</td>
+            <td>${createDate}</td>
+            <td>
                 <button class="like-button" onclick="incrementLike(this)">
-                    👍 <span>${reply.likeCount || 0}</span>
+                    👍 <span>${likeCount}</span>
                 </button>
             </td>
         `;
-        tBody.appendChild(replyRow);
 
+        // 댓글 row 추가
+        $(tBody).append(replyRow);
+
+        // 댓글 클릭 이벤트 추가
         replyRow.onclick = function () {
-            console.log(`${reply.replyNo} 클릭됨`);
+            if (replyId) {
+                console.log(`${replyId} 클릭됨`);
+            } else {
+                console.warn("replyNo가 정의되지 않았습니다:", reply);
+            }
         };
     });
 }
+
+
+
 
 function setReplyCount(count) {
     $("#rcount").text(count);
@@ -76,7 +105,6 @@ function addReply() {
     const userId = $("#loginUserId").val(); // userId 값을 숨겨진 input에서 가져옴
     const userNo = $("#loginUserNo").val(); // 사용자 번호
     const content = $("#content").val();
-    console.log("댓글 등록 함수 호출됨");
     if (!content.trim()) {
         alert("댓글 내용을 입력해주세요.");
         return;
@@ -97,7 +125,7 @@ function addReply() {
 
                 getReplyList({ bno: boardNo }, function (replyList) {
                     setReplyCount(replyList.length);
-                    drawReplyList(document.querySelector("#commentList"), replyList);
+                    drawReplyList (document.querySelector("#commentList"), replyList);
                 });
             }
         }
@@ -111,13 +139,42 @@ function addReplyAjax(data, callback) {
         type: "POST",
         data: data,
         success: function (res) {
-            console.log("서버 응답:", res); // 서버 응답 확인
             callback(res);
         },
         error: function () {
             console.error("댓글 등록 실패");
         }
     });
+}
+function toggleLike(button) {
+    const commentNo = button.closest("tr").getAttribute("data-comment-no");
+
+    if (commentNo) {
+        $.ajax({
+            url: "toggleLike.bo",
+            type: "POST",
+            data: { commentNo, userNo: CURRENT_USER_NO },
+            success: function (response) {
+                console.log("서버 응답:", response); // 서버 응답 확인
+                if (response.success) {
+                    const likeCount = button.querySelector("span");
+                    likeCount.textContent = response.likeCount; // 좋아요 수 업데이트
+
+                    // 좋아요 상태에 따라 버튼 스타일 변경
+                    if (response.likeStatus === 1) {
+                        button.classList.add("liked");
+                    } else {
+                        button.classList.remove("liked");
+                    }
+                } else {
+                    alert("좋아요 처리에 실패했습니다.");
+                }
+            },
+            error: function () {
+                alert("서버와의 통신 중 문제가 발생했습니다.");
+            }
+        });
+    }
 }
 function incrementLike(button) {
     const likeCount = button.querySelector("span");

@@ -26,7 +26,7 @@ public interface BoardService {
     ArrayList<Board> selectListByCategory(String type, PageInfo pi);
 
 
-
+ // 인기 게시글 목록 조회
 	ArrayList<Board> selectPopularList(Map<String, Object> params);
 
 	// 게시글 조회수 증가
@@ -70,10 +70,15 @@ public interface BoardService {
 
 	// 조회수 상위 5개
 	public ArrayList<Board> selectTopBoardList();
-
+	// 댓글 삭제
 	int deleteReply(String replyNo);
 
-	int updateLikeCount(String commentNo);
+	
 
+	  // 좋아요 상태 토글
+    int toggleLike(String commentNo, String userNo);
+
+    // 특정 댓글의 좋아요 수 가져오기
+    int getLikeCount(String commentNo);
 
 }
