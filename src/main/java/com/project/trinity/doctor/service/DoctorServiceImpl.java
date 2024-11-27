@@ -16,4 +16,6 @@ public class DoctorServiceImpl implements DoctorService {
     public int applyDoctor(DoctorApplication application) {
         return doctorDao.applyDoctor(application);
     }
+    
+    
 }

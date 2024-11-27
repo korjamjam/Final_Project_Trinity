@@ -22,6 +22,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
+            helper.setFrom("trinity980515@gmail.com"); // 발신자 이메일 명시적으로 설정
             mailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
