@@ -29,6 +29,10 @@ public interface MemberService {
     Member findMemberForResetPassword(String userId, String userName, String email);
 
     int updateTemporaryPassword(String userId, String encryptedPassword);
+    
+    public int updatePassword(String userId, String encryptedPassword);
+    
+  
 
     
 }

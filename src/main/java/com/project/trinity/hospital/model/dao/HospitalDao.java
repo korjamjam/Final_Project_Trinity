@@ -47,4 +47,18 @@ public class HospitalDao {
 		return (ArrayList)sqlSession.selectList("hospitalMapper.searchHospital", keyword);
 	}
 
+	public ArrayList<HospitalInfo> selectOpenHospitalList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("hospitalMapper.selectOpenHospitalList");
+	}
+
+	public ArrayList<HospitalInfo> selectOpenHospitalListPaginated(SqlSessionTemplate sqlSession, String subject, String order, int offset, int limit) {
+		Map<String, Object> map = new HashMap<>();
+        map.put("subject", subject.equals("listAll") ? "listAll" : "%" + subject + "%");
+        map.put("order", order);
+        map.put("offset", offset);
+        map.put("limit", limit);
+        
+        return (ArrayList)sqlSession.selectList("hospitalMapper.selectOpenHospitalListPaginated", map);
+	}
+
 }

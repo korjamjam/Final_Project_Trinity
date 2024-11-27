@@ -285,44 +285,147 @@ public class MemberController {
 		}
 	}
 		
-	 @PostMapping("/reset_pwd_email")
-	    public ResponseEntity<Map<String, Object>> resetPasswordByEmail(
-	            @RequestParam("id") String userId,
-	            @RequestParam("name") String userName,
-	            @RequestParam("email") String email) {
+	@PostMapping("/reset_pwd_email")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> resetPasswordByEmail(
+	        @RequestParam("id") String userId,
+	        @RequestParam("name") String userName,
+	        @RequestParam("email") String email,
+	        @RequestParam("domain") String domain) {
 
-	        Map<String, Object> response = new HashMap<>();
-	        Member member = memberService.findMemberForResetPassword(userId, userName, email);
+	    Map<String, Object> response = new HashMap<>();
+	    String fullEmail = email + "@" + domain;
+
+	    try {
+	        // 사용자를 데이터베이스에서 조회
+	        Member member = memberService.findMemberForResetPassword(userId, userName, fullEmail);
 
 	        if (member != null) {
+	            // 임시 비밀번호 생성 및 암호화
 	            String tempPassword = UUID.randomUUID().toString().substring(0, 8);
 	            String encryptedPassword = bcryptPasswordEncoder.encode(tempPassword);
 
+	            // 데이터베이스에 임시 비밀번호 저장
 	            int updateResult = memberService.updateTemporaryPassword(userId, encryptedPassword);
 
 	            if (updateResult > 0) {
-	                try {
-	                    String subject = "임시 비밀번호 발급";
-	                    String content = "임시 비밀번호는 " + tempPassword + " 입니다. 로그인 후 비밀번호를 변경해주세요.";
-	                    emailService.sendEmail(email, subject, content);
+	                // 이메일 발송
+	                String subject = "임시 비밀번호 발급";
+	                String content = "안녕하세요, " + userName + "님. 임시 비밀번호는 " + tempPassword + " 입니다. 로그인 후 반드시 비밀번호를 변경해주세요.";
+	                emailService.sendEmail(fullEmail, subject, content);
 
-	                    response.put("status", "success");
-	                    response.put("message", "임시 비밀번호가 이메일로 발송되었습니다.");
-	                } catch (Exception e) {
-	                    response.put("status", "fail");
-	                    response.put("message", "이메일 발송 중 오류가 발생했습니다.");
-	                }
+	                response.put("status", "success");
+	                response.put("message", "임시 비밀번호가 이메일로 발송되었습니다.");
 	            } else {
 	                response.put("status", "fail");
-	                response.put("message", "임시 비밀번호 업데이트 중 오류가 발생했습니다.");
+	                response.put("message", "임시 비밀번호 저장 중 오류가 발생했습니다.");
 	            }
 	        } else {
 	            response.put("status", "fail");
 	            response.put("message", "입력 정보와 일치하는 사용자가 없습니다.");
 	        }
-
-	        return ResponseEntity.ok(response);
+	    } catch (Exception e) {
+	        response.put("status", "error");
+	        response.put("message", "서버 처리 중 오류가 발생했습니다.");
 	    }
+
+	    return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/reset_pwd_confirm")
+	public String resetPasswordConfirm(
+	        @RequestParam("newPassword") String newPassword,
+	        @RequestParam("confirmPassword") String confirmPassword,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+
+	    System.out.println("[DEBUG] resetPasswordConfirm 호출됨");
+
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        System.out.println("[DEBUG] 로그인 사용자 없음");
+	        redirectAttributes.addFlashAttribute("message", "로그인 상태에서만 비밀번호를 변경할 수 있습니다.");
+	        return "redirect:/member/login";
+	    }
+
+	    System.out.println("[DEBUG] 로그인 사용자: " + loginUser.getUserId());
+
+	    if (!newPassword.equals(confirmPassword)) {
+	        System.out.println("[DEBUG] 비밀번호가 일치하지 않음");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/member/reset_pwd";
+	    }
+
+	    if (!isValidPassword(newPassword)) {
+	        System.out.println("[DEBUG] 비밀번호 유효성 검사 실패");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
+	        return "redirect:/member/reset_pwd";
+	    }
+
+	    String encryptedPassword = bcryptPasswordEncoder.encode(newPassword);
+	    System.out.println("[DEBUG] 암호화된 비밀번호: " + encryptedPassword);
+
+	    loginUser.setUserPwd(encryptedPassword);
+	    int result = memberService.updateMember(loginUser);
+
+	    System.out.println("[DEBUG] DB 업데이트 결과: " + result);
+
+	    if (result > 0) {
+	        System.out.println("[DEBUG] 비밀번호 변경 성공");
+	        session.setAttribute("loginUser", loginUser);
+	        redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+	        return "redirect:/member/profile_edit";
+	    } else {
+	        System.out.println("[DEBUG] 비밀번호 변경 실패");
+	        redirectAttributes.addFlashAttribute("error", "비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/reset_pwd";
+	    }
+	}
+
+
+
+	// 비밀번호 유효성 검사 메서드 (예시)
+	private boolean isValidPassword(String password) {
+	    return password.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,16}$");
+	}
+	
+	@PostMapping("/withdraw")
+	public String withdrawMember(
+	        @RequestParam("password") String password,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+
+	    if (loginUser == null) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
+	        return "redirect:/member/login";
+	    }
+
+	    // 비밀번호 검증
+	    if (!bcryptPasswordEncoder.matches(password, loginUser.getUserPwd())) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 틀렸습니다. 다시 시도해주세요.");
+	        return "redirect:/member/profile_edit";
+	    }
+
+	    // 회원탈퇴 처리
+	    int result = memberService.deleteMember(loginUser.getUserId());
+	    if (result > 0) {
+	        session.invalidate();
+	        redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
+	        return "redirect:/main";
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "회원탈퇴에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/profile_edit";
+	    }
+	}
+
+
+
+
+
+
+
 
 
 	

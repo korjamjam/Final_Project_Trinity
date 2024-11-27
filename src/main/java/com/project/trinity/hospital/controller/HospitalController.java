@@ -64,10 +64,19 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/list/openHos")
-	public String OpenHospital(Model m) {
-		ArrayList<HospitalInfo> searchList = hospitalService.openHospitalList();
+	public String OpenHospitalList(Model m) {
+		ArrayList<HospitalInfo> searchList = hospitalService.selectOpenHospitalList();
 		//여기부터 고치면됨. requestparam 추가하고 리스트 띄우기
 		m.addAttribute("list", searchList);
-		return "hospital_detail/hospital_list";
+		return "hospital_detail/openHospital_list";
 	}
+	
+	@RequestMapping("/list/openHosApi")
+    @ResponseBody
+    public ArrayList<HospitalInfo> openHospitalListPaginated(@RequestParam(value = "subject", defaultValue = "listAll") String subject,
+												             @RequestParam(value = "order", defaultValue = "ASC") String order,
+												    		 @RequestParam(value = "page", defaultValue = "1") int page,
+                                                         	 @RequestParam(value = "limit", defaultValue = "10") int limit) {
+        return hospitalService.selectOpenHospitalListPaginated(subject, order, page, limit);
+    }
 }

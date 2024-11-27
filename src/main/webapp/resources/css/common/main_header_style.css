@@ -33,7 +33,7 @@
 .nav-links a {
     text-decoration: none;
     text-align: center;
-    color: #265708;
+    color: #265708 !important;;
     padding: 40px 35px;
     font-size: 1.1rem;
     font-weight: bold;
