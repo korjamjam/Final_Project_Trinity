@@ -197,6 +197,7 @@ CREATE TABLE BOARD (
     BOARD_VIEWS VARCHAR2(10) DEFAULT '0', -- 기본값 설정
     BOARD_CATEGORY VARCHAR2(20),
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),
+    INQUIRY_CATEGORY VARCHAR2(30),
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
 );
 
@@ -409,6 +410,112 @@ VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
+-- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
+DECLARE
+    v_user_no MEMBER.USER_NO%TYPE;
+    v_admin_no MEMBER.USER_NO%TYPE := 'U1'; -- 관리자 계정
+    CURSOR c_user IS SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'; -- 일반 사용자
+BEGIN
+    -- 공지사항 (공지사항은 관리자 작성)
+    FOR i IN 1..10 LOOP
+        INSERT INTO BOARD (
+            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- 게시글 번호
+            1, -- 공지사항
+            v_admin_no, -- 관리자
+            '공지사항 제목 ' || i, -- 제목
+            '공지사항 내용 ' || i || '입니다.', -- 내용
+            SYSDATE - DBMS_RANDOM.VALUE(1, 30), -- 등록일
+            SYSDATE - DBMS_RANDOM.VALUE(1, 10), -- 수정일
+            TRUNC(DBMS_RANDOM.VALUE(0, 100)), -- 조회수
+            '공지사항', -- 카테고리
+            'Y' -- 활성화 상태
+        );
+    END LOOP;
+
+    -- 알림톡 (알림판은 일반 사용자 작성)
+    OPEN c_user;
+    FETCH c_user INTO v_user_no;
+    FOR i IN 1..10 LOOP
+        INSERT INTO BOARD (
+            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
+            2, -- 알림판
+            v_user_no, -- 일반 사용자
+            '알림톡 제목 ' || i,
+            '알림톡 내용 ' || i || '입니다.',
+            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
+            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
+            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
+            '알림판',
+            'Y'
+        );
+    END LOOP;
+    CLOSE c_user;
+
+    -- FAQ (FAQ는 관리자 작성)
+    FOR i IN 1..10 LOOP
+        INSERT INTO BOARD (
+            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
+            INQUIRY_CATEGORY, STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
+            3, -- FAQ
+            v_admin_no,
+            'FAQ 제목 ' || i,
+            'FAQ 내용 ' || i || '입니다.',
+            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
+            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
+            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
+            'FAQ',
+            CASE MOD(i, 4)
+                WHEN 0 THEN '회원관련'
+                WHEN 1 THEN '사이트이용'
+                WHEN 2 THEN '커뮤니티'
+                ELSE '이벤트'
+            END,
+            'Y'
+        );
+    END LOOP;
+
+    -- Q&A (Q&A는 일반 사용자 작성)
+    OPEN c_user;
+    FETCH c_user INTO v_user_no;
+    FOR i IN 1..10 LOOP
+        INSERT INTO BOARD (
+            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
+            INQUIRY_CATEGORY, STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
+            4, -- Q&A
+            v_user_no,
+            'Q&A 제목 ' || i,
+            'Q&A 내용 ' || i || '입니다.',
+            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
+            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
+            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
+            'Q&A',
+            CASE MOD(i, 4)
+                WHEN 0 THEN '회원관련'
+                WHEN 1 THEN '사이트이용'
+                WHEN 2 THEN '커뮤니티'
+                ELSE '이벤트'
+            END,
+            'Y'
+        );
+    END LOOP;
+    CLOSE c_user;
+
+    COMMIT;
+END;
+/
+-- 게시판 더미데이터 --------------------------------------------------------------------------------------------------------
 
 DECLARE
     CURSOR c_user_no IS
@@ -728,9 +835,8 @@ INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REV
 VALUES('RV9', 'U9', '평범한 병원', '특별히 나쁘지도, 좋지도 않았습니다.', SYSDATE, SYSDATE, '60', 3);
 
 INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_VIEWS, REVIEW_RATING) 
-VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적인 진료를 받았습니다.', SYSDATE, SYSDATE, '180', 5)
+VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적인 진료를 받았습니다.', SYSDATE, SYSDATE, '180', 5);
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT; 
 
-SELECT * FROM RANKUP;
