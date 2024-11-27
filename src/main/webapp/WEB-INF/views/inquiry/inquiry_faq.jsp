@@ -15,12 +15,10 @@
 </head>
 
 <body>
-	<div class="main-page">
-		<!-- Header Section -->
-		<header>
+<header>
 			<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 		</header>
-
+	<div class="main-page">
 		<div class="container">
 			<!-- Main Content Section -->
 			<main class="main-content">

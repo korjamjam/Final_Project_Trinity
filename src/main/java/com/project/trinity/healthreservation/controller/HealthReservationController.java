@@ -1,6 +1,12 @@
 package com.project.trinity.healthreservation.controller;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.healthreservation.service.HealthReservationService;
@@ -27,6 +34,8 @@ import com.project.trinity.vaccine.service.VaccineReservationService;
 @Controller
 @RequestMapping("/healthReservation")
 public class HealthReservationController {
+	
+	public static final String SERVICE_KEY = "VXOYqX%2F80IQ2amEj0mkyBE%2FkMJy9hoyp%2Fa04pKxBjmzaFpWcEpK%2BEXi8CelHfwnlWo%2BHlO7NZsLLgtVMwKvKQQ%3D%3D";
 
 	@Autowired
     private HealthReservationService healthReservationService;
@@ -277,6 +286,41 @@ public class HealthReservationController {
 	public String healthReservationItems() {
 		return "health_reservation/health_reservation_items_info";
 	}
+	
+	
+	//건강검진 기관 조회
+	@ResponseBody
+	@GetMapping("category")
+	public String healthReservationSearch(String category) throws IOException {
+        StringBuilder urlBuilder = new StringBuilder("http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getHchkTypesHmcList"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("serviceKey=","UTF-8") + SERVICE_KEY); /*Service Key*/
+        urlBuilder.append("&" + URLEncoder.encode("hchType","UTF-8") + "=" + URLEncoder.encode(category, "UTF-8")); /*검진종류타입*/
+        URL url = new URL(urlBuilder.toString());
+        
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        System.out.println("Response code: " + conn.getResponseCode());
+        BufferedReader rd;
+        
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        
+        rd.close();
+        conn.disconnect();
+        System.out.println(sb.toString());
+		
+        return line;
+    }
 }
 
 

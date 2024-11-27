@@ -12,11 +12,12 @@
 </head>
 
 <body>
-    <div class="main-page">
-        <header>
+<header>
             <%@ include file="/WEB-INF/views/common/main_header.jsp"%>
         </header>
 
+    <div class="main-page">
+        
         <div class="container">
             <main class="main-content">
                 <%@ include file="/WEB-INF/views/inquiry/inquiry_sidemenu.jsp"%>
