@@ -15,12 +15,10 @@
 </head>
 
 <body>
-	<div class="main-page">
-		<!-- Header Section -->
 		<header>
 			<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
 		</header>
-
+	<div class="main-page">
 		<div class="container">
 			<!-- Main Content Section -->
 			<main class="main-content">
@@ -39,7 +37,6 @@
 								<option value="조회수">조회수</option>
 								<option value="번호순">번호순</option>
 							</select>
-							<button class="write-mobile-button">글쓰기</button>
 						</div>
 					</div>
 					<div class="content-controls">
@@ -52,7 +49,7 @@
 								<option value="작성일">작성일</option>
 								<option value="번호순">번호순</option>
 							</select>
-							<button class="write-button">글쓰기</button>
+							
 						</div>
 					</div>
 					<!-- Table for Posts -->
