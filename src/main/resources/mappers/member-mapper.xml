@@ -6,8 +6,7 @@
 <mapper namespace="memberMapper">
 
 	<!-- 단축 설정 -->
-	<resultMap type="com.project.trinity.member.model.vo.Member"
-		id="memberResultSet">
+	<resultMap type="com.project.trinity.member.model.vo.Member" id="memberResultSet">
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_ID" property="userId" />
 		<result column="USER_PWD" property="userPwd" />
@@ -23,6 +22,14 @@
 		<result column="MED_KEY" property="medKey" />
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
+	</resultMap>
+	
+	<resultMap type="Rankup" id="rankupResultSet">
+    	<result column="SEQ_NO" property="seqNo" />
+    	<result column="USER_NO" property="userNo" />
+    	<result column="RES_TITLE" property="resTitle" />
+    	<result column="SUBJECT" property="subject" />
+    	<result column="LIC_PICTURE" property="licPicture" />
 	</resultMap>
 
 	<!-- 로그인 쿼리 -->
@@ -43,7 +50,6 @@
 		ISADMIN,
 		MED_KEY,
 		HOS_NO
-
 		FROM
 		MEMBER
 		WHERE USER_ID = #{userId}
@@ -79,8 +85,6 @@
 		)
 	</insert>
 
-
-
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
 		SELECT USER_NO,
@@ -98,6 +102,16 @@
 		HOS_NO
 		FROM MEMBER
 	</select>
+	
+	<!-- 등업 신청 데이터 조회 -->
+    <select id="getAllRankups" resultMap="rankupResultSet">
+        SELECT SEQ_NO,
+        USER_NO,
+        RES_TITLE,
+        SUBJECT,
+        LIC_PICTURE
+        FROM RANKUP
+    </select>
 
 	<!-- 회원 정보 업데이트 -->
 	<update id="updateMember" parameterType="member">
