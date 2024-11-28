@@ -249,9 +249,10 @@ ALTER TABLE FILE_TABLE ADD file_size NUMBER;
 CREATE TABLE RANKUP (
     SEQ_NO NUMBER(10) PRIMARY KEY,     -- 기본 키
     USER_NO VARCHAR2(100) NOT NULL,    -- 사용자 고유번호
-    R_TITLE VARCHAR2(100) NOT NULL,    -- 신청 제목
+    RES_TITLE VARCHAR2(100) NOT NULL,    -- 신청 제목
     SUBJECT VARCHAR2(100) NOT NULL,    -- 전문과목
-    LIC_PICTURE VARCHAR2(200) NOT NULL -- 의사 인증 사진 파일 경로
+    LIC_PICTURE VARCHAR2(200) NOT NULL, -- 의사 인증 사진 파일 경로
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
 );
 
 
@@ -567,8 +568,42 @@ BEGIN
 END;
 /
 
+DECLARE
+    CURSOR c_user_no IS
+        SELECT USER_NO FROM MEMBER WHERE MED_KEY IS NOT NULL; -- 의료 분야 키가 있는 사용자만 가져옴
+    v_user_no MEMBER.USER_NO%TYPE;
+    v_seq_no NUMBER := 1; -- 초기 SEQ_NO 설정
+BEGIN
+    OPEN c_user_no;
+    LOOP
+        FETCH c_user_no INTO v_user_no;
+        EXIT WHEN c_user_no%NOTFOUND;
 
+        INSERT INTO RANKUP (
+            SEQ_NO, USER_NO, RES_TITLE, SUBJECT, LIC_PICTURE
+        ) VALUES (
+            v_seq_no, -- SEQ_NO 증가
+            v_user_no, -- MEMBER 테이블에서 가져온 USER_NO
+            '전문가 인증 신청 ' || v_seq_no, -- 신청 제목
+            CASE MOD(v_seq_no, 1) -- 전문과목
+                WHEN 0 THEN '소아과'
+                ELSE '산부인과'
+            END,
+            '/files/lic_picture_' || v_seq_no || '.jpg' -- 인증 사진 경로
+        );
 
+        v_seq_no := v_seq_no + 1; -- SEQ_NO 증가
+
+        IF v_seq_no > 10 THEN -- 10개만 삽입
+            EXIT;
+        END IF;
+    END LOOP;
+
+    CLOSE c_user_no;
+
+    COMMIT;
+END;
+/
 
 INSERT INTO HOSPITAL_INFO (
     HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, 
