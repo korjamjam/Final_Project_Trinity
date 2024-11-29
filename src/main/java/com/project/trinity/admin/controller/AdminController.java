@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.admin.service.AdminService;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.model.vo.Rankup;
 
 @Controller
 @RequestMapping("/admin")
@@ -37,19 +40,49 @@ public class AdminController {
         return "admin/admin_member_detail";
     }
     
- // 회원관리 페이지
+    // 등업 신청 페이지
     @RequestMapping("/rankup")
     public String showAdminRankUp(Model model) {
-        List<Member> memberList = adminService.getAllMembers(); // 모든 회원 목록 가져오기
-        model.addAttribute("memberList", memberList); // JSP로 전달
+        List<Rankup> rankupList = adminService.getAllRankups();
+        System.out.println(rankupList); // 데이터 확인용
+        model.addAttribute("rankupList", rankupList);
         return "admin/admin_rankup";
     }
-    
-    //회원관리 상세페이지
+    //등업 상세페이지
     @RequestMapping("/rankupDetail")
-    public String showAdminRankUpDetail() {
+    public String showAdminRankUpDetail(@RequestParam(name = "seqNo", required = true) int seqNo, Model model) {
+        Rankup rankupDetail = adminService.getRankupDetail(seqNo); // 모든 정보 가져오기
+        System.out.println("RankupDetail: " + rankupDetail);
+        
+        model.addAttribute("rankupDetail", rankupDetail);
         return "admin/admin_rankup_detail";
     }
+    
+    //회원 등업하기
+    @RequestMapping("/updateRankup")
+    public String updateRankup(@RequestParam("seqNo") int seqNo, 
+                               @RequestParam("status") String status, 
+                               Model model, 
+                               RedirectAttributes redirectAttributes) {
+        // 등업 신청 상태 업데이트
+        String alertMsg = "";
+        
+        if ("A".equals(status)) { // 승인일 경우
+            adminService.approveRankup(seqNo);
+            alertMsg = "등업이 완료되었습니다.";
+        } else if ("D".equals(status)) { // 거부일 경우
+            adminService.rejectRankup(seqNo);
+            alertMsg = "등업이 거부되었습니다.";
+        } else if ("W".equals(status)) { // 대기일 경우
+            alertMsg = "변경 사항이 없습니다.";
+        }
+
+        redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
+        return "redirect:/admin/admin_rankup"; // 등업 리스트 페이지로 이동
+    }
+
+
+
     
     //병원관리 페이지
     @RequestMapping("/hospital")

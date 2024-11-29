@@ -58,8 +58,9 @@ function addHospitalList(hospitals) {
 
 // AJAX 요청으로 데이터 로드
 const func = function () {
+    console.log(checkVisible('#loadingLine'))
     if (!isVisible && checkVisible('#loadingLine')) {
-        isVisible = true;
+        isVisible = true; 
 
         console.log(page);
 
@@ -85,3 +86,10 @@ const func = function () {
         });
     }
 };
+
+// selectbox를 골랐을 때 $(".hospitalList_list_wrapper2").remove();
+function replaceHospitalList(hospitals) {
+    $(".hospitalList_list_wrapper2").remove();
+    //여기서부터 데이터 가지고 오기
+    
+}

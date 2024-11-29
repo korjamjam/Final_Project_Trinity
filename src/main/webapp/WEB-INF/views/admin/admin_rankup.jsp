@@ -1,47 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Member Management</title>
+<title>등업 관리</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/admin/member_management.css">
+	href="${pageContext.servletContext.contextPath}/resources/css/admin/rankup_management.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp" />
 
-	<div class="member-management">
+	<div class="rankup-management">
 		<div class="content">
-			<h2>등업관리</h2>
-			<p class="total-members">등업 신청수: ${memberList.size()}</p>
+			<h2>등업 관리</h2>
+			<p class="total-rankups">등업 신청수: ${rankupList.size()}</p>
 
-			<c:if test="${empty memberList}">
-				<p>회원 정보가 없습니다.</p>
+			<c:if test="${empty rankupList}">
+				<p>등업 신청 정보가 없습니다.</p>
 			</c:if>
-			<div class="member-list">
-				<c:forEach var="member" items="${memberList}">
-					<a href="rankupDetail" class="member-item">
+			<div class="rankup-list">
+				<c:forEach var="rankup" items="${rankupList}">
+					<a href="rankupDetail?seqNo=${rankup.seqNo}" class="rankup-item">
+    <!-- seqNo 값이 제대로 전달되고 있는지 확인 -->
 						<p>
-							<span>${member.userName}</span>
-							<span>${member.userId}</span>
-						    <span>신청일: <fmt:formatDate value="${member.enrollDate}"
-									pattern="yyyy-MM-dd" /></span>
+							<span>신청자:</span> <span>${rankup.userName}</span>
 						</p>
 						<p>
-							<span>등업신청:</span> <span class="status"> <c:choose>
-									<c:when test="${member.status == 'Y'}">
-										<span class="active">승인</span>
-									</c:when>
-									<c:otherwise>
-										<span class="pending">대기</span>
-									</c:otherwise>
+							<span>신청 제목:</span> <span>${rankup.resTitle}</span>
+						</p>
+						<p>
+							<span>등업 신청:</span> <span> <c:choose>
+									<c:when test="${rankup.status == 'W'}">대기</c:when>
+									<c:when test="${rankup.status == 'A'}">승인</c:when>
+									<c:when test="${rankup.status == 'D'}">거부</c:when>
+									<c:otherwise>알 수 없음</c:otherwise>
 								</c:choose>
 							</span>
 						</p>
