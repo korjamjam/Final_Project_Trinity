@@ -41,14 +41,14 @@
 
     <div class="hospitalList_wrapper">
         <!-- searchBar -->
-        <form action="search">
+        <form action="${ pageContext.servletContext.contextPath }/hospital/list/search">
         <div class="hospitalList_searchBar">
         	
 	            <input type="text" name="keyword">
 	            <button>병원 검색</button>
-            
         </div>
-        </form>
+		</form>
+
         <br><br>
 
         <!-- order by -->

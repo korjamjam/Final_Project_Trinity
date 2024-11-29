@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -292,15 +294,20 @@ public class HealthReservationController {
 	@ResponseBody
 	@GetMapping("category")
 	public String healthReservationSearch(String category) throws IOException {
-        StringBuilder urlBuilder = new StringBuilder("http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getHchkTypesHmcList"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey=","UTF-8") + SERVICE_KEY); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("hchType","UTF-8") + "=" + URLEncoder.encode(category, "UTF-8")); /*검진종류타입*/
-        URL url = new URL(urlBuilder.toString());
+        System.out.println(category);
+        String url = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getHchkTypesHmcList";
+        url += "?serviceKey=" + SERVICE_KEY;
+        url += "&hchType=" + URLEncoder.encode(category, "UTF-8");
         
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        URL requestURL = new URL(url);
+        
+        HttpURLConnection conn = (HttpURLConnection) requestURL.openConnection();
+        
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+        conn.setRequestProperty("Accept", "application/json");
+        
+        
         BufferedReader rd;
         
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
@@ -310,16 +317,20 @@ public class HealthReservationController {
         }
         
         StringBuilder sb = new StringBuilder();
-        String line;
+        String line = "";
+        
         while ((line = rd.readLine()) != null) {
             sb.append(line);
         }
         
         rd.close();
         conn.disconnect();
+        
         System.out.println(sb.toString());
 		
-        return line;
+        JSONObject jsonResult = XML.toJSONObject(sb.toString());
+        
+        return jsonResult.toString();
     }
 }
 
