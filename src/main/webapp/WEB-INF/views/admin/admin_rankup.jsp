@@ -26,7 +26,8 @@
 			</c:if>
 			<div class="rankup-list">
 				<c:forEach var="rankup" items="${rankupList}">
-					<a href="rankupDetail" class="rankup-item">
+					<a href="rankupDetail?seqNo=${rankup.seqNo}" class="rankup-item">
+    <!-- seqNo 값이 제대로 전달되고 있는지 확인 -->
 						<p>
 							<span>신청자:</span> <span>${rankup.userName}</span>
 						</p>
