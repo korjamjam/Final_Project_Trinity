@@ -3,6 +3,7 @@ package com.project.trinity.healthreservation.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,6 +11,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.JSONObject;
 import org.json.XML;
@@ -22,7 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
@@ -289,15 +300,23 @@ public class HealthReservationController {
 		return "health_reservation/health_reservation_items_info";
 	}
 	
+	 private static String getTagValue(String tag, Element eElement) {
+ 	    NodeList nlList = (eElement).getElementsByTagName(tag).item(0).getChildNodes();
+ 	    Node nValue = (Node) nlList.item(0);
+ 	    if(nValue == null) 
+ 	        return null;
+ 	    return nValue.getNodeValue();
+ 	}
 	
 	//건강검진 기관 조회
 	@ResponseBody
-	@GetMapping("category")
-	public String healthReservationSearch(String category) throws IOException {
+	@GetMapping(value="category", produces="application/json; charset=UTF-8")
+	public String healthReservationSearch(String category) throws IOException, ParserConfigurationException, SAXException {
         System.out.println(category);
         String url = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getHchkTypesHmcList";
         url += "?serviceKey=" + SERVICE_KEY;
         url += "&hchType=" + URLEncoder.encode(category, "UTF-8");
+        
         
         URL requestURL = new URL(url);
         
@@ -305,7 +324,6 @@ public class HealthReservationController {
         
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        conn.setRequestProperty("Accept", "application/json");
         
         
         BufferedReader rd;
@@ -328,10 +346,28 @@ public class HealthReservationController {
         
         System.out.println(sb.toString());
 		
-        JSONObject jsonResult = XML.toJSONObject(sb.toString());
+        String result = xmlToJson(sb.toString());
+       
         
-        return jsonResult.toString();
+        return result;
     }
+	
+	public static String xmlToJson(String str) {
+
+		  try{
+		    String xml = str;
+		    JSONObject jObject = XML.toJSONObject(xml);
+		    ObjectMapper mapper = new ObjectMapper();
+		    mapper.enable(SerializationFeature.INDENT_OUTPUT); 
+		    Object json = mapper.readValue(jObject.toString(), Object.class);
+		    String output = mapper.writeValueAsString(json);
+		    return output;
+		  }catch (Exception e) {
+		    e.printStackTrace();
+		  }
+		  
+		  return null;
+		}
 }
 
 
