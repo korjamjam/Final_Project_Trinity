@@ -32,6 +32,9 @@
     <result column="LIC_PICTURE" property="licPicture" />
     <result column="STATUS" property="status" />
     <result column="USER_NAME" property="userName" />
+    <result column="USER_ID" property="userId"/>
+    <result column="EMAIL" property="email" />
+    <result column="PHONE" property="phone" />
 </resultMap>
 	
 	<resultMap type="HealthReservation" id="HealthReservationResultSet" >
@@ -135,6 +138,42 @@
     JOIN MEMBER M
     ON R.USER_NO = M.USER_NO
 </select>
+
+<select id="getRankupDetail" parameterType="int" resultMap="rankupResultSet">
+    SELECT 
+        r.SEQ_NO, 
+        r.USER_NO,
+        r.RES_TITLE, 
+        r.SUBJECT, 
+        r.LIC_PICTURE, 
+        r.STATUS, 
+        m.USER_NAME, 
+        m.EMAIL, 
+        m.PHONE,
+        m.USER_ID
+    FROM 
+        RANKUP r
+    JOIN 
+        MEMBER m 
+    ON 
+        r.USER_NO = m.USER_NO
+    WHERE 
+        r.SEQ_NO = #{seqNo}
+</select>
+
+<update id="updateMedKey">
+    UPDATE MEMBER
+    SET MED_KEY = #{medKey}
+    WHERE USER_NO = #{userNo}
+</update>
+
+<update id="updateRankupStatus">
+    UPDATE RANKUP
+    SET STATUS = #{status}
+    WHERE SEQ_NO = #{seqNo}
+</update>
+
+
 
 	<!-- 회원 정보 업데이트 -->
 	<update id="updateMember" parameterType="member">
