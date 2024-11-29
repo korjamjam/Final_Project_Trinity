@@ -216,13 +216,15 @@ CREATE TABLE FILE_TABLE (
 
 
 CREATE TABLE COMMENTS (
-    COMMENT_NO VARCHAR2(10) PRIMARY KEY,
-    BOARD_NO VARCHAR2(10) NOT NULL,
-    USER_NO VARCHAR2(10) NOT NULL,
-    CONTENT VARCHAR2(2000),
-    CREATED_AT DATE DEFAULT SYSDATE,
-    FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO),
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
+    COMMENT_NO VARCHAR2(10) PRIMARY KEY,             -- 댓글 고유 번호
+    BOARD_NO VARCHAR2(10) NOT NULL,                 -- 게시글 고유 번호
+    USER_NO VARCHAR2(10) NOT NULL,                  -- 사용자 고유 번호
+    CONTENT VARCHAR2(2000),                         -- 댓글 내용
+    CREATED_AT DATE DEFAULT SYSDATE,                -- 작성일
+    LIKE_COUNT NUMBER DEFAULT 0,                    -- 좋아요 수
+    DISLIKE_COUNT NUMBER DEFAULT 0,                 -- 싫어요 수
+    FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO),  -- 게시판 참조키
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)    -- 사용자 참조키
 );
 
 CREATE TABLE H_SUBJECT (
@@ -952,13 +954,7 @@ VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적�
 
 
 --커밋--------------------------------------------------------------------------------------------------------
-<<<<<<< HEAD
 COMMIT; 
 
-ALTER TABLE COMMENTS ADD LIKE_COUNT NUMBER DEFAULT 0;
 
 
-
-=======
-COMMIT; 
->>>>>>> 74ceb5bfb7b0c608b9fa1923bd73e3b34fd2a937
