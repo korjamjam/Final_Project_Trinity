@@ -108,37 +108,28 @@
                HOS_CLOSE_TIME2,
                HOS_LATITUDE,
                HOS_LONGITUDE
-    	FROM (SELECT  HOS_NO,
-			          HOS_NAME,
-			          HOS_ADDRESS,
-			          HOS_TEL,
-			          DEPARTMENT,
-			          HOS_START_TIME1,
-			          HOS_CLOSE_TIME1,
-			          HOS_START_TIME2,
-			          HOS_CLOSE_TIME2,
-			          HOS_LATITUDE,
-			          HOS_LONGITUDE
-	          FROM  HOSPITAL_INFO
-	          ORDER BY HOS_NAME ASC) h1
-    	WHERE DEPARTMENT LIKE 
-        	CASE 
-            	WHEN #{subject} = 'listAll' THEN '%' 
-            	WHEN #{subject} = 'listChild' THEN '소아청소년과'
-            	WHEN #{subject} = 'listMother' THEN '산부인과'
-         	END AND
-         	(SELECT COUNT(*)
-         	 FROM HOSPITAL_INFO H2
-             WHERE h2.hos_no &lt; h1.hos_no) &gt;= #{offset} AND 
-             (SELECT COUNT(*)
-              FROM HOSPITAL_INFO H2
-              WHERE h2.hos_no &lt;= h1.hos_no) &lt; #{offset} + #{limit}
-    	ORDER BY 
-        	CASE 
-            	WHEN #{order} = 'ASC' THEN HOS_NAME
-            	WHEN #{order} = 'relevant' THEN HOS_TEL
-            	WHEN #{order} = 'popular' THEN HOS_NO
-        	END
+    	FROM (SELECT ROW_NUMBER() OVER (ORDER BY HOS_NAME ASC) AS row_num,
+	           		 HOS_NO,
+		             HOS_NAME,
+		             HOS_ADDRESS,
+		             HOS_TEL,
+		             DEPARTMENT,
+		             HOS_START_TIME1,
+		             HOS_CLOSE_TIME1,
+		             HOS_START_TIME2,
+		             HOS_CLOSE_TIME2,
+		             HOS_LATITUDE,
+		             HOS_LONGITUDE
+		      FROM HOSPITAL_INFO
+		      WHERE DEPARTMENT LIKE 
+		            CASE 
+		                WHEN #{subject} = 'listAll' THEN '%'
+		                WHEN #{subject} = 'listChild' THEN '%소아청소년과%'
+		                WHEN #{subject} = 'listMother' THEN '%산부인과%'
+		            END
+			  ) subquery
+		WHERE #{offset} &lt; row_num AND
+			  row_num &lt;= #{offset} + #{limit}
    </select>
    
    <select id="searchHospital" resultMap="HospitalInfoResultSet">
@@ -183,8 +174,8 @@
 			          HOS_LONGITUDE
 	          FROM  HOSPITAL_INFO
 	          ORDER BY HOS_NAME ASC)
-		WHERE HOS_START_TIME1 &lt;= TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) AND
-      		  TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) &lt;= HOS_CLOSE_TIME1 AND
+		WHERE TO_NUMBER(SUBSTR(HOS_START_TIME1, 0,2) || SUBSTR(HOS_START_TIME1, 4,2)) &lt;= TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) AND
+      		  TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) &lt;= TO_NUMBER(SUBSTR(HOS_CLOSE_TIME1, 0,2) || SUBSTR(HOS_CLOSE_TIME1, 4,2)) AND
       		  ROWNUM &lt;= 10
    </select>
    
@@ -201,38 +192,29 @@
                HOS_CLOSE_TIME2,
                HOS_LATITUDE,
                HOS_LONGITUDE
-    	FROM (SELECT  HOS_NO,
-			          HOS_NAME,
-			          HOS_ADDRESS,
-			          HOS_TEL,
-			          DEPARTMENT,
-			          HOS_START_TIME1,
-			          HOS_CLOSE_TIME1,
-			          HOS_START_TIME2,
-			          HOS_CLOSE_TIME2,
-			          HOS_LATITUDE,
-			          HOS_LONGITUDE
-	          FROM  HOSPITAL_INFO
-	          ORDER BY HOS_NAME ASC) h1
-    	WHERE HOS_START_TIME1 &lt;= TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) AND
-      		  TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) &lt;= HOS_CLOSE_TIME1 AND 
-    		  DEPARTMENT LIKE 
-        	  CASE 
-              	  WHEN #{subject} = 'listAll' THEN '%' 
-            	  ELSE #{subject} 
-         	  END AND
-         	  (SELECT COUNT(*)
-         	   FROM HOSPITAL_INFO H2
-               WHERE h2.hos_no &lt; h1.hos_no) &gt;= #{offset} AND 
-              (SELECT COUNT(*)
-               FROM HOSPITAL_INFO H2
-               WHERE h2.hos_no &lt;= h1.hos_no) &lt; #{offset} + #{limit}
-    	ORDER BY 
-        	CASE 
-            	WHEN #{order} = 'ASC' THEN HOS_NAME
-            	WHEN #{order} = 'relevant' THEN HOS_TEL
-            	WHEN #{order} = 'popular' THEN HOS_NO
-        	END
+    	FROM (SELECT ROW_NUMBER() OVER (ORDER BY HOS_NAME ASC) AS row_num,
+	           		 HOS_NO,
+		             HOS_NAME,
+		             HOS_ADDRESS,
+		             HOS_TEL,
+		             DEPARTMENT,
+		             HOS_START_TIME1,
+		             HOS_CLOSE_TIME1,
+		             HOS_START_TIME2,
+		             HOS_CLOSE_TIME2,
+		             HOS_LATITUDE,
+		             HOS_LONGITUDE
+		      FROM HOSPITAL_INFO
+		      WHERE TO_NUMBER(SUBSTR(HOS_START_TIME1, 0,2) || SUBSTR(HOS_START_TIME1, 4,2)) &lt;= TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) AND
+		            TO_NUMBER(TO_CHAR(SYSDATE, 'HH24MI')) &lt;= TO_NUMBER(SUBSTR(HOS_CLOSE_TIME1, 0,2) || SUBSTR(HOS_CLOSE_TIME1, 4,2)) AND
+		            DEPARTMENT LIKE 
+		            CASE 
+		                WHEN 'listAll' = 'listAll' THEN '%'
+		                ELSE 'listAll'
+		            END
+			  ) subquery
+		WHERE #{offset} &lt; row_num AND
+			  row_num &lt;= #{offset} + #{limit}
    </select>
 
 </mapper>

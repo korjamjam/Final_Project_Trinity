@@ -29,10 +29,10 @@ public class HospitalController {
 	        				   Model m) {
 		System.out.println(subject);
 		System.out.println(order);
-		ArrayList<HospitalInfo> list = hospitalService.selectHospitalList(subject, order);
-		m.addAttribute("list", list);
+//		ArrayList<HospitalInfo> list = hospitalService.selectHospitalList(subject, order);
+//		m.addAttribute("list", list);
 
-		System.out.println(list);
+//		System.out.println(list);
 		return "hospital_detail/hospital_list";
 	}
 	
@@ -42,6 +42,10 @@ public class HospitalController {
                                                          @RequestParam(value = "order", defaultValue = "ASC") String order,
                                                          @RequestParam(value = "page", defaultValue = "1") int page,
                                                          @RequestParam(value = "limit", defaultValue = "10") int limit) {
+		System.out.println("subject : " + subject);
+		System.out.println("order : " + order);
+		System.out.println("page : " + page);
+		System.out.println("limit : " + limit);
         return hospitalService.selectHospitalListPaginated(subject, order, page, limit);
     }
 	
@@ -79,4 +83,5 @@ public class HospitalController {
                                                          	 @RequestParam(value = "limit", defaultValue = "10") int limit) {
         return hospitalService.selectOpenHospitalListPaginated(subject, order, page, limit);
     }
+
 }

@@ -54,12 +54,11 @@
 							</span>
 							<span>등록일: <fmt:formatDate value="${member.enrollDate}" pattern="yyyy-MM-dd" /></span>
 						</p>
-						<p>${member.phone}</p>
-						
+						<p>${member.phone}</p>						
 					</a>
 				</c:forEach>
 			</div>
 		</div>
 	</div>
 </body>
-</html> 코드는 이렇게 돼있어
+</html>
