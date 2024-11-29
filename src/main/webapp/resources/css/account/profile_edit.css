@@ -120,6 +120,24 @@ body {
     cursor: pointer;
 }
 
+form .password-change {
+    background-color: #ff6b6b; /* 기존 버튼 색상 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+form .password-change:hover {
+    background-color: #e63e3e;
+}
+
+
 .submit-button {
     display: block;
     width: 100%;

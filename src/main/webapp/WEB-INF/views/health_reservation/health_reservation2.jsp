@@ -32,11 +32,13 @@
                         3. 검진종류
                     </div>
                     <div class="health_reservation_normal_select">
-                        <select name="reservation_user_select" id="">
+                        <select name="reservation_user_select" id="examSelect">
                             <option value="" disabled hidden selected>검진 종류</option>
-                            <option value="일반건강검진">일반건강검진</option>
-                            <option value="암검진">암검진</option>
-                            <option value="생애주기전환검진">생애주기전환검진</option>
+                            <option value="1">일반 검진</option>
+                            <option value="2">구강 검진</option>
+                            <option value="3">암 검진</option>
+                            <option value="4">일반 + 암 검진</option>
+                            <option value="6">영유아 검진</option>
                         </select>
                     </div>
                 </div>
@@ -58,12 +60,9 @@
                         4. 검사받을기관
                     </div>
                     <div class="health_reservation_normal_select">
-                        <select name="reservation_user_hospital" id="">
-                            <option value="" disabled hidden selected>기관을 선택해주세요</option>
-                            <c:forEach var="hospital" items="${hospitalList}">
-								<option value="${hospital.hosNo}">${hospital.hosName}</option>
-							</c:forEach>
-                            </select>
+                        <select name="reservation_user_hospital" id="hospitalSelect">
+                            <option value="">원하는 검사항목을 선택하세요</option>
+                        </select>
                     </div>
                 </div>
                 <div class="health_reservation2_content">
@@ -161,6 +160,28 @@
             // 구체적인 시간 선택 박스를 보여줌
             $('#specificTimeSelectContainer').show();
         });
+        });
+
+        $("#examSelect").on("change", function () {
+            const selectedCode = $(this).val();
+            if (selectedCode) {
+                $.ajax({
+                    url: "category", // 병원 목록 조회 API 엔드포인트
+                    method: "GET",
+                    data: { category: selectedCode },
+                    success: function (data) {
+                        const hospitalSelect = $("#hospitalSelect");
+                        hospitalSelect.empty();
+                        hospitalSelect.append(`<option value="">원하는 검사항목을 선택하세요</option>`); // 기본 옵션 추가
+                        data.forEach(hospital => {
+                            hospitalSelect.append(`<option value="${hospital.id}">${hospital.name}</option>`);
+                        });
+                    },
+                    error: function () {
+                        alert("병원 목록을 불러오지 못했습니다.");
+                    }
+                });
+            }
         });
     </script>
     <!-- footer -->

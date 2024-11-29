@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.trinity.admin.service.AdminService;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.model.vo.Rankup;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +36,20 @@ public class AdminController {
     @RequestMapping("/memberDetail")
     public String showAdminMemeberDetail() {
         return "admin/admin_member_detail";
+    }
+    
+    // 등업 신청 페이지
+    @RequestMapping("/rankup")
+    public String showAdminRankUp(Model model) {
+        List<Rankup> rankupList = adminService.getAllRankups();
+        System.out.println(rankupList); // 데이터 확인용
+        model.addAttribute("rankupList", rankupList);
+        return "admin/admin_rankup";
+    }
+    //회원관리 상세페이지
+    @RequestMapping("/rankupDetail")
+    public String showAdminRankUpDetail() {
+        return "admin/admin_rankup_detail";
     }
     
     //병원관리 페이지
