@@ -167,9 +167,8 @@
             console.log(category)
 
             getHrHospitalList({ category: category }, function(hrHospitalList){
-                const itemList = hrHospitalList.response.body.items;
-
-                drawHrHospitalList(document.querySelector("#hospitalSelect option"), itemList)
+                const itemList = hrHospitalList.response.body.items.item;
+                drawHrHospitalList(document.querySelector("#hospitalSelect"), itemList)
             })
         }
 
@@ -180,7 +179,6 @@
                     method: "GET",
                     data: data,
                     success: function (result) {
-                        console.log(result)
                         callback(result)
                     },
                     error: function () {
@@ -193,8 +191,11 @@
             const category = document.querySelector("#category").value;
             parent.innerHTML = "";
 
+            console.log("itemArr" + itemArr)
             for(const item of itemArr){
-                parent.innerHTML += '<option value="'+category+'">${hospital.name}</option>' 
+                console.log("category" + category)
+                console.log("item.hmcNm" + item.hmcNm)
+                parent.innerHTML += "<option value=" + category + ">" + item.hmcNm + "</option>" 
             }
         }
 
