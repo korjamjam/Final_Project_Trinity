@@ -48,7 +48,7 @@
 	            <button>병원 검색</button>
             
         </div>
-</form>
+        </form>
         <br><br>
 
         <!-- order by -->
@@ -56,8 +56,8 @@
             <div class="hospitalList_order">
                 <select id="hospitalList_subject" name="hospitalList_subject" class="hospitalList_subject">
                     <option value="listAll">전체</option>
-                    <option value="listChild">소아과</option>
-                    <option value="listMother">산부인과</option>
+                    <option value="listChild" onchange="replaceHospitalList()">소아과</option>
+                    <option value="listMother" onchange="replaceHospitalList()">산부인과</option>
                 </select>
                 <select id="hospitalList_orderBy" name="hospitalList_orderBy" class="hospitalList_orderBy">
                     <option value="ASC">글자순</option>
