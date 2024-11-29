@@ -24,13 +24,31 @@
 		<result column="USERPROFILE" property="userProfile" />
 	</resultMap>
 	
-	<resultMap type="Rankup" id="rankupResultSet">
-    	<result column="SEQ_NO" property="seqNo" />
-    	<result column="USER_NO" property="userNo" />
-    	<result column="RES_TITLE" property="resTitle" />
-    	<result column="SUBJECT" property="subject" />
-    	<result column="LIC_PICTURE" property="licPicture" />
-	</resultMap>
+	<resultMap id="rankupResultSet" type="Rankup">
+    <result column="SEQ_NO" property="seqNo" />
+    <result column="USER_NO" property="userNo" />
+    <result column="RES_TITLE" property="resTitle" />
+    <result column="SUBJECT" property="subject" />
+    <result column="LIC_PICTURE" property="licPicture" />
+    <result column="STATUS" property="status" />
+    <result column="USER_NAME" property="userName" />
+</resultMap>
+	
+	<resultMap type="HealthReservation" id="HealthReservationResultSet" >
+        <result property="hResNo" column="H_RES_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="gstNo" column="GST_NO"/> <!-- PATIENT_NAME 추가 -->
+       	<result property="hosNo" column="HOS_NO"/>
+        <result property="resDate" column="RES_DATE"/>
+        <result property="resTime" column="RES_TIME"/>
+        <result property="resCategory" column="RES_CATEGORY"/>
+        <result property="resComment" column="RES_COMMENT"/>
+        <result property="patientName" column="PATIENT_NAME"/>
+        <result property="patientBirthday" column="PATIENT_BIRTH"/>
+        <result property="patientEmail" column="PATIENT_EMAIL"/>
+        <result property="patientGender" column="PATIENT_GENDER"/>
+        <result property="patientResult" column="PATIENT_RESULT"/>
+    </resultMap>
 
 	<!-- 로그인 쿼리 -->
 	<select id="loginMember"
@@ -105,13 +123,18 @@
 	
 	<!-- 등업 신청 데이터 조회 -->
     <select id="getAllRankups" resultMap="rankupResultSet">
-        SELECT SEQ_NO,
-        USER_NO,
-        RES_TITLE,
-        SUBJECT,
-        LIC_PICTURE
-        FROM RANKUP
-    </select>
+    SELECT 
+        R.SEQ_NO,
+        R.USER_NO,
+        R.RES_TITLE,
+        R.SUBJECT,
+        R.LIC_PICTURE,
+        R.STATUS,
+        M.USER_NAME
+    FROM RANKUP R
+    JOIN MEMBER M
+    ON R.USER_NO = M.USER_NO
+</select>
 
 	<!-- 회원 정보 업데이트 -->
 	<update id="updateMember" parameterType="member">
@@ -178,7 +201,26 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
-
+	<!-- 유저번호로 내역 조회 -->
+	<select id="selectHealthReservation" resultMap="HealthReservationResultSet">
+		SELECT H_RES_NO,
+			   USER_NO,
+			   GST_NO,
+			   HOS_NO,
+			   PATIENT_NAME,
+			   PATIENT_RESULT,
+			   RES_DATE,
+			   RES_TIME,
+			   RES_CATEGORY,
+			   RES_COMMENT,
+			   PATIENT_BIRTH,
+			   PATIENT_EMAIL,
+			   PATIENT_GENDER,
+			   HOS_NAME AS hosName
+		  FROM HEALTH_RESERVATION
+		  JOIN HOSPITAL_INFO USING(HOS_NO)
+		 WHERE H_RES_NO = #{USER_NO}
+	</select>
 
 
 

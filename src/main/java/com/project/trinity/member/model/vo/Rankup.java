@@ -14,7 +14,9 @@ import lombok.ToString;
 public class Rankup {
     private int seqNo;           // SEQ_NO
     private String userNo;       // USER_NO
-    private String resTitle;       // R_TITLE
+    private String resTitle;     // RES_TITLE
     private String subject;      // SUBJECT
     private String licPicture;   // LIC_PICTURE
+    private String status;       // STATUS
+    private String userName;     // USER_NAME
 }
