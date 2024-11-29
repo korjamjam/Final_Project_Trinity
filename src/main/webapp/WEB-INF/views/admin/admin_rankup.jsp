@@ -26,15 +26,22 @@
 			</c:if>
 			<div class="rankup-list">
 				<c:forEach var="rankup" items="${rankupList}">
-					<a href="rankupDetail" class="rankup-item">
+					<a href="rankupDetail?seqNo=${rankup.seqNo}" class="rankup-item">
+    <!-- seqNo 값이 제대로 전달되고 있는지 확인 -->
 						<p>
-							<span>신청자:</span> <span>${rankup.userNo}</span>
+							<span>신청자:</span> <span>${rankup.userName}</span>
 						</p>
 						<p>
 							<span>신청 제목:</span> <span>${rankup.resTitle}</span>
 						</p>
 						<p>
-							<span>전문 과목:</span> <span>${rankup.subject}</span>
+							<span>등업 신청:</span> <span> <c:choose>
+									<c:when test="${rankup.status == 'W'}">대기</c:when>
+									<c:when test="${rankup.status == 'A'}">승인</c:when>
+									<c:when test="${rankup.status == 'D'}">거부</c:when>
+									<c:otherwise>알 수 없음</c:otherwise>
+								</c:choose>
+							</span>
 						</p>
 					</a>
 				</c:forEach>

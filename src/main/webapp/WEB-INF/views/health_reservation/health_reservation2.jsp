@@ -32,7 +32,7 @@
                         3. 검진종류
                     </div>
                     <div class="health_reservation_normal_select">
-                        <select name="reservation_user_select" id="examSelect">
+                        <select name="reservation_user_select" id="category" onchange="categoryHospital()">
                             <option value="" disabled hidden selected>검진 종류</option>
                             <option value="1">일반 검진</option>
                             <option value="2">구강 검진</option>
@@ -162,27 +162,43 @@
         });
         });
 
-        $("#examSelect").on("change", function () {
-            const selectedCode = $(this).val();
-            if (selectedCode) {
-                $.ajax({
+        function categoryHospital() {
+            const category = document.querySelector("#category").value;
+            console.log(category)
+
+            getHrHospitalList({ category: category }, function(hrHospitalList){
+                const itemList = hrHospitalList.response.body.items.item;
+                drawHrHospitalList(document.querySelector("#hospitalSelect"), itemList)
+            })
+        }
+
+        function getHrHospitalList(data, callback){
+            console.log(data)
+            $.ajax({
                     url: "category", // 병원 목록 조회 API 엔드포인트
                     method: "GET",
-                    data: { category: selectedCode },
-                    success: function (data) {
-                        const hospitalSelect = $("#hospitalSelect");
-                        hospitalSelect.empty();
-                        hospitalSelect.append(`<option value="">원하는 검사항목을 선택하세요</option>`); // 기본 옵션 추가
-                        data.forEach(hospital => {
-                            hospitalSelect.append(`<option value="${hospital.id}">${hospital.name}</option>`);
-                        });
+                    data: data,
+                    success: function (result) {
+                        callback(result)
                     },
                     error: function () {
                         alert("병원 목록을 불러오지 못했습니다.");
                     }
                 });
+        }
+
+        function drawHrHospitalList(parent, itemArr){
+            const category = document.querySelector("#category").value;
+            parent.innerHTML = "";
+
+            console.log("itemArr" + itemArr)
+            for(const item of itemArr){
+                console.log("category" + category)
+                console.log("item.hmcNm" + item.hmcNm)
+                parent.innerHTML += "<option value=" + category + ">" + item.hmcNm + "</option>" 
             }
-        });
+        }
+
     </script>
     <!-- footer -->
 	<jsp:include page="../common/main_footer.jsp"/>

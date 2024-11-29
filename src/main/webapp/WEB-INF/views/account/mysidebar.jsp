@@ -28,8 +28,21 @@
 			</tr>
 			<tr>
 				<th><a
-					href="${pageContext.request.contextPath}/member/repair_email"
+					href="${pageContext.request.contextPath}/member/reservationconfirmation"
 					id="reservation_check">예약 확인</a></th>
+
+			</tr>
+			<tr>
+				<th><a
+					href="${pageContext.request.contextPath}/member/healthreservationconfirmation"
+					id="reservation_check">건강검진 확인</a></th>
+
+			</tr>
+
+			<tr>
+				<th><a
+					href="${pageContext.request.contextPath}/member/reset_pwd"
+					id="reset_pwd">비밀번호 변경</a></th>
 
 			</tr>
 			<tr>
@@ -38,13 +51,8 @@
 					id="apply_doctor">의사 신청</a></th>
 
 			</tr>
-			<tr>
-				<th><a
-					href="${pageContext.request.contextPath}/member/reset_pwd"
-					id="reset_pwd">비밀번호 변경</a></th>
 
-			</tr>
-			
+
 
 		</table>
 		<div class="support-box">
