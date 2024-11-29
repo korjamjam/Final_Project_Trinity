@@ -58,8 +58,9 @@ function addHospitalList(hospitals) {
 
 // AJAX 요청으로 데이터 로드
 const func = function () {
+    console.log(checkVisible('#loadingLine'))
     if (!isVisible && checkVisible('#loadingLine')) {
-        isVisible = true;
+        isVisible = true; 
 
         console.log(page);
 
@@ -89,32 +90,6 @@ const func = function () {
 // selectbox를 골랐을 때 $(".hospitalList_list_wrapper2").remove();
 function replaceHospitalList(hospitals) {
     $(".hospitalList_list_wrapper2").remove();
-    $(".hospitalList_list").remove();
     //여기서부터 데이터 가지고 오기
     
-    hospitals.forEach(hospital => {
-        $('.hospitalList_wrapper').append(`
-            <div class="hospitalList_list_wrapper2">
-                <div class="hospitalList_list">
-                    <div class="hospitalList_listTitle">
-                        <a href="${contextPath}/hospital/detail?hosNo=${hospital.hosNo}">
-                            <p>${hospital.hosName}</p>
-                        </a>
-                    </div>
-                    <div class="hospitalList_listOpenTime">
-                        <span>평일 ${hospital.hosStartTime1} ~ ${hospital.hosEndTime1}</span>
-                        <span>${hospital.department}</span>
-                    </div>
-                    <div class="hospitalList_listAddress">
-                        <p>${hospital.hosAddress}</p>
-                    </div>
-                    <div class="hospitalList_listTag">
-                        <button>어린이 국가예방접종</button>
-                        <button>영유아 검진</button>
-                        <button>주차장</button>
-                    </div>
-                </div>
-            </div>
-        `);
-    });
 }

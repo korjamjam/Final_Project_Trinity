@@ -25,9 +25,11 @@
     <!-- css -->
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 	<!-- JS -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </head>
 <body>
@@ -78,7 +80,7 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href="hospital_list"> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
+				<a href="${pageContext.request.contextPath}/hospital/list/openHos"> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
 					alt="openHospital">
 					<p>열린 병원</p>
 				</a>
@@ -149,7 +151,33 @@
 		<br>
 
 		<!-- Commercial -->
-		<div class="commercial">광고판</div>
+		<!-- Slider main container -->
+		<div class="swiper-container">
+			<!-- Additional required wrapper -->
+			<div class="swiper-wrapper">
+				<!-- Slides -->
+				<div class="swiper-slide">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad1.jpg" alt="ad1">
+				</div>
+				<div class="swiper-slide">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad2.jpg" alt="ad2">
+				</div>
+				<!-- <div class="swiper-slide">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad3.jpg" alt="ad3">
+				</div>
+				<div class="swiper-slide">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad4.jpg" alt="ad4">
+				</div>
+				<div class="swiper-slide">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad6.jpg" alt="ad6">
+				</div> -->
+			</div>
+		
+			<!-- If we need navigation buttons -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		
+		</div>
 
 		<br>
 		<br>
