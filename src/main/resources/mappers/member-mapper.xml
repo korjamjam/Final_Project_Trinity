@@ -178,7 +178,26 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
-
+	<!-- 유저번호로 내역 조회 -->
+	<select id="selectHealthReservation" resultMap="HealthReservationResultSet">
+		SELECT H_RES_NO,
+			   USER_NO,
+			   GST_NO,
+			   HOS_NO,
+			   PATIENT_NAME,
+			   PATIENT_RESULT,
+			   RES_DATE,
+			   RES_TIME,
+			   RES_CATEGORY,
+			   RES_COMMENT,
+			   PATIENT_BIRTH,
+			   PATIENT_EMAIL,
+			   PATIENT_GENDER,
+			   HOS_NAME AS hosName
+		  FROM HEALTH_RESERVATION
+		  JOIN HOSPITAL_INFO USING(HOS_NO)
+		 WHERE H_RES_NO = #{USER_NO}
+	</select>
 
 
 

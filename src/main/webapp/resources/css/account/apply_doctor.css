@@ -49,7 +49,8 @@ form {
 /* 입력 필드 스타일 */
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="file"] {
+.form-group input[type="file"],
+.form-group select {
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #cccccc;
@@ -60,11 +61,23 @@ form {
 
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
-.form-group input[type="file"]:focus {
+.form-group input[type="file"]:focus,
+.form-group select:focus {
     border-color: #4caf50; /* 초록색 포커스 */
     background-color: #ffffff;
     outline: none;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* 초록빛 그림자 */
+}
+
+/* 드롭다운 화살표 스타일 (웹킷 브라우저) */
+.form-group select {
+    -webkit-appearance: none; /* 기본 화살표 제거 */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1rem;
 }
 
 /* 제출 버튼 스타일 */
@@ -93,12 +106,14 @@ form {
 
     .form-group input[type="text"],
     .form-group input[type="email"],
-    .form-group input[type="file"] {
+    .form-group input[type="file"],
+    .form-group select {
         font-size: 0.9rem;
     }
 
-    .submit-button {
+    .submit-button {	
         font-size: 0.9rem;
         padding: 12px;
     }
 }
+	

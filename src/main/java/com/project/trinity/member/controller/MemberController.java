@@ -465,4 +465,15 @@ public class MemberController {
 	public String applydoctorpage() {
 		return "account/apply_doctor";
 	}
+	
+	@GetMapping("/reservationconfirmation")
+	public String reservationconfirmationpage() {
+		return "account/reservationconfirmation";
+	}
+	
+	@GetMapping("/healthreservationconfirmation")
+	public String healthreservationconfirmationpage() {
+		return "account/healthreservationconfirmation";
+	}
+	
 }
