@@ -2,15 +2,41 @@ let contextPath = "";
 
 // 무한 스크롤 데이터 로드 여부
 let isVisible = false;
-let page = 2; // 첫 페이지는 이미 로드되었으므로 2부터 시작
+let page = 1; // 첫 페이지는 이미 로드되었으므로 2부터 시작
 
-// 초기 설정 및 이벤트 등록
+//10개만 먼저 찍어주기
+function init10() {
+    // 첫 페이지 데이터를 AJAX로 가져오고 리스트에 추가
+    let subject = document.getElementById('hospitalList_subject').value;
+    let order = document.getElementById('hospitalList_orderBy').value;
+    $.ajax({
+        url: contextPath + `/hospital/list/api`,
+        type: "GET",
+        data: { 
+                subject: subject, 
+                order: order, 
+                page: page, 
+                limit: 10}, // 첫 페이지와 제한 개수 // 첫 페이지와 제한 개수
+        dataType: "json",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addHospitalList(response); // 데이터를 병원 리스트에 추가
+            } else {
+                console.log("초기 데이터가 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("초기 데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+}
+
 function hospitalListInit(path){
+
     contextPath = path;
     // 스크롤 이벤트 등록 (무한 스크롤)
     $(window).on('scroll', func);
 
-    // 첫 페이지는 이미 로드되어 있으므로 func 호출하지 않음
 };
 
 // 특정 요소가 화면에 보이는지 확인하는 함수
@@ -62,11 +88,18 @@ const func = function () {
         isVisible = true;
 
         console.log(page);
+        let subject = document.getElementById('hospitalList_subject').value;
+        let order = document.getElementById('hospitalList_orderBy').value;
 
         $.ajax({
             url: contextPath + `/hospital/list/api`, // 데이터 API 경로
             type: "GET",
-            data: { page: page, limit: 10 }, // 현재 페이지와 제한 개수
+            data: { 
+                    subject: subject, 
+                    order: order, 
+                    page: page, 
+                    limit: 10 
+                }, // 현재 페이지와 제한 개수
             dataType: "json",
             success: function(response) {
                 if (response && response.length > 0) {
@@ -75,7 +108,7 @@ const func = function () {
                     isVisible = false; // 추가 요청 가능
                 } else {
                     console.log("더 이상 데이터가 없습니다.");
-                    $('#loadingLine').hide(); // 더 이상 데이터가 없으면 `loadingLine` 숨김
+                    //$('#loadingLine').hide(); // 더 이상 데이터가 없으면 `loadingLine` 숨김
                 }
             },
             error: function(xhr, status, error) {
@@ -85,3 +118,21 @@ const func = function () {
         });
     }
 };
+
+function hospitalListInit(path){
+    contextPath = path;
+    // 스크롤 이벤트 등록 (무한 스크롤)
+    $(window).on('scroll', func);
+
+    // 첫 페이지는 이미 로드되어 있으므로 func 호출하지 않음
+};
+
+function replaceHospitalList(hospitals) {
+    $(".hospitalList_list_wrapper2").remove();
+
+    isVisible = false;
+    page = 1;
+
+    init10();
+
+}

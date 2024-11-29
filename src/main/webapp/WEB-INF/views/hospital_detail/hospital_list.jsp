@@ -33,7 +33,7 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_list.js"></script>
 
 </head>
-<body onload="hospitalListInit('${pageContext.servletContext.contextPath}')">
+<body onload="hospitalListInit('${pageContext.servletContext.contextPath}'); init10();">
 	<!-- Header -->
 	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
 	
@@ -54,10 +54,10 @@
         <!-- order by -->
         <div class="hospitalList_order_wrapper">
             <div class="hospitalList_order">
-                <select id="hospitalList_subject" name="hospitalList_subject" class="hospitalList_subject">
-                    <option value="listAll">전체</option>
-                    <option value="listChild" onchange="replaceHospitalList()">소아과</option>
-                    <option value="listMother" onchange="replaceHospitalList()">산부인과</option>
+                <select id="hospitalList_subject" name="hospitalList_subject" class="hospitalList_subject" onchange="replaceHospitalList()">
+                    <option value="listAll" selected>전체</option>
+                    <option value="listChild">소아과</option>
+                    <option value="listMother">산부인과</option>
                 </select>
                 <select id="hospitalList_orderBy" name="hospitalList_orderBy" class="hospitalList_orderBy">
                     <option value="ASC">글자순</option>
@@ -66,7 +66,6 @@
                 </select>
             </div>
         </div>
-
 
         <div class="hospitalList_list_wrapper2">
             <hr>
@@ -98,16 +97,11 @@
     </div>
 
     <!-- Infinite Scroll Loader -->
-    <div id="loadingLine" style="height: 50px; text-align: center; margin-top: 20px;">
-        <div class="loader"></div>
-    </div>
+    <div id="loadingLine" style="padding: 0px"></div>
 
 	<br><br>
 	<!-- Footer -->
 	<jsp:include page="/WEB-INF/views/common/main_footer.jsp" />
-
-	
-
 
 </body>
 </html>
