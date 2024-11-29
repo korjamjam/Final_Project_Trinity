@@ -273,20 +273,25 @@
 
 
 	<!-- 댓글 추가 -->
-	<insert id="insertReply">
-		INSERT INTO COMMENTS (
-		COMMENT_NO,
-		BOARD_NO,
-		USER_NO,
-		CONTENT
-		)
-		VALUES (
-		SEQ_COMMENT_NO.NEXTVAL, <!-- 댓글 번호 시퀀스 -->
-		#{refBno},              <!-- 게시글 번호 -->
-		#{userNo},              <!-- 작성자 번호 -->
-		#{replyContent}         <!-- 댓글 내용 -->
-		)
-	</insert>
+<insert id="insertReply" parameterType="map">
+    <selectKey keyProperty="commentNo" resultType="java.lang.String" order="BEFORE">
+        SELECT SEQ_COMMENT_NO.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO COMMENTS (
+        COMMENT_NO,
+        BOARD_NO,
+        USER_NO,
+        CONTENT
+    ) VALUES (
+        #{commentNo},
+        #{refBno},
+        #{userNo},
+        #{replyContent}
+    )
+</insert>
+
+
+
 
 
 	<select id="selectTopBoardList" resultMap="boardResult">
@@ -314,9 +319,17 @@
 	<!-- 좋아요 관련 SQL 시작 -->
 	<!-- 좋아요 추가 -->
 	<insert id="insertLike" parameterType="map">
-		INSERT INTO LIKES_TABLE (COMMENT_NO, USER_NO, ENROLL_DATE)
-		VALUES (#{commentNo}, #{userNo}, SYSDATE)
+	    INSERT INTO LIKES_TABLE (
+	        COMMENT_NO,
+	        USER_NO,
+	        ENROLL_DATE
+	    ) VALUES (
+	        #{commentNo},        <!-- 댓글 번호 (insertReply에서 반환된 값) -->
+	        #{userNo},           <!-- 좋아요 작성자 번호 -->
+	        SYSDATE              <!-- 등록 날짜 -->
+	    )
 	</insert>
+
 
 	<!-- 좋아요 취소 -->
 	<delete id="deleteLike" parameterType="map">
@@ -333,7 +346,7 @@
 	</select>
 
 	<!-- 댓글별 좋아요 수 가져오기 -->
-	<select id="getLikeCount" parameterType="int"
+	<select id="getLikeCount" parameterType="String"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM LIKES_TABLE
