@@ -237,21 +237,24 @@ CREATE TABLE LIKES_TABLE (
     COMMENT_NO VARCHAR2(10) NOT NULL,
     USER_NO VARCHAR2(10) NOT NULL,
     ENROLL_DATE DATE DEFAULT SYSDATE,
+    LIKE_COUNT NUMBER,
     PRIMARY KEY (COMMENT_NO, USER_NO),
-    FOREIGN KEY (COMMENT_NO) REFERENCES COMMENTS (COMMENT_NO) ON DELETE CASCADE,
+    FOREIGN KEY (COMMENT_NO) REFERENCES COMMENTS (COMMENT_NO),
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
 );
 
-ALTER TABLE FILE_TABLE ADD ALLOW_DOWNLOAD CHAR(1) CHECK (ALLOW_DOWNLOAD IN ('Y', 'N'));
-ALTER TABLE FILE_TABLE ADD FILE_SIZE NUMBER;
+ALTER TABLE FILE_TABLE ADD ALLOW_DOWNLOAD CHAR(1); -- Y: 허용, N: 비허용
+ALTER TABLE FILE_TABLE ADD file_size NUMBER;
 
 CREATE TABLE RANKUP (
-    SEQ_NO NUMBER(10) PRIMARY KEY,     -- 기본 키
-    USER_NO VARCHAR2(100) NOT NULL,    -- 사용자 고유번호
-    RES_TITLE VARCHAR2(100) NOT NULL,    -- 신청 제목
-    SUBJECT VARCHAR2(100) NOT NULL,    -- 전문과목
-    LIC_PICTURE VARCHAR2(200) NOT NULL, -- 의사 인증 사진 파일 경로
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
+    SEQ_NO NUMBER(10) PRIMARY KEY,           -- 기본 키
+    USER_NO VARCHAR2(100) NOT NULL,          -- 사용자 고유번호
+    RES_TITLE VARCHAR2(100) NOT NULL,        -- 신청 제목
+    SUBJECT VARCHAR2(100) NOT NULL,          -- 전문과목
+    LIC_PICTURE VARCHAR2(200) NOT NULL,      -- 의사 인증 사진 파일 경로
+    STATUS CHAR(1) DEFAULT 'W' NOT NULL,     -- 등업 신청 상태 (W: 대기, A: 승인, D: 거부)
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),
+    CHECK (STATUS IN ('W', 'A', 'D'))        -- 상태 값 제약 조건
 );
 
 
@@ -569,26 +572,31 @@ END;
 
 DECLARE
     CURSOR c_user_no IS
-        SELECT USER_NO FROM MEMBER WHERE MED_KEY IS NOT NULL; -- 의료 분야 키가 있는 사용자만 가져옴
+        SELECT USER_NO, MED_KEY FROM MEMBER; -- MED_KEY 포함하여 사용자 정보 가져옴
     v_user_no MEMBER.USER_NO%TYPE;
+    v_med_key MEMBER.MED_KEY%TYPE;
     v_seq_no NUMBER := 1; -- 초기 SEQ_NO 설정
 BEGIN
     OPEN c_user_no;
     LOOP
-        FETCH c_user_no INTO v_user_no;
+        FETCH c_user_no INTO v_user_no, v_med_key;
         EXIT WHEN c_user_no%NOTFOUND;
 
         INSERT INTO RANKUP (
-            SEQ_NO, USER_NO, RES_TITLE, SUBJECT, LIC_PICTURE
+            SEQ_NO, USER_NO, RES_TITLE, SUBJECT, LIC_PICTURE, STATUS
         ) VALUES (
             v_seq_no, -- SEQ_NO 증가
             v_user_no, -- MEMBER 테이블에서 가져온 USER_NO
             '전문가 인증 신청 ' || v_seq_no, -- 신청 제목
-            CASE MOD(v_seq_no, 1) -- 전문과목
+            CASE MOD(v_seq_no, 2) -- 전문과목
                 WHEN 0 THEN '소아과'
                 ELSE '산부인과'
             END,
-            '/files/lic_picture_' || v_seq_no || '.jpg' -- 인증 사진 경로
+            '/files/lic_picture_' || v_seq_no || '.jpg', -- 인증 사진 경로
+            CASE
+                WHEN v_med_key IS NOT NULL THEN 'A' -- MED_KEY가 있으면 승인
+                ELSE 'W' -- MED_KEY가 없으면 대기
+            END
         );
 
         v_seq_no := v_seq_no + 1; -- SEQ_NO 증가
@@ -599,10 +607,9 @@ BEGIN
     END LOOP;
 
     CLOSE c_user_no;
-
-    COMMIT;
 END;
 /
+
 
 INSERT INTO HOSPITAL_INFO (
     HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, 
@@ -942,10 +949,6 @@ VALUES('RV9', 'U9', '평범한 병원', '특별히 나쁘지도, 좋지도 않�
 INSERT INTO DOCTOR_REVIEW 
 (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_VIEWS, REVIEW_RATING) 
 VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적인 진료를 받았습니다.', SYSDATE, SYSDATE, 180, 5);
-
-
-
-
 
 
 --커밋--------------------------------------------------------------------------------------------------------
