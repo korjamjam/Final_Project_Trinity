@@ -3,82 +3,48 @@ package com.project.trinity.community.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Reply;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.common.vo.PageInfo;
 
 public interface BoardService {
 
-	// 게시글 총 갯수 가져오기
-	int selectListCount();
+    // 게시글 관련 메서드
+    int selectListCount(); // 게시글 총 갯수 가져오기
+    ArrayList<Board> selectList(PageInfo pi, String sortType); // 게시글 목록 가져오기
+    ArrayList<Board> selectRecentPopularList(Map<String, Object> params); // 최근 인기 게시글 조회
+    ArrayList<Board> selectListByCategory(String type, PageInfo pi); // 카테고리별 게시글 목록
+    int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
+    Board selectBoard(String bno); // 게시글 조회
+    int increaseCount(String bno); // 게시글 조회수 증가
+    int insertBoard(Board b, String userNo); // 게시글 추가
+    int updateBoard(Board b); // 게시글 수정
+    int deleteBoard(String boardNo); // 게시글 삭제
 
-    // 게시글 목록 가져오기
-    ArrayList<Board> selectList(PageInfo pi, String sortType);
-    
-    // 최근 7일 내 인기 게시글 조회
-    ArrayList<Board> selectRecentPopularList(Map<String, Object> params);
-    
-    // 카테고리별 게시글 수 조회 메서드
-    int selectCountCategoryList(String type);
+    // 파일 관련 메서드
+    int insertFile(BoardFile bf); // 첨부파일 추가
+    BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
+    ArrayList<BoardFile> getFilesList(String bno); // 특정 게시글의 모든 첨부파일
+    int deleteAllFilesByBoardNo(String boardNo); // 게시글의 모든 첨부파일 삭제
+    int deleteFile(String fileNo); // 특정 파일 삭제
+    int updateFileAllowDownload(BoardFile bf); // 파일 다운로드 허용 여부 수정
 
-    // 카테고리별 게시글 목록 조회 메서드 (기존 유지)
-    ArrayList<Board> selectListByCategory(String type, PageInfo pi);
+    // 댓글 관련 메서드
+    ArrayList<Comment> selectReply(String bno); // 댓글 목록 가져오기
+    int insertReply(Comment r); // 댓글 추가
+    int deleteReply(String commentNo); // 댓글 삭제
 
-
- // 인기 게시글 목록 조회
-	ArrayList<Board> selectPopularList(Map<String, Object> params);
-
-	// 게시글 조회수 증가
-	int increaseCount(String bno);
-
-	// 게시글 번호로 게시글 조회
-	Board selectBoard(String bno);
-
-	// 게시글 추가(insert)
-	int insertBoard(Board b, String userNo);
-
-	// 첨부파일 추가
-	int insertFile(BoardFile bf);
-
-	// 특정 파일 1개의 정보를 가져오는 메서드 정의
-	BoardFile getSingleFile(String fileNo);
-
-	// 특정 게시글의 모든 첨부파일 목록 가져오기
-	ArrayList<BoardFile> getFilesList(String bno);
-	
-	// 특정 게시글의 모든 첨부파일 삭제 (롤백 처리 지원)
-	int deleteAllFilesByBoardNo(String boardNo);
-
-	// 특정 파일의 다운로드 허용 여부 업데이트
-	int updateFileAllowDownload(BoardFile bf);
-
-	// 게시글 수정
-	int updateBoard(Board b);
-
-	// 게시글 삭제
-	int deleteBoard(String boardNo);
-
-	// 특정 파일 삭제
-	int deleteFile(String fileNo);
-
-	// 댓글목록 가져오기
-	ArrayList<Reply> selectReply(String bno);
-
-	// 댓글 추가
-	int insertReply(Reply r);
-
-	// 조회수 상위 5개
-	public ArrayList<Board> selectTopBoardList();
-	// 댓글 삭제
-	int deleteReply(String replyNo);
-
-	
-
-	  // 좋아요 상태 토글
-    int toggleLike(String commentNo, String userNo);
-
-    // 특정 댓글의 좋아요 수 가져오기
+    // 좋아요/싫어요 관련 메서드
     int getLikeCount(String commentNo);
+	int getDislikeCount(String commentNo);
+	Like getCurrentLikeState(String commentNo, String userNo); // 좋아요/싫어요 상태 조회
+    void deleteLikeDislike(String commentNo, String userNo); // 좋아요/싫어요 삭제
+    void insertLikeDislike(String commentNo, String userNo, int isLike); // 좋아요/싫어요 추가
+    void updateLikeDislike(String commentNo, String userNo, int isLike);
 
+  
 }

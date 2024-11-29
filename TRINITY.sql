@@ -915,3 +915,7 @@ SELECT * FROM MEMBER;
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT; 
 
+ALTER TABLE COMMENTS ADD LIKE_COUNT NUMBER DEFAULT 0;
+
+
+
