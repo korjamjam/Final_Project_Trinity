@@ -210,13 +210,13 @@
     WITH LIKE_COUNTS AS (
       SELECT COMMENT_NO, COUNT(*) AS LIKE_COUNT
       FROM LIKES_TABLE
-      WHERE IS_LIKE = 1
+      WHERE IS_LIKED = 1
       GROUP BY COMMENT_NO
     ),
     DISLIKE_COUNTS AS (
       SELECT COMMENT_NO, COUNT(*) AS DISLIKE_COUNT
       FROM LIKES_TABLE
-      WHERE IS_LIKE = 0
+      WHERE IS_LIKED = 0
       GROUP BY COMMENT_NO
     )
     SELECT
@@ -252,7 +252,7 @@
   <select id="getCurrentLikeState" resultType="Like">
     SELECT COMMENT_NO AS commentNo,
            USER_NO AS userNo,
-           IS_LIKE AS isLike,
+           IS_LIKED AS isLike,
            TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') AS enrollDate
     FROM LIKES_TABLE
     WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
@@ -264,7 +264,7 @@
     INSERT INTO LIKES_TABLE (
       COMMENT_NO,
       USER_NO,
-      IS_LIKE,
+      IS_LIKED,
       ENROLL_DATE
     )
     VALUES (
@@ -279,7 +279,7 @@
   <update id="updateLikeDislike">
     UPDATE LIKES_TABLE
     SET 
-      IS_LIKE = #{isLike},
+      IS_LIKED = #{isLike},
       ENROLL_DATE = SYSDATE
     WHERE 
       COMMENT_NO = #{commentNo}
@@ -302,7 +302,7 @@
     FROM LIKES_TABLE
     WHERE 
       COMMENT_NO = #{commentNo}
-      AND IS_LIKE = 1
+      AND IS_LIKED = 1
   </select>
 
   <!-- 댓글별 싫어요 수 가져오기 -->
@@ -311,7 +311,7 @@
     FROM LIKES_TABLE
     WHERE 
       COMMENT_NO = #{commentNo}
-      AND IS_LIKE = 0
+      AND IS_LIKED = 0
   </select>
 
 
