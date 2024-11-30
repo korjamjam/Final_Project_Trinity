@@ -50,11 +50,12 @@
     padding: 10px;
     text-align: center;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .comment-table th:first-child,
 .comment-table td:first-child {
-    width: 10%;
+    width: 15%;
     /* 작성자 열 너비 고정 */
 }
 

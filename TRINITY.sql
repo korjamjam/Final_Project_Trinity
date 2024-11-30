@@ -214,16 +214,18 @@ CREATE TABLE FILE_TABLE (
         REFERENCES MEMBER (USER_NO)     -- 사용자 삭제 시 연관된 파일 삭제 가능
 );
 
-
 CREATE TABLE COMMENTS (
-    COMMENT_NO VARCHAR2(10) PRIMARY KEY,
-    BOARD_NO VARCHAR2(10) NOT NULL,
-    USER_NO VARCHAR2(10) NOT NULL,
-    CONTENT VARCHAR2(2000),
-    CREATED_AT DATE DEFAULT SYSDATE,
-    FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO),
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
-);
+    COMMENT_NO VARCHAR2(10) PRIMARY KEY,             -- 댓글 고유 번호
+    BOARD_NO VARCHAR2(10) NOT NULL,                 -- 게시글 고유 번호
+    USER_NO VARCHAR2(10) NOT NULL,                  -- 사용자 고유 번호
+    CONTENT VARCHAR2(2000),                         -- 댓글 내용
+    CREATED_AT DATE DEFAULT SYSDATE,                -- 작성일
+    LIKE_COUNT NUMBER DEFAULT 0,                    -- 좋아요 수
+    DISLIKE_COUNT NUMBER DEFAULT 0,                 -- 싫어요 수
+    FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO),  -- 게시판 참조키
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)   -- 사용자 참조키
+
+    ); 
 
 CREATE TABLE H_SUBJECT (
     SUB_KEY NUMBER PRIMARY KEY,
@@ -234,14 +236,15 @@ CREATE TABLE H_SUBJECT (
 );
 
 CREATE TABLE LIKES_TABLE (
-    COMMENT_NO VARCHAR2(10) NOT NULL,
-    USER_NO VARCHAR2(10) NOT NULL,
-    ENROLL_DATE DATE DEFAULT SYSDATE,
-    LIKE_COUNT NUMBER,
-    PRIMARY KEY (COMMENT_NO, USER_NO),
-    FOREIGN KEY (COMMENT_NO) REFERENCES COMMENTS (COMMENT_NO),
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)
+    COMMENT_NO VARCHAR2(10) NOT NULL,                -- 댓글 고유 번호
+    USER_NO VARCHAR2(10) NOT NULL,                  -- 사용자 고유 번호
+    ENROLL_DATE DATE DEFAULT SYSDATE,               -- 좋아요/싫어요 등록일
+    IS_LIKED NUMBER(1) CHECK (IS_LIKED IN (0, 1)),  -- 좋아요(1), 싫어요(0), NULL(누르지 않음)
+    PRIMARY KEY (COMMENT_NO, USER_NO),              -- 복합 기본 키
+    FOREIGN KEY (COMMENT_NO) REFERENCES COMMENTS (COMMENT_NO), -- 댓글 참조키
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)          -- 사용자 참조키
 );
+
 
 ALTER TABLE FILE_TABLE ADD ALLOW_DOWNLOAD CHAR(1); -- Y: 허용, N: 비허용
 ALTER TABLE FILE_TABLE ADD file_size NUMBER;
@@ -953,3 +956,6 @@ VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적�
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT; 
+
+
+
