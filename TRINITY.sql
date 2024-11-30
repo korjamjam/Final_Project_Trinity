@@ -223,9 +223,9 @@ CREATE TABLE COMMENTS (
     LIKE_COUNT NUMBER DEFAULT 0,                    -- 좋아요 수
     DISLIKE_COUNT NUMBER DEFAULT 0,                 -- 싫어요 수
     FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO),  -- 게시판 참조키
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO) 
-    );   -- 사용자 참조키
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)   -- 사용자 참조키
 
+    ); 
 
 CREATE TABLE H_SUBJECT (
     SUB_KEY NUMBER PRIMARY KEY,
@@ -955,3 +955,6 @@ VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적�
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT; 
+
+
+

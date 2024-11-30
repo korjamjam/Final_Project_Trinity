@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Reply;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.template.Template;
 import com.project.trinity.community.common.vo.PageInfo;
@@ -403,7 +405,7 @@ public class BoardController {
 	//댓글을 DB에 저장
 	@ResponseBody
 	@RequestMapping("rinsert.bo")
-	public String ajaxInsertReply(Reply r) {
+	public String ajaxInsertReply(Comment r) {
 		 
 		 System.out.println("댓글 데이터: " + r); // 전달받은 댓글 데이터 확인
 		//성공했을 때 success, 실패했을 때 fail
@@ -418,7 +420,7 @@ public class BoardController {
 		  System.out.println("댓글 목록 요청 - 게시글 번호: " + bno);
 	
 		  try {
-		        ArrayList<Reply> list = boardService.selectReply(bno);
+		        ArrayList<Comment> list = boardService.selectReply(bno);
 		        System.out.println("댓글 목록: " + list);
 		        return new Gson().toJson(list);
 		    } catch (Exception e) {
@@ -428,23 +430,55 @@ public class BoardController {
 		    }
 	}
 	
-	@PostMapping("toggleLike.bo")
+	
 	@ResponseBody
+	@RequestMapping("toggleLike.bo")
 	public Map<String, Object> toggleLike(
-	        @RequestParam("commentNo") String commentNo,
-	        @RequestParam("userNo") String userNo) {
-	    System.out.println("컨트롤러 진입 - commentNo: " + commentNo + ", userNo: " + userNo);
-
+	    @RequestParam("commentNo") String commentNo,
+	    @RequestParam("userNo") String userNo,
+	    @RequestParam("isLike") int isLike) {
 	    Map<String, Object> response = new HashMap<>();
 	    try {
-	        int isLiked = boardService.toggleLike(commentNo, userNo);
-	        int likeCount = boardService.getLikeCount(commentNo);
+	        // 파라미터 유효성 검사
+	        if (commentNo == null || userNo == null || (isLike != 0 && isLike != 1)) {
+	            response.put("success", false);
+	            response.put("message", "잘못된 요청 데이터입니다.");
+	            return response;
+	        }
+
+	        // 좋아요/싫어요 로우데이터 가져오기
+	        Like existingLike = boardService.getCurrentLikeState(commentNo, userNo);
+
+	        if (existingLike == null) {
+	            // 데이터가 없으면 새로 추가
+	            boardService.insertLikeDislike(commentNo, userNo, isLike);
+
+	            response.put("success", true);
+	            response.put("likeCount", boardService.getLikeCount(commentNo));
+	            response.put("dislikeCount", boardService.getDislikeCount(commentNo));
+	            response.put("message", isLike == 1 ? "좋아요가 추가되었습니다." : "싫어요가 추가되었습니다.");
+	            return response;
+	        }
+
+	        // 데이터가 있으면 현재 상태와 비교
+	        if (existingLike.getIsLike() == isLike) {
+	            response.put("success", false);
+	            response.put("message", isLike == 1 ? "이미 좋아요를 누르셨습니다." : "이미 싫어요를 누르셨습니다.");
+	            return response;
+	        }
+
+	        // 상태 업데이트
+	        boardService.updateLikeDislike(commentNo, userNo, isLike);
+
 	        response.put("success", true);
-	        response.put("isLiked", isLiked);
-	        response.put("likeCount", likeCount);
+	        response.put("likeCount", boardService.getLikeCount(commentNo));
+	        response.put("dislikeCount", boardService.getDislikeCount(commentNo));
+	        response.put("message", isLike == 1 ? "좋아요로 변경되었습니다." : "싫어요로 변경되었습니다.");
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        response.put("success", false);
+	        response.put("message", "서버 오류가 발생했습니다.");
 	    }
 	    return response;
 	}
@@ -452,18 +486,13 @@ public class BoardController {
 
 
 
-	
-	
-	@ResponseBody
-	@RequestMapping(value="topList.bo", produces="application/json; charset-UTF-8")
-	public String ajaxTopBoardList() {
-		return new Gson().toJson(boardService.selectTopBoardList());
-	}
+
+
 	
 	@ResponseBody
 	@RequestMapping("rdelete.bo")
-	public String deleteReply(String replyNo) {
-	    int result = boardService.deleteReply(replyNo);
+	public String deleteReply(String commentNo) {
+	    int result = boardService.deleteReply(commentNo);
 
 	    return result > 0 ? "success" : "fail";
 	}
