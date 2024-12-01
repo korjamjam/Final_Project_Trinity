@@ -1,28 +1,31 @@
 .content-container {
-	max-width: 864px;
-	width: 60%;
-	display: flex;
-	justify-content: center;
-	/* 가로 중앙 정렬 */
-	align-items: center;
-	/* 세로 중앙 정렬 */
-	min-height: 80vh;
-	/* 화면 전체 높이 사용 */
-	flex-direction: column;
-	/* 세로로 정렬된 컨텐츠 */
-	margin: 0 auto;
-	padding: 40px 0;
+    max-width: 864px;
+    width: 60%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 40px 0;
 }
 
 .top-bar {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	/* 양쪽 끝으로 배치 */
-	align-items: center;
-	margin-bottom: 10px;
-	/* 여백 조절 */
-	max-width: 864px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    max-width: 864px;
+    margin-bottom: 10px;
+    overflow: hidden; /* 넘침 방지 */
+}
+
+.left-section {
+    flex: 1; /* 남은 공간 차지 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 텍스트 말줄임표 처리 */
 }
 
 .left-section h1 {
@@ -34,26 +37,27 @@
 
 /* 버튼 컨테이너 위치 조정 */
 .right-section {
-	display: flex;
-	align-items: center;
-	justify-content: space-between; /* 버튼을 오른쪽 정렬 */
-	height: 40px; /* 높이 설정 */
-	width: 18%; /* 부모 요소의 너비 채우기 */
+    flex: 0 0 auto; /* 고정된 크기 */
+    display: flex;
+    gap: 10px; /* 버튼 간격 */
+    align-items: center; /* 세로 중앙 정렬 */
 }
 
 /* 공통 스타일을 덮어쓰지 않고 위치 관련 스타일만 지정 */
-.right-section .white-button, .right-section .round-button {
-	height: 100%; /* 버튼 높이 부모 요소와 동일하게 */
-	max-width: 120px; /* 버튼의 최대 너비 */
-	padding: 0 10px; /* 버튼 내부 간격 */
+.right-section .white-button,
+.right-section .round-button {
+    height: 35px; /* 버튼 높이 */
+    padding: 0 10px; /* 버튼 내부 간격 */
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    border-radius: 8px;
 }
-
 /* white-button 스타일 커스터마이즈 */
 .right-section .white-button {
-	/* 공통 white-button 스타일은 유지 */
-	border-radius: 5px; /* 추가적인 둥글기 */
-	border: 1px solid #ccc; /* 추가적인 테두리 */
-	background-color: #f5f5f5; /* 배경색 */
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 .right-section .white-button:hover {
@@ -61,14 +65,13 @@
 }
 /* round-button 스타일 커스터마이즈 */
 .right-section .round-button {
-	/* 공통 round-button 스타일은 유지 */
-	background-color: #6cc24a; /* 기본 배경색 */
-	color: #fff;
-	font-weight: bold;
+    background-color: #6cc24a;
+    color: #fff;
+    border: none;
 }
 
 .right-section .round-button:hover {
-	background-color: #5aa33c; /* 호버 시 배경색 */
+    background-color: #5aa33c;
 }
 
 .post-wrapper {
@@ -96,7 +99,6 @@
 #summernote {
 	width: 100%;
 	max-width: 800px;
-	/* 원하는 최대 너비 설정 */
 	margin: 0 auto;
 	/* 가운데 정렬 */
 }
@@ -105,17 +107,10 @@
     font-size: 14px;   /* 필요하면 폰트 크기도 조정 가능 */
 }
 
-.note-editor hr {
-    border: none; /* 경계선을 제거 */
-    height: 0; /* 높이를 0으로 설정 */
-}
-
-.note-editor p {
-    border: none; /* 문단 간 경계선을 제거 */
-}
-
+.note-editor hr,
+.note-editor p,
 .note-editor div {
-    border: none; /* div 요소의 경계선 제거 */
+    border: none;
 }
 
 /* 버튼 컨테이너 스타일 */
@@ -128,9 +123,7 @@
 	height: 40px;
 }
 
-.submit-button:hover {
-	background-color: #5ba83f;
-}
+
 
 .post-form-header {
 	width: 100%;
@@ -162,32 +155,8 @@
 	border: 1px solid #ddd;
 }
 
-.spacer {
-	height: 20px;
-	/* 원하는 여백의 크기 */
-}
 
-.wrapper {
-	margin-top: 20px;
-	/* wrapper 위에 여백 */
-	margin-bottom: 20px;
-	/* wrapper 아래에 여백 */
-}
-.note-toolbar .note-btn.file-upload {
-    height: 34px; /* 다른 버튼들과 동일한 높이 설정 */
-    padding: 6px 12px; /* 패딩 조정 */
-    font-size: 14px; /* 글꼴 크기 조정 */
-    line-height: 1.42857143; /* 줄 간격 조정 */
-    display: inline-block;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-   
-    border: 1px solid rgba(0, 0, 0, .196); /* 테두리 */
-    border-radius: 4px; /* 모서리 둥글게 */
-    margin: 0 2px; /* 버튼 간격 */
-}
+
 #file-list-container {
     border: 1px solid #ccc; /* 테두리 색상 */
 	border-radius: 5px;
@@ -241,6 +210,25 @@
 .file-item span {
     font-size: 14px;
     color: #333;
+}
+
+.note-toolbar .note-btn.file-upload {
+    height: 34px; /* 다른 버튼들과 동일한 높이 설정 */
+    padding: 6px 12px; /* 패딩 조정 */
+    font-size: 14px; /* 글꼴 크기 조정 */
+    line-height: 1.42857143; /* 줄 간격 조정 */
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+   
+    border: 1px solid rgba(0, 0, 0, .196); /* 테두리 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    margin: 0 2px; /* 버튼 간격 */
+}
+.submit-button:hover {
+	background-color: #5ba83f;
 }
 
 /* 다운로드 버튼 기본 스타일 */
@@ -305,13 +293,21 @@
 
 	/* top-bar 설정 */
 	.top-bar {
-		width: 100%; /* 부모 요소의 너비 채우기 */
-		display: flex;
-		justify-content: space-between; /* 양쪽 끝으로 배치 */
-		align-items: center; /* 세로 중앙 정렬 */
-		height: 60px; /* top-bar의 높이 설정 */
-		padding: 14px 0;
-	}
+        flex-direction: row; /* 세로로 정렬 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+        gap: 10px; /* 섹션 간 간격 */
+    }
+
+    .right-section {
+        justify-content: flex-start; /* 버튼을 왼쪽 정렬 */
+        gap: 5px; /* 버튼 간 간격 축소 */
+    }
+
+    .right-section .white-button,
+    .right-section .round-button {
+        font-size: 12px; /* 버튼 글꼴 크기 축소 */
+        padding: 0 8px; /* 내부 여백 축소 */
+    }
 	.left-section {
 		flex-grow: 1;
 		/* 남은 공간을 차지 */
@@ -323,28 +319,6 @@
 	}
 	.left-section h1 span {
 		display: none; /* 글쓰기 숨기기 */
-	}
-
-	/* right-section 설정 */
-	.right-section {
-		display: flex;
-		justify-content: space-between; /* 버튼 간 균등 간격 */
-		align-items: flex-end; /* 자식 요소의 기본 정렬 아래쪽으로 설정 */
-		width: 45%; /* top-bar 너비의 45%를 차지 */
-		height: 100%; /* top-bar의 높이를 따라감 */
-	}
-
-	/* 버튼 스타일 */
-	.right-section .white-button, .right-section .round-button {
-		width: 48%; /* right-section 너비의 45%를 차지 */
-		display: flex;
-		align-items: center; /* 텍스트 세로 중앙 정렬 */
-		justify-content: center; /* 텍스트 가로 중앙 정렬 */
-		text-align: center;
-		padding: 0 10px; /* 내부 여백 */
-		font-size: 14px;
-		border-radius: 8px;
-		white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 	}
 
 	/* white-button 커스터마이징 */
