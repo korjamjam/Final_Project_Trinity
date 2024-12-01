@@ -50,7 +50,7 @@ public class AdminController {
     }
     //등업 상세페이지
     @RequestMapping("/rankupDetail")
-    public String showAdminRankUpDetail(@RequestParam(name = "seqNo", required = true) int seqNo, Model model) {
+    public String showAdminRankUpDetail(@RequestParam(name = "seqNo", required = true) String seqNo, Model model) {
         Rankup rankupDetail = adminService.getRankupDetail(seqNo); // 모든 정보 가져오기
         System.out.println("RankupDetail: " + rankupDetail);
         
@@ -58,32 +58,28 @@ public class AdminController {
         return "admin/admin_rankup_detail";
     }
     
-    //회원 등업하기
+    // 회원 등업하기
     @RequestMapping("/updateRankup")
-    public String updateRankup(@RequestParam("seqNo") int seqNo, 
+    public String updateRankup(@RequestParam("seqNo") String seqNo, 
                                @RequestParam("status") String status, 
-                               Model model, 
                                RedirectAttributes redirectAttributes) {
-        // 등업 신청 상태 업데이트
         String alertMsg = "";
-        
+
         if ("A".equals(status)) { // 승인일 경우
-            adminService.approveRankup(seqNo);
-            alertMsg = "등업이 완료되었습니다.";
+            adminService.approveRankup(seqNo); // 등업 승인 처리
+            alertMsg = "등업이 승인되었습니다.";
         } else if ("D".equals(status)) { // 거부일 경우
-            adminService.rejectRankup(seqNo);
+            adminService.rejectRankup(seqNo); // 등업 거부 처리
             alertMsg = "등업이 거부되었습니다.";
         } else if ("W".equals(status)) { // 대기일 경우
-            alertMsg = "변경 사항이 없습니다.";
+            adminService.setRankupToWaiting(seqNo); // 대기 상태 처리
+            alertMsg = "등업 상태가 대기로 설정되었습니다.";
         }
 
         redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
-        return "redirect:/admin/admin_rankup"; // 등업 리스트 페이지로 이동
+        return "redirect:/admin/rankup"; // 등업 리스트 페이지로 이동
     }
 
-
-
-    
     //병원관리 페이지
     @RequestMapping("/hospital")
     public String showAdminHospital() {

@@ -5,8 +5,10 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.trinity.admin.model.dao.AdminDao;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
 
@@ -34,30 +36,43 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public Rankup getRankupDetail(int seqNo) {
+    public Rankup getRankupDetail(String seqNo) {
         return adminDao.getRankupDetail(sqlSession, seqNo);
     }
     
     @Override
-    public void approveRankup(int seqNo) {
-        // Rankup 데이터 가져오기
+    public void setRankupToWaiting(String seqNo) {
+        // RANKUP 상태를 'W'(대기)로 업데이트
+        adminDao.updateRankupStatus(sqlSession, seqNo, "W");
+    }
+    
+    @Override
+    public void approveRankup(String seqNo) {
         Rankup rankup = adminDao.getRankupDetail(sqlSession, seqNo);
         if (rankup != null && rankup.getUserNo() != null) {
-            // MED_KEY 업데이트
-            adminDao.updateMedKey(sqlSession, rankup.getUserNo(), rankup.getSubject());
-            // 상태 업데이트
+            // MEDICAL_FIELD 데이터 삽입
+            String newMedNo = adminDao.insertMedicalField(sqlSession, rankup.getSubject());
+
+            // MEMBER 테이블 업데이트
+            adminDao.updateMemberMedKey(sqlSession, newMedNo, rankup.getUserNo());
+
+            // RANKUP 상태 업데이트
             adminDao.updateRankupStatus(sqlSession, seqNo, "A");
         }
     }
 
+
     @Override
-    public void rejectRankup(int seqNo) {
-        // Rankup 데이터 가져오기
+    public void rejectRankup(String seqNo) {
         Rankup rankup = adminDao.getRankupDetail(sqlSession, seqNo);
         if (rankup != null && rankup.getUserNo() != null) {
-            // MED_KEY NULL 처리
-            adminDao.updateMedKey(sqlSession, rankup.getUserNo(), null);
-            // 상태 업데이트
+            // MEMBER 테이블의 medKey를 null로 설정
+            adminDao.resetMemberMedKey(sqlSession, rankup.getUserNo());
+
+            // medKey가 null인 경우 관련된 medical_field 데이터 삭제
+            adminDao.deleteMedicalFieldIfMedKeyIsNull(sqlSession, rankup.getUserNo());
+
+            // RANKUP 상태를 'D'(거부)로 업데이트
             adminDao.updateRankupStatus(sqlSession, seqNo, "D");
         }
     }
