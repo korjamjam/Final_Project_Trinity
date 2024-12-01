@@ -168,6 +168,7 @@ public class BoardController {
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
 	public String selectBoard(@RequestParam("bno") String bno, Model m) {
+	    System.out.println("bno 값: " + bno); // 디버깅 로그
 		Board b = boardService.selectBoard(bno);
 		List<BoardFile> attachedFiles = boardService.getFilesList(bno); // 첨부파일 리스트 가져오기
 
