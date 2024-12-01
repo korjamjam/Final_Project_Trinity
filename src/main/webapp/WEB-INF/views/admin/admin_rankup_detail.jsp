@@ -16,12 +16,12 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp" />
 
-	 <script>
-        const alertMsg = '${alertMsg}';
-        if (alertMsg) {
-            alert(alertMsg);
-        }
-    </script>
+	<script>
+		const alertMsg = '${alertMsg}';
+		if (alertMsg) {
+			alert(alertMsg);
+		}
+	</script>
 	<div class="rankup-management">
 		<h2>등업 신청 상세</h2>
 		<div class="rankup-info">
