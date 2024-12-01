@@ -10,10 +10,12 @@ public interface AdminService {
     
     List<Rankup> getAllRankups(); // 등업 신청 목록 조회
     
-    public Rankup getRankupDetail(int seqNo);
+    public Rankup getRankupDetail(String seqNo);
     
-    void approveRankup(int seqNo);
-
-    void rejectRankup(int seqNo);
+    void approveRankup(String seqNo); // 등업 승인
+    
+    void rejectRankup(String seqNo);  // 등업 거부
+    
+    void setRankupToWaiting(String seqNo); // 등업 신청 상태를 대기로 설정
     
 }

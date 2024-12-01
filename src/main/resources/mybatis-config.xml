@@ -11,6 +11,7 @@
  	</settings>
  	
  <typeAliases>
+ 		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="MedicalField" />
  		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
  		<typeAlias type="com.project.trinity.member.model.vo.Guest" alias="Guest" />
  		<typeAlias type="com.project.trinity.member.model.vo.Rankup" alias="Rankup" />
@@ -26,6 +27,7 @@
  	</typeAliases>
  	
  	<mappers>
+ 		<mapper resource="mappers/admin-mapper.xml"/>
  		<mapper resource="mappers/member-mapper.xml"/>
  		<mapper resource="mappers/hospital-mapper.xml"/>
  		<mapper resource="mappers/board-mapper.xml"/>
