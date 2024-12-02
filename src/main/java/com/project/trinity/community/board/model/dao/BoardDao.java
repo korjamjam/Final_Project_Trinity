@@ -46,18 +46,18 @@ public class BoardDao {
     /**
      * 특정 카테고리에 해당하는 게시글 수를 조회합니다.
      */
-    public int selectCountCategoryList(SqlSessionTemplate sqlSession, String boardCategory) {
-        return sqlSession.selectOne("boardMapper.selectCountCategoryList", boardCategory);
+    public int selectCountCategoryList(SqlSessionTemplate sqlSession, String categoryId) {
+        return sqlSession.selectOne("boardMapper.selectCountCategoryList", categoryId);
     }
 
     /**
      * 특정 카테고리의 게시글 목록을 페이징 처리하여 조회합니다.
      */
-    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String boardCategory, PageInfo pi) {
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
         Map<String, Object> params = new HashMap<>();
-        params.put("boardCategory", boardCategory);
+        params.put("categoryId", categoryId);
         params.put("startRow", offset + 1);
         params.put("endRow", offset + limit);
         return (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);

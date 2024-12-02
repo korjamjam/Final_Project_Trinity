@@ -98,7 +98,7 @@
 								<!-- 게시글 내용 -->
 								${b.boardContent}
 							</div>
-							<!-- 첨부파일 섹션 include -->
+							
 							<!-- 첨부파일 섹션 include -->
 							<c:if test="${not empty attachedFiles}">
 								<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>

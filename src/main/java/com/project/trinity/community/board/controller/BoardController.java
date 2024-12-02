@@ -54,12 +54,12 @@ public class BoardController {
 	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
 	    Model model
 	) {
-	    String boardCategory = "free".equals(type) ? "자유게시판"
+	    String categoryId = "free".equals(type) ? "자유게시판"
 	            : "meditalk".equals(type) ? "메디톡"
 	            : "event".equals(type) ? "이벤트"
 	            : "실시간 인기글";
 
-	    model.addAttribute("boardCategory", boardCategory);
+	    model.addAttribute("categoryId", categoryId);
 
 	    // 최근 인기 게시글 추가
 	    if ("popular".equals(type)) {
@@ -111,15 +111,15 @@ public class BoardController {
 	    Model model) {
 
 	    // DB와 매칭되는 한글 카테고리 이름으로 변환
-	    String boardCategory = "popular".equals(type) ? "실시간 인기글"
+	    String categoryId = "popular".equals(type) ? "실시간 인기글"
 	            : "free".equals(type) ? "자유게시판"
 	            : "meditalk".equals(type) ? "메디톡"
 	            : "event".equals(type) ? "이벤트게시판"
 	            : "실시간 인기글";
 
 	    // 카테고리 정보 모델에 추가
-	    model.addAttribute("boardCategory", boardCategory);
-	    System.out.println("현재 카테고리: " + boardCategory);
+	    model.addAttribute("categoryId", categoryId);
+	    System.out.println("현재 카테고리: " + categoryId);
 
 	    // 인기글(비게시글)일 경우 페이징 처리 및 게시글 조회 생략
 	    if ("popular".equals(type)) {
@@ -128,14 +128,14 @@ public class BoardController {
 	    }
 
 	    // 카테고리별 게시글 수 조회
-	    int listCount = boardService.selectCountCategoryList(boardCategory);
+	    int listCount = boardService.selectCountCategoryList(categoryId);
 	    System.out.println("게시글 수: " + listCount);
 
 	    // 페이징 정보 설정
 	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
 	    // 게시글 목록 조회
-	    ArrayList<Board> boardList = boardService.selectListByCategory(boardCategory, pi);
+	    ArrayList<Board> boardList = boardService.selectListByCategory(categoryId, pi);
 	    System.out.println("게시글 목록: " + boardList);
 
 	    // 모델에 데이터 추가
@@ -149,18 +149,18 @@ public class BoardController {
 	@GetMapping("/write")
 	public String showSummernote(@RequestParam(name = "type", required = false, defaultValue = "자유게시판") String type,
 			Model m) {
-		String boardCategory;
+		String categoryId;
 
 		// type 값에 따라 카테고리 설정
 		if ("meditalk".equals(type)) {
-			boardCategory = "메디톡";
+			categoryId = "메디톡";
 		} else if ("event".equals(type)) {
-			boardCategory = "이벤트게시판";
+			categoryId = "이벤트게시판";
 		} else {
-			boardCategory = "자유게시판";
+			categoryId = "자유게시판";
 		}
 
-		m.addAttribute("boardCategory", boardCategory);
+		m.addAttribute("categoryId", categoryId);
 		return "community/summernote";
 	}
 

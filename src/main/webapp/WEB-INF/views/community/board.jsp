@@ -9,7 +9,7 @@
     <link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
     <link href="${pageContext.servletContext.contextPath}/resources/css/community/board.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>${boardCategory} 게시판</title>
+    <title>${categoryId} 게시판</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
         <!-- 메인 콘텐츠 -->
 		<div id="mainWrapper">
 			<div id="contentHeader">
-				<h2 class="content-title">${boardCategory}</h2>
+				<h2 class="content-title">${categoryName}</h2>
 				<div id="contentControls">
 					<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서
 						확인하세요.</p>
@@ -60,7 +60,7 @@
 				<tbody>
 					<c:forEach var="board" items="${boardList}">
 						<tr>
-							<td class="category">${board.boardCategory}</td>
+							<td class="category">${board.categoryName}</td>
 							<td class="title"><a
 								href="${pageContext.request.contextPath}/boardDetail?bno=${board.boardNo}">
 									${board.boardTitle} </a></td>
@@ -72,16 +72,16 @@
 				</tbody>
 			</table>
 
-			<c:if test="${boardCategory eq '자유게시판'}">
+			<c:if test="${categoryName eq '자유게시판'}">
 				<c:set var="type" value="free" />
 			</c:if>
-			<c:if test="${boardCategory eq '메디톡'}">
+			<c:if test="${categoryName eq '메디톡'}">
 				<c:set var="type" value="meditalk" />
 			</c:if>
-			<c:if test="${boardCategory eq '이벤트게시판'}">
+			<c:if test="${categoryName eq '이벤트게시판'}">
 				<c:set var="type" value="event" />
 			</c:if>
-			<c:if test="${boardCategory eq '실시간 인기글'}">
+			<c:if test="${categoryName eq '실시간 인기글'}">
 				<c:set var="type" value="popular" />
 			</c:if>
 
