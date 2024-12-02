@@ -165,9 +165,6 @@ public class BoardServiceImpl implements BoardService {
 	    }
 	}
 
-
-
-
     // 특정 댓글의 좋아요 수 가져오기
     @Override
     public int deleteReply(String commentNo) {
