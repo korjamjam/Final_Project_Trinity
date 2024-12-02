@@ -129,14 +129,7 @@
 		SELECT 'M' ||
 		SEQ_MED_NO.NEXTVAL FROM DUAL
 	</select>
-
-	<select id="getLastInsertedMedNo" resultType="string">
-		SELECT MED_NO
-		FROM
-		MEDICAL_FIELD
-		WHERE ROWNUM = 1
-		ORDER BY MED_NO DESC
-	</select>
+	
 
 	<!-- member 테이블의 med_key를 null로 업데이트 -->
 	<update id="resetMemberMedKey" parameterType="string">
@@ -144,13 +137,6 @@
 		SET MED_KEY = NULL
 		WHERE USER_NO = #{userNo}
 	</update>
-
-	<!-- medical_field 테이블에서 특정 medNo 데이터 삭제 -->
-	<delete id="deleteMedicalFieldByMedKey" parameterType="string">
-		DELETE FROM MEDICAL_FIELD
-		WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
-	</delete>
-
 
 	<!-- MEDICAL_FIELD 존재 여부 확인 -->
 	<select id="checkMedicalFieldExists" parameterType="string"
@@ -164,13 +150,6 @@
 		SELECT MED_NO, JOB, MEDICAL_FIELD_ID
 		FROM MEDICAL_FIELD
 		WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
-	</select>
-
-	<select id="getMedKeyBySeqNo" parameterType="string"
-		resultType="string">
-		SELECT MED_KEY
-		FROM MEMBER
-		WHERE USER_NO = #{seqNo}
 	</select>
 
 	<!-- 특정 userNo에 해당하는 medKey 조회 -->

@@ -75,6 +75,12 @@
 			</form>
 		</div>
 	</div>
+	<script>
+    const alertMsg = '${alertMsg}';
+    if (alertMsg) {
+        alert(alertMsg); // 개선 가능
+    }
+</script>
 
 </body>
 </html>
