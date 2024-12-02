@@ -99,11 +99,12 @@ CREATE TABLE MEMBER (
     GENDER CHAR(1) DEFAULT 'M' CHECK (GENDER IN ('M', 'F')),
     ADDRESS VARCHAR2(200),
     ENROLL_DATE DATE DEFAULT SYSDATE,
-    STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),
+    STATUS CHAR(1) DEFAULT 'N' CHECK (STATUS IN ('Y', 'N')),
     ISADMIN CHAR(1) DEFAULT 'N',
     MED_KEY VARCHAR2(10),
     HOS_NO VARCHAR2(10),
     USERPROFILE VARCHAR2(255),
+    POSTCODE VARCHAR2(50),
     FOREIGN KEY (MED_KEY) REFERENCES MEDICAL_FIELD (MED_NO),
     FOREIGN KEY (HOS_NO) REFERENCES HOSPITAL_INFO (HOS_NO)
 );
@@ -425,9 +426,8 @@ INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
-    v_user_no MEMBER.USER_NO%TYPE;
+    v_user_no MEMBER.USER_NO%TYPE; -- 일반 사용자의 USER_NO를 저장할 변수
     v_admin_no MEMBER.USER_NO%TYPE := 'U1'; -- 관리자 계정
-    CURSOR c_user IS SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'; -- 일반 사용자
 BEGIN
     -- 공지사항 (공지사항은 관리자 작성)
     FOR i IN 1..10 LOOP
@@ -449,9 +449,16 @@ BEGIN
     END LOOP;
 
     -- 알림톡 (알림판은 일반 사용자 작성)
-    OPEN c_user;
-    FETCH c_user INTO v_user_no;
     FOR i IN 1..10 LOOP
+        -- 랜덤 사용자 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO 
+            FROM MEMBER 
+            WHERE ISADMIN = 'N' -- 일반 사용자만
+            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
+        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
+
         INSERT INTO BOARD (
             BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
@@ -468,7 +475,6 @@ BEGIN
             'Y'
         );
     END LOOP;
-    CLOSE c_user;
 
     -- FAQ (FAQ는 관리자 작성)
     FOR i IN 1..10 LOOP
@@ -497,9 +503,16 @@ BEGIN
     END LOOP;
 
     -- Q&A (Q&A는 일반 사용자 작성)
-    OPEN c_user;
-    FETCH c_user INTO v_user_no;
     FOR i IN 1..10 LOOP
+        -- 랜덤 사용자 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO 
+            FROM MEMBER 
+            WHERE ISADMIN = 'N' -- 일반 사용자만
+            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
+        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
+
         INSERT INTO BOARD (
             BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
@@ -508,12 +521,12 @@ BEGIN
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
             4, -- Q&A
             v_user_no,
-            'Q&A 제목 ' || i,
-            'Q&A 내용 ' || i || '입니다.',
+            'QNA 제목 ' || i,
+            'QNA 내용 ' || i || '입니다.',
             SYSDATE - DBMS_RANDOM.VALUE(1, 30),
             SYSDATE - DBMS_RANDOM.VALUE(1, 10),
             TRUNC(DBMS_RANDOM.VALUE(0, 100)),
-            'Q&A',
+            'QNA',
             CASE MOD(i, 4)
                 WHEN 0 THEN '회원관련'
                 WHEN 1 THEN '사이트이용'
@@ -523,9 +536,7 @@ BEGIN
             'Y'
         );
     END LOOP;
-    CLOSE c_user;
-
-    COMMIT;
+    
 END;
 /
 -- 게시판 더미데이터 --------------------------------------------------------------------------------------------------------
@@ -958,7 +969,7 @@ VALUES('RV7', 'U7', '재방문 의사 있습니다', '친절하고 꼼꼼한 상
 
 INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_VIEWS, REVIEW_RATING) 
 VALUES('RV8', 'U8', '진료 만족 후기', '의사 선생님이 아주 자세히 설명해주셔서 안심했습니다.', SYSDATE, SYSDATE, '150', 5);
-
+ 
 INSERT INTO DOCTOR_REVIEW (REVIEW_NO, USER_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_VIEWS, REVIEW_RATING) 
 VALUES('RV9', 'U9', '평범한 병원', '특별히 나쁘지도, 좋지도 않았습니다.', SYSDATE, SYSDATE, '60', 3);
 

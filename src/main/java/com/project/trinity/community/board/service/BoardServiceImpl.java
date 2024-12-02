@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.project.trinity.community.board.model.dao.BoardDao;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.common.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -131,9 +130,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
 	
-
-
-
 
     // 특정 댓글의 좋아요 수 가져오기
     @Override

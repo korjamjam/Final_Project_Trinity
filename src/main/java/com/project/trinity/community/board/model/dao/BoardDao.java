@@ -246,4 +246,6 @@ public class BoardDao {
         sqlSession.update("boardMapper.updateLikeDislike", params);
     }
 
+
+
 }
