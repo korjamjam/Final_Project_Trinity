@@ -23,10 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
-    @Autowired
-    private final SqlSessionTemplate sqlSession;
 
-    @Autowired
+    private final SqlSessionTemplate sqlSession;   
     private final BoardDao boardDao;
 
     // 게시글 관련 메서드
@@ -132,39 +130,7 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.insertReply(sqlSession, r);
     }
 
-	@Override
-	public ArrayList<Board> selectTopBoardList() {
-		return boardDao.selectTopBoardList(sqlSession);
-	}
 	
-	// 좋아요 상태 변경
-	
-	@Override
-	public int toggleLike(String commentNo, String userNo) {
-	    System.out.println("toggleLike 호출 - commentNo: " + commentNo + ", userNo: " + userNo);
-
-	    int isLiked = boardDao.checkLike(sqlSession, commentNo, userNo);
-
-	    if (isLiked == -1) {
-	        throw new IllegalArgumentException("Invalid COMMENT_NO or USER_NO");
-	    }
-
-	    try {
-	        if (isLiked > 0) {
-	            int result = boardDao.deleteLike(sqlSession, commentNo, userNo);
-	            System.out.println("좋아요 삭제 결과: " + result);
-	            return 0;
-	        } else {
-	            int result = boardDao.insertLike(sqlSession, commentNo, userNo);
-	            System.out.println("좋아요 추가 결과: " + result);
-	            return 1;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("예외 발생: " + e.getMessage());
-	        return -1; // 예외 발생 시 처리
-	    }
-	}
 
 
 
