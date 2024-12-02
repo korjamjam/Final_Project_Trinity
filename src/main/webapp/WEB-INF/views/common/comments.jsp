@@ -13,7 +13,7 @@
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/community/reply.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/community/comment.js"></script>
 </head>
 <body>
 <input type="hidden" id="bno" value="${b.boardNo}">

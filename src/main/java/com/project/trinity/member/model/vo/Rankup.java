@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Rankup {
-    private int seqNo;           // SEQ_NO
+    private String seqNo;        // SEQ_NO
     private String userNo;       // USER_NO
     private String userId;       // USER_ID
     private String resTitle;     // RES_TITLE
