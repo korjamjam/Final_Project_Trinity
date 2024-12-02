@@ -53,9 +53,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ArrayList<Board> selectListByCategory(String type, PageInfo pi) {
-        return boardDao.selectListByCategory(sqlSession, type, pi);
+    public ArrayList<Board> selectListByCategory(String categoryId, PageInfo pi) {
+        // categoryId와 pageInfo를 넘기도록 수정
+        return boardDao.selectListByCategory(sqlSession, categoryId, pi);
     }
+
 
     @Override
     public Board selectBoard(String bno) {

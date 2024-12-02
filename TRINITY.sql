@@ -187,29 +187,31 @@ CREATE TABLE HEALTH_RESERVATION (
     FOREIGN KEY (GST_NO) REFERENCES GUEST (GST_NO)
 );
 
+-- BOARD_CATEGORY 테이블: 카테고리 정보를 관리
 CREATE TABLE BOARD_CATEGORY (
     CATEGORY_ID VARCHAR2(20) PRIMARY KEY,    -- 카테고리 고유 ID (예: CAT01)
-    CATEGORY_NAME VARCHAR2(50) NOT NULL,    -- 카테고리 이름
-    SORT_ORDER INT NOT NULL,                -- 정렬 순서
-    IS_ACTIVE CHAR(1) DEFAULT 'Y'           -- 활성화 여부 (Y/N)
+    CATEGORY_NAME VARCHAR2(50) NOT NULL,      -- 카테고리 이름
+    SORT_ORDER INT NOT NULL,                  -- 정렬 순서
+    IS_ACTIVE CHAR(1) DEFAULT 'Y'             -- 활성화 여부 (Y/N)
 );
 
-
+-- BOARD 테이블: 게시글 정보
 CREATE TABLE BOARD (
-    BOARD_NO VARCHAR2(10) PRIMARY KEY, -- 게시판 번호 (고유값)
-    BOARD_TYPE NUMBER, -- 게시판 타입
-    USER_NO VARCHAR2(10) NOT NULL, -- 사용자 번호 (외래키로 연결)
-    BOARD_TITLE VARCHAR2(200) NOT NULL, -- 게시판 제목
-    BOARD_CONTENT VARCHAR2(4000), -- 게시판 내용
-    ENROLL_DATE DATE DEFAULT SYSDATE, -- 등록 날짜
-    MODIFIED_DATE DATE DEFAULT SYSDATE, -- 수정 날짜
-    BOARD_VIEWS VARCHAR2(10) DEFAULT '0', -- 조회수 (기본값: 0)
-    CATEGORY_ID VARCHAR2(20), -- 카테고리 ID (CATEGORY 테이블의 외래키)
-    STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')), -- 상태 (활성/비활성)
-    INQUIRY_CATEGORY VARCHAR2(30), -- 고객 문의 카테고리
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO), -- 사용자와 연결
-    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID) -- 카테고리와 연결
+    BOARD_NO VARCHAR2(10) PRIMARY KEY,        -- 게시판 번호 (고유값)
+    BOARD_TYPE NUMBER,                        -- 게시판 타입
+    USER_NO VARCHAR2(10) NOT NULL,            -- 사용자 번호 (외래키로 연결)
+    BOARD_TITLE VARCHAR2(200) NOT NULL,       -- 게시판 제목
+    BOARD_CONTENT VARCHAR2(4000),             -- 게시판 내용
+    ENROLL_DATE DATE DEFAULT SYSDATE,         -- 등록 날짜
+    MODIFIED_DATE DATE DEFAULT SYSDATE,       -- 수정 날짜
+    BOARD_VIEWS VARCHAR2(10) DEFAULT '0',     -- 조회수 (기본값: 0)
+    CATEGORY_ID VARCHAR2(20),                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
+    STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
+    INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
+    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID)  -- 카테고리와 연결
 );
+
 
 CREATE TABLE FILE_TABLE (
     FILE_NO VARCHAR2(10) PRIMARY KEY,         -- 파일 고유 번호
@@ -491,6 +493,15 @@ BEGIN
     COMMIT;
 END;
 /
+
+INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
+VALUES ('CAT1', '자유게시판', '1');
+
+INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
+VALUES ('CAT2', '메디톡', '2');
+
+INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
+VALUES ('CAT3', '이벤트게시판', '3');
 
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
