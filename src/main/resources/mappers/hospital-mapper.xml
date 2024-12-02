@@ -216,5 +216,29 @@
 		WHERE #{offset} &lt; row_num AND
 			  row_num &lt;= #{offset} + #{limit}
    </select>
+   
+   <!-- 건강검진 병원 추가 -->
+   <insert id="insertHealthHospital">
+   		INSERT INTO HOSPITAL_INFO(
+   			HOS_NAME,
+   			HOS_ADDRESS,
+   			HOS_TEL,
+   			HOS_START_TIME1,
+   			HOS_CLOSE_TIME1,
+   			HOS_LATITUDE,
+   			HOS_LONGITUDE
+   		) VALUES (
+   			#{hosName},
+   			#{hosAddress},
+   			#{hosTel},
+   			'08:00 ~ 18:00',
+   			'08:00 ~ 18:00',
+   			#{hosLatitude},
+   			#{hosLongitude}
+   		)
+   		<selectKey keyProperty="hosNo" resultType="java.lang.String" order="AFTER">
+			select 'H' || SEQ_HOS_NO.CURRVAL FROM DUAL
+		</selectKey>
+   </insert>
 
 </mapper>

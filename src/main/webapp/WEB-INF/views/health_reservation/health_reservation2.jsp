@@ -60,7 +60,7 @@
                         4. 검사받을기관
                     </div>
                     <div class="health_reservation_normal_select">
-                        <select name="reservation_user_hospital" id="hospitalSelect">
+                        <select name="reservation_user_hospital" id="hospitalSelect" onchange="checkHospital(this)">
                             <option value="">원하는 검사항목을 선택하세요</option>
                         </select>
                     </div>
@@ -112,6 +112,7 @@
         </div>
     </div>
     <script>
+
         $(function() {
           // 페이지에 바로 달력이 보이도록 설정
           $("#datepicker").datepicker({
@@ -164,13 +165,15 @@
 
         function categoryHospital() {
             const category = document.querySelector("#category").value;
-            console.log(category)
 
             getHrHospitalList({ category: category }, function(hrHospitalList){
-                const itemList = hrHospitalList.response.body.items.item;
+                itemList = hrHospitalList.response.body.items.item;
+                console.log("getHrHospitalList i itemList: " + itemList)
                 drawHrHospitalList(document.querySelector("#hospitalSelect"), itemList)
             })
         }
+
+        console.log("categoryHospital itemList: " + itemList)
 
         function getHrHospitalList(data, callback){
             console.log(data)
@@ -193,12 +196,38 @@
 
             console.log("itemArr" + itemArr)
             for(const item of itemArr){
-                console.log("category" + category)
-                console.log("item.hmcNm" + item.hmcNm)
-                parent.innerHTML += "<option value=" + item.hmcNm + ">" + item.hmcNm + "</option>" 
-                console.log(item)
+                parent.innerHTML += "<option value=" + item.hmcNo + ">" + item.hmcNm + "</option>"
             }
         }
+
+        $('#reservation_btn').click(function(hmcNm){
+
+        })
+
+        function checkHospital(selectItem){
+            const hmcNo = selectItem.value;
+            console.log("hmcNo sele : " + hmcNo)
+            console.log(itemList)
+            for(const item of itemList){
+                if(item.hmcNo == hmcNo){
+                    console.log(item.hmcNm)
+                    $.ajax({
+                        url: "healthHospital",
+                        method: "GET",
+                        data: {
+                                hosName: item.hmcNm,
+                                hosAddress: item.locAddr,
+                                hosTel: item.hmcTelNo,
+                                hosLatitude: item.cyVl,
+                                hosLongitude: item.cxVl,
+                              },
+                        success: console.log("성공"),
+                        error : console.log("실패")
+                    })
+                }
+            }
+        }
+
     </script>
     <!-- footer -->
 	<jsp:include page="../common/main_footer.jsp"/>
