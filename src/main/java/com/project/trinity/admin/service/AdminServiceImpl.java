@@ -24,9 +24,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Member> getAllMembers() {
         List<Member> members = adminDao.getAllMembers(sqlSession);
-        for (Member member : members) {
-            System.out.println("Member Info: " + member);
-        }
         return members;
     }
     
@@ -62,6 +59,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
+   
     @Override
     public void rejectRankup(String seqNo) {
         Rankup rankup = adminDao.getRankupDetail(sqlSession, seqNo);
