@@ -136,7 +136,7 @@
         #{userNo},
         #{boardTitle},
         #{boardContent},
-        COALESCE(#{categoryId}, 'CAT1') <!-- 카테고리 ID 수정 -->
+        #{categoryId} <!-- 카테고리 ID 수정 -->
     )
     <selectKey keyProperty="boardNo" resultType="java.lang.String" order="AFTER">
         SELECT 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
@@ -216,40 +216,41 @@
 
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
-	<select id="selectBoard" resultMap="boardResult">
+<!-- 게시글 + 첨부파일 정보 조회 -->
+<select id="selectBoard" resultMap="boardResult">
     SELECT
-        B.BOARD_NO,
-        B.BOARD_TYPE,
-        B.BOARD_TITLE,
-        B.USER_NO,
-        M.USER_ID AS BOARD_WRITER, -- 작성자의 ID
-        B.BOARD_CONTENT,
-        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
-        B.BOARD_VIEWS,
-       COALESCE(C.CATEGORY_ID, 'CAT1') AS "categoryId",  -- 카테고리 ID 기본값 설정
-COALESCE(C.CATEGORY_NAME, '자유게시판') AS "categoryName"  -- 카테고리 이름 기본값 설정
-
-        B.STATUS,
+        B.BOARD_NO,                     -- 게시글 번호
+        B.BOARD_TYPE,                   -- 게시글 유형
+        B.BOARD_TITLE,                  -- 게시글 제목
+        B.USER_NO,                      -- 사용자 번호
+        M.USER_ID AS BOARD_WRITER,      -- 작성자의 ID
+        B.BOARD_CONTENT,                -- 게시글 내용
+        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,  -- 등록일
+        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,  -- 수정일
+        B.BOARD_VIEWS,                  -- 조회수
+        C.CATEGORY_ID,                  -- 카테고리 ID
+        C.CATEGORY_NAME,                -- 카테고리 이름
+        B.STATUS,                       -- 게시글 상태 (활성/비활성)
+        
         -- 첨부파일 정보
-        F.FILE_NO,
-        F.ORIGIN_NAME,
-        F.CHANGE_NAME,
-        F.ALLOW_DOWNLOAD,
-        F.FILE_SIZE
+        F.FILE_NO,                      -- 첨부파일 번호
+        F.ORIGIN_NAME,                  -- 원본 파일명
+        F.CHANGE_NAME,                  -- 변경된 파일명
+        F.ALLOW_DOWNLOAD,               -- 다운로드 허용 여부
+        F.FILE_SIZE                     -- 파일 크기
     FROM
         BOARD B
     JOIN
-        MEMBER M ON B.USER_NO = M.USER_NO
+        MEMBER M ON B.USER_NO = M.USER_NO  -- 사용자와 게시글 연결
     LEFT JOIN
-        FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO -- 첨부파일 조인
+        FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO  -- 첨부파일과 게시글 연결 (첨부파일이 없는 경우에도 게시글 정보는 조회됨)
     LEFT JOIN
-    BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID AND C.IS_ACTIVE = 'Y' -- 활성화된 카테고리만 조회
+        BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'  -- 활성화된 카테고리만 조회
     WHERE
-        B.STATUS = 'Y'
-        AND B.BOARD_NO = #{boardNo}
-        
+        B.STATUS = 'Y'               -- 활성화된 게시글만 조회
+        AND B.BOARD_NO = #{boardNo}   -- 특정 게시글 번호 조회
 </select>
+
 
 
 
@@ -464,15 +465,16 @@ COALESCE(C.CATEGORY_NAME, '자유게시판') AS "categoryName"  -- 카테고리 
                    B.STATUS
             FROM BOARD B
             JOIN MEMBER M ON B.USER_NO = M.USER_NO
-            LEFT JOIN BOARD_CATEGORY C ON B.CATEGORY_NAME = C.CATEGORY_ID -- 카테고리 정보 조인
+            LEFT JOIN BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID -- 카테고리 정보 조인 수정
             WHERE B.STATUS = 'Y'
-              AND B.CATEGORY_NAME = #{categoryId} -- 카테고리 필터 조건
+              AND B.CATEGORY_ID = #{categoryId} -- 카테고리 필터 조건 수정
             ORDER BY B.ENROLL_DATE DESC
         ) A
         WHERE ROWNUM &lt;= #{endRow}
     )
     WHERE RNUM &gt; #{startRow}
 </select>
+
 
 
 

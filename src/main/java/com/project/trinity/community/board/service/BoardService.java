@@ -17,7 +17,7 @@ public interface BoardService {
     // 게시글 관련 메서드
     int selectListCount(); // 게시글 총 갯수 가져오기
     ArrayList<Board> selectList(PageInfo pi, String sortType); // 게시글 목록 가져오기
-    ArrayList<Board> selectRecentPopularList(Map<String, Object> params); // 최근 인기 게시글 조회
+    List<Board> selectRecentPopularList(Map<String, Object> params); // 최근 인기 게시글 조회
     ArrayList<Board> selectListByCategory(String type, PageInfo pi); // 카테고리별 게시글 목록
     int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
     Board selectBoard(String boardNo); // 게시글 조회

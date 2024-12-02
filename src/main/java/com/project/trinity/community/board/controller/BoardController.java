@@ -54,14 +54,22 @@ public class BoardController {
 	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
 	    Model model
 	) {
-	    String categoryId = "free".equals(type) ? "자유게시판"
-	            : "meditalk".equals(type) ? "메디톡"
-	            : "event".equals(type) ? "이벤트"
-	            : "실시간 인기글";
+	    String categoryId = null;
+	    String categoryName = null;
+
+	    // 'popular' 타입은 카테고리가 아니므로, 실시간 인기글로 고정
+	    if ("popular".equals(type)) {
+	        categoryName = "실시간 인기글";  // 인기글 이름
+	    } else {
+	        // 카테고리별 type에 맞춰 categoryId 설정
+	        categoryId = getCategoryIdByType(type);
+	        categoryName = boardService.getCategoryNameById(categoryId);  // 서비스에서 카테고리 이름 조회
+	    }
 
 	    model.addAttribute("categoryId", categoryId);
+	    model.addAttribute("categoryName", categoryName);
 
-	    // 최근 인기 게시글 추가
+	    // 'popular' 타입일 때는 조회수가 높은 게시글을 가져옴
 	    if ("popular".equals(type)) {
 	        int boardLimit = 20;
 	        int startRow = (currentPage - 1) * boardLimit + 1;
@@ -71,13 +79,99 @@ public class BoardController {
 	        params.put("startRow", startRow);
 	        params.put("endRow", endRow);
 
+	        // 조회수가 높은 게시글을 가져오는 서비스 호출
 	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
 	        model.addAttribute("recentPopularList", recentPopularList);
 	        System.out.println("최근 인기 게시글: " + recentPopularList);
+	    } else {
+	        // 'popular' 외의 카테고리에서는 페이지 정보 기반으로 게시글 목록을 가져옴
+	        int boardLimit = 20;
+	        int startRow = (currentPage - 1) * boardLimit + 1;
+	        int endRow = startRow + boardLimit - 1;
+
+	        // PageInfo 객체 생성
+	        PageInfo pi = new PageInfo();
+	        pi.setStartRow(startRow);
+	        pi.setEndRow(endRow);
+	        pi.setCurrentPage(currentPage);
+	        pi.setBoardLimit(boardLimit);
+
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("categoryId", categoryId);
+	        params.put("pageInfo", pi);  // PageInfo 객체도 전달
+
+	        // 카테고리별 게시글 목록을 가져오는 서비스 호출
+	        List<Board> boardList = boardService.selectListByCategory(type, pi);
+	        model.addAttribute("boardList", boardList);
 	    }
 
 	    return "community/community_main";
 	}
+@RequestMapping("/main")
+	public String communityMain(
+	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+	    Model model
+	) {
+	    String categoryId = null;
+	    String categoryName = null;
+
+	    // 'popular' 타입은 카테고리가 아니므로, 실시간 인기글로 고정
+	    if ("popular".equals(type)) {
+	        categoryName = "실시간 인기글";  // 인기글 이름
+	    } else {
+	        // 카테고리별 type에 맞춰 categoryId 설정
+	        categoryId = getCategoryIdByType(type);
+	        categoryName = boardService.getCategoryNameById(categoryId);  // 서비스에서 카테고리 이름 조회
+	    }
+
+	    model.addAttribute("categoryId", categoryId);
+	    model.addAttribute("categoryName", categoryName);
+
+	    // 'popular' 타입일 때는 조회수가 높은 게시글을 가져옴
+	    if ("popular".equals(type)) {
+	        int boardLimit = 20;
+	        int startRow = (currentPage - 1) * boardLimit + 1;
+	        int endRow = startRow + boardLimit - 1;
+
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("startRow", startRow);
+	        params.put("endRow", endRow);
+
+	        // 조회수가 높은 게시글을 가져오는 서비스 호출
+	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
+	        model.addAttribute("recentPopularList", recentPopularList);
+	        System.out.println("최근 인기 게시글: " + recentPopularList);
+	    } else {
+	        // 다른 카테고리별 게시글 목록 처리
+	        int boardLimit = 20;
+	        int startRow = (currentPage - 1) * boardLimit + 1;
+	        int endRow = startRow + boardLimit - 1;
+
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("startRow", startRow);
+	        params.put("endRow", endRow);
+	        params.put("categoryId", categoryId);
+
+	        List<Board> boardList = boardService.selectListByCategory(type, params);
+	        model.addAttribute("boardList", boardList);
+	    }
+
+	    return "community/community_main";
+	}
+
+	// type에 맞는 categoryId를 반환하는 메소드
+	private static final Map<String, String> CATEGORY_MAP = new HashMap<String, String>() {{
+	    put("free", "CAT01");     // 자유게시판
+	    put("meditalk", "CAT02"); // 메디톡
+	    put("event", "CAT03");    // 이벤트 게시판
+	}};
+
+	// type에 맞는 categoryId를 반환하는 메서드
+	private String getCategoryIdByType(String type) {
+	    return CATEGORY_MAP.getOrDefault(type, "CAT01");  // 기본값은 자유게시판 (CAT01)
+	}
+
 
 	
 	// 실시간 인기글 추가 메소드
