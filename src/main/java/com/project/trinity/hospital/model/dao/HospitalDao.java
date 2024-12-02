@@ -62,4 +62,8 @@ public class HospitalDao {
         return (ArrayList)sqlSession.selectList("hospitalMapper.selectOpenHospitalListPaginated", map);
 	}
 
+	public int insertHealthHospital(SqlSessionTemplate sqlSession, HospitalInfo hInfo) {
+		return sqlSession.insert("hospitalMapper.insertHealthHospital", hInfo);
+	}
+
 }

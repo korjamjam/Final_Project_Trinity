@@ -23,4 +23,6 @@ public interface HospitalService {
 
 	ArrayList<HospitalInfo> selectOpenHospitalListPaginated(String subject, String order, int page, int limit);
 
+	int insertHealthHospital(HospitalInfo hInfo);
+
 }

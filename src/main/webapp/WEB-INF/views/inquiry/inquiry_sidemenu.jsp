@@ -17,8 +17,8 @@
 <body>
 	<aside class="inquiry-sidebar">
 		<ul class="inquiry-menu">
-			<li><a href="notification" id="notification">공지사항<span class="arrow">›</span></a></li>
-			<li><a href="notice" id="notice">알림판<span class="arrow">›</span></a></li>
+			<li><a href="notice" id="notice">공지사항<span class="arrow">›</span></a></li>
+			<li><a href="report" id="report">알림판<span class="arrow">›</span></a></li>
 			<li><a href="faq" id="faq">FAQ<span class="arrow">›</span></a></li>
 			<li><a href="qna" id="qna">Q&A<span class="arrow">›</span></a></li>
 		</ul>
