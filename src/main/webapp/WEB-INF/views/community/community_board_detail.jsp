@@ -30,6 +30,17 @@
 </head>
 
 <body>
+ <!-- EL 데이터를 JavaScript 변수로 전달 -->
+    <script>
+        const contextPath = "${pageContext.servletContext.contextPath}";
+        const boardNo = "${b.boardNo}";
+        const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
+        const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+        console.log("boardNo:", boardNo);      // 게시글 번호
+        console.log("loginUserNo:", loginUserNo); // 사용자 번호
+        console.log("loginUserId:", loginUserId); // 사용자 아이디
+
+    </script>
 	<!-- Header Section -->
 	<header>
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -100,11 +111,10 @@
 						<!-- 게시글 내용 -->
 						${b.boardContent}
 					</div>
-
-
-
-					
-
+                                           <!-- 첨부파일 섹션 include -->     <!-- 첨부파일 섹션 include -->
+                        <c:if test="${not empty attachedFiles}">
+                            <%@ include file="/WEB-INF/views/common/attached_files.jsp"%>				
+                        </c:if>
 					<!-- 답변 콘텐츠 -->
 					<c:forEach var="answer" items="${answers}">
 						<div class="board-content answer-content">
@@ -141,104 +151,5 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
 </body>
-
-							<tr>
-								<td class="board-title">${b.boardTitle}</td>
-							</tr>
-
-							<tr>
-								<td class="board-user-info"><span
-										class="${sessionScope.loginUser != null && sessionScope.loginUser.userId == b.boardWriter ? 'highlight-user' : ''}">
-										${b.boardWriter} </span>일반회원&nbsp</td>
-								<td class="board-meta"><span>${b.enrollDate}</span> | <span>조회
-										${b.boardViews }</span></td>
-							</tr>
-						</table>
-
-						<div class="board-content-wrapper">
-							<div class="board-content expert-container">
-								<!-- 게시글 내용 -->
-								<div class="question-content">
-									${b.boardContent} <br> ...
-
-
-									<!-- 첨부파일 섹션 include -->
-									<c:if test="${not empty attachedFiles}">
-										<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
-									</c:if>
-								</div>
-							</div>
-
-
-							<!-- 답변 섹션 -->
-							<c:if test="${not empty answers}">
-								<c:forEach var="answer" items="${answers}">
-									<div class="board-content answer-content">
-										<div class="expert-container">
-											<%@ include file="/WEB-INF/views/common/expert_card.jsp" %>
-										</div>
-										<div class="response-section">
-											<div class="expert-response">${answer.content}</div>
-											<div class="disclaimer-container">
-												<div class="response-disclaimer">* 본 답변은 참고용으로 의학적 판단이나
-													진료행위로 해석될 수 없습니다.</div>
-												<div class="right-aligned-buttons">
-													<button class="like-button"
-														onclick="incrementLike(this, ${answer.id})">
-														👍 <span id="like-count-${answer.id}">${answer.likeCount}</span>
-													</button>
-													<button class="white-button">신고하기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-							</c:if>
-						
-				
-
-				<%@ include file="/WEB-INF/views/common/comments.jsp" %>
-					</div>
-					<div class="empty-space"></div>
-			</main>
-
-			<script>
-				function deletePost() {
-					if (confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
-						alert("게시글이 삭제되었습니다.");
-						window.location.href = 'community.jsp'; // 삭제 후 리다이렉트
-					}
-				}
-
-				function showAndHide(selector) {
-					const el = document.querySelector(selector);
-					el.style.display = el.style.display === "block" ? "none" : "block";
-				}
-
-				function moveSelectPage(page) {
-					window.location.href = page;
-				}
-
-				document.addEventListener("DOMContentLoaded", function () {
-
-					// 드롭다운 외부 클릭 시 닫기
-					document.addEventListener("click", (event) => {
-						if (!event.target.closest(".custom-dropdown")) {
-							document.querySelector(".option-list").style.display = "none";
-						}
-					});
-				});
-
-				function deletePost(boardNo) {
-					if (confirm("정말 삭제하시겠습니까?")) {
-						location.href = `delete.bo?bno=${boardNo}`;
-					}
-				}
-			</script>
-
-			<footer>
-				<%@ include file="/WEB-INF/views/common/main_footer.jsp" %>
-			</footer>
-		</body>
-
-		</html>
+</html>
+							
