@@ -6,27 +6,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약확인</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/account/reservationconfirmation.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
-	rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/account/reservationconfirmation.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 	<!-- Header -->
 	<%@ include file="../common/main_header.jsp"%>
-
-	<!-- Flash 메시지가 있을 경우 alert 표시 -->
-	<c:if test="${not empty errorMessage}">
-		<script>
-            alert("${errorMessage}");
-        </script>
-	</c:if>
-	<c:if test="${not empty successMessage}">
-		<script>
-            alert("${successMessage}");
-        </script>
-	</c:if>
 
 	<div class="layout-container">
 		<!-- Sidebar -->
@@ -38,50 +23,87 @@
 		<main class="profile-container">
 			<h2>예약확인</h2>
 
-
-
-
-
-			<div class="input-group">
-				<label>병원이름</label> <input type="text" name="userName"
-					value="${generealReservation.hosNo}" disabled>
-			</div>
-			<div class="input-group">
-				<label>병원 주소</label> <input type="text" name="userName"
-					value="${loginUser.userName}" disabled>
-			</div>
-			<div class="input-group">
-				<label>진료자명</label> <input type="text" name="userName"
-					value="${generealReservation.gpatientName}" disabled>
-			</div>
-			<div class="input-group">
-				<label>진료자 생년월일</label> <input type="date" name="birthday"
-					value="${generealReservation.gpatientBirthday}" disabled>
-			</div>
-			<div class="input-group">
-				<label>진료 날짜</label> <input type="email" name="email"
-					value="${generealReservation.gresDate}" disabled>
-			</div>
-			<div class="input-group">
-				<label>진료시간</label> <input type="text" name="gender"
-					value="${generealReservation.gresTime}" disabled>
-			</div>
-			
-
-			<!-- 수정 활성화/저장 버튼 -->
-			<button type="button" id="edit-save-button" class="edit-button"
-				onclick="toggleEditSave()">수정 활성화</button>
-			</form>
-
-			<!-- 회원탈퇴 버튼 -->
-			<button type="button" class="password-change"
-				onclick="confirmWithdrawal()">예약변경요청</button>
+			<!-- 예약 데이터 처리 -->
+			<c:choose>
+				<c:when test="${not empty reservations}">
+					<c:forEach var="reservation" items="${reservations}">
+						<div class="reservation-item">
+							<h3>예약 번호: ${reservation.resNo}</h3>
+							<div class="input-group">
+								<label>병원이름</label> 
+								<input type="text" name="hosName" value="${reservation.hosName}" disabled>
+							</div>
+							<div class="input-group">
+								<label>병원 주소</label> 
+								<input type="text" name="hosAddress" value="${reservation.hosAddress}" disabled>
+							</div>
+							<div class="input-group">
+								<label>진료자명</label> 
+								<input type="text" name="patientName" value="${reservation.patientName}" disabled>
+							</div>
+							<div class="input-group">
+								<label>진료자 생년월일</label> 
+								<input type="date" name="patientBirthday" value="${reservation.patientBirthday}" disabled>
+							</div>
+							<div class="input-group">
+								<label>진료 날짜</label> 
+								<input type="text" name="resDate" value="${reservation.resDate}" disabled>
+							</div>
+							<div class="input-group">
+								<label>진료시간</label> 
+								<input type="text" name="resTime" value="${reservation.resTime}" disabled>
+							</div>
+							<div class="input-group">
+								<label>예약 내용</label>
+								<textarea name="resContent" disabled>${reservation.resContent}</textarea>
+							</div>
+							<!-- 수정 활성화/저장 버튼 -->
+							<button type="button" class="edit-button">수정 활성화</button>
+							<!-- 예약 변경 요청 버튼 -->
+							<button type="button" class="password-change">예약변경요청</button>
+						</div>
+						<hr />
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="reservation-item">
+						<h3>예약 데이터가 없습니다.</h3>
+						<div class="input-group">
+							<label>병원이름</label> 
+							<input type="text" name="hosName" value="-" disabled>
+						</div>
+						<div class="input-group">
+							<label>병원 주소</label> 
+							<input type="text" name="hosAddress" value="-" disabled>
+						</div>
+						<div class="input-group">
+							<label>진료자명</label> 
+							<input type="text" name="patientName" value="-" disabled>
+						</div>
+						<div class="input-group">
+							<label>진료자 생년월일</label> 
+							<input type="date" name="patientBirthday" value="" disabled>
+						</div>
+						<div class="input-group">
+							<label>진료 날짜</label> 
+							<input type="text" name="resDate" value="-" disabled>
+						</div>
+						<div class="input-group">
+							<label>진료시간</label> 
+							<input type="text" name="resTime" value="-" disabled>
+						</div>
+						<div class="input-group">
+							<label>예약 내용</label>
+							<textarea name="resContent" disabled>-</textarea>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</main>
 	</div>
 
 	<!-- Footer -->
 	<%@ include file="../common/main_footer.jsp"%>
-
 
 </body>
 </html>
