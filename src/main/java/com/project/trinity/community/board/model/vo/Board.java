@@ -23,7 +23,7 @@ public class Board {
     private int boardViews;               // 조회수
     private String status;                // 상태 (Y/N)
     private String categoryId;  // 카테고리 ID만 필요
-
+    private String categoryName;
     
     // 첨부파일 목록
     private ArrayList<BoardFile> attachedFiles; // 특정 게시글의 첨부파일 정보

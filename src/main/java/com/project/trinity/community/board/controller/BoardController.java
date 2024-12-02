@@ -168,23 +168,40 @@ public class BoardController {
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
 	public String selectBoard(@RequestParam("bno") String bno, Model m) {
-	    System.out.println("bno 값: " + bno); // 디버깅 로그
+	    // bno 값이 제대로 전달되는지 확인
+	    System.out.println("Received bno: " + bno); // bno 값 출력
+	    
+	    // Board 객체 조회
 	    Board b = boardService.selectBoard(bno);
-	    List<BoardFile> attachedFiles = boardService.getFilesList(bno); // 첨부파일 리스트 가져오기
-
+	    System.out.println("Board object retrieved: " + b); // Board 객체 출력
+	    
 	    if (b != null) {
+	        // 카테고리 ID 확인
+	        System.out.println("categoryId: " + b.getCategoryId()); // categoryId 값 출력
+	        
+	        // 첨부파일 리스트 가져오기
+	        List<BoardFile> attachedFiles = boardService.getFilesList(bno);
+	        System.out.println("Attached files: " + attachedFiles); // 첨부파일 정보 출력
+
 	        // 카테고리 이름 조회
 	        String categoryName = boardService.getCategoryNameById(b.getCategoryId());
-	        
+	        System.out.println("Category name retrieved: " + categoryName); // 카테고리 이름 출력
+
+	        // 모델에 데이터 추가
 	        m.addAttribute("b", b);
-	        m.addAttribute("attachedFiles", attachedFiles); // 첨부파일 정보 추가
-	        m.addAttribute("categoryName", categoryName);   // 카테고리 이름 전달
+	        m.addAttribute("attachedFiles", attachedFiles);
+	        m.addAttribute("categoryName", categoryName);
+	        
 	        return "community/community_board_detail"; // 상세 페이지로 이동
 	    } else {
+	        // Board가 null인 경우 에러 메시지 출력
+	        System.out.println("Board not found for bno: " + bno); // 게시글이 없는 경우 로그
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
-	        return "/common/errorPage";
+	        return "/common/errorPage"; // 에러 페이지로 이동
 	    }
 	}
+
+
 
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
