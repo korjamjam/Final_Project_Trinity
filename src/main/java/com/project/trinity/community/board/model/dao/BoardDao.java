@@ -2,6 +2,7 @@ package com.project.trinity.community.board.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -116,9 +117,11 @@ public class BoardDao {
     /**
      * 특정 게시글에 첨부된 파일 목록을 조회합니다.
      */
-    public ArrayList<BoardFile> getFilesList(SqlSessionTemplate sqlSession, String bno) {
-        return (ArrayList) sqlSession.selectList("boardMapper.getFilesList", bno);
+    public List<BoardFile> getFilesList(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectList("boardMapper.getFilesList", bno);
     }
+
+
 
     /**
      * 특정 게시글의 첨부파일을 모두 삭제합니다.
@@ -242,5 +245,7 @@ public class BoardDao {
 
         sqlSession.update("boardMapper.updateLikeDislike", params);
     }
+
+
 
 }

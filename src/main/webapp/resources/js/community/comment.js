@@ -1,24 +1,19 @@
-let data = {
-    contextPath: "",
-    fileList: [],
-};
-
 $(function () {
+    console.log("초기화 시작"); // 초기화가 여러 번 실행되는지 확인
     const sendData = {
-        bno: $("#bno").val() // bno 값을 숨겨진 input에서 가져옴
+        bno: boardNo // EL로 전달된 boardNo 사용
     };
+    console.log("초기 getReplyList 호출 시작");
+    getReplyList(sendData, function (commentList) {
 
-    getReplyList(sendData, function (commnetList) {
-        console.log("댓글 목록 요청 데이터:", data); // 요청 데이터 출력
-        console.log("갱신된 댓글 목록:", commnetList);
 
-        if (!Array.isArray(commnetList)) {
+        if (!Array.isArray(commentList)) {
             console.error("replyList가 배열이 아닙니다. 서버 응답을 확인하세요.");
             return;
         }
 
         // 댓글 갯수 표시
-        setReplyCount(commnetList.length);
+        setReplyCount(commentList.length);
 
         // 댓글 목록 렌더링
         const replyBody = document.querySelector("#commentList");
@@ -27,18 +22,18 @@ $(function () {
             console.error("#commentList 요소를 찾을 수 없습니다.");
             return;
         }
-        drawReplyList(replyBody, commnetList);
+        drawReplyList(replyBody, commentList);
     });
 });
 
-function drawReplyList(tBody, commnetList) {
-    console.log("갱신된 댓글 목록:", commnetList);
+function drawReplyList(tBody, commentList) {
+    console.log("갱신된 댓글 목록:", commentList);
 
     // 기존 댓글 목록 초기화
     $(tBody).empty();
 
     // 댓글 목록 렌더링
-    commnetList.forEach((comment) => {
+    commentList.forEach((comment) => {
         const commentWriter = comment.commentWriter || "알 수 없음";
         const commentContent = comment.commentContent || "내용 없음";
         const createDate = comment.createDate || "날짜 없음";
@@ -79,7 +74,7 @@ function setReplyCount(count) {
 }
 
 function getReplyList(data, callback) {
-    console.log("댓글 목록 요청 데이터:", data);
+
     $.ajax({
         url: "rlist.bo",
         data: data,
@@ -98,42 +93,53 @@ function getReplyList(data, callback) {
         }
     });
 }
+$(document).off('click', '#addReplyButton').on('click', '#addReplyButton', function () {
+    console.log("댓글 등록 버튼 클릭");
+    addReply();
+});
 
 function addReply() {
-
-    const boardNo = $("#bno").val(); // bno 값을 숨겨진 input에서 가져옴
-    const userId = $("#loginUserId").val(); // userId 값을 숨겨진 input에서 가져옴
-    const userNo = $("#loginUserNo").val(); // 사용자 번호
-    const content = $("#content").val();
+    console.log('addReply 함수 호출');
+    const content = $("#content").val(); // 댓글 작성 텍스트박스 값 가져오기
+    console.log("입력된 댓글 내용:", content); // 값 확인
     if (!content.trim()) {
         alert("댓글 내용을 입력해주세요.");
         return;
     }
+
     const button = $(".btn-secondary");
     button.css({ backgroundColor: "#265708", color: "#fff" }); // 클릭 시 강제로 스타일 유지
-    addReplyAjax(
-        {
-            refBno: boardNo,
-            userNo: userNo,
-            commentWriter: userId,
-            commentContent: content
-        },
 
-        function (res) {
+    // 데이터 확인용 콘솔 로그
+    const data = {
+        refBno: boardNo,
+        userNo: loginUserNo,
+        commentWriter: loginUserId,
+        commentContent: content
+    };
+    console.log("AJAX 요청 데이터:", data); // 데이터 확인
+
+    // AJAX 호출
+    addReplyAjax(
+        data,
+        function (res) { // 콜백 함수
             if (res === "success") {
                 $("#content").val(""); // 댓글 입력창 초기화
 
-                getReplyList({ bno: boardNo }, function (commnetList) {
-                    setReplyCount(commnetList.length);
-                    drawReplyList(document.querySelector("#commentList"), commnetList);
+                getReplyList({ bno: boardNo }, function (commentList) {
+                    setReplyCount(commentList.length);
+                    drawReplyList(document.querySelector("#commentList"), commentList);
                 });
+            } else {
+                console.error("댓글 등록 실패");
             }
         }
     );
 }
 
+
 function addReplyAjax(data, callback) {
-    console.log("서버로 전송할 데이터:", data); // 요청 데이터 확인
+    console.log("서버로 전송할 데이터:", data); // 전송 데이터 확인
     $.ajax({// 페이지 로드 시 사용자 정보를 설정
         url: "rinsert.bo",
         type: "POST",
@@ -164,7 +170,7 @@ function handleDislikeButtonClick(button) {
 }
 
 function toggleLikeDislike(button, commentNo, isLike, currentState) {
-    const userNo = $("#loginUserNo").val();
+    const userNo = loginUserNo;
 
     if (!userNo) {
         alert("로그인이 필요합니다.");
@@ -178,10 +184,10 @@ function toggleLikeDislike(button, commentNo, isLike, currentState) {
 
     $.ajax({
         url: "toggleLike.bo",
-        
+
         type: "POST",
         data: {
-            
+
             commentNo: commentNo,
             userNo: userNo,
             isLike: isLike ? 1 : 0 // boolean을 숫자로 변환
@@ -202,19 +208,19 @@ function toggleLikeDislike(button, commentNo, isLike, currentState) {
                     likeButton.classList.remove("liked");
                 }
 
-          // 좋아요/싫어요 수 업데이트
-          likeButton.querySelector("span").textContent = response.likeCount || 0;
-          dislikeButton.querySelector("span").textContent = response.dislikeCount || 0;
+                // 좋아요/싫어요 수 업데이트
+                likeButton.querySelector("span").textContent = response.likeCount || 0;
+                dislikeButton.querySelector("span").textContent = response.dislikeCount || 0;
 
-          alert(response.message); // 서버 메시지 표시
-      } else {
-          alert(response.message || "처리 중 오류가 발생했습니다.");
-      }
-  },
-  error: function () {
-      alert("서버와의 통신 중 문제가 발생했습니다.");
-  }
-});
+                alert(response.message); // 서버 메시지 표시
+            } else {
+                alert(response.message || "처리 중 오류가 발생했습니다.");
+            }
+        },
+        error: function () {
+            alert("서버와의 통신 중 문제가 발생했습니다.");
+        }
+    });
 }
 
 

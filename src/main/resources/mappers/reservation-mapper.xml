@@ -7,132 +7,163 @@
 
 	<!-- Guest -->
 	<resultMap id="GuestResultSet" type="Guest">
-        <result property="gstNo" column="GST_NO"/>
-        <result property="gstName" column="GST_NAME"/>
-        <result property="gstEmail" column="GST_EMAIL"/> <!-- PATIENT_NAME 추가 -->
-       	<result property="gstPhone" column="GST_PHONE"/>
-        <result property="gstBirth" column="GST_BIRTH"/>
-        <result property="gstGender" column="GST_GENDER"/>
-        <result property="gstAddress" column="GST_ADDRESS"/>
-    </resultMap>
+		<result property="gstNo" column="GST_NO" />
+		<result property="gstName" column="GST_NAME" />
+		<result property="gstEmail" column="GST_EMAIL" /> <!-- PATIENT_NAME 추가 -->
+		<result property="gstPhone" column="GST_PHONE" />
+		<result property="gstBirth" column="GST_BIRTH" />
+		<result property="gstGender" column="GST_GENDER" />
+		<result property="gstAddress" column="GST_ADDRESS" />
+	</resultMap>
 
-    <!-- ReservationWithVaccineResult 설정 -->
-    <resultMap id="ReservationResultSet" type="Reservation">
-        <id property="resNo" column="RES_NO"/>
-        <result property="userNo" column="USER_NO"/>
-        <result property="hosNo" column="HOS_NO"/>
-         <result property="patientName" column="PATIENT_NAME"/> <!-- PATIENT_NAME 추가 -->
-       	<result property="patientBirthday" column="PATIENT_BIRTHDAY"/>
-        <result property="resDate" column="RES_DATE"/>
-        <result property="resTime" column="RES_TIME"/>
-        <result property="resCategory" column="RES_CATEGORY"/>
-        <result property="resContent" column="RES_CONTENT"/>
-    </resultMap>
-    
-    <!-- 일반 진료 회원 예약 -->
-    <insert id="insertgReservation" parameterType="Reservation">
-    	INSERT INTO GENERAL_RESERVATION
-    	(	
-    		USER_NO, 
-	    	HOS_NO, 
-	    	G_PATIENT_NAME, 
-	    	G_PATIENT_BIRTHDAY,
-	    	G_RES_DATE, 
-	    	G_RES_TIME, 
-	    	G_RES_SUBJECT, 
-	    	G_RES_CONTENT, 
-	    	G_RES_GENDER
-    	)
+	<!-- ReservationWithVaccineResult 설정 -->
+	<resultMap id="ReservationResultSet" type="Reservation">
+		<id property="resNo" column="RES_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="hosNo" column="HOS_NO" />
+		<result property="patientName" column="PATIENT_NAME" /> <!-- PATIENT_NAME 추가 -->
+		<result property="patientBirthday" column="PATIENT_BIRTHDAY" />
+		<result property="resDate" column="RES_DATE" />
+		<result property="resTime" column="RES_TIME" />
+		<result property="resCategory" column="RES_CATEGORY" />
+		<result property="resContent" column="RES_CONTENT" />
+	</resultMap>
+
+	<!-- 일반 진료 회원 예약 -->
+	<insert id="insertgReservation" parameterType="Reservation">
+		INSERT INTO
+		GENERAL_RESERVATION
+		(
+		USER_NO,
+		HOS_NO,
+		G_PATIENT_NAME,
+		G_PATIENT_BIRTHDAY,
+		G_RES_DATE,
+		G_RES_TIME,
+		G_RES_SUBJECT,
+		G_RES_CONTENT,
+		G_RES_GENDER
+		)
 		VALUES
-    	(
-	    	#{userNo},
-	        #{hosNo},
-	        (SELECT USER_NAME FROM MEMBER WHERE USER_NO = #{userNo}),
-	        (SELECT BIRTHDAY FROM MEMBER WHERE USER_NO = #{userNo}),
-	        TO_DATE(#{resDate}, 'YYYY-MM-DD'),
-	        #{resTime},
-	        #{subject},
-	        #{content},
-	        (SELECT GENDER FROM MEMBER WHERE USER_NO = #{userNo})
-        )
-    </insert>
-    
-    <!-- 게스트 삽입 -->
-    <insert id="insertgGuest" parameterType="Reservation">
-    	INSERT INTO GUEST
-    	(	
-            GST_NAME,
-            GST_EMAIL,
-            GST_PHONE,
-            GST_BIRTH,
-            GST_GENDER
-    	)
+		(
+		#{userNo},
+		#{hosNo},
+		(SELECT USER_NAME FROM MEMBER WHERE USER_NO =
+		#{userNo}),
+		(SELECT BIRTHDAY FROM MEMBER WHERE USER_NO = #{userNo}),
+		TO_DATE(#{resDate}, 'YYYY-MM-DD'),
+		#{resTime},
+		#{subject},
+		#{content},
+		(SELECT GENDER FROM MEMBER WHERE USER_NO = #{userNo})
+		)
+	</insert>
+
+	<!-- 게스트 삽입 -->
+	<insert id="insertgGuest" parameterType="Reservation">
+		INSERT INTO GUEST
+		(
+		GST_NAME,
+		GST_EMAIL,
+		GST_PHONE,
+		GST_BIRTH,
+		GST_GENDER
+		)
 		VALUES
-    	(
-            #{userName},
-            #{email},
-            #{phone},
-            #{birthday},
-            #{gender}
-        )
-    </insert>
-    
-    <!-- 예약번호로 조회 -->
-	<select id="selectReservation" resultType="com.project.trinity.reservation.model.vo.GeneralReservation">
+		(
+		#{userName},
+		#{email},
+		#{phone},
+		#{birthday},
+		#{gender}
+		)
+	</insert>
+
+	<!-- 예약번호로 조회 -->
+	<select id="selectReservation"
+		resultType="com.project.trinity.reservation.model.vo.GeneralReservation">
 		SELECT G_RES_NO as gresNo,
-			   USER_NO as userNo,
-			   HOS_NO as hosNo,
-			   GST_NO as gstNo,
-			   G_PATIENT_NAME as gpatientName,
-			   G_PATIENT_BIRTHDAY as gpatientBirthday,
-			   G_RES_DATE as gresDate,
-			   G_RES_TIME as gresTime,
-			   G_RES_SUBJECT as gresSubject,
-			   G_RES_CONTENT as gresContent,
-			   G_RES_GENDER as gender
-		  FROM GENERAL_RESERVATION
-		 WHERE G_RES_NO = #{resNo}
+		USER_NO as userNo,
+		HOS_NO as
+		hosNo,
+		GST_NO as gstNo,
+		G_PATIENT_NAME as gpatientName,
+		G_PATIENT_BIRTHDAY as gpatientBirthday,
+		G_RES_DATE as gresDate,
+		G_RES_TIME as gresTime,
+		G_RES_SUBJECT as gresSubject,
+		G_RES_CONTENT as
+		gresContent,
+		G_RES_GENDER as gender
+		FROM GENERAL_RESERVATION
+		WHERE
+		G_RES_NO = #{resNo}
 	</select>
-	
+
 	<!-- 게스트 조회 -->
 	<select id="selectGuest" resultMap="GuestResultSet">
 		SELECT GST_NO,
-		       GST_NAME,
-		       GST_EMAIL,
-		       GST_PHONE,
-		       GST_BIRTH,
-		       GST_GENDER,
-		       GST_ADDRESS
+		GST_NAME,
+		GST_EMAIL,
+		GST_PHONE,
+		GST_BIRTH,
+		GST_GENDER,
+		GST_ADDRESS
 		FROM GUEST
-		WHERE GST_PHONE = #{phone} AND GST_EMAIL = #{email}
+		WHERE
+		GST_PHONE = #{phone} AND GST_EMAIL = #{email}
 	</select>
-	
+
 	<!-- 일반 진료 게스트 예약 -->
-    <insert id="insertgGuestReservation" parameterType="Reservation">
-    	INSERT INTO GENERAL_RESERVATION
-    	(	
-	    	HOS_NO, 
-	    	GST_NO,
-            G_PATIENT_NAME,
-            G_PATIENT_BIRTHDAY,
-	    	G_RES_DATE, 
-	    	G_RES_TIME, 
-	    	G_RES_SUBJECT, 
-	    	G_RES_CONTENT, 
-            G_RES_GENDER
-    	)
+	<insert id="insertgGuestReservation" parameterType="Reservation">
+		INSERT INTO
+		GENERAL_RESERVATION
+		(
+		HOS_NO,
+		GST_NO,
+		G_PATIENT_NAME,
+		G_PATIENT_BIRTHDAY,
+		G_RES_DATE,
+		G_RES_TIME,
+		G_RES_SUBJECT,
+		G_RES_CONTENT,
+		G_RES_GENDER
+		)
 		VALUES
-    	(
-	    	#{hosNo},
-	        #{guestNo},
-            #{userName},
-            #{birthday},
-	        #{resDate},
-	        #{resTime},
-	        #{subject},
-	        #{content},
-            #{gender}
-        )
-    </insert>
-    
+		(
+		#{hosNo},
+		#{guestNo},
+		#{userName},
+		#{birthday},
+		#{resDate},
+		#{resTime},
+		#{subject},
+		#{content},
+		#{gender}
+		)
+	</insert>
+
+	<select id="selectReservationsByUserNo"
+		resultMap="ReservationResultSet">
+		SELECT
+		GR.G_RES_NO AS resNo,
+		GR.USER_NO AS userNo,
+		GR.HOS_NO AS
+		hosNo,
+		GR.G_PATIENT_NAME AS patientName,
+		GR.G_PATIENT_BIRTHDAY AS
+		patientBirthday,
+		GR.G_RES_DATE AS resDate,
+		GR.G_RES_TIME AS resTime,
+		GR.G_RES_SUBJECT AS resCategory,
+		GR.G_RES_CONTENT AS resContent,
+		HI.HOS_NAME AS hosName,
+		HI.HOS_ADDRESS AS hosAddress
+		FROM
+		GENERAL_RESERVATION GR
+		JOIN HOSPITAL_INFO HI ON GR.HOS_NO = HI.HOS_NO
+		WHERE GR.USER_NO = #{userNo}
+	</select>
+
+
 </mapper>

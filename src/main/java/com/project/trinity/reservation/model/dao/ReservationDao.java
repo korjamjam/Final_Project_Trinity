@@ -1,6 +1,7 @@
 package com.project.trinity.reservation.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -66,5 +67,10 @@ public class ReservationDao {
 		map.put("gender", gender);
 		return sqlSession.insert("reservationMapper.insertgGuestReservation", map);
 	}
+	
+	public List<Reservation> selectReservationsByUserNo(String userNo) {
+	    return sqlSession.selectList("reservationMapper.selectReservationsByUserNo", userNo);
+	}
+
 
 }

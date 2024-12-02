@@ -21,14 +21,16 @@
         <result property="boardCategory" column="BOARD_CATEGORY" />
         <result property="status" column="STATUS" />
 
-        <!-- 첨부파일 정보 -->
-        <collection property="attachedFiles" ofType="BoardFile">
-            <id property="fileNo" column="FILE_NO" />
-            <result property="originName" column="ORIGIN_NAME" />
-            <result property="changeName" column="CHANGE_NAME" />
-            <result property="allowDownload" column="ALLOW_DOWNLOAD" />
-            <result property="fileSize" column="FILE_SIZE" />
-        </collection>
+    <!-- 첨부파일 정보 -->
+    <collection property="attachedFiles" ofType="BoardFile">
+        <result property="fileNo" column="FILE_NO"/>
+        <result property="boardNo" column="BOARD_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="originName" column="ORIGIN_NAME"/>
+        <result property="changeName" column="CHANGE_NAME"/>
+        <result property="allowDownload" column="ALLOW_DOWNLOAD"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+    </collection>
     </resultMap>
 
     <!-- 게시글 총 갯수 조회 -->

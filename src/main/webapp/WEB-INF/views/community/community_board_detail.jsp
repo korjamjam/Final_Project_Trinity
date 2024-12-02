@@ -30,6 +30,17 @@
 </head>
 
 <body>
+ <!-- EL 데이터를 JavaScript 변수로 전달 -->
+    <script>
+        const contextPath = "${pageContext.servletContext.contextPath}";
+        const boardNo = "${b.boardNo}";
+        const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
+        const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+        console.log("boardNo:", boardNo);      // 게시글 번호
+        console.log("loginUserNo:", loginUserNo); // 사용자 번호
+        console.log("loginUserId:", loginUserId); // 사용자 아이디
+
+    </script>
 	<!-- Header Section -->
 	<header>
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -100,26 +111,10 @@
 						<!-- 게시글 내용 -->
 						${b.boardContent}
 					</div>
-<!-- 첨부파일 목록 -->
-<div class="attached-files-wrapper">
-    <h3>첨부 파일</h3>
-    <div class="attached-files">
-        <c:forEach var="file" items="${attachedFiles}">
-            <div class="file-card" 
-                 data-allow-download="${file.allowDownload}" 
-                 data-download-url="${file.allowDownload == 'Y' ? (pageContext.servletContext.contextPath + '/resources/uploadFile/' + file.changeName) : ''}">
-                <button class="btn btn-download">
-                    <i class="bi bi-arrow-down-circle"></i>
-                </button>
-            </div>
-        </c:forEach>
-    </div>
-</div>
-
-
-					</div>
-
-
+                                           <!-- 첨부파일 섹션 include -->     <!-- 첨부파일 섹션 include -->
+                        <c:if test="${not empty attachedFiles}">
+                            <%@ include file="/WEB-INF/views/common/attached_files.jsp"%>				
+                        </c:if>
 					<!-- 답변 콘텐츠 -->
 					<c:forEach var="answer" items="${answers}">
 						<div class="board-content answer-content">
@@ -156,5 +151,5 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
 </body>
-
 </html>
+							

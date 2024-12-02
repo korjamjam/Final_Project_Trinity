@@ -86,10 +86,10 @@
 }
 
 .right-section .round-button {
-	flex: 0 0 30%; /* right-section의 30% 차지 */
-	height: 100%; /* 부모 높이 */
-	text-align: center;
+    flex: 0 1 auto; /* 유연하게 크기 조정 */
+    text-align: center;
 }
+
 
 .right-section .nav-links-group {
 	display: flex;
@@ -191,24 +191,7 @@
 	background-color: #e0e0e0;
 }
 
-/* 버튼 스타일 */
-.round-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #6cc24a;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	font-weight: bold;
-	height: 100%; /* 부모 높이 채움 */
-	text-align: center;
-	cursor: pointer;
-}
 
-.round-button:hover {
-	background-color: #5aa33c;
-}
 
 .white-button {
 	display: flex;
@@ -262,7 +245,7 @@
 	/* 상하 간격을 최대로 */
 	width: 100%; height : 40%;
 	/* 높이 설정 */
-	min-height: 400px;
+	min-height: 600px;
 	/* 최소 높이 설정 */
 	padding: 20px;
 	border: 1px solid #ddd;
