@@ -424,6 +424,65 @@ VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '
 
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
+-- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
+DECLARE
+    CURSOR c_user_no IS
+        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
+    v_user_no MEMBER.USER_NO%TYPE;
+BEGIN
+    FOR i IN 1..100 LOOP
+        -- 랜덤한 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
+            ORDER BY DBMS_RANDOM.VALUE
+        ) WHERE ROWNUM = 1;
+
+        -- BOARD 데이터 삽입
+        INSERT INTO BOARD (
+            BOARD_NO, 
+            BOARD_TYPE, 
+            USER_NO, 
+            BOARD_TITLE, 
+            BOARD_CONTENT, 
+            ENROLL_DATE, 
+            MODIFIED_DATE, 
+            BOARD_VIEWS, 
+            BOARD_CATEGORY, 
+            STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
+            CASE MOD(i, 7)                       -- BOARD_TYPE 매핑
+                WHEN 0 THEN 1                    -- 자유게시판
+                WHEN 1 THEN 2                    -- 메디톡
+                WHEN 2 THEN 3                    -- 이벤트게시판
+                WHEN 3 THEN 4                    -- 공지사항
+                WHEN 4 THEN 5                    -- 알림판
+                WHEN 5 THEN 6                    -- FAQ
+                ELSE 7                           -- Q&A
+            END,
+            v_user_no,                           -- USER_NO (랜덤 회원)
+            '게시글 제목 ' || i,                  -- BOARD_TITLE
+            '게시글 내용 ' || i || '입니다.',      -- BOARD_CONTENT
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
+            TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
+            CASE MOD(i, 7)                       -- BOARD_CATEGORY 매핑
+                WHEN 0 THEN '자유게시판'
+                WHEN 1 THEN '메디톡'
+                WHEN 2 THEN '이벤트게시판'
+                WHEN 3 THEN '공지사항'
+                WHEN 4 THEN '알림판'
+                WHEN 5 THEN 'FAQ'
+                ELSE 'QNA'
+            END,
+            'Y'                                  -- STATUS (항상 Y)
+        );
+    END LOOP;
+    COMMIT;
+END;
+/
+
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
     v_user_no MEMBER.USER_NO%TYPE; -- 일반 사용자의 USER_NO를 저장할 변수
@@ -436,7 +495,7 @@ BEGIN
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- 게시글 번호
-            1, -- 공지사항
+            4, -- 공지사항
             v_admin_no, -- 관리자
             '공지사항 제목 ' || i, -- 제목
             '공지사항 내용 ' || i || '입니다.', -- 내용
@@ -464,7 +523,7 @@ BEGIN
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            2, -- 알림판
+            5, -- 알림판
             v_user_no, -- 일반 사용자
             '알림톡 제목 ' || i,
             '알림톡 내용 ' || i || '입니다.',
@@ -484,7 +543,7 @@ BEGIN
             INQUIRY_CATEGORY, STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            3, -- FAQ
+            6, -- FAQ
             v_admin_no,
             'FAQ 제목 ' || i,
             'FAQ 내용 ' || i || '입니다.',
@@ -519,7 +578,7 @@ BEGIN
             INQUIRY_CATEGORY, STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            4, -- Q&A
+            7, -- Q&A
             v_user_no,
             'QNA 제목 ' || i,
             'QNA 내용 ' || i || '입니다.',
@@ -539,54 +598,9 @@ BEGIN
     
 END;
 /
--- 게시판 더미데이터 --------------------------------------------------------------------------------------------------------
 
-DECLARE
-    CURSOR c_user_no IS
-        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
-    v_user_no MEMBER.USER_NO%TYPE;
-BEGIN
-    FOR i IN 1..100 LOOP
-        -- 랜덤한 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
-            ORDER BY DBMS_RANDOM.VALUE
-        ) WHERE ROWNUM = 1;
 
-        -- BOARD 데이터 삽입
-        INSERT INTO BOARD (
-            BOARD_NO, 
-            BOARD_TYPE, 
-            USER_NO, 
-            BOARD_TITLE, 
-            BOARD_CONTENT, 
-            ENROLL_DATE, 
-            MODIFIED_DATE, 
-            BOARD_VIEWS, 
-            BOARD_CATEGORY, 
-            STATUS
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
-            MOD(i, 3) + 1,                       -- BOARD_TYPE (1, 2, 3)
-            v_user_no,                           -- USER_NO (랜덤 회원)
-            '게시글 제목 ' || i,                  -- BOARD_TITLE
-            '게시글 내용 ' || i || '입니다.',      -- BOARD_CONTENT
-            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
-            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
-            TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
-            CASE MOD(i, 3) 
-                WHEN 0 THEN '자유게시판' 
-                WHEN 1 THEN '메디톡' 
-                ELSE '이벤트게시판' 
-            END,                                 -- BOARD_CATEGORY
-            'Y'                                  -- STATUS (항상 Y)
-        );
-    END LOOP;
-    COMMIT;
-END;
-/
-
+--Rankup 테이블 더미데이터
 DECLARE
     CURSOR c_user_no IS
         SELECT USER_NO, MED_KEY FROM MEMBER; -- MED_KEY 포함하여 사용자 정보 가져옴
