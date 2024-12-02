@@ -425,9 +425,8 @@ INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
-    v_user_no MEMBER.USER_NO%TYPE;
+    v_user_no MEMBER.USER_NO%TYPE; -- 일반 사용자의 USER_NO를 저장할 변수
     v_admin_no MEMBER.USER_NO%TYPE := 'U1'; -- 관리자 계정
-    CURSOR c_user IS SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'; -- 일반 사용자
 BEGIN
     -- 공지사항 (공지사항은 관리자 작성)
     FOR i IN 1..10 LOOP
@@ -449,9 +448,16 @@ BEGIN
     END LOOP;
 
     -- 알림톡 (알림판은 일반 사용자 작성)
-    OPEN c_user;
-    FETCH c_user INTO v_user_no;
     FOR i IN 1..10 LOOP
+        -- 랜덤 사용자 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO 
+            FROM MEMBER 
+            WHERE ISADMIN = 'N' -- 일반 사용자만
+            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
+        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
+
         INSERT INTO BOARD (
             BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
@@ -468,7 +474,6 @@ BEGIN
             'Y'
         );
     END LOOP;
-    CLOSE c_user;
 
     -- FAQ (FAQ는 관리자 작성)
     FOR i IN 1..10 LOOP
@@ -497,9 +502,16 @@ BEGIN
     END LOOP;
 
     -- Q&A (Q&A는 일반 사용자 작성)
-    OPEN c_user;
-    FETCH c_user INTO v_user_no;
     FOR i IN 1..10 LOOP
+        -- 랜덤 사용자 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO 
+            FROM MEMBER 
+            WHERE ISADMIN = 'N' -- 일반 사용자만
+            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
+        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
+
         INSERT INTO BOARD (
             BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
             ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
@@ -508,12 +520,12 @@ BEGIN
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
             4, -- Q&A
             v_user_no,
-            'Q&A 제목 ' || i,
-            'Q&A 내용 ' || i || '입니다.',
+            'QNA 제목 ' || i,
+            'QNA 내용 ' || i || '입니다.',
             SYSDATE - DBMS_RANDOM.VALUE(1, 30),
             SYSDATE - DBMS_RANDOM.VALUE(1, 10),
             TRUNC(DBMS_RANDOM.VALUE(0, 100)),
-            'Q&A',
+            'QNA',
             CASE MOD(i, 4)
                 WHEN 0 THEN '회원관련'
                 WHEN 1 THEN '사이트이용'
@@ -523,9 +535,7 @@ BEGIN
             'Y'
         );
     END LOOP;
-    CLOSE c_user;
-
-    COMMIT;
+    
 END;
 /
 -- 게시판 더미데이터 --------------------------------------------------------------------------------------------------------
