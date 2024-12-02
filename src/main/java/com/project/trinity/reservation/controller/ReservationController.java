@@ -1,13 +1,18 @@
 package com.project.trinity.reservation.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.Guest;
+import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
@@ -54,4 +59,13 @@ public class ReservationController {
     	return "/main";
     }
     
-}
+    @RequestMapping("/confirmation")
+    public String showReservationConfirmation(Model model, @SessionAttribute("loginUser") Member loginUser) {
+        String userNo = loginUser.getUserNo();
+        List<Reservation> reservations = rService.getReservationsByUserNo(userNo);
+        model.addAttribute("reservations", reservations);
+        return "reservationconfirmation";
+    }
+
+    
+} 
