@@ -16,10 +16,10 @@ import com.project.trinity.reservation.model.vo.Reservation;
 public class ReservationDao {
 
 	@Autowired
-    private SqlSession sqlSession;
-	
-	public int insertgReservation(String userNo, String hosNo, String resDate, String resTime,
-			String subject, String content) {
+	private SqlSession sqlSession;
+
+	public int insertgReservation(String userNo, String hosNo, String resDate, String resTime, String subject,
+			String content) {
 		Map<String, String> map = new HashMap<>();
 		map.put("userNo", userNo);
 		map.put("hosNo", hosNo);
@@ -48,7 +48,7 @@ public class ReservationDao {
 		Map<String, String> map = new HashMap<>();
 		map.put("phone", phone);
 		map.put("email", email);
-		
+
 		Guest g = sqlSession.selectOne("reservationMapper.selectGuest", map);
 		return g;
 	}
@@ -65,11 +65,17 @@ public class ReservationDao {
 		map.put("subject", subject);
 		map.put("content", content);
 		map.put("gender", gender);
+		
+		
+		
 		return sqlSession.insert("reservationMapper.insertgGuestReservation", map);
 	}
-	
+
 	public List<Reservation> selectReservationsByUserNo(String userNo) {
-	    return sqlSession.selectList("reservationMapper.selectReservationsByUserNo", userNo);
+	    System.out.println("DAO - userNo: " + userNo);
+	    List<Reservation> reservations = sqlSession.selectList("reservationMapper.selectReservationsByUserNo", userNo);
+	    System.out.println("DAO - reservations: " + reservations);
+	    return reservations;
 	}
 
 

@@ -19,15 +19,16 @@
 	<!-- ReservationWithVaccineResult 설정 -->
 	<resultMap id="ReservationResultSet" type="Reservation">
 		<id property="resNo" column="RES_NO" />
-		<result property="userNo" column="USER_NO" />
-		<result property="hosNo" column="HOS_NO" />
-		<result property="patientName" column="PATIENT_NAME" /> <!-- PATIENT_NAME 추가 -->
-		<result property="patientBirthday" column="PATIENT_BIRTHDAY" />
-		<result property="resDate" column="RES_DATE" />
-		<result property="resTime" column="RES_TIME" />
-		<result property="resCategory" column="RES_CATEGORY" />
-		<result property="resContent" column="RES_CONTENT" />
+		<result property="hosName" column="HOS_NAME" />
+		<result property="hosAddress" column="HOS_ADDRESS" />
+		<result property="patientName" column="G_PATIENT_NAME" />
+		<result property="patientBirthday" column="G_PATIENT_BIRTHDAY" />
+		<result property="resDate" column="G_RES_DATE" />
+		<result property="resTime" column="G_RES_TIME" />
+		<result property="resCategory" column="G_RES_SUBJECT" />
+		<result property="resContent" column="G_RES_CONTENT" />
 	</resultMap>
+
 
 	<!-- 일반 진료 회원 예약 -->
 	<insert id="insertgReservation" parameterType="Reservation">
@@ -161,9 +162,12 @@
 		HI.HOS_ADDRESS AS hosAddress
 		FROM
 		GENERAL_RESERVATION GR
-		JOIN HOSPITAL_INFO HI ON GR.HOS_NO = HI.HOS_NO
-		WHERE GR.USER_NO = #{userNo}
+		JOIN
+		HOSPITAL_INFO HI ON GR.HOS_NO = HI.HOS_NO
+		WHERE
+		GR.USER_NO = #{userNo}
 	</select>
+
 
 
 </mapper>
