@@ -244,12 +244,13 @@ public class HealthReservationController {
 	        @RequestParam String reservation_user_result,
 	        HttpSession session,
 	        RedirectAttributes redirectAttributes) {
+		System.out.println("session hosNo : " + (String)session.getAttribute("hosNo"));
 		HealthReservation healthReservation = new HealthReservation();
 		//날짜 받아온거 yyyy-mm-dd로 바꾸기
 		String useDate = reservation_user_date.substring(6)
 				   + "-" +reservation_user_date.substring(0,2)
 				   + "-" +reservation_user_date.substring(3,5);
-		System.out.println("session hosNo : " + (String)session.getAttribute("hosNo"));
+		
 		healthReservation.setHosNo((String)session.getAttribute("hosNo"));
 		healthReservation.setResDate(useDate);
 		healthReservation.setResTime(reservation_user_time);
@@ -310,26 +311,32 @@ public class HealthReservationController {
  	    return nValue.getNodeValue();
  	}
 	 
-	
+	@ResponseBody
 	@GetMapping("healthHospital")
-	public String healthReservationHospital(@RequestParam String hosName,
-											@RequestParam String hosAddress,
-											@RequestParam String hosTel,
-											@RequestParam String hosLatitude,
-											@RequestParam String hosLangitude,
+	public String healthReservationHospital(@RequestParam("hosName") String hosName,
+											@RequestParam("hosAddress") String hosAddress,
+											@RequestParam("hosTel") String hosTel,
+											@RequestParam("hosLatitude") String hosLatitude,
+											@RequestParam("hosLongitude") String hosLongitude,
 											HttpSession session
 			) {
-		HospitalInfo hInfo = new HospitalInfo(hosName, hosAddress, hosTel, hosLatitude, hosLangitude);
+		HospitalInfo hInfo = new HospitalInfo();
 		
 		
 		System.out.println(hosName);
 		System.out.println(hosAddress);
 		System.out.println(hosTel);
 		System.out.println(hosLatitude);
-		System.out.println(hosLangitude);
+		System.out.println(hosLongitude);
+		hInfo.setHosName(hosName);
+		hInfo.setHosAddress(hosAddress);
+		hInfo.setHosTel(hosTel);
+		hInfo.setHosLatitude(hosLatitude);
+		hInfo.setHosLongitude(hosLongitude);
 		System.out.println(hInfo);
 		int result = hospitalService.insertHealthHospital(hInfo);
 		session.setAttribute("hosNo", hInfo.getHosNo());
+		System.out.println(hInfo.getHosNo());
 		System.out.println("hosNo" + session.getAttribute("hosNo"));
 		String message = "";
 		

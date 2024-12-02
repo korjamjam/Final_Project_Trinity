@@ -219,10 +219,10 @@
                                 hosAddress: item.locAddr,
                                 hosTel: item.hmcTelNo,
                                 hosLatitude: item.cyVl,
-                                hosLangitude: item.cxVl,
+                                hosLongitude: item.cxVl,
                               },
-                        success: {},
-                        error : {}
+                        success: console.log("성공"),
+                        error : console.log("실패")
                     })
                 }
             }
