@@ -1,92 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<!DOCTYPE html>
-		<html lang="ko">
-
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_dropdown.css"
-				rel="stylesheet">
-			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
-				rel="stylesheet">
-			<link rel="stylesheet"
-				href="${ pageContext.servletContext.contextPath }/resources/css/community/community_board_detail.css">
-			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/comments.css" rel="stylesheet">
-
-			<title>게시글 상세 페이지</title>
-		</head>
-
-		<body>
-			<!-- Header Section -->
-			<header>
-				<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
-			</header>
-
-			<main id="main-content">
-				<!-- Sidebar Menu -->
-				<div id="side-menu">
-					<%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
-				</div>
-
-				<!-- Board Container -->
-				<div id="main-wrapper">
-					<div class="navigation-buttons">
-						<!-- 왼쪽 섹션: 수정, 삭제 -->
-						<div class="left-section">
-							<button class="white-button" onclick="location.href='edit?bno=${b.boardNo}'">수정</button>
-							<button class="white-button" onclick="deletePost(${b.boardNo})">삭제</button>
-
-						</div>
-
-						<!-- 오른쪽 섹션: 목록 보기, 이전글, 다음글 -->
-						<div class="right-section">
-							<button class="round-button">목록 보기</button>
-							<div class="nav-links-group">
-								<a href="detail.bo?bno=${prevBoardNo}" class="nav-text">&laquo;
-									이전글</a> <a href="detail.bo?bno=${nextBoardNo}" class="nav-text">다음글
-									&raquo;</a>
-							</div>
-
-						</div>
-					</div>
-
-
-
-					<div class="board-container">
-						<!-- 게시글 상세 정보 -->
-						<table class="board-detail">
-							<tr>
-								<!-- Breadcrumb Navigation -->
-								<td class="breadcrumb"><span>게시판 &nbsp</span> &gt; <!-- Custom Dropdown -->
-									<div class="custom-dropdown">
-										<div class="selected-container">
-											<!-- 현재 게시글의 카테고리를 서버에서 받아와서 표시 -->
-											<div class="selected-option" onclick="showAndHide('#community-options')">
-												${boardCategory}
-												<!-- 서버에서 현재 카테고리를 받아와 표시 -->
-											</div>
-											<div class="dropdown-arrow">▼</div>
-										</div>
-										<div class="option-list" id="community-options">
-											<div class="option-item"
-												onclick="moveSelectPage('${pageContext.servletContext.contextPath}/community/main')">
-												실시간 인기글</div>
-											<div class="option-item"
-												onclick="moveSelectPage('${pageContext.servletContext.contextPath}/community/board?type=free')">
-												자유 게시판</div>
-											<div class="option-item"
-												onclick="moveSelectPage('${pageContext.servletContext.contextPath}/community/board?type=meditalk')">
-												메디톡</div>
-											<div class="option-item"
-												onclick="moveSelectPage('${pageContext.servletContext.contextPath}/community/board?type=event')">
-												이벤트 게시판</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-=======
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -189,25 +100,10 @@
 						<!-- 게시글 내용 -->
 						${b.boardContent}
 					</div>
-<!-- 첨부파일 목록 -->
-<div class="attached-files-wrapper">
-    <h3>첨부 파일</h3>
-    <div class="attached-files">
-        <c:forEach var="file" items="${attachedFiles}">
-            <div class="file-card" 
-                 data-allow-download="${file.allowDownload}" 
-                 data-download-url="${file.allowDownload == 'Y' ? (pageContext.servletContext.contextPath + '/resources/uploadFile/' + file.changeName) : ''}">
-                <button class="btn btn-download">
-                    <i class="bi bi-arrow-down-circle"></i>
-                </button>
-            </div>
-        </c:forEach>
-    </div>
-</div>
 
 
-					</div>
 
+					
 
 					<!-- 답변 콘텐츠 -->
 					<c:forEach var="answer" items="${answers}">
@@ -245,7 +141,6 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
 </body>
->>>>>>> 6ccdfcc57ff0a3b685f11aec55ff97b4b43eb9af
 
 							<tr>
 								<td class="board-title">${b.boardTitle}</td>
