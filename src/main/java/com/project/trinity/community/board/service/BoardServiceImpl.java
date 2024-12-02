@@ -171,6 +171,10 @@ public class BoardServiceImpl implements BoardService {
         boardDao.insertLikeDislike(sqlSession, commentNo, userNo, isLike);
     }
 
+    @Override
+    public String getCategoryNameById(String categoryId) {
+        return boardDao.getCategoryNameById(sqlSession, categoryId);
+    }
 	
 
 }

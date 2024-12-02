@@ -25,7 +25,8 @@ public interface BoardService {
     int insertBoard(Board b, String userNo); // 게시글 추가
     int updateBoard(Board b); // 게시글 수정
     int deleteBoard(String boardNo); // 게시글 삭제
-
+    String getCategoryNameById(String categoryId);
+    
     // 파일 관련 메서드
     int insertFile(BoardFile bf); // 첨부파일 추가
     BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
@@ -46,6 +47,7 @@ public interface BoardService {
     void deleteLikeDislike(String commentNo, String userNo); // 좋아요/싫어요 삭제
     void insertLikeDislike(String commentNo, String userNo, int isLike); // 좋아요/싫어요 추가
     void updateLikeDislike(String commentNo, String userNo, int isLike);
+	
 
   
 }
