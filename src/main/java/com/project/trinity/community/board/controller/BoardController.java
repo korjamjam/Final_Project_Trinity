@@ -169,19 +169,23 @@ public class BoardController {
 	@GetMapping("/boardDetail")
 	public String selectBoard(@RequestParam("bno") String bno, Model m) {
 	    System.out.println("bno 값: " + bno); // 디버깅 로그
-		Board b = boardService.selectBoard(bno);
-		List<BoardFile> attachedFiles = boardService.getFilesList(bno); // 첨부파일 리스트 가져오기
+	    Board b = boardService.selectBoard(bno);
+	    List<BoardFile> attachedFiles = boardService.getFilesList(bno); // 첨부파일 리스트 가져오기
 
-		if (b != null) {
-			m.addAttribute("b", b);
-			m.addAttribute("attachedFiles", attachedFiles); // 첨부파일 정보 추가
-			m.addAttribute("boardCategory", b.getBoardCategory());
-			return "community/community_board_detail"; // 상세 페이지로 이동
-		} else {
-			m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
-			return "/common/errorPage";
-		}
+	    if (b != null) {
+	        // 카테고리 이름 조회
+	        String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+	        
+	        m.addAttribute("b", b);
+	        m.addAttribute("attachedFiles", attachedFiles); // 첨부파일 정보 추가
+	        m.addAttribute("categoryName", categoryName);   // 카테고리 이름 전달
+	        return "community/community_board_detail"; // 상세 페이지로 이동
+	    } else {
+	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
+	        return "/common/errorPage";
+	    }
 	}
+
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
