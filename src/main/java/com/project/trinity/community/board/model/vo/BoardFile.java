@@ -8,12 +8,11 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardFile {
-    private String fileNo;       // 파일 고유 번호
-    private String boardNo;      // 게시글 번호
-    private String userNo;       // 사용자 번호
-    private String originName;   // 원본 파일명
-    private String changeName;   // 변경된 파일명
-    private String allowDownload; // 다운로드 허용 상태 ('Y', 'N')
-    private long fileSize;
-
+    private String fileNo;        // FILE_NO
+    private String boardNo;       // BOARD_NO
+    private String userNo;        // USER_NO
+    private String originName;    // ORIGIN_NAME
+    private String changeName;    // CHANGE_NAME
+    private String allowDownload; // ALLOW_DOWNLOAD
+    private long fileSize;        // FILE_SIZE
 }
