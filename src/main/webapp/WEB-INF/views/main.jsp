@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 <title>닥터링</title>
 
@@ -23,13 +23,15 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
 
 	<!-- JS -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
 
 </head>
 <body>
@@ -152,31 +154,30 @@
 
 		<!-- Commercial -->
 		<!-- Slider main container -->
-		<div class="swiper-container">
+		<div class="swiper mySwiper">
 			<!-- Additional required wrapper -->
 			<div class="swiper-wrapper">
 				<!-- Slides -->
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad1.jpg" alt="ad1">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad6.jpg"alt="ad6"  id="ad1">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad2.jpg" alt="ad2">
-				</div>
-				<!-- <div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad3.jpg" alt="ad3">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad3.jpg" alt="ad3" id="ad2">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad4.jpg" alt="ad4">
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad4.jpg" alt="ad4" id="ad3">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad6.jpg" alt="ad6">
-				</div> -->
+					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad5.jpg" alt="ad5"  id="ad4">
+				</div>
 			</div>
-		
+			
+			<!-- Pagination -->
+			<div class="swiper-pagination"></div>
+
 			<!-- If we need navigation buttons -->
 			<div class="swiper-button-prev"></div>
 			<div class="swiper-button-next"></div>
-		
 		</div>
 
 		<br>
