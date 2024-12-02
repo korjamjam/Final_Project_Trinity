@@ -14,7 +14,6 @@
 	/* relative positioning to allow absolute centering */
 }
 
-
 .pagination {
 	font-size: 12px;
 	color: #265708;
@@ -98,6 +97,9 @@
 	max-height: 36px;
 }
 
+.title{
+	
+}
 /* 검색 입력 필드 스타일 */
 .search-input {
 	padding: 8px;
@@ -131,6 +133,7 @@
 }
 
 @media ( min-width : 768px) {
+	
 	#notice{
 		color: #6cc24a;
 		font-weight: bold;
