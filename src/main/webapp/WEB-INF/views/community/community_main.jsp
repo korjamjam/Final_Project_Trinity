@@ -64,7 +64,7 @@
 				<tbody>
 					<c:forEach var="board" items="${recentPopularList}">
 						<tr>
-							<td class="category">${board.boardCategory}</td>
+							<td class="category">${board.categoryId}</td>
 							<td class="title"><a href="boardDetail?bno=${board.boardNo}">${board.boardTitle}</a></td>
 							<td class="author">${board.boardWriter}</td>
 							<td class="date">${board.enrollDate}</td>

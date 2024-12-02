@@ -74,6 +74,7 @@ public class BoardDao {
      * 특정 게시글의 상세 내용을 조회합니다.
      */
     public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
+    	
         return sqlSession.selectOne("boardMapper.selectBoard", bno);
     }
 

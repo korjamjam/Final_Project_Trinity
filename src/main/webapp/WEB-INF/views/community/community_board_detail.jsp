@@ -66,7 +66,8 @@
 								<td class="breadcrumb"><span>게시판 &nbsp</span> &gt;
 									<div class="custom-dropdown">
 										<div class="selected-container">
-											<div class="selected-option">${boardCategory}</div>
+											<div class="selected-option">${categoryName}</div>
+											
 											<div class="dropdown-arrow">▼</div>
 										</div>
 									<div class="option-list" id="community-options">
