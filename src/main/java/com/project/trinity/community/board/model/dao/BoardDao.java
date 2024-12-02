@@ -246,4 +246,11 @@ public class BoardDao {
         sqlSession.update("boardMapper.updateLikeDislike", params);
     }
 
+    public String getCategoryNameById(SqlSessionTemplate sqlSession, String categoryId) {
+        return sqlSession.selectOne("boardMapper.getCategoryNameById", categoryId);
+    }
+
+
+
+
 }

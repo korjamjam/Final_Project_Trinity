@@ -1,5 +1,7 @@
 package com.project.trinity.reservation.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +50,12 @@ public class RerservationServiceImpl implements ReservationService{
 		resDate = year + "-" + month + "-" + day;
 		return rDao.insertgGuestReservation(hosNo, guestNo, userName, birthday, resDate, resTime, subject, content, gender);
 	}
+	
+	// ReservationServiceImpl
+	@Override
+	public List<Reservation> getReservationsByUserNo(String userNo) {
+	    return rDao.selectReservationsByUserNo(userNo);
+	}
+
 
 }

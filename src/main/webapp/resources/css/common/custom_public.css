@@ -10,8 +10,9 @@
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    width: max-content;
     min-width: 60px; /* 버튼 최소 너비 */
-    height: 48px; /* 고정 높이 설정 */
+    height: 36px; /* 고정 높이 설정 */
     padding: 0.5em 1em; /* 내부 여백 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     transition: background-color 0.3s ease;

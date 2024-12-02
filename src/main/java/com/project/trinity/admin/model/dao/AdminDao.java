@@ -64,10 +64,8 @@ public class AdminDao {
  // Member 테이블에서 medKey가 null로 설정될 때 관련된 medical_field 데이터 삭제
     public void deleteMedicalFieldIfMedKeyIsNull(SqlSessionTemplate sqlSession, String userNo) {
         String medKey = sqlSession.selectOne("adminMapper.getMedKeyByUserNo", userNo);
-        System.out.println("Retrieved medKey for userNo " + userNo + ": " + medKey); // 로그 추가
         if (medKey != null) {
             int rowsDeleted = sqlSession.delete("adminMapper.deleteMedicalFieldByMedKey", medKey);
-            System.out.println("Rows deleted from MEDICAL_FIELD: " + rowsDeleted); // 삭제된 행 수 로그
         }
     }
 

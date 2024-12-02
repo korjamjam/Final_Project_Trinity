@@ -6,32 +6,29 @@
 <mapper namespace="boardMapper">
 
     <!-- 게시글 ResultMap 정의 -->
-    <resultMap id="boardResult" type="Board">
-        <!-- 게시글 정보 -->
-        <id property="boardNo" column="BOARD_NO" />
-        <result property="boardType" column="BOARD_TYPE" />
-        <result property="boardTitle" column="BOARD_TITLE" />
-         <result property="tag" column="TAG" />
-        <result property="userNo" column="USER_NO" />
-        <result property="boardWriter" column="BOARD_WRITER" />
-        <result property="boardContent" column="BOARD_CONTENT" />
-        <result property="enrollDate" column="ENROLL_DATE" />
-        <result property="modifiedDate" column="MODIFIED_DATE" />
-        <result property="boardViews" column="BOARD_VIEWS" />
-        <result property="boardCategory" column="BOARD_CATEGORY" />
-        <result property="status" column="STATUS" />
-
-    <!-- 첨부파일 정보 -->
-    <collection property="attachedFiles" ofType="BoardFile">
-        <result property="fileNo" column="FILE_NO"/>
-        <result property="boardNo" column="BOARD_NO"/>
-        <result property="userNo" column="USER_NO"/>
+<resultMap id="boardResult" type="com.project.trinity.community.board.model.vo.Board">
+    <id property="boardNo" column="BOARD_NO"/>
+    <result property="boardType" column="BOARD_TYPE"/>
+    <result property="boardTitle" column="BOARD_TITLE"/>
+    <result property="userNo" column="USER_NO"/>
+    <result property="boardWriter" column="BOARD_WRITER"/>
+    <result property="boardContent" column="BOARD_CONTENT"/>
+    <result property="enrollDate" column="ENROLL_DATE"/>
+    <result property="modifiedDate" column="MODIFIED_DATE"/>
+    <result property="boardViews" column="BOARD_VIEWS"/>
+    <result property="status" column="STATUS"/>
+    <result property="categoryId" column="CATEGORY_ID"/> <!-- 카테고리 ID 직접 매핑 -->
+    
+    <collection property="attachedFiles" ofType="com.project.trinity.community.board.model.vo.BoardFile">
+        <id property="fileNo" column="FILE_NO"/>
         <result property="originName" column="ORIGIN_NAME"/>
         <result property="changeName" column="CHANGE_NAME"/>
         <result property="allowDownload" column="ALLOW_DOWNLOAD"/>
         <result property="fileSize" column="FILE_SIZE"/>
     </collection>
-    </resultMap>
+</resultMap>
+
+
 
     <!-- 게시글 총 갯수 조회 -->
     <select id="selectListCount" resultType="int">
@@ -124,25 +121,24 @@
 
 
 	<!-- 게시글 추가 -->
-	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO BOARD (
-		USER_NO,
-		BOARD_TITLE,
-		BOARD_CONTENT,
-		BOARD_CATEGORY
-		)
-		VALUES (
-		#{userNo},
-		#{boardTitle},
-		#{boardContent},
-		#{boardCategory}
-		)
-		<selectKey keyProperty="boardNo"
-			resultType="java.lang.String" order="AFTER">
-			select 'B' ||
-			SEQ_BOARD_NO.CURRVAL FROM DUAL
-		</selectKey>
-	</insert>
+<insert id="insertBoard" parameterType="Board">
+    INSERT INTO BOARD (
+        USER_NO,
+        BOARD_TITLE,
+        BOARD_CONTENT,
+        CATEGORY_ID
+    )
+    VALUES (
+        #{userNo},
+        #{boardTitle},
+        #{boardContent},
+        #{boardCategory.categoryId} <!-- 카테고리 ID 추가 -->
+    )
+    <selectKey keyProperty="boardNo" resultType="java.lang.String" order="AFTER">
+        SELECT 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
+    </selectKey>
+</insert>
+
 
 
   <!-- 첨부파일 저장 -->
@@ -211,41 +207,40 @@
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
 	<select id="selectBoard" resultMap="boardResult">
-		SELECT
-		B.BOARD_NO,
-		B.BOARD_TYPE,
-		B.BOARD_TITLE,
-		B.USER_NO,
-		M.USER_ID AS
-		BOARD_WRITER,
-		<!-- 작성자의 ID -->
-		B.BOARD_CONTENT,
-		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS
-		ENROLL_DATE,
-		TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
-		B.BOARD_VIEWS,
-		B.BOARD_CATEGORY,
-		B.STATUS,
+    SELECT
+        B.BOARD_NO,
+        B.BOARD_TYPE,
+        B.BOARD_TITLE,
+        B.USER_NO,
+        M.USER_ID AS BOARD_WRITER, -- 작성자의 ID
+        B.BOARD_CONTENT,
+        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+        B.BOARD_VIEWS,
+        C.CATEGORY_ID AS "boardCategory.categoryId",    -- 카테고리 ID
+        C.CATEGORY_NAME AS "boardCategory.categoryName", -- 카테고리 이름
+        C.SORT_ORDER AS "boardCategory.sortOrder",       -- 카테고리 정렬 순서
+        C.IS_ACTIVE AS "boardCategory.isActive",         -- 카테고리 활성화 여부
+        B.STATUS,
+        -- 첨부파일 정보
+        F.FILE_NO,
+        F.ORIGIN_NAME,
+        F.CHANGE_NAME,
+        F.ALLOW_DOWNLOAD,
+        F.FILE_SIZE
+    FROM
+        BOARD B
+    JOIN
+        MEMBER M ON B.USER_NO = M.USER_NO
+    LEFT JOIN
+        FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO -- 첨부파일 조인
+    LEFT JOIN
+        CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID -- 카테고리 조인
+    WHERE
+        B.STATUS = 'Y'
+        AND B.BOARD_NO = #{boardNo}
+</select>
 
-		<!-- 첨부파일 정보 -->
-		F.FILE_NO,
-		F.ORIGIN_NAME,
-		F.CHANGE_NAME,
-		F.ALLOW_DOWNLOAD,
-		F.FILE_SIZE
-		FROM
-		BOARD B
-		JOIN
-		MEMBER M ON B.USER_NO = M.USER_NO
-		LEFT JOIN
-		FILE_TABLE F
-		ON B.BOARD_NO = F.BOARD_NO -- 첨부파일 조인
-		WHERE
-		B.STATUS = 'Y'
-		AND
-		B.BOARD_NO
-		= #{boardNo}
-	</select>
 
 
 	<update id="updateBoard" parameterType="Board">

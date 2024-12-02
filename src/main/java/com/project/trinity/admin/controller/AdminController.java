@@ -44,16 +44,13 @@ public class AdminController {
     @RequestMapping("/rankup")
     public String showAdminRankUp(Model model) {
         List<Rankup> rankupList = adminService.getAllRankups();
-        System.out.println(rankupList); // 데이터 확인용
         model.addAttribute("rankupList", rankupList);
         return "admin/admin_rankup";
     }
     //등업 상세페이지
     @RequestMapping("/rankupDetail")
     public String showAdminRankUpDetail(@RequestParam(name = "seqNo", required = true) String seqNo, Model model) {
-        Rankup rankupDetail = adminService.getRankupDetail(seqNo); // 모든 정보 가져오기
-        System.out.println("RankupDetail: " + rankupDetail);
-        
+        Rankup rankupDetail = adminService.getRankupDetail(seqNo); // 모든 정보 가져오기      
         model.addAttribute("rankupDetail", rankupDetail);
         return "admin/admin_rankup_detail";
     }
@@ -64,7 +61,6 @@ public class AdminController {
                                @RequestParam("status") String status, 
                                RedirectAttributes redirectAttributes) {
         String alertMsg = "";
-
         if ("A".equals(status)) { // 승인일 경우
             adminService.approveRankup(seqNo); // 등업 승인 처리
             alertMsg = "등업이 승인되었습니다.";
