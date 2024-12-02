@@ -195,10 +195,10 @@
             for(const item of itemArr){
                 console.log("category" + category)
                 console.log("item.hmcNm" + item.hmcNm)
-                parent.innerHTML += "<option value=" + category + ">" + item.hmcNm + "</option>" 
+                parent.innerHTML += "<option value=" + item.hmcNm + ">" + item.hmcNm + "</option>" 
+                console.log(item)
             }
         }
-
     </script>
     <!-- footer -->
 	<jsp:include page="../common/main_footer.jsp"/>

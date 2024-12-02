@@ -123,8 +123,9 @@
 		      FROM HOSPITAL_INFO
 		      WHERE DEPARTMENT LIKE 
 		            CASE 
-		                WHEN 'listAll' = 'listAll' THEN '%'
-		                ELSE 'listAll'
+		                WHEN #{subject} = 'listAll' THEN '%'
+		                WHEN #{subject} = 'listChild' THEN '%소아청소년과%'
+		                WHEN #{subject} = 'listMother' THEN '%산부인과%'
 		            END
 			  ) subquery
 		WHERE #{offset} &lt; row_num AND

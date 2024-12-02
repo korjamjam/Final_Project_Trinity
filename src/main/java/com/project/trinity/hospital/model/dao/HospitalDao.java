@@ -27,10 +27,11 @@ public class HospitalDao {
 
     public ArrayList<HospitalInfo> selectHospitalListPaginated(SqlSessionTemplate sqlSession, String subject, String order, int offset, int limit) {
         Map<String, Object> map = new HashMap<>();
-        map.put("subject", subject.equals("listAll") ? "listAll" : "%" + subject + "%");
+        map.put("subject", subject);
         map.put("order", order);
         map.put("offset", offset);
         map.put("limit", limit);
+        System.out.println("map : " + map);
         
         return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map);
     }
@@ -53,7 +54,7 @@ public class HospitalDao {
 
 	public ArrayList<HospitalInfo> selectOpenHospitalListPaginated(SqlSessionTemplate sqlSession, String subject, String order, int offset, int limit) {
 		Map<String, Object> map = new HashMap<>();
-        map.put("subject", subject.equals("listAll") ? "listAll" : "%" + subject + "%");
+        map.put("subject", subject);
         map.put("order", order);
         map.put("offset", offset);
         map.put("limit", limit);

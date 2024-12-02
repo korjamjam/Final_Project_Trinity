@@ -11,7 +11,7 @@
 	width: 100%;
 	margin: 0 auto;
 	box-sizing: border-box;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 }
 
@@ -43,7 +43,7 @@
 	border: 1px solid #ddd;
 	border-radius: 8px;
 	padding: 20px;
-	min-height: 900px;
+	min-height: 500px;
 	/* 최소 높이 설정 */
 	box-sizing: border-box;
 	/* 추가: padding 포함 */

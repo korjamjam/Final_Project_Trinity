@@ -343,8 +343,6 @@ public class HealthReservationController {
         
         rd.close();
         conn.disconnect();
-        
-        System.out.println(sb.toString());
 		
         String result = xmlToJson(sb.toString());
        

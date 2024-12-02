@@ -194,11 +194,10 @@ button {
 }
 
 /* Commercial */
-.commercial{
+.{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid grey;
     border-radius: 10px;
     width: 80%;
     height: 250px;
