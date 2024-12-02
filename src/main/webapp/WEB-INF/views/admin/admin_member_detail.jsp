@@ -14,7 +14,6 @@
 
 <div class="member-management">
     <h2>회원관리</h2>
-
     <div class="member-info">
         <table>
             <tr>
@@ -23,31 +22,31 @@
             </tr>
             <tr>
                 <th>이름</th>
-                <td>홍길동</td>
+                <td>${member.userName}</td>
             </tr>
             <tr>
                 <th>아이디</th>
-                <td>user01</td>
+                <td>${member.userId}</td>
             </tr>
             <tr>
                 <th>비밀번호</th>
-                <td>pass01</td>
+                <td>${member.userPwd}</td>
             </tr>
             <tr>
                 <th>이메일</th>
-                <td>user01@kh.com</td>
+                <td>${member.email}</td>
             </tr>
             <tr>
                 <th>전화번호</th>
-                <td>010-1234-5678</td>
+                <td>${member.phone}</td>
             </tr>
             <tr>
                 <th>생년월일</th>
-                <td>2000-12-07</td>
+                <td>${member.birthday}</td>
             </tr>
             <tr>
                 <th>성별</th>
-                <td>M</td>
+                <td>${member.gender}</td>
             </tr>
             <tr>
                 <th>우편번호</th>
@@ -62,11 +61,12 @@
             </tr>
             <tr>
                 <th>회원가입일</th>
-                <td>2024-10-24</td>
+                <td>${member.enrollDate}</td>
             </tr>
             <tr>
                 <th>회원탈퇴</th>
                 <td>
+                <!-- member.status -->
                     <select>
                         <option value="N">N</option>
                         <option value="Y">Y</option>
