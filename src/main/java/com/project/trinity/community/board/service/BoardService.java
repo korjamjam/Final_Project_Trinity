@@ -1,6 +1,7 @@
 package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -19,8 +20,8 @@ public interface BoardService {
     ArrayList<Board> selectRecentPopularList(Map<String, Object> params); // 최근 인기 게시글 조회
     ArrayList<Board> selectListByCategory(String type, PageInfo pi); // 카테고리별 게시글 목록
     int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
-    Board selectBoard(String bno); // 게시글 조회
-    int increaseCount(String bno); // 게시글 조회수 증가
+    Board selectBoard(String boardNo); // 게시글 조회
+    int increaseCount(String boardNo); // 게시글 조회수 증가
     int insertBoard(Board b, String userNo); // 게시글 추가
     int updateBoard(Board b); // 게시글 수정
     int deleteBoard(String boardNo); // 게시글 삭제
@@ -28,13 +29,13 @@ public interface BoardService {
     // 파일 관련 메서드
     int insertFile(BoardFile bf); // 첨부파일 추가
     BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
-    ArrayList<BoardFile> getFilesList(String bno); // 특정 게시글의 모든 첨부파일
+    List<BoardFile> getFilesList(String boardNo); // 특정 게시글의 모든 첨부파일
     int deleteAllFilesByBoardNo(String boardNo); // 게시글의 모든 첨부파일 삭제
     int deleteFile(String fileNo); // 특정 파일 삭제
     int updateFileAllowDownload(BoardFile bf); // 파일 다운로드 허용 여부 수정
 
     // 댓글 관련 메서드
-    ArrayList<Comment> selectReply(String bno); // 댓글 목록 가져오기
+    ArrayList<Comment> selectReply(String boardNo); // 댓글 목록 가져오기
     int insertReply(Comment r); // 댓글 추가
     int deleteReply(String commentNo); // 댓글 삭제
 

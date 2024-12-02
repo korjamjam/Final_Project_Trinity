@@ -311,38 +311,53 @@ public class BoardController {
 	}
 
 	
-//수정버튼 클릭 시 
 	@GetMapping("/edit")
 	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {
-		// 게시글 정보 가져오기
-		Board b = boardService.selectBoard(boardNo);
-		 // 첨부파일 정보 가져오기
+	    // 게시글 정보 조회
+	    Board b = boardService.selectBoard(boardNo);
+	    System.out.println("boardNo: " + boardNo);
+	    
+	    // 첨부파일 목록 조회
 	    List<BoardFile> attachedFiles = boardService.getFilesList(boardNo);
+	    System.out.println("첨부파일 결과: " + attachedFiles);
+	    
+	    // 게시글이 존재하는지 확인
+	    if (b != null) {
+	        m.addAttribute("b", b);
+	        
+	        // attachedFiles가 null이거나 비어있으면 빈 리스트로 처리
+	        if (attachedFiles == null || attachedFiles.isEmpty()) {
+	            attachedFiles = new ArrayList<>();
+	        }
+	        
+	        m.addAttribute("attachedFiles", attachedFiles);
+	        System.out.println("첨부파일 리스트: " + attachedFiles);
 
-		if (b != null) {
-			 m.addAttribute("b", b); // 게시글 정보
-		        m.addAttribute("attachedFiles", attachedFiles); // 첨부파일 정보
-		        System.out.println("첨부파일 리스트: " + attachedFiles);
-
-			return "community/summernoteUpdateForm"; // 수정 페이지 JSP
-		} else {
-			m.addAttribute("errorMsg", "게시글을 불러오는데 실패했습니다.");
-			return "common/errorPage";
-		}
+	        return "community/summernoteUpdateForm";
+	    } else {
+	        m.addAttribute("errorMsg", "게시글을 불러오는데 실패했습니다.");
+	        return "common/errorPage";
+	    }
 	}
-//수정 완료 후
+
+
+	// 수정 완료 처리
 	@PostMapping("/update")
 	public String updateBoard(Board b,
 	                          @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 	                          @RequestParam(value = "existingFileNos", required = false) List<String> existingFileNos,
 	                          @RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles,
 	                          HttpSession session, Model m) {
+	    try {
+	        // 1. 게시글 수정
+	        int boardResult = boardService.updateBoard(b);
 
-	    // 게시글 수정
-	    int boardResult = boardService.updateBoard(b);
+	        if (boardResult <= 0) {
+	            m.addAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+	            return "common/errorPage";
+	        }
 
-	    if (boardResult > 0) {
-	        // 기존 첨부파일 다운로드 허용 상태 업데이트
+	        // 2. 기존 첨부파일 다운로드 허용 상태 업데이트
 	        if (allowDownload != null && existingFileNos != null) {
 	            for (int i = 0; i < existingFileNos.size(); i++) {
 	                String fileNo = existingFileNos.get(i);
@@ -356,7 +371,7 @@ public class BoardController {
 	            }
 	        }
 
-	        // 새 파일 업로드 처리
+	        // 3. 새 파일 업로드 처리
 	        if (newFiles != null && !newFiles.isEmpty()) {
 	            for (MultipartFile file : newFiles) {
 	                if (!file.isEmpty()) {
@@ -376,12 +391,16 @@ public class BoardController {
 	            }
 	        }
 
+	        // 수정 성공 시 상세 페이지로 리다이렉트
 	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
-	    } else {
-	        m.addAttribute("errorMsg", "게시글 수정 실패");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        m.addAttribute("errorMsg", "게시글 수정 중 오류가 발생했습니다.");
 	        return "common/errorPage";
 	    }
 	}
+
 
 
 	@PostMapping("/deleteFile")
