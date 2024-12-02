@@ -15,6 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class HospitalInfo {
 	
+	public HospitalInfo(String hosName2, String hosAddress2, String hosTel2, String hosLatitude2, String hosLangitude) {
+		// TODO Auto-generated constructor stub
+	}
 	private String hosNo;
 	private String hosName;
 	private String hosAddress;

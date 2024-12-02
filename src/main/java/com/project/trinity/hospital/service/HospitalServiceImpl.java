@@ -68,5 +68,10 @@ public class HospitalServiceImpl implements HospitalService{
         return hpDao.selectOpenHospitalListPaginated(sqlSession, subject, order, offset, limit);
 	}
 
+	@Override
+	public int insertHealthHospital(HospitalInfo hInfo) {
+		return hpDao.insertHealthHospital(sqlSession, hInfo);
+	}
+
 	
 }

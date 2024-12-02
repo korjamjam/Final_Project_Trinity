@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
+import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.reservation.model.vo.GeneralReservation;
@@ -56,6 +58,8 @@ public class HealthReservationController {
 	private ReservationService reservationService;
 	@Autowired
 	private VaccineReservationService vaccineReservationService;
+	@Autowired
+	private HospitalService hospitalService;
 	
     // 백신 예약 페이지 1로 이동
     @GetMapping("/vaccinepage1")
@@ -234,21 +238,19 @@ public class HealthReservationController {
 	//
 	@RequestMapping("/reservationSubmit")
 	public String healthReservation3(@RequestParam String reservation_user_select,
-	        @RequestParam String reservation_user_hospital,
 	        @RequestParam String reservation_user_text,
 	        @RequestParam String reservation_user_date,
 	        @RequestParam String reservation_user_time,
 	        @RequestParam String reservation_user_result,
 	        HttpSession session,
 	        RedirectAttributes redirectAttributes) {
-		
 		HealthReservation healthReservation = new HealthReservation();
 		//날짜 받아온거 yyyy-mm-dd로 바꾸기
 		String useDate = reservation_user_date.substring(6)
 				   + "-" +reservation_user_date.substring(0,2)
 				   + "-" +reservation_user_date.substring(3,5);
-		
-		healthReservation.setHosNo(reservation_user_hospital);
+		System.out.println("session hosNo : " + (String)session.getAttribute("hosNo"));
+		healthReservation.setHosNo((String)session.getAttribute("hosNo"));
 		healthReservation.setResDate(useDate);
 		healthReservation.setResTime(reservation_user_time);
 		healthReservation.setResCategory(reservation_user_select);
@@ -307,12 +309,45 @@ public class HealthReservationController {
  	        return null;
  	    return nValue.getNodeValue();
  	}
+	 
+	
+	@GetMapping("healthHospital")
+	public String healthReservationHospital(@RequestParam String hosName,
+											@RequestParam String hosAddress,
+											@RequestParam String hosTel,
+											@RequestParam String hosLatitude,
+											@RequestParam String hosLangitude,
+											HttpSession session
+			) {
+		HospitalInfo hInfo = new HospitalInfo(hosName, hosAddress, hosTel, hosLatitude, hosLangitude);
+		
+		
+		System.out.println(hosName);
+		System.out.println(hosAddress);
+		System.out.println(hosTel);
+		System.out.println(hosLatitude);
+		System.out.println(hosLangitude);
+		System.out.println(hInfo);
+		int result = hospitalService.insertHealthHospital(hInfo);
+		session.setAttribute("hosNo", hInfo.getHosNo());
+		System.out.println("hosNo" + session.getAttribute("hosNo"));
+		String message = "";
+		
+		if(result > 0) {
+			message = "성공";
+		} else {
+			message = "실패";
+		}
+		
+		session.setAttribute("message", message);
+		
+		return message;
+	}
 	
 	//건강검진 기관 조회
 	@ResponseBody
 	@GetMapping(value="category", produces="application/json; charset=UTF-8")
 	public String healthReservationSearch(String category) throws IOException, ParserConfigurationException, SAXException {
-        System.out.println(category);
         String url = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getHchkTypesHmcList";
         url += "?serviceKey=" + SERVICE_KEY;
         url += "&hchType=" + URLEncoder.encode(category, "UTF-8");
