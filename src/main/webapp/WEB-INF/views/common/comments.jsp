@@ -13,12 +13,17 @@
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script src="${pageContext.servletContext.contextPath}/resources/js/community/comment.js"></script>
 </head>
 <body>
-<input type="hidden" id="bno" value="${b.boardNo}">
-<input type="hidden" id="loginUserNo" value="${loginUser != null ? loginUser.userNo : ''}">
-<input type="hidden" id="loginUserId" value="${loginUser != null ? loginUser.userId : ''}">
+
+<script>
+    console.log("EL 데이터 확인");
+    console.log("boardNo:", "${b.boardNo}");
+    console.log("loginUserNo:", "${loginUser != null ? loginUser.userNo : ''}");
+    console.log("loginUserId:", "${loginUser != null ? loginUser.userId : ''}");
+</script>
 
 
 <div class="comment-section-container">
@@ -58,7 +63,8 @@
 									 rows="2" style="resize:none; width:100%;"></textarea>
 							</div>
 							<th style="vertical-align:middle">
-								<button class="btn btn-secondary round-button disabled">댓글 등록</button>
+								<button class="btn btn-secondary round-button disabled" onclick="addReply()">댓글 등록</button>
+
 							</th>
 						</div>
 					</c:when>
@@ -68,7 +74,7 @@
 								<span id="currentUser">${loginUser.userId}</span>
 							</div>
 							<th style="vertical-align:middle">
-								<button class="btn btn-secondary round-button" onclick="addReply();">댓글 등록</button>
+								<button class="round-button" id="addReplyButton">댓글 등록</button>
 							</th>
 						</div>
 						<textarea id="content" class="form-control" placeholder="댓글 작성"></textarea>
