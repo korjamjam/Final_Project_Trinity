@@ -37,11 +37,11 @@
 		<result column="EMAIL" property="email" />
 		<result column="PHONE" property="phone" />
 	</resultMap>
-	
+
 	<resultMap id="medicalFieldResultMap" type="MedicalField">
-    	<result property="medNo" column="MED_NO"/>
-    	<result property="job" column="JOB"/>
-    	<result property="medicalFieldId" column="MEDICAL_FIELD_ID"/>
+		<result property="medNo" column="MED_NO" />
+		<result property="job" column="JOB" />
+		<result property="medicalFieldId" column="MEDICAL_FIELD_ID" />
 	</resultMap>
 
 
@@ -114,40 +114,41 @@
 
 	<!-- member 테이블의 med_key 업데이트 -->
 	<update id="updateMemberMedKey" parameterType="map">
-    	UPDATE MEMBER
-    	SET MED_KEY = #{medNo} <!-- Member의 medKey는 MEDICAL_FIELD의 medNo -->
-    	WHERE USER_NO = #{userNo}
+		UPDATE MEMBER
+		SET MED_KEY = #{medNo} <!-- Member의 medKey는 MEDICAL_FIELD의 medNo -->
+		WHERE USER_NO = #{userNo}
 	</update>
 	<!-- rankup 상태 업데이트 -->
 	<update id="updateRankupStatus">
 		UPDATE RANKUP
 		SET STATUS = #{status}
-		WHERE SEQ_NO =
-		#{seqNo}
+		WHERE SEQ_NO = #{seqNo}
 	</update>
 
 	<select id="getNextMedNo" resultType="string">
-		SELECT 'M' || SEQ_MED_NO.NEXTVAL FROM DUAL
+		SELECT 'M' ||
+		SEQ_MED_NO.NEXTVAL FROM DUAL
 	</select>
 
 	<select id="getLastInsertedMedNo" resultType="string">
 		SELECT MED_NO
-		FROM MEDICAL_FIELD
+		FROM
+		MEDICAL_FIELD
 		WHERE ROWNUM = 1
 		ORDER BY MED_NO DESC
 	</select>
 
 	<!-- member 테이블의 med_key를 null로 업데이트 -->
 	<update id="resetMemberMedKey" parameterType="string">
-    	UPDATE MEMBER
-    	SET MED_KEY = NULL
-    	WHERE USER_NO = #{userNo}
+		UPDATE MEMBER
+		SET MED_KEY = NULL
+		WHERE USER_NO = #{userNo}
 	</update>
 
 	<!-- medical_field 테이블에서 특정 medNo 데이터 삭제 -->
 	<delete id="deleteMedicalFieldByMedKey" parameterType="string">
-    	DELETE FROM MEDICAL_FIELD
-    	WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
+		DELETE FROM MEDICAL_FIELD
+		WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
 	</delete>
 
 
@@ -156,26 +157,29 @@
 		resultType="int">
 		SELECT COUNT(*) FROM MEDICAL_FIELD WHERE MED_NO = #{medNo}
 	</select>
-	
-	<!-- medical_field 데이터를 medNo로 가져오기 -->
-	<select id="getMedicalFieldByMedKey" parameterType="string" resultMap="medicalFieldResultMap">
-    	SELECT MED_NO, JOB, MEDICAL_FIELD_ID
-    	FROM MEDICAL_FIELD
-    	WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
-	</select>
-	
-	<select id="getMedKeyBySeqNo" parameterType="string" resultType="string">
-    SELECT MED_KEY
-    FROM MEMBER
-    WHERE USER_NO = #{seqNo}
-</select>
 
-<!-- 특정 userNo에 해당하는 medKey 조회 -->
-<select id="getMedKeyByUserNo" parameterType="string" resultType="string">
-    SELECT MED_KEY
-    FROM MEMBER
-    WHERE USER_NO = #{userNo}
-</select>
+	<!-- medical_field 데이터를 medNo로 가져오기 -->
+	<select id="getMedicalFieldByMedKey" parameterType="string"
+		resultMap="medicalFieldResultMap">
+		SELECT MED_NO, JOB, MEDICAL_FIELD_ID
+		FROM MEDICAL_FIELD
+		WHERE MED_NO = #{medNo} <!-- 정확히 medNo 사용 -->
+	</select>
+
+	<select id="getMedKeyBySeqNo" parameterType="string"
+		resultType="string">
+		SELECT MED_KEY
+		FROM MEMBER
+		WHERE USER_NO = #{seqNo}
+	</select>
+
+	<!-- 특정 userNo에 해당하는 medKey 조회 -->
+	<select id="getMedKeyByUserNo" parameterType="string"
+		resultType="string">
+		SELECT MED_KEY
+		FROM MEMBER
+		WHERE USER_NO = #{userNo}
+	</select>
 
 
 
