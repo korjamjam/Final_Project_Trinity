@@ -56,10 +56,10 @@
             </div>
         </div>
         <div class="dropdown">
-            <a href="${pageContext.request.contextPath}/inquiry/notification">고객문의</a>
+            <a href="${pageContext.request.contextPath}/inquiry/notice">고객문의</a>
             <div class="dropdown-content">
-                <a href="${pageContext.request.contextPath}/inquiry/notification">공지사항</a>
-                <a href="${pageContext.request.contextPath}/inquiry/notice">알림판</a>
+                <a href="${pageContext.request.contextPath}/inquiry/notice">공지사항</a>
+                <a href="${pageContext.request.contextPath}/inquiry/report">알림판</a>
                 <a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
                 <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
             </div>
