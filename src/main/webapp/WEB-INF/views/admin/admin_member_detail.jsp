@@ -82,20 +82,6 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <th>근무지</th>
-                <td>밝은소아청소년과의원</td>
-            </tr>
-            <tr>
-                <th>가입 승인</th>
-                <td>
-                    <select>
-                        <option value="대기">대기</option>
-                        <option value="승인">승인</option>
-                        <option value="탈퇴">탈퇴</option>
-                    </select>
-                </td>
-            </tr>
         </table>
         <button class="save-button">저장하기</button>
     </div>

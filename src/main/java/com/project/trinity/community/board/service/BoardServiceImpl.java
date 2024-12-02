@@ -3,7 +3,6 @@ package com.project.trinity.community.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.project.trinity.community.board.model.dao.BoardDao;
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardFile;
-import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.common.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
