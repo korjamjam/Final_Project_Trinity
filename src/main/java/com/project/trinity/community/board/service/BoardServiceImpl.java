@@ -1,6 +1,7 @@
 package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -92,9 +93,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ArrayList<BoardFile> getFilesList(String bno) {
-        return boardDao.getFilesList(sqlSession, bno);
+    public List<BoardFile> getFilesList(String bno) {
+        List<BoardFile> files = sqlSession.selectList("boardMapper.getFilesList", bno);
+        if (files != null) {
+            for (BoardFile file : files) {
+                System.out.println("파일: " + file);
+            }
+        }
+        return files;
     }
+
+
+
 
     @Override
     public int deleteFile(String fileNo) {

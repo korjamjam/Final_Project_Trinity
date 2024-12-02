@@ -16,17 +16,9 @@ function deletePost(boardNo) {
 
 function showAndHide(selector) {
     const el = document.querySelector(selector);
-    if (el) el.style.display = el.style.display === "block" ? "none" : "block";
+    el.style.display = el.style.display === "block" ? "none" : "block";
 }
 
 function moveSelectPage(page) {
     window.location.href = page;
-}
-
-function incrementLike(answerId) {
-    const likeCountSpan = document.getElementById(`like-count-${answerId}`);
-    if (likeCountSpan) {
-        const currentCount = parseInt(likeCountSpan.textContent, 10);
-        likeCountSpan.textContent = currentCount + 1;
-    }
 }
