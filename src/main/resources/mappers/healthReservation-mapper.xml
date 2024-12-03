@@ -75,7 +75,7 @@
         #{patientGender},
         #{patientResult}
         )
-        <selectKey keyProperty="hResNo" resultType="java.lang.String" order="AFTER">
+        <selectKey keyProperty="healthResNo" resultType="java.lang.String" order="AFTER">
             SELECT 'HR' || SEQ_H_RES_NO.CURRVAL FROM DUAL
         </selectKey>
     </insert>
@@ -112,11 +112,11 @@
                HR.PATIENT_BIRTH,
                HR.PATIENT_EMAIL,
                HR.PATIENT_GENDER,
-               HI.HOS_NAME AS hosName,
-               HI.HOS_ADDRESS AS hosAddress
+               HI.HOS_NAME,
+               HI.HOS_ADDRESS
           FROM HEALTH_RESERVATION HR
           JOIN HOSPITAL_INFO HI ON HR.HOS_NO = HI.HOS_NO
-         WHERE HR.H_RES_NO = #{hResNo}	
+         WHERE HR.H_RES_NO = #{healthResNo}	
     </select>
 
     <!-- Select All Health Reservations By User -->
@@ -134,8 +134,8 @@
                HR.PATIENT_BIRTH,
                HR.PATIENT_EMAIL,
                HR.PATIENT_GENDER,
-               HI.HOS_NAME AS hosName,
-               HI.HOS_ADDRESS AS hosAddress
+               HI.HOS_NAME,
+               HI.HOS_ADDRESS
           FROM HEALTH_RESERVATION HR
           JOIN HOSPITAL_INFO HI ON HR.HOS_NO = HI.HOS_NO
          WHERE HR.USER_NO = #{userNo}

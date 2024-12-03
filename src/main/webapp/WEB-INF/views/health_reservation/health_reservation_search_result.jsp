@@ -14,6 +14,15 @@
 <body>
 	<!-- header -->
 	<jsp:include page="../common/main_header.jsp"/>
+	
+	<!-- 메시지 확인 및 이전 화면으로 이동 -->
+    <script>
+        const message = "${rmessage}";
+        if (message) {
+            alert(message); // 안내 문구를 띄움
+            history.back(); // 이전 화면으로 돌아감
+        }
+    </script>
 	<div class="health_reservation_wrap">
         <div class="health_reservation_container">
             <div id="health_reservation_title">
@@ -42,8 +51,8 @@
                         <td>${healthReservation.resComment }</td>
                     </tr>
                     <tr>
-                        <td>생년월일</td>
-                        <td>${healthReservation.patientBirthday }</td>
+                        <td>병원 주소</td>
+                        <td>${healthReservation.hosAddress }</td>
                     </tr>
                     <tr>
                         <td>이메일</td>
@@ -65,6 +74,7 @@
             </div>
         </div>
     </div>
+    
     <!-- footer -->
 	<jsp:include page="../common/main_footer.jsp"/>
 </body>
