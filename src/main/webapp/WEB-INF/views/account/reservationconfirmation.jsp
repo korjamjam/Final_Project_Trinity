@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +24,7 @@
 		<!-- Main Content -->
 		<main class="profile-container">
 			<h2>예약확인</h2>
-
+			
 			<!-- 예약 데이터 처리 -->
 			<c:choose>
 				<c:when test="${not empty reservations}">
