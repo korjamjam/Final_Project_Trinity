@@ -1,6 +1,7 @@
 package com.project.trinity.healthreservation.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +17,25 @@ public class HealthReservationDao {
     @Autowired
     private SqlSession sqlSession;
 
-	public int insertGuest(Guest guest) {
-		return sqlSession.insert("healthReservationMapper.insertGuest", guest);
-	}
+    public int insertGuest(Guest guest) {
+        return sqlSession.insert("healthReservationMapper.insertGuest", guest);
+    }
 
-	public int insertHealthReservation(HealthReservation healthReservation) {
-		return sqlSession.insert("healthReservationMapper.insertHealthReservation", healthReservation);
-	}
+    public int insertHealthReservation(HealthReservation healthReservation) {
+        return sqlSession.insert("healthReservationMapper.insertHealthReservation", healthReservation);
+    }
 
-	public ArrayList<HospitalInfo> selectHospitalList() {
-		return (ArrayList)sqlSession.selectList("healthReservationMapper.selectHospitalList");
-	}
+    public List<HospitalInfo> selectHospitalList() { // 반환 타입을 List로 수정
+        return sqlSession.selectList("healthReservationMapper.selectHospitalList");
+    }
 
-	public HealthReservation selectHealthReservation(String hResNo) {
-		return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", hResNo);
-	}
+    public HealthReservation selectHealthReservation(String hResNo) {
+        return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", hResNo);
+    }
 
-	
-	
-	
+    public List<HealthReservation> selectHealthReservationsByUserNo(String userNo) {
+        return sqlSession.selectList("healthReservationMapper.selectHealthReservationsByUserNo", userNo);
+    }
+    
 }
+

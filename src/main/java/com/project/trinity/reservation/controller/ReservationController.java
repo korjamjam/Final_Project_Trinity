@@ -58,22 +58,5 @@ public class ReservationController {
 		return "/main";
 	}
 
-	@RequestMapping("/reservationconfirmation")
-	public String showReservationConfirmation(Model model, @SessionAttribute("loginUser") Member loginUser) {
-	    if (loginUser == null) {
-	        System.out.println("로그인 유저가 없습니다.");
-	        return "redirect:/login";
-	    }
-
-	    String userNo = loginUser.getUserNo();
-	    System.out.println("컨트롤러 - userNo: " + userNo);
-
-	    List<Reservation> reservations = rService.getReservationsByUserNo(userNo);
-	    System.out.println("컨트롤러 - reservations: " + reservations);
-
-	    model.addAttribute("reservations", reservations);
-	    return "account/reservationconfirmation";
-	}
-
 
 }
