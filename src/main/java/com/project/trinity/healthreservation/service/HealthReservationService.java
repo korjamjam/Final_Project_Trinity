@@ -1,6 +1,7 @@
 package com.project.trinity.healthreservation.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Guest;
@@ -13,6 +14,8 @@ public interface HealthReservationService {
 
 	ArrayList<HospitalInfo> selectHospitalList();
 
-	HealthReservation selectHealthReservation(String hResNo);
+	HealthReservation selectHealthReservation(String healthResNo);
+	
+	List<HealthReservation> getHealthReservationsByUserNo(String userNo);
 
 }
