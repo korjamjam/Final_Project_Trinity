@@ -67,16 +67,19 @@
 									<div class="custom-dropdown">
 										<div class="selected-container">
 											<div class="selected-option">${categoryName}</div>
-											
+											<!-- 컨트롤러에서 넘겨준 첫 번째 카테고리 이름 -->
 											<div class="dropdown-arrow">▼</div>
 										</div>
-									<div class="option-list" id="community-options">
-    <c:forEach var="category" items="${categories}">
-        <div class="option-item" data-url="${category.url}">
-            ${category.name}
-        </div>
-    </c:forEach>
-</div>
+
+										<div class="option-list" id="community-options">
+											<c:forEach var="category" items="${categories}">
+												<div class="option-item" data-url="${category.categoryId}">
+													<!-- CATEGORY_ID를 URL로 사용한다면 category.categoryId 사용 -->
+													${category.categoryName} <!-- CATEGORY_NAME을 표시 -->
+												</div>
+											</c:forEach>
+										</div>
+
 
 									</div>
 								</td>
@@ -98,7 +101,7 @@
 								<!-- 게시글 내용 -->
 								${b.boardContent}
 							</div>
-							
+
 							<!-- 첨부파일 섹션 include -->
 							<c:if test="${not empty attachedFiles}">
 								<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>

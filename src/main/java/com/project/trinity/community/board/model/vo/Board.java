@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Board {
 
     private String boardNo;               // 게시글 번호
-    private int boardType;                // 게시글 유형
+    private int boardType;                // 게시글 유형(일반 : 1 / 사진 : 2)
     private String boardTitle;            // 게시글 제목
     private String tag;                   // 태그
     private String userNo;                // 작성자의 고유 번호
