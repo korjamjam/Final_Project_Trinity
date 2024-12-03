@@ -18,7 +18,7 @@
 
     <!-- HealthReservation Result Map -->
     <resultMap type="HealthReservation" id="HealthReservationResultSet">
-        <result property="hResNo" column="H_RES_NO" />
+        <result property="healthResNo" column="H_RES_NO" />
         <result property="userNo" column="USER_NO" />
         <result property="gstNo" column="GST_NO" />
         <result property="hosNo" column="HOS_NO" />
@@ -116,7 +116,7 @@
                HI.HOS_ADDRESS AS hosAddress
           FROM HEALTH_RESERVATION HR
           JOIN HOSPITAL_INFO HI ON HR.HOS_NO = HI.HOS_NO
-         WHERE HR.H_RES_NO = #{hResNo}
+         WHERE HR.H_RES_NO = #{hResNo}	
     </select>
 
     <!-- Select All Health Reservations By User -->

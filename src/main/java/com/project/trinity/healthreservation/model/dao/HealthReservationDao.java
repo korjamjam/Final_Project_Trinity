@@ -1,6 +1,8 @@
 package com.project.trinity.healthreservation.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,12 @@ public class HealthReservationDao {
 		return (ArrayList)sqlSession.selectList("healthReservationMapper.selectHospitalList");
 	}
 
-	public HealthReservation selectHealthReservation(String hResNo) {
-		return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", hResNo);
+	public HealthReservation selectHealthReservation(String healthResNo) {
+		return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", healthResNo);
+	}
+
+	public List<HealthReservation> selectHealthReservationsByUserNo(String userNo) {
+	    return sqlSession.selectList("healthReservationMapper.selectHealthReservationsByUserNo", userNo);
 	}
 
 	
