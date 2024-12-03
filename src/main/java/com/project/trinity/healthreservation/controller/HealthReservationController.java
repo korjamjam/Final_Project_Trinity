@@ -117,30 +117,37 @@ public class HealthReservationController {
 			@RequestParam("resNo") String resNo,
 			Model m
 			) {
-		System.out.println(reservationCategory);
-		System.out.println(resNo);
-		
 		switch (reservationCategory) {
 		case "general":
 			GeneralReservation generealReservation = reservationService.selectReservation(resNo);
-			m.addAttribute("generealReservation", generealReservation);
-			m.addAttribute("resNo",resNo);
+			if(generealReservation != null) {
+				m.addAttribute("generealReservation", generealReservation);
+				m.addAttribute("resNo",resNo);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/general_reservation_search_result";
 			
 		case "vaccine":
 			VaccineReservation vaccineReservation = vaccineReservationService.selectReservation(resNo);
-			m.addAttribute("vaccineReservation", vaccineReservation);
-			m.addAttribute("resNo",resNo);
-			System.out.println("vaccineReservation: " + vaccineReservation);
+			if(vaccineReservation != null) {
+				m.addAttribute("vaccineReservation", vaccineReservation);
+				m.addAttribute("resNo",resNo);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/vaccine_reservation_search_result";
 			
 		case "health":
 			HealthReservation healthReservation = healthReservationService.selectHealthReservation(resNo);
 			//예약날짜 뒤에 시간 짜르기
-			healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
-			m.addAttribute("hResNo", resNo);
-			m.addAttribute("healthReservation",healthReservation);
-			
+			if(healthReservation != null) {
+				healthReservation.setResDate(healthReservation.getResDate().substring(0,10));				
+				m.addAttribute("hResNo", resNo);
+				m.addAttribute("healthReservation",healthReservation);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/health_reservation_search_result";
 
 		default:
