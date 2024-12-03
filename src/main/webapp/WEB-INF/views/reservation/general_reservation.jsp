@@ -76,18 +76,18 @@
     <!-- Subject Select -->
     <form action="${pageContext.request.contextPath}/reservation/gReservation" class="general_reservation_form" method="POST">
         <div class="reservation_subject_select">
-            <div class="reservation_subject_select_title " onclick="openContent(this)">
+            <div class="reservation_subject_select_title reservation_subject_select_title" onclick="openContent(this)">
                 <p>예약 과목 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
-            <div class="reservation_subject_select_content">
+            <div class="reservation_subject_select_content" id="reservation_subject_select_content1">
                 <p>진료 과목</p>
                 <ul>
                 <li>${ hInfo.department}</li>
                 <input type="hidden" id="hosNo" name="hosNo" value="${hInfo.hosNo}">
                 <input type="hidden" id="subject" name="subject" value="${hInfo.department}">
                 <br><br>
-                <input type="text" name="content" placeholder="증상을 입력해주세요">
+                <input type="text" id="subject_select_content" name="content" placeholder="증상을 입력해주세요">
             </div>
             <div class="reservation_subject_select_title reservation_datepicker" onclick="openContent(this)">
                 <p>예약 날짜 선택</p>
@@ -143,7 +143,17 @@
                 <br><br>
                 <input type="text" placeholder="생년월일 ex) 991201" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
                 <br><br>
-                <input type="text" placeholder="전화번호 ex) 010-0000-0000" id="phone" name="phone" data-checkvalue="${loginUser.phone}">
+                <div class="reservation_phone" style="display: flex; align-items: center;">
+                    <input type="hidden" id="phone" value="${loginUser.phone}" data-checkvalue="${loginUser.phone}">
+                    <select name="phone1" id="phone1" data-checkvalue="${loginUser.phone}">
+                        <option id="010" value="010">010</option>
+                        <option id="012" value="012">012</option>
+                        <option id="013" value="013">013</option>
+                        <option id="015" value="015">015</option>
+                    </select>
+                    <input type="text" id="phone2" name="phone2" data-checkvalue="${loginUser.phone}">
+                    <input type="text" id="phone3" name="phone3" data-checkvalue="${loginUser.phone}">
+                </div>
                 <br><br>
                 <input type="text" placeholder="이메일을 입력해주세요" id="email" name="email" data-checkvalue="${loginUser.email}">
                 <br><br>

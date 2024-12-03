@@ -55,7 +55,8 @@ public class HospitalController {
 		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
 		m.addAttribute("h",h);
 		m.addAttribute("hInfo",hInfo);
-		System.out.println(hInfo);
+		
+		System.out.println("h : " + h);
 		return "hospital_detail/hospital_detail";
 	}
 	
