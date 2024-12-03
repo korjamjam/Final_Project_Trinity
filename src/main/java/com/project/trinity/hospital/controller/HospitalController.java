@@ -48,8 +48,8 @@ public class HospitalController {
 		System.out.println("order : " + order);
 		System.out.println("page : " + page);
 		System.out.println("limit : " + limit);
-		m.addAttribute("keyword", keyword);
-        if(keyword.equals("")) {
+		System.out.println("keyword : " + keyword);
+        if(!keyword.equals("")) {
     		return hospitalService.searchHospital(keyword, subject, order, page, limit);
         } else {
             return hospitalService.selectHospitalListPaginated(subject, order, page, limit);

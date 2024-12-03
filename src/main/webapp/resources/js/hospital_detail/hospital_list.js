@@ -19,8 +19,6 @@ function init10() {
     const keyword = urlparam.get("keyword");
     console.log(keyword);
 
-
-    console.log("태영 시작")
     $.ajax({
         url: contextPath + `/hospital/list/api`,
         type: "GET",
@@ -109,7 +107,7 @@ const func = function () {
         let order = document.getElementById('hospitalList_orderBy').value;
 
         $.ajax({
-            url: contextPath + (isSearch ? '/hospital/list/search' : '/hospital/list/api'),
+            url: contextPath + ('/hospital/list/api'),
             type: "GET",
             data: { 
                     subject: subject, 
