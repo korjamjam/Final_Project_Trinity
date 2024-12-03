@@ -23,18 +23,12 @@ public class Member {
     private String phone;
     private String birthday;
     private String gender;
+    private String postcode; // 우편번호 추가
     private String address;
     private Date enrollDate;
     private String status;
-    private String isAdmin;   //관리자면 'Y', 아니면 'N'
+    private String isAdmin;
     private String medKey;
     private String hosNo;
     private String userProfile;
-	
-	public Member(String userId, String userPwd) {
-		super();
-		this.userId = userId;
-		this.userPwd = userPwd;
-	}
-
 }
