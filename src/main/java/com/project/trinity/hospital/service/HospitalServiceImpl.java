@@ -50,11 +50,6 @@ public class HospitalServiceImpl implements HospitalService{
 	}
 
 	@Override
-	public ArrayList<HospitalInfo> searchHospital(String keyword) {
-		return hpDao.searchHospital(sqlSession, keyword);
-	}
-
-	@Override
 	public ArrayList<HospitalInfo> selectOpenHospitalList() {
 		return hpDao.selectOpenHospitalList(sqlSession);
 	}
@@ -71,6 +66,16 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public int insertHealthHospital(HospitalInfo hInfo) {
 		return hpDao.insertHealthHospital(sqlSession, hInfo);
+	}
+
+	@Override
+	public ArrayList<HospitalInfo> searchHospital(String keyword, String subject, String order, int page, int limit) {
+		int offset = (page - 1) * limit;
+		 System.out.println("Service page : " + page);
+        System.out.println("Service offset : " + offset);
+        System.out.println("Service keyword : " + keyword);
+        System.out.println("Service subject : " + subject);
+		return hpDao.searchHospital(sqlSession, subject, order, offset, limit, keyword);
 	}
 
 	
