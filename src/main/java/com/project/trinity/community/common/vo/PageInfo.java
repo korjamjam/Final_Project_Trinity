@@ -1,25 +1,28 @@
 package com.project.trinity.community.common.vo;
 
-import java.sql.Date;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
+@NoArgsConstructor  // 기본 생성자 자동 생성
+@AllArgsConstructor // 모든 필드를 받는 생성자 자동 생성
 public class PageInfo {
-	int listCount; //현재 총 게시글 수 
-	int currentPage; //현재 페이지(사용자가 요청한 페이지) 
-	int pageLimit; //페이지 하단에 보여질 페이징바의 수 
-	int boardLimit; //한 페이지내에 보여질 게시글 최대갯수 
-	//위 4개의 값을 기준으로 아래 3개의 값을 구할 수 있음
-	int maxPage; //가장 마지막 페이지(총 페이지의 수)
-	int startPage; //페이징바의 시작 수
-	int endPage; //페이징방의 마지막 끝수
+    private int listCount;
+    private int currentPage;
+    private int pageLimit;
+    private int boardLimit;
+    private int maxPage;
+    private int startPage;
+    private int endPage;
+    private int startRow;
+    private int endRow;
+
+    // startRow와 endRow 계산
+    public void calculatePageRows() {
+        this.startRow = (this.currentPage - 1) * this.boardLimit + 1;
+        this.endRow = this.startRow + this.boardLimit - 1;
+    }
 }
+
+

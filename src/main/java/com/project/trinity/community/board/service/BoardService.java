@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.board.model.vo.Comment;
@@ -14,18 +16,32 @@ import com.project.trinity.community.common.vo.PageInfo;
 
 public interface BoardService {
 
-    // 게시글 관련 메서드
-    int selectListCount(); // 게시글 총 갯수 가져오기
-    ArrayList<Board> selectList(PageInfo pi, String sortType); // 게시글 목록 가져오기
-    List<Board> selectRecentPopularList(Map<String, Object> params); // 최근 인기 게시글 조회
-    ArrayList<Board> selectListByCategory(String type, PageInfo pi); // 카테고리별 게시글 목록
-    int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
-    Board selectBoard(String boardNo); // 게시글 조회
-    int increaseCount(String boardNo); // 게시글 조회수 증가
-    int insertBoard(Board b, String userNo); // 게시글 추가
-    int updateBoard(Board b); // 게시글 수정
-    int deleteBoard(String boardNo); // 게시글 삭제
-    String getCategoryNameById(String categoryId);
+	// 게시글 관련 메서드
+	int selectListCount(); // 전체 게시글 개수 조회
+
+	int getListCount(String categoryId); // 특정 카테고리 게시글 개수 조회
+
+	ArrayList<Board> selectList(PageInfo pi, String sortType); // 게시글 목록 조회 (페이징 + 정렬)
+
+	List<Board> selectRecentPopularList(PageInfo pi); // 실시간 인기 게시글 목록 조회
+
+	List<Board> selectListByCategory(String categoryId, PageInfo pi); // 카테고리별 게시글 목록 조회 (페이징 포함)
+
+	int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
+
+	Board selectBoard(String boardNo); // 특정 게시글 조회
+
+	int increaseCount(String boardNo); // 게시글 조회수 증가
+
+	int insertBoard(Board b, String userNo); // 새 게시글 추가
+
+	int updateBoard(Board b); // 게시글 수정
+
+	int deleteBoard(String boardNo); // 게시글 삭제
+
+	String getCategoryNameById(String categoryId); // 카테고리 ID로 카테고리 이름 조회
+
+   
     
     // 파일 관련 메서드
     int insertFile(BoardFile bf); // 첨부파일 추가
@@ -47,6 +63,11 @@ public interface BoardService {
     void deleteLikeDislike(String commentNo, String userNo); // 좋아요/싫어요 삭제
     void insertLikeDislike(String commentNo, String userNo, int isLike); // 좋아요/싫어요 추가
     void updateLikeDislike(String commentNo, String userNo, int isLike);
+
+    List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
+	
+	
+	
 	
 
   

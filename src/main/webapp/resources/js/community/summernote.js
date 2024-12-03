@@ -49,6 +49,23 @@ function adjustHeight(contents) {
     const scrollHeight = editableArea.prop('scrollHeight');
     editableArea.css('height', `${scrollHeight}px`); // 템플릿 리터럴로 수정
 }
+function changeCategory(categoryName) {
+    console.log("함수 호출"); // 이 로그가 나타나는지 확인
+    console.log("선택된 카테고리:", categoryName);
+    let categoryId;
+    
+    // 선택한 categoryName에 맞는 categoryId를 설정
+    if (categoryName === '자유게시판') {
+        categoryId = 'CAT01'; // 예시, 실제 카테고리 ID 값으로 바꿔주세요
+    } else if (categoryName === '메디톡') {
+        categoryId = 'CAT02';
+    } else if (categoryName === '이벤트게시판') {
+        categoryId = 'CAT03';
+    }
+
+    // hidden input의 value를 업데이트
+    document.getElementById('categoryId').value = categoryId;
+}
 
 function fileUpload(imgs) {
     const fd = new FormData();

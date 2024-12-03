@@ -22,16 +22,22 @@ public class Template {
 	 * @return PageInfo
 	 */
 	public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
-		int maxPage = (int)Math.ceil((double)listCount/boardLimit); // 가장 마지막 페이지
-		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1; // 페이징바의 시작
-		int endPage = startPage + pageLimit - 1; //페이징바의 마지막
-		
-		endPage = endPage > maxPage ? maxPage : endPage;
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
-		return pi;
+	    int maxPage = (int)Math.ceil((double)listCount / boardLimit); // 가장 마지막 페이지
+	    int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1; // 페이징바의 시작
+	    int endPage = startPage + pageLimit - 1; // 페이징바의 마지막
+
+	    endPage = endPage > maxPage ? maxPage : endPage;
+
+	    // startRow와 endRow 계산
+	    int startRow = (currentPage - 1) * boardLimit + 1;
+	    int endRow = startRow + boardLimit - 1;
+
+	    // 생성자 호출 (startRow와 endRow를 포함하여 전달)
+	    PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, startRow, endRow);
+
+	    return pi;
 	}
-	
+
 	public static String saveFile(MultipartFile upfile, HttpSession session, String path) {
 		//파일원본명
 		String originName = upfile.getOriginalFilename(); 

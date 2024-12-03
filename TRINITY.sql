@@ -205,7 +205,7 @@ CREATE TABLE BOARD (
     ENROLL_DATE DATE DEFAULT SYSDATE,         -- 등록 날짜
     MODIFIED_DATE DATE DEFAULT SYSDATE,       -- 수정 날짜
     BOARD_VIEWS VARCHAR2(10) DEFAULT '0',     -- 조회수 (기본값: 0)
-    CATEGORY_ID VARCHAR2(20),                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
+    CATEGORY_ID VARCHAR2(20) NOT NULL,                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
@@ -459,18 +459,14 @@ BEGIN
             ENROLL_DATE, 
             MODIFIED_DATE, 
             BOARD_VIEWS, 
-            BOARD_CATEGORY, 
+            CATEGORY_ID, 
             STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
-            CASE MOD(i, 7)                       -- BOARD_TYPE 매핑
+            CASE MOD(i, 3)                       -- BOARD_TYPE 매핑
                 WHEN 0 THEN 1                    -- 자유게시판
                 WHEN 1 THEN 2                    -- 메디톡
-                WHEN 2 THEN 3                    -- 이벤트게시판
-                WHEN 3 THEN 4                    -- 공지사항
-                WHEN 4 THEN 5                    -- 알림판
-                WHEN 5 THEN 6                    -- FAQ
-                ELSE 7                           -- Q&A
+                ELSE 3                           -- 이벤트게시판
             END,
             v_user_no,                           -- USER_NO (랜덤 회원)
             '게시글 제목 ' || i,                  -- BOARD_TITLE
@@ -478,30 +474,26 @@ BEGIN
             SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
             SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
             TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
-            CASE MOD(i, 7)                       -- BOARD_CATEGORY 매핑
-                WHEN 0 THEN '자유게시판'
-                WHEN 1 THEN '메디톡'
-                WHEN 2 THEN '이벤트게시판'
-                WHEN 3 THEN '공지사항'
-                WHEN 4 THEN '알림판'
-                WHEN 5 THEN 'FAQ'
-                ELSE 'QNA'
+            CASE MOD(i, 3)                       -- BOARD_CATEGORY 매핑 (CAT01, CAT02, CAT03만 사용)
+                WHEN 0 THEN 'CAT01'              -- 자유게시판
+                WHEN 1 THEN 'CAT02'              -- 메디톡
+                ELSE 'CAT03'                    -- 이벤트게시판
             END,
             'Y'                                  -- STATUS (항상 Y)
         );
     END LOOP;
     COMMIT;
 END;
-/
+
 
 INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT1', '자유게시판', '1');
+VALUES ('CAT01', '자유게시판', '1');
 
 INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT2', '메디톡', '2');
+VALUES ('CAT02', '메디톡', '2');
 
 INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT3', '이벤트게시판', '3');
+VALUES ('CAT03', '이벤트게시판', '3');
 
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE

@@ -331,14 +331,9 @@
     }
 
     #mainWrapper {
-        margin-left: 20%;
-        /* 고정된 `sideMenu`를 고려 */
         width: 60%;
-        /* 전체의 60% */
         max-width: 864px;
-        /* 최대 너비 설정 */
         margin: 0 auto;
-        /* 중앙 정렬 */
         box-sizing: border-box;
         padding: 20px;
     }
