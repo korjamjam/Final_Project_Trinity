@@ -23,6 +23,8 @@
 		<result column="MED_KEY" property="medKey" />
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
+		<result column="POSTCODE" property="postcode" />
+		
 	</resultMap>
 
 	<resultMap id="rankupResultSet" type="Rankup">
@@ -93,35 +95,35 @@
 
 
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER
-		(USER_ID, USER_PWD, USER_NAME, EMAIL,
-		PHONE, BIRTHDAY, ADDRESS, GENDER)
-		VALUES (
-		#{userId},
-		#{userPwd},
-		#{userName},
-		#{email},
-		#{phone},
-		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
-		#{address},
-		#{gender}
-		)
-	</insert>
+    INSERT INTO MEMBER
+    (USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, ADDRESS, GENDER)
+    VALUES (
+        #{userId},
+        #{userPwd},
+        #{userName},
+        #{email},
+        #{phone},
+        TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
+        #{postcode},
+        #{address},
+        #{gender}
+    )
+</insert>
 
-	<!-- 회원 정보 업데이트 -->
+
 	<update id="updateMember" parameterType="member">
-		UPDATE MEMBER
-		SET
-		USER_NAME = #{userName},
-		BIRTHDAY = #{birthday},
-		EMAIL =
-		#{email},
-		ADDRESS = #{address},
-		USERPROFILE = #{userProfile},
-		USER_PWD =
-		#{userPwd} <!-- USER_PWD 업데이트 -->
-		WHERE USER_ID = #{userId} <!-- 조건절 -->
-	</update>
+    UPDATE MEMBER
+    SET
+        USER_NAME = #{userName},
+        BIRTHDAY = #{birthday},
+        EMAIL = #{email},
+        POSTCODE = #{postcode}, <!-- 추가 -->
+        ADDRESS = #{address},
+        USERPROFILE = #{userProfile},
+        USER_PWD = #{userPwd}
+    WHERE USER_ID = #{userId}
+</update>
+
 
 
 	<!-- 이메일로 아이디 찾기 -->
