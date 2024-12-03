@@ -65,42 +65,41 @@ public class MemberController {
 	// 회원가입 기능
 	@PostMapping("/insert")
 	public String insertMember(Member member, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		String userPwdConfirm = request.getParameter("userPwdConfirm");
+	    String userPwdConfirm = request.getParameter("userPwdConfirm");
 
-		if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
-			redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "redirect:/member/sign_up";
-		}
+	    if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
+	        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/member/sign_up";
+	    }
 
-		member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
+	    member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
 
-		String emailLocal = request.getParameter("emailLocal");
-		String emailDomain = request.getParameter("emailDomain");
-		if (emailLocal != null && !emailLocal.isEmpty() && emailDomain != null && !emailDomain.isEmpty()) {
-			member.setEmail(emailLocal + "@" + emailDomain);
-		} else {
-			redirectAttributes.addFlashAttribute("message", "유효한 이메일 주소를 입력해주세요.");
-			return "redirect:/member/sign_up";
-		}
+	    String emailLocal = request.getParameter("emailLocal");
+	    String emailDomain = request.getParameter("emailDomain");
+	    if (emailLocal != null && !emailLocal.isEmpty() && emailDomain != null && !emailDomain.isEmpty()) {
+	        member.setEmail(emailLocal + "@" + emailDomain);
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "유효한 이메일 주소를 입력해주세요.");
+	        return "redirect:/member/sign_up";
+	    }
 
-		// 주소 필드 조합 및 설정
-		String postcode = request.getParameter("postcode");
-		String address = request.getParameter("address");
-		String detailAddress = request.getParameter("detailAddress");
-		String extraAddress = request.getParameter("extraAddress");
+	    // 주소 필드 조합
+	    String postcode = request.getParameter("postcode");
+	    String address = request.getParameter("address");
+	    String detailAddress = request.getParameter("detailAddress");
+	    member.setPostcode(postcode);
+	    member.setAddress(address + " " + detailAddress);
 
-		String fullAddress = postcode + " " + address + " " + detailAddress + " " + extraAddress;
-		member.setAddress(fullAddress);
-
-		int result = memberService.insertMember(member);
-		if (result > 0) {
-			redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
-			return "redirect:/member/login";
-		} else {
-			redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
-			return "redirect:/member/sign_up";
-		}
+	    int result = memberService.insertMember(member);
+	    if (result > 0) {
+	        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
+	        return "redirect:/member/login";
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+	        return "redirect:/member/sign_up";
+	    }
 	}
+
 
 	// 아이디 중복 확인
 	@ResponseBody
