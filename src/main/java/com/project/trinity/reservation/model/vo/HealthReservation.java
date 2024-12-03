@@ -18,6 +18,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class HealthReservation {
+
     private String healthResNo;     // 건강검진 진료 예약 번호
     private String userNo;          // 사용자 번호(로그인)
     private String hosNo;           // 병원 번호

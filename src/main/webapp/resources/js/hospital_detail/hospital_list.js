@@ -13,12 +13,9 @@ function init10() {
     
     // URL의 쿼리 문자열을 가져옵니다.
     const urlparam = new URLSearchParams(window.location.search);
-    console.log(urlparam);
 
     // "keyword" 값을 가져옵니다.
     const keyword = urlparam.get("keyword");
-    console.log(keyword);
-
     $.ajax({
         url: contextPath + `/hospital/list/api`,
         type: "GET",
@@ -106,10 +103,17 @@ const func = function () {
         let subject = document.getElementById('hospitalList_subject').value;
         let order = document.getElementById('hospitalList_orderBy').value;
 
+        // URL의 쿼리 문자열을 가져옵니다.
+        const urlparam = new URLSearchParams(window.location.search);
+
+        // "keyword" 값을 가져옵니다.
+        const keyword = urlparam.get("keyword");
+
         $.ajax({
             url: contextPath + ('/hospital/list/api'),
             type: "GET",
             data: { 
+                    keyword: keyword,
                     subject: subject, 
                     order: order, 
                     page: page, 
