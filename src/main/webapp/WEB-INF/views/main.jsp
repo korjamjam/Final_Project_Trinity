@@ -45,7 +45,7 @@
 		<!-- SearchBar -->
 		<div class="searchBar_wrapper">
 				<div class="searchBar">
-					<form action="hospital/list/search" class="searchBar_form">
+					<form action="hospital/list" class="searchBar_form">
 						<input type="text" placeholder="검색어를 입력하세요." name="keyword">
 						<button type="submit" id="main_search_btn">
 						<div class="searchBar_img">
