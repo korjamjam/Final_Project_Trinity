@@ -1,7 +1,8 @@
 package com.project.trinity.healthreservation.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,35 +14,31 @@ import com.project.trinity.reservation.model.vo.HealthReservation;
 @Service
 public class HealthReservationServiceImpl implements HealthReservationService {
 
-    private final HealthReservationDao hReservationDao;
+    @Autowired	
+    private HealthReservationDao healthReservationDao;
 
     @Autowired
-    public HealthReservationServiceImpl(HealthReservationDao hReservationDao) {
-        this.hReservationDao = hReservationDao;
-    }
+    private SqlSession sqlSession;
 
-    @Override
-    public int insertGuest(Guest guest) {
-        return hReservationDao.insertGuest(guest);
-    }
+	@Override
+	public int insertGuest(Guest guest) {
+		return healthReservationDao.insertGuest(guest);
+	}
 
-    @Override
-    public int insertHealthReservation(HealthReservation healthReservation) {
-        return hReservationDao.insertHealthReservation(healthReservation);
-    }
+	@Override
+	public int insertHealthReservation(HealthReservation healthReservation) {
+		return healthReservationDao.insertHealthReservation(healthReservation);
+	}
 
-    @Override
-    public List<HospitalInfo> getHospitalList() {
-        return hReservationDao.selectHospitalList();
-    }
+	@Override
+	public ArrayList<HospitalInfo> selectHospitalList() {
+		return healthReservationDao.selectHospitalList();
+	}
 
-    @Override
-    public HealthReservation getHealthReservation(String hResNo) {
-        return hReservationDao.selectHealthReservation(hResNo);
-    }
+	@Override
+	public HealthReservation selectHealthReservation(String hResNo) {
+		return healthReservationDao.selectHealthReservation(hResNo);
+	}
 
-    @Override
-    public List<HealthReservation> getHealthReservationsByUserNo(String userNo) {
-        return hReservationDao.selectHealthReservationsByUserNo(userNo);
-    }
+		
 }
