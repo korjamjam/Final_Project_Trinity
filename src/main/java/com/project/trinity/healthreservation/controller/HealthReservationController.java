@@ -320,24 +320,27 @@ public class HealthReservationController {
 											@RequestParam("hosLongitude") String hosLongitude,
 											HttpSession session
 			) {
-		HospitalInfo hInfo = new HospitalInfo();
+		HospitalInfo selectHosName = hospitalService.selectHosName(hosName);
+		System.out.println("selectHosName : " + selectHosName);
+		int result = 0;
 		
-		
-		System.out.println(hosName);
-		System.out.println(hosAddress);
-		System.out.println(hosTel);
-		System.out.println(hosLatitude);
-		System.out.println(hosLongitude);
-		hInfo.setHosName(hosName);
-		hInfo.setHosAddress(hosAddress);
-		hInfo.setHosTel(hosTel);
-		hInfo.setHosLatitude(hosLatitude);
-		hInfo.setHosLongitude(hosLongitude);
-		System.out.println(hInfo);
-		int result = hospitalService.insertHealthHospital(hInfo);
-		session.setAttribute("hosNo", hInfo.getHosNo());
-		System.out.println(hInfo.getHosNo());
-		System.out.println("hosNo" + session.getAttribute("hosNo"));
+		if(selectHosName == null) {
+			HospitalInfo hInfo = new HospitalInfo();
+			
+			hInfo.setHosName(hosName);
+			hInfo.setHosAddress(hosAddress);
+			hInfo.setHosTel(hosTel);
+			hInfo.setHosLatitude(hosLatitude);
+			hInfo.setHosLongitude(hosLongitude);
+			
+			System.out.println(hInfo);
+			result = hospitalService.insertHealthHospital(hInfo);
+			session.setAttribute("hosNo", hInfo.getHosNo());
+		} else {
+			System.out.println(selectHosName);
+			session.setAttribute("hosNo", selectHosName.getHosNo());
+		}
+
 		String message = "";
 		
 		if(result > 0) {

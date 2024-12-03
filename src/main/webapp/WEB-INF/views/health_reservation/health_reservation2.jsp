@@ -207,10 +207,8 @@
         function checkHospital(selectItem){
             const hmcNo = selectItem.value;
             console.log("hmcNo sele : " + hmcNo)
-            console.log(itemList)
             for(const item of itemList){
                 if(item.hmcNo == hmcNo){
-                    console.log(item.hmcNm)
                     $.ajax({
                         url: "healthHospital",
                         method: "GET",

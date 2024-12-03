@@ -32,6 +32,10 @@ public class HealthReservationDao {
 		return sqlSession.selectOne("healthReservationMapper.selectHealthReservation", hResNo);
 	}
 
+	public int selectHosName(String hosName) {
+		return sqlSession.selectOne("healthReservationMapper.selectHosName", hosName);
+	}
+
 	
 	
 	

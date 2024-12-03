@@ -78,5 +78,10 @@ public class HospitalServiceImpl implements HospitalService{
 		return hpDao.searchHospital(sqlSession, subject, order, offset, limit, keyword);
 	}
 
+	@Override
+	public HospitalInfo selectHosName(String hosName) {
+		return hpDao.selectHosName(sqlSession, hosName);
+	}
+
 	
 }

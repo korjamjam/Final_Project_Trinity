@@ -25,4 +25,6 @@ public interface HospitalService {
 
 	ArrayList<HospitalInfo> searchHospital(String keyword, String subject, String order, int page, int limit);
 
+	HospitalInfo selectHosName(String hosName);
+
 }
