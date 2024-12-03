@@ -44,10 +44,6 @@ public class HospitalDao {
 		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
 	}
 
-	public ArrayList<HospitalInfo> searchHospital(SqlSessionTemplate sqlSession, String keyword) {
-		return (ArrayList)sqlSession.selectList("hospitalMapper.searchHospital", keyword);
-	}
-
 	public ArrayList<HospitalInfo> selectOpenHospitalList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("hospitalMapper.selectOpenHospitalList");
 	}
@@ -64,6 +60,21 @@ public class HospitalDao {
 
 	public int insertHealthHospital(SqlSessionTemplate sqlSession, HospitalInfo hInfo) {
 		return sqlSession.insert("hospitalMapper.insertHealthHospital", hInfo);
+	}
+
+	public ArrayList<HospitalInfo> searchHospital(SqlSessionTemplate sqlSession, String subject, String order,
+			int offset, int limit, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("subject",subject);
+		map.put("order", order);
+        map.put("offset", offset);
+        map.put("limit", limit);
+		map.put("keyword",keyword);
+		return (ArrayList)sqlSession.selectList("hospitalMapper.searchHospital", map);
+	}
+
+	public HospitalInfo selectHosName(SqlSessionTemplate sqlSession, String hosName) {
+		return sqlSession.selectOne("hospitalMapper.selectHosName", hosName);
 	}
 
 }

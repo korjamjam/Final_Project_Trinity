@@ -38,15 +38,23 @@ public class HospitalController {
 	
 	@RequestMapping("/list/api")
     @ResponseBody
-    public ArrayList<HospitalInfo> hospitalListPaginated(@RequestParam(value = "subject", defaultValue = "listAll") String subject,
+    public ArrayList<HospitalInfo> hospitalListPaginated(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+    													 @RequestParam(value = "subject", defaultValue = "listAll") String subject,
                                                          @RequestParam(value = "order", defaultValue = "ASC") String order,
                                                          @RequestParam(value = "page", defaultValue = "1") int page,
-                                                         @RequestParam(value = "limit", defaultValue = "10") int limit) {
+                                                         @RequestParam(value = "limit", defaultValue = "10") int limit,
+                                                         Model m) {
 		System.out.println("subject : " + subject);
 		System.out.println("order : " + order);
 		System.out.println("page : " + page);
 		System.out.println("limit : " + limit);
-        return hospitalService.selectHospitalListPaginated(subject, order, page, limit);
+		System.out.println("keyword : " + keyword);
+        if(!keyword.equals("")) {
+    		return hospitalService.searchHospital(keyword, subject, order, page, limit);
+        } else {
+            return hospitalService.selectHospitalListPaginated(subject, order, page, limit);
+
+        }
     }
 	
 	@RequestMapping("/detail")
@@ -57,14 +65,6 @@ public class HospitalController {
 		m.addAttribute("hInfo",hInfo);
 		System.out.println(hInfo);
 		return "hospital_detail/hospital_detail";
-	}
-	
-	@RequestMapping("/list/search")
-	public String SearchHospital(@RequestParam("keyword") String keyword, Model m) {
-		ArrayList<HospitalInfo> searchList = hospitalService.searchHospital(keyword);
-		
-		m.addAttribute("list", searchList);
-		return "hospital_detail/hospital_list";
 	}
 	
 	@RequestMapping("/list/openHos")

@@ -51,6 +51,24 @@
        WHERE  HOS_NO = #{hosNo}
    </select>
    
+   <!-- 병원Info 조회 -->
+   <select id="selectHosName" parameterType="HospitalInfo"
+      resultMap="HospitalInfoResultSet">
+      SELECT  HOS_NO,
+              HOS_NAME,
+              HOS_ADDRESS,
+              HOS_TEL,
+              DEPARTMENT,
+              HOS_START_TIME1,
+              HOS_CLOSE_TIME1,
+              HOS_START_TIME2,
+              HOS_CLOSE_TIME2,
+              HOS_LATITUDE,
+              HOS_LONGITUDE
+       FROM  HOSPITAL_INFO
+       WHERE  HOS_NAME = #{hosName}
+   </select>
+   
    <!-- 병원 Account 조회 -->
    <select id="selectHospitalInfo" parameterType="HospitalAccount"
       resultMap="HospitalAccountResultSet">
@@ -132,7 +150,45 @@
 			  row_num &lt;= #{offset} + #{limit}
    </select>
    
-   <select id="searchHospital" resultMap="HospitalInfoResultSet">
+   <!-- 병원 검색 -->
+   <select id="searchHospital" parameterType="map" resultMap="HospitalInfoResultSet">
+		SELECT  HOS_NO,
+               HOS_NAME,
+               HOS_ADDRESS,
+               HOS_TEL,
+               DEPARTMENT,
+               HOS_START_TIME1,
+               HOS_CLOSE_TIME1,
+               HOS_START_TIME2,
+               HOS_CLOSE_TIME2,
+               HOS_LATITUDE,
+               HOS_LONGITUDE
+    	FROM (SELECT ROW_NUMBER() OVER (ORDER BY HOS_NAME ASC) AS row_num,
+	           		 HOS_NO,
+		             HOS_NAME,
+		             HOS_ADDRESS,
+		             HOS_TEL,
+		             DEPARTMENT,
+		             HOS_START_TIME1,
+		             HOS_CLOSE_TIME1,
+		             HOS_START_TIME2,
+		             HOS_CLOSE_TIME2,
+		             HOS_LATITUDE,
+		             HOS_LONGITUDE
+		      FROM HOSPITAL_INFO
+		      WHERE DEPARTMENT LIKE 
+		            CASE 
+		                WHEN #{subject} = 'listAll' THEN '%'
+		                WHEN #{subject} = 'listChild' THEN '%소아청소년과%'
+		                WHEN #{subject} = 'listMother' THEN '%산부인과%'
+		            END
+		            AND HOS_NAME LIKE '%' ||  #{keyword} || '%'
+			  ) subquery
+		WHERE #{offset} &lt; row_num AND
+			  row_num &lt;= #{offset} + #{limit}
+   </select>
+   
+<!--    <select id="searchHospital" resultMap="HospitalInfoResultSet">
    		SELECT  HOS_NO,
             HOS_NAME,
             HOS_ADDRESS,
@@ -146,7 +202,7 @@
             HOS_LONGITUDE
     	FROM HOSPITAL_INFO
     	WHERE HOS_NAME LIKE '%' ||  #{keyword} || '%'
-   </select>
+   </select> -->
    
    <!-- 열린 병원 리스트 조회 -->
    <select id="selectOpenHospitalList" resultMap="HospitalInfoResultSet">
@@ -223,6 +279,7 @@
    			HOS_NAME,
    			HOS_ADDRESS,
    			HOS_TEL,
+   			DEPARTMENT,
    			HOS_START_TIME1,
    			HOS_CLOSE_TIME1,
    			HOS_LATITUDE,
@@ -231,6 +288,7 @@
    			#{hosName},
    			#{hosAddress},
    			#{hosTel},
+   			'건강검진',
    			'08:00 ~ 18:00',
    			'08:00 ~ 18:00',
    			#{hosLatitude},
