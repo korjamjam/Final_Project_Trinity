@@ -1,6 +1,7 @@
 package com.project.trinity.healthreservation.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,16 @@ public class HealthReservationServiceImpl implements HealthReservationService {
 	}
 
 	@Override
-	public HealthReservation selectHealthReservation(String hResNo) {
-		return healthReservationDao.selectHealthReservation(hResNo);
+	public HealthReservation selectHealthReservation(String healthResNo) {
+		return healthReservationDao.selectHealthReservation(healthResNo);
 	}
+	
+	@Override
+	public List<HealthReservation> getHealthReservationsByUserNo(String userNo) {
+	    return healthReservationDao.selectHealthReservationsByUserNo(userNo);
+	}
+
+
 
 		
 }
