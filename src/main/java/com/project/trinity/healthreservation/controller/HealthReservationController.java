@@ -117,30 +117,37 @@ public class HealthReservationController {
 			@RequestParam("resNo") String resNo,
 			Model m
 			) {
-		System.out.println(reservationCategory);
-		System.out.println(resNo);
-		
 		switch (reservationCategory) {
 		case "general":
 			GeneralReservation generealReservation = reservationService.selectReservation(resNo);
-			m.addAttribute("generealReservation", generealReservation);
-			m.addAttribute("resNo",resNo);
+			if(generealReservation != null) {
+				m.addAttribute("generealReservation", generealReservation);
+				m.addAttribute("resNo",resNo);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/general_reservation_search_result";
 			
 		case "vaccine":
 			VaccineReservation vaccineReservation = vaccineReservationService.selectReservation(resNo);
-			m.addAttribute("vaccineReservation", vaccineReservation);
-			m.addAttribute("resNo",resNo);
-			System.out.println("vaccineReservation: " + vaccineReservation);
+			if(vaccineReservation != null) {
+				m.addAttribute("vaccineReservation", vaccineReservation);
+				m.addAttribute("resNo",resNo);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/vaccine_reservation_search_result";
 			
 		case "health":
 			HealthReservation healthReservation = healthReservationService.selectHealthReservation(resNo);
 			//예약날짜 뒤에 시간 짜르기
-			healthReservation.setResDate(healthReservation.getResDate().substring(0,10));
-			m.addAttribute("hResNo", resNo);
-			m.addAttribute("healthReservation",healthReservation);
-			
+			if(healthReservation != null) {
+				healthReservation.setResDate(healthReservation.getResDate().substring(0,10));				
+				m.addAttribute("hResNo", resNo);
+				m.addAttribute("healthReservation",healthReservation);
+			} else {
+				m.addAttribute("rmessage", "예약 내역이 없습니다");
+			}
 			return "health_reservation/health_reservation_search_result";
 
 		default:
@@ -279,9 +286,9 @@ public class HealthReservationController {
 		}
 		int result = healthReservationService.insertHealthReservation(healthReservation);
 		redirectAttributes.addFlashAttribute("message","예약이 완료되었습니다");
-		session.setAttribute("hResNo", healthReservation.getHResNo());
+		session.setAttribute("hResNo", healthReservation.getHealthResNo());
 		
-		HealthReservation healthReservationResult = healthReservationService.selectHealthReservation(healthReservation.getHResNo());
+		HealthReservation healthReservationResult = healthReservationService.selectHealthReservation(healthReservation.getHealthResNo());
 		//예약날짜 뒤에 시간 짜르기
 		healthReservationResult.setResDate(healthReservationResult.getResDate().substring(0,10));
 		session.setAttribute("healthReservation",healthReservationResult);
@@ -320,24 +327,27 @@ public class HealthReservationController {
 											@RequestParam("hosLongitude") String hosLongitude,
 											HttpSession session
 			) {
-		HospitalInfo hInfo = new HospitalInfo();
+		HospitalInfo selectHosName = hospitalService.selectHosName(hosName);
+		System.out.println("selectHosName : " + selectHosName);
+		int result = 0;
 		
-		
-		System.out.println(hosName);
-		System.out.println(hosAddress);
-		System.out.println(hosTel);
-		System.out.println(hosLatitude);
-		System.out.println(hosLongitude);
-		hInfo.setHosName(hosName);
-		hInfo.setHosAddress(hosAddress);
-		hInfo.setHosTel(hosTel);
-		hInfo.setHosLatitude(hosLatitude);
-		hInfo.setHosLongitude(hosLongitude);
-		System.out.println(hInfo);
-		int result = hospitalService.insertHealthHospital(hInfo);
-		session.setAttribute("hosNo", hInfo.getHosNo());
-		System.out.println(hInfo.getHosNo());
-		System.out.println("hosNo" + session.getAttribute("hosNo"));
+		if(selectHosName == null) {
+			HospitalInfo hInfo = new HospitalInfo();
+			
+			hInfo.setHosName(hosName);
+			hInfo.setHosAddress(hosAddress);
+			hInfo.setHosTel(hosTel);
+			hInfo.setHosLatitude(hosLatitude);
+			hInfo.setHosLongitude(hosLongitude);
+			
+			System.out.println(hInfo);
+			result = hospitalService.insertHealthHospital(hInfo);
+			session.setAttribute("hosNo", hInfo.getHosNo());
+		} else {
+			System.out.println(selectHosName);
+			session.setAttribute("hosNo", selectHosName.getHosNo());
+		}
+
 		String message = "";
 		
 		if(result > 0) {

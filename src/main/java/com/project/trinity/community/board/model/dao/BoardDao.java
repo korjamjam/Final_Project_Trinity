@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Like;
 import com.project.trinity.community.board.model.vo.Comment;
@@ -24,24 +25,10 @@ public class BoardDao {
      * 전체 게시글 수를 조회합니다.
      */
     public int selectListCount(SqlSessionTemplate sqlSession) {
+    	
         return sqlSession.selectOne("boardMapper.selectListCount");
     }
 
-    /**
-     * 페이징 처리를 적용하여 게시글 목록을 조회합니다.
-     */
-    public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
-        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-        return (ArrayList) sqlSession.selectList("boardMapper.selectList", sortType, rowBounds);
-    }
-
-    /**
-     * 최근 인기 게시글 목록을 조회합니다.
-     */
-    public ArrayList<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
-        return (ArrayList) sqlSession.selectList("boardMapper.selectRecentPopularList", params);
-    }
 
     /**
      * 특정 카테고리에 해당하는 게시글 수를 조회합니다.
@@ -50,19 +37,7 @@ public class BoardDao {
         return sqlSession.selectOne("boardMapper.selectCountCategoryList", categoryId);
     }
 
-    /**
-     * 특정 카테고리의 게시글 목록을 페이징 처리하여 조회합니다.
-     */
-    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi) {
-        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-        int limit = pi.getBoardLimit();
-        Map<String, Object> params = new HashMap<>();
-        params.put("categoryId", categoryId);
-        params.put("startRow", offset + 1);
-        params.put("endRow", offset + limit);
-        return (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
-    }
-
+   
     /**
      * 인기 게시글 목록을 조회합니다.
      */
@@ -174,6 +149,7 @@ public class BoardDao {
      * 특정 게시글의 조회수를 증가시킵니다.
      */
     public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
+    	 System.out.println("Increasing count for boardNo: " + bno);
         return sqlSession.update("boardMapper.increaseCount", bno);
     }
 
@@ -248,8 +224,59 @@ public class BoardDao {
     }
 
     public String getCategoryNameById(SqlSessionTemplate sqlSession, String categoryId) {
-        return sqlSession.selectOne("boardMapper.getCategoryNameById", categoryId);
+    	System.out.println("Category ID in service: " + categoryId);
+    	return sqlSession.selectOne("boardMapper.getCategoryNameById", categoryId);
     }
+
+	
+    // 게시글의 총 개수 (타입에 따라 필터링 가능)
+    public int getListCount(SqlSessionTemplate sqlSession, String categoryId) {
+    	 System.out.println("categoryId value: " + categoryId);
+        return sqlSession.selectOne("boardMapper.getListCount", categoryId);
+    }
+
+    // 최근 인기 게시글 목록 조회
+
+    /**
+     * 페이징 처리를 적용하여 게시글 목록을 조회합니다.
+     */
+    public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+        return (ArrayList) sqlSession.selectList("boardMapper.selectList", sortType, rowBounds);
+    }
+
+   
+    /**
+     * 특정 카테고리의 게시글 목록을 페이징 처리하여 조회합니다.
+     */
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        int limit = pi.getBoardLimit();
+        Map<String, Object> params = new HashMap<>();
+        params.put("categoryId", categoryId);
+        params.put("startRow", offset + 1);
+        params.put("endRow", offset + limit);
+        
+        System.out.println(params);
+        return (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
+    }
+
+    public List<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, PageInfo pi) {
+        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        int limit = pi.getBoardLimit();
+        Map<String, Object> params = new HashMap<>();
+        params.put("startRow", offset + 1);
+        params.put("endRow", offset + limit);
+
+        return sqlSession.selectList("boardMapper.selectRecentPopularList", params);
+    }
+
+
+    public List<BoardCategory> selectList(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("boardMapper.selectAllCategories");  // boardMapper의 쿼리 호출
+    }
+
 
 
 

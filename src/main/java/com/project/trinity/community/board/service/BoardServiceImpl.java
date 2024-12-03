@@ -1,6 +1,7 @@
 package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.trinity.community.board.model.dao.BoardDao;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.model.vo.Like;
@@ -32,31 +34,19 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.selectListCount(sqlSession);
     }
 
+    //조회수 증가 메서드
     @Override
     public int increaseCount(String bno) {
         return boardDao.increaseCount(sqlSession, bno);
     }
 
-    @Override
-    public ArrayList<Board> selectList(PageInfo pi, String sortType) {
-        return boardDao.selectList(sqlSession, pi, sortType);
-    }
-
-    @Override
-    public ArrayList<Board> selectRecentPopularList(Map<String, Object> params) {
-        return boardDao.selectRecentPopularList(sqlSession, params);
-    }
+   
 
     @Override
     public int selectCountCategoryList(String type) {
         return boardDao.selectCountCategoryList(sqlSession, type);
     }
 
-    @Override
-    public ArrayList<Board> selectListByCategory(String categoryId, PageInfo pi) {
-        // categoryId와 pageInfo를 넘기도록 수정
-        return boardDao.selectListByCategory(sqlSession, categoryId, pi);
-    }
 
 
     @Override
@@ -178,6 +168,57 @@ public class BoardServiceImpl implements BoardService {
     public String getCategoryNameById(String categoryId) {
         return boardDao.getCategoryNameById(sqlSession, categoryId);
     }
+
+   
+
+    @Override
+    public int getListCount(String categoryId) {
+        // categoryId 값 확인
+        System.out.println("categoryId value: " + categoryId); // 여기서 categoryId 값을 출력
+
+        // 'categoryId'를 사용하여 게시글의 총 개수를 가져오는 쿼리 실행
+        Integer count = sqlSession.selectOne("boardMapper.getListCount", categoryId);
+
+        // 쿼리 결과 확인
+        if (count == null) {
+            System.out.println("Query Result is null");
+            return 0; // null일 경우 0을 반환
+        } else {
+            System.out.println("Query Result: " + count);
+            return count;
+        }
+    }
+
+    @Override
+    public ArrayList<Board> selectList(PageInfo pi, String sortType) {
+        return boardDao.selectList(sqlSession, pi, sortType);
+    }
+
+
+  
+
+    @Override
+    public List<Board> selectListByCategory(String categoryId, PageInfo pi) {
+
+        // 쿼리 실행
+        return boardDao.selectListByCategory(sqlSession, categoryId, pi);
+    }
+
+
+    @Override
+    public List<Board> selectRecentPopularList(PageInfo pi) {
+        // 실시간 인기 게시글 목록을 조회
+        return boardDao.selectRecentPopularList(sqlSession, pi);
+    }
+
+    @Override
+    public List<BoardCategory> getCategories() {
+        return boardDao.selectList(sqlSession);  // DB에서 카테고리 목록을 조회
+    }
+
+
+
 	
 
 }
+

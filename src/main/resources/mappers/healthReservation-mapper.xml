@@ -5,114 +5,140 @@
 
 <mapper namespace="healthReservationMapper">
 
-    <!-- ReservationWithVaccineResult 설정 -->
-    <resultMap type="Guest" id="GuestResultSet" >
-        <result property="gstNo" column="GST_NO"/>
-        <result property="gstName" column="GST_NAME"/>
-        <result property="gstEmail" column="GST_EMAIL"/> <!-- PATIENT_NAME 추가 -->
-       	<result property="gstPhone" column="GST_PHONE"/>
-        <result property="gstBirth" column="GST_BIRTH"/>
-        <result property="gstGender" column="GST_GENDER"/>
-        <result property="gstAddress" column="GST_ADDRESS"/>
-    </resultMap>
-    
-    <resultMap type="HealthReservation" id="HealthReservationResultSet" >
-        <result property="hResNo" column="H_RES_NO"/>
-        <result property="userNo" column="USER_NO"/>
-        <result property="gstNo" column="GST_NO"/> <!-- PATIENT_NAME 추가 -->
-       	<result property="hosNo" column="HOS_NO"/>
-        <result property="resDate" column="RES_DATE"/>
-        <result property="resTime" column="RES_TIME"/>
-        <result property="resCategory" column="RES_CATEGORY"/>
-        <result property="resComment" column="RES_COMMENT"/>
-        <result property="patientName" column="PATIENT_NAME"/>
-        <result property="patientBirthday" column="PATIENT_BIRTH"/>
-        <result property="patientEmail" column="PATIENT_EMAIL"/>
-        <result property="patientGender" column="PATIENT_GENDER"/>
-        <result property="patientResult" column="PATIENT_RESULT"/>
+    <!-- Guest Result Map -->
+    <resultMap type="Guest" id="GuestResultSet">
+        <result property="gstNo" column="GST_NO" />
+        <result property="gstName" column="GST_NAME" />
+        <result property="gstEmail" column="GST_EMAIL" />
+        <result property="gstPhone" column="GST_PHONE" />
+        <result property="gstBirth" column="GST_BIRTH" />
+        <result property="gstGender" column="GST_GENDER" />
+        <result property="gstAddress" column="GST_ADDRESS" />
     </resultMap>
 
-    <!-- 비회원 정보 삽입 쿼리 -->
+    <!-- HealthReservation Result Map -->
+    <resultMap type="HealthReservation" id="HealthReservationResultSet">
+        <result property="healthResNo" column="H_RES_NO" />
+        <result property="userNo" column="USER_NO" />
+        <result property="gstNo" column="GST_NO" />
+        <result property="hosNo" column="HOS_NO" />
+        <result property="resDate" column="RES_DATE" />
+        <result property="resTime" column="RES_TIME" />
+        <result property="resCategory" column="RES_CATEGORY" />
+        <result property="resComment" column="RES_COMMENT" />
+        <result property="patientName" column="PATIENT_NAME" />
+        <result property="patientBirthday" column="PATIENT_BIRTH" />
+        <result property="patientEmail" column="PATIENT_EMAIL" />
+        <result property="patientGender" column="PATIENT_GENDER" />
+        <result property="patientResult" column="PATIENT_RESULT" />
+        <result property="hosName" column="HOS_NAME" />
+        <result property="hosAddress" column="HOS_ADDRESS" />
+    </resultMap>
+
+    <!-- Insert Guest -->
     <insert id="insertGuest" parameterType="Guest">
-    	INSERT INTO GUEST
-    	(GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER, GST_ADDRESS)
-    	VALUES
-    	(#{gstName}, #{gstEmail}, #{gstPhone}, TO_NUMBER(#{gstBirth}), #{gstGender}, #{gstAddress})
-    <selectKey keyProperty="gstNo" resultType="java.lang.String" order="AFTER">
-			select 'G' || SEQ_GST_NO.CURRVAL FROM DUAL
-	</selectKey>
+        INSERT INTO GUEST
+        (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER, GST_ADDRESS)
+        VALUES
+        (#{gstName}, #{gstEmail}, #{gstPhone}, TO_NUMBER(#{gstBirth}), #{gstGender}, #{gstAddress})
+        <selectKey keyProperty="gstNo" resultType="java.lang.String" order="AFTER">
+            SELECT 'G' || SEQ_GST_NO.CURRVAL FROM DUAL
+        </selectKey>
     </insert>
-    
-    <!-- 건강검진 예약 삽입 쿼리 -->
+
+    <!-- Insert Health Reservation -->
     <insert id="insertHealthReservation" parameterType="HealthReservation">
-    	INSERT INTO HEALTH_RESERVATION (
-    	USER_NO,
-    	HOS_NO,
-    	GST_NO,
-    	RES_DATE,
-    	RES_TIME,
-    	RES_CATEGORY,
-    	RES_COMMENT,
-    	PATIENT_NAME,
-    	PATIENT_BIRTH,
-    	PATIENT_EMAIL,
-    	PATIENT_GENDER,
-    	PATIENT_RESULT	
-    	) VALUES (
-    	#{userNo},
-    	#{hosNo},
-    	#{gstNo},
-    	TO_DATE(#{resDate},'YYYY-MM-DD'),
-    	#{resTime},
-    	#{resCategory},
-    	#{resComment},
-    	#{patientName},
-    	#{patientBirthday},
-    	#{patientEmail},
-    	#{patientGender},
-    	#{patientResult}
-    	)
-   	<selectKey keyProperty="hResNo" resultType="java.lang.String" order="AFTER">
-		select 'HR' || SEQ_H_RES_NO.CURRVAL FROM DUAL
-	</selectKey>
+        INSERT INTO HEALTH_RESERVATION (
+        USER_NO,
+        HOS_NO,
+        GST_NO,
+        RES_DATE,
+        RES_TIME,
+        RES_CATEGORY,
+        RES_COMMENT,
+        PATIENT_NAME,
+        PATIENT_BIRTH,
+        PATIENT_EMAIL,
+        PATIENT_GENDER,
+        PATIENT_RESULT
+        ) VALUES (
+        #{userNo},
+        #{hosNo},
+        #{gstNo},
+        TO_DATE(#{resDate}, 'YYYY-MM-DD'),
+        #{resTime},
+        #{resCategory},
+        #{resComment},
+        #{patientName},
+        #{patientBirthday},
+        #{patientEmail},
+        #{patientGender},
+        #{patientResult}
+        )
+        <selectKey keyProperty="healthResNo" resultType="java.lang.String" order="AFTER">
+            SELECT 'HR' || SEQ_H_RES_NO.CURRVAL FROM DUAL
+        </selectKey>
     </insert>
-    
-    <!-- 병원 목록 조회 -->
+
+    <!-- Select Hospital List -->
     <select id="selectHospitalList" resultType="com.project.trinity.hospital.model.vo.HospitalInfo">
-	    SELECT 
-	        HOS_NO as hosNo,
-	        HOS_NAME as hosName,
-	        HOS_ADDRESS as hosAddress,
-	        HOS_TEL as hosTel,
-	        DEPARTMENT as department,
-	        HOS_START_TIME1 as hosStartTime1,
-	        HOS_CLOSE_TIME1 as hosEndTime1,
-	        HOS_START_TIME2 as hosStartTime2,
-	        HOS_CLOSE_TIME2 as hosEndTime2,
-	        HOS_LATITUDE as hosLatitude,
-	        HOS_LONGITUDE as hosLongitude
-	    FROM HOSPITAL_INFO
-	</select>
-	
-	<!-- 예약번호로 내역 조회 -->
-	<select id="selectHealthReservation" resultMap="HealthReservationResultSet">
-		SELECT H_RES_NO,
-			   USER_NO,
-			   GST_NO,
-			   HOS_NO,
-			   PATIENT_NAME,
-			   PATIENT_RESULT,
-			   RES_DATE,
-			   RES_TIME,
-			   RES_CATEGORY,
-			   RES_COMMENT,
-			   PATIENT_BIRTH,
-			   PATIENT_EMAIL,
-			   PATIENT_GENDER,
-			   HOS_NAME AS hosName
-		  FROM HEALTH_RESERVATION
-		  JOIN HOSPITAL_INFO USING(HOS_NO)
-		 WHERE H_RES_NO = #{hResNo}
-	</select>
-    
+        SELECT 
+            HOS_NO AS hosNo,
+            HOS_NAME AS hosName,
+            HOS_ADDRESS AS hosAddress,
+            HOS_TEL AS hosTel,
+            DEPARTMENT AS department,
+            HOS_START_TIME1 AS hosStartTime1,
+            HOS_CLOSE_TIME1 AS hosEndTime1,
+            HOS_START_TIME2 AS hosStartTime2,
+            HOS_CLOSE_TIME2 AS hosEndTime2,
+            HOS_LATITUDE AS hosLatitude,
+            HOS_LONGITUDE AS hosLongitude
+        FROM HOSPITAL_INFO
+    </select>
+
+    <!-- Select Specific Health Reservation -->
+    <select id="selectHealthReservation" resultMap="HealthReservationResultSet">
+        SELECT HR.H_RES_NO,
+               HR.USER_NO,
+               HR.GST_NO,
+               HR.HOS_NO,
+               HR.PATIENT_NAME,
+               HR.PATIENT_RESULT,
+               HR.RES_DATE,
+               HR.RES_TIME,
+               HR.RES_CATEGORY,
+               HR.RES_COMMENT,
+               HR.PATIENT_BIRTH,
+               HR.PATIENT_EMAIL,
+               HR.PATIENT_GENDER,
+               HI.HOS_NAME,
+               HI.HOS_ADDRESS
+          FROM HEALTH_RESERVATION HR
+          JOIN HOSPITAL_INFO HI ON HR.HOS_NO = HI.HOS_NO
+         WHERE HR.H_RES_NO = #{healthResNo}	
+    </select>
+
+    <!-- Select All Health Reservations By User -->
+    <select id="selectHealthReservationsByUserNo" resultMap="HealthReservationResultSet">
+        SELECT HR.H_RES_NO,
+               HR.USER_NO,
+               HR.GST_NO,
+               HR.HOS_NO,
+               HR.PATIENT_NAME,
+               HR.PATIENT_RESULT,
+               HR.RES_DATE,
+               HR.RES_TIME,
+               HR.RES_CATEGORY,
+               HR.RES_COMMENT,
+               HR.PATIENT_BIRTH,
+               HR.PATIENT_EMAIL,
+               HR.PATIENT_GENDER,
+               HI.HOS_NAME,
+               HI.HOS_ADDRESS
+          FROM HEALTH_RESERVATION HR
+          JOIN HOSPITAL_INFO HI ON HR.HOS_NO = HI.HOS_NO
+         WHERE HR.USER_NO = #{userNo}
+    </select>
+
 </mapper>
