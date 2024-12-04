@@ -2,6 +2,8 @@ package com.project.trinity.reservation.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +59,24 @@ public class ReservationController {
 		}
 		return "/main";
 	}
+	
+	@RequestMapping("/cancel")
+	public String cancelReservation(String resNo, HttpSession session) {
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    int result = rService.cancelReservation(resNo);
+	    if (result > 0) {
+	        System.out.println("예약 취소 성공");
+	    } else {
+	        System.out.println("예약 취소 실패");
+	    }
+
+	    return "redirect:/reservationconfirmation"; // 예약 확인 페이지로 리다이렉트
+	}
+
 
 
 }

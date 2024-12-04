@@ -172,6 +172,11 @@
 		GR.USER_NO = #{userNo}
 	</select>
 
+	<delete id="cancelReservation" parameterType="String">
+		DELETE FROM GENERAL_RESERVATION
+		WHERE G_RES_NO = #{resNo}
+	</delete>
+
 
 
 

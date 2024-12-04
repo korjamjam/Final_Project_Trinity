@@ -77,6 +77,11 @@ public class ReservationDao {
 	    System.out.println("DAO - reservations: " + reservations);
 	    return reservations;
 	}
+	
+	public int cancelReservation(String resNo) {
+	    return sqlSession.delete("reservationMapper.cancelReservation", resNo);
+	}
+
 
 
 }
