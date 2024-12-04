@@ -67,15 +67,18 @@ public class ReservationController {
 	        return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
 	    }
 
+	    System.out.println("[DEBUG] 취소할 예약 번호: " + resNo);
+
 	    int result = rService.cancelReservation(resNo);
 	    if (result > 0) {
-	        System.out.println("예약 취소 성공");
+	        System.out.println("[DEBUG] 예약 취소 성공");
 	    } else {
-	        System.out.println("예약 취소 실패");
+	        System.out.println("[DEBUG] 예약 취소 실패");
 	    }
 
-	    return "redirect:/reservationconfirmation"; // 예약 확인 페이지로 리다이렉트
+	    return "redirect:/member/reservationconfirmation"; // 예약 확인 페이지로 리다이렉트
 	}
+
 
 
 
