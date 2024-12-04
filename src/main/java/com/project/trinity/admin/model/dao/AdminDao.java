@@ -8,15 +8,28 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.project.trinity.member.model.vo.MedicalField;
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
 
 @Repository
 public class AdminDao {
 
+	//------------------------------------회원관리 페이지------------------------------------
     public List<Member> getAllMembers(SqlSessionTemplate sqlSession) {
         return sqlSession.selectList("adminMapper.getAllMembers"); // MyBatis에서 모든 회원 조회 쿼리 실행
+    }
+    
+    public List<Member> getMembersByRole(SqlSessionTemplate sqlSession, String role) {
+        return sqlSession.selectList("adminMapper.getMembersByRole", role);
+    }
+    
+    public Member getMemberDetail(SqlSessionTemplate sqlSession, String userNo) {
+        return sqlSession.selectOne("adminMapper.getMemberDetail", userNo);
+    }
+    
+    public int updateMember(SqlSessionTemplate sqlSession, Member member) {
+    	return sqlSession.update("adminMapper.updateMember", member);
     }
     
     public List<Rankup> getAllRankups(SqlSessionTemplate sqlSession) {
@@ -37,7 +50,6 @@ public class AdminDao {
         sqlSession.insert("adminMapper.insertMedicalField", params);
         return medNo;
     }
-
 
  // member 테이블의 med_key 업데이트
     public int updateMemberMedKey(SqlSessionTemplate sqlSession, String medNo, String userNo) {
@@ -67,6 +79,16 @@ public class AdminDao {
         if (medKey != null) {
             int rowsDeleted = sqlSession.delete("adminMapper.deleteMedicalFieldByMedKey", medKey);
         }
+    }
+    
+    //-------------------------------병원 관리-------------------------------
+    
+    public List<HospitalInfo> getAllHospitals(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("adminMapper.getAllHospitals");
+    }
+    
+    public HospitalInfo getHospitalDetail(SqlSessionTemplate sqlSession, String hosNo) {
+    	return sqlSession.selectOne("adminMapper.getHospitalDetail");
     }
 
 }

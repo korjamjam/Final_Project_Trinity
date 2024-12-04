@@ -5,10 +5,9 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.project.trinity.admin.model.dao.AdminDao;
-import com.project.trinity.member.model.vo.MedicalField;
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
 
@@ -25,6 +24,22 @@ public class AdminServiceImpl implements AdminService {
     public List<Member> getAllMembers() {
         List<Member> members = adminDao.getAllMembers(sqlSession);
         return members;
+    }
+    
+    @Override
+    public List<Member> getMembersByRole(String role) {
+        return adminDao.getMembersByRole(sqlSession, role);
+    }
+    
+    @Override
+    public Member getMemberDetail(String userNo) {
+        return adminDao.getMemberDetail(sqlSession, userNo);
+    }
+    
+    @Override
+    public boolean  updateMember(Member member) {
+    	int result = adminDao.updateMember(sqlSession, member);
+    	return result > 0; 
     }
     
     @Override
@@ -58,8 +73,6 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-
-   
     @Override
     public void rejectRankup(String seqNo) {
         Rankup rankup = adminDao.getRankupDetail(sqlSession, seqNo);
@@ -74,6 +87,17 @@ public class AdminServiceImpl implements AdminService {
             adminDao.updateRankupStatus(sqlSession, seqNo, "D");
         }
     }
+    
+    //---------------------------------병원관리---------------------------------
+    
+    @Override
+    public List<HospitalInfo> getAllHospitals() {
+        return adminDao.getAllHospitals(sqlSession);
+    }
 
+	@Override
+	public HospitalInfo getHospitalDetail(String hosNo) {
+		return adminDao.getHospitalDetail(sqlSession, hosNo);
+	}
 
 }

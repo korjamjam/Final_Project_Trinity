@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.admin.service.AdminService;
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
 
@@ -28,16 +29,68 @@ public class AdminController {
 
     // 회원관리 페이지
     @RequestMapping("/member")
-    public String showAdminMember(Model model) {
-        List<Member> memberList = adminService.getAllMembers(); // 모든 회원 목록 가져오기
-        model.addAttribute("memberList", memberList); // JSP로 전달
+    public String showAdminMember(
+            @RequestParam(name = "role", defaultValue = "전체") String role,
+            Model model) {
+        
+        List<Member> memberList;
+
+        // 조건에 따라 회원 목록 필터링
+        switch (role) {
+            case "의사":
+                memberList = adminService.getMembersByRole("medKey"); // 의사는 medKey가 있는 회원
+                break;
+            case "관리자":
+                memberList = adminService.getMembersByRole("isAdmin"); // 관리자는 isAdmin = 'Y'
+                break;
+            case "일반":
+                memberList = adminService.getMembersByRole("general"); // 일반 회원은 medKey 없음 & isAdmin = 'N'
+                break;
+            default:
+                memberList = adminService.getAllMembers(); // 전체 회원
+        }
+
+        model.addAttribute("memberList", memberList); // JSP에 전달
+        model.addAttribute("selectedRole", role); // 선택된 역할 전달
         return "admin/admin_member";
     }
+
     
     //회원관리 상세페이지
     @RequestMapping("/memberDetail")
-    public String showAdminMemeberDetail() {
+    public String showAdminMemberDetail(@RequestParam("userNo") String userNo, Model model) {
+        Member member = adminService.getMemberDetail(userNo); // 특정 회원 정보 가져오기
+        System.out.println("Member: " + member); // 디버깅용 로그
+        model.addAttribute("member", member); // JSP에 전달
         return "admin/admin_member_detail";
+    }
+    
+    @RequestMapping("updateMember")
+    public String updateMember(
+    		@RequestParam("userNo") String userNo,
+            @RequestParam("postcode") String postcode,
+            @RequestParam("address") String address,
+            @RequestParam("status") String status,
+            @RequestParam("isAdmin") String isAdmin,
+            RedirectAttributes redirectAttributes) {
+    	
+    	// 업데이트를 위한 Member 객체 생성
+        Member updatedMember = new Member();
+        updatedMember.setUserNo(userNo);
+        updatedMember.setPostcode(postcode);
+        updatedMember.setAddress(address);
+        updatedMember.setStatus(status);
+        updatedMember.setIsAdmin(isAdmin);
+
+        // 업데이트 수행
+        boolean isUpdated = adminService.updateMember(updatedMember);
+
+        // 성공/실패 메시지 설정
+        String message = isUpdated ? "회원 정보가 성공적으로 수정되었습니다." : "회원 정보 수정에 실패하였습니다.";
+        redirectAttributes.addFlashAttribute("alertMsg", message);
+
+        // 다시 상세 페이지로 리다이렉트
+        return "redirect:/admin/memberDetail?userNo=" + userNo;
     }
     
     // 등업 신청 페이지
@@ -76,15 +129,24 @@ public class AdminController {
         return "redirect:/admin/rankup"; // 등업 리스트 페이지로 이동
     }
 
-    //병원관리 페이지
+    //----------------------------------병원관리 페이지----------------------------------
     @RequestMapping("/hospital")
-    public String showAdminHospital() {
+    public String showAdminHospital(Model model) {
+        // 병원 목록을 가져오는 서비스 호출
+        List<HospitalInfo> hospitalList = adminService.getAllHospitals();
+        // hospitalList가 null인지 체크
+        System.out.println("hospitalList: " + hospitalList); // null 체크
+        // 모델에 데이터를 추가
+        model.addAttribute("hospitalList", hospitalList);
+
         return "admin/admin_hospital";
     }
-    
-    //병원관리 상세페이지
+
     @RequestMapping("/hospitalDetail")
-    public String showAdminHospitalDetail() {
+    public String showAdminHospitalDetail(@RequestParam("hosNo") String hosNo, Model model) {
+        HospitalInfo hospitalinfo = adminService.getHospitalDetail(hosNo); // 특정 회원 정보 가져오기
+        System.out.println("hospitalinfo: " + hospitalinfo); // 디버깅용 로그
+        model.addAttribute("hospitalinfo", hospitalinfo); // JSP에 전달
         return "admin/admin_hospital_detail";
     }
     
