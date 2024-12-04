@@ -22,10 +22,10 @@ window.onload = function(){
     var swiper = new Swiper(".mySwiper", {
         loop: true,
         cssMode: true,
-        // autoplay: {
-        //     delay: 6000,                    // 자동재생
-        //     disableOnInteraction: false     // 사용자 상호 작용 후에도 자동 재생 유지
-        // },
+        autoplay: {
+            delay: 6000,                    // 자동재생
+            disableOnInteraction: false     // 사용자 상호 작용 후에도 자동 재생 유지
+        },
         speed: 500,
         centeredSlides: "true",
         navigation: {

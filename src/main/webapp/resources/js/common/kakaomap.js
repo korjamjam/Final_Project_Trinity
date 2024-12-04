@@ -1,6 +1,6 @@
 function kakaoInit(latitude, longitude){
-    console.log(latitude)
-    console.log(longitude)
+    // console.log(latitude)
+    // console.log(longitude)
     let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                         mapOption = { 
                             center: new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), // 지도의 중심좌표
