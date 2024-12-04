@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+    <title>기업 회원 로그인</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -39,10 +39,7 @@
             <button type="submit" class="login-button">로그인</button>
         </form>
         <div class="login-footer-links">
-            <a href="${pageContext.request.contextPath}/member/search_id">아이디 찾기</a> | 
-            <a href="${pageContext.request.contextPath}/member/search_pwd">비밀번호 찾기</a> |
-            <a href="${pageContext.request.contextPath}/member/sign_up">회원가입</a> |
-            <a href="${pageContext.request.contextPath}/hospital/account/login">기업 사용자</a> <!-- 병원 로그인 연결 -->
+            <a href="${pageContext.request.contextPath}/hospital/account/sign_up">회원가입</a>
         </div>
     </div>
 </div>
