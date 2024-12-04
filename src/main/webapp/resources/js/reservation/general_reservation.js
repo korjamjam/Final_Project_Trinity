@@ -59,7 +59,7 @@ function isYouCheckChange(checked){
     const userNameInput = document.getElementById("userName");
     const birthdayInput = document.getElementById("birthday");
     const userNoInput = document.getElementById("userNo");
-    const phoneInput = document.getElementById("phone");
+    const phoneInput = document.getElementById("phone0");
     const phone2Input = document.getElementById("phone2");
     const phone3Input = document.getElementById("phone3");
     const emailInput = document.getElementById("email");
@@ -95,3 +95,11 @@ function isYouCheckChange(checked){
     }
 
 }
+
+function updateHiddenInput(value) {
+    let start = document.getElementById('phone1').value;
+    let middle = document.getElementById('phone2').value;
+    let end = document.getElementById('phone3').value;
+    full = start + middle + end;
+    document.getElementById('phone').value = full;
+  }
