@@ -32,8 +32,14 @@
 				<!-- 메인 콘텐츠 -->
 				<div id="mainWrapper">
 					<div id="contentHeader">
-						<h2 class="content-title">${categoryName}</h2>
-						<div id="contentControls">
+      <h2 class="content-title">
+            <c:choose>
+                <c:when test="${categoryId == 'CAT01'}">자유게시판</c:when>
+                <c:when test="${categoryId == 'CAT02'}">메디톡</c:when>
+                <c:when test="${categoryId == 'CAT03'}">이벤트게시판</c:when>
+                <c:otherwise>실시간 인기글</c:otherwise>
+            </c:choose>
+        </h2>						<div id="contentControls">
 							<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서
 								확인하세요.</p>
 							<div id="contentButton">
