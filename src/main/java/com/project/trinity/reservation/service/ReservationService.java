@@ -22,6 +22,8 @@ public interface ReservationService {
 	// ReservationService
 	List<Reservation> getReservationsByUserNo(String userNo);
 
+	int cancelReservation(String resNo);
+
 	
 
 }

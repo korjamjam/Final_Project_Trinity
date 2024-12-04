@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -8,8 +8,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약확인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/account/reservationconfirmation.css">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/account/reservationconfirmation.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+	rel="stylesheet">
 </head>
 <body>
 	<!-- Header -->
@@ -24,7 +27,7 @@
 		<!-- Main Content -->
 		<main class="profile-container">
 			<h2>예약확인</h2>
-			
+
 			<!-- 예약 데이터 처리 -->
 			<c:choose>
 				<c:when test="${not empty reservations}">
@@ -32,67 +35,67 @@
 						<div class="reservation-item">
 							<h3>예약 번호: ${reservation.resNo}</h3>
 							<div class="input-group">
-								<label>병원이름</label> 
-								<input type="text" name="hosName" value="${reservation.hosName}" disabled>
+								<label>병원이름</label> <input type="text" name="hosName"
+									value="${reservation.hosName}" disabled>
 							</div>
 							<div class="input-group">
-								<label>병원 주소</label> 
-								<input type="text" name="hosAddress" value="${reservation.hosAddress}" disabled>
+								<label>병원 주소</label> <input type="text" name="hosAddress"
+									value="${reservation.hosAddress}" disabled>
 							</div>
 							<div class="input-group">
-								<label>진료자명</label> 
-								<input type="text" name="patientName" value="${reservation.patientName}" disabled>
+								<label>진료자명</label> <input type="text" name="patientName"
+									value="${reservation.patientName}" disabled>
 							</div>
 							<div class="input-group">
-								<label>진료자 생년월일</label> 
-								<input type="date" name="patientBirthday" value="${reservation.patientBirthday}" disabled>
-							</div>
-							<div class="input-group">
-								<label>진료 날짜</label> 
-								<input type="text" name="resDate" value="${reservation.resDate}" disabled>
-							</div>
-							<div class="input-group">
-								<label>진료시간</label> 
-								<input type="text" name="resTime" value="${reservation.resTime}" disabled>
+								<label>진료 날짜</label> <input type="text" name="resDate"
+									value="${reservation.resDate}" disabled>
 							</div>
 							<div class="input-group">
 								<label>예약 내용</label>
 								<textarea name="resContent" disabled>${reservation.resContent}</textarea>
 							</div>
-							<!-- 수정 활성화/저장 버튼 -->
-							<button type="button" class="edit-button">수정 활성화</button>
-							<!-- 예약 변경 요청 버튼 -->
-							<button type="button" class="password-change">예약변경요청</button>
+							<button class="cancel-btn"
+								onclick="cancelReservation('${reservation.resNo}')">예약
+								취소</button>
 						</div>
-						<hr />
 					</c:forEach>
+
+					<script>
+						function cancelReservation(resNo) {
+							if (confirm("예약을 취소하시겠습니까?")) {
+								// 예약 취소 요청 전송
+								location.href = `${pageContext.request.contextPath}/reservation/cancel?resNo=${resNo}`;
+							}
+						}
+					</script>
+
 				</c:when>
 				<c:otherwise>
 					<div class="reservation-item">
 						<h3>예약 데이터가 없습니다.</h3>
 						<div class="input-group">
-							<label>병원이름</label> 
-							<input type="text" name="hosName" value="-" disabled>
+							<label>병원이름</label> <input type="text" name="hosName" value="-"
+								disabled>
 						</div>
 						<div class="input-group">
-							<label>병원 주소</label> 
-							<input type="text" name="hosAddress" value="-" disabled>
+							<label>병원 주소</label> <input type="text" name="hosAddress"
+								value="-" disabled>
 						</div>
 						<div class="input-group">
-							<label>진료자명</label> 
-							<input type="text" name="patientName" value="-" disabled>
+							<label>진료자명</label> <input type="text" name="patientName"
+								value="-" disabled>
 						</div>
 						<div class="input-group">
-							<label>진료자 생년월일</label> 
-							<input type="date" name="patientBirthday" value="" disabled>
+							<label>진료자 생년월일</label> <input type="date" name="patientBirthday"
+								value="" disabled>
 						</div>
 						<div class="input-group">
-							<label>진료 날짜</label> 
-							<input type="text" name="resDate" value="-" disabled>
+							<label>진료 날짜</label> <input type="text" name="resDate" value="-"
+								disabled>
 						</div>
 						<div class="input-group">
-							<label>진료시간</label> 
-							<input type="text" name="resTime" value="-" disabled>
+							<label>진료시간</label> <input type="text" name="resTime" value="-"
+								disabled>
 						</div>
 						<div class="input-group">
 							<label>예약 내용</label>
