@@ -1,7 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,7 +22,6 @@
 		<!-- Main Content -->
 		<main class="profile-container">
 			<h2>예약확인</h2>
-			
 			<!-- 예약 데이터 처리 -->
 			<c:choose>
 				<c:when test="${not empty reservations}">
@@ -45,27 +42,35 @@
 							</div>
 							<div class="input-group">
 								<label>진료자 생년월일</label> 
-								<input type="date" name="patientBirthday" value="${reservation.patientBirthday}" disabled>
+								<input type="text" name="patientBirthday" value="${reservation.patientBirthday}" disabled>
 							</div>
 							<div class="input-group">
 								<label>진료 날짜</label> 
 								<input type="text" name="resDate" value="${reservation.resDate}" disabled>
 							</div>
 							<div class="input-group">
-								<label>진료시간</label> 
+								<label>진료 시간</label>
 								<input type="text" name="resTime" value="${reservation.resTime}" disabled>
 							</div>
 							<div class="input-group">
 								<label>예약 내용</label>
 								<textarea name="resContent" disabled>${reservation.resContent}</textarea>
 							</div>
-							<!-- 수정 활성화/저장 버튼 -->
-							<button type="button" class="edit-button">수정 활성화</button>
-							<!-- 예약 변경 요청 버튼 -->
-							<button type="button" class="password-change">예약변경요청</button>
+							<button class="cancel-btn" onclick="cancelReservation('${reservation.resNo}')">예약 취소</button>
 						</div>
-						<hr />
 					</c:forEach>
+
+
+					<script>
+						function cancelReservation(resNo) {
+							if (confirm("예약을 취소하시겠습니까?")) {
+								// 예약 취소 요청 전송
+								console.log("취소 요청 - 예약 번호: " + resNo); // 디버깅용
+								location.href = `${pageContext.request.contextPath}/reservation/cancel?resNo=` + resNo;
+							}
+						}
+					</script>
+
 				</c:when>
 				<c:otherwise>
 					<div class="reservation-item">
@@ -84,14 +89,14 @@
 						</div>
 						<div class="input-group">
 							<label>진료자 생년월일</label> 
-							<input type="date" name="patientBirthday" value="" disabled>
+							<input type="text" name="patientBirthday" value="-" disabled>
 						</div>
 						<div class="input-group">
 							<label>진료 날짜</label> 
 							<input type="text" name="resDate" value="-" disabled>
 						</div>
 						<div class="input-group">
-							<label>진료시간</label> 
+							<label>진료 시간</label>
 							<input type="text" name="resTime" value="-" disabled>
 						</div>
 						<div class="input-group">

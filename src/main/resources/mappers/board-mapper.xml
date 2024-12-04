@@ -341,13 +341,6 @@
         ORDER BY C.CREATED_AT DESC
     </select>
 
-
-
-
-
-
-
-
 	<select id="selectTopBoardList" resultMap="boardResult">
 		SELECT *
 		FROM (
@@ -440,12 +433,26 @@
             b.BOARD_VIEWS,
             c.CATEGORY_NAME AS CATEGORY_NAME,
             b.STATUS,
-            ROW_NUMBER() OVER (ORDER BY b.ENROLL_DATE DESC) AS RN  -- 최신 게시글 순으로 정렬
-        FROM BOARD b
+                ROW_NUMBER() OVER (
+                <choose>
+                    <when test="categoryId != null">
+                        ORDER BY b.ENROLL_DATE DESC  -- 최신 게시글 순으로 정렬 (카테고리 존재 시)
+                    </when>
+                    <otherwise>
+                        ORDER BY b.BOARD_VIEWS DESC  -- 조회수 순으로 정렬 (카테고리 없을 시)
+                    </otherwise>
+                </choose>
+            ) AS RN
+       FROM BOARD b
         LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
         LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
         WHERE b.STATUS = 'Y'  -- 활성화된 게시글만 조회
-        AND b.CATEGORY_ID = #{categoryId}  -- 카테고리 ID에 맞는 게시글만 조회
+       
+         
+        <!-- categoryId가 있을 경우에만 해당 조건 추가 -->
+       <if test="categoryId != null">
+                    AND b.CATEGORY_ID = #{categoryId}  -- 카테고리 ID에 맞는 게시글만 조회
+        </if>
     )
     WHERE RN BETWEEN #{startRow} AND #{endRow}  -- 페이징 처리
 </select>

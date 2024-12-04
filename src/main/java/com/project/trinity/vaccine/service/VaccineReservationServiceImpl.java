@@ -58,6 +58,10 @@ public class VaccineReservationServiceImpl implements VaccineReservationService 
 		VaccineReservation vaccineReservation = vaccineReservationDao.selectReservation(sqlSession, resNo);
 		return vaccineReservation;
 	}
-
+	
+	@Override
+    public List<VaccineReservation> getReservationsByUserNo(String userNo) {
+        return sqlSession.selectList("vaccineMapper.selectVaccineReservations", userNo);
+    }
 
 }

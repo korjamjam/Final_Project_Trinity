@@ -77,6 +77,15 @@ public class ReservationDao {
 	    System.out.println("DAO - reservations: " + reservations);
 	    return reservations;
 	}
+	
+	public int cancelReservation(String resNo) {
+	    System.out.println("[DEBUG] DAO - 취소할 예약 번호: " + resNo);
+	    int result = sqlSession.delete("reservationMapper.cancelReservation", resNo);
+	    System.out.println("[DEBUG] DAO - 삭제 결과: " + result);
+	    return result;
+	}
+
+
 
 
 }

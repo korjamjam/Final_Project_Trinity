@@ -48,40 +48,28 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	
-
-
+	
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
 	public String getBoardPage(
-	    @RequestParam(value = "categoryId", required = false, defaultValue = "popular") String categoryId,
+	    @RequestParam(value = "categoryId", required = false) String categoryId,
 	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
 	    Model m) {
-
-		  // 카테고리 이름 결정 (categoryId에 맞는 이름을 반환)
-	    String categoryName = getCategoryNameById(categoryId);
-	    // 카테고리 정보 모델에 추가
-	    m.addAttribute("categoryId", categoryId);
-	    m.addAttribute("categoryName", categoryName);
-	    System.out.println("현현재 카테고리: " + categoryId);
-	    System.out.println("현현재 카테고리명: " + categoryName);
-	    // 'popular'일 경우, 인기글 요청만 처리하고 다른 카테고리는 처리 안 함
-	    if ("popular".equals(categoryId)) {
-	        System.out.println("실시간 인기글 요청입니다.");
-	        return "community/board";  // 인기 게시글만 처리
-	    }
+	    
 
 	    // 카테고리별 게시글 수 조회
 	    int listCount = boardService.selectCountCategoryList(categoryId);
-	    System.out.println("게시글 수: " + listCount);
 
 	    // 페이징 정보 설정
 	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
 	    // 게시글 목록 조회
 	    List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
+	    System.out.println("게시글 수: " + listCount);
 	    System.out.println("게시글 목록: " + boardList);
 
 	    // 모델에 데이터 추가
+	    m.addAttribute("categoryId", categoryId);
 	    m.addAttribute("boardList", boardList);
 	    m.addAttribute("pi", pi);
 
@@ -150,7 +138,7 @@ public class BoardController {
 //	        model.addAttribute("boardList", boardList);
 //	    }
 //
-//	    return "community/community_main";
+//	    return "community/community_main_popular";
 //	}
 
 

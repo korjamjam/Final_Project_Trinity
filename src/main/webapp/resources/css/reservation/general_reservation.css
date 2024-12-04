@@ -133,6 +133,14 @@
     height: 10px;
     border-radius: 50%;
 }
+.reservation_phone{
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+}
+.reservation_phone input{
+    width: 90px;
+}
 
 .hasDatepicker{
 	display: flex;
@@ -158,6 +166,9 @@
     .reservation_button{
         width: 70%;
         max-width: 460px;
+    }
+    .reservation_phone input{
+        width: 90px;
     }
 }
 
@@ -192,9 +203,15 @@
         width: 60%;
         border-radius: 5px;
     }
+    .reservation_phone input{
+        width: 90px;
+    }
 }
 @media (min-width: 1200px) {
     .reservation_button{
         margin-bottom: 93px;
+    }
+    .reservation_phone input{
+        width: 90px;
     }
 }
