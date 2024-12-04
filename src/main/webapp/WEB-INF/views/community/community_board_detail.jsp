@@ -51,14 +51,14 @@
 		<div id="main-wrapper">
 			<div class="navigation-buttons">
 				<!-- 왼쪽 섹션: 수정, 삭제 -->
-				<div class="left-section">
-				
+	<div class="left-section">
     <!-- 수정 버튼 -->
     <button class="white-button" onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${b.boardNo}'">수정</button>
 
     <!-- 삭제 버튼 -->
-    <button class="white-button" onclick="deleteBoard('${pageContext.request.contextPath}/community/deleteBoard', '${b.boardNo}')">삭제</button>
+   <button class="white-button" onclick="deleteBoard('${b.boardNo}', '${b.categoryId}')">삭제</button>
 </div>
+
 
 
 
