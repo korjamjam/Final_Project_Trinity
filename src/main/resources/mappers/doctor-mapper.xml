@@ -7,7 +7,7 @@
 	<insert id="applyDoctor">
 		INSERT INTO RANKUP (
 		USER_NO,
-		R_TITLE,
+		RES_TITLE,
 		SUBJECT,
 		LIC_PICTURE
 		) VALUES (
