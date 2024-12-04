@@ -56,6 +56,15 @@ public class RerservationServiceImpl implements ReservationService{
 	public List<Reservation> getReservationsByUserNo(String userNo) {
 	    return rDao.selectReservationsByUserNo(userNo);
 	}
+	
+	@Override
+	public int cancelReservation(String resNo) {
+	    System.out.println("[DEBUG] Service - 취소할 예약 번호: " + resNo);
+	    int result = rDao.cancelReservation(resNo);
+	    System.out.println("[DEBUG] Service - 취소 결과: " + result);
+	    return result;
+	}
+
 
 
 }

@@ -199,7 +199,7 @@
                 의사 리뷰
             </div>
             <div class="hospital_detail_doctor_row_wrapper">
-                <div class="hospital_detail_doctor_row">
+                <!-- <div class="hospital_detail_doctor_row">
                     <div class="hospital_detail_doctor_intro">
                         <div class="hospital_detail_doctor_img">
                             <img src="${ pageContext.servletContext.contextPath }/resources/img/doc_lim.png" alt="doc1">
@@ -262,7 +262,7 @@
                         <button>약력보기</button>
                         <button>의사 리뷰보기</button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
