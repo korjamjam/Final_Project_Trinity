@@ -443,35 +443,7 @@ DECLARE
         SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
     v_user_no MEMBER.USER_NO%TYPE;
 BEGIN
-    FOR i IN 1..100 LOOP
-        -- 랜덤한 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
-            ORDER BY DBMS_RANDOM.VALUE
-        ) WHERE ROWNUM = 1;
-
-        -- BOARD 데이터 삽입
-   DECLARE
-    CURSOR c_user_no IS
-        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
-    v_user_no MEMBER.USER_NO%TYPE;
-BEGIN
-    FOR i IN 1..100 LOOP
-        -- 랜덤한 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
-            ORDER BY DBMS_RANDOM.VALUE
-        ) WHERE ROWNUM = 1;
-
-        -- BOARD 데이터 삽입
-DECLARE
-    CURSOR c_user_no IS
-        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
-    v_user_no MEMBER.USER_NO%TYPE;
-BEGIN
-    FOR i IN 1..100 LOOP
+    FOR i IN 1..1000 LOOP  -- 1000개의 데이터 생성
         -- 랜덤한 USER_NO 가져오기
         SELECT USER_NO INTO v_user_no
         FROM (
@@ -493,7 +465,7 @@ BEGIN
             STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
-            CASE MOD(i, 3)                       -- BOARD_TYPE 매핑
+            CASE MOD(i, 3)                       -- BOARD_TYPE 매핑 (3가지 종류만 사용)
                 WHEN 0 THEN 1                    -- 자유게시판
                 WHEN 1 THEN 2                    -- 메디톡
                 ELSE 3                           -- 이벤트게시판
@@ -512,6 +484,21 @@ BEGIN
             'Y'                                  -- STATUS (항상 Y)
         );
     END LOOP;
+    COMMIT;
+END;
+
+
+-- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
+BEGIN
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT01', '자유게시판', 1, 'Y');
+    
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT02', '메디톡', 2, 'Y');
+    
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT03', '이벤트게시판', 3, 'Y');
+    
     COMMIT;
 END;
 
