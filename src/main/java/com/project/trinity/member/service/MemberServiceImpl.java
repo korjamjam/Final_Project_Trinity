@@ -1,5 +1,6 @@
 package com.project.trinity.member.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,7 +114,11 @@ public class MemberServiceImpl implements MemberService {
 		params.put("userId", userId);
 		params.put("encryptedPassword", encryptedPassword);
 		return memberDao.updatePassword(sqlSession, params);
+	}
 
+	@Override
+	public ArrayList<Member> selectDoctorInfoList(String hosNo) {
+		return memberDao.selectDoctorInfoList(sqlSession, hosNo);
 	}
 
 }

@@ -12,15 +12,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
+import com.project.trinity.member.model.vo.DoctorReview;
+import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("hospital")
 public class HospitalController {
+	@Autowired
 	private final HospitalService hospitalService;
 	
 	@Autowired
-	public HospitalController(HospitalService hospitalService) {
-		this.hospitalService = hospitalService;
+	private final MemberService memberService;
+	
+	@Autowired
+	public HospitalController(HospitalService hospitalService, MemberService memberService) {
+	    this.hospitalService = hospitalService;
+	    this.memberService = memberService;
 	}
 	
 	@RequestMapping("/list")
@@ -61,10 +69,18 @@ public class HospitalController {
 	public String hospitalDetail(String hosNo, Model m) {
 		HospitalInfo h = hospitalService.selectHospital(hosNo);
 		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
+		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
+		ArrayList rating[] = new ArrayList[dList.size()];
+		for(int i = 0; i < dList.size(); i++) {
+			String userNo = dList.get(i).getUserNo();
+			System.out.println(userNo);
+			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(hosNo);
+		}
 		m.addAttribute("h",h);
 		m.addAttribute("hInfo",hInfo);
+		m.addAttribute("dList",dList);
 		
-		System.out.println("h : " + h);
+		System.out.println("Controller dList : " + dList);
 		return "hospital_detail/hospital_detail";
 	}
 	

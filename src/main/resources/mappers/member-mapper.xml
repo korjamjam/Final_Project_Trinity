@@ -174,6 +174,28 @@
 		SET STATUS = 'N' <!-- 상태 비활성화 -->
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	
+	<select id="selectDoctorInfoList" parameterType="string" resultMap="memberResultSet">
+		SELECT USER_NO,
+			   USER_ID,
+			   USER_PWD,
+			   USER_NAME,
+			   EMAIL,
+			   PHONE,
+			   BIRTHDAY,
+			   GENDER,
+			   ADDRESS,
+			   ENROLL_DATE,
+			   STATUS,
+			   ISADMIN,
+			   MED_KEY,
+			   HOS_NO,
+			   USERPROFILE
+		FROM MEMBER
+		WHERE HOS_NO = #{hosNo} AND 
+			  STATUS = 'Y'
+	</select>
 
 
 </mapper>
