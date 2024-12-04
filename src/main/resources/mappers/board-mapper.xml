@@ -5,167 +5,175 @@
 
 <mapper namespace="boardMapper">
 
-    <!-- 게시글 ResultMap 정의 -->
-   <resultMap id="boardResult" type="com.project.trinity.community.board.model.vo.Board">
-        <id property="boardNo" column="BOARD_NO"/>
-        <result property="boardType" column="BOARD_TYPE"/>
-        <result property="boardTitle" column="BOARD_TITLE"/>
-        <result property="userNo" column="USER_NO"/>
-        <result property="boardWriter" column="BOARD_WRITER"/>
-        <result property="boardContent" column="BOARD_CONTENT"/>
-        <result property="enrollDate" column="ENROLL_DATE"/>
-        <result property="modifiedDate" column="MODIFIED_DATE"/>
-        <result property="boardViews" column="BOARD_VIEWS"/>
-        <result property="status" column="STATUS"/>
-            <result property="categoryId" column="CATEGORY_ID" /> <!-- 여기서 CATEGORY_ID 매핑 -->
-        
-        <result property="categoryName" column="CATEGORY_NAME" />
-        
-        <collection property="attachedFiles" ofType="com.project.trinity.community.board.model.vo.BoardFile">
-            <id property="fileNo" column="FILE_NO"/>
-            <result property="originName" column="ORIGIN_NAME"/>
-            <result property="changeName" column="CHANGE_NAME"/>
-            <result property="allowDownload" column="ALLOW_DOWNLOAD"/>
-            <result property="fileSize" column="FILE_SIZE"/>
-        </collection>
-    </resultMap>
+	<!-- 게시글 ResultMap 정의 -->
+	<resultMap id="boardResult"
+		type="com.project.trinity.community.board.model.vo.Board">
+		<id property="boardNo" column="BOARD_NO" />
+		<result property="boardType" column="BOARD_TYPE" />
+		<result property="boardTitle" column="BOARD_TITLE" />
+		<result property="userNo" column="USER_NO" />
+		<result property="boardWriter" column="BOARD_WRITER" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="modifiedDate" column="MODIFIED_DATE" />
+		<result property="boardViews" column="BOARD_VIEWS" />
+		<result property="status" column="STATUS" />
+		<result property="categoryId" column="CATEGORY_ID" /> <!-- 여기서 CATEGORY_ID 매핑 -->
 
-  <select id="selectAllCategories" resultType="com.project.trinity.community.board.model.vo.BoardCategory">
-        SELECT category_id AS categoryId, category_name AS categoryName, sort_order AS sortOrder, is_active AS isActive
-        FROM board_category
-        WHERE is_active = 'Y'
-        ORDER BY sort_order
-    </select>
+		<result property="categoryName" column="CATEGORY_NAME" />
 
-    <!-- 게시글 총 갯수 조회 -->
-    <select id="selectListCount" resultType="int">
-        SELECT COUNT(*) FROM BOARD
-    </select>
+		<collection property="attachedFiles"
+			ofType="com.project.trinity.community.board.model.vo.BoardFile">
+			<id property="fileNo" column="FILE_NO" />
+			<result property="originName" column="ORIGIN_NAME" />
+			<result property="changeName" column="CHANGE_NAME" />
+			<result property="allowDownload" column="ALLOW_DOWNLOAD" />
+			<result property="fileSize" column="FILE_SIZE" />
+		</collection>
+	</resultMap>
 
-    <!-- 게시글 리스트 조회 -->
-<select id="selectList" resultType="Board">
-    SELECT 
-        B.BOARD_NO AS boardNo,
-        B.CATEGORY_ID AS categoryId,
-        C.CATEGORY_NAME AS categoryName, -- 카테고리 이름 추가
-        B.BOARD_TITLE AS boardTitle,
-        M.USER_ID AS boardWriter,
-        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS enrollDate,
-        B.BOARD_VIEWS AS boardViews
-    FROM BOARD B
-    JOIN MEMBER M ON B.USER_NO = M.USER_NO
-    LEFT JOIN BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID -- BOARD_CATEGORY 테이블 조인
-    <choose>
-        <when test="sortType == '조회수'">
-            ORDER BY B.BOARD_VIEWS DESC
-        </when>
-        <when test="sortType == '작성일'">
-            ORDER BY B.ENROLL_DATE DESC
-        </when>
-        <otherwise>
-            ORDER BY B.BOARD_NO DESC
-        </otherwise>
-    </choose>
-</select>
+	<select id="selectAllCategories"
+		resultType="com.project.trinity.community.board.model.vo.BoardCategory">
+		SELECT category_id AS categoryId, category_name AS categoryName, sort_order
+		AS sortOrder, is_active AS isActive
+		FROM board_category
+		WHERE is_active = 'Y'
+		ORDER BY sort_order
+	</select>
 
+	<!-- 게시글 총 갯수 조회 -->
+	<select id="selectListCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
 
-    <!-- 게시글 조회수 증가 -->
-    <update id="increaseCount">
-        UPDATE BOARD
-        SET BOARD_VIEWS = TO_NUMBER(BOARD_VIEWS) + 1
-        WHERE BOARD_NO = #{boardNo}
-    </update>
+	<!-- 게시글 리스트 조회 -->
+	<select id="selectList" resultType="Board">
+		SELECT
+		B.BOARD_NO AS boardNo,
+		B.CATEGORY_ID AS categoryId,
+		C.CATEGORY_NAME AS categoryName, -- 카테고리 이름 추가
+		B.BOARD_TITLE AS boardTitle,
+		M.USER_ID AS boardWriter,
+		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS enrollDate,
+		B.BOARD_VIEWS AS boardViews
+		FROM BOARD B
+		JOIN MEMBER M ON B.USER_NO = M.USER_NO
+		LEFT JOIN BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID --
+		BOARD_CATEGORY 테이블 조인
+		<choose>
+			<when test="sortType == '조회수'">
+				ORDER BY B.BOARD_VIEWS DESC
+			</when>
+			<when test="sortType == '작성일'">
+				ORDER BY B.ENROLL_DATE DESC
+			</when>
+			<otherwise>
+				ORDER BY B.BOARD_NO DESC
+			</otherwise>
+		</choose>
+	</select>
 
 
-
-
-    <!-- 댓글 추가 -->
-    <insert id="insertReply" parameterType="Comment">
-        INSERT INTO COMMENTS (COMMENT_NO, BOARD_NO, USER_NO, CONTENT)
-        VALUES (SEQ_COMMENT_NO.NEXTVAL, #{refBno}, #{userNo}, #{commentContent})
-    </insert>
-
-
-<!-- 좋아요/싫어요 상태 확인 -->
-<select id="getCurrentLikeState" resultType="Like">
-    SELECT COMMENT_NO AS commentNo,
-           USER_NO AS userNo,
-           IS_LIKED AS isLike,
-           TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') AS enrollDate
-    FROM LIKES_TABLE
-    WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
-</select>
+	<!-- 게시글 조회수 증가 -->
+	<update id="increaseCount">
+		UPDATE BOARD
+		SET BOARD_VIEWS = TO_NUMBER(BOARD_VIEWS) + 1
+		WHERE BOARD_NO = #{bno}
+	</update>
 
 
 
-<!-- 좋아요/싫어요 추가 -->
-<insert id="insertLikeDislike" parameterType="map">
-    INSERT INTO LIKES_TABLE (COMMENT_NO, USER_NO, IS_LIKED, ENROLL_DATE)
-    VALUES (#{commentNo}, #{userNo}, #{isLike}, SYSDATE)
-</insert>
-<update id="updateLikeDislike">
-    UPDATE LIKES_TABLE
-    SET IS_LIKED = #{isLike}, ENROLL_DATE = SYSDATE
-    WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
-</update>
 
-<!-- 좋아요/싫어요 삭제 -->
-<delete id="deleteLikeDislike" parameterType="map">
-    DELETE FROM LIKES_TABLE
-    WHERE COMMENT_NO = #{commentNo}
-      AND USER_NO = #{userNo}
-</delete>
+	<!-- 댓글 추가 -->
+	<insert id="insertReply" parameterType="Comment">
+		INSERT INTO COMMENTS (COMMENT_NO, BOARD_NO, USER_NO, CONTENT)
+		VALUES (SEQ_COMMENT_NO.NEXTVAL, #{refBno}, #{userNo}, #{commentContent})
+	</insert>
 
-   <!-- 좋아요 개수 -->
-<select id="getLikeCount" resultType="int">
-    SELECT COUNT(*)
-    FROM LIKES_TABLE
-    WHERE COMMENT_NO = #{commentNo} AND IS_LIKED = 1
-</select>
 
-<select id="getDislikeCount" resultType="int">
-    SELECT COUNT(*)
-    FROM LIKES_TABLE
-    WHERE COMMENT_NO = #{commentNo} AND IS_LIKED = 0
-</select>
+	<!-- 좋아요/싫어요 상태 확인 -->
+	<select id="getCurrentLikeState" resultType="Like">
+		SELECT COMMENT_NO AS commentNo,
+		USER_NO AS userNo,
+		IS_LIKED AS isLike,
+		TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD HH24:MI:SS') AS enrollDate
+		FROM LIKES_TABLE
+		WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
+	</select>
+
+
+
+	<!-- 좋아요/싫어요 추가 -->
+	<insert id="insertLikeDislike" parameterType="map">
+		INSERT INTO LIKES_TABLE (COMMENT_NO, USER_NO, IS_LIKED, ENROLL_DATE)
+		VALUES (#{commentNo}, #{userNo}, #{isLike}, SYSDATE)
+	</insert>
+	<update id="updateLikeDislike">
+		UPDATE LIKES_TABLE
+		SET IS_LIKED = #{isLike}, ENROLL_DATE = SYSDATE
+		WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
+	</update>
+
+	<!-- 좋아요/싫어요 삭제 -->
+	<delete id="deleteLikeDislike" parameterType="map">
+		DELETE FROM LIKES_TABLE
+		WHERE COMMENT_NO = #{commentNo}
+		AND USER_NO = #{userNo}
+	</delete>
+
+	<!-- 좋아요 개수 -->
+	<select id="getLikeCount" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKES_TABLE
+		WHERE COMMENT_NO = #{commentNo} AND IS_LIKED = 1
+	</select>
+
+	<select id="getDislikeCount" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKES_TABLE
+		WHERE COMMENT_NO = #{commentNo} AND IS_LIKED = 0
+	</select>
 
 
 	<!-- 게시글 추가 -->
-<insert id="insertBoard" parameterType="Board">
-    INSERT INTO BOARD (
-        USER_NO,
-        BOARD_TITLE,
-        BOARD_CONTENT,
-        CATEGORY_ID
-    )
-    VALUES (
-        #{userNo},
-        #{boardTitle},
-        #{boardContent},
-        #{categoryId} <!-- 카테고리 ID 수정 -->
-    )
-    <selectKey keyProperty="boardNo" resultType="java.lang.String" order="AFTER">
-        SELECT 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
-    </selectKey>
-</insert>
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD (
+		USER_NO,
+		BOARD_TITLE,
+		BOARD_CONTENT,
+		CATEGORY_ID
+		)
+		VALUES (
+		#{userNo},
+		#{boardTitle},
+		#{boardContent},
+		#{categoryId} <!-- 카테고리 ID 수정 -->
+		)
+		<selectKey keyProperty="boardNo"
+			resultType="java.lang.String" order="AFTER">
+			SELECT 'B' || SEQ_BOARD_NO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
 
-<select id="getCategoryNameById" resultType="String">
-    SELECT category_name
-    FROM BOARD_CATEGORY
-    WHERE category_id = #{categoryId}
-</select>
+	<select id="getCategoryNameById" resultType="String">
+		SELECT category_name
+		FROM BOARD_CATEGORY
+		WHERE category_id = #{categoryId}
+	</select>
 
 
 
-  <!-- 첨부파일 저장 -->
-    <insert id="insertFile" parameterType="BoardFile">
-        INSERT INTO FILE_TABLE (
-            FILE_NO, BOARD_NO, USER_NO, ORIGIN_NAME, CHANGE_NAME, ALLOW_DOWNLOAD, FILE_SIZE
-        ) VALUES (
-            SEQ_FILE_NO.NEXTVAL, #{boardNo}, #{userNo}, #{originName}, #{changeName},
-            CASE WHEN #{allowDownload} IS NULL THEN 'Y' ELSE #{allowDownload} END, #{fileSize}
-        )
-    </insert>
+	<!-- 첨부파일 저장 -->
+	<insert id="insertFile" parameterType="BoardFile">
+		INSERT INTO FILE_TABLE (
+		FILE_NO, BOARD_NO, USER_NO, ORIGIN_NAME, CHANGE_NAME, ALLOW_DOWNLOAD,
+		FILE_SIZE
+		) VALUES (
+		SEQ_FILE_NO.NEXTVAL, #{boardNo}, #{userNo}, #{originName}, #{changeName},
+		CASE WHEN #{allowDownload} IS NULL THEN 'Y' ELSE #{allowDownload} END,
+		#{fileSize}
+		)
+	</insert>
 	<update id="updateFileAllowDownload" parameterType="BoardFile">
 		UPDATE
 		FILE_TABLE
@@ -179,7 +187,24 @@
 		WHERE FILE_NO = #{fileNo}
 	</delete>
 
-	<select id="getFilesList" parameterType="String"
+	<delete id="deleteAllFilesByBoardNo" parameterType="String">
+		DELETE FROM FILE_TABLE
+		WHERE BOARD_NO = #{bno}
+	</delete>
+
+	<!-- boardMapper.xml -->
+	<delete id="deleteCommentsByBoardNo" parameterType="String">
+		DELETE FROM COMMENTS
+		WHERE BOARD_NO = #{bno}
+	</delete>
+
+	<!-- boardMapper.xml -->
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM BOARD
+		WHERE BOARD_NO = #{bno}
+	</delete>
+
+	<select id="getFileList" parameterType="String"
 		resultType="BoardFile">
 		SELECT
 		FILE_NO AS fileNo,
@@ -193,7 +218,7 @@
 		FROM
 		FILE_TABLE
 		WHERE
-		BOARD_NO = #{boardNo}
+		BOARD_NO = #{bno}
 	</select>
 
 	<select id="getSingleFile" parameterType="String"
@@ -216,46 +241,44 @@
 	<update id="updateAllowDownload" parameterType="map">
 		UPDATE FILE_TABLE
 		SET ALLOW_DOWNLOAD = #{allowDownload}
-		WHERE BOARD_NO = #{BOARD_NO}
+		WHERE BOARD_NO = #{bno}
 	</update>
 
 
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
-<!-- 게시글 + 첨부파일 정보 조회 -->
-<select id="selectBoard" resultMap="boardResult">
-    SELECT
-        B.BOARD_NO,                     -- 게시글 번호
-        B.BOARD_TYPE,                   -- 게시글 유형
-        B.BOARD_TITLE,                  -- 게시글 제목
-        B.USER_NO,                      -- 사용자 번호
-        M.USER_ID AS BOARD_WRITER,      -- 작성자의 ID
-        B.BOARD_CONTENT,                -- 게시글 내용
-        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,  -- 등록일
-        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,  -- 수정일
-        B.BOARD_VIEWS,                  -- 조회수
-        C.CATEGORY_ID,                  -- 카테고리 ID
-        C.CATEGORY_NAME,                -- 카테고리 이름
-        B.STATUS,                       -- 게시글 상태 (활성/비활성)
-        
-        -- 첨부파일 정보
-        F.FILE_NO,                      -- 첨부파일 번호
-        F.ORIGIN_NAME,                  -- 원본 파일명
-        F.CHANGE_NAME,                  -- 변경된 파일명
-        F.ALLOW_DOWNLOAD,               -- 다운로드 허용 여부
-        F.FILE_SIZE                     -- 파일 크기
-    FROM
+	<!-- 게시글 + 첨부파일 정보 조회 -->
+	<select id="selectBoard" resultMap="boardResult">
+		 SELECT 
+        B.BOARD_NO, 
+        B.BOARD_TYPE, 
+        B.BOARD_TITLE, 
+        B.USER_NO, 
+        M.USER_ID AS BOARD_WRITER, 
+        B.BOARD_CONTENT, 
+        TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, 
+        TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE, 
+        B.BOARD_VIEWS, 
+        C.CATEGORY_ID, 
+        C.CATEGORY_NAME, 
+        B.STATUS, 
+        F.FILE_NO, 
+        F.ORIGIN_NAME, 
+        F.CHANGE_NAME, 
+        F.ALLOW_DOWNLOAD, 
+        F.FILE_SIZE 
+    FROM 
         BOARD B
-    JOIN
-        MEMBER M ON B.USER_NO = M.USER_NO  -- 사용자와 게시글 연결
-    LEFT JOIN
-        FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO  -- 첨부파일과 게시글 연결 (첨부파일이 없는 경우에도 게시글 정보는 조회됨)
-    LEFT JOIN
-        BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'  -- 활성화된 카테고리만 조회
-    WHERE
-        B.STATUS = 'Y'               -- 활성화된 게시글만 조회
-        AND B.BOARD_NO = #{boardNo}   -- 특정 게시글 번호 조회
-</select>
+    JOIN 
+        MEMBER M ON B.USER_NO = M.USER_NO 
+    LEFT JOIN 
+        FILE_TABLE F ON B.BOARD_NO = F.BOARD_NO 
+    LEFT JOIN 
+        BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID AND C.IS_ACTIVE = 'Y' 
+    WHERE 
+        B.STATUS = 'Y' 
+        AND B.BOARD_NO = #{bno}
+	</select>
 
 
 
@@ -266,80 +289,82 @@
 		SET
 		CATEGORY_ID = #{categoryId},
 		BOARD_TITLE = #{boardTitle},
-		BOARD_CONTENT = #{boardContent},
+		BOARD_CONTENT
+		= #{boardContent},
 		MODIFIED_DATE = SYSDATE
 		WHERE BOARD_NO
-		= #{boardNo}
+		= #{bno}
 	</update>
 
-	<select id="selectPopularList" resultMap="boardResult" parameterType="map">
-    SELECT *
-    FROM (
-        SELECT a.*, ROWNUM AS row_number
-        FROM (
-            SELECT
-                B.BOARD_NO,
-                B.BOARD_TITLE,
-                B.USER_NO,
-                M.USER_ID AS BOARD_WRITER,
-                B.BOARD_CONTENT,
-                TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-                B.BOARD_VIEWS,
-                C.CATEGORY_NAME AS CATEGORY_NAME, -- 카테고리 이름 가져오기
-                C.CATEGORY_ID
-            FROM
-                BOARD B
-            JOIN
-                MEMBER M ON B.USER_NO = M.USER_NO
-            LEFT JOIN
-                BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID -- 카테고리 JOIN
-            WHERE
-                B.STATUS = 'Y'
-            ORDER BY
-                TO_NUMBER(B.BOARD_VIEWS) DESC
-        ) a
-        WHERE ROWNUM &lt;= #{endRow}
-    )
-    WHERE
-        row_number &gt;= #{startRow}
-</select>
+	<select id="selectPopularList" resultMap="boardResult"
+		parameterType="map">
+		SELECT *
+		FROM (
+		SELECT a.*, ROWNUM AS row_number
+		FROM (
+		SELECT
+		B.BOARD_NO,
+		B.BOARD_TITLE,
+		B.USER_NO,
+		M.USER_ID AS BOARD_WRITER,
+		B.BOARD_CONTENT,
+		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		B.BOARD_VIEWS,
+		C.CATEGORY_NAME AS CATEGORY_NAME, -- 카테고리 이름 가져오기
+		C.CATEGORY_ID
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M ON B.USER_NO = M.USER_NO
+		LEFT JOIN
+		BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID -- 카테고리 JOIN
+		WHERE
+		B.STATUS = 'Y'
+		ORDER BY
+		TO_NUMBER(B.BOARD_VIEWS) DESC
+		) a
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE
+		row_number &gt;= #{startRow}
+	</select>
 
 
 
-    <!-- 댓글 목록 조회 -->
-    <select id="selectReply" resultType="Comment">
-        WITH LIKE_COUNTS AS (
-            SELECT 
-                COMMENT_NO, 
-                COUNT(*) AS LIKE_COUNT
-            FROM LIKES_TABLE
-            WHERE IS_LIKED = 1
-            GROUP BY COMMENT_NO
-        ),
-        DISLIKE_COUNTS AS (
-            SELECT 
-                COMMENT_NO, 
-                COUNT(*) AS DISLIKE_COUNT
-            FROM LIKES_TABLE
-            WHERE IS_LIKED = 0
-            GROUP BY COMMENT_NO
-        )
-        SELECT 
-            C.COMMENT_NO AS commentNo,
-            C.BOARD_NO AS refBno,
-            C.USER_NO AS userNo,
-            M.USER_ID AS commentWriter,
-            C.CONTENT AS commentContent,
-            TO_CHAR(C.CREATED_AT, 'YYYY-MM-DD HH24:MI') AS createDate,
-            NVL(L.LIKE_COUNT, 0) AS likeCount,
-            NVL(D.DISLIKE_COUNT, 0) AS dislikeCount
-        FROM COMMENTS C
-        JOIN MEMBER M ON C.USER_NO = M.USER_NO
-        LEFT JOIN LIKE_COUNTS L ON C.COMMENT_NO = L.COMMENT_NO
-        LEFT JOIN DISLIKE_COUNTS D ON C.COMMENT_NO = D.COMMENT_NO
-        WHERE C.BOARD_NO = #{bno}
-        ORDER BY C.CREATED_AT DESC
-    </select>
+	<!-- 댓글 목록 조회 -->
+	<select id="selectReply" resultType="Comment">
+		WITH LIKE_COUNTS AS (
+		SELECT
+		COMMENT_NO,
+		COUNT(*) AS LIKE_COUNT
+		FROM LIKES_TABLE
+		WHERE IS_LIKED = 1
+		GROUP BY COMMENT_NO
+		),
+		DISLIKE_COUNTS AS (
+		SELECT
+		COMMENT_NO,
+		COUNT(*) AS DISLIKE_COUNT
+		FROM LIKES_TABLE
+		WHERE IS_LIKED = 0
+		GROUP BY COMMENT_NO
+		)
+		SELECT
+		C.COMMENT_NO AS commentNo,
+		C.BOARD_NO AS refBno,
+		C.USER_NO AS userNo,
+		M.USER_ID AS commentWriter,
+		C.CONTENT AS commentContent,
+		TO_CHAR(C.CREATED_AT, 'YYYY-MM-DD HH24:MI') AS createDate,
+		NVL(L.LIKE_COUNT, 0) AS likeCount,
+		NVL(D.DISLIKE_COUNT, 0) AS dislikeCount
+		FROM COMMENTS C
+		JOIN MEMBER M ON C.USER_NO = M.USER_NO
+		LEFT JOIN LIKE_COUNTS L ON C.COMMENT_NO = L.COMMENT_NO
+		LEFT JOIN DISLIKE_COUNTS D ON C.COMMENT_NO = D.COMMENT_NO
+		WHERE C.BOARD_NO = #{bno}
+		ORDER BY C.CREATED_AT DESC
+	</select>
 
 	<select id="selectTopBoardList" resultMap="boardResult">
 		SELECT *
@@ -352,10 +377,28 @@
 		COUNT AS viewCount, <!-- 조회수 -->
 		TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS createDate
 		FROM BOARD
-		WHERE STATUS = 'Y'
+		WHERE STATUS
+		= 'Y'
 		ORDER BY COUNT DESC
 		)
 		WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+
+
+
+	<!-- 게시글에 첨부된 파일들 조회 -->
+	<select id="getFilesForBoard" parameterType="String"
+		resultType="BoardFile">
+		SELECT
+		FILE_NO AS fileNo,
+		BOARD_NO AS boardNo,
+		USER_NO AS userNo,
+		ORIGIN_NAME AS originName,
+		CHANGE_NAME AS changeName,
+		ALLOW_DOWNLOAD AS allowDownload,
+		FILE_SIZE AS fileSize
+		FROM FILE_TABLE
+		WHERE BOARD_NO = #{bno}
 	</select>
 
 
@@ -366,15 +409,15 @@
 	<!-- 좋아요 관련 SQL 시작 -->
 	<!-- 좋아요 추가 -->
 	<insert id="insertLike" parameterType="map">
-	    INSERT INTO LIKES_TABLE (
-	        COMMENT_NO,
-	        USER_NO,
-	        ENROLL_DATE
-	    ) VALUES (
-	        #{commentNo},        <!-- 댓글 번호 (insertReply에서 반환된 값) -->
-	        #{userNo},           <!-- 좋아요 작성자 번호 -->
-	        SYSDATE              <!-- 등록 날짜 -->
-	    )
+		INSERT INTO LIKES_TABLE (
+		COMMENT_NO,
+		USER_NO,
+		ENROLL_DATE
+		) VALUES (
+		#{commentNo},        <!-- 댓글 번호 (insertReply에서 반환된 값) -->
+		#{userNo},           <!-- 좋아요 작성자 번호 -->
+		SYSDATE              <!-- 등록 날짜 -->
+		)
 	</insert>
 
 
@@ -385,105 +428,108 @@
 	</delete>
 
 	<!-- 좋아요 상태 확인 -->
-	<select id="checkLike" parameterType="map"
-		resultType="int">
-		SELECT COUNT(*)
+	<select id="checkLike" parameterType="map" resultType="int">
+		SELECT
+		COUNT(*)
 		FROM LIKES_TABLE
-		WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
+		WHERE COMMENT_NO = #{commentNo} AND USER_NO =
+		#{userNo}
 	</select>
 
 
 
 	<!-- 좋아요 관련 SQL 끝 -->
-<!-- 게시글 총 개수를 반환하는 쿼리 -->
-<select id="getListCount" resultType="int">
-    <choose>
-        <!-- 'popular'일 때, 최근 7일 동안 조회수가 높은 게시글의 개수 -->
-        <when test="categoryId == 'popular'">
-            SELECT COUNT(*)
-            FROM BOARD
-            WHERE ENROLL_DATE >= SYSDATE - 7
-            AND STATUS = 'Y'
-            AND BOARD_VIEWS > 0
-        </when>
-        
-        <!-- 일반 카테고리에서 게시글 개수 조회 -->
-        <otherwise>
-            SELECT COUNT(*)
-            FROM BOARD
-            WHERE CATEGORY_ID = #{categoryId}
-            AND STATUS = 'Y'
-        </otherwise>
-    </choose>
-</select>
+	<!-- 게시글 총 개수를 반환하는 쿼리 -->
+	<select id="getListCount" resultType="int">
+		<choose>
+			<!-- 'popular'일 때, 최근 7일 동안 조회수가 높은 게시글의 개수 -->
+			<when test="categoryId == 'popular'">
+				SELECT COUNT(*)
+				FROM BOARD
+				WHERE ENROLL_DATE >= SYSDATE - 7
+				AND STATUS = 'Y'
+				AND BOARD_VIEWS > 0
+			</when>
+
+			<!-- 일반 카테고리에서 게시글 개수 조회 -->
+			<otherwise>
+				SELECT COUNT(*)
+				FROM BOARD
+				WHERE CATEGORY_ID = #{categoryId}
+				AND STATUS = 'Y'
+			</otherwise>
+		</choose>
+	</select>
 
 
-<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
-    SELECT *
-    FROM (
-        SELECT
-            b.BOARD_NO,
-            b.BOARD_TYPE,
-            b.BOARD_TITLE,
-            b.USER_NO,
-            m.USER_ID AS BOARD_WRITER,
-            b.BOARD_CONTENT,
-            TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-            b.MODIFIED_DATE,
-            b.BOARD_VIEWS,
-            c.CATEGORY_NAME AS CATEGORY_NAME,
-            b.STATUS,
-                ROW_NUMBER() OVER (
-                <choose>
-                    <when test="categoryId != null">
-                        ORDER BY b.ENROLL_DATE DESC  -- 최신 게시글 순으로 정렬 (카테고리 존재 시)
-                    </when>
-                    <otherwise>
-                        ORDER BY b.BOARD_VIEWS DESC  -- 조회수 순으로 정렬 (카테고리 없을 시)
-                    </otherwise>
-                </choose>
-            ) AS RN
-       FROM BOARD b
-        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
-        LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
-        WHERE b.STATUS = 'Y'  -- 활성화된 게시글만 조회
-       
-         
-        <!-- categoryId가 있을 경우에만 해당 조건 추가 -->
-       <if test="categoryId != null">
-                    AND b.CATEGORY_ID = #{categoryId}  -- 카테고리 ID에 맞는 게시글만 조회
-        </if>
-    )
-    WHERE RN BETWEEN #{startRow} AND #{endRow}  -- 페이징 처리
-</select>
+	<select id="selectListByCategory" parameterType="map"
+		resultMap="boardResult">
+		SELECT *
+		FROM (
+		SELECT
+		b.BOARD_NO,
+		b.BOARD_TYPE,
+		b.BOARD_TITLE,
+		b.USER_NO,
+		m.USER_ID AS BOARD_WRITER,
+		b.BOARD_CONTENT,
+		TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		b.MODIFIED_DATE,
+		b.BOARD_VIEWS,
+		c.CATEGORY_NAME AS CATEGORY_NAME,
+		b.STATUS,
+		ROW_NUMBER() OVER (
+		<choose>
+			<when test="categoryId != null">
+				ORDER BY b.ENROLL_DATE DESC -- 최신 게시글 순으로 정렬 (카테고리 존재 시)
+			</when>
+			<otherwise>
+				ORDER BY b.BOARD_VIEWS DESC -- 조회수 순으로 정렬 (카테고리 없을 시)
+			</otherwise>
+		</choose>
+		) AS RN
+		FROM BOARD b
+		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+		LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
+		WHERE b.STATUS = 'Y' -- 활성화된 게시글만 조회
 
 
-    
+		<!-- categoryId가 있을 경우에만 해당 조건 추가 -->
+		<if test="categoryId != null">
+			AND b.CATEGORY_ID = #{categoryId} -- 카테고리 ID에 맞는 게시글만 조회
+		</if>
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow} -- 페이징 처리
+	</select>
+
+
+
 	<!-- 최근 7일 내 인기 게시글 조회 -->
-<select id="selectRecentPopularList" parameterType="map" resultType="Board">
-    SELECT *
-    FROM (
-        SELECT
-            b.BOARD_NO,
-            b.BOARD_TYPE,
-            b.BOARD_TITLE,
-            b.USER_NO,
-            m.USER_ID AS BOARD_WRITER,
-            b.BOARD_CONTENT,
-            TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-            b.MODIFIED_DATE,
-            b.BOARD_VIEWS,
-            c.CATEGORY_NAME AS CATEGORY_NAME,
-            b.STATUS,
-            ROW_NUMBER() OVER (ORDER BY b.BOARD_VIEWS DESC) AS RN
-        FROM BOARD b
-        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
-        LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
-        WHERE b.STATUS = 'Y'
-        AND b.ENROLL_DATE >= SYSDATE - 7
-    )
-    WHERE RN BETWEEN #{startRow} AND #{endRow} <!-- 페이징 -->
-</select>
+	<select id="selectRecentPopularList" parameterType="map"
+		resultType="Board">
+		SELECT *
+		FROM (
+		SELECT
+		b.BOARD_NO,
+		b.BOARD_TYPE,
+		b.BOARD_TITLE,
+		b.USER_NO,
+		m.USER_ID AS BOARD_WRITER,
+		b.BOARD_CONTENT,
+		TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		b.MODIFIED_DATE,
+		b.BOARD_VIEWS,
+		c.CATEGORY_NAME AS CATEGORY_NAME,
+		b.STATUS,
+		ROW_NUMBER() OVER (ORDER BY b.BOARD_VIEWS DESC) AS RN
+		FROM BOARD b
+		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+		LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
+		WHERE b.STATUS = 'Y'
+		AND b.ENROLL_DATE >= SYSDATE - 7
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow} <!-- 페이징 -->
+	</select>
 
 
 
@@ -494,12 +540,13 @@
 
 
 	<!-- 카테고리별 게시글 수 조회 -->
-	<select id="selectCountCategoryList" parameterType="string" resultType="int">
-    SELECT COUNT(*)
-    FROM BOARD b
-    JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
-    WHERE b.STATUS = 'Y' AND c.CATEGORY_ID = #{type}
-</select>
+	<select id="selectCountCategoryList" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD b
+		JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
+		WHERE b.STATUS = 'Y' AND c.CATEGORY_ID = #{type}
+	</select>
 
 
 

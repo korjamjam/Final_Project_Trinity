@@ -18,12 +18,6 @@
 </head>
 <body>
 
-<script>
-    console.log("EL 데이터 확인");
-    console.log("boardNo:", "${b.boardNo}");
-    console.log("loginUserNo:", "${loginUser != null ? loginUser.userNo : ''}");
-    console.log("loginUserId:", "${loginUser != null ? loginUser.userId : ''}");
-</script>
 
 <div class="comment-section-container">
     <div class="comment-header"> <!-- 이 부분은 댓글 목록 제목용 -->

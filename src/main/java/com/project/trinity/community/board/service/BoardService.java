@@ -29,15 +29,15 @@ public interface BoardService {
 
 	int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
 
-	Board selectBoard(String boardNo); // 특정 게시글 조회
+	Board selectBoard(String bno); // 특정 게시글 조회
 
-	int increaseCount(String boardNo); // 게시글 조회수 증가
+	int increaseCount(String bno); // 게시글 조회수 증가
 
 	int insertBoard(Board b, String userNo); // 새 게시글 추가
 
 	int updateBoard(Board b); // 게시글 수정
 
-	int deleteBoard(String boardNo); // 게시글 삭제
+	int deleteBoard(String bno); // 게시글 삭제
 
 	String getCategoryNameById(String categoryId); // 카테고리 ID로 카테고리 이름 조회
 
@@ -46,15 +46,15 @@ public interface BoardService {
     // 파일 관련 메서드
     int insertFile(BoardFile bf); // 첨부파일 추가
     BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
-    List<BoardFile> getFilesList(String boardNo); // 특정 게시글의 모든 첨부파일
-    int deleteAllFilesByBoardNo(String boardNo); // 게시글의 모든 첨부파일 삭제
+    List<BoardFile> getFileList(String bno); // 특정 게시글의 모든 첨부파일
+    int deleteAllFilesByBoardNo(String bno); // 게시글의 모든 첨부파일 삭제
     int deleteFile(String fileNo); // 특정 파일 삭제
     int updateFileAllowDownload(BoardFile bf); // 파일 다운로드 허용 여부 수정
-
+	
     // 댓글 관련 메서드
-    ArrayList<Comment> selectReply(String boardNo); // 댓글 목록 가져오기
-    int insertReply(Comment r); // 댓글 추가
-    int deleteReply(String commentNo); // 댓글 삭제
+    ArrayList<Comment> selectReply(String bno); // 댓글 목록 가져오기
+    int insertComment(Comment r); // 댓글 추가
+    int deleteComment(String commentNo); // 댓글 삭제
 
     // 좋아요/싫어요 관련 메서드
     int getLikeCount(String commentNo);
@@ -65,6 +65,8 @@ public interface BoardService {
     void updateLikeDislike(String commentNo, String userNo, int isLike);
 
     List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
+
+
 	
 	
 	
