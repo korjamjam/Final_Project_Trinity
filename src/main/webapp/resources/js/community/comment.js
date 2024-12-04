@@ -1,9 +1,8 @@
 $(function () {
-    console.log("초기화 시작"); // 초기화가 여러 번 실행되는지 확인
+   
     const sendData = {
         bno: boardNo // EL로 전달된 boardNo 사용
     };
-    console.log("초기 getReplyList 호출 시작");
     getReplyList(sendData, function (commentList) {
 
 
