@@ -32,6 +32,36 @@
       <result column="HOS_LATITUDE" property="hosLatitude" />
       <result column="HOS_LONGITUDE" property="hosLongitude" />
    </resultMap>
+   
+   	<!-- 아이디 중복 확인 쿼리 -->
+	<select id="idCheck" parameterType="string" resultType="int">
+		SELECT
+		COUNT(*) FROM HOSPITAL_ACCOUNT WHERE HOS_ID = #{checkId}
+	</select>
+
+	<insert id="insertHospital" parameterType="member">
+	    INSERT INTO HOSPITAL_ACCOUNT
+				(HOS_ID, 
+	     		 HOS_PWD,
+	     		 HOS_NO,
+	     		 HOS_INFO, 
+	     		 HOS_ONDUTY, 
+	     		 HOS_PARKING
+	    ) VALUES (
+	        #{hosId},
+	        #{hosPwd},
+	        CASE 
+	        	WHEN '#{hosNo}' IS NULL THEN 'H' || SEQ_HOS_NO.NEXTVAL
+	        	ELSE '#{hosNo}'
+	    	END,
+	        #{hosInfo},
+	        #{hosOnduty},
+	        #{hosParking}
+	    )
+	    <selectKey keyProperty="hosNo" resultType="java.lang.String" order="AFTER">
+            SELECT 'HA' || SEQ_HOS_ACCOUNT_NO.CURRVAL FROM DUAL
+        </selectKey>
+	</insert>
 
    <!-- 병원Info 조회 -->
    <select id="selectHospital" parameterType="HospitalInfo"

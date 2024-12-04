@@ -77,4 +77,12 @@ public class HospitalDao {
 		return sqlSession.selectOne("hospitalMapper.selectHosName", hosName);
 	}
 
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		return sqlSession.selectOne("hospitalMapper.idCheck", checkId);
+	}
+
+	public int insertHospital(SqlSessionTemplate sqlSession, HospitalAccount hosAccount) {
+		return sqlSession.insert("hospitalMapper.insertHospital", hosAccount);
+	}
+
 }

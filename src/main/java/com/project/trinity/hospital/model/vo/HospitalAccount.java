@@ -8,6 +8,7 @@ public class HospitalAccount {
 	private String hosId;
 	private String hosPwd;
 	private String hosName;
+	private String hosPostcode;
 	private String hosAddress;
 	private String hosTel;
 	private String hosYear;
