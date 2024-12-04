@@ -15,7 +15,6 @@ DROP TABLE GUEST CASCADE CONSTRAINTS;
 DROP TABLE H_SUBJECT CASCADE CONSTRAINTS;
 DROP TABLE LIKES_TABLE CASCADE CONSTRAINTS;
 DROP TABLE RANKUP CASCADE CONSTRAINTS;
-DROP TABLE BOARD_CATEGORY CASCADE CONSTRAINTS;
 
 --시퀀스 초기화----------------------------------------------------------------------------------------------------------
 
@@ -196,8 +195,23 @@ CREATE TABLE BOARD_CATEGORY (
     IS_ACTIVE CHAR(1) DEFAULT 'Y'             -- 활성화 여부 (Y/N)
 );
 
+
 -- BOARD 테이블: 게시글 정보
 CREATE TABLE BOARD (
+<<<<<<< HEAD
+    BOARD_NO VARCHAR2(10 BYTE) PRIMARY KEY,        -- 게시판 번호 (고유값)
+    BOARD_TYPE NUMBER,                             -- 게시판 타입
+    USER_NO VARCHAR2(10 BYTE) NOT NULL,            -- 사용자 번호 (외래키로 연결)
+    BOARD_TITLE VARCHAR2(200 BYTE) NOT NULL,       -- 게시판 제목
+    BOARD_CONTENT VARCHAR2(4000 BYTE),             -- 게시판 내용
+    ENROLL_DATE DATE DEFAULT SYSDATE,              -- 등록 날짜
+    MODIFIED_DATE DATE DEFAULT SYSDATE,            -- 수정 날짜
+    BOARD_VIEWS VARCHAR2(10 BYTE) DEFAULT '0',     -- 조회수 (기본값: 0)
+    CATEGORY_ID VARCHAR2(20 BYTE) NOT NULL,                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
+    STATUS CHAR(1 BYTE) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
+    INQUIRY_CATEGORY VARCHAR2(30 BYTE),            -- 고객 문의 카테고리
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),  -- 사용자와 연결
+=======
     BOARD_NO VARCHAR2(10) PRIMARY KEY,        -- 게시판 번호 (고유값)
     BOARD_TYPE NUMBER,                        -- 게시판 타입
     USER_NO VARCHAR2(10) NOT NULL,            -- 사용자 번호 (외래키로 연결)
@@ -210,8 +224,10 @@ CREATE TABLE BOARD (
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
+>>>>>>> 5d4d33c82c1068002f0c06a604571e5d62bbba1d
     FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID)  -- 카테고리와 연결
 );
+
 
 
 CREATE TABLE FILE_TABLE (
@@ -442,7 +458,7 @@ DECLARE
         SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
     v_user_no MEMBER.USER_NO%TYPE;
 BEGIN
-    FOR i IN 1..100 LOOP
+    FOR i IN 1..1000 LOOP  -- 1000개의 데이터 생성
         -- 랜덤한 USER_NO 가져오기
         SELECT USER_NO INTO v_user_no
         FROM (
@@ -460,18 +476,14 @@ BEGIN
             ENROLL_DATE, 
             MODIFIED_DATE, 
             BOARD_VIEWS, 
-            BOARD_CATEGORY, 
+            CATEGORY_ID, 
             STATUS
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
-            CASE MOD(i, 7)                       -- BOARD_TYPE 매핑
+            CASE MOD(i, 3)                       -- BOARD_TYPE 매핑 (3가지 종류만 사용)
                 WHEN 0 THEN 1                    -- 자유게시판
                 WHEN 1 THEN 2                    -- 메디톡
-                WHEN 2 THEN 3                    -- 이벤트게시판
-                WHEN 3 THEN 4                    -- 공지사항
-                WHEN 4 THEN 5                    -- 알림판
-                WHEN 5 THEN 6                    -- FAQ
-                ELSE 7                           -- Q&A
+                ELSE 3                           -- 이벤트게시판
             END,
             v_user_no,                           -- USER_NO (랜덤 회원)
             '게시글 제목 ' || i,                  -- BOARD_TITLE
@@ -479,23 +491,31 @@ BEGIN
             SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
             SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
             TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
-            CASE MOD(i, 7)                       -- BOARD_CATEGORY 매핑
-                WHEN 0 THEN '자유게시판'
-                WHEN 1 THEN '메디톡'
-                WHEN 2 THEN '이벤트게시판'
-                WHEN 3 THEN '공지사항'
-                WHEN 4 THEN '알림판'
-                WHEN 5 THEN 'FAQ'
-                ELSE 'QNA'
+            CASE MOD(i, 3)                       -- BOARD_CATEGORY 매핑 (CAT01, CAT02, CAT03만 사용)
+                WHEN 0 THEN 'CAT01'              -- 자유게시판
+                WHEN 1 THEN 'CAT02'              -- 메디톡
+                ELSE 'CAT03'                    -- 이벤트게시판
             END,
             'Y'                                  -- STATUS (항상 Y)
         );
     END LOOP;
     COMMIT;
 END;
-/
 
-DESC BOARD;
+
+-- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
+BEGIN
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT01', '자유게시판', 1, 'Y');
+    
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT02', '메디톡', 2, 'Y');
+    
+    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, STATUS)
+    VALUES ('CAT03', '이벤트게시판', 3, 'Y');
+    
+    COMMIT;
+END;
 
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
@@ -873,30 +893,29 @@ VALUES ('H61', '전주 여성병원', '61 Guri Road, Guri', '063-999-0000', '산
 INSERT INTO HOSPITAL_INFO (HOS_NO, HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, HOS_START_TIME1, HOS_CLOSE_TIME1, HOS_START_TIME2, HOS_CLOSE_TIME2, HOS_LATITUDE, HOS_LONGITUDE) 
 VALUES ('H62', '강릉 여성의원', '62 Guri Road, Guri', '033-888-7777', '산부인과', '08:30', '17:30', '13:30', '16:30', 37.6211, 127.1637);
 
-SELECT * FROM HOSPITAL_ACCOUNT; 
 
 
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H1', 'hos1', 'pwd1', '우리병원 whssk 좋아요','Y', '10');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H2', 'hos2', 'pwd2', '우리병원오면 안아프게해드림', 'N', '15');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H3', 'hos3', 'pwd3', '다고침', 'Y', '20');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H4', 'hos4', 'pwd4', '와주세요 병원좋음','Y', '12');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H5', 'hos5', 'pwd5', '우리병원엔 이쁜간호사있음', 'N', '8');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H6', 'hos6', 'pwd6', '응급할땐 응급실', 'Y', '25');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H7', 'hos7', 'pwd7', '집보다 편한 병원', 'N', '30');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H8', 'hos8', 'pwd8', '더미데이터만들기가 생각보다힘드네요', 'Y', '18');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H9', 'hos9', 'pwd9', '집가고싶은사람 거수', 'Y', '22');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H10', 'hos10', 'pwd10', '안아파도 오세요', 'N', '16');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H11', 'hos11', 'pwd11', '우리 원장님 동서울대출신', 'Y', '12');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H12', 'hos12', 'pwd12', '안아프면 아프게만들어드립니다.', 'N', '8');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H13', 'hos13', 'pwd13', '시기다른랩퍼들의반대편을바라보던병원', 'Y', '10');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H14', 'hos14', 'pwd14', '12월 13일 해방의날', 'Y', '14');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H15', 'hos15', 'pwd15', '안녕하세요 병원입니다', 'N', '6');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H16', 'hos16', 'pwd16', '안심하세요 도둑입니다.' ,'Y', '10');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H17', 'hos17', 'pwd17', '눈나 나 주거', 'N', '20');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H18', 'hos18', 'pwd18', '병ONE입니다.','Y', '15');
 
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H19', 'hos19', 'pwd19', '저희 병원은 오만원부터 받아요', 'Y', '18');
-INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_INFO, HOS_ONDUTY, HOS_PARKING) VALUES ('H20', 'hos20', 'pwd20', '병원팜 선제시좀', 'N', '12');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H1', 'hos1', 'pwd1', 'Y', '10');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H2', 'hos2', 'pwd2', 'N', '15');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H3', 'hos3', 'pwd3', 'Y', '20');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H4', 'hos4', 'pwd4', 'Y', '12');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H5', 'hos5', 'pwd5', 'N', '8');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H6', 'hos6', 'pwd6', 'Y', '25');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H7', 'hos7', 'pwd7', 'N', '30');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H8', 'hos8', 'pwd8', 'Y', '18');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H9', 'hos9', 'pwd9', 'Y', '22');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H10', 'hos10', 'pwd10', 'N', '16');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H11', 'hos11', 'pwd11', 'Y', '12');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H12', 'hos12', 'pwd12', 'N', '8');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H13', 'hos13', 'pwd13', 'Y', '10');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H14', 'hos14', 'pwd14', 'Y', '14');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H15', 'hos15', 'pwd15', 'N', '6');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H16', 'hos16', 'pwd16', 'Y', '10');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H17', 'hos17', 'pwd17', 'N', '20');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H18', 'hos18', 'pwd18', 'Y', '15');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H19', 'hos19', 'pwd19', 'Y', '18');
+INSERT INTO HOSPITAL_ACCOUNT (HOS_NO, HOS_ID, HOS_PWD, HOS_ONDUTY, HOS_PARKING) VALUES ('H20', 'hos20', 'pwd20', 'N', '12');
 
 
 
@@ -1000,5 +1019,3 @@ VALUES('RV10', 'U10', '친절과 전문성의 조화', '친절하고 전문적�
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT; 
-
-
