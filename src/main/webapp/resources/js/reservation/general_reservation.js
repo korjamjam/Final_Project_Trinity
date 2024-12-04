@@ -24,6 +24,9 @@ $(function() {
     for(timeLi of timeList) {
         timeLi.onclick = timeSelectFunk;
     }
+
+    console.log($(".reservation_subject_select_title"))
+    $(".reservation_subject_select_title").click();
   });
 
   function timeSelectFunk(ev){
@@ -56,17 +59,26 @@ function isYouCheckChange(checked){
     const userNameInput = document.getElementById("userName");
     const birthdayInput = document.getElementById("birthday");
     const userNoInput = document.getElementById("userNo");
-    const phoneInput = document.getElementById("phone");
+    const phoneInput = document.getElementById("phone0");
+    const phone2Input = document.getElementById("phone2");
+    const phone3Input = document.getElementById("phone3");
     const emailInput = document.getElementById("email");
-
+    const phone = phoneInput.value;
     if (checked) {
+        const phone1 = phone.substr(0,3);
+        const phone2 = phone.substr(4,4);
+        const phone3 = phone.substr(9,4);
         // 체크되면 세션의 loginUser 정보로 입력 필드를 채움
         userNameInput.value = userNameInput.dataset.checkvalue;
         birthdayInput.value = birthdayInput.dataset.checkvalue.substr(0,10);
         userNoInput.value = userNoInput.dataset.checkvalue;
-        phoneInput.value = phoneInput.dataset.checkvalue;
+        phone2Input.value = phone2;
+        phone3Input.value = phone3;
         emailInput.value = emailInput.dataset.checkvalue;
         const genderValue = $("#gender").data("checkvalue"); // data-checkvalue에서 가져옴
+        if (phone1) {
+            $("#phone1").val(phone1);
+        }
         if (genderValue) {
             $("#gender").val(genderValue); // <select>에서 해당 값 선택
         }
@@ -75,9 +87,19 @@ function isYouCheckChange(checked){
         // 체크 해제 시 입력 필드를 비움
         userNameInput.value = "";
         birthdayInput.value = "";
-        phoneInput.value = "";
+        phone2Input.value = "";
+        phone3Input.value = "";
         emailInput.value = "";
-        $("#gender").val("select");
+        $("#phone1").val("010");
+        $("#gender").val("M");
     }
 
 }
+
+function updateHiddenInput(value) {
+    let start = document.getElementById('phone1').value;
+    let middle = document.getElementById('phone2').value;
+    let end = document.getElementById('phone3').value;
+    full = start + middle + end;
+    document.getElementById('phone').value = full;
+  }

@@ -2,6 +2,7 @@ package com.project.trinity.hospital.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSessionManager;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,6 +82,16 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public HospitalInfo selectHosName(String hosName) {
 		return hpDao.selectHosName(sqlSession, hosName);
+	}
+
+	@Override
+	public int idCheck(String checkId) {
+		return hpDao.idCheck(sqlSession, checkId);
+	}
+
+	@Override
+	public int insertHospital(HospitalAccount hosAccount) {
+		return hpDao.insertHospital(sqlSession, hosAccount);
 	}
 
 	

@@ -12,7 +12,7 @@
     font-weight: bold;
     width: max-content;
     min-width: 60px; /* 버튼 최소 너비 */
-    height: 36px; /* 고정 높이 설정 */
+  min-height: 30px;
     padding: 0.5em 1em; /* 내부 여백 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     transition: background-color 0.3s ease;

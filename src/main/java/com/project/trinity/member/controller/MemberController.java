@@ -37,6 +37,8 @@ import com.project.trinity.member.service.MemberService;
 import com.project.trinity.reservation.model.vo.HealthReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
+import com.project.trinity.vaccine.model.vo.VaccineReservation;
+import com.project.trinity.vaccine.service.VaccineReservationService;
 
 @Controller
 @RequestMapping("/member") // 모든 경로에 /member를 붙여 구조화
@@ -53,6 +55,9 @@ public class MemberController {
 	
 	@Autowired
 	private HealthReservationService healthReservationService;
+	
+	@Autowired
+	private VaccineReservationService vaccineReservationService;
 
 
 
@@ -501,6 +506,30 @@ public class MemberController {
 
 	    return "account/healthreservationconfirmation"; // 건강검진 예약 확인 페이지 반환
 	}
+	
+	@GetMapping("/vaccinereservationconfirmation")
+    public String vaccineReservationConfirmationPage(Model model, HttpSession session) {
+        // 로그인된 사용자 확인
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 로그인된 사용자 번호로 백신 예약 정보 가져오기
+        String userNo = loginUser.getUserNo();
+        List<VaccineReservation> reservations = vaccineReservationService.getReservationsByUserNo(userNo);
+
+
+        // 예약 정보가 없을 경우 메시지 처리
+        if (reservations == null || reservations.isEmpty()) {
+            model.addAttribute("message", "백신 예약 내역이 없습니다.");
+        } else {
+            model.addAttribute("reservations", reservations);
+        }
+
+        // 예약 확인 페이지 반환
+        return "account/vaccinereservationconfirmation";
+    }
 
 
 }
