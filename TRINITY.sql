@@ -198,6 +198,7 @@ CREATE TABLE BOARD_CATEGORY (
 
 -- BOARD 테이블: 게시글 정보
 CREATE TABLE BOARD (
+<<<<<<< HEAD
     BOARD_NO VARCHAR2(10 BYTE) PRIMARY KEY,        -- 게시판 번호 (고유값)
     BOARD_TYPE NUMBER,                             -- 게시판 타입
     USER_NO VARCHAR2(10 BYTE) NOT NULL,            -- 사용자 번호 (외래키로 연결)
@@ -210,6 +211,20 @@ CREATE TABLE BOARD (
     STATUS CHAR(1 BYTE) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30 BYTE),            -- 고객 문의 카테고리
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),  -- 사용자와 연결
+=======
+    BOARD_NO VARCHAR2(10) PRIMARY KEY,        -- 게시판 번호 (고유값)
+    BOARD_TYPE NUMBER,                        -- 게시판 타입
+    USER_NO VARCHAR2(10) NOT NULL,            -- 사용자 번호 (외래키로 연결)
+    BOARD_TITLE VARCHAR2(200) NOT NULL,       -- 게시판 제목
+    BOARD_CONTENT VARCHAR2(4000),             -- 게시판 내용
+    ENROLL_DATE DATE DEFAULT SYSDATE,         -- 등록 날짜
+    MODIFIED_DATE DATE DEFAULT SYSDATE,       -- 수정 날짜
+    BOARD_VIEWS VARCHAR2(10) DEFAULT '0',     -- 조회수 (기본값: 0)
+    CATEGORY_ID VARCHAR2(20),                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
+    STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
+    INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
+>>>>>>> 5d4d33c82c1068002f0c06a604571e5d62bbba1d
     FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID)  -- 카테고리와 연결
 );
 
@@ -414,7 +429,7 @@ BEGIN
     SELECT SEQ_RANKUP.NEXTVAL INTO :NEW.SEQ_NO FROM DUAL;
 END;
 /
-
+select SEQ_RANKUP.NEXTVAL FROM DUAL;
 
 VARIABLE var_name VARCHAR2(20);
 EXEC :var_name := 'example_value';
@@ -501,16 +516,6 @@ BEGIN
     
     COMMIT;
 END;
-
-
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT01', '자유게시판', '1', 'Y');
-
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT02', '메디톡', '2', 'Y');
-
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER)
-VALUES ('CAT03', '이벤트게시판', '3', 'Y');
 
 -- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
 DECLARE
@@ -632,10 +637,9 @@ END;
 --Rankup 테이블 더미데이터
 DECLARE
     CURSOR c_user_no IS
-        SELECT USER_NO, MED_KEY FROM MEMBER; -- MED_KEY 포함하여 사용자 정보 가져옴
+        SELECT USER_NO, MED_KEY FROM MEMBER;
     v_user_no MEMBER.USER_NO%TYPE;
     v_med_key MEMBER.MED_KEY%TYPE;
-    v_seq_no NUMBER := 1; -- 초기 SEQ_NO 설정
 BEGIN
     OPEN c_user_no;
     LOOP
@@ -643,31 +647,24 @@ BEGIN
         EXIT WHEN c_user_no%NOTFOUND;
 
         INSERT INTO RANKUP (
-            SEQ_NO, USER_NO, RES_TITLE, SUBJECT, LIC_PICTURE, STATUS
+            USER_NO, RES_TITLE, SUBJECT, LIC_PICTURE, STATUS
         ) VALUES (
-            v_seq_no, -- SEQ_NO 증가
-            v_user_no, -- MEMBER 테이블에서 가져온 USER_NO
-            '전문가 인증 신청 ' || v_seq_no, -- 신청 제목
-            CASE MOD(v_seq_no, 2) -- 전문과목
+            v_user_no,
+            '전문가 인증 신청',
+            CASE MOD(SEQ_RANKUP.CURRVAL, 2)
                 WHEN 0 THEN '소아과'
                 ELSE '산부인과'
             END,
-            '/files/lic_picture_' || v_seq_no || '.jpg', -- 인증 사진 경로
+            '/files/lic_picture_' || SEQ_RANKUP.CURRVAL || '.jpg',
             CASE
-                WHEN v_med_key IS NOT NULL THEN 'A' -- MED_KEY가 있으면 승인
-                ELSE 'W' -- MED_KEY가 없으면 대기
+                WHEN v_med_key IS NOT NULL THEN 'A'
+                ELSE 'W'
             END
         );
-
-        v_seq_no := v_seq_no + 1; -- SEQ_NO 증가
-
-        IF v_seq_no > 10 THEN -- 10개만 삽입
-            EXIT;
-        END IF;
     END LOOP;
-
     CLOSE c_user_no;
 END;
+
 /
 --MEMBER 테이블의 MED_KEY가 NULL로 변경될 때 관련 데이터를 삭제하는 트리거를 생성
 CREATE OR REPLACE TRIGGER trg_member_medkey_null
