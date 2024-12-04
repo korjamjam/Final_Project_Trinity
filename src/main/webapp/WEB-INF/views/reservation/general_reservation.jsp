@@ -143,16 +143,17 @@
                 <br><br>
                 <input type="text" placeholder="생년월일 ex) 991201" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
                 <br><br>
-                <div class="reservation_phone" style="display: flex; align-items: center;">
-                    <input type="hidden" id="phone" value="${loginUser.phone}" data-checkvalue="${loginUser.phone}">
+                <div class="reservation_phone">
+                    <input type="hidden" id="phone0" value="${loginUser.phone}" data-checkvalue="${loginUser.phone}">
                     <select name="phone1" id="phone1" data-checkvalue="${loginUser.phone}">
                         <option id="010" value="010">010</option>
                         <option id="012" value="012">012</option>
                         <option id="013" value="013">013</option>
                         <option id="015" value="015">015</option>
                     </select>
-                    <input type="text" id="phone2" name="phone2" data-checkvalue="${loginUser.phone}">
-                    <input type="text" id="phone3" name="phone3" data-checkvalue="${loginUser.phone}">
+                    <input type="text" id="phone2" name="phone2" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)">
+                    <input type="text" id="phone3" name="phone3" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)">
+                    <input type="hidden" id="phone" name="phone">
                 </div>
                 <br><br>
                 <input type="text" placeholder="이메일을 입력해주세요" id="email" name="email" data-checkvalue="${loginUser.email}">
