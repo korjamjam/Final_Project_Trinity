@@ -57,7 +57,7 @@ function checkHospitalStatus() {
     }
 }
 
-function copy() {
+function copyAddress() {
     // 복사문구값 가져오기
     let shareAddress = document.getElementById("shareAddress");
   
@@ -66,4 +66,15 @@ function copy() {
   
     // 복사완료에 대해 Alert으로 띄우기
     alert("복사되었습니다.");
-  }
+}
+
+function copyTel() {
+    // 복사문구값 가져오기
+    let copyTel = document.getElementById("copyTel");
+
+    // 복사
+    navigator.clipboard.writeText(copyTel.value);
+
+    // 복사완료에 대해 Alert으로 띄우기
+    alert("복사되었습니다.");
+}
