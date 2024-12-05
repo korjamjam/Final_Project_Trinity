@@ -98,7 +98,6 @@ $(document).off('click', '#addReplyButton').on('click', '#addReplyButton', funct
 });
 
 function addReply() {
-    console.log('addReply 함수 호출');
     const content = $("#content").val(); // 댓글 작성 텍스트박스 값 가져오기
     console.log("입력된 댓글 내용:", content); // 값 확인
     if (!content.trim()) {
@@ -191,8 +190,7 @@ function toggleLikeDislike(button, commentNo, isLike, currentState) {
             userNo: userNo,
             isLike: isLike ? 1 : 0 // boolean을 숫자로 변환
         },
-        success: function (response) {
-            console.log("AJAX 호출 URL:", "toggleLike.bo");
+        success: function (response) {           
 
             if (response.success) {
                 const likeButton = button.closest("tr").querySelector(".like-btn");

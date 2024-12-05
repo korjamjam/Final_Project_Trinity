@@ -1,7 +1,10 @@
+let attfile = {
+    fileList: [] // 파일 리스트를 관리하는 배열
+};
 
 $(document).ready(function () {
    
-    console.log("분리Context Path:", contextPath); // 디버깅용
+    console.log("Context Path:", contextPath); // 디버깅용
 
     initializeSummernote();
 
@@ -10,8 +13,7 @@ $(document).ready(function () {
 });
 
 function initializeSummernote() {
-    console.log("체크");
-        $('#summernote').summernote({
+    $('#summernote').summernote({
         minHeight: 400,
         maxHeight: null,
         placeholder: '글을 입력하세요.',
@@ -46,14 +48,16 @@ function adjustHeight(contents) {
     const scrollHeight = editableArea.prop('scrollHeight');
     editableArea.css('height', `${scrollHeight}px`); // 템플릿 리터럴로 수정
 }
+
 function changeCategory(categoryName) {
-    console.log("함수 호출"); // 이 로그가 나타나는지 확인
-    console.log("선택된 카테고리:", categoryName);
-    let categoryId;
+    console.log("함수 호출"); // 함수 호출 확인
+    console.log("선택된 카테고리:", categoryName); // 선택된 값 확인
     
-    // 선택한 categoryName에 맞는 categoryId를 설정
+    let categoryId;
+
+    // 선택한 categoryName에 맞는 categoryId 설정
     if (categoryName === '자유게시판') {
-        categoryId = 'CAT01'; // 예시, 실제 카테고리 ID 값으로 바꿔주세요
+        categoryId = 'CAT01'; // 카테고리 ID에 맞게 값 설정
     } else if (categoryName === '메디톡') {
         categoryId = 'CAT02';
     } else if (categoryName === '이벤트게시판') {
@@ -61,7 +65,13 @@ function changeCategory(categoryName) {
     }
 
     // hidden input의 value를 업데이트
-    document.getElementById('categoryId').value = categoryId;
+    const hiddenInput = document.getElementById('categoryId');
+    if (hiddenInput) {
+        hiddenInput.value = categoryId;
+        console.log("hidden input 업데이트 완료:", hiddenInput.value);
+    } else {
+        console.error("hidden input을 찾을 수 없습니다.");
+    }
 }
 
 function fileUpload(imgs) {
@@ -71,15 +81,13 @@ function fileUpload(imgs) {
     }
 
     $.ajax({
-        url: contextPath + "/community/upload", // 템플릿 리터럴로 수정
+        url: fileUploadUrl, // 템플릿 리터럴로 수정
         type: "POST",
         data: fd,
         processData: false,
         contentType: false,
         dataType: "json",
-        beforeSend: function () {
-            console.log("AJAX URL:", `${data.contextPath}/community/upload`); // 디버깅용
-        },
+
         success: function (response) {
             console.log("파일 업로드 성공:", response);
             response.forEach(filePath => {
@@ -99,7 +107,7 @@ function checkFileValidation(input) {
     const maxFileSize = 5 * 1024 * 1024; // 최대 파일 크기 5MB
     const maxFileCount = 3; // 최대 파일 개수 3개
 
-    if (data.fileList.length + files.length > maxFileCount) {
+    if (attfile.fileList.length + files.length > maxFileCount) {
         alert(`파일은 최대 ${maxFileCount}개까지만 업로드할 수 있습니다.`);
         input.value = ""; // 선택 초기화
         return;
@@ -118,9 +126,9 @@ function checkFileValidation(input) {
 
 function updateFileList(input) {
     const selectedFiles = Array.from(input.files);
-    data.fileList = [...data.fileList, ...selectedFiles];
+    attfile.fileList = [...attfile.fileList, ...selectedFiles];
 
-    data.fileList = data.fileList.filter(
+    attfile.fileList = attfile.fileList.filter(
         (file, index, self) =>
             index === self.findIndex((f) => f.name === file.name && f.size === file.size)
     );
@@ -128,14 +136,32 @@ function updateFileList(input) {
     drawFileList();
 }
 
+function toggleDownload(button, index) {
+    const hiddenInput = document.querySelector(`#allowDownload${index}`);
+    const isAllowed = button.getAttribute("data-allow") === "true";
+    const newStatus = !isAllowed;
+
+    // 데이터와 UI 상태를 동시에 업데이트
+    button.setAttribute("data-allow", newStatus ? "true" : "false");
+    button.classList.toggle("btn-outline-primary", newStatus);
+    button.classList.toggle("btn-outline-secondary", !newStatus);
+    button.innerHTML = newStatus ? '<i class="bi bi-arrow-down-circle"></i>' : '<i class="bi bi-lock"></i>';
+    hiddenInput.value = newStatus ? "Y" : "N";
+
+    // 추가적으로 데이터 구조 업데이트 (예: fileList)
+    attfile.fileList[index].allowDownload = newStatus ? "Y" : "N";
+}
+
+
 function drawFileList() {
     const fileListDiv = document.getElementById("file-list");
+    console.log("최종 첨부파일 목록:", attfile.fileList);
     fileListDiv.innerHTML = ""; // UI 초기화
 
     const fileListContainer = document.getElementById("file-list-container");
-    fileListContainer.style.display = data.fileList.length === 0 ? "none" : "block";
+    fileListContainer.style.display = attfile.fileList.length === 0 ? "none" : "block";
 
-    data.fileList.forEach((file, index) => {
+    attfile.fileList.forEach((file, index) => {
         const fileSizeInKB = (file.size / 1024).toFixed(1);
         const allowDownloadValue = file.allowDownload || "Y";
 
@@ -158,5 +184,11 @@ function drawFileList() {
             </div>
         `;
         fileListDiv.innerHTML += fileRow;
+        
     });
+}
+function removeFile(targetIndex, fileName) {
+    attfile.fileList = attfile.fileList.filter((file, index) => index !== targetIndex);
+    alert(`"${fileName}" 파일이 삭제되었습니다.`);
+    drawFileList();
 }

@@ -150,7 +150,7 @@ public class BoardController {
 
 		// Board 객체 조회
 		Board b = boardService.selectBoard(bno);
-		System.out.println("Board object retrieved: " + b); // Board 객체 출력
+		
 
 		if (b != null) {
 			// 조회수 증가
@@ -201,7 +201,7 @@ public class BoardController {
 			m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
 			return "/common/errorPage";
 		}
-		System.out.println("Received categoryId from Board object: " + b.getCategoryId());
+		
 
 		// 게시글에 categoryId가 설정되어 있는지 확인
 		if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
@@ -353,9 +353,17 @@ public class BoardController {
 			@RequestParam(value = "existingFileNos", required = false) List<String> existingFileNos,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
 			Model m) {
+		 
+
+		 Member loginUser = (Member) session.getAttribute("loginUser");
+		 
+		 
+		System.out.println("수정완료 후 userNo : " + b);
 		try {
 			// 1. 게시글 수정
-			int boardResult = boardService.updateBoard(b);
+			int boardResult = boardService.updateBoard(b, loginUser.getUserNo());
+			
+
 
 			if (boardResult <= 0) {
 				m.addAttribute("errorMsg", "게시글 수정에 실패했습니다.");
@@ -443,8 +451,6 @@ public class BoardController {
 			}
 		}
 		
-		
-
 		return "ok"; // 게시글 삭제 성공 메시지
 
 	}
