@@ -60,29 +60,34 @@ function loadPosts(categoryUrl) {
         .catch((error) => console.error("게시글 데이터를 가져오는 중 오류 발생:", error));
 }
 
+
 // 게시글 삭제 공통 함수
 function deleteBoard(bno, categoryId) {
     console.log("삭제 글번호 ", bno);
+    console.log("categoryId:", categoryId);  // Check the categoryId value
+
     if (confirm("정말 게시글을 삭제하시겠습니까?")) {
+        console.log("삭제 글번호 ", bno);
+    console.log("categoryId:", categoryId);
         $.ajax({
             url: contextPath + "/community/deleteBoard",  // contextPath를 포함한 URL로 수정
             type: "POST",
-            data: { bno: bno },
+            data: { bno: bno, categoryId: categoryId }, // categoryId도 보내는 것을 확인
+            dataType: "json",
             success: function(response) {
                 console.log("서버 응답:", response); 
                 alert(response); // 서버에서 반환한 메시지 표시
-                // 삭제 후 해당 카테고리 목록 페이지로 리다이렉트
-                window.location.href = contextPath + "/community/main?categoryId=" + categoryId;  // contextPath 포함
+                console.log("삭제 글번호 ", bno);
+                console.log("categoryId:", categoryId);
             },
             error: function(xhr, status, error) {
-                console.error("서버 오류:", error);  // 오류 메시지 출력
-                console.error("상태 코드:", status);  // 상태 코드 출력
-                console.error("응답 내용:", xhr.responseText);  // 응답 내용 출력
+        
                 alert("게시글 삭제에 실패했습니다.");
             }
         });
     }
 }
+
 
 
 
