@@ -85,8 +85,7 @@ public class BoardServiceImpl implements BoardService {
 	    if (boardDeleteResult <= 0) {
 	        throw new RuntimeException("게시글 삭제에 실패했습니다.");
 	    }
-
-	  
+ 
 
 	    // 모든 작업이 성공하면 성공적으로 처리
 	    return 1;
