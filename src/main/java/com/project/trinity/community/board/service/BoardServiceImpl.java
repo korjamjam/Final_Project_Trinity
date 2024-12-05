@@ -1,6 +1,6 @@
 package com.project.trinity.community.board.service;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int updateBoard(Board b) {
+	public int updateBoard(Board b,  String userNo) {
 		return boardDao.updateBoard(sqlSession, b);
 	}
 
@@ -81,8 +81,7 @@ public class BoardServiceImpl implements BoardService {
 	    if (boardDeleteResult <= 0) {
 	        throw new RuntimeException("게시글 삭제에 실패했습니다.");
 	    }
-
-	  
+ 
 
 	    // 모든 작업이 성공하면 성공적으로 처리
 	    return boardDeleteResult;
