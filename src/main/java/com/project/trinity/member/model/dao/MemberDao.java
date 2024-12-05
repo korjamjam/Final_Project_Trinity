@@ -1,5 +1,6 @@
 package com.project.trinity.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,5 +111,12 @@ public class MemberDao {
 	 public int updatePassword(SqlSession sqlSession, Map<String, String> params) {
 	        return sqlSession.update("memberMapper.updatePassword", params);
 	    }
+
+	public ArrayList<Member> selectDoctorInfoList(SqlSessionTemplate sqlSession, String hosNo) {
+		System.out.println("Dao dList : " + (ArrayList)sqlSession.selectList("memberMapper.selectdoctorInfoList", hosNo));
+		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorInfoList", hosNo);
+	}
+
+	
 
 }
