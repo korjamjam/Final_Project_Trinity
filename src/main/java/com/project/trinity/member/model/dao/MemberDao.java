@@ -113,7 +113,6 @@ public class MemberDao {
 	    }
 
 	public ArrayList<Member> selectDoctorInfoList(SqlSessionTemplate sqlSession, String hosNo) {
-		System.out.println("Dao dList : " + (ArrayList)sqlSession.selectList("memberMapper.selectdoctorInfoList", hosNo));
 		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorInfoList", hosNo);
 	}
 

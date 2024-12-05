@@ -175,7 +175,7 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
-	
+	<!-- 병원 번호로 의사 불러오기 -->
 	<select id="selectDoctorInfoList" parameterType="string" resultMap="memberResultSet">
 		SELECT USER_NO,
 			   USER_ID,
