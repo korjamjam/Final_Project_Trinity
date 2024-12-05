@@ -127,4 +127,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectDoctorReview(sqlSession, userNo);
 	}
 
+	@Override
+	public int updateHospitalDoctor(HashMap<String, String> hmap) {
+		System.out.println("[DEBUG] updateHospitalDoctor 호출 - 업데이트 대상: " + hmap);
+		int result = memberDao.updateHospitalDoctor(sqlSession, hmap);
+		System.out.println("[DEBUG] updateHospitalDoctor 결과: " + result);
+		return result;
+	}
+
 }

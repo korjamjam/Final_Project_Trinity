@@ -1,6 +1,7 @@
 package com.project.trinity.hospital.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
+import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
 @RequestMapping("hospital")
@@ -32,12 +35,17 @@ public class HospitalController {
 	private final HospitalService hospitalService;
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
+	private final ReservationService reservationService;
 	
 	@Autowired
-	public HospitalController(HospitalService hospitalService, MemberService memberService, BCryptPasswordEncoder bcryptPasswordEncoder) {
+	public HospitalController(HospitalService hospitalService, 
+			MemberService memberService, 
+			BCryptPasswordEncoder bcryptPasswordEncoder,
+			ReservationService reservationService) {
 	    this.hospitalService = hospitalService;
 	    this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
+		this.reservationService = reservationService;
 	}
 
 	
@@ -177,8 +185,6 @@ public class HospitalController {
 		return "redirect:/";
 	}
 	
-	
-	
 	// 아이디 중복 확인
 	@ResponseBody
 	@GetMapping("/idCheck")
@@ -186,29 +192,73 @@ public class HospitalController {
 		return hospitalService.idCheck(checkId);
 	}
 	
-	@RequestMapping("/account/main")
-	public String HospitalAccountMain() {
-		return "hospital_detail/hospital_account_main";
-	}
-
 	@RequestMapping("/account/doctor")
 	public String HospitalAccountDoctor(HttpSession session) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
-		HospitalInfo hosInfo = hospitalService.selectHospitalInfo(loginHosAccount.getHosNo());
+		String hosNo = loginHosAccount.getHosNo();		
+		System.out.println("hosNo : " + hosNo);
 		
-		System.out.println(hosInfo);
+		ArrayList<Member> hosDrList = memberService.selectDoctorInfoList(hosNo);
+		System.out.println(hosDrList);
+		session.setAttribute("hosDrList", hosDrList);
 		
 		return "hospital_detail/hospital_account_doctor";
 	}
 	
+	@RequestMapping("account/insert/doctor")
+	public String HospitalAccountInsertDoctorMember(@RequestParam("userId") String userId,
+													HttpSession session
+			) {
+		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
+		String hosNo = loginHosAccount.getHosNo();
+		
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("userId", userId);
+		hmap.put("hosNo",hosNo);
+		
+		int result = memberService.updateHospitalDoctor(hmap);
+		
+		if(result>0) {
+			session.setAttribute("message", "의사 등록 성공");
+		} else {
+			session.setAttribute("message", "의사 등록 실패");
+		}
+		
+		return "hospital_detail/hospital_account_doctor";	
+	}//그냥 회원번호 맞게 입력하면 그거 hos_no만 바꿔줌 아이디 다르면 안되고 의사 아니면 안되게 수정해야함
+	
 	@RequestMapping("/account/myHospital")
-	public String HospitalAccountMyHospital() {
+	public String HospitalAccountMyHospital(HttpSession session) {
+		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
+		String hosNo = loginHosAccount.getHosNo(); 
+		
+		HospitalInfo hosInfo = hospitalService.selectHospitalInfo(hosNo);
+		System.out.println(hosInfo);
+		
+		session.setAttribute("hosInfo", hosInfo);
+		
 		return "hospital_detail/hospital_account_my_hospital";
 	}
 	
 	@RequestMapping("/account/myReservation")
-	public String HospitalAccountMyReservation() {
+	public String HospitalAccountMyReservation(HttpSession session) {
+		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
+		String hosNo = loginHosAccount.getHosNo();
+		
+		GeneralReservation generealReservation = reservationService.selectReservation(resNo);
 		return "hospital_detail/hospital_account_my_reservation";
+	}
+	
+	//화면 이동 하는거
+	
+	@RequestMapping("account/insertDr")
+	public String HospitalAccountInsertDoctor() {
+		return "hospital_detail/hospital_account_insert_doctor";	
+	}
+	
+	@RequestMapping("/account/main")
+	public String HospitalAccountMain() {
+		return "hospital_detail/hospital_account_main";
 	}
 	
 	@RequestMapping("/login")

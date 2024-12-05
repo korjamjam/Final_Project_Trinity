@@ -221,5 +221,12 @@
 		WHERE USER_NO = #{userNo}
 	</select>
 
+	<update id="updateHospitalDoctor" parameterType="HashMap">
+	    UPDATE MEMBER
+	    SET
+	        HOS_NO = #{hosNo}
+	    WHERE USER_ID = #{userId}
+	</update>
 
+	<!-- 변경해야 되는 병원 번호를 안보냄 시발 -->
 </mapper>

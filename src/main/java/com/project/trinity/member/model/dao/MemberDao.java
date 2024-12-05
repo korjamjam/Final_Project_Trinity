@@ -120,6 +120,11 @@ public class MemberDao {
 	public ArrayList<DoctorReview> selectDoctorReview(SqlSessionTemplate sqlSession, String userNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorReview", userNo);
 	}
+	
+	public int updateHospitalDoctor(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.updateHospitalDoctor", hmap);
+	}
 
 	
 
