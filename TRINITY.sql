@@ -15,6 +15,7 @@ DROP TABLE GUEST CASCADE CONSTRAINTS;
 DROP TABLE H_SUBJECT CASCADE CONSTRAINTS;
 DROP TABLE LIKES_TABLE CASCADE CONSTRAINTS;
 DROP TABLE RANKUP CASCADE CONSTRAINTS;
+DROP TABLE BOARD_CATEGORY CASCADE CONSTRAINTS;
 
 --시퀀스 초기화----------------------------------------------------------------------------------------------------------
 
@@ -195,20 +196,6 @@ CREATE TABLE BOARD_CATEGORY (
 
 -- BOARD 테이블: 게시글 정보
 CREATE TABLE BOARD (
-
-    BOARD_NO VARCHAR2(10 BYTE) PRIMARY KEY,        -- 게시판 번호 (고유값)
-    BOARD_TYPE NUMBER,                             -- 게시판 타입
-    USER_NO VARCHAR2(10 BYTE) NOT NULL,            -- 사용자 번호 (외래키로 연결)
-    BOARD_TITLE VARCHAR2(200 BYTE) NOT NULL,       -- 게시판 제목
-    BOARD_CONTENT VARCHAR2(4000 BYTE),             -- 게시판 내용
-    ENROLL_DATE DATE DEFAULT SYSDATE,              -- 등록 날짜
-    MODIFIED_DATE DATE DEFAULT SYSDATE,            -- 수정 날짜
-    BOARD_VIEWS VARCHAR2(10 BYTE) DEFAULT '0',     -- 조회수 (기본값: 0)
-    CATEGORY_ID VARCHAR2(20 BYTE) NOT NULL,                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
-    STATUS CHAR(1 BYTE) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
-    INQUIRY_CATEGORY VARCHAR2(30 BYTE),            -- 고객 문의 카테고리
-    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),  -- 사용자와 연결
-
     BOARD_NO VARCHAR2(10) PRIMARY KEY,        -- 게시판 번호 (고유값)
     BOARD_TYPE NUMBER,                        -- 게시판 타입
     USER_NO VARCHAR2(10) NOT NULL,            -- 사용자 번호 (외래키로 연결)
@@ -221,7 +208,6 @@ CREATE TABLE BOARD (
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
-
     FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID)  -- 카테고리와 연결
 );
 
