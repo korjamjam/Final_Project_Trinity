@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-<%@ include file="../common/main_header.jsp"%>
+<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
 <!-- 메시지 알림 -->
 <script>

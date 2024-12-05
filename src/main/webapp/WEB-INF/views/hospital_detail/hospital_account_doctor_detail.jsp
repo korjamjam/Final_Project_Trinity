@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/member_management_detail.css">
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/admin/admin_header.jsp"/>
+<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
 <div class="member-management">
     <h2>회원관리</h2>
