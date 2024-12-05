@@ -2,11 +2,20 @@ package com.project.trinity.admin.service;
 
 import java.util.List;
 
+import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
 
 public interface AdminService {
+	
+	//회원 관리 페이지
     List<Member> getAllMembers(); // 모든 회원을 가져오는 메서드 선언
+    
+    List<Member> getMembersByRole(String role); //회원 직업별 분류
+    
+    Member getMemberDetail(String userNo); //회원 상세정보 조회
+    
+    boolean updateMember(Member member); //회원 상세정보 수정
     
     List<Rankup> getAllRankups(); // 등업 신청 목록 조회
     
@@ -17,5 +26,10 @@ public interface AdminService {
     void rejectRankup(String seqNo);  // 등업 거부
     
     void setRankupToWaiting(String seqNo); // 등업 신청 상태를 대기로 설정
+    
+  //병원 관리 페이지
+    List<HospitalInfo> getAllHospitals();
+    
+    HospitalInfo getHospitalDetail(String hosNo); //회원 상세정보 조회
     
 }

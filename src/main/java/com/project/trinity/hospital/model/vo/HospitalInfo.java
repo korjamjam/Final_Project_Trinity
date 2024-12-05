@@ -16,6 +16,9 @@ import lombok.ToString;
 public class HospitalInfo {
 	
 	private String hosNo;
+	private String hosId;
+	private String hosPwd;
+	private String hosYear;
 	private String hosName;
 	private String hosAddress;
 	private String hosTel;
@@ -26,5 +29,8 @@ public class HospitalInfo {
 	private String hosEndTime2;
 	private String hosLatitude;
 	private String hosLongitude;
+	private String hosInfo;
+	private String hosOnduty;
+	private String hosParking;
 	
 }

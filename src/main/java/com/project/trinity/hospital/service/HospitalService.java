@@ -27,4 +27,8 @@ public interface HospitalService {
 
 	HospitalInfo selectHosName(String hosName);
 
+	int idCheck(String checkId);
+
+	int insertHospital(HospitalAccount hosAccount);
+
 }

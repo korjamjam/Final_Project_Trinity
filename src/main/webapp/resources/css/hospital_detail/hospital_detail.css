@@ -251,6 +251,10 @@ body{
     width: 55px;
     height: 55px;
 }
+/* .hospital_detail_doctor_img img{
+    width: 55px;
+    height: 55px;
+} */
 .hospital_detail_doctor_name{
     margin: 10px;
     font-weight: 600;

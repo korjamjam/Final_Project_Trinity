@@ -14,68 +14,57 @@
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"/>
 
 <div class="hospital-management">
-    <h2>회원관리</h2>
+    <h2>병원관리</h2>
 
     <div class="hospital-info">
-    <!-- DB연동 후 수정 -->
         <table>
             <tr>
-                <th>병원 사진</th>
-                <td>이미지.jpg</td>
-            </tr>
-            <tr>
                 <th>병원명</th>
-                <td>밝은소아과</td>
+                <td>${hospital.hosName}</td>
             </tr>
             <tr>
                 <th>병원아이디</th>
-                <td>hos01</td>
+                <td>${hospital.hosNo}</td>
             </tr>
             <tr>
                 <th>병원비밀번호</th>
-                <td>hospass01</td>
-            </tr>
-            <tr>
-                <th>이메일</th>
-                <td>hos01@light.com</td>
+                <td>******</td> <!-- 보안상 표시되지 않음 -->
             </tr>
             <tr>
                 <th>전화번호</th>
-                <td>02-1234-5678</td>
+                <td>${hospital.hosTel}</td>
             </tr>
             <tr>
-                <th>등록일</th>
-                <td>2014-10-12</td>
+                <th>진료과목</th>
+                <td>${hospital.department}</td>
             </tr>
             <tr>
                 <th>진료시간</th>
                 <td>
-                    <p>월~금: AM 09:00 ~ PM 06:00</p><br>
-                    <p>토~일: AM 09:00 ~ PM 02:00</p>
+                    <p>월~금: ${hospital.hosStartTime1} ~ ${hospital.hosEndTime1}</p><br>
+                    <p>토~일: ${hospital.hosStartTime2} ~ ${hospital.hosEndTime2}</p>
                 </td>
-            </tr>
-            <tr>
-                <th>우편번호</th>
-                <td><input type="text" value="06025"></td>
             </tr>
             <tr>
                 <th>주소</th>
                 <td>
-                    <input type="text" value="서울특별시 강남구 논현로158길 15 (신사동) ANGEM 빌딩">
-                    <input type="text" value="1층 101호">
+                    <input type="text" value="${hospital.hosAddress}">
                 </td>
             </tr>
             <tr>
                 <th>소개내용</th>
-                <td>모든 아이들이 건강해지기를 바라는 밝은 소아과 입니다.</td>
+                <td>${hospital.hosInfo}</td>
             </tr>
             <tr>
-                <th>병원 인증</th>
+                <th>당직 의사</th>
                 <td>
-                    <select>
-                        <option value="인증">인증</option>
-                        <option value="승인">비인증</option>
-                    </select>
+                    <input type="text" value="${hospital.hosOnduty}">
+                </td>
+            </tr>
+            <tr>
+                <th>주차장 수</th>
+                <td>
+                    <input type="text" value="${hospital.hosParking}">
                 </td>
             </tr>
         </table>

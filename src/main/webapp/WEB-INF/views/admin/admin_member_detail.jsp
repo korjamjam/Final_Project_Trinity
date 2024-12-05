@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,11 +16,15 @@
 <div class="member-management">
     <h2>회원관리</h2>
     <div class="member-info">
+    <form action="${pageContext.servletContext.contextPath}/admin/updateMember" method="post">
+    			<input type="hidden" name="userNo" value="${member.userNo}" />
         <table>
+        	<!--
             <tr>
                 <th>프로필 이미지</th>
                 <td>이미지.jpg</td>
             </tr>
+            -->
             <tr>
                 <th>이름</th>
                 <td>${member.userName}</td>
@@ -49,41 +54,41 @@
                 <td>${member.gender}</td>
             </tr>
             <tr>
-                <th>우편번호</th>
-                <td><input type="text" value="06025"></td>
-            </tr>
+    			<th>우편번호</th>
+    			<td><input type="text" name="postcode" value="${member.postcode}" /></td>
+			</tr>
+			<tr>
+    			<th>주소</th>
+    			<td>
+        			<input type="text" name="address" value="${member.address}" />
+    			</td>
+			</tr>
             <tr>
-                <th>주소</th>
-                <td>
-                    <input type="text" value="서울특별시 강남구 논현로158길 15 (신사동) ANGEM 빌딩">
-                    <input type="text" value="1층 101호">
-                </td>
-            </tr>
-            <tr>
-                <th>회원가입일</th>
-                <td>${member.enrollDate}</td>
-            </tr>
+    			<th>회원가입일</th>
+    			<td><fmt:formatDate value="${member.enrollDate}" pattern="yyyy-MM-dd" /></td>
+			</tr>
             <tr>
                 <th>회원탈퇴</th>
                 <td>
                 <!-- member.status -->
-                    <select>
-                        <option value="N">N</option>
-                        <option value="Y">Y</option>
-                    </select>
+                    <select name="status">
+            			<option value="N" ${member.status == 'N' ? 'selected' : ''}>N</option>
+            			<option value="Y" ${member.status == 'Y' ? 'selected' : ''}>Y</option>
+        			</select>
                 </td>
             </tr>
             <tr>
                 <th>권한</th>
                 <td>
-                    <select>
-                        <option value="D">D</option>
-                        <option value="A">A</option>
-                    </select>
-                </td>
+					<select name="isAdmin">
+            			<option value="N" ${member.isAdmin == 'N' ? 'selected' : ''}>N</option>
+            			<option value="Y" ${member.isAdmin == 'Y' ? 'selected' : ''}>Y</option>
+        			</select>
+                </td>                     
             </tr>
         </table>
-        <button class="save-button">저장하기</button>
+        <button type="submit" class="save-button">저장하기</button>
+        </form>
     </div>
 </div>
 

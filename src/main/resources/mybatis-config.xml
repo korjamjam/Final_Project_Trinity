@@ -11,8 +11,9 @@
  	</settings>
  	
  <typeAliases>
- 		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="MedicalField" />
+ 		<typeAlias type="com.project.trinity.member.model.vo.MedicalField" alias="MedicalField" />
  		<typeAlias type="com.project.trinity.member.model.vo.Member" alias="Member" />
+ 		<typeAlias type="com.project.trinity.member.model.vo.DoctorReview" alias="DoctorReview" />
  		<typeAlias type="com.project.trinity.member.model.vo.Guest" alias="Guest" />
  		<typeAlias type="com.project.trinity.member.model.vo.Rankup" alias="Rankup" />
  		<typeAlias type="com.project.trinity.community.board.model.vo.Board" alias="Board" />

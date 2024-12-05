@@ -49,7 +49,7 @@ public class BoardDao {
      * 특정 게시글의 상세 내용을 조회합니다.
      */
     public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
-    	
+    	 System.out.println("다오 bno: " + bno);  
         return sqlSession.selectOne("boardMapper.selectBoard", bno);
     }
 
@@ -70,9 +70,10 @@ public class BoardDao {
     /**
      * 게시글을 삭제합니다.
      */
-    public int deleteBoard(SqlSessionTemplate sqlSession, String boardNo) {
-        return sqlSession.delete("boardMapper.deleteBoard", boardNo);
+    public List<BoardFile> getFilesForBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectList("BoardMapper.getFilesForBoard", bno);
     }
+
 
     // 2. 첨부파일 관리
 
@@ -102,8 +103,8 @@ public class BoardDao {
     /**
      * 특정 게시글의 첨부파일을 모두 삭제합니다.
      */
-    public int deleteFilesByBoardNo(SqlSessionTemplate sqlSession, String boardNo) {
-        return sqlSession.delete("boardMapper.deleteFilesByBoardNo", boardNo);
+    public int deleteFilesByBoardNo(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.deleteFilesByBoardNo", bno);
     }
 
     /**
@@ -132,14 +133,14 @@ public class BoardDao {
     /**
      * 새 댓글을 추가합니다.
      */
-    public int insertReply(SqlSessionTemplate sqlSession, Comment r) {
+    public int insertComment(SqlSessionTemplate sqlSession, Comment r) {
         return sqlSession.insert("boardMapper.insertReply", r);
     }
 
     /**
      * 특정 댓글을 삭제합니다.
      */
-    public int deleteReply(SqlSessionTemplate sqlSession, String commentNo) {
+    public int deleteComment(SqlSessionTemplate sqlSession, String commentNo) {
         return sqlSession.delete("boardMapper.deleteReply", commentNo);
     }
 
@@ -158,12 +159,23 @@ public class BoardDao {
     /**
      * 특정 게시글의 첨부파일을 모두 삭제합니다.
      */
-    public int deleteAllFilesByBoardNo(SqlSessionTemplate sqlSession, String boardNo) {
-        return sqlSession.delete("boardMapper.deleteAllFilesByBoardNo", boardNo);
+    public int deleteAllFilesByBoardNo(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.deleteAllFilesByBoardNo", bno);
     }
 
-    // 좋아요/싫어요 관리
+    public int deleteCommentsByBoardNo(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.deleteCommentsByBoardNo", bno);
+    }
 
+    public int deleteBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.deleteBoard", bno);
+    }
+    
+    
+    
+    
+    
+    // 좋아요/싫어요 관리
     
     /**
      * 현재 사용자의 특정 댓글에 대한 좋아요/싫어요 상태를 조회합니다.
@@ -277,6 +289,8 @@ public class BoardDao {
         return sqlSession.selectList("boardMapper.selectAllCategories");  // boardMapper의 쿼리 호출
     }
 
+
+    
 
 
 
