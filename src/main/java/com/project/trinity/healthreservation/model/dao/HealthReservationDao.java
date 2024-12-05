@@ -42,6 +42,10 @@ public class HealthReservationDao {
 		return sqlSession.selectOne("healthReservationMapper.selectHosName", hosName);
 	}
 
+	public int cancelHealthReservation(String healthResNo) {
+	    return sqlSession.delete("healthReservationMapper.cancelHealthReservation", healthResNo);
+	}
+
 	
 	
 	

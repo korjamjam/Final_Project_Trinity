@@ -57,13 +57,21 @@
                                 <label>검진 내용</label>
                                 <textarea name="resComment" disabled>${healthReservation.resComment}</textarea>
                             </div>
-                            <!-- 수정 활성화/저장 버튼 -->
-                            <button type="button" class="edit-button">수정 활성화</button>
-                            <!-- 예약 변경 요청 버튼 -->
-                            <button type="button" class="password-change">예약변경요청</button>
+                            <!-- 예약취소 버튼 추가 -->
+                            <button class="cancel-btn" onclick="cancelHealthReservation('${healthReservation.healthResNo}')">예약 취소</button>
                         </div>
                         <hr />
                     </c:forEach>
+
+                    <!-- 예약취소 JavaScript -->
+                    <script>
+                        function cancelHealthReservation(healthResNo) {
+                            if (confirm("이 예약을 취소하시겠습니까?")) {
+                                location.href = `${pageContext.request.contextPath}/healthReservation/cancel?healthResNo=` + healthResNo;
+                            }
+                        }
+                    </script>
+
                 </c:when>
                 <c:otherwise>
                     <div class="reservation-item">
@@ -82,7 +90,7 @@
                         </div>
                         <div class="input-group">
                             <label>검진자 생년월일</label>
-                            <input type="text" name="patientBirthday" value="" disabled>
+                            <input type="text" name="patientBirthday" value="-" disabled>
                         </div>
                         <div class="input-group">
                             <label>검진 날짜</label>

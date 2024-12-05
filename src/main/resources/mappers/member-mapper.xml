@@ -24,7 +24,7 @@
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
 		<result column="POSTCODE" property="postcode" />
-		
+
 	</resultMap>
 
 	<resultMap id="rankupResultSet" type="Rankup">
@@ -55,6 +55,16 @@
 		<result property="patientEmail" column="PATIENT_EMAIL" />
 		<result property="patientGender" column="PATIENT_GENDER" />
 		<result property="patientResult" column="PATIENT_RESULT" />
+	</resultMap>
+
+	<resultMap type="DoctorReview" id="DoctorReviewResultSet">
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="reviewTitle" column="REVIEW_TITLE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewCreatedAt" column="REVIEW_CREATED_AT" />
+		<result property="reviewUpdatedAt" column="REVIEW_UPDATED_AT" />
+		<result property="reviewRating" column="REVIEW_RATING" />
 	</resultMap>
 
 	<!-- 로그인 쿼리 -->
@@ -95,34 +105,36 @@
 
 
 	<insert id="insertMember" parameterType="member">
-    INSERT INTO MEMBER
-    (USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, ADDRESS, GENDER)
-    VALUES (
-        #{userId},
-        #{userPwd},
-        #{userName},
-        #{email},
-        #{phone},
-        TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
-        #{postcode},
-        #{address},
-        #{gender}
-    )
-</insert>
+		INSERT INTO MEMBER
+		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, ADDRESS,
+		GENDER)
+		VALUES (
+		#{userId},
+		#{userPwd},
+		#{userName},
+		#{email},
+		#{phone}, <!-- 하이픈 포함된 전화번호 -->
+		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
+		#{postcode},
+		#{address},
+		#{gender}
+		)
+	</insert>
+
 
 
 	<update id="updateMember" parameterType="member">
-    UPDATE MEMBER
-    SET
-        USER_NAME = #{userName},
-        BIRTHDAY = #{birthday},
-        EMAIL = #{email},
-        POSTCODE = #{postcode}, <!-- 추가 -->
-        ADDRESS = #{address},
-        USERPROFILE = #{userProfile},
-        USER_PWD = #{userPwd}
-    WHERE USER_ID = #{userId}
-</update>
+		UPDATE MEMBER
+		SET
+		USER_NAME = #{userName},
+		BIRTHDAY = #{birthday},
+		EMAIL = #{email},
+		POSTCODE = #{postcode}, <!-- 추가 -->
+		ADDRESS = #{address},
+		USERPROFILE = #{userProfile},
+		USER_PWD = #{userPwd}
+		WHERE USER_ID = #{userId}
+	</update>
 
 
 
@@ -174,28 +186,50 @@
 		SET STATUS = 'N' <!-- 상태 비활성화 -->
 		WHERE USER_ID = #{userId}
 	</update>
-	
+
 	<!-- 병원 번호로 의사 불러오기 -->
-	<select id="selectDoctorInfoList" parameterType="string" resultMap="memberResultSet">
+	<select id="selectDoctorInfoList" parameterType="string"
+		resultMap="memberResultSet">
 		SELECT USER_NO,
-			   USER_ID,
-			   USER_PWD,
-			   USER_NAME,
-			   EMAIL,
-			   PHONE,
-			   BIRTHDAY,
-			   GENDER,
-			   ADDRESS,
-			   ENROLL_DATE,
-			   STATUS,
-			   ISADMIN,
-			   MED_KEY,
-			   HOS_NO,
-			   USERPROFILE
+		USER_ID,
+		USER_PWD,
+		USER_NAME,
+		EMAIL,
+		PHONE,
+		BIRTHDAY,
+		GENDER,
+		ADDRESS,
+		ENROLL_DATE,
+		STATUS,
+		ISADMIN,
+		MED_KEY,
+		HOS_NO,
+		USERPROFILE
 		FROM MEMBER
-		WHERE HOS_NO = #{hosNo} AND 
-			  STATUS = 'Y'
+		WHERE HOS_NO = #{hosNo} AND
+		STATUS = 'Y'
 	</select>
 
+	<!-- 의사 유저 번호로 댓글 리스트 받기 -->
+	<select id="selectDoctorReview" parameterType="string"
+		resultMap="DoctorReviewResultSet">
+		SELECT REVIEW_NO,
+		USER_NO,
+		REVIEW_TITLE,
+		REVIEW_CONTENT,
+		REVIEW_CREATED_AT,
+		REVIEW_UPDATED_AT,
+		REVIEW_RATING
+		FROM DOCTOR_REVIEW
+		WHERE USER_NO = #{userNo}
+	</select>
 
+	<update id="updateHospitalDoctor" parameterType="HashMap">
+	    UPDATE MEMBER
+	    SET
+	        HOS_NO = #{hosNo}
+	    WHERE USER_ID = #{userId}
+	</update>
+
+	<!-- 변경해야 되는 병원 번호를 안보냄 시발 -->
 </mapper>

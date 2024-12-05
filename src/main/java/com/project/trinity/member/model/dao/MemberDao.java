@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 
 @Repository
@@ -114,6 +115,15 @@ public class MemberDao {
 
 	public ArrayList<Member> selectDoctorInfoList(SqlSessionTemplate sqlSession, String hosNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorInfoList", hosNo);
+	}
+
+	public ArrayList<DoctorReview> selectDoctorReview(SqlSessionTemplate sqlSession, String userNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorReview", userNo);
+	}
+	
+	public int updateHospitalDoctor(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.updateHospitalDoctor", hmap);
 	}
 
 	

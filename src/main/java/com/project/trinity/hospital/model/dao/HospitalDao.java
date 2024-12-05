@@ -36,7 +36,7 @@ public class HospitalDao {
         return (ArrayList)sqlSession.selectList("hospitalMapper.selectHospitalListPaginated", map);
     }
 
-   public HospitalAccount selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
+   public HospitalInfo selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
       return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
    }
 
@@ -83,6 +83,10 @@ public class HospitalDao {
 
 	public int insertHospital(SqlSessionTemplate sqlSession, HospitalAccount hosAccount) {
 		return sqlSession.insert("hospitalMapper.insertHospital", hosAccount);
+	}
+
+	public HospitalAccount loginHosAccount(SqlSessionTemplate sqlSession, HospitalAccount hosAccount) {
+		return sqlSession.selectOne("hospitalMapper.loginHosAccount", hosAccount);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.project.trinity.member.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
@@ -37,7 +38,9 @@ public interface MemberService {
 
 	ArrayList<Member> selectDoctorInfoList(String hosNo);
 
-	ArrayList<DoctorReview> selectDoctorReview(String hosNo);
+	ArrayList<DoctorReview> selectDoctorReview(String userNo);
+
+	int updateHospitalDoctor(HashMap<String, String> hmap);
 
     
   

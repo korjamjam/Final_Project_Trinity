@@ -12,24 +12,25 @@
 <body>
 
 <!-- Header -->
-<%@ include file="../common/main_header.jsp"%>
+<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
 <!-- 메시지 알림 -->
 <script>
-    <% if (request.getAttribute("message") != null) { %>
-        alert("<%= request.getAttribute("message") %>");
-    <% } %>
+        const message = "${message}";
+        if (message) {
+            alert(message); // 안내 문구를 띄움
+        }
 </script>
 
 <div class="login-page">
     <div class="login-container">
-        <form action="${pageContext.request.contextPath}/member/login" method="post">
+        <form action="${pageContext.request.contextPath}/hospital/account/login" method="post">
             <div class="login-input-group">
-                <input type="text" name="userId" placeholder="아이디" required>
+                <input type="text" name="hosId" placeholder="아이디" required>
                 <span class="login-clear-icon" onclick="clearInput('userId')">✖</span>
             </div>
             <div class="login-input-group">
-                <input type="password" name="userPwd" placeholder="비밀번호" id="password-input" required>
+                <input type="password" name="hosPwd" placeholder="비밀번호" id="password-input" required>
                 <span class="login-toggle-password" onclick="togglePassword()">👁</span>
             </div>
             <div class="login-checkbox-group">
@@ -39,7 +40,7 @@
             <button type="submit" class="login-button">로그인</button>
         </form>
         <div class="login-footer-links">
-            <a href="${pageContext.request.contextPath}/hospital/account/sign_up">회원가입</a>
+            <a href="${pageContext.request.contextPath}/hospital/account/sign_up">기업 회원가입</a>
         </div>
     </div>
 </div>

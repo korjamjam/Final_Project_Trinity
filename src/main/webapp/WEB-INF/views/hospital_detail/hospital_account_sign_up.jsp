@@ -18,19 +18,15 @@
 <body>
 
 	<!-- 회원가입 성공 또는 실패 메시지 출력 스크립트 -->
-	<% 
-    if (session.getAttribute("message") != null) { 
-%>
 	<script>
-        alert("<%= session.getAttribute("message") %>");
+        const message = "${message}";
+        if (message) {
+            alert(message); // 안내 문구를 띄움
+        }
     </script>
-	<%
-        session.removeAttribute("message");
-    }
-%>
 
 	<!-- Header -->
-	<%@ include file="../common/main_header.jsp"%>
+<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
 	<div class="signup-container">
 		<h2>기업 회원 가입</h2>
