@@ -17,5 +17,7 @@ public interface HealthReservationService {
 	HealthReservation selectHealthReservation(String healthResNo);
 	
 	List<HealthReservation> getHealthReservationsByUserNo(String userNo);
+	
+	int cancelHealthReservation(String healthResNo);
 
 }
