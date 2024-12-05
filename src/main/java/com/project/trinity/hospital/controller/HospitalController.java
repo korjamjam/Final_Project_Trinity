@@ -76,7 +76,7 @@ public class HospitalController {
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
 		HospitalInfo h = hospitalService.selectHospital(hosNo);
-		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
+		HospitalInfo hInfo = hospitalService.selectHospitalInfo(hosNo);
 		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
 		double rating[] = new double[dList.size()];
 		for(int i = 0; i < dList.size(); i++) {
@@ -91,10 +91,11 @@ public class HospitalController {
 			avg /= docRev.size();
 			rating[i] = avg;
 		}
+		System.out.println("rating" + rating);
 		m.addAttribute("h",h);
 		m.addAttribute("hInfo",hInfo);
 		m.addAttribute("dList",dList);
-		m.addAttribute("rating",rating);
+		m.addAttribute("rating",rating[0]);
 		
 		System.out.println("Controller dList : " + dList);
 		return "hospital_detail/hospital_detail";
