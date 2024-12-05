@@ -74,7 +74,7 @@
    </resultMap>
    
 
-   
+
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
 		SELECT USER_NO,
@@ -216,9 +216,6 @@
     	FROM HOSPITAL_INFO
 	</select>
 	
-<<<<<<< HEAD
 
-=======
->>>>>>> 68e00bbc363be67cc7d32cf4ed009caaaff1759e
 
 </mapper>

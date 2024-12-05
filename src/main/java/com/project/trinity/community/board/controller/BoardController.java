@@ -401,7 +401,7 @@ public class BoardController {
 
 	@RequestMapping("/deleteBoard")
 	@ResponseBody // 이 어노테이션을 추가하
-	public String deleteBoard(HttpSession session, String bno, String categoryId) {
+	public String deleteBoard(HttpSession session, @RequestParam String bno, @RequestParam String categoryId) {
 		  System.out.println("삭제하려는 게시글 번호: " + bno);  // bno 값 확인
 		    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인
 		    // 이 부분에서 null 값이 나오지 않는지 체크
@@ -435,8 +435,10 @@ public class BoardController {
 				}
 			}
 		}
+		
+		
 
-		return "게시글 삭제가 완료되었습니다."; // 게시글 삭제 성공 메시지
+		return "ok"; // 게시글 삭제 성공 메시지
 
 	}
 
