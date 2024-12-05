@@ -37,7 +37,7 @@ public interface MemberService {
 
 	ArrayList<Member> selectDoctorInfoList(String hosNo);
 
-	ArrayList<DoctorReview> selectDoctorReview(String hosNo);
+	ArrayList<DoctorReview> selectDoctorReview(String userNo);
 
     
   

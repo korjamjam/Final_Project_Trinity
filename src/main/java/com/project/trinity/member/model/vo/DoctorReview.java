@@ -20,5 +20,5 @@ public class DoctorReview {
 	private String reviewContent;
 	private String reviewCreatedAt;
 	private String reviewUpdatedAt;
-	private String reviewRating;
+	private int reviewRating;
 }

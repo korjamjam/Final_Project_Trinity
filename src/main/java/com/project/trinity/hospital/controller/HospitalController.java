@@ -78,15 +78,23 @@ public class HospitalController {
 		HospitalInfo h = hospitalService.selectHospital(hosNo);
 		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
 		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
-		ArrayList rating[] = new ArrayList[dList.size()];
+		double rating[] = new double[dList.size()];
 		for(int i = 0; i < dList.size(); i++) {
 			String userNo = dList.get(i).getUserNo();
-			System.out.println(userNo);
-			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(hosNo);
+			System.out.println("userNO : " + userNo);
+			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(userNo);
+			double avg = 0;
+			for(int j = 0; j < docRev.size(); j++) {
+				System.out.println("docRev : " + docRev.get(j));
+				avg += docRev.get(j).getReviewRating();
+			}
+			avg /= docRev.size();
+			rating[i] = avg;
 		}
 		m.addAttribute("h",h);
 		m.addAttribute("hInfo",hInfo);
 		m.addAttribute("dList",dList);
+		m.addAttribute("rating",rating);
 		
 		System.out.println("Controller dList : " + dList);
 		return "hospital_detail/hospital_detail";
