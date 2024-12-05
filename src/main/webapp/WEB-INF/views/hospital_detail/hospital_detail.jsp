@@ -95,6 +95,8 @@
                         </div>
                         <div class="modal-body">
                         <p>${h.hosTel }</p>
+                        <input type="hidden" id="copyTel" value="${h.hosTel }">
+                        <button id="copy_btn" onclick="copyTel()">복사하기</button>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -152,7 +154,7 @@
                         <!-- http://localhost:7777/trinity/hospital/detail?hosNo=H44 -->
                         <p>http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }</p>
                         <input type="hidden" id="shareAddress" value="http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }">
-                        <button id="copy_btn" onclick="copy()">복사하기</button>
+                        <button id="copy_btn" onclick="copyAddress()">복사하기</button>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
