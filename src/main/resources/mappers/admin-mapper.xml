@@ -73,7 +73,6 @@
       <result column="HOS_PARKING" property="hosParking" />
    </resultMap>
 
-
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
 		SELECT USER_NO,
@@ -215,7 +214,7 @@
     	FROM HOSPITAL_INFO
 	</select>
 	
-	<select id="getHospitalDetail" resultMap="HospitalInfoResultSet">
+	<!-- <select id="getHospitalDetail" resultMap="HospitalDetailResultMap">
     SELECT
         HI.HOS_NO,
         HI.HOS_NAME,
@@ -241,8 +240,6 @@
     FROM HOSPITAL_INFO HI
     LEFT JOIN HOSPITAL_ACCOUNT HA ON HI.HOS_NO = HA.HOS_NO
     WHERE HI.HOS_NO = #{hosNo}
-</select>
+</select> -->
 
 </mapper>
-
-

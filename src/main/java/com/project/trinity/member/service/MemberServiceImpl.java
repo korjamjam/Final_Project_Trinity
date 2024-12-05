@@ -123,9 +123,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<DoctorReview> selectDoctorReview(String hosNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<DoctorReview> selectDoctorReview(String userNo) {
+		return memberDao.selectDoctorReview(sqlSession, userNo);
 	}
 
 }

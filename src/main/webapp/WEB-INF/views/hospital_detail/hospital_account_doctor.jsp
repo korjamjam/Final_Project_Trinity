@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Member Management</title>
+<title>병원 의사 관리</title>
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
 <link rel="stylesheet"
@@ -21,7 +21,7 @@
 	<div class="member-management">
 		<div class="content">
 			<h2>회원관리</h2>
-			<p class="total-members">총 회원수: ${memberList.size()}명</p>
+			<p class="total-members">총 의사 수: ${memberList.size()}명</p>
 
 			<c:if test="${empty memberList}">
 				<p>회원 정보가 없습니다.</p>

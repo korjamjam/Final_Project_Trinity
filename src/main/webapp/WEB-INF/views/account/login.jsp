@@ -42,7 +42,7 @@
             <a href="${pageContext.request.contextPath}/member/search_id">아이디 찾기</a> | 
             <a href="${pageContext.request.contextPath}/member/search_pwd">비밀번호 찾기</a> |
             <a href="${pageContext.request.contextPath}/member/sign_up">회원가입</a> |
-            <a href="${pageContext.request.contextPath}/hospital/account/login">기업 사용자</a> <!-- 병원 로그인 연결 -->
+            <a href="${pageContext.request.contextPath}/hospital/login">기업 사용자</a> <!-- 병원 로그인 연결 -->
         </div>
     </div>
 </div>

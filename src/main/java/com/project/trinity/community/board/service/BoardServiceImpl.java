@@ -69,15 +69,11 @@ public class BoardServiceImpl implements BoardService {
 	//boardService.deleteBoard
 	public int deleteBoard(String bno) {
 	    // 첨부파일 삭제
-	    int fileDeleteResult = boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
-	    if (fileDeleteResult <= 0) {
-	        throw new RuntimeException("첨부파일 삭제에 실패했습니다.");
-	    }
+	    boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
+	   
 	    // 댓글 삭제 (예시로 댓글 삭제하는 메서드)
-	    int commentDeleteResult = boardDao.deleteCommentsByBoardNo(sqlSession, bno);
-	    if (commentDeleteResult < 0) {
-	        throw new RuntimeException("댓글 삭제에 실패했습니다.");
-	    }
+	    boardDao.deleteCommentsByBoardNo(sqlSession, bno);
+	  
 
 	    // 게시글 삭제
 	    //boardDao.deleteBoard
@@ -89,7 +85,7 @@ public class BoardServiceImpl implements BoardService {
 	  
 
 	    // 모든 작업이 성공하면 성공적으로 처리
-	    return 1;
+	    return boardDeleteResult;
 	}
 
 
