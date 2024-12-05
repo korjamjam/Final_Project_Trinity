@@ -2,7 +2,10 @@ package com.project.trinity.hospital.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -76,7 +79,7 @@ public class HospitalController {
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
 		HospitalInfo h = hospitalService.selectHospital(hosNo);
-		HospitalAccount hInfo = hospitalService.selectHospitalInfo(hosNo);
+		HospitalInfo hInfo = hospitalService.selectHospitalInfo(hosNo);
 		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
 		ArrayList rating[] = new ArrayList[dList.size()];
 		for(int i = 0; i < dList.size(); i++) {
@@ -126,6 +129,8 @@ public class HospitalController {
 	    hosAccount.setHosPwd(bcryptPasswordEncoder.encode(hosAccount.getHosPwd()));
 	    
 	    int result = hospitalService.insertHospital(hosAccount);
+	    m.addAttribute("hosAcNo", hosAccount.getHosAcNo());
+	    System.out.println(hosAccount.getHosAcNo());
 	    if (result > 0) {
 	        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
 	        return "redirect:/hospital/account/login";
@@ -134,6 +139,36 @@ public class HospitalController {
 	        return "redirect:/hospital/account/sign_up";
 	    }
 	}
+	
+	@RequestMapping("/account/login")
+	public String HospitalAccountLogin(HospitalAccount hosAccount,
+									   HttpSession session
+			) {
+		HospitalAccount loginHosAccount = hospitalService.loginHosAccount(hosAccount);
+		
+		if(loginHosAccount == null) {
+			session.setAttribute("message", "로그인 실패 아이디를 확인하세요");
+			return "hospital_detail/hospital_account_login";
+		} else {
+			if(bcryptPasswordEncoder.matches(hosAccount.getHosPwd(), loginHosAccount.getHosPwd())) {
+				session.setAttribute("loginHosAccount", loginHosAccount);
+				return "hospital_detail/hospital_account_main";
+			} else {
+				session.setAttribute("message", "로그인 실패 아이디와 비밀번호를 확인하세요");
+				return "hospital_detail/hospital_account_login";
+			}
+		}
+		
+	}
+	
+	@RequestMapping("account/logout")
+	public String logoutMember(HttpSession session, HttpServletResponse response) {
+		session.invalidate();
+
+		return "redirect:/";
+	}
+	
+	
 	
 	// 아이디 중복 확인
 	@ResponseBody
@@ -148,7 +183,12 @@ public class HospitalController {
 	}
 
 	@RequestMapping("/account/doctor")
-	public String HospitalAccountDoctor() {
+	public String HospitalAccountDoctor(HttpSession session) {
+		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
+		HospitalInfo hosInfo = hospitalService.selectHospitalInfo(loginHosAccount.getHosNo());
+		
+		System.out.println(hosInfo);
+		
 		return "hospital_detail/hospital_account_doctor";
 	}
 	
@@ -162,8 +202,8 @@ public class HospitalController {
 		return "hospital_detail/hospital_account_my_reservation";
 	}
 	
-	@RequestMapping("/account/login")
-	public String HospitalAccountLogin() {
+	@RequestMapping("/login")
+	public String HospitalAccountLoginShow() {
 		return "hospital_detail/hospital_account_login";
 	}
 	

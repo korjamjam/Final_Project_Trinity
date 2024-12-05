@@ -41,7 +41,7 @@ public class HospitalServiceImpl implements HospitalService{
     }
 
 	@Override
-	public HospitalAccount selectHospitalInfo(String hosNo) {
+	public HospitalInfo selectHospitalInfo(String hosNo) {
 		return hpDao.selectHospitalInfo(sqlSession, hosNo);
 	}
 
@@ -92,6 +92,11 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public int insertHospital(HospitalAccount hosAccount) {
 		return hpDao.insertHospital(sqlSession, hosAccount);
+	}
+
+	@Override
+	public HospitalAccount loginHosAccount(HospitalAccount hosAccount) {
+		return hpDao.loginHosAccount(sqlSession, hosAccount);
 	}
 
 	
