@@ -57,6 +57,12 @@
       <result column="HOS_CLOSE_TIME2" property="hosEndTime2" />
       <result column="HOS_LATITUDE" property="hosLatitude" />
       <result column="HOS_LONGITUDE" property="hosLongitude" />
+      <result column="HOS_ID" property="hosId" />
+      <result column="HOS_PWD" property="hosPwd" />
+      <result column="HOS_YEAR" property="hosYear" />
+      <result column="HOS_INFO" property="hosInfo" />
+      <result column="HOS_ONDUTY" property="hosOnduty" />
+      <result column="HOS_PARKING" property="hosParking" />
    </resultMap>
    
    <resultMap type="HospitalAccount" id="HospitalAccountResultSet">
@@ -214,7 +220,7 @@
     	FROM HOSPITAL_INFO
 	</select>
 	
-	<select id="getHospitalDetail" resultMap="HospitalDetailResultMap">
+	<select id="getHospitalDetail" resultMap="HospitalInfoResultSet">
     SELECT
         HI.HOS_NO,
         HI.HOS_NAME,
