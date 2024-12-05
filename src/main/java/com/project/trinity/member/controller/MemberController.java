@@ -67,34 +67,39 @@ public class MemberController {
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
 	}
 
-	// 회원가입 기능
 	@PostMapping("/insert")
 	public String insertMember(Member member, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	    // 비밀번호 확인
 	    String userPwdConfirm = request.getParameter("userPwdConfirm");
-
 	    if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
 	        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 	        return "redirect:/member/sign_up";
 	    }
 
+	    // 비밀번호 암호화
 	    member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
 
+	    // 이메일 조합
 	    String emailLocal = request.getParameter("emailLocal");
 	    String emailDomain = request.getParameter("emailDomain");
-	    if (emailLocal != null && !emailLocal.isEmpty() && emailDomain != null && !emailDomain.isEmpty()) {
+	    if (emailLocal != null && emailDomain != null) {
 	        member.setEmail(emailLocal + "@" + emailDomain);
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "유효한 이메일 주소를 입력해주세요.");
-	        return "redirect:/member/sign_up";
 	    }
 
-	    // 주소 필드 조합
+	    // 주소 조합
 	    String postcode = request.getParameter("postcode");
 	    String address = request.getParameter("address");
 	    String detailAddress = request.getParameter("detailAddress");
 	    member.setPostcode(postcode);
 	    member.setAddress(address + " " + detailAddress);
 
+	    // 전화번호 조합
+	    String phonePrefix = request.getParameter("phonePrefix");
+	    String phoneMiddle = request.getParameter("phoneMiddle");
+	    String phoneLast = request.getParameter("phoneLast");
+	    member.setPhone(phonePrefix + "-" + phoneMiddle + "-" + phoneLast);
+
+	    // 회원 가입 처리
 	    int result = memberService.insertMember(member);
 	    if (result > 0) {
 	        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
@@ -104,6 +109,7 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 	}
+
 
 
 	// 아이디 중복 확인
