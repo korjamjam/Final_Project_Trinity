@@ -1,11 +1,7 @@
-let data = {
-    contextPath: "",
-    fileList: [],
-};
 
 $(document).ready(function () {
-    data.contextPath = document.getElementById('context-path').dataset.baseUrl;
-    console.log("Context Path:", data.contextPath); // 디버깅용
+   
+    console.log("분리Context Path:", contextPath); // 디버깅용
 
     initializeSummernote();
 
@@ -14,7 +10,8 @@ $(document).ready(function () {
 });
 
 function initializeSummernote() {
-    $('#summernote').summernote({
+    console.log("체크");
+        $('#summernote').summernote({
         minHeight: 400,
         maxHeight: null,
         placeholder: '글을 입력하세요.',
@@ -74,7 +71,7 @@ function fileUpload(imgs) {
     }
 
     $.ajax({
-        url: `${data.contextPath}/community/upload`, // 템플릿 리터럴로 수정
+        url: contextPath + "/community/upload", // 템플릿 리터럴로 수정
         type: "POST",
         data: fd,
         processData: false,
@@ -162,29 +159,4 @@ function drawFileList() {
         `;
         fileListDiv.innerHTML += fileRow;
     });
-}
-
-function toggleDownload(button, index) {
-    const hiddenInput = document.querySelector(`#allowDownload${index}`);
-    const isAllowed = button.getAttribute("data-allow") === "true";
-
-    if (isAllowed) {
-        button.setAttribute("data-allow", "false");
-        button.classList.remove("btn-outline-primary");
-        button.classList.add("btn-outline-secondary");
-        button.innerHTML = '<i class="bi bi-lock"></i>';
-        hiddenInput.value = "N";
-    } else {
-        button.setAttribute("data-allow", "true");
-        button.classList.remove("btn-outline-secondary");
-        button.classList.add("btn-outline-primary");
-        button.innerHTML = '<i class="bi bi-arrow-down-circle"></i>';
-        hiddenInput.value = "Y";
-    }
-}
-
-function removeFile(targetIndex, fileName) {
-    data.fileList = data.fileList.filter((file, index) => index !== targetIndex);
-    alert(`"${fileName}" 파일이 삭제되었습니다.`);
-    drawFileList();
 }

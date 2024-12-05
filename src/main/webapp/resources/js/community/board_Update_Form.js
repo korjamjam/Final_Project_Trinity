@@ -1,16 +1,10 @@
-let formData = {
-    contextPath: "",
-    fileList: [], // 기존 파일 데이터와 업로드된 파일 데이터를 모두 포함
-};
+const fileList = ${fileList};
+
+console.log("첨부파일 목록:", fileList);
 
 $(document).ready(function () {
-    // Context Path Initialization
-    const baseUrl = $("#context-path").data("base-url");
-    if (baseUrl) {
-        formData.contextPath = baseUrl;
-    } else {
-        console.error("Context path is not defined.");
-    }
+   
+    console.log("문서가 준비되었습니다.");  // 로그 추가
 
     // Initialize Summernote
     initializeSummernote();
@@ -21,8 +15,6 @@ $(document).ready(function () {
     // File upload event listener
     $("#upfiles").on("change", handleFileUpload);
 
-    // Load existing files (첨부된 기존 파일을 로드)
-    loadExistingFiles();
 });
 
 function initializeSummernote() {
@@ -48,24 +40,13 @@ function syncSummernoteWidth() {
     $('.note-editor').css('width', wrapperWidth);
 }
 
-function loadExistingFiles() {
-    // AJAX를 통해 서버에서 기존 파일 데이터를 가져옴
-    $.ajax({
-        url: `${formData.contextPath}/community/getAttachedFiles`, // 파일 정보 요청
-        type: "GET",
-        dataType: "json",
-        success: (response) => {
-            formData.fileList = response; // 서버로부터 파일 목록 저장
-            drawFileList(); // 파일 목록 UI 업데이트
-        },
-        error: (error) => {
-            console.error("Failed to load existing files:", error);
-        }
-    });
-}
+
+
 
 function drawFileList() {
+    
     const fileListDiv = document.getElementById("file-list");
+    console.log("제발 첨부파일 목록:", fileList);
     fileListDiv.innerHTML = ""; // 기존 UI 초기화
 
     formData.fileList.forEach((file, index) => {

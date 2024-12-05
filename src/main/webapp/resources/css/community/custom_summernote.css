@@ -164,6 +164,7 @@
 	border-radius: 5px;
     padding: 10px; /* 내부 여백 */
     display: none; /* 초기 상태는 숨김 */
+    margin-top: 10px;
 }
 
 /* 파일 리스트 스타일 */
