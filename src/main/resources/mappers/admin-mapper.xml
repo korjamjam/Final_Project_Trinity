@@ -75,8 +75,6 @@
    
    <resultMap id="HospitalDetailResultMap" type="HospitalDetail">
     <!-- 병원 정보와 병원 계좌 정보를 하나의 resultMap으로 처리 -->
-    <result property="hospitalInfo" column="HOS_NO" resultMap="HospitalInfoResultSet"/>
-    <result property="hospitalAccount" column="HOS_NO" resultMap="HospitalAccountResultSet"/>
 </resultMap>
 
 	<!-- 관리자 회원 목록 조회 -->
