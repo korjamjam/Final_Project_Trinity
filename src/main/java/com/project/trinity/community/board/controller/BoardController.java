@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,7 +139,7 @@ public class BoardController {
 		m.addAttribute("categoryId", categoryId);
 		m.addAttribute("categoryName", categoryName);
 
-		return "community/summernote";
+		return "community/board_Write_Form";
 	}
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
@@ -202,6 +201,7 @@ public class BoardController {
 			m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
 			return "/common/errorPage";
 		}
+		System.out.println("Received categoryId from Board object: " + b.getCategoryId());
 
 		// 게시글에 categoryId가 설정되어 있는지 확인
 		if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
@@ -311,32 +311,39 @@ public class BoardController {
 	}
 
 	@GetMapping("/edit")
-	public String editBoardPage(@RequestParam("bno") String boardNo, Model m) {
+	public String editBoardPage(@RequestParam("bno") String bno, Model m) {
 		// 게시글 정보 조회
-		Board b = boardService.selectBoard(boardNo);
-		System.out.println("boardNo: " + boardNo);
+		Board b = boardService.selectBoard(bno);
+		System.out.println("boardNo: " + bno);
 
 		// 첨부파일 목록 조회
-		List<BoardFile> attachedFiles = boardService.getFileList(boardNo);
-		System.out.println("첨부파일 결과: " + attachedFiles);
+		List<BoardFile> fileList = boardService.getFileList(bno);
+		System.out.println("첨부파일 결과: " + fileList);
 
 		// 게시글이 존재하는지 확인
 		if (b != null) {
 			m.addAttribute("b", b);
 
 			// attachedFiles가 null이거나 비어있으면 빈 리스트로 처리
-			if (attachedFiles == null || attachedFiles.isEmpty()) {
-				attachedFiles = new ArrayList<>();
+			if (fileList == null || fileList.isEmpty()) {
+				fileList = new ArrayList<>();
 			}
 
-			m.addAttribute("attachedFiles", attachedFiles);
-			System.out.println("첨부파일 리스트: " + attachedFiles);
+			m.addAttribute("fileList", fileList);
+			System.out.println("수정하려는 첨부파일 리스트: " + fileList);
 
-			return "community/summernoteUpdateForm";
+			return "community/board_Update_Form";
 		} else {
 			m.addAttribute("errorMsg", "게시글을 불러오는데 실패했습니다.");
 			return "common/errorPage";
 		}
+	}
+
+	@GetMapping("/getAttachedFiles")
+	@ResponseBody
+	public List<BoardFile> getAttachedFiles(@RequestParam("bno") String bno) {
+		System.out.println("수정첨부파일Received bno: " + bno); // 서버에서 bno 값 출력
+	    return boardService.getFileList(bno);
 	}
 
 	// 수정 완료 처리
