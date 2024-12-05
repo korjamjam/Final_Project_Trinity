@@ -72,10 +72,6 @@
       <result column="HOS_ONDUTY" property="hosOnduty" />
       <result column="HOS_PARKING" property="hosParking" />
    </resultMap>
-   
-   <resultMap id="HospitalDetailResultMap" type="HospitalDetail">
-    <!-- 병원 정보와 병원 계좌 정보를 하나의 resultMap으로 처리 -->
-</resultMap>
 
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
