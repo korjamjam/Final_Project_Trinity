@@ -13,7 +13,7 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/admin/admin_main.js"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp" />
+	<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
     <main class="admin-container">
         <button class="admin-button" onClick="location.href='doctor'">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/MemberManagement_img.png" alt="회원관리 아이콘">
@@ -35,3 +35,6 @@
 </body>
 
 </html>
+
+
+<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_side_bar.jsp" />

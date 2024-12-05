@@ -95,6 +95,8 @@
                         </div>
                         <div class="modal-body">
                         <p>${h.hosTel }</p>
+                        <input type="hidden" id="copyTel" value="${h.hosTel }">
+                        <button id="copy_btn" onclick="copyTel()">복사하기</button>
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -152,7 +154,7 @@
                         <!-- http://localhost:7777/trinity/hospital/detail?hosNo=H44 -->
                         <p>http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }</p>
                         <input type="hidden" id="shareAddress" value="http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }">
-                        <button id="copy_btn" onclick="copy()">복사하기</button>
+                        <button id="copy_btn" onclick="copyAddress()">복사하기</button>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -199,70 +201,40 @@
                 의사 리뷰
             </div>
             <div class="hospital_detail_doctor_row_wrapper">
-                <!-- <div class="hospital_detail_doctor_row">
-                    <div class="hospital_detail_doctor_intro">
-                        <div class="hospital_detail_doctor_img">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/doc_lim.png" alt="doc1">
+                <c:forEach var="i" items="${dList}" varStatus="status">
+                    <div class="hospital_detail_doctor_row">
+                        <div class="hospital_detail_doctor_intro">
+                            <div class="hospital_detail_doctor_img">
+                                <c:set var="profilePic" value="${d.userProfile}" />
+                                <c:choose>
+                                    <c:when test="${not empty profilePic}">
+                                        <img src="${ pageContext.servletContext.contextPath }${profilePic}" alt="docPic">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/doctorPicDefault.png" alt="docPic">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="hospital_detail_doctor_name">
+                                이름 : ${i.userName}<br>
+                                <c:choose>
+                                    <c:when test="${rating[status.index] != 0}">
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/star.png" alt="star">
+                                        ${rating[status.index]}
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/whiteStar.png" alt="star">
+                                        평가가 존재하지 않습니다.
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
-                        <div class="hospital_detail_doctor_name">
-                            이름 : 임태형<br>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/star.png" alt="star">
-                            9.6 (79)
-                        </div>
-                    </div>
-                    <div class="hospital_detail_doctor_detail">
-                        <button>약력보기</button>
-                        <button>의사 리뷰보기</button>
-                    </div>
-                </div>
-                <div class="hospital_detail_doctor_row">
-                    <div class="hospital_detail_doctor_intro">
-                        <div class="hospital_detail_doctor_img">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/doc_lee.png" alt="doc2">
-                        </div>
-                        <div class="hospital_detail_doctor_name">
-                            이름 : 이자영<br>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/star.png" alt="star">
-                            9.4 (37)
-                        </div>
-                    </div>
-                    <div class="hospital_detail_doctor_detail">
-                        <button>약력보기</button>
-                        <button>의사 리뷰보기</button>
-                    </div>
-                </div>
-                <div class="hospital_detail_doctor_row">
-                    <div class="hospital_detail_doctor_intro">
-                        <div class="hospital_detail_doctor_img">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/doc_lim.png" alt="doc1">
-                        </div>
-                        <div class="hospital_detail_doctor_name">
-                            이름 : 임태형<br>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/star.png" alt="star">
-                            9.6 (79)
+                        <div class="hospital_detail_doctor_detail">
+                            <button>약력보기</button>
+                            <button>의사 리뷰보기</button>
                         </div>
                     </div>
-                    <div class="hospital_detail_doctor_detail">
-                        <button>약력보기</button>
-                        <button>의사 리뷰보기</button>
-                    </div>
-                </div>
-                <div class="hospital_detail_doctor_row">
-                    <div class="hospital_detail_doctor_intro">
-                        <div class="hospital_detail_doctor_img">
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/doc_lee.png" alt="doc2">
-                        </div>
-                        <div class="hospital_detail_doctor_name">
-                            이름 : 이자영<br>
-                            <img src="${ pageContext.servletContext.contextPath }/resources/img/star.png" alt="star">
-                            9.4 (37)
-                        </div>
-                    </div>
-                    <div class="hospital_detail_doctor_detail">
-                        <button>약력보기</button>
-                        <button>의사 리뷰보기</button>
-                    </div>
-                </div> -->
+                </c:forEach>
             </div>
         </div>
 

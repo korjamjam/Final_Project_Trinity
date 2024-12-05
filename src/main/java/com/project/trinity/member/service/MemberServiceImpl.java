@@ -1,5 +1,6 @@
 package com.project.trinity.member.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.member.model.dao.MemberDao;
+import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 
 @Service
@@ -113,7 +115,24 @@ public class MemberServiceImpl implements MemberService {
 		params.put("userId", userId);
 		params.put("encryptedPassword", encryptedPassword);
 		return memberDao.updatePassword(sqlSession, params);
+	}
 
+	@Override
+	public ArrayList<Member> selectDoctorInfoList(String hosNo) {
+		return memberDao.selectDoctorInfoList(sqlSession, hosNo);
+	}
+
+	@Override
+	public ArrayList<DoctorReview> selectDoctorReview(String userNo) {
+		return memberDao.selectDoctorReview(sqlSession, userNo);
+	}
+
+	@Override
+	public int updateHospitalDoctor(HashMap<String, String> hmap) {
+		System.out.println("[DEBUG] updateHospitalDoctor 호출 - 업데이트 대상: " + hmap);
+		int result = memberDao.updateHospitalDoctor(sqlSession, hmap);
+		System.out.println("[DEBUG] updateHospitalDoctor 결과: " + result);
+		return result;
 	}
 
 }

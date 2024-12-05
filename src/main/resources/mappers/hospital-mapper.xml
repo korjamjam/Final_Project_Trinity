@@ -6,14 +6,10 @@
 <mapper namespace="hospitalMapper">
 <!-- 단축 설정 -->
    <resultMap type="HospitalAccount" id="HospitalAccountResultSet">
+      <result column="HOS_ACCOUNT_NO" property="hosAcNo" />
       <result column="HOS_NO" property="hosNo" />
       <result column="HOS_ID" property="hosId" />
       <result column="HOS_PWD" property="hosPwd" />
-      <result column="HOS_NAME" property="hosName" />
-      <result column="HOS_ADDRESS" property="hosAddress" />
-      <result column="HOS_TEL" property="hosTel" />
-      <result column="HOS_YEAR" property="hosYear" />
-      <result column="HOS_TIME" property="hosTime" />
       <result column="HOS_INFO" property="hosInfo" />
       <result column="HOS_ONDUTY" property="hosOnduty" />
       <result column="HOS_PARKING" property="hosParking" />
@@ -31,7 +27,29 @@
       <result column="HOS_CLOSE_TIME2" property="hosEndTime2" />
       <result column="HOS_LATITUDE" property="hosLatitude" />
       <result column="HOS_LONGITUDE" property="hosLongitude" />
+      <result column="HOS_TEL" property="hosTel" />
+      <result column="HOS_YEAR" property="hosYear" />
+      <result column="HOS_ID" property="hosId" />
+      <result column="HOS_PWD" property="hosPwd" />
+      <result column="HOS_INFO" property="hosInfo" />
+      <result column="HOS_ONDUTY" property="hosOnduty" />
+      <result column="HOS_PARKING" property="hosParking" />
    </resultMap>
+   
+   <!-- 병원 로그인 -->
+   <select id="loginHosAccount"
+		parameterType="HospitalAccount"
+		resultMap="HospitalAccountResultSet">
+		SELECT  HOS_ACCOUNT_NO,
+				HOS_NO,
+				HOS_ID,
+				HOS_PWD,
+				HOS_INFO,
+				HOS_ONDUTY,
+				HOS_PARKING
+		FROM HOSPITAL_ACCOUNT
+		WHERE HOS_ID = #{hosId}
+	</select>
    
    	<!-- 아이디 중복 확인 쿼리 -->
 	<select id="idCheck" parameterType="string" resultType="int">
@@ -51,34 +69,40 @@
 	        #{hosId},
 	        #{hosPwd},
 	        CASE 
-	        	WHEN '#{hosNo}' IS NULL THEN 'H' || SEQ_HOS_NO.NEXTVAL
-	        	ELSE '#{hosNo}'
+	        	WHEN #{hosNo} IS NULL THEN 'H' || SEQ_HOS_NO.NEXTVAL
+	        	ELSE #{hosNo}
 	    	END,
 	        #{hosInfo},
 	        #{hosOnduty},
 	        #{hosParking}
 	    )
-	    <selectKey keyProperty="hosNo" resultType="java.lang.String" order="AFTER">
+	    <selectKey keyProperty="hosAcNo" resultType="java.lang.String" order="AFTER">
             SELECT 'HA' || SEQ_HOS_ACCOUNT_NO.CURRVAL FROM DUAL
         </selectKey>
 	</insert>
 
    <!-- 병원Info 조회 -->
-   <select id="selectHospital" parameterType="HospitalInfo"
+   <select id="selectHospitalInfo" parameterType="HospitalInfo"
       resultMap="HospitalInfoResultSet">
-      SELECT  HOS_NO,
-              HOS_NAME,
-              HOS_ADDRESS,
-              HOS_TEL,
-              DEPARTMENT,
-              HOS_START_TIME1,
-              HOS_CLOSE_TIME1,
-              HOS_START_TIME2,
-              HOS_CLOSE_TIME2,
-              HOS_LATITUDE,
-              HOS_LONGITUDE
-       FROM  HOSPITAL_INFO
-       WHERE  HOS_NO = #{hosNo}
+      SELECT  HI.HOS_NO,
+              HI.HOS_NAME,
+              HI.HOS_ADDRESS,
+              HI.HOS_TEL,
+              HI.DEPARTMENT,
+              HI.HOS_START_TIME1,
+              HI.HOS_CLOSE_TIME1,
+              HI.HOS_START_TIME2,
+              HI.HOS_CLOSE_TIME2,
+              HI.HOS_LATITUDE,
+              HI.HOS_LONGITUDE,
+              HC.HOS_ID,
+              HC.HOS_PWD,
+              HC.HOS_INFO,
+              HC.HOS_ONDUTY,
+              HC.HOS_PARKING
+       FROM   HOSPITAL_INFO HI
+       JOIN   HOSPITAL_ACCOUNT HC ON (HI.HOS_NO = HC.HOS_NO)
+       WHERE  HI.HOS_NO = #{hosNo}
    </select>
    
    <!-- 병원Info 조회 -->
@@ -100,7 +124,7 @@
    </select>
    
    <!-- 병원 Account 조회 -->
-   <select id="selectHospitalInfo" parameterType="HospitalAccount"
+   <select id="selectHospitalAccount" parameterType="HospitalAccount"
       resultMap="HospitalAccountResultSet">
       SELECT  HOS_ACCOUNT_NO,
               HOS_NO,

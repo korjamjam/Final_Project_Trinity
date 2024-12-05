@@ -1,5 +1,9 @@
 package com.project.trinity.member.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 
 public interface MemberService {
@@ -31,6 +35,13 @@ public interface MemberService {
     int updateTemporaryPassword(String userId, String encryptedPassword);
     
     public int updatePassword(String userId, String encryptedPassword);
+
+	ArrayList<Member> selectDoctorInfoList(String hosNo);
+
+	ArrayList<DoctorReview> selectDoctorReview(String userNo);
+
+	int updateHospitalDoctor(HashMap<String, String> hmap);
+
     
   
 

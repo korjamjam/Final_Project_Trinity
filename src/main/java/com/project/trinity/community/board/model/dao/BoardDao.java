@@ -170,8 +170,12 @@ public class BoardDao {
     public int deleteBoard(SqlSessionTemplate sqlSession, String bno) {
         return sqlSession.delete("boardMapper.deleteBoard", bno);
     }
+    
+    
+    
+    
+    
     // 좋아요/싫어요 관리
-
     
     /**
      * 현재 사용자의 특정 댓글에 대한 좋아요/싫어요 상태를 조회합니다.

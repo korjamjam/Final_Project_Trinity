@@ -18,16 +18,16 @@
 <body>
 
 	<!-- 회원가입 성공 또는 실패 메시지 출력 스크립트 -->
-	<% 
-    if (session.getAttribute("message") != null) { 
-%>
-	<script>
-        alert("<%= session.getAttribute("message") %>");
-    </script>
 	<%
-        session.removeAttribute("message");
-    }
-%>
+		if (session.getAttribute("message") != null) {
+	%>
+	<script>
+        alert("<%=session.getAttribute("message")%>");
+	</script>
+	<%
+		session.removeAttribute("message");
+	}
+	%>
 
 	<!-- Header -->
 	<%@ include file="../common/main_header.jsp"%>
@@ -98,9 +98,19 @@
 				<label for="birthday">생년월일</label> <input type="date" id="birthday"
 					name="birthday" placeholder="생년월일 입력" required>
 			</div>
-			<div class="input-group">
-				<label for="phone">전화번호</label> <input type="text" id="phone"
-					name="phone" placeholder="전화번호 입력" required>
+			<div class="input-group phone-input-container">
+				<label for="phone">전화번호</label> 
+				<select id="phonePrefix" name="phonePrefix" required>
+					<option value="">선택</option>
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="017">017</option>
+					<option value="02">02</option>
+				</select> 
+				<input type="text" id="phoneMiddle" name="phoneMiddle"
+					placeholder="앞 네자리" maxlength="4" required> 
+				<input type="text" id="phoneLast" name="phoneLast" placeholder="뒤 네자리"
+					maxlength="4" required>
 			</div>
 			<div class="input-group">
 				<label for="gender">성별</label> <select id="gender" name="gender"
@@ -116,67 +126,82 @@
 	</div>
 
 	<script>
-    // 폼 유효성 검사 함수
-    function validateForm() {
-        const userPwd = document.getElementById("userPwd").value.trim();
-        const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
+		// 폼 유효성 검사 함수
+		function validateForm() {
+			const userPwd = document.getElementById("userPwd").value.trim();
+			const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
+			const phonePrefix = document.getElementById("phonePrefix").value.trim();
+			const phoneMiddle = document.getElementById("phoneMiddle").value.trim();
+			const phoneLast = document.getElementById("phoneLast").value.trim();
 
-        if (userPwd !== userPwdConfirm) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return false; // 제출 중단
-        }
+			if (userPwd !== userPwdConfirm) {
+				alert("비밀번호가 일치하지 않습니다.");
+				return false;
+			}
 
-        return true;
-    }
+			// 전화번호 유효성 검사
+			if (!phonePrefix || !phoneMiddle || !phoneLast) {
+				alert("전화번호를 올바르게 입력해주세요.");
+				return false;
+			}
 
-    // 이메일 도메인 선택 시 값 설정
-    $(document).ready(function() {
-        $('#emailSelect').change(function() {
-            const selectedDomain = $(this).val();
-            $('#emailDomain').val(selectedDomain).prop('readonly', !!selectedDomain);
-        });
-    });
+			if (!/^\d{3,4}$/.test(phoneMiddle) || !/^\d{4}$/.test(phoneLast)) {
+				alert("전화번호 형식이 올바르지 않습니다.");
+				return false;
+			}
 
-    // 주소 검색 기능
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById('sample6_address').value = addr;
-                document.getElementById('sample6_detailAddress').focus();
-            }
-        }).open();
-    }
+			return true;
+		}
 
-    // 아이디 중복 확인
-   function checkId() {
-    const userId = $('#userId').val().trim();
-    if (!userId) {
-        alert('아이디를 입력해주세요.');
-        return;
-    }
+		// 이메일 도메인 선택 시 값 설정
+		$(document).ready(function() {
+			$('#emailSelect').change(function() {
+				const selectedDomain = $(this).val();
+				$('#emailDomain').val(selectedDomain).prop('readonly', !!selectedDomain);
+			});
+		});
 
-    $.ajax({
-        url: '${pageContext.request.contextPath}/member/idCheck',
-        type: 'GET',
-        data: { userId: userId },
-        success: function(result) {
-            const isAvailable = parseInt(result, 10); // 숫자로 변환
-            if (isAvailable === 0) {
-                alert('사용 가능한 아이디입니다.');
-            } else {
-                alert('이미 사용 중인 아이디입니다.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error:', status, error);
-            alert('아이디 중복 확인 중 오류가 발생했습니다.');
-        }
-    });
-}
+		// 주소 검색 기능
+		function sample6_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+					document.getElementById('sample6_postcode').value = data.zonecode;
+					document.getElementById('sample6_address').value = addr;
+					document.getElementById('sample6_detailAddress').focus();
+				}
+			}).open();
+		}
 
-</script>
+		// 아이디 중복 확인
+		function checkId() {
+			const userId = $('#userId').val().trim();
+			if (!userId) {
+				alert('아이디를 입력해주세요.');
+				return;
+			}
+
+			$.ajax({
+				url: '${pageContext.request.contextPath}/member/idCheck',
+				type: 'GET',
+				data: {
+					userId: userId
+				},
+				success: function(result) {
+					const isAvailable = parseInt(result, 10); // 숫자로 변환
+					if (isAvailable === 0) {
+						alert('사용 가능한 아이디입니다.');
+					} else {
+						alert('이미 사용 중인 아이디입니다.');
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error('AJAX Error:', status, error);
+					alert('아이디 중복 확인 중 오류가 발생했습니다.');
+				}
+			});
+		}
+	</script>
 
 	<%@ include file="../common/main_footer.jsp"%>
 </body>
