@@ -56,6 +56,17 @@
 		<result property="patientGender" column="PATIENT_GENDER" />
 		<result property="patientResult" column="PATIENT_RESULT" />
 	</resultMap>
+	
+	<resultMap type="DoctorReview"
+		id="DoctorReviewResultSet">
+		<result property="reviewNo" column="REVIEW_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="reviewTitle" column="REVIEW_TITLE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewCreatedAt" column="REVIEW_CREATED_AT" />
+		<result property="reviewUpdatedAt" column="REVIEW_UPDATED_AT" />
+		<result property="reviewRating" column="REVIEW_RATING" />
+	</resultMap>	
 
 	<!-- 로그인 쿼리 -->
 	<select id="loginMember"
@@ -195,6 +206,19 @@
 		FROM MEMBER
 		WHERE HOS_NO = #{hosNo} AND 
 			  STATUS = 'Y'
+	</select>
+	
+	<!-- 의사 유저 번호로 댓글 리스트 받기 -->
+	<select id="selectDoctorReview" parameterType="string" resultMap="DoctorReviewResultSet">
+		SELECT REVIEW_NO,
+			   USER_NO,
+			   REVIEW_TITLE,
+			   REVIEW_CONTENT,
+			   REVIEW_CREATED_AT,
+			   REVIEW_UPDATED_AT,
+			   REVIEW_RATING
+		FROM DOCTOR_REVIEW
+		WHERE USER_NO = #{userNo}
 	</select>
 
 

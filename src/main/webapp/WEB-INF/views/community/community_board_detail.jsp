@@ -31,11 +31,16 @@
 <body>
 	<!-- EL 데이터를 JavaScript 변수로 전달 -->
 	<script>
-				const contextPath = "${pageContext.servletContext.contextPath}";
-				const boardNo = "${b.boardNo}";
-				const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
-				const loginUserId = "${loginUser != null ? loginUser.userId : ''}"; 
-			</script>
+    const contextPath = "${pageContext.servletContext.contextPath}";
+    const boardNo = "${b.boardNo}";
+    const categoryId = "${b.categoryId}";  // categoryId 값을 JavaScript 변수로 전달
+    const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
+    const loginUserId = "${loginUser != null ? loginUser.userId : ''}"; 
+    // 로그로 JSP에서 전달된 데이터 확인
+    console.log("로그인 유저 : ${loginUser}");
+    console.log("boardNo: ${b.boardNo}, categoryId: ${b.categoryId}");
+</script>
+
 	<!-- Header Section -->
 	<header>
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -52,13 +57,16 @@
 			<div class="navigation-buttons">
 				<!-- 왼쪽 섹션: 수정, 삭제 -->
 				<div class="left-section">
-				
-    <!-- 수정 버튼 -->
-    <button class="white-button" onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${b.boardNo}'">수정</button>
+					<!-- 수정 버튼 -->
+					<button class="white-button"
+						onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${b.boardNo}'">수정</button>
 
-    <!-- 삭제 버튼 -->
-    <button class="white-button" onclick="deleteBoard('${pageContext.request.contextPath}/community/deleteBoard', '${b.boardNo}')">삭제</button>
-</div>
+					<!-- 삭제 버튼 -->
+					<button class="white-button"
+						onclick="deleteBoard('${b.boardNo}', '${b.categoryId}')">삭제</button>
+
+				</div>
+
 
 
 
