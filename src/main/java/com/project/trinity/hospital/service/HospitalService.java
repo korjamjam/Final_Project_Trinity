@@ -7,15 +7,11 @@ import com.project.trinity.hospital.model.vo.HospitalInfo;
 
 public interface HospitalService {
 
-	HospitalInfo selectHospital(String hosNo);
-
 	ArrayList<HospitalInfo> selectHospitalList(String subject, String order);
 	
 	ArrayList<HospitalInfo> selectHospitalListPaginated(String subject, String order, int page, int limit);
 
 	HospitalInfo selectHospitalInfo(String hosNo);
-	
-	HospitalInfo selectHospitalOne(String hosNo);
 
 	ArrayList<HospitalInfo> selectOpenHospitalList();
 
