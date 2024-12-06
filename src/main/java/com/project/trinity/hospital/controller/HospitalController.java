@@ -91,24 +91,34 @@ public class HospitalController {
 		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
 		double rating[] = new double[dList.size()];
 		for(int i = 0; i < dList.size(); i++) {
+			//map만들기
+			//key -> docInfo = 0
+			//key -> reviewAvgScore = 0
 			String userNo = dList.get(i).getUserNo();
 			System.out.println("userNO : " + userNo);
 			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(userNo);
 			double avg = 0;
-			for(int j = 0; j < docRev.size(); j++) {
-				System.out.println("docRev : " + docRev.get(j));
-				avg += docRev.get(j).getReviewRating();
+			if (docRev.size() > 0) {
+				for(int j = 0; j < docRev.size(); j++) {
+					avg += docRev.get(j).getReviewRating();
+				}
+				
+				System.out.println(avg);
+				System.out.println(docRev.size());
+				avg /= docRev.size();
 			}
-			avg /= docRev.size();
+			
+			
 			rating[i] = avg;
+			System.out.println(rating[i]); 
 		}
-		System.out.println("rating" + rating);
+		
 		m.addAttribute("h",h);
 		m.addAttribute("hInfo",hInfo);
 		m.addAttribute("dList",dList);
-		m.addAttribute("rating",rating[0]);
+		m.addAttribute("rating", rating);
 		
-		System.out.println("Controller dList : " + dList);
+	
 		return "hospital_detail/hospital_detail";
 	}
 	
