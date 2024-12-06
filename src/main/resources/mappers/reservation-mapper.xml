@@ -106,6 +106,7 @@
 		WHERE
 		G_RES_NO = #{resNo}
 	</select>
+	<!-- 이거 쓰거나 Reservation 으로 맞춰서 써야됨  -->
 
 	<!-- 게스트 조회 -->
 	<select id="selectGuest" resultMap="GuestResultSet">
