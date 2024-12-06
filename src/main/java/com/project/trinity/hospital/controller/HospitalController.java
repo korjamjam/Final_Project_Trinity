@@ -169,6 +169,8 @@ public class HospitalController {
 	public String HospitalAccountLogin(HospitalAccount hosAccount,
 									   HttpSession session
 			) {
+		session.removeAttribute("message");
+		
 		HospitalAccount loginHosAccount = hospitalService.loginHosAccount(hosAccount);
 		
 		if(loginHosAccount == null) {
@@ -215,7 +217,8 @@ public class HospitalController {
 	
 	@RequestMapping("account/insert/doctor")
 	public String HospitalAccountInsertDoctorMember(@RequestParam("userId") String userId,
-													HttpSession session
+													HttpSession session,
+													Model m
 			) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
@@ -227,9 +230,9 @@ public class HospitalController {
 		int result = memberService.updateHospitalDoctor(hmap);
 		
 		if(result>0) {
-			session.setAttribute("message", "의사 등록 성공");
+			m.addAttribute("message", "의사 등록 성공");
 		} else {
-			session.setAttribute("message", "의사 등록 실패");
+			m.addAttribute("message", "의사 등록 실패");
 		}
 		
 		return "hospital_detail/hospital_account_doctor";	
@@ -261,6 +264,13 @@ public class HospitalController {
 		return "hospital_detail/hospital_account_my_reservation";
 	}
 	
+	@RequestMapping("/account/myReservation/detail")
+	public String HospitalAccountMyReservationDetail(String resNo, HttpSession session) {
+		
+		Reservation myReservation = reservationService.selectReservation(resNo);
+		
+		return "hospital_detail/hospital_account_my_reservation_detail";
+	}
 	//화면 이동 하는거
 	
 	@RequestMapping("account/insertDr")
