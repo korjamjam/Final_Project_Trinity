@@ -16,7 +16,8 @@
 
 <!-- 메시지 알림 -->
 <script>
-        const message = "${message}";
+        const message = `${message}`;
+        console.log(message)
         if (message) {
             alert(message); // 안내 문구를 띄움
         }
