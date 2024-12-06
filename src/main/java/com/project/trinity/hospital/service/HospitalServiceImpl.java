@@ -46,11 +46,6 @@ public class HospitalServiceImpl implements HospitalService{
 	}
 
 	@Override
-	public HospitalInfo selectHospitalOne(String hosNo) {
-		return hpDao.selectHospitalOne(sqlSession, hosNo);
-	}
-
-	@Override
 	public ArrayList<HospitalInfo> selectOpenHospitalList() {
 		return hpDao.selectOpenHospitalList(sqlSession);
 	}

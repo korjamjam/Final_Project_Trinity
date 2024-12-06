@@ -86,7 +86,6 @@ public class HospitalController {
 	
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
-		HospitalInfo h = hospitalService.selectHospital(hosNo);
 		HospitalInfo hInfo = hospitalService.selectHospitalInfo(hosNo);
 		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
 		double rating[] = new double[dList.size()];
