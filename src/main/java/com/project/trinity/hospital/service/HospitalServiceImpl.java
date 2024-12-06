@@ -2,7 +2,6 @@ package com.project.trinity.hospital.service;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.SqlSessionManager;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,6 @@ public class HospitalServiceImpl implements HospitalService{
     
     @Autowired
     private HospitalDao hpDao;
-
-	@Override
-	public HospitalInfo selectHospital(String hosNo) {
-		return hpDao.selectHospital(sqlSession, hosNo);
-	}
 
 	@Override
 	public ArrayList<HospitalInfo> selectHospitalList(String subject, String order) {
@@ -93,6 +87,5 @@ public class HospitalServiceImpl implements HospitalService{
 	public HospitalAccount loginHosAccount(HospitalAccount hosAccount) {
 		return hpDao.loginHosAccount(sqlSession, hosAccount);
 	}
-
 	
 }

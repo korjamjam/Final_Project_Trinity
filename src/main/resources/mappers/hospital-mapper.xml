@@ -52,7 +52,7 @@
 	</select>
    
    	<!-- 아이디 중복 확인 쿼리 -->
-	<select id="idCheck" parameterType="string" resultType="int">
+	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT
 		COUNT(*) FROM HOSPITAL_ACCOUNT WHERE HOS_ID = #{checkId}
 	</select>
@@ -82,7 +82,7 @@
 	</insert>
 
    <!-- 병원Info 조회 -->
-   <select id="selectHospitalInfo" parameterType="HospitalInfo"
+   <select id="selectHospitalInfo" parameterType="String"
       resultMap="HospitalInfoResultSet">
       SELECT  HI.HOS_NO,
               HI.HOS_NAME,
@@ -101,7 +101,7 @@
               HC.HOS_ONDUTY,
               HC.HOS_PARKING
        FROM   HOSPITAL_INFO HI
-       JOIN   HOSPITAL_ACCOUNT HC ON (HI.HOS_NO = HC.HOS_NO)
+       LEFT OUTER JOIN HOSPITAL_ACCOUNT HC ON (HI.HOS_NO = HC.HOS_NO)
        WHERE  HI.HOS_NO = #{hosNo}
    </select>
    

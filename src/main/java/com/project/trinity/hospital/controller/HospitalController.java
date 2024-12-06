@@ -86,35 +86,29 @@ public class HospitalController {
 	
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
-		HospitalInfo hInfo = hospitalService.selectHospitalInfo(hosNo);
-		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
-		double rating[] = new double[dList.size()];
-		for(int i = 0; i < dList.size(); i++) {
-			//map만들기
-			//key -> docInfo = 0
-			//key -> reviewAvgScore = 0
-			String userNo = dList.get(i).getUserNo();
+		HospitalInfo hospitalInfo = hospitalService.selectHospitalInfo(hosNo);
+		ArrayList<Member> doctorList = memberService.selectDoctorInfoList(hosNo);
+		double rating[] = new double[doctorList.size()];
+		for(int i = 0; i < doctorList.size(); i++) {
+			String userNo = doctorList.get(i).getUserNo();
 			System.out.println("userNO : " + userNo);
-			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(userNo);
+			ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(userNo);
+			System.out.println(hospitalInfo);
+//			System.out.println(doctorReviews);
 			double avg = 0;
-			if (docRev.size() > 0) {
-				for(int j = 0; j < docRev.size(); j++) {
-					avg += docRev.get(j).getReviewRating();
+			if (doctorReviews.size() > 0) {
+				for(int j = 0; j < doctorReviews.size(); j++) {
+					avg += doctorReviews.get(j).getReviewRating();
 				}
-				
-				System.out.println(avg);
-				System.out.println(docRev.size());
-				avg /= docRev.size();
+				avg /= doctorReviews.size();
 			}
-			
 			
 			rating[i] = avg;
 			System.out.println(rating[i]); 
 		}
 		
-		m.addAttribute("h",h);
-		m.addAttribute("hInfo",hInfo);
-		m.addAttribute("dList",dList);
+		m.addAttribute("hospitalInfo", hospitalInfo);
+		m.addAttribute("doctorList", doctorList);
 		m.addAttribute("rating", rating);
 		
 	
