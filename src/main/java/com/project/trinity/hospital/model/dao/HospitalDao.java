@@ -39,11 +39,7 @@ public class HospitalDao {
    public HospitalInfo selectHospitalInfo(SqlSessionTemplate sqlSession, String hosNo) {
       return sqlSession.selectOne("hospitalMapper.selectHospitalInfo", hosNo);
    }
-
-	public HospitalInfo selectHospitalOne(SqlSessionTemplate sqlSession, String hosNo) {
-		return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
-	}
-
+   
 	public ArrayList<HospitalInfo> selectOpenHospitalList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("hospitalMapper.selectOpenHospitalList");
 	}
