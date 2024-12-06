@@ -22,8 +22,8 @@
 
 		<result property="categoryName" column="CATEGORY_NAME" />
 
-		<collection property="attachedFiles"
-			ofType="com.project.trinity.community.board.model.vo.BoardFile">
+		<collection property="fileList" ofType="com.project.trinity.community.board.model.vo.BoardFile" javaType="java.util.List">
+
 			<id property="fileNo" column="FILE_NO" />
 			<result property="originName" column="ORIGIN_NAME" />
 			<result property="changeName" column="CHANGE_NAME" />

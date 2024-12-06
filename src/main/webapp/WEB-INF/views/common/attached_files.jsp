@@ -18,7 +18,7 @@
         <body>
             <div class="container my-5">
                 <!-- 첨부파일이 있는 경우에만 표시 -->
-                <c:if test="${not empty attachedFiles}">
+                <c:if test="${not empty fileList}">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">첨부파일 목록</h5>
@@ -27,7 +27,7 @@
                             </button>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <c:forEach var="file" items="${attachedFiles}">
+                            <c:forEach var="file" items="${fileList}">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <i class="bi bi-file-earmark me-3" style="font-size: 1.5rem;"></i>
