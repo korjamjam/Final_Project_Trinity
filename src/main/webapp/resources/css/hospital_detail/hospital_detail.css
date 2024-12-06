@@ -270,10 +270,19 @@ body{
     padding-bottom: 5px;
 }
 .hospital_detail_doctor_detail button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 1px solid #cccccc;
     border-radius: 5px;
+    width: 100px;
+    height: 20px;
     padding: 2px 10px;
+    color: black;
+    font-weight: 400;
+    font-size: 12px;
+
 }
 .hospital_detail_goto_res{
     display: flex;

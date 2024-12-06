@@ -13,10 +13,6 @@ import com.project.trinity.hospital.model.vo.HospitalInfo;
 @Repository
 public class HospitalDao {
 
-   public HospitalInfo selectHospital(SqlSessionTemplate sqlSession, String hosNo) {
-      return sqlSession.selectOne("hospitalMapper.selectHospital", hosNo);
-   }
-
    public ArrayList<HospitalInfo> selectHospitalList(SqlSessionTemplate sqlSession, String subject, String order) {
         Map<String, String> map = new HashMap<>();
         map.put("subject", subject);
