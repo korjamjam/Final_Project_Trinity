@@ -59,10 +59,34 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.insertBoard(sqlSession, b);
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int updateBoard(Board b,  String userNo) {
-		return boardDao.updateBoard(sqlSession, b);
+	public int updateBoard(Board b, ArrayList<BoardFile> newFiles) {
+	    // 1. 게시글 내용 수정
+	    int boardUpdateResult = boardDao.updateBoard(sqlSession, b);
+	    if (boardUpdateResult <= 0) {
+	        throw new RuntimeException("게시글 수정에 실패했습니다.");
+	    }
+
+	    // 2. 기존 파일 삭제 (첨부파일이 있을 경우)
+	    if (newFiles != null && !newFiles.isEmpty()) {
+	        // 기존 파일 삭제
+	        boardDao.deleteAllFilesByBoardNo(sqlSession, b.getBoardNo());
+	        
+	     // 새 파일 등록
+	        if (newFiles != null && !newFiles.isEmpty()) {
+	            for (BoardFile bf : newFiles) {
+	                int fileInsertResult = boardDao.insertFile(sqlSession, bf);
+	                if (fileInsertResult < 0) {
+	                    throw new RuntimeException("첨부파일 등록에 실패했습니다.");
+	                }
+	            }
+	        }
+
+	    }
+	    return boardUpdateResult; // 성공적으로 수정된 게시글 갯수 반환
 	}
+
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
