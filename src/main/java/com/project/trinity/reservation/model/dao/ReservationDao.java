@@ -1,5 +1,6 @@
 package com.project.trinity.reservation.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +84,10 @@ public class ReservationDao {
 	    int result = sqlSession.delete("reservationMapper.cancelReservation", resNo);
 	    System.out.println("[DEBUG] DAO - 삭제 결과: " + result);
 	    return result;
+	}
+
+	public ArrayList<Reservation> selectReservationHosNo(String hosNo) {
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationHosNo", hosNo);
 	}
 
 

@@ -1,5 +1,6 @@
 package com.project.trinity.reservation.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,11 @@ public class RerservationServiceImpl implements ReservationService{
 	    int result = rDao.cancelReservation(resNo);
 	    System.out.println("[DEBUG] Service - 취소 결과: " + result);
 	    return result;
+	}
+
+	@Override
+	public ArrayList<Reservation> selectReservationHosNo(String hosNo) {
+		return rDao.selectReservationHosNo(hosNo);
 	}
 
 

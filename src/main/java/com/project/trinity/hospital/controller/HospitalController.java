@@ -3,7 +3,6 @@ package com.project.trinity.hospital.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +24,7 @@ import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
@@ -250,11 +249,15 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/account/myReservation")
-	public String HospitalAccountMyReservation(HttpSession session) {
+	public String HospitalAccountMyReservation(HttpSession session, Model m) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
 		
-		GeneralReservation generealReservation = reservationService.selectReservation(resNo);
+		ArrayList<Reservation> resList = reservationService.selectReservationHosNo(hosNo);
+		System.out.println("resList : " + resList);
+		
+		session.setAttribute("resList", resList);
+		
 		return "hospital_detail/hospital_account_my_reservation";
 	}
 	
