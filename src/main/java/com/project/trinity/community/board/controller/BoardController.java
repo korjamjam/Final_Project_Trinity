@@ -290,7 +290,7 @@ public class BoardController {
 			e.printStackTrace();
 			return null;
 		}
-
+ 
 		// 경로에 큰따옴표 없이 반환
 		return session.getServletContext().getContextPath() + path + changeName;
 	}
@@ -339,7 +339,7 @@ public class BoardController {
 		}
 	}
 
-	@GetMapping("/getAttachedFiles")
+	@GetMapping("/getFileList")
 	@ResponseBody
 	public List<BoardFile> getAttachedFiles(@RequestParam("bno") String bno) {
 		System.out.println("수정첨부파일Received bno: " + bno); // 서버에서 bno 값 출력
@@ -350,40 +350,19 @@ public class BoardController {
 	@PostMapping("/update")
 	public String updateBoard(Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
-			@RequestParam(value = "existingFileNos", required = false) List<String> existingFileNos,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
 			Model m) {
 		 
-
-		 Member loginUser = (Member) session.getAttribute("loginUser");
 		 
-		 
+		//게시글 수정
+		// -> 새로운 파일로 변경
+		// -> 새로운파일로 변경x
+		
+		
 		System.out.println("수정완료 후 userNo : " + b);
 		try {
-			// 1. 게시글 수정
-			int boardResult = boardService.updateBoard(b, loginUser.getUserNo());
 			
-
-
-			if (boardResult <= 0) {
-				m.addAttribute("errorMsg", "게시글 수정에 실패했습니다.");
-				return "common/errorPage";
-			}
-
-			// 2. 기존 첨부파일 다운로드 허용 상태 업데이트
-			if (allowDownload != null && existingFileNos != null) {
-				for (int i = 0; i < existingFileNos.size(); i++) {
-					String fileNo = existingFileNos.get(i);
-					String allow = allowDownload.get(i);
-
-					BoardFile bf = new BoardFile();
-					bf.setFileNo(fileNo);
-					bf.setAllowDownload(allow);
-
-					boardService.updateFileAllowDownload(bf); // 기존 파일 상태 업데이트
-				}
-			}
-
+			ArrayList<BoardFile> fileList = new ArrayList<>();
 			// 3. 새 파일 업로드 처리
 			if (newFiles != null && !newFiles.isEmpty()) {
 				for (MultipartFile file : newFiles) {
@@ -397,13 +376,18 @@ public class BoardController {
 							bf.setChangeName("/resources/uploadFile/" + changeName);
 							bf.setFileSize(file.getSize());
 							bf.setAllowDownload("Y");
-
-							boardService.insertFile(bf); // 새 파일 추가
+							fileList.add(bf);
 						}
 					}
 				}
 			}
-
+			
+			// 1. 게시글 수정 -> 게시글 수정, 기존파일목록 삭제, 새로운 파일등록
+			
+			
+			
+			int boardResult = boardService.updateBoard(b, fileList);
+			
 			// 수정 성공 시 상세 페이지로 리다이렉트
 			return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
 
@@ -412,7 +396,7 @@ public class BoardController {
 			m.addAttribute("errorMsg", "게시글 수정 중 오류가 발생했습니다.");
 			return "common/errorPage";
 		}
-	}
+	} 
 
 	@RequestMapping("/deleteBoard")
 	@ResponseBody // 이 어노테이션을 추가하
@@ -554,7 +538,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping("rdelete.bo")
 	public String deleteReply(String commentNo) {
-		int result = boardService.deleteComment(commentNo);
+		int result = boardService.deleteComment(commentNo); 
 
 		return result > 0 ? "success" : "fail";
 	}
