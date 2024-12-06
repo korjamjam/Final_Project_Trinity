@@ -3,7 +3,6 @@ package com.project.trinity.hospital.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +24,7 @@ import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
@@ -164,6 +163,8 @@ public class HospitalController {
 	public String HospitalAccountLogin(HospitalAccount hosAccount,
 									   HttpSession session
 			) {
+		session.removeAttribute("message");
+		
 		HospitalAccount loginHosAccount = hospitalService.loginHosAccount(hosAccount);
 		
 		if(loginHosAccount == null) {
@@ -210,7 +211,8 @@ public class HospitalController {
 	
 	@RequestMapping("account/insert/doctor")
 	public String HospitalAccountInsertDoctorMember(@RequestParam("userId") String userId,
-													HttpSession session
+													HttpSession session,
+													Model m
 			) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
@@ -222,9 +224,9 @@ public class HospitalController {
 		int result = memberService.updateHospitalDoctor(hmap);
 		
 		if(result>0) {
-			session.setAttribute("message", "의사 등록 성공");
+			m.addAttribute("message", "의사 등록 성공");
 		} else {
-			session.setAttribute("message", "의사 등록 실패");
+			m.addAttribute("message", "의사 등록 실패");
 		}
 		
 		return "hospital_detail/hospital_account_doctor";	
@@ -244,14 +246,25 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/account/myReservation")
-	public String HospitalAccountMyReservation(HttpSession session) {
+	public String HospitalAccountMyReservation(HttpSession session, Model m) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
 		
-		GeneralReservation generealReservation = reservationService.selectReservation(resNo);
+		ArrayList<Reservation> resList = reservationService.selectReservationHosNo(hosNo);
+		System.out.println("resList : " + resList);
+		
+		session.setAttribute("resList", resList);
+		
 		return "hospital_detail/hospital_account_my_reservation";
 	}
 	
+	@RequestMapping("/account/myReservation/detail")
+	public String HospitalAccountMyReservationDetail(String resNo, HttpSession session) {
+		
+		Reservation myReservation = reservationService.selectReservation(resNo);
+		
+		return "hospital_detail/hospital_account_my_reservation_detail";
+	}
 	//화면 이동 하는거
 	
 	@RequestMapping("account/insertDr")

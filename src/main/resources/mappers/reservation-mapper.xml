@@ -178,7 +178,21 @@
 		WHERE G_RES_NO = #{resNo}
 	</delete>
 
-
+	<select id="selectReservationHosNo" resultType="Reservation">
+		SELECT
+		G_RES_NO AS resNo,
+		USER_NO AS userNo,
+		HOS_NO AS hosNo,
+		G_PATIENT_NAME AS patientName,
+		G_PATIENT_BIRTHDAY AS
+		patientBirthday,
+		TO_CHAR(G_RES_DATE, 'YYYY-MM-DD') AS resDate,
+		G_RES_TIME AS resTime,
+		G_RES_SUBJECT AS resCategory,
+		G_RES_CONTENT AS resContent
+		FROM GENERAL_RESERVATION
+		WHERE HOS_NO = #{hosNo}
+	</select>
 
 
 </mapper>
