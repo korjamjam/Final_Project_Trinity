@@ -126,7 +126,7 @@
 					</div>
 
 					<!-- 첨부파일 섹션 include -->
-					<c:if test="${not empty attachedFiles}">
+					<c:if test="${not empty fileList}">
 						<%@ include file="/WEB-INF/views/common/attached_files.jsp"%>
 					</c:if>
 					<!-- 답변 콘텐츠 -->

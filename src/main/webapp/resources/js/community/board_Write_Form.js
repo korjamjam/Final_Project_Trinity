@@ -4,12 +4,11 @@ let attFile = {
 
 $(document).ready(function () {
    
-    console.log("Context Path:", contextPath); // 디버깅용
-
-    initializeSummernote();
+   
 
     // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
+    initializeSummernote();
 });
 
 function initializeSummernote() {
@@ -78,11 +77,11 @@ function changeCategory(categoryName) {
 function ImageUpload(imgs) {
     const fd = new FormData();
     for (let i = 0; i < imgs.length; i++) {
-        fd.append("fileList", imgs[i]);
+        fd.append("imgList", imgs[i]);
     }
 
     $.ajax({
-        url: contextPath + "/community/upload", // 템플릿 리터럴로 수정
+        url: contextPath + "/community/imgUpload", // 템플릿 리터럴로 수정
         type: "POST",
         data: fd,
         processData: false,
@@ -101,22 +100,7 @@ function ImageUpload(imgs) {
         }
     });
 }
-// 일반 파일 업로드 처리 함수
-function updateFileList(event) {
-    const files = event.target.files;
-    if (files.length > 3) {
-        alert("파일은 최대 3개까지 첨부할 수 있습니다.");
-        return;
-    }
 
-    // 일반 파일 처리 로직 추가
-    for (let i = 0; i < files.length; i++) {
-        attFile.fileList.push(files[i]);
-    }
-
-    console.log("첨부된 파일 리스트:", attFile.fileList);
-    // 여기에 파일 리스트를 서버로 전송하는 로직을 추가할 수 있습니다.
-}
 // 파일 검증 및 목록 업데이트
 function checkFileValidation(input) {
     const files = input.files;
@@ -188,6 +172,23 @@ function drawFileList() {
         //     <i class="bi bi-x-circle"></i>
         // </button>
     });
+}
+function toggleDownload(button, index) {
+    const isAllowed = $(button).data("allow");
+    const newStatus = !isAllowed;
+
+    $(button).data("allow", newStatus);
+    $(button).toggleClass("btn-outline-primary btn-outline-secondary");
+    $(button).find("i").toggleClass("bi-arrow-down-circle bi-lock");
+
+    // `attFile.fileList`에 allowDownload 값 업데이트
+    attFile.fileList[index].allowDownload = newStatus ? "Y" : "N";
+    
+    // hidden input 값 업데이트
+    const hiddenInput = document.getElementById(`allowDownload${index}`);
+    if (hiddenInput) {
+        hiddenInput.value = attFile.fileList[index].allowDownload;  // 변경된 값으로 업데이트
+    }
 }
 function removeFile(targetIndex, fileName) {
     attFile.fileList = attFile.fileList.filter((file, index) => index !== targetIndex);

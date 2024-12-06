@@ -158,8 +158,8 @@ public class BoardController {
 			System.out.println("Increase count result: " + countResult); // 결과 확인
 
 			// 첨부파일 리스트 가져오기
-			List<BoardFile> attachedFiles = boardService.getFileList(bno);
-			System.out.println("Attached files: " + attachedFiles); // 첨부파일 정보 출력
+			List<BoardFile> fileList = boardService.getFileList(bno);
+			System.out.println("Attached files: " + fileList); // 첨부파일 정보 출력
 
 			// 카테고리 목록 조회
 			List<BoardCategory> categories = boardService.getCategories(); // DB에서 카테고리 목록 조회
@@ -168,7 +168,7 @@ public class BoardController {
 
 			// 모델에 데이터 추가
 			m.addAttribute("b", b);
-			m.addAttribute("attachedFiles", attachedFiles);
+			m.addAttribute("fileList", fileList);
 			m.addAttribute("categoryName", categoryName);
 			m.addAttribute("categories", categories); // 드롭다운에 사용할 카테고리 목록
 
@@ -184,93 +184,88 @@ public class BoardController {
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
 	public String insertBoard(Board b,
-			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
-			@RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> upfiles, HttpSession session,
-			Model m) {
+	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> fileList, HttpSession session,
+	        Model m) {
 
-		System.out.println("upfiles : " + upfiles);
-		System.out.println("-------------------------");
-		System.out.println(allowDownload);
-		System.out.println("-------------------------");
+	    System.out.println("fileList : " + fileList); // 변수명 일치
+	    System.out.println("-------------------------");
+	    System.out.println("allowDownload : " + allowDownload);
+	    System.out.println("-------------------------");
 
-		// 로그인 사용자 확인 -> 인터셉터
-		Member loginUser = (Member) session.getAttribute("loginUser");
+	    // 로그인 사용자 확인 -> 인터셉터
+	    Member loginUser = (Member) session.getAttribute("loginUser");
 
-		// 게시글 제목 검증
-		if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
-			m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
-			return "/common/errorPage";
-		}
-		
+	    // 게시글 제목 검증
+	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
+	        m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
+	        return "/common/errorPage";
+	    }
 
-		// 게시글에 categoryId가 설정되어 있는지 확인
-		if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
-			m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
-			return "/common/errorPage";
-		}
+	    // 게시글에 categoryId가 설정되어 있는지 확인
+	    if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
+	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
+	        return "/common/errorPage";
+	    }
 
-		// 게시글 저장
-		int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
-		if (boardResult > 0) {
-			// 파일 업로드 처리
-			if (upfiles != null && !upfiles.isEmpty()) {
-				for (int i = 0; i < upfiles.size(); i++) {
-					MultipartFile upfile = upfiles.get(i);
-					if (!upfile.isEmpty()) {
-						String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
-						if (changeName != null) {
-							// 파일 정보 설정
-							BoardFile bf = new BoardFile();
-							bf.setBoardNo(b.getBoardNo());
-							bf.setUserNo(loginUser.getUserNo());
-							bf.setOriginName(upfile.getOriginalFilename());
-							bf.setChangeName("/resources/uploadFile/" + changeName);
-							bf.setFileSize(upfile.getSize());
+	    // 게시글 저장
+	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
+	    if (boardResult > 0) {
+	        // 파일 업로드 처리
+	        if (fileList != null && !fileList.isEmpty()) {
+	            for (int i = 0; i < fileList.size(); i++) {
+	                MultipartFile upfile = fileList.get(i);
+	                if (!upfile.isEmpty()) {
+	                    String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
+	                    if (changeName != null) {
+	                        // 파일 정보 설정
+	                        BoardFile bf = new BoardFile();
+	                        bf.setBoardNo(b.getBoardNo());
+	                        bf.setUserNo(loginUser.getUserNo());
+	                        bf.setOriginName(upfile.getOriginalFilename());
+	                        bf.setChangeName("/resources/uploadFile/" + changeName);
+	                        bf.setFileSize(upfile.getSize());
 
-							// allowDownload 값 설정
-							if (allowDownload != null && allowDownload.size() > i) {
-								bf.setAllowDownload(allowDownload.get(i)); // 다운로드 허용 여부 설정
-							} else {
-								bf.setAllowDownload("Y"); // 기본값 설정
-							}
+	                        // allowDownload 값 설정
+	                        bf.setAllowDownload((allowDownload != null && allowDownload.size() > i) ? allowDownload.get(i) : "Y");
 
-							int fileResult = boardService.insertFile(bf);
-							if (fileResult <= 0) {
-								m.addAttribute("errorMsg", "파일 정보를 저장하는 중 오류가 발생했습니다.");
-								return "/common/errorPage";
-							}
-						} else {
-							m.addAttribute("errorMsg", "파일 업로드 중 문제가 발생했습니다.");
-							return "/common/errorPage";
-						}
-					}
-				}
-			}
+	                        int fileResult = boardService.insertFile(bf);
+	                        if (fileResult <= 0) {
+	                            m.addAttribute("errorMsg", "파일 정보를 저장하는 중 오류가 발생했습니다.");
+	                            return "/common/errorPage";
+	                        }
+	                    } else {
+	                        m.addAttribute("errorMsg", "파일 업로드 중 문제가 발생했습니다.");
+	                        return "/common/errorPage";
+	                    }
+	                }
+	            }
+	        }
 
-			session.setAttribute("alertMsg", "게시글 작성 성공");
-			return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
-		} else {
-			m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
-			return "/common/errorPage";
-		}
+	        session.setAttribute("alertMsg", "게시글 작성 성공");
+	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
+	    } else {
+	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
+	        return "/common/errorPage";
+	    }
 	}
+
 
 	@ResponseBody
-	@PostMapping("/upload")
-	public String uploadImages(@RequestParam("fileList") List<MultipartFile> fileList, HttpSession session) {
-		List<String> changeNameList = new ArrayList<>();
-		String finalPath = "/resources/img/BoardUploadFile/"; // 최종 저장 경로
+	@PostMapping("/imgUpload")
+	public String uploadImages(@RequestParam("imgList") List<MultipartFile> imgList, HttpSession session) {
+	    List<String> changeNameList = new ArrayList<>();
+	    String finalPath = "/resources/img/BoardUploadFile/"; // 최종 저장 경로
 
-		for (MultipartFile f : fileList) {
-			String changeName = saveFile(f, session, finalPath);
-			changeNameList.add(changeName); // 경로 포함
-		}
+	    for (MultipartFile file : imgList) {
+	        String changeName = saveFile(file, session, finalPath);  // 파일 저장
+	        changeNameList.add(changeName);  // 저장된 이미지 경로 (URL 포함)
+	    }
 
-		System.out.println(changeNameList);
-		// 디버깅용 출력
-		System.out.println("서버 반환 경로: " + changeNameList);
-		return new Gson().toJson(changeNameList);
+	    System.out.println(changeNameList);
+	    return new Gson().toJson(changeNameList);  // 클라이언트에게 이미지 URL 반환
 	}
+
 
 	public String saveFile(MultipartFile upfile, HttpSession session, String path) {
 		String originName = upfile.getOriginalFilename();
@@ -324,7 +319,7 @@ public class BoardController {
 		if (b != null) {
 			m.addAttribute("b", b);
 
-			// attachedFiles가 null이거나 비어있으면 빈 리스트로 처리
+			// fiLeist가 null이거나 비어있으면 빈 리스트로 처리
 			if (fileList == null || fileList.isEmpty()) {
 				fileList = new ArrayList<>();
 			}
@@ -346,6 +341,7 @@ public class BoardController {
 	    return boardService.getFileList(bno);
 	}
 
+	
 	// 수정 완료 처리
 	@PostMapping("/update")
 	public String updateBoard(Board b,
@@ -363,6 +359,7 @@ public class BoardController {
 		try {
 			
 			ArrayList<BoardFile> fileList = new ArrayList<>();
+			System.out.println("수정완료 후 userNo : " + b);
 			// 3. 새 파일 업로드 처리
 			if (newFiles != null && !newFiles.isEmpty()) {
 				for (MultipartFile file : newFiles) {

@@ -92,7 +92,8 @@
 							<textarea id="summernote" name="boardContent"
 								class="post-textarea form-control mt-3"></textarea>
 							<div class="mt-4">
-								<label for="upfile" class="form-label">첨부파일</label> <input type="file" id="upfile"
+								<label for="upfile" class="form-label">첨부파일</label> 
+								<input type="file" id="upfile"
 									name="upfiles" class="form-control" multiple onchange="checkFileValidation(this)">
 								<small id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다. (각 파일 최대 5MB)</small>
 								<!-- 파일 개수 표시 -->

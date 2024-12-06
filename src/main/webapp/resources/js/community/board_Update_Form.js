@@ -1,24 +1,27 @@
-
+// 파일 목록을 관리하는 객체
 let attFile = {
-    fileList: [] // 파일 리스트를 관리하는 배열
+    fileList: [] // 파일 리스트
 };
+
+// 문서가 준비되었을 때 실행되는 함수
 $(document).ready(function () {
-
-    console.log("문서가 준비되었습니다.");  // 로그 추가
-
-    // Initialize Summernote
+    console.log("문서가 준비되었습니다.");
+    // Summernote 초기화
     initializeSummernote();
-
     // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
-
-    // File upload event listener
-    $("#upfiles").on("change", updateFileList);
-    getFileList()
+    
+    // 파일 업로드 이벤트 리스너
+    $("#upfiles").on("change", checkFileValidation);
+    
+    // 게시글의 기존 파일 목록 가져오기
+    getFileList();
 });
 
-
+// Summernote 초기화 함수
 function initializeSummernote() {
+    console.log("Summernote 초기화 시작.");
+    $('#summernote').val(boardContent);
     $('#summernote').summernote({
         minHeight: 400,
         maxHeight: null,
@@ -33,29 +36,34 @@ function initializeSummernote() {
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']]
         ],
-        height: ['1.0', '1.5', '1.75', '2.0'], // 줄간격 설정
         callbacks: {
             onImageUpload: function (imgs) {
-                ImageUpload(imgs); // contextPath를 전달
+                console.log("이미지 업로드 호출");
+                ImageUpload(imgs); // 이미지 업로드 처리
             },
-            onChange: adjustHeight
+            onChange: adjustHeight // 높이 조정
         }
     });
     syncSummernoteWidth(); // 초기 너비 동기화
 }
 
+// Summernote 너비 동기화 함수
 function syncSummernoteWidth() {
     const wrapperWidth = $('.post-wrapper').width();
     $('.note-editor').css('width', wrapperWidth);
 }
 
+// Summernote의 내용이 변경될 때 높이 조정
 function adjustHeight(contents) {
+    console.log("내용 변경, 높이 조정 필요");
     const editableArea = $('.note-editable');
     const scrollHeight = editableArea.prop('scrollHeight');
-    editableArea.css('height', `${scrollHeight}px`); // 템플릿 리터럴로 수정
+    editableArea.css('height', `${scrollHeight}px`);
 }
+
+// 파일 목록을 서버에서 가져오는 함수
 function getFileList() {
-    console.log("boardNo:", boardNo); // 값 확인
+    console.log("게시글 번호:", boardNo); // 값 확인
 
     // 파일 목록을 가져오기 위한 AJAX 요청
     $.ajax({
@@ -63,11 +71,13 @@ function getFileList() {
         type: "GET",
         data: { bno: boardNo }, // 요청 파라미터로 게시글 번호 전송
         success: function (response) {
-            // 서버에서 반환된 파일 목록
+            console.log("서버 응답:", response);
             if (response.length > 0) {
-                let postForm = document.querySelector("#postForm")
+                let postForm = document.querySelector("#postForm");
+
                 // 파일 목록을 저장
                 attFile.fileList = response.map(f => {
+                    console.log(`파일 추가: ${f.originName}`);
                     postForm.innerHTML += (`<input type="hidden" name="existingFileNos" value="${f.fileNo}">`);
 
                     return {
@@ -75,9 +85,9 @@ function getFileList() {
                         "size": f.fileSize,
                         "allowDownload": f.allowDownload, // 기본적으로 다운로드 허용
                         "new": false // 새로 추가된 파일 표시
-                    }
+                    };
                 });
-                console.log("get파일 목록 : ", response);
+                console.log("서버에서 받은 파일 목록 : ", response);
 
                 // 파일 목록을 화면에 표시
                 drawFileList(true);
@@ -92,34 +102,54 @@ function getFileList() {
     });
 }
 
-// 파일 업로드 처리 함수
-function updateFileList(event) {
-    const files = event.target.files;
-    
-    // 파일 개수 제한 (최대 3개)
-    if (files.length > 3) {
-        alert("파일은 최대 3개까지 첨부할 수 있습니다.");
+// 파일 업로드 처리 함수 (파일 개수, 크기 제한)
+function checkFileValidation(input) {
+    console.log("파일 업로드 이벤트 발생");
+    const files = input.files;
+    const maxFileSize = 5 * 1024 * 1024; // 최대 파일 크기 5MB
+    const maxFileCount = 3; // 최대 파일 개수 3개
+
+    if (files.length > maxFileCount) {
+        alert(`파일은 최대 ${maxFileCount}개까지만 업로드할 수 있습니다.`);
+        input.value = ""; // 선택 초기화
         return;
     }
 
-    // 기존 파일을 초기화하고 새로 추가된 파일만 반영
-    attFile.fileList = [];
-
-    // 새로 추가된 파일만 attFile.fileList에 추가
-    for (let i = 0; i < files.length; i++) {
-        attFile.fileList.push({
-            name: files[i].name,
-            size: files[i].size,
-            allowDownload: "Y",  // 기본적으로 다운로드 허용
-            new: true             // 새로 추가된 파일 표시
-        });
+    for (let file of files) {
+        if (file.size > maxFileSize) {
+            alert(`파일 "${file.name}"의 크기가 5MB를 초과합니다.`);
+            input.value = ""; // 선택 초기화
+            return;
+        }
     }
 
-    console.log("새로 첨부된 파일 리스트:", attFile.fileList);
-    drawFileList();  // UI 업데이트
+    updateFileList(input); // 파일 목록 업데이트
 }
 
+// 파일 목록 업데이트 (새로 첨부된 파일만 반영)
+function updateFileList(input) {
+    console.log("새 파일 목록 업데이트 시작");
+    attFile.fileList = []; // 기존 파일 목록 초기화
+    const selectedFiles = Array.from(input.files);
+
+    // 선택한 파일만 attFile.fileList에 추가 (기존 파일은 무시)
+    attFile.fileList = selectedFiles.map(file => {
+        console.log(`새 파일 추가: ${file.name}`);
+        return {
+            name: file.name,
+            size: file.size,
+            allowDownload: "Y", // 기본적으로 다운로드 허용
+            new: true // 새로 추가된 파일 표시
+        };
+    });
+
+    // UI 업데이트
+    drawFileList();
+}
+
+// 파일 목록을 화면에 표시
 function drawFileList(noneDisplay) {
+    console.log("파일 목록 그리기 시작");
     const fileListDiv = document.getElementById("file-list");
     console.log("최종 첨부파일 목록:", attFile.fileList);
     fileListDiv.innerHTML = ""; // UI 초기화
@@ -138,33 +168,59 @@ function drawFileList(noneDisplay) {
                <div class="d-flex align-items-center">
                     <input type="hidden" name="allowDownload" id="allowDownload${index}" value="${allowDownloadValue}">
                     `+
-                    ( noneDisplay ? 
-                    `<button type="button" class="btn btn-sm allow-download-btn me-2">
+            (noneDisplay ?
+                `<button type="button" class="btn btn-sm allow-download-btn me-2">
                         <i class="bi ${allowDownloadValue === 'Y' ? 'bi-arrow-down-circle' : 'bi-lock'}"></i>
-                    </button>` : 
-                    `<button type="button" class="btn btn-sm btn-outline-primary allow-download-btn me-2"
+                    </button>` :
+                `<button type="button" class="btn btn-sm btn-outline-primary allow-download-btn me-2"
                             data-allow="${allowDownloadValue === 'Y'}" data-index="${index}"
                             onclick="toggleDownload(this, ${index})">
                         <i class="bi ${allowDownloadValue === 'Y' ? 'bi-arrow-down-circle' : 'bi-lock'}"></i>
                     </button>`)
-                    +`
+            + `
                 </div>
             </div>
         `;
         fileListDiv.innerHTML += fileRow;
-        //TODO : x button
-        // <button type="button" class="btn btn-sm btn-outline-danger"
-        //         onclick="removeFile(${index}, '${file.name}')">
-        //     <i class="bi bi-x-circle"></i>
-        // </button>
     });
 }
 
+// 다운로드 허용 여부 변경
+function toggleDownload(button, index) {
+    console.log(`다운로드 허용 여부 변경: ${index}`);
+    const isAllowed = $(button).data("allow");
+    const newStatus = !isAllowed;
+
+    $(button).data("allow", newStatus);
+    $(button).toggleClass("btn-outline-primary btn-outline-secondary");
+    $(button).find("i").toggleClass("bi-arrow-down-circle bi-lock");
+
+    // 파일 목록의 allowDownload 값을 변경
+    attFile.fileList[index].allowDownload = newStatus ? "Y" : "N";
+    console.log(`파일 목록의 allowDownload 값 변경: ${attFile.fileList[index].allowDownload}`);
+
+    // hidden input 값 업데이트
+    const hiddenInput = document.getElementById(`allowDownload${index}`);
+    if (hiddenInput) {
+        hiddenInput.value = attFile.fileList[index].allowDownload;  // 변경된 값으로 업데이트
+        console.log(`hidden input 업데이트: ${hiddenInput.value}`);
+    } else {
+        console.error("hidden input을 찾을 수 없습니다.");
+    }
+}
 
 
+// 파일 삭제 처리
+function removeFile(targetIndex, fileName) {
+    console.log(`파일 삭제: ${fileName} (index: ${targetIndex})`);
+    attFile.fileList = attFile.fileList.filter((file, index) => index !== targetIndex);
+    alert(`"${fileName}" 파일이 삭제되었습니다.`);
+    drawFileList();
+}
+
+// 게시글 수정 시 카테고리 변경
 function changeCategory(categoryName) {
-    console.log("함수 호출"); // 함수 호출 확인
-    console.log("선택된 카테고리:", categoryName); // 선택된 값 확인
+    console.log("선택된 카테고리:", categoryName);
 
     let categoryId;
 
@@ -187,21 +243,21 @@ function changeCategory(categoryName) {
     }
 }
 
-//summernote에디터 이미지 업로드
+// 이미지 업로드 처리 (Summernote 에디터)
 function ImageUpload(imgs) {
+    console.log("이미지 업로드 호출됨:", imgs);
     const fd = new FormData();
     for (let i = 0; i < imgs.length; i++) {
-        fd.append("fileList", imgs[i]);
+        fd.append("imgList", imgs[i]);
     }
 
     $.ajax({
-        url: contextPath + "/community/upload", // 템플릿 리터럴로 수정
+        url: contextPath + "/community/imgUpload",
         type: "POST",
         data: fd,
         processData: false,
         contentType: false,
         dataType: "json",
-
         success: function (response) {
             console.log("파일 업로드 성공:", response);
             response.forEach(filePath => {
@@ -213,67 +269,4 @@ function ImageUpload(imgs) {
             alert("이미지 업로드 실패! 다시 시도해주세요.");
         }
     });
-}
-
-
-// 파일 검증 및 목록 업데이트
-function checkFileValidation(input) {
-    const files = input.files;
-    const maxFileSize = 5 * 1024 * 1024; // 최대 파일 크기 5MB
-    const maxFileCount = 3; // 최대 파일 개수 3개
-    console.log(attFile);
-
-    if (files.length > maxFileCount) {
-        alert(`파일은 최대 ${maxFileCount}개까지만 업로드할 수 있습니다.`);
-        input.value = ""; // 선택 초기화
-        return;
-    }
-
-    for (let file of files) {
-        if (file.size > maxFileSize) {
-            alert(`파일 "${file.name}"의 크기가 5MB를 초과합니다.`);
-            input.value = ""; // 선택 초기화
-            return;
-        }
-    }
-
-    updateFileList(input); // 파일 목록 업데이트
-}
-// 새로운 파일을 추가할 때 기존 파일 목록을 무시하고 덮어씌우기
-function updateFileList(input) {
-    attFile.fileList = [];
-    const selectedFiles = Array.from(input.files);
-
-    // 선택한 파일만 attFile.fileList에 추가 (기존 파일은 무시)
-    attFile.fileList = selectedFiles.map(file => ({
-        name: file.name,
-        size: file.size,
-        allowDownload: "Y", // 기본적으로 다운로드 허용
-        new: true // 새로 추가된 파일 표시
-    }));
-
-    // UI 업데이트
-    drawFileList();
-}
-
-
-
-
-function toggleDownload(button, index) {
-    const isAllowed = $(button).data("allow");
-    const newStatus = !isAllowed;
-
-    $(button).data("allow", newStatus);
-    $(button).toggleClass("btn-outline-primary btn-outline-secondary");
-    $(button).find("i").toggleClass("bi-arrow-down-circle bi-lock");
-
-    attFile.fileList[index].allowDownload = newStatus ? "Y" : "N";
-}
-
-
-
-function removeFile(targetIndex, fileName) {
-    attFile.fileList = attFile.fileList.filter((file, index) => index !== targetIndex);
-    alert(`"${fileName}" 파일이 삭제되었습니다.`);
-    drawFileList();
 }
