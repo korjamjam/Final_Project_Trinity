@@ -28,6 +28,7 @@ public class Reservation {
     private String resContent;     // 예약 내용
     private String hosName;        // 병원 이름
     private String hosAddress;     // 병원 주소
+    private String phone;     	   // 환자 번호
 }
 
 
