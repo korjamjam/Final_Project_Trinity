@@ -30,6 +30,11 @@ public interface AdminService {
   //병원 관리 페이지
     List<HospitalInfo> getAllHospitals();
     
+    List<HospitalInfo> getHospitalsByDepartment(String department); // 진료과목별 병원 가져오기
+    
     HospitalInfo getHospitalDetail(String hosNo); //회원 상세정보 조회
+    
+    boolean updateHospital(HospitalInfo hospital);
+
     
 }
