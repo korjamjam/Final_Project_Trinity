@@ -32,10 +32,6 @@ public class RerservationServiceImpl implements ReservationService{
 		return rDao.insertgGuest(userName, birthday, phone, email, gender);
 	}
 
-	@Override
-	public GeneralReservation selectReservation(String resNo) {
-		return rDao.selectReservation(resNo);
-	}
 
 	@Override
 	public Guest selectGuest(String phone, String email) {
