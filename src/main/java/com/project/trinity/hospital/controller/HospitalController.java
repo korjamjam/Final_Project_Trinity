@@ -255,6 +255,7 @@ public class HospitalController {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
 		
+		String resNo = null;
 		GeneralReservation generealReservation = reservationService.selectReservation(resNo);
 		return "hospital_detail/hospital_account_my_reservation";
 	}
