@@ -1,5 +1,6 @@
 package com.project.trinity.reservation.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.project.trinity.member.model.vo.Guest;
@@ -12,17 +13,18 @@ public interface ReservationService {
 
 	int insertgGuest(String userName, String birthday, String phone, String email, String gender);
 	
-	GeneralReservation selectReservation(String resNo);
+    GeneralReservation selectReservation(String resNo);
 
 	Guest selectGuest(String phone, String email);
 
 	int insertgGuestReservation(String hosNo, String guestNo, String userName, String birthday, String resDate,
 			String resTime, String subject, String content, String gender);
-	
 	// ReservationService
 	List<Reservation> getReservationsByUserNo(String userNo);
 
 	int cancelReservation(String resNo);
+
+	ArrayList<Reservation> selectReservationHosNo(String hosNo);
 
 	
 

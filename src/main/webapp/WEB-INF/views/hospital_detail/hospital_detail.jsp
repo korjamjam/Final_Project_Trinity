@@ -34,10 +34,9 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_detail.js"></script>
 </head>
-<body onload="initHospitalDetail('${h.hosLatitude}', '${h.hosLongitude}')">
+<body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}')">
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
-
     <br><br>
 	<div class="hospital_detail_page_wrapper">
     <div class="hospital_detail_event_wrapper">
@@ -48,8 +47,8 @@
         </div>
     </div>
 	
-    <input type="hidden" id="hosStartTime1" value="${h.hosStartTime1 }">
-    <input type="hidden" id="hosEndTime1" value="${h.hosEndTime1 }">
+    <input type="hidden" id="hosStartTime1" value="${hospitalInfo.hosStartTime1 }">
+    <input type="hidden" id="hosEndTime1" value="${hospitalInfo.hosEndTime1 }">
     <!-- inform -->
     <div class="hospital_detail_wrapper">
         <div class="hospital_detail_status">
@@ -58,16 +57,16 @@
             <button class="hospital_detail_btn2">대기자 수 확인하기</button>
         </div>
         <div class="hospital_detail_subject">
-            ${h.department }
+            ${hospitalInfo.department }
         </div>
         <div class="hospital_detail_name">
-            ${h.hosName }
+            ${hospitalInfo.hosName }
         </div>
         <div class="hospital_detail_address">
-            ${h.hosAddress}
+            ${hospitalInfo.hosAddress}
         </div>
         <div class="hospital_detail_time">
-            ${h.hosStartTime1} ~ ${h.hosEndTime1}
+            ${hospitalInfo.hosStartTime1} ~ ${hospitalInfo.hosEndTime1}
         </div>
         <div class="hospital_detail_tag">
             <button>어린이 국가예방접종</button>
@@ -87,21 +86,21 @@
                 <div class="modal fade" id="callModal" role="dialog">
                     <div class="modal-dialog">
                     
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">병원 전화번호</h4>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">병원 전화번호</h4>
+                            </div>
+                            <div class="modal-body">
+                            <p>${hospitalInfo.hosTel }</p>
+                            <input type="hidden" id="copyTel" value="${hospitalInfo.hosTel }">
+                            <button id="copy_btn" onclick="copyTel()">복사하기</button>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                        <p>${h.hosTel }</p>
-                        <input type="hidden" id="copyTel" value="${h.hosTel }">
-                        <button id="copy_btn" onclick="copyTel()">복사하기</button>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
                     
                     </div>
                 </div>
@@ -116,19 +115,19 @@
                 <div class="modal fade" id="HomeModal" role="dialog">
                     <div class="modal-dialog">
                     
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">병원 홈페이지</h4>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">병원 홈페이지</h4>
+                            </div>
+                            <div class="modal-body">
+                            <p>등록된 홈페이지가 없습니다.</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                        <p>등록된 홈페이지가 없습니다.</p>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
                     
                     </div>
                 </div>
@@ -139,28 +138,27 @@
                     공유하기
                 </button>
             </div>
-            <!-- 여기부터 -->
+
             <!-- Share Modal -->
             <div class="modal fade" id="ShareModal" role="dialog">
                 <div class="modal-dialog">
-                
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">현재 페이지 공유하기</h4>
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">현재 페이지 공유하기</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>http://localhost:7777/trinity/hospital/detail?hosNo=${hospitalInfo.hosNo }</p>
+                            <input type="hidden" id="shareAddress" value="http://localhost:7777/trinity/hospital/detail?hosNo=${hospitalInfo.hosNo }">
+                            <button id="copy_btn" onclick="copyAddress()">복사하기</button>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <!-- http://localhost:7777/trinity/hospital/detail?hosNo=H44 -->
-                        <p>http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }</p>
-                        <input type="hidden" id="shareAddress" value="http://localhost:7777/trinity/hospital/detail?hosNo=${h.hosNo }">
-                        <button id="copy_btn" onclick="copyAddress()">복사하기</button>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-                
+
                 </div>
             </div>
         </div>
@@ -179,18 +177,15 @@
                 병원 소개
             </div>
             <br>
-            <!-- <div class="hospital_detail_introduce_content">
-                ${hInfo.hosInfo }
-            </div> -->
             <div class="hospital_detail_notice">
                 <div>
-                    <c:set var="intro" value="${hInfo.hosInfo }" />
+                    <c:set var="intro" value="${hospitalInfo.hosInfo }" />
                     <c:choose>
                         <c:when test="${intro == null}">
                             병원 소개가 없습니다.
                         </c:when>
                         <c:otherwise>
-                            ${hInfo.hosInfo }
+                            ${hospitalInfo.hosInfo }
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -201,13 +196,12 @@
                 의사 리뷰
             </div>
             <div class="hospital_detail_doctor_row_wrapper">
-                <c:forEach var="i" items="${dList}" varStatus="status">
+                <c:forEach var="i" items="${doctorList}" varStatus="status">
                     <div class="hospital_detail_doctor_row">
                         <div class="hospital_detail_doctor_intro">
                             <div class="hospital_detail_doctor_img">
-                                <c:set var="profilePic" value="${d.userProfile}" />
                                 <c:choose>
-                                    <c:when test="${not empty profilePic}">
+                                    <c:when test="${not empty doctorList[status.index].userProfile}">
                                         <img src="${ pageContext.servletContext.contextPath }${profilePic}" alt="docPic">
                                     </c:when>
                                     <c:otherwise>
@@ -230,8 +224,64 @@
                             </div>
                         </div>
                         <div class="hospital_detail_doctor_detail">
-                            <button>약력보기</button>
-                            <button>의사 리뷰보기</button>
+                            <div class="hospital_detail_share">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#backgroundModal">
+                                    약력보기
+                                </button>
+                            </div>
+
+                            <!-- background Modal -->
+                            <div class="modal fade" id="backgroundModal" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">약력</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>등록된 약력이 없습니다.</p>
+                                        <!-- JSTL로 약력을 가져와서 쓰는곳 -->
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                                
+                                </div>
+                            </div>
+                            <div class="hospital_detail_share">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal">
+                                    의사 리뷰보기
+                                </button>
+                            </div>
+
+                            <!-- showReview Modal -->
+                            <div class="modal fade" id="showReviewModal" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">의사 리뷰</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <c:choose>
+                                            <c:when test="">
+
+                                            </c:when>
+                                        </c:choose>
+                                        <p>등록된 리뷰가 없습니다.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                                
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>
@@ -240,7 +290,7 @@
 
         <div class="hospital_detail_goto_res">
             <button onclick="">당일 시간 예약</button>
-            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${h.hosNo }'">미래 시간 예약</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${hospitalInfo.hosNo }'">미래 시간 예약</button>
         </div>
 
     </div>

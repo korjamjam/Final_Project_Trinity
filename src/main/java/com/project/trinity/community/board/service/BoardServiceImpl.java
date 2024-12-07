@@ -1,6 +1,6 @@
 package com.project.trinity.community.board.service;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,10 +59,34 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.insertBoard(sqlSession, b);
 	}
 
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int updateBoard(Board b) {
-		return boardDao.updateBoard(sqlSession, b);
+	public int updateBoard(Board b, ArrayList<BoardFile> newFiles) {
+	    // 1. 게시글 내용 수정
+	    int boardUpdateResult = boardDao.updateBoard(sqlSession, b);
+	    if (boardUpdateResult <= 0) {
+	        throw new RuntimeException("게시글 수정에 실패했습니다.");
+	    }
+
+	    // 2. 기존 파일 삭제 (첨부파일이 있을 경우)
+	    if (newFiles != null && !newFiles.isEmpty()) {
+	        // 기존 파일 삭제
+	        boardDao.deleteAllFilesByBoardNo(sqlSession, b.getBoardNo());
+	        
+	     // 새 파일 등록
+	        if (newFiles != null && !newFiles.isEmpty()) {
+	            for (BoardFile bf : newFiles) {
+	                int fileInsertResult = boardDao.insertFile(sqlSession, bf);
+	                if (fileInsertResult < 0) {
+	                    throw new RuntimeException("첨부파일 등록에 실패했습니다.");
+	                }
+	            }
+	        }
+
+	    }
+	    return boardUpdateResult; // 성공적으로 수정된 게시글 갯수 반환
 	}
+
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
@@ -81,8 +105,7 @@ public class BoardServiceImpl implements BoardService {
 	    if (boardDeleteResult <= 0) {
 	        throw new RuntimeException("게시글 삭제에 실패했습니다.");
 	    }
-
-	  
+ 
 
 	    // 모든 작업이 성공하면 성공적으로 처리
 	    return boardDeleteResult;

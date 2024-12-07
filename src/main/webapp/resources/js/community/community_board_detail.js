@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("드롭다운 초기화 시작");
 
     const selectedContainer = document.querySelector(".selected-container");
     const optionList = document.querySelector("#community-options");

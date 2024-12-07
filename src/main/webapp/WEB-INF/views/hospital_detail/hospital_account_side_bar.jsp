@@ -42,12 +42,6 @@
 					<p>게시글관리</p>
 				</a>
 			</div>
-			<!-- 메인페이지 -->
-			<div class="sidebar-item">
-				<a href="${pageContext.servletContext.contextPath}/main">
-				<p>메인페이지</p>
-				</a>
-			</div>
 		</div>
 	</div>
 

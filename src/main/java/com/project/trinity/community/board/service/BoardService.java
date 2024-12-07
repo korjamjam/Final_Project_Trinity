@@ -35,7 +35,7 @@ public interface BoardService {
 
 	int insertBoard(Board b, String userNo); // 새 게시글 추가
 
-	int updateBoard(Board b); // 게시글 수정
+	int updateBoard(Board b, ArrayList<BoardFile> fileList); // 게시글 수정
 
 	int deleteBoard(String bno); // 게시글 삭제
 
@@ -66,6 +66,7 @@ public interface BoardService {
 
     List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
 
+	
 
 	
 	

@@ -3,7 +3,6 @@ package com.project.trinity.hospital.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +24,7 @@ import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
@@ -86,36 +85,29 @@ public class HospitalController {
 	
 	@RequestMapping("/detail")
 	public String hospitalDetail(String hosNo, Model m) {
-		HospitalInfo h = hospitalService.selectHospital(hosNo);
-		HospitalInfo hInfo = hospitalService.selectHospitalInfo(hosNo);
-		ArrayList<Member> dList = memberService.selectDoctorInfoList(hosNo);
-		double rating[] = new double[dList.size()];
-		for(int i = 0; i < dList.size(); i++) {
-			//map만들기
-			//key -> docInfo = 0
-			//key -> reviewAvgScore = 0
-			String userNo = dList.get(i).getUserNo();
+		HospitalInfo hospitalInfo = hospitalService.selectHospitalInfo(hosNo);
+		ArrayList<Member> doctorList = memberService.selectDoctorInfoList(hosNo);
+		double rating[] = new double[doctorList.size()];
+		for(int i = 0; i < doctorList.size(); i++) {
+			String userNo = doctorList.get(i).getUserNo();
 			System.out.println("userNO : " + userNo);
-			ArrayList<DoctorReview> docRev = memberService.selectDoctorReview(userNo);
+			ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(userNo);
+			System.out.println(hospitalInfo);
+//			System.out.println(doctorReviews);
 			double avg = 0;
-			if (docRev.size() > 0) {
-				for(int j = 0; j < docRev.size(); j++) {
-					avg += docRev.get(j).getReviewRating();
+			if (doctorReviews.size() > 0) {
+				for(int j = 0; j < doctorReviews.size(); j++) {
+					avg += doctorReviews.get(j).getReviewRating();
 				}
-				
-				System.out.println(avg);
-				System.out.println(docRev.size());
-				avg /= docRev.size();
+				avg /= doctorReviews.size();
 			}
-			
 			
 			rating[i] = avg;
 			System.out.println(rating[i]); 
 		}
 		
-		m.addAttribute("h",h);
-		m.addAttribute("hInfo",hInfo);
-		m.addAttribute("dList",dList);
+		m.addAttribute("hospitalInfo", hospitalInfo);
+		m.addAttribute("doctorList", doctorList);
 		m.addAttribute("rating", rating);
 		
 	
@@ -171,6 +163,8 @@ public class HospitalController {
 	public String HospitalAccountLogin(HospitalAccount hosAccount,
 									   HttpSession session
 			) {
+		session.removeAttribute("message");
+		
 		HospitalAccount loginHosAccount = hospitalService.loginHosAccount(hosAccount);
 		
 		if(loginHosAccount == null) {
@@ -217,7 +211,8 @@ public class HospitalController {
 	
 	@RequestMapping("account/insert/doctor")
 	public String HospitalAccountInsertDoctorMember(@RequestParam("userId") String userId,
-													HttpSession session
+													HttpSession session,
+													Model m
 			) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
@@ -229,9 +224,9 @@ public class HospitalController {
 		int result = memberService.updateHospitalDoctor(hmap);
 		
 		if(result>0) {
-			session.setAttribute("message", "의사 등록 성공");
+			m.addAttribute("message", "의사 등록 성공");
 		} else {
-			session.setAttribute("message", "의사 등록 실패");
+			m.addAttribute("message", "의사 등록 실패");
 		}
 		
 		return "hospital_detail/hospital_account_doctor";	
@@ -251,15 +246,25 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/account/myReservation")
-	public String HospitalAccountMyReservation(HttpSession session) {
+	public String HospitalAccountMyReservation(HttpSession session, Model m) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
 		String hosNo = loginHosAccount.getHosNo();
 		
-		String resNo = null;
-		GeneralReservation generealReservation = reservationService.selectReservation(resNo);
+		ArrayList<Reservation> resList = reservationService.selectReservationHosNo(hosNo);
+		System.out.println("resList : " + resList);
+		
+		session.setAttribute("resList", resList);
+		
 		return "hospital_detail/hospital_account_my_reservation";
 	}
 	
+	@RequestMapping("/account/myReservation/detail")
+	public String HospitalAccountMyReservationDetail(String resNo, HttpSession session) {
+		
+		Reservation myReservation = reservationService.selectReservation(resNo);
+		
+		return "hospital_detail/hospital_account_my_reservation_detail";
+	}
 	//화면 이동 하는거
 	
 	@RequestMapping("account/insertDr")
