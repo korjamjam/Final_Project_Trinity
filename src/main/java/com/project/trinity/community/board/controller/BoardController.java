@@ -31,6 +31,7 @@ import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.vo.Template;
@@ -139,6 +140,63 @@ public class BoardController {
 
 		return "community/board_Write_Form";
 	}
+	@GetMapping("/medAnswer")
+	public String showMedAnswer(@RequestParam("bno") String bno, Model m) {
+	    // boardNo를 받아서 해당 게시글에 대한 답변 페이지를 보여주는 로직
+	    System.out.println("의료진 답글 Board No: " + bno);
+	    
+	    // 게시글 정보 가져오기
+	    Board b = boardService.selectBoard(bno);
+	    
+	    // 첨부파일 리스트 가져오기
+	    List<BoardFile> fileList = boardService.getFileList(bno);
+	    System.out.println("Attached files: " + fileList);
+
+	    // 카테고리 이름 조회
+	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+	    
+	    // 모델에 데이터 추가
+	    m.addAttribute("b", b); // 게시글 정보
+	    m.addAttribute("fileList", fileList); // 첨부파일 리스트
+	    m.addAttribute("categoryName", categoryName); // 카테고리 이름
+	  
+	    
+	    // AnswerForm 페이지로 이동
+	    return "community/AnswerForm";
+	}
+	
+	@PostMapping("/submitAnswer")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> submitAnswer(@RequestParam("boardId") String boardId,
+	                                                         @RequestParam("answerContent") String answerContent) {
+	    // 답변 작성 시 boardId와 answerContent를 받아 처리
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    try {
+	        // 답변 저장 처리 (boardId와 answerContent를 사용하여 DB에 저장)
+	    	MedAnswer answer = new MedAnswer();
+	        answer.setBoardNo(boardId);
+	        answer.setAnswerContent(answerContent);
+	        answer.setWriter("의료진"); // 예시로 "의료진"이라고 설정, 실제 작성자 정보는 세션 등을 통해 가져와야 할 수 있음
+	        
+	        // 답변 DB에 저장
+	        boolean result = boardService.saveAnswer(answer);  // 답변 저장 메서드 호출 (서비스 계층)
+	        
+	        if (result) {
+	            response.put("status", "success");
+	            response.put("newAnswerContent", answerContent); // 새로운 답변 내용을 클라이언트로 반환
+	        } else {
+	            response.put("status", "error");
+	            response.put("message", "답변 저장에 실패했습니다.");
+	        }
+	    } catch (Exception e) {
+	        response.put("status", "error");
+	        response.put("message", "서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        e.printStackTrace();
+	    }
+	    
+	    return ResponseEntity.ok(response);  // JSON 형태로 클라이언트에 응답
+	}
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
@@ -155,11 +213,9 @@ public class BoardController {
 
 	    // 조회수 증가
 	    int countResult = boardService.increaseCount(bno);
-	    System.out.println("Increase count result: " + countResult);
-
+	   
 	    // 첨부파일 리스트 가져오기
-	    List<BoardFile> fileList = boardService.getFileList(bno);
-	    System.out.println("Attached files: " + fileList);
+	    List<BoardFile> fileList = boardService.getFileList(bno);   
 
 	    // 카테고리 이름 조회
 	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
@@ -182,7 +238,7 @@ public class BoardController {
 	    m.addAttribute("categories", categories); // 카테고리 목록
 	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
 	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
-	    System.out.println("prevBoard : " + prevBoard);
+	  
 	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}
 	
@@ -584,5 +640,7 @@ public class BoardController {
 
 		return result > 0 ? "success" : "fail";
 	}
+	
+	
 
 }

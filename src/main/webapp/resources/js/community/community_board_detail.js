@@ -92,11 +92,19 @@ function deleteBoard(bno, categoryId) {
 
 
 
-
-
-
-
 // 드롭다운 옵션 이동 공통 함수
 function moveSelectPage(page) {
     window.location.href = page;
 }
+// 답변하기 버튼 클릭 시 이동하는 함수
+
+    function handleAnswerClick(url) {
+        console.log("handleAnswerClick URL: ", url);  // URL이 잘 전달되는지 확인
+        if(url) {
+            window.location.href = url;  // URL이 정의되었으면 해당 URL로 이동
+        } else {
+            console.error("URL이 정의되지 않았습니다.");
+        }
+    }
+
+

@@ -14,6 +14,41 @@
     margin-right: 10px;
 }
 
+.mb-0{
+    font-size: 14px;
+}
+.list-group-item{
+    border: none;
+}
+/* 다운로드 가능한 파일 (허용된 파일) */
+.list-group-item a {
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer; /* 마우스 올렸을 때 커서가 포인터로 바뀌도록 */
+}
+
+.list-group-item a:hover {
+    color: #007bff; /* 마우스 올렸을 때 색상 변경 */
+    text-decoration: underline; /* 마우스 올렸을 때 밑줄 추가 */
+}
+
+/* 다운로드 불가능한 파일 */
+.list-group-item span {
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+    cursor: not-allowed; /* 마우스 올렸을 때 아무 반응이 없도록 설정 */
+}
+
+/* 마우스 올렸을 때 다운로드 불가능한 파일에 반응 없도록 */
+.list-group-item span:hover {
+    color: #333; /* 색상 그대로 유지 */
+    text-decoration: none; /* 밑줄 없애기 */
+    cursor: not-allowed; /* 클릭 불가 상태 유지 */
+}
+
+
 .file-container {
     display: flex;
     align-items: center;

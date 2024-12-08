@@ -4,8 +4,6 @@ let attFile = {
 
 $(document).ready(function () {
    
-   
-
     // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
     initializeSummernote();
