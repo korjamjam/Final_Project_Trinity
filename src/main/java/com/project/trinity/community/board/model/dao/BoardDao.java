@@ -30,6 +30,8 @@ public class BoardDao {
     }
 
 
+    
+    
     /**
      * 특정 카테고리에 해당하는 게시글 수를 조회합니다.
      */
@@ -150,7 +152,7 @@ public class BoardDao {
      * 특정 게시글의 조회수를 증가시킵니다.
      */
     public int increaseCount(SqlSessionTemplate sqlSession, String bno) {
-    	 System.out.println("Increasing count for boardNo: " + bno);
+  
         return sqlSession.update("boardMapper.increaseCount", bno);
     }
 
@@ -167,12 +169,21 @@ public class BoardDao {
         return sqlSession.delete("boardMapper.deleteCommentsByBoardNo", bno);
     }
 
+ // 논리 삭제 (STATUS = 'N'으로 변경)
     public int deleteBoard(SqlSessionTemplate sqlSession, String bno) {
-        return sqlSession.delete("boardMapper.deleteBoard", bno);
+        return sqlSession.update("boardMapper.deleteBoard", bno);
     }
-    
-    
-    
+
+    // 물리 삭제 (DB에서 완전히 삭제)
+    public int adminDeleteBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.delete("boardMapper.adminDeleteBoard", bno);
+    }
+
+    public int restoreBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.update("boardMapper.adminRestoreBoard", bno);
+    }
+ 
+
     
     
     // 좋아요/싫어요 관리
@@ -236,14 +247,14 @@ public class BoardDao {
     }
 
     public String getCategoryNameById(SqlSessionTemplate sqlSession, String categoryId) {
-    	System.out.println("Category ID in service: " + categoryId);
+    	System.out.println("Category ID in Dao: " + categoryId);
     	return sqlSession.selectOne("boardMapper.getCategoryNameById", categoryId);
     }
 
 	
     // 게시글의 총 개수 (타입에 따라 필터링 가능)
     public int getListCount(SqlSessionTemplate sqlSession, String categoryId) {
-    	 System.out.println("categoryId value: " + categoryId);
+    	 System.out.println("categoryId value in Dao: " + categoryId);
         return sqlSession.selectOne("boardMapper.getListCount", categoryId);
     }
 
@@ -270,7 +281,7 @@ public class BoardDao {
         params.put("startRow", offset + 1);
         params.put("endRow", offset + limit);
         
-        System.out.println(params);
+        
         return (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
     }
 
@@ -288,6 +299,16 @@ public class BoardDao {
     public List<BoardCategory> selectList(SqlSessionTemplate sqlSession) {
         return sqlSession.selectList("boardMapper.selectAllCategories");  // boardMapper의 쿼리 호출
     }
+
+
+    public String getPreviousBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectOne("boardMapper.getPreviousBoard", bno);
+    }
+
+    public String getNextBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectOne("boardMapper.getNextBoard", bno);
+    }
+
 
 
     

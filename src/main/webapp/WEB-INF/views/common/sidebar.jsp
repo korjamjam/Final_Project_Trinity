@@ -116,10 +116,18 @@
     <script>
         // 서브메뉴 토글 함수
         function toggleSubmenu(button) {
-            const submenu = button.parentElement.nextElementSibling; // 서브메뉴 요소 찾기
-            submenu.classList.toggle('active'); // 서브메뉴 활성화/비활성화
-            button.classList.toggle('active'); // 화살표 회전
-        }
+    const submenu = button.parentElement.nextElementSibling; // 서브메뉴 요소 찾기
+    console.log(submenu);
+    
+    // submenu가 null이 아닌지 확인
+    if (submenu) {
+        submenu.classList.toggle('active'); // 서브메뉴 활성화/비활성화
+        button.classList.toggle('active'); // 화살표 회전
+    } else {
+        console.error("submenu not found!");
+    }
+}
+
 
         // 로그인 페이지 이동
         function navigateToLogin() {
