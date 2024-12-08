@@ -30,6 +30,8 @@ public class BoardDao {
     }
 
 
+    
+    
     /**
      * 특정 카테고리에 해당하는 게시글 수를 조회합니다.
      */
@@ -177,7 +179,11 @@ public class BoardDao {
         return sqlSession.delete("boardMapper.adminDeleteBoard", bno);
     }
 
-    
+    public int restoreBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.update("boardMapper.adminRestoreBoard", bno);
+    }
+ 
+
     
     
     // 좋아요/싫어요 관리
@@ -295,15 +301,14 @@ public class BoardDao {
     }
 
 
-    public Board getPreviousBoard(SqlSessionTemplate sqlSession, String bno) {
-       
-    	return sqlSession.selectOne("boardMapper.getPreviousBoard", bno);
+    public String getPreviousBoard(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectOne("boardMapper.getPreviousBoard", bno);
     }
 
-
-    public Board getNextBoard(SqlSessionTemplate sqlSession, String bno) {
+    public String getNextBoard(SqlSessionTemplate sqlSession, String bno) {
         return sqlSession.selectOne("boardMapper.getNextBoard", bno);
     }
+
 
 
     

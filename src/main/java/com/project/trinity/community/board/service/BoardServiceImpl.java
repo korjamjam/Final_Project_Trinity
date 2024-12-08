@@ -243,18 +243,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board getPreviousBoard(String bno) {
-	    Board prevBoard = boardDao.getPreviousBoard(sqlSession, bno);
-	    System.out.println("Previous Board Data: " + prevBoard);
-	    return prevBoard;
+	public String getPreviousBoard(String bno) {
+	    // DAO에서 이전글의 게시글 번호 조회
+	    String prevBno = boardDao.getPreviousBoard(sqlSession, bno);
+	    System.out.println("이전 게시글 번호: " + prevBno);
+	    return prevBno;
 	}
 
 	@Override
-	public Board getNextBoard(String bno) {
-	    Board nextBoard = boardDao.getNextBoard(sqlSession, bno);
-	    System.out.println("Next Board Data: " + nextBoard);
-	    return nextBoard;
+	public String getNextBoard(String bno) {
+	    // DAO에서 다음글의 게시글 번호 조회
+	    String nextBno = boardDao.getNextBoard(sqlSession, bno);
+	    System.out.println("다음 게시글 번호: " + nextBno);
+	    return nextBno;
 	}
+
+
+
+	@Override
+	public int restoreBoard(String bno) {
+	    return boardDao.restoreBoard(sqlSession, bno);
+	}
+
 
 
 
