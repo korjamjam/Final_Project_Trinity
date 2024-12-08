@@ -51,7 +51,7 @@ public class BoardController {
 	@RequestMapping("/main")
 	public String getBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId,
 			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m) {
-		System.out.println("삭제 categoryId: " + categoryId);
+		
 		// 카테고리별 게시글 수 조회
 		int listCount = boardService.selectCountCategoryList(categoryId);
 
@@ -60,9 +60,7 @@ public class BoardController {
 
 		// 게시글 목록 조회
 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
-		System.out.println("게시글 수: " + listCount);
-		System.out.println("게시글 목록: " + boardList);
-		System.out.println("삭제 categoryId2: " + categoryId);
+	
 		// 모델에 데이터 추가
 		m.addAttribute("categoryId", categoryId);
 		m.addAttribute("boardList", boardList);
@@ -166,12 +164,15 @@ public class BoardController {
 			// 카테고리 이름 조회
 			String categoryName = boardService.getCategoryNameById(b.getCategoryId());
 
+
+	      
 			// 모델에 데이터 추가
 			m.addAttribute("b", b);
 			m.addAttribute("fileList", fileList);
 			m.addAttribute("categoryName", categoryName);
 			m.addAttribute("categories", categories); // 드롭다운에 사용할 카테고리 목록
-
+			
+	        
 			return "community/community_board_detail"; // 상세 페이지로 이동
 		} else {
 			// Board가 null인 경우 에러 메시지 출력
@@ -185,14 +186,14 @@ public class BoardController {
 	@PostMapping("/write")
 	public String insertBoard(Board b,
 	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
-	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> fileList, HttpSession session,
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
 	        Model m) {
 
-	    System.out.println("fileList : " + fileList); // 변수명 일치
+	    System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
 	    System.out.println("-------------------------");
 	    System.out.println("allowDownload : " + allowDownload);
 	    System.out.println("-------------------------");
-
+	    System.out.println("insert b : " + b);
 	    // 로그인 사용자 확인 -> 인터셉터
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -212,9 +213,9 @@ public class BoardController {
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
 	    if (boardResult > 0) {
 	        // 파일 업로드 처리
-	        if (fileList != null && !fileList.isEmpty()) {
-	            for (int i = 0; i < fileList.size(); i++) {
-	                MultipartFile upfile = fileList.get(i);
+	        if (successUpfiles != null && !successUpfiles.isEmpty()) {
+	            for (int i = 0; i < successUpfiles.size(); i++) {
+	                MultipartFile upfile = successUpfiles.get(i);
 	                if (!upfile.isEmpty()) {
 	                    String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
 	                    if (changeName != null) {
@@ -344,6 +345,7 @@ public class BoardController {
 	
 	// 수정 완료 처리
 	@PostMapping("/update")
+	
 	public String updateBoard(Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
@@ -355,7 +357,7 @@ public class BoardController {
 		// -> 새로운파일로 변경x
 		
 		
-		System.out.println("수정완료 후 userNo : " + b);
+		System.out.println("수정완료 newFiles : " + newFiles);
 		try {
 			
 			ArrayList<BoardFile> fileList = new ArrayList<>();
@@ -396,45 +398,61 @@ public class BoardController {
 	} 
 
 	@RequestMapping("/deleteBoard")
-	@ResponseBody // 이 어노테이션을 추가하
+	@ResponseBody
 	public String deleteBoard(HttpSession session, @RequestParam String bno, @RequestParam String categoryId) {
-		  System.out.println("삭제하려는 게시글 번호: " + bno);  // bno 값 확인
-		    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인
-		    // 이 부분에서 null 값이 나오지 않는지 체크
-		    if (bno == null || categoryId == null) {
-		        return "잘못된 요청입니다. 파라미터가 없습니다.";
-		    }
-		// 게시글에 첨부된 파일 목록 가져오기
-		List<BoardFile> fileList = boardService.getFileList(bno);
-		System.out.println("첨부 파일 목록: " + fileList);
+	    System.out.println("삭제하려는 게시글 번호: " + bno);  // bno 값 확인
+	    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인
+	   
 
-		// 파일 삭제 및 게시글 삭제 처리
-		int boardDeleteResult = boardService.deleteBoard(bno);
-		System.out.println("게시글 삭제 결과: " + boardDeleteResult);
+	    // 파라미터 유효성 검사
+	    if (bno == null || categoryId == null) {
+	        return "잘못된 요청입니다. 파라미터가 없습니다.";
+	    }
+	 // 세션에서 로그인된 사용자 정보 가져오기 (인터셉터로 인증되었음을 전제)
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    boolean isAdmin = "Y".equals(loginUser.getIsAdmin());
+	    System.out.println("관리자 여부: " + isAdmin);
 
-		if (boardDeleteResult <= 0) {
-			return "게시글 삭제에 실패했습니다."; // 게시글 삭제 실패 시 메시지
-		}
+	    // 게시글에 첨부된 파일 목록 가져오기
+	    List<BoardFile> fileList = boardService.getFileList(bno);
+	    System.out.println("첨부 파일 목록: " + fileList);
 
-		// 첨부된 파일이 있다면 삭제
-		if (fileList != null && !fileList.isEmpty()) {
-			for (BoardFile file : fileList) {
-				String filePath = session.getServletContext().getRealPath(file.getChangeName()); // 파일 경로 얻기
-				File targetFile = new File(filePath);
-				System.out.println("삭제할 파일 경로: " + filePath);
+	    int boardDeleteResult;
 
-				if (targetFile.exists()) {
-					targetFile.delete(); // 파일 삭제
-					System.out.println("파일이 삭제되었습니다: " + filePath);
-				} else {
-					System.out.println("파일이 존재하지 않습니다: " + filePath);
-				}
-			}
-		}
-		
-		return "ok"; // 게시글 삭제 성공 메시지
+	    if (isAdmin) {
+	        // 관리자인 경우 물리적 삭제
+	        boardDeleteResult = boardService.adminDeleteBoard(bno);
+	        System.out.println("관리자에 의해 게시글이 완전 삭제되었습니다.");
 
+	        // 첨부 파일 삭제
+	        if (fileList != null && !fileList.isEmpty()) {
+	            for (BoardFile file : fileList) {
+	                String filePath = session.getServletContext().getRealPath(file.getChangeName());
+	                File targetFile = new File(filePath);
+	                System.out.println("삭제할 파일 경로: " + filePath);
+
+	                if (targetFile.exists()) {
+	                    targetFile.delete();
+	                    System.out.println("파일이 삭제되었습니다: " + filePath);
+	                } else {
+	                    System.out.println("파일이 존재하지 않습니다: " + filePath);
+	                }
+	            }
+	        }
+	    } else {
+	        // 일반 사용자인 경우 논리적 삭제
+	        boardDeleteResult = boardService.deleteBoard(bno);
+	        System.out.println("사용자에 의해 게시글이 논리 삭제되었습니다.");
+	    }
+
+	    // 삭제 실패 처리
+	    if (boardDeleteResult <= 0) {
+	        return "게시글 삭제에 실패했습니다.";
+	    }
+
+	    return "ok"; // 삭제 성공 메시지
 	}
+
 
 	@PostMapping("/deleteFile")
 	public String deleteFile(@RequestBody Map<String, String> fileData) {

@@ -64,15 +64,15 @@
 					</div>
 				</div>
 				<hr>
-
-				<!-- Post Form -->
+				<p>Context Path: ${pageContext.request.contextPath}</p>
+				Post Form -->
 				<div class="post-wrapper">
 					<form id="postForm" method="post" action="${pageContext.request.contextPath}/community/update"
 						class="post-form" enctype="multipart/form-data">
 						<input type="hidden" name="boardNo" value="${b.boardNo}">
 						<input type="hidden" name="userId" value="${loginUser.userId}">
 						<input type="hidden" name="userNo" value="${loginUser.userNo}">
-
+					
 						<!-- Post Form Header -->
 						<div class="post-form-container">
 							<div class="post-form-header">
@@ -91,7 +91,8 @@
 
 							<textarea id="summernote" name="boardContent"
 								class="post-textarea form-control mt-3"></textarea>
-							<div class="mt-4">
+							
+								<div class="mt-4">
 								<label for="upfile" class="form-label">첨부파일</label> 
 								<input type="file" id="upfile"
 									name="upfiles" class="form-control" multiple onchange="checkFileValidation(this)">
@@ -106,6 +107,7 @@
 								<!-- 작성완료 버튼 -->
 								<button type="submit" class="round-button">작성완료</button>
 							</div>
+						</div>
 					</form>
 				</div>
 			</div>

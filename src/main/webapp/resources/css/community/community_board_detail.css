@@ -220,6 +220,8 @@
 	display: flex;
 	flex-direction: column;
 	/* 수직으로 정렬 */
+	min-height: 400px;
+	justify-content: space-between;
 }
 
 .board-content .like-button {
@@ -270,6 +272,11 @@
 	line-height: 1.6;
 	box-sizing: border-box;
 	align-items: stretch; /* 부모 안에서 자식 요소의 높이를 늘리도록 설정 */
+}
+.container.my-5 {
+    max-width: 100%; /* 부모 요소의 너비를 넘지 않도록 설정 */
+    box-sizing: border-box; /* padding과 border를 포함한 너비 계산 */
+    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
 }
 
 .expert-container {

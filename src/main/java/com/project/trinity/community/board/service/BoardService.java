@@ -40,7 +40,9 @@ public interface BoardService {
 	int deleteBoard(String bno); // 게시글 삭제
 
 	String getCategoryNameById(String categoryId); // 카테고리 ID로 카테고리 이름 조회
+	Board getPreviousBoard(String bno);
 
+	Board getNextBoard(String bno);
    
     
     // 파일 관련 메서드
@@ -65,6 +67,10 @@ public interface BoardService {
     void updateLikeDislike(String commentNo, String userNo, int isLike);
 
     List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
+
+	int adminDeleteBoard(String bno);
+
+
 
 	
 

@@ -2,14 +2,9 @@ package com.project.trinity.community.board.service;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletContext;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +44,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board selectBoard(String bno) {
-		 System.out.println("서비스 bno: " + bno);  
+		 System.out.println("서비스impl bno: " + bno);  
 		return boardDao.selectBoard(sqlSession, bno);
 	}
 
@@ -91,7 +86,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	//boardService.deleteBoard
-	public int deleteBoard(String bno) {
+	public int adminDeleteBoard(String bno) {
 	    // 첨부파일 삭제
 	    boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
 	   
@@ -101,7 +96,7 @@ public class BoardServiceImpl implements BoardService {
 
 	    // 게시글 삭제
 	    //boardDao.deleteBoard
-	    int boardDeleteResult = boardDao.deleteBoard(sqlSession, bno);
+	    int boardDeleteResult = boardDao.adminDeleteBoard(sqlSession, bno);
 	    if (boardDeleteResult <= 0) {
 	        throw new RuntimeException("게시글 삭제에 실패했습니다.");
 	    }
@@ -109,6 +104,10 @@ public class BoardServiceImpl implements BoardService {
 
 	    // 모든 작업이 성공하면 성공적으로 처리
 	    return boardDeleteResult;
+	}
+	@Override
+	public int deleteBoard(String bno) {
+			return boardDao.deleteBoard(sqlSession, bno);
 	}
 
 
@@ -128,7 +127,7 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardFile> fileList  = sqlSession.selectList("boardMapper.getFileList", bno);
 		if (fileList  != null) {
 			for (BoardFile file : fileList ) {
-				System.out.println("파일: " + file);
+				System.out.println("서비스impl 파일: " + file);
 			}
 		}
 		return fileList ;
@@ -205,7 +204,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getListCount(String categoryId) {
 		// categoryId 값 확인
-		System.out.println("categoryId value: " + categoryId); // 여기서 categoryId 값을 출력
+		System.out.println("서비스 impl categoryId value: " + categoryId); // 여기서 categoryId 값을 출력
 
 		// 'categoryId'를 사용하여 게시글의 총 개수를 가져오는 쿼리 실행
 		Integer count = sqlSession.selectOne("boardMapper.getListCount", categoryId);
@@ -242,5 +241,21 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardCategory> getCategories() {
 		return boardDao.selectList(sqlSession); // DB에서 카테고리 목록을 조회
 	}
+
+	@Override
+	public Board getPreviousBoard(String bno) {
+	    Board prevBoard = boardDao.getPreviousBoard(sqlSession, bno);
+	    System.out.println("Previous Board Data: " + prevBoard);
+	    return prevBoard;
+	}
+
+	@Override
+	public Board getNextBoard(String bno) {
+	    Board nextBoard = boardDao.getNextBoard(sqlSession, bno);
+	    System.out.println("Next Board Data: " + nextBoard);
+	    return nextBoard;
+	}
+
+
 
 }
