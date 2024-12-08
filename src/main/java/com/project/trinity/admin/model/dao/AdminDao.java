@@ -87,8 +87,20 @@ public class AdminDao {
         return sqlSession.selectList("adminMapper.getAllHospitals");
     }
     
-    public HospitalInfo getHospitalDetail(SqlSessionTemplate sqlSession, String hosNo) {
-    	return sqlSession.selectOne("adminMapper.getHospitalDetail");
+    public List<HospitalInfo> getHospitalsByDepartment(SqlSessionTemplate sqlSession, String department) {
+        return sqlSession.selectList("adminMapper.getHospitalsByDepartment", department);
     }
 
+    
+    public HospitalInfo getHospitalDetail(SqlSessionTemplate sqlSession, String hosNo) {
+        return sqlSession.selectOne("adminMapper.getHospitalDetail", hosNo); // hosNo에 따라 조회
+    }
+    
+    public int updateHospitalInfo(SqlSessionTemplate sqlSession, HospitalInfo hospital) {
+        return sqlSession.update("adminMapper.updateHospitalInfo", hospital);
+    }
+
+    public int updateHospitalAccount(SqlSessionTemplate sqlSession, HospitalInfo hospital) {
+        return sqlSession.update("adminMapper.updateHospitalAccount", hospital);
+    }
 }

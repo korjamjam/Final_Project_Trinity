@@ -33,7 +33,7 @@ public class ReservationController {
 
 	@RequestMapping("/gForm")
 	public String generalReservation(String hosNo, Model m) {
-		HospitalInfo hInfo = hService.selectHospitalOne(hosNo);
+		HospitalInfo hInfo = hService.selectHosName(hosNo);
 		System.out.println(hInfo);
 		m.addAttribute("hInfo", hInfo);
 		return "reservation/general_reservation";

@@ -94,10 +94,23 @@ public class AdminServiceImpl implements AdminService {
     public List<HospitalInfo> getAllHospitals() {
         return adminDao.getAllHospitals(sqlSession);
     }
+    
+    @Override
+    public List<HospitalInfo> getHospitalsByDepartment(String department) {
+        return adminDao.getHospitalsByDepartment(sqlSession, department);
+    }
+
 
 	@Override
 	public HospitalInfo getHospitalDetail(String hosNo) {
 		return adminDao.getHospitalDetail(sqlSession, hosNo);
+	}
+	
+	@Override
+	public boolean updateHospital(HospitalInfo hospital) {
+	    int infoResult = adminDao.updateHospitalInfo(sqlSession, hospital);
+	    int accountResult = adminDao.updateHospitalAccount(sqlSession, hospital);
+	    return infoResult > 0 && accountResult > 0; // 두 업데이트가 모두 성공해야 true 반환
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -131,26 +132,66 @@ public class AdminController {
 
     //----------------------------------병원관리 페이지----------------------------------
     @RequestMapping("/hospital")
-    public String showAdminHospital(Model model) {
-        // 병원 목록을 가져오는 서비스 호출
-        List<HospitalInfo> hospitalList = adminService.getAllHospitals();
-        // hospitalList가 null인지 체크
-        System.out.println("hospitalList: " + hospitalList); // null 체크
-        // 모델에 데이터를 추가
+    public String showAdminHospital(
+            @RequestParam(name = "department", defaultValue = "전체") String department,
+            Model model) {
+        
+        List<HospitalInfo> hospitalList;
+
+        // 선택된 department에 따라 병원 목록 필터링
+        if ("전체".equals(department)) {
+            hospitalList = adminService.getAllHospitals(); // 전체 병원 가져오기
+        } else {
+            hospitalList = adminService.getHospitalsByDepartment(department); // 특정 진료과목 병원
+        }
+
+        // hospitalList를 모델에 추가
         model.addAttribute("hospitalList", hospitalList);
+        model.addAttribute("selectedDepartment", department); // 선택된 진료과목 유지
 
         return "admin/admin_hospital";
     }
 
     @RequestMapping("/hospitalDetail")
     public String showAdminHospitalDetail(@RequestParam("hosNo") String hosNo, Model model) {
-        HospitalInfo hospitalinfo = adminService.getHospitalDetail(hosNo); // 특정 회원 정보 가져오기
-        System.out.println("hospitalinfo: " + hospitalinfo); // 디버깅용 로그
-        model.addAttribute("hospitalinfo", hospitalinfo); // JSP에 전달
+        HospitalInfo hospitalinfo = adminService.getHospitalDetail(hosNo); // 데이터 가져오기
+        System.out.println("HospitalInfo: " + hospitalinfo); // 디버깅 로그 추가
+        model.addAttribute("hospital", hospitalinfo); // JSP로 전달
         return "admin/admin_hospital_detail";
     }
     
-    //예약관리 페이지
+    @RequestMapping(value = "/updateHospital", method = RequestMethod.POST)
+    public String updateHospital(
+            @RequestParam("hosNo") String hosNo,
+            @RequestParam("hosTel") String hosTel,
+            @RequestParam("hosAddress") String hosAddress,
+            @RequestParam("hosOnduty") String hosOnduty,
+            @RequestParam("hosParking") String hosParking,
+            RedirectAttributes redirectAttributes) {
+
+        HospitalInfo hospital = new HospitalInfo();
+        hospital.setHosNo(hosNo);
+        hospital.setHosTel(hosTel);
+        hospital.setHosAddress(hosAddress);
+        hospital.setHosOnduty(hosOnduty);
+        hospital.setHosParking(hosParking);
+
+        boolean isUpdated = adminService.updateHospital(hospital);
+
+     // 성공/실패 메시지 설정
+        if (isUpdated) {
+            redirectAttributes.addFlashAttribute("successMessage", "병원 정보가 성공적으로 수정되었습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "병원 정보 수정에 실패하였습니다.");
+        }
+
+        // 병원 리스트 페이지로 리다이렉트
+        return "redirect:/admin/hospital";
+    }
+
+
+    
+    //----------------------------------예약관리 페이지----------------------------------
     @RequestMapping("/reservation")
     public String showAdminReservation() {
         return "admin/admin_reservation";
@@ -162,7 +203,7 @@ public class AdminController {
         return "admin/admin_reservation_detail";
     }
     
-    //게시글관리 페이지
+    //----------------------------------게시글관리 페이지----------------------------------
     @RequestMapping("/post")
     public String showAdminPost() {
         return "admin/admin_post";
