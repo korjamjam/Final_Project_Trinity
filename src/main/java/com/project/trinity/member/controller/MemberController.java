@@ -105,6 +105,10 @@ public class MemberController {
 	    String phoneLast = request.getParameter("phoneLast");
 	    member.setPhone(phonePrefix + "-" + phoneMiddle + "-" + phoneLast);
 
+	    // 기본 프로필 이미지 설정
+	    String defaultProfileImage = "/resources/images/default_profile.png";
+	    member.setUserProfile(defaultProfileImage);
+
 	    // 회원 가입 처리
 	    int result = memberService.insertMember(member);
 	    if (result > 0) {
@@ -115,6 +119,8 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 	}
+
+
 
 
 
