@@ -117,22 +117,19 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorInfoList", hosNo);
 	}
 
-	public ArrayList<DoctorReview> selectDoctorReview(SqlSessionTemplate sqlSession, String userNo) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorReview", userNo);
+	public ArrayList<DoctorReview> selectDoctorReview(SqlSessionTemplate sqlSession, String doctorNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectDoctorReview", doctorNo);
 	}
 	
 	public int updateHospitalDoctor(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("memberMapper.updateHospitalDoctor", hmap);
 	}
-
 	public int hospitalAccountDeleteDoctor(SqlSessionTemplate sqlSession, String userNo) {
 		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 호출 : " + userNo);
 		int result = sqlSession.update("memberMapper.hospitalAccountDeleteDoctor", userNo);
 		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 결과: " + result);
 		return result;
 	}
-
-	
 
 }

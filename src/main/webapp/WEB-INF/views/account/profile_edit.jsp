@@ -41,7 +41,7 @@
                             <img id="profile-preview" src="${pageContext.servletContext.contextPath}${loginUser.userProfile}" alt="프로필 사진">
                         </c:when>
                         <c:otherwise>
-                            <img id="profile-preview" src="${pageContext.servletContext.contextPath}/resources/img/profile.png" alt="프로필 사진">
+                            <img id="profile-preview" src="${pageContext.servletContext.contextPath}/resources/img/default_profile.png" alt="프로필 사진">
                         </c:otherwise>
                     </c:choose>
                     <label for="profile-upload" class="upload-button">사진 변경</label>
