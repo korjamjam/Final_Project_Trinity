@@ -257,7 +257,7 @@
                             </div>
                             <div class="hospital_detail_share">
                                 <input type="hidden" id="doctorNo" value="${i.userNo}">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="func()">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews()">
                                     의사 리뷰보기
                                 </button>
                             </div>
