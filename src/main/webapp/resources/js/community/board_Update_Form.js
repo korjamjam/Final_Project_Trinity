@@ -11,9 +11,6 @@ $(document).ready(function () {
     // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
     
-    // 파일 업로드 이벤트 리스너
-    $("#upfiles").on("change", checkFileValidation);
-    
     // 게시글의 기존 파일 목록 가져오기
     getFileList();
 });
@@ -71,14 +68,16 @@ function getFileList() {
         type: "GET",
         data: { bno: boardNo }, // 요청 파라미터로 게시글 번호 전송
         success: function (response) {
-            console.log("서버 응답:", response);
             if (response.length > 0) {
                 let postForm = document.querySelector("#postForm");
 
                 // 파일 목록을 저장
                 attFile.fileList = response.map(f => {
-                    console.log(`파일 추가: ${f.originName}`);
-                    postForm.innerHTML += (`<input type="hidden" name="existingFileNos" value="${f.fileNo}">`);
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "existingFileNos";
+                    input.value = f.fileNo;
+                    postForm.appendChild(input);
 
                     return {
                         "name": f.originName,

@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.log($.fn.summernote); // 함수가 제대로 로드되었는지 확인
-    console.log($);  // 여러 번 로드되었는지 확인
 
     // 창 크기 변경 시 Summernote 크기 동기화
     $(window).on('resize', syncSummernoteWidth);
@@ -9,7 +7,7 @@ $(document).ready(function () {
 
     // 답변 작성 버튼 클릭 시
     $('#submit-answer-btn').click(function () {
-        var answerContent = $('#summernote-1').val();  // 작성된 답변 내용
+        let answerContent = $('#summernote-1').val();  // 작성된 답변 내용
 
         if (!answerContent.trim()) {
             alert('답변을 작성해주세요.');
@@ -21,7 +19,7 @@ $(document).ready(function () {
             url: '/submitAnswer',  // 실제 처리할 서버 URL로 변경
             method: 'POST',
             data: {
-                boardId: ${b.boardId},  // 게시판 ID와 관련된 추가 데이터 필요
+                boardId: boardNo,  // 게시판 ID와 관련된 추가 데이터 필요
                 answerContent: answerContent
             },
             success: function (response) {

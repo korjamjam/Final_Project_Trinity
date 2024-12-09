@@ -165,38 +165,38 @@ public class BoardController {
 	    return "community/AnswerForm";
 	}
 	
-	@PostMapping("/submitAnswer")
-	@ResponseBody
-	public ResponseEntity<Map<String, Object>> submitAnswer(@RequestParam("boardId") String boardId,
-	                                                         @RequestParam("answerContent") String answerContent) {
-	    // 답변 작성 시 boardId와 answerContent를 받아 처리
-	    Map<String, Object> response = new HashMap<>();
-	    
-	    try {
-	        // 답변 저장 처리 (boardId와 answerContent를 사용하여 DB에 저장)
-	    	MedAnswer answer = new MedAnswer();
-	        answer.setBoardNo(boardId);
-	        answer.setAnswerContent(answerContent);
-	        answer.setWriter("의료진"); // 예시로 "의료진"이라고 설정, 실제 작성자 정보는 세션 등을 통해 가져와야 할 수 있음
-	        
-	        // 답변 DB에 저장
-	        boolean result = boardService.saveAnswer(answer);  // 답변 저장 메서드 호출 (서비스 계층)
-	        
-	        if (result) {
-	            response.put("status", "success");
-	            response.put("newAnswerContent", answerContent); // 새로운 답변 내용을 클라이언트로 반환
-	        } else {
-	            response.put("status", "error");
-	            response.put("message", "답변 저장에 실패했습니다.");
-	        }
-	    } catch (Exception e) {
-	        response.put("status", "error");
-	        response.put("message", "서버 오류가 발생했습니다. 다시 시도해주세요.");
-	        e.printStackTrace();
-	    }
-	    
-	    return ResponseEntity.ok(response);  // JSON 형태로 클라이언트에 응답
-	}
+//	@PostMapping("/submitAnswer")
+//	@ResponseBody
+//	public ResponseEntity<Map<String, Object>> submitAnswer(@RequestParam("boardId") String boardId,
+//	                                                         @RequestParam("answerContent") String answerContent) {
+//	    // 답변 작성 시 boardId와 answerContent를 받아 처리
+//	    Map<String, Object> response = new HashMap<>();
+//	    
+//	    try {
+//	        // 답변 저장 처리 (boardId와 answerContent를 사용하여 DB에 저장)
+//	    	MedAnswer answer = new MedAnswer();
+//	        answer.setBoardNo(boardId);
+//	        answer.setAnswerContent(answerContent);
+//	        answer.setWriter("의료진"); // 예시로 "의료진"이라고 설정, 실제 작성자 정보는 세션 등을 통해 가져와야 할 수 있음
+//	         
+//	        // 답변 DB에 저장
+//	        boolean result = boardService.saveAnswer(answer);  // 답변 저장 메서드 호출 (서비스 계층)
+//	        
+//	        if (result) {
+//	            response.put("status", "success");
+//	            response.put("newAnswerContent", answerContent); // 새로운 답변 내용을 클라이언트로 반환
+//	        } else {
+//	            response.put("status", "error");
+//	            response.put("message", "답변 저장에 실패했습니다.");
+//	        }
+//	    } catch (Exception e) {
+//	        response.put("status", "error");
+//	        response.put("message", "서버 오류가 발생했습니다. 다시 시도해주세요.");
+//	        e.printStackTrace();
+//	    }
+//	    
+//	    return ResponseEntity.ok(response);  // JSON 형태로 클라이언트에 응답
+//	}
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
@@ -406,12 +406,11 @@ public class BoardController {
 	
 	// 수정 완료 처리
 	@PostMapping("/update")
-	
 	public String updateBoard(Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
 			Model m) {
-		 
+		
 		 
 		//게시글 수정
 		// -> 새로운 파일로 변경
@@ -425,17 +424,17 @@ public class BoardController {
 			System.out.println("수정완료 후 userNo : " + b);
 			// 3. 새 파일 업로드 처리
 			if (newFiles != null && !newFiles.isEmpty()) {
-				for (MultipartFile file : newFiles) {
-					if (!file.isEmpty()) {
-						String changeName = Template.saveFile(file, session, "/resources/uploadFile/");
+				for (int i=0; i < newFiles.size(); i++) {
+					if (!newFiles.get(i).isEmpty()) {
+						String changeName = Template.saveFile(newFiles.get(i), session, "/resources/uploadFile/");
 						if (changeName != null) {
 							BoardFile bf = new BoardFile();
 							bf.setBoardNo(b.getBoardNo());
 							bf.setUserNo(b.getUserNo());
-							bf.setOriginName(file.getOriginalFilename());
+							bf.setOriginName(newFiles.get(i).getOriginalFilename());
 							bf.setChangeName("/resources/uploadFile/" + changeName);
-							bf.setFileSize(file.getSize());
-							bf.setAllowDownload("Y");
+							bf.setFileSize(newFiles.get(i).getSize());
+							bf.setAllowDownload(allowDownload.get(i));
 							fileList.add(bf);
 						}
 					}
@@ -450,7 +449,6 @@ public class BoardController {
 			
 			// 수정 성공 시 상세 페이지로 리다이렉트
 			return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("errorMsg", "게시글 수정 중 오류가 발생했습니다.");
