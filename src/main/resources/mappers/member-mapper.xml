@@ -231,5 +231,5 @@
 	    WHERE USER_ID = #{userId}
 	</update>
 
-	<!-- 변경해야 되는 병원 번호를 안보냄 시발 -->
+	
 </mapper>

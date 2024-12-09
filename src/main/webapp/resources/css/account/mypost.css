@@ -1,0 +1,61 @@
+.mypost-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mypost-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.mypost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.mypost-table th, .mypost-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.mypost-table th {
+    background-color: #6cc24a;
+    color: white;
+}
+
+.mypost-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.mypost-table tr:hover {
+    background-color: #ddd;
+}
+
+.edit-btn, .delete-btn {
+    text-decoration: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.no-posts-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #777;
+}

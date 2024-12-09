@@ -308,6 +308,12 @@ public class BoardDao {
     public String getNextBoard(SqlSessionTemplate sqlSession, String bno) {
         return sqlSession.selectOne("boardMapper.getNextBoard", bno);
     }
+    
+    public List<Board> getPostsByUserNo(SqlSessionTemplate sqlSession, String userNo) {
+        return sqlSession.selectList("boardMapper.getPostsByUserNo", userNo);
+    }
+
+    
 
 
 

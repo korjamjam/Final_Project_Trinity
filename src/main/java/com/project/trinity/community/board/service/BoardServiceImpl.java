@@ -264,6 +264,12 @@ public class BoardServiceImpl implements BoardService {
 	public int restoreBoard(String bno) {
 	    return boardDao.restoreBoard(sqlSession, bno);
 	}
+	
+	@Override
+	public List<Board> getPostsByUserNo(String userNo) {
+	    return boardDao.getPostsByUserNo(sqlSession, userNo);
+	}
+
 
 
 
