@@ -82,6 +82,12 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 
+	    // 비밀번호 유효성 검사
+	    if (!isValidPassword(member.getUserPwd())) {
+	        redirectAttributes.addFlashAttribute("message", "비밀번호는 8~16자 이내로 영문, 숫자, 특수문자를 포함해야 합니다.");
+	        return "redirect:/member/sign_up";
+	    }
+
 	    // 비밀번호 암호화
 	    member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
 
@@ -105,6 +111,10 @@ public class MemberController {
 	    String phoneLast = request.getParameter("phoneLast");
 	    member.setPhone(phonePrefix + "-" + phoneMiddle + "-" + phoneLast);
 
+	    // 기본 프로필 이미지 설정
+	    String defaultProfileImage = "/resources/images/default_profile.png";
+	    member.setUserProfile(defaultProfileImage);
+
 	    // 회원 가입 처리
 	    int result = memberService.insertMember(member);
 	    if (result > 0) {
@@ -115,6 +125,10 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 	}
+
+
+
+
 
 
 
