@@ -32,7 +32,7 @@
         </div>
     </header>
 
-    <!-- admin_sidebar.jsp를 포함 -->
+    <!-- hospital_account_sidebar.jsp를 포함 -->
     <jsp:include page="hospital_account_side_bar.jsp" />
 
     <script>

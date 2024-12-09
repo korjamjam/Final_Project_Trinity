@@ -6,7 +6,7 @@
 <mapper namespace="memberMapper">
 
 	<!-- 단축 설정 -->
-	<resultMap type="com.project.trinity.member.model.vo.Member"
+	<resultMap type="Member"
 		id="memberResultSet">
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_ID" property="userId" />
@@ -102,14 +102,14 @@
 
 	<!-- userId로 회원 정보 조회 -->
 	<select id="findByUserId" parameterType="string"
-		resultType="member">
+		resultMap="memberResultSet">
 		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
 	</select>
 
 
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER
-		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, ADDRESS,
+		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, USERPROFILE, ADDRESS,
 		GENDER)
 		VALUES (
 		#{userId},
@@ -119,6 +119,7 @@
 		#{phone}, <!-- 하이픈 포함된 전화번호 -->
 		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
 		#{postcode},
+		#{userProfile},
 		#{address},
 		#{gender}
 		)

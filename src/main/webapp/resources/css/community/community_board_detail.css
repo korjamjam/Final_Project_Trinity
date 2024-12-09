@@ -215,13 +215,16 @@
 	text-align: right;
 	color: #888;
 }
+.board-content{
+	min-height: 200px;
+}
 
 .board-content-wrapper {
 	display: flex;
 	flex-direction: column;
 	/* 수직으로 정렬 */
-	min-height: 400px;
 	justify-content: space-between;
+	width: 100%;
 }
 
 .board-content .like-button {
@@ -425,4 +428,43 @@
 
 .download-button:hover {
     background-color: #0056b3;
+}
+
+
+.request-content {
+    display: flex; /* Flexbox 컨테이너 설정 */
+    justify-content: space-between; /* 자식 요소를 양쪽 끝으로 배치 */
+    align-items: center; /* 세로축 정렬 (옵션) */
+	width: 100%;
+	border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+
+.request-message {
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0; /* 기본 스타일 덮어쓰기 */
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
