@@ -123,8 +123,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<DoctorReview> selectDoctorReview(String userNo) {
-		return memberDao.selectDoctorReview(sqlSession, userNo);
+	public ArrayList<DoctorReview> selectDoctorReview(String doctorNo) {
+		return memberDao.selectDoctorReview(sqlSession, doctorNo);
 	}
 
 	@Override

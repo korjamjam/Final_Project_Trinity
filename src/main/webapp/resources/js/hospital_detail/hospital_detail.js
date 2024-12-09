@@ -79,10 +79,9 @@ function copyTel() {
     alert("복사되었습니다.");
 }
 
-const func = function () {
+const getDoctorReviews = function () {
     let doctorNo = document.getElementById('doctorNo').value;
-    console.log(contextPath);
-
+    
     $.ajax({
         url: contextPath + ('/hospital/detail/doctorReview'),
         type: "GET",
@@ -103,20 +102,33 @@ const func = function () {
         }
     });
 };
+
 function addReviewList(reviews) {
+    $('.reviewContent').remove();
     reviews.forEach(review => {
-        $('.reviewNavi').append(`
-            ${review.reviewTitle}<br>
-            ${review.reviewContent}<br>
-            ${review.reviewCreatedAt}<br>
-            ${review.reviewRating}<br>
-        `);
+        if(review == null){
+            $('.reviewNavi').append(`리뷰가 존재하지 않습니다.`);
+        }
+        else{
+            $('.reviewNavi').append(`
+                <div class="reviewContent">
+                    이름 : ${review.userName}<br>
+                    사진 : ${review.userProfile}<br>
+                    제목 : ${review.reviewTitle}<br>
+                    내용 : ${review.reviewContent}<br>
+                    작성일 : ${review.reviewCreatedAt}<br>
+                    점수 : ${review.reviewRating}<br>
+                <div>
+            `);
+        }
     });
 }
-function hosNoToNum(hosNo) {
-    let result = hosNo.substr(1,2);
-    result = parseInt(result);
-    result = result % 4;
-    console.log(result);
-    return result;
-}
+
+
+// function hosNoToNum(hosNo) {
+//     let result = hosNo.substr(1,2);
+//     result = parseInt(result);
+//     result = result % 4;
+//     console.log(result);
+//     return result;
+// }

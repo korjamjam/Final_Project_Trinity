@@ -38,7 +38,7 @@ public interface MemberService {
 
 	ArrayList<Member> selectDoctorInfoList(String hosNo);
 
-	ArrayList<DoctorReview> selectDoctorReview(String userNo);
+	ArrayList<DoctorReview> selectDoctorReview(String doctorNo);
 
 	int updateHospitalDoctor(HashMap<String, String> hmap);
 
