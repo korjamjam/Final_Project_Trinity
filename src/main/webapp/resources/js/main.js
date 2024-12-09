@@ -23,19 +23,24 @@ window.onload = function(){
         loop: true,
         cssMode: true,
         autoplay: {
-            delay: 6000,                    // 자동재생
-            disableOnInteraction: false     // 사용자 상호 작용 후에도 자동 재생 유지
+        delay: 6000,                    // 자동재생
+        disableOnInteraction: false     // 사용자 상호 작용 후에도 자동 재생 유지
         },
         speed: 500,
         centeredSlides: "true",
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
         },
         pagination: {
-          el: ".swiper-pagination",
+        el: ".swiper-pagination",
         },
         mousewheel: true,
         keyboard: true,
-      });
+    });
+    let Msg = document.getElementById('general_reservation_ok').value
+    if(Msg != ""){
+      console.log(Msg);
+      alert(Msg);
+    }
 }

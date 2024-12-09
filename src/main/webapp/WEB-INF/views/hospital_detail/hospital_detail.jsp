@@ -35,19 +35,19 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_detail.js"></script>
     <script>
-        const contextPath = "${ pageContext.servletContext.contextPath }";
-        const commercialNo = hosNoToNum('${hospitalInfo.hosNo }');
+        let contextPath = "${ pageContext.servletContext.contextPath }";
     </script>
 </head>
 <body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
+
     <br><br>
 	<div class="hospital_detail_page_wrapper">
     <div class="hospital_detail_event_wrapper">
         <!-- event -->
         <div class="hospital_detail_event_img">
-
+            <img src="" id="commercial">
         </div>
     </div>
 	
@@ -58,8 +58,31 @@
         <div class="hospital_detail_status">
             <button class="hospital_detail_btn1">진료중</button>
             <button class="hospital_detail_btn3">진료종료</button>
-            <button class="hospital_detail_btn2">대기자 수 확인하기</button>
+            <button class="hospital_detail_btn2" data-toggle="modal" data-target="#viewWaitingModal" onclick="getReservationInfoList()">대기자 수 확인하기</button>
         </div>
+        
+        <input type="hidden" id="hosNo" value="${hospitalInfo.hosNo}">
+        <!-- viewWaiting Modal -->
+        <div class="modal fade" id="viewWaitingModal" role="dialog">
+            <div class="modal-dialog">
+            
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">당일 예약 정보</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>예약 정보</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+            
         <div class="hospital_detail_subject">
             ${hospitalInfo.department }
         </div>
@@ -279,7 +302,7 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                                     </div>
                                 </div>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -288,9 +311,10 @@
             </div>
         </div>
 
+        <input type="hidden" id="curTime" value="${curTime}">
         <div class="hospital_detail_goto_res">
-            <button onclick="">당일 시간 예약</button>
-            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${hospitalInfo.hosNo }'">미래 시간 예약</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${hospitalInfo.hosNo }&curTime='+ getTime()">당일 예약</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/reservation/gForm?hosNo=${hospitalInfo.hosNo }'">사전 예약</button>
         </div>
 
     </div>

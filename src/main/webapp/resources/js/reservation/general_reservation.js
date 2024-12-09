@@ -25,8 +25,14 @@ $(function() {
         timeLi.onclick = timeSelectFunk;
     }
 
-    console.log($(".reservation_subject_select_title"))
-    $(".reservation_subject_select_title").click();
+    const curTime = document.getElementById("curTime").value;
+    document.getElementById("gReservation_date").value = curTime;
+    if(curTime != null){
+        $(".reservation_notNullDate").click();
+    } else{
+        // console.log($(".reservation_subject_select_title"))
+        $(".reservation_subject_select_title").click();
+    }
   });
 
   function timeSelectFunk(ev){
