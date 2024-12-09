@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 public interface AdminService {
 	
@@ -27,7 +28,7 @@ public interface AdminService {
     
     void setRankupToWaiting(String seqNo); // 등업 신청 상태를 대기로 설정
     
-  //병원 관리 페이지
+  //-병원 관리 페이지
     List<HospitalInfo> getAllHospitals();
     
     List<HospitalInfo> getHospitalsByDepartment(String department); // 진료과목별 병원 가져오기
@@ -35,6 +36,9 @@ public interface AdminService {
     HospitalInfo getHospitalDetail(String hosNo); //회원 상세정보 조회
     
     boolean updateHospital(HospitalInfo hospital);
+    
+    //-------예약 관리 페이지
+    List<Reservation> getAllReservations(); // 모든 예약 조회
 
     
 }

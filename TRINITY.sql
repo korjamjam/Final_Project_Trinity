@@ -10657,7 +10657,6 @@ INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REV
 VALUES ('U6', 'U36', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 
-
 SELECT * FROM MEMBER;
 
 --커밋--------------------------------------------------------------------------------------------------------

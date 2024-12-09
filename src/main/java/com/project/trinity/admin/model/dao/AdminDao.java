@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Repository
 public class AdminDao {
@@ -103,4 +104,11 @@ public class AdminDao {
     public int updateHospitalAccount(SqlSessionTemplate sqlSession, HospitalInfo hospital) {
         return sqlSession.update("adminMapper.updateHospitalAccount", hospital);
     }
+    
+    //-------------------------------예약 관리-------------------------------
+    
+    public List<Reservation> getAllReservations(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("adminMapper.getAllReservations");
+    }
+    
 }

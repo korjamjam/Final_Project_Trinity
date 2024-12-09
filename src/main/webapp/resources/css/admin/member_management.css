@@ -5,6 +5,19 @@ resTitle/* 기본 스타일 */
     padding: 0;
 }
 
+.member-item span.role-doctor {
+    color: blue; /* 의사: 파란색 */
+    font-weight: bold;
+}
+
+.member-item span.role-admin {
+    color: green; /* 관리자: 초록색 */
+    font-weight: bold;
+}
+
+.member-item span.role-general {
+    font-weight: bold; /* 일반: 진한 글자 */
+}
 
 .member-management {
     width: 100%;

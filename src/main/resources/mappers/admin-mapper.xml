@@ -66,6 +66,17 @@
       <result column="HOS_PARKING" property="hosParking" />
    </resultMap>
    
+   <resultMap id="ReservationResultMap" type="com.project.trinity.reservation.model.vo.Reservation">
+    <result property="gresNo" column="GRES_NO" />
+    <result property="vresNo" column="VRES_NO" />
+    <result property="healthResNo" column="HEALTH_RES_NO" />
+    <result property="userNo" column="USER_NO" />
+    <result property="gstNo" column="GST_NO" />
+    <result property="patientName" column="PATIENT_NAME" />
+    <result property="resDate" column="RES_DATE" />
+    <result property="resTime" column="RES_TIME" />
+</resultMap>
+   
 
 	<!-- 관리자 회원 목록 조회 -->
 	<select id="getAllMembers" resultMap="memberResultSet">
@@ -252,5 +263,24 @@
         HOS_PARKING = #{hosParking}
     WHERE HOS_NO = #{hosNo}
 </update>
+
+<!-- 예약 관리 페이지 -->
+<select id="getAllReservations" resultMap="ReservationResultMap">
+    SELECT 
+        G.G_RES_NO AS GRES_NO, 
+        V.V_RES_NO AS VRES_NO, 
+        H.H_RES_NO AS HEALTH_RES_NO,
+        COALESCE(G.USER_NO, V.USER_NO, H.USER_NO) AS USER_NO,
+        COALESCE(G.GST_NO, V.GST_NO, H.GST_NO) AS GST_NO,
+        COALESCE(G.G_PATIENT_NAME, V.PATIENT_NAME, H.PATIENT_NAME) AS PATIENT_NAME,
+        COALESCE(G.G_RES_DATE, V.V_RES_DATE, H.RES_DATE) AS RES_DATE,
+        COALESCE(G.G_RES_TIME, V.V_RES_TIME, H.RES_TIME) AS RES_TIME
+    FROM 
+        GENERAL_RESERVATION G
+    FULL OUTER JOIN 
+        VACCINE_RESERVATION V ON G.USER_NO = V.USER_NO OR G.GST_NO = V.GST_NO
+    FULL OUTER JOIN 
+        HEALTH_RESERVATION H ON G.USER_NO = H.USER_NO OR G.GST_NO = H.GST_NO
+</select>
 
 </mapper>
