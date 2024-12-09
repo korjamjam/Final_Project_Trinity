@@ -135,4 +135,12 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int hospitalAccountDeleteDoctor(String userNo) {
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 호출 - 업데이트 대상: " + userNo);
+		int result = memberDao.hospitalAccountDeleteDoctor(sqlSession, userNo);
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 결과: " + result);
+		return result;
+	}
+
 }

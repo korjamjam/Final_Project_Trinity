@@ -37,31 +37,31 @@
                     </tr>
                     <tr>
                         <td>이름</td>
-                        <td>${generealReservation.gpatientName }</td>
+                        <td>${generealReservation.patientName }</td>
                     </tr>
                     <tr>
                         <td>병원</td>
-                        <td>${generealReservation.hosNo }</td>
+                        <td>${generealReservation.hosName }</td>
                     </tr>
                     <tr>
                         <td>진료 종류</td>
-                        <td>${generealReservation.gresSubject}</td>
+                        <td>${generealReservation.resCategory}</td>
                     </tr>
                     <tr>
                         <td>특이사항</td>
-                        <td>${generealReservation.gresContent }</td>
+                        <td>${generealReservation.resContent }</td>
                     </tr>
                     <tr>
                         <td>생년월일</td>
-                        <td>${generealReservation.gpatientBirthday }</td>
+                        <td>${generealReservation.patientBirthday }</td>
                     </tr>
                     <tr>
                         <td>날짜</td>
-                        <td>${generealReservation.gresDate }</td>
+                        <td>${generealReservation.resDate }</td>
                     </tr>
                     <tr>
                         <td>시간</td>
-                        <td>${generealReservation.gresTime }</td>
+                        <td>${generealReservation.resTime }</td>
                     </tr>
                 </table>    
             </div>
