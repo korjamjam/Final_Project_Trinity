@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.EmailService;
@@ -58,6 +60,10 @@ public class MemberController {
 	
 	@Autowired
 	private VaccineReservationService vaccineReservationService;
+	
+	@Autowired
+	private BoardService boardService;
+
 
 
 
@@ -536,6 +542,22 @@ public class MemberController {
         // 예약 확인 페이지 반환
         return "account/vaccinereservationconfirmation";
     }
+	
+	@GetMapping("/mypost")
+	public String getMyPosts(HttpSession session, Model model) {
+	    // 로그인된 사용자 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    // 사용자 번호로 내가 쓴 게시글 조회
+	    List<Board> myposts = boardService.getPostsByUserNo(loginUser.getUserNo());
+	    model.addAttribute("myposts", myposts);
+
+	    return "account/mypost";
+	}
+
 
 
 }
