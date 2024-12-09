@@ -143,44 +143,49 @@ public class BoardController {
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
 	public String selectBoard(@RequestParam("bno") String bno, Model m) {
-		// bno 값이 제대로 전달되는지 확인
-		System.out.println("Received bno: " + bno); // bno 값 출력
+	    // 현재 게시글 번호 확인
+	    System.out.println("Received bno: " + bno);
 
-		// Board 객체 조회
-		Board b = boardService.selectBoard(bno);
-		
+	    // 현재 게시글 조회
+	    Board b = boardService.selectBoard(bno);
+	    if (b == null) {
+	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
+	        return "/common/errorPage";
+	    }
 
-		if (b != null) {
-			// 조회수 증가
-			int countResult = boardService.increaseCount(bno); // 조회수 증가 메서드 호출
-			System.out.println("Increase count result: " + countResult); // 결과 확인
+	    // 조회수 증가
+	    int countResult = boardService.increaseCount(bno);
+	    System.out.println("Increase count result: " + countResult);
 
-			// 첨부파일 리스트 가져오기
-			List<BoardFile> fileList = boardService.getFileList(bno);
-			System.out.println("Attached files: " + fileList); // 첨부파일 정보 출력
+	    // 첨부파일 리스트 가져오기
+	    List<BoardFile> fileList = boardService.getFileList(bno);
+	    System.out.println("Attached files: " + fileList);
 
-			// 카테고리 목록 조회
-			List<BoardCategory> categories = boardService.getCategories(); // DB에서 카테고리 목록 조회
-			// 카테고리 이름 조회
-			String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+	    // 카테고리 이름 조회
+	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
 
+	    // 이전 글 번호 조회 후 상세 정보 조회
+	    String prevBno = boardService.getPreviousBoard(bno);
+	    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
 
-	      
-			// 모델에 데이터 추가
-			m.addAttribute("b", b);
-			m.addAttribute("fileList", fileList);
-			m.addAttribute("categoryName", categoryName);
-			m.addAttribute("categories", categories); // 드롭다운에 사용할 카테고리 목록
-			
-	        
-			return "community/community_board_detail"; // 상세 페이지로 이동
-		} else {
-			// Board가 null인 경우 에러 메시지 출력
-			System.out.println("Board not found for bno: " + bno); // 게시글이 없는 경우 로그
-			m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
-			return "/common/errorPage"; // 에러 페이지로 이동
-		}
+	    // 다음 글 번호 조회 후 상세 정보 조회
+	    String nextBno = boardService.getNextBoard(bno);
+	    Board nextBoard = (nextBno != null) ? boardService.selectBoard(nextBno) : null;
+
+	    // 카테고리 목록 조회 (드롭다운 메뉴용)
+	    List<BoardCategory> categories = boardService.getCategories();
+
+	    // 모델에 데이터 추가
+	    m.addAttribute("b", b); // 현재 게시글
+	    m.addAttribute("fileList", fileList); // 첨부파일
+	    m.addAttribute("categoryName", categoryName); // 카테고리 이름
+	    m.addAttribute("categories", categories); // 카테고리 목록
+	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
+	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
+	    System.out.println("prevBoard : " + prevBoard);
+	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}
+	
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
@@ -401,8 +406,7 @@ public class BoardController {
 	@ResponseBody
 	public String deleteBoard(HttpSession session, @RequestParam String bno, @RequestParam String categoryId) {
 	    System.out.println("삭제하려는 게시글 번호: " + bno);  // bno 값 확인
-	    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인
-	   
+	    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인   
 
 	    // 파라미터 유효성 검사
 	    if (bno == null || categoryId == null) {
@@ -411,11 +415,9 @@ public class BoardController {
 	 // 세션에서 로그인된 사용자 정보 가져오기 (인터셉터로 인증되었음을 전제)
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 	    boolean isAdmin = "Y".equals(loginUser.getIsAdmin());
-	    System.out.println("관리자 여부: " + isAdmin);
 
 	    // 게시글에 첨부된 파일 목록 가져오기
-	    List<BoardFile> fileList = boardService.getFileList(bno);
-	    System.out.println("첨부 파일 목록: " + fileList);
+	    List<BoardFile> fileList = boardService.getFileList(bno);	 
 
 	    int boardDeleteResult;
 
@@ -429,8 +431,6 @@ public class BoardController {
 	            for (BoardFile file : fileList) {
 	                String filePath = session.getServletContext().getRealPath(file.getChangeName());
 	                File targetFile = new File(filePath);
-	                System.out.println("삭제할 파일 경로: " + filePath);
-
 	                if (targetFile.exists()) {
 	                    targetFile.delete();
 	                    System.out.println("파일이 삭제되었습니다: " + filePath);
@@ -453,6 +453,33 @@ public class BoardController {
 	    return "ok"; // 삭제 성공 메시지
 	}
 
+	@RequestMapping("/restoreBoard")
+	@ResponseBody
+	public String restoreBoard(HttpSession session, @RequestParam String bno) {
+	    System.out.println("복구하려는 게시글 번호: " + bno);
+
+	    // 파라미터 유효성 검사
+	    if (bno == null) {
+	        return "잘못된 요청입니다. 게시글 번호가 없습니다.";
+	    }
+
+	    // 세션에서 로그인된 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null || !"Y".equals(loginUser.getIsAdmin())) {
+	        return "권한이 없습니다. 관리자만 복구할 수 있습니다.";
+	    }
+
+	    // 복구 작업 수행
+	    int restoreResult = boardService.restoreBoard(bno);
+
+	    if (restoreResult > 0) {
+	        System.out.println("게시글 복구 성공: " + bno);
+	        return "ok"; // 성공 메시지
+	    } else {
+	        System.out.println("게시글 복구 실패: " + bno);
+	        return "게시글 복구에 실패했습니다.";
+	    }
+	}
 
 	@PostMapping("/deleteFile")
 	public String deleteFile(@RequestBody Map<String, String> fileData) {

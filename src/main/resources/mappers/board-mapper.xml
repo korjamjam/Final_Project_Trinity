@@ -79,6 +79,33 @@
 		</if>
 	</select>
 
+<select id="getPreviousBoard" parameterType="String" resultType="String">
+    SELECT BOARD_NO
+    FROM (
+        SELECT BOARD_NO
+        FROM BOARD
+        WHERE BOARD_NO &lt; #{bno}
+          AND STATUS = 'Y'
+        ORDER BY BOARD_NO DESC
+    )
+    WHERE ROWNUM = 1
+</select>
+
+<select id="getNextBoard" parameterType="String" resultType="String">
+    SELECT BOARD_NO
+    FROM (
+        SELECT BOARD_NO
+        FROM BOARD
+        WHERE BOARD_NO &gt; #{bno}
+          AND STATUS = 'Y'
+        ORDER BY BOARD_NO ASC
+    )
+    WHERE ROWNUM = 1
+</select>
+
+
+
+
 
 	<!-- 게시글 조회수 증가 -->
 	<update id="increaseCount">

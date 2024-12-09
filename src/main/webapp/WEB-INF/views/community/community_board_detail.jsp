@@ -32,6 +32,7 @@
 				console.log("boardNo: ${b.boardNo}, categoryId: ${b.categoryId}");
 			</script>
 
+
 			<!-- Header Section -->
 			<header>
 				<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
@@ -42,6 +43,7 @@
 				<div id="side-menu">
 					<%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
 				</div>
+			
 
 				<!-- Board Container -->
 				<div id="main-wrapper">
@@ -63,22 +65,40 @@
 
 						<!-- 오른쪽 섹션: 목록 보기, 이전글, 다음글 -->
 						<div class="right-section">
+							<!-- 목록 보기 버튼 -->
 							<a href="${pageContext.request.contextPath}/community/main?categoryId=${b.categoryId}"
 								class="round-button">
 								목록 보기
 							</a>
 							<div class="nav-links-group">
-								<a href="${prevBoardNo != null ? pageContext.request.contextPath + '/community/boardDetail?bno=' + prevBoardNo : '#'}"
-									class="nav-text ${prevBoardNo == null ? 'disabled' : ''}">
-									&laquo; 이전글
-								</a>
-								<a href="${nextBoardNo != null ? pageContext.request.contextPath + '/community/boardDetail?bno=' + nextBoardNo : '#'}"
-									class="nav-text ${nextBoardNo == null ? 'disabled' : ''}">
-									다음글 &raquo;
-								</a>
+								<!-- 이전글 -->
+								<c:choose>
+									<c:when test="${prevBoard != null}">
+										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${prevBoard.boardNo}" class="nav-text">
+											&laquo; 이전글
+										</a>
+									</c:when>
+									<c:otherwise>
+										<span class="nav-text disabled">&laquo; 이전글이 없습니다.</span>
+									</c:otherwise>
+								</c:choose>
+							
+								<!-- 다음글 -->
+								<c:choose>
+									<c:when test="${nextBoard != null}">
+										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${nextBoard.boardNo}" class="nav-text">
+											다음글 &raquo;
+										</a>
+									</c:when>
+									<c:otherwise>
+										<span class="nav-text disabled">다음글이 없습니다. &raquo;</span>
+									</c:otherwise>
+								</c:choose>
 							</div>
+							
 
 						</div>
+
 					</div>
 
 					<div class="board-container">
