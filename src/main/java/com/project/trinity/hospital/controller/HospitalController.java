@@ -145,49 +145,57 @@ public class HospitalController {
 										 RedirectAttributes redirectAttributes,
 										 Model m
 			) {
+		HospitalInfo h = hospitalService.selectHospitalInfo(hosAccount.getHosNo());
 		System.out.println(hosAccount);
-		String userPwdConfirm = request.getParameter("userPwdConfirm");
+		System.out.println(h);
+		if(h.getHosId() == null) {
+			
+			String userPwdConfirm = request.getParameter("userPwdConfirm");
 
-	    if (userPwdConfirm == null || !hosAccount.getHosPwd().equals(userPwdConfirm)) {
-	        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
-	        return "redirect:/hospital/account/sign_up";
-	    }
-	    
-	    hosAccount.setHosPwd(bcryptPasswordEncoder.encode(hosAccount.getHosPwd()));
-	    
-	    int result = hospitalService.insertHospital(hosAccount);
-	    m.addAttribute("hosAcNo", hosAccount.getHosAcNo());
-	    System.out.println(hosAccount.getHosAcNo());
-	    if (result > 0) {
-	        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
-	        return "redirect:/hospital/account/login";
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
-	        return "redirect:/hospital/account/sign_up";
-	    }
+		    if (userPwdConfirm == null || !hosAccount.getHosPwd().equals(userPwdConfirm)) {
+		        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+		        return "redirect:/hospital/account/sign_up";
+		    }
+		    
+		    hosAccount.setHosPwd(bcryptPasswordEncoder.encode(hosAccount.getHosPwd()));
+		    
+		    int result = hospitalService.insertHospital(hosAccount);
+		    m.addAttribute("hosAcNo", hosAccount.getHosAcNo());
+		    System.out.println(hosAccount.getHosAcNo());
+		    if (result > 0) {
+		        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
+		        return "redirect:/hospital/account/login";
+		    } else {
+		        redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+		        return "redirect:/hospital/account/sign_up";
+		    }
+		} else {
+			redirectAttributes.addFlashAttribute("message", "이미 등록된 병원입니다.");
+			return "redirect:/hospital/account/sign_up";
+		}
 	}
 	
 	@RequestMapping("/account/login")
-	public String HospitalAccountLogin(HospitalAccount hosAccount,
+	public String HospitalAccountLogin(@ModelAttribute HospitalAccount hosAccount,
+									   Model m,
 									   HttpSession session
 			) {
-		session.removeAttribute("message");
-		
+		System.out.println(hosAccount);
 		HospitalAccount loginHosAccount = hospitalService.loginHosAccount(hosAccount);
-		
+		System.out.println(loginHosAccount);
 		if(loginHosAccount == null) {
-			session.setAttribute("message", "로그인 실패 아이디를 확인하세요");
+			m.addAttribute("message", "로그인 실패 아이디를 확인하세요");
 			return "hospital_detail/hospital_account_login";
 		} else {
 			if(bcryptPasswordEncoder.matches(hosAccount.getHosPwd(), loginHosAccount.getHosPwd())) {
 				session.setAttribute("loginHosAccount", loginHosAccount);
+				m.addAttribute("message", "로그인 성공");
 				return "hospital_detail/hospital_account_main";
 			} else {
-				session.setAttribute("message", "로그인 실패 아이디와 비밀번호를 확인하세요");
+				m.addAttribute("message", "로그인 실패 아이디와 비밀번호를 확인하세요");
 				return "hospital_detail/hospital_account_login";
 			}
 		}
-		
 	}
 	
 	@RequestMapping("account/logout")
@@ -207,7 +215,7 @@ public class HospitalController {
 	@RequestMapping("/account/doctor")
 	public String HospitalAccountDoctor(HttpSession session) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
-		String hosNo = loginHosAccount.getHosNo();		
+		String hosNo = loginHosAccount.getHosNo();
 		System.out.println("hosNo : " + hosNo);
 		
 		ArrayList<Member> hosDrList = memberService.selectDoctorInfoList(hosNo);
@@ -255,16 +263,21 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/account/myHospital")
-	public String HospitalAccountMyHospital(HttpSession session) {
+	public String HospitalAccountMyHospital(HttpSession session, Model m) {
 		HospitalAccount loginHosAccount = (HospitalAccount)session.getAttribute("loginHosAccount");
-		String hosNo = loginHosAccount.getHosNo(); 
-		
-		HospitalInfo hosInfo = hospitalService.selectHospitalInfo(hosNo);
-		System.out.println(hosInfo);
-		
-		session.setAttribute("hosInfo", hosInfo);
-		
-		return "hospital_detail/hospital_account_my_hospital";
+		if(loginHosAccount != null) {
+			String hosNo = loginHosAccount.getHosNo(); 
+			
+			HospitalInfo hosInfo = hospitalService.selectHospitalInfo(hosNo);
+			System.out.println(hosInfo);
+			
+			session.setAttribute("hosInfo", hosInfo);
+			
+			return "hospital_detail/hospital_account_my_hospital";
+		} else {
+			m.addAttribute("message", "로그인 오류 새로 시작 해주세요");
+			return "hospital_detail/hospital_account_my_hospital";
+		}
 	}
 	
 	@RequestMapping("/account/myReservation")
