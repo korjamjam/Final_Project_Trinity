@@ -106,7 +106,7 @@
 
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER
-		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, ADDRESS,
+		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, USERPROFILE, ADDRESS,
 		GENDER)
 		VALUES (
 		#{userId},
@@ -116,6 +116,7 @@
 		#{phone}, <!-- 하이픈 포함된 전화번호 -->
 		TO_CHAR(TO_DATE(#{birthday}, 'YYYY-MM-DD'), 'YYMMDD'),
 		#{postcode},
+		#{userProfile},
 		#{address},
 		#{gender}
 		)
