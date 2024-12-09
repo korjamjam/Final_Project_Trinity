@@ -429,6 +429,17 @@ VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
 -- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
+
+-- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT01', '자유게시판', 1, 'Y');
+    
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT02', '메디톡', 2, 'Y');
+    
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT03', '이벤트게시판', 3, 'Y');
+
 DECLARE
     CURSOR c_user_no IS
         SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
@@ -475,21 +486,6 @@ BEGIN
             'Y'                                  -- STATUS (항상 Y)
         );
     END LOOP;
-    COMMIT;
-END;
-
-
--- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
-BEGIN
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT01', '자유게시판', 1, 'Y');
-    
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT02', '메디톡', 2, 'Y');
-    
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT03', '이벤트게시판', 3, 'Y');
-    
     COMMIT;
 END;
 
@@ -10655,7 +10651,6 @@ INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REV
 VALUES ('U6', 'U36', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
 VALUES ('U6', 'U36', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
-
 
 
 SELECT * FROM MEMBER;

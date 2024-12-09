@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,13 +23,13 @@
                 <th>프로필 이미지</th>
                 <td>
                     <c:choose>
-                        <!-- 등록된 프로필 이미지가 있을 경우 -->
+                        
                         <c:when test="${not empty doctor.userProfile}">
                             <img src="${pageContext.servletContext.contextPath}/${doctor.userProfile}" 
                                  alt="프로필 이미지" 
                                  style="width: 100px; height: 100px; object-fit: cover;" />
                         </c:when>
-                        <!-- 등록된 프로필 이미지가 없을 경우 -->
+                        
                         <c:otherwise>
                             등록된 사진이 없습니다
                         </c:otherwise>
@@ -80,8 +80,22 @@
             </tr>
         </table>
         </form>
+        <button  onclick="deleteDoctor()" class="save-button">의사 해제</button>
     </div>
 </div>
+    <script>
+        const userNo = "${doctor.userNo}"
+        console.log(userNo)
+        function deleteDoctor() {
+            const isDelete = confirm("정말 삭제하시겠습니까?")
+            console.log(isDelete)
 
+            if(isDelete){
+                location.href="${pageContext.servletContext.contextPath}/hospital/account/doctor/delete?userNo=${doctor.userNo}"
+            } else{
+                onload
+            }
+        }
+    </script>
 </body>
 </html>

@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.admin.model.dao.AdminDao;
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -112,5 +114,18 @@ public class AdminServiceImpl implements AdminService {
 	    int accountResult = adminDao.updateHospitalAccount(sqlSession, hospital);
 	    return infoResult > 0 && accountResult > 0; // 두 업데이트가 모두 성공해야 true 반환
 	}
+	
+	//---------------------------------예약 관리---------------------------------
+	@Override
+	public List<Reservation> getAllReservations() {
+	    return adminDao.getAllReservations(sqlSession);
+	}
+	
+	//---------------------------------예약 관리---------------------------------
+	@Override
+    public List<Board> getAllPosts() {
+        return adminDao.getAllPosts(sqlSession);
+    }
 
+	
 }

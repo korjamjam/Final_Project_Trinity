@@ -106,7 +106,7 @@
    </select>
    
    <!-- 병원Info 조회 -->
-   <select id="selectHosName" parameterType="HospitalInfo"
+   <select id="selectHosName" 
       resultMap="HospitalInfoResultSet">
       SELECT  HOS_NO,
               HOS_NAME,

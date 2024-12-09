@@ -91,25 +91,28 @@
 
 	<!-- 예약번호로 조회 -->
 	<select id="selectReservation"
-		resultType="com.project.trinity.reservation.model.vo.GeneralReservation">
-		SELECT G_RES_NO as gresNo,
-		USER_NO as userNo,
-		HOS_NO as
-		hosNo,
-		GST_NO as gstNo,
-		G_PATIENT_NAME as gpatientName,
-		G_PATIENT_BIRTHDAY as gpatientBirthday,
-		G_RES_DATE as gresDate,
-		G_RES_TIME as gresTime,
-		G_RES_SUBJECT as gresSubject,
-		G_RES_CONTENT as
-		gresContent,
-		G_RES_GENDER as gender
-		FROM GENERAL_RESERVATION
-		WHERE
-		G_RES_NO = #{resNo}
+		resultMap="ReservationResultSet">
+		SELECT G_RES_NO,
+		       USER_NO,
+		       GST_NO,
+		       G_PATIENT_NAME,
+		       G_PATIENT_BIRTHDAY,
+			   TO_CHAR(G_RES_DATE, 'YYYY-MM-DD') AS G_RES_DATE,
+		       G_RES_TIME,
+		       G_RES_SUBJECT,
+		       G_RES_CONTENT,
+		       G_RES_GENDER,
+		       PHONE,
+		       GST_PHONE,
+               HOS_NAME,
+               HOS_ADDRESS
+		  FROM GENERAL_RESERVATION
+          JOIN HOSPITAL_INFO USING (HOS_NO)
+		  JOIN MEMBER USING (USER_NO)
+		  LEFT OUTER JOIN GUEST USING (GST_NO)
+		 WHERE G_RES_NO = #{resNo}
 	</select>
-	<!-- 이거 쓰거나 Reservation 으로 맞춰서 써야됨  -->
+	<!-- resultMap 맞추고 내용 수정하기  -->
 
 	<!-- 게스트 조회 -->
 	<select id="selectGuest" resultMap="GuestResultSet">

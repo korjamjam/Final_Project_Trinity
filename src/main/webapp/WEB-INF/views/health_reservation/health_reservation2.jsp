@@ -200,10 +200,6 @@
             }
         }
 
-        $('#reservation_btn').click(function(hmcNm){
-
-        })
-
         function checkHospital(selectItem){
             const hmcNo = selectItem.value;
             console.log("hmcNo sele : " + hmcNo)
@@ -220,7 +216,7 @@
                                 hosLongitude: item.cxVl,
                               },
                         success: console.log("성공"),
-                        error : console.log("실패")
+                        error : console.log(" ajax실패")
                     })
                 }
             }
