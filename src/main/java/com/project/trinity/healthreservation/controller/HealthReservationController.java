@@ -2,7 +2,6 @@ package com.project.trinity.healthreservation.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,8 +9,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.JSONObject;
@@ -21,12 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -39,8 +34,8 @@ import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
 import com.project.trinity.reservation.model.vo.HealthReservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 import com.project.trinity.vaccine.model.vo.VaccineReservation;
 import com.project.trinity.vaccine.service.VaccineReservationService;
@@ -113,7 +108,7 @@ public class HealthReservationController {
 			@RequestParam("resNo") String resNo, Model m) {
 		switch (reservationCategory) {
 		case "general":
-			GeneralReservation generealReservation = reservationService.selectReservation(resNo);
+			Reservation generealReservation = reservationService.selectReservation(resNo);
 			if (generealReservation != null) {
 				m.addAttribute("generealReservation", generealReservation);
 				m.addAttribute("resNo", resNo);

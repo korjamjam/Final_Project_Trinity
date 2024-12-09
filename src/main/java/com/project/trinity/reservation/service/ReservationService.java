@@ -14,6 +14,8 @@ public interface ReservationService {
 	int insertgGuest(String userName, String birthday, String phone, String email, String gender);
 	
     Reservation selectReservation(String resNo);
+    
+    Reservation selectReservationResNo(String resNo);
 
 	Guest selectGuest(String phone, String email);
 
