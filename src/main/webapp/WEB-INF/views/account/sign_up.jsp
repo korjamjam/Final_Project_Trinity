@@ -116,42 +116,58 @@
 
     <script>
         // 폼 유효성 검사 함수
-       function validateForm() {
-    const userPwd = document.getElementById("userPwd").value.trim();
-    const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
-    const phonePrefix = document.getElementById("phonePrefix").value.trim();
-    const phoneMiddle = document.getElementById("phoneMiddle").value.trim();
-    const phoneLast = document.getElementById("phoneLast").value.trim();
+        function validateForm() {
+            const userPwd = document.getElementById("userPwd").value.trim();
+            const userPwdConfirm = document.getElementById("userPwdConfirm").value.trim();
+            const phonePrefix = document.getElementById("phonePrefix").value.trim();
+            const phoneMiddle = document.getElementById("phoneMiddle").value.trim();
+            const phoneLast = document.getElementById("phoneLast").value.trim();
+            const postcode = document.getElementById("sample6_postcode").value.trim();
+            const address = document.getElementById("sample6_address").value.trim();
+            const birthday = document.getElementById("birthday").value.trim();
 
-    // 비밀번호 일치 여부 확인
-    if (userPwd !== userPwdConfirm) {
-        alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-        return false;
-    }
+            // 비밀번호 유효성 검사
+            if (userPwd !== userPwdConfirm) {
+                alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+                return false;
+            }
 
-    // 비밀번호 유효성 검사 (8~16자, 영문/숫자/특수문자 포함)
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,16}$/;
-    if (!passwordRegex.test(userPwd)) {
-        alert("비밀번호는 8~16자로 영문, 숫자, 특수문자를 포함해야 합니다.");
-        return false;
-    }
+            const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,16}$/;
+            if (!passwordRegex.test(userPwd)) {
+                alert("비밀번호는 8~16자로 영문, 숫자, 특수문자를 포함해야 합니다.");
+                return false;
+            }
 
-    // 전화번호 입력 여부 확인
-    if (!phonePrefix || !phoneMiddle || !phoneLast) {
-        alert("전화번호를 모두 입력해주세요.");
-        return false;
-    }
+            // 전화번호 유효성 검사
+            if (!phonePrefix || !phoneMiddle || !phoneLast) {
+                alert("전화번호를 모두 입력해주세요.");
+                return false;
+            }
+            if (!/^\d{3,4}$/.test(phoneMiddle) || !/^\d{4}$/.test(phoneLast)) {
+                alert("전화번호 형식이 올바르지 않습니다. 숫자로 입력해주세요.");
+                return false;
+            }
 
-    // 전화번호 형식 검사
-    if (!/^\d{3,4}$/.test(phoneMiddle) || !/^\d{4}$/.test(phoneLast)) {
-        alert("전화번호 형식이 올바르지 않습니다. 숫자로 입력해주세요.");
-        return false;
-    }
+            // 주소 유효성 검사
+            if (!postcode || !address) {
+                alert("주소와 우편번호를 입력해주세요.");
+                return false;
+            }
 
-    // 모든 유효성 검사를 통과하면 true 반환
-    return true;
-}
+            // 생년월일 유효성 검사
+            if (!birthday) {
+                alert("생년월일을 입력해주세요.");
+                return false;
+            }
+            const today = new Date();
+            const birthDate = new Date(birthday);
+            if (birthDate > today) {
+                alert("올바른 생년월일을 입력해주세요.");
+                return false;
+            }
 
+            return true;
+        }
 
         // 이메일 도메인 선택 시 값 설정
         $(document).ready(function () {
@@ -186,7 +202,7 @@
                 type: 'GET',
                 data: { userId: userId },
                 success: function (result) {
-                    const isAvailable = parseInt(result, 10); // 숫자로 변환
+                    const isAvailable = parseInt(result, 10);
                     if (isAvailable === 0) {
                         alert('사용 가능한 아이디입니다.');
                     } else {
