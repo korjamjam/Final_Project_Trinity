@@ -127,6 +127,7 @@ public class HospitalController {
     @ResponseBody
     public ArrayList<Reservation> waitingList(@RequestParam(value = "hosNo") String hosNo) {
 		System.out.println("hosNo : " + hosNo);
+		//여기서부터
 		ArrayList<Reservation> watingList = reservationService.selectTodayWaitingList(hosNo);
 		System.out.println("watingList : " + watingList);
 		return watingList;

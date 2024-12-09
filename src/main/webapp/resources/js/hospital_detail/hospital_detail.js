@@ -198,7 +198,7 @@ const getReservationInfoList = function () {
         url: contextPath + ('/hospital/detail/doctorReview'),
         type: "GET",
         data: { 
-                doctorNo: doctorNo
+                hosNo: hosNo
             },
         dataType: "json",
         success: function(response) {
