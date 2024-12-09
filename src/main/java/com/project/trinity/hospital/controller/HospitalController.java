@@ -118,6 +118,7 @@ public class HospitalController {
     public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
 		System.out.println("doctorNo : " + doctorNo);
 		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
+		System.out.println("doctorReviews : " + doctorReviews);
 		return doctorReviews;
     }
 	
