@@ -126,6 +126,13 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.updateHospitalDoctor", hmap);
 	}
 
+	public int hospitalAccountDeleteDoctor(SqlSessionTemplate sqlSession, String userNo) {
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 호출 : " + userNo);
+		int result = sqlSession.update("memberMapper.hospitalAccountDeleteDoctor", userNo);
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 결과: " + result);
+		return result;
+	}
+
 	
 
 }

@@ -42,6 +42,8 @@ public interface MemberService {
 
 	int updateHospitalDoctor(HashMap<String, String> hmap);
 
+	int hospitalAccountDeleteDoctor(String userNo);
+
     
   
 
