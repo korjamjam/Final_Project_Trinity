@@ -67,6 +67,12 @@ public class RerservationServiceImpl implements ReservationService{
 		return rDao.selectReservationHosNo(hosNo);
 	}
 
+	@Override
+	public Reservation selectReservation(String resNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

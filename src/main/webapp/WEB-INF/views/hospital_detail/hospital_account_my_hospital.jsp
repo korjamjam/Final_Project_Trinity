@@ -32,10 +32,6 @@
                 <td>${hosInfo.hosId}</td>
             </tr>
             <tr>
-                <th>병원비밀번호</th>
-                <td>${hosInfo.hosPwd}</td>
-            </tr>
-            <tr>
                 <th>전화번호</th>
                 <td>${hosInfo.hosTel}</td>
             </tr>
