@@ -228,7 +228,7 @@ public class HealthReservationController {
 		}
 	}
 
-	//
+	//healthReservation table에 들어가는 정보
 	@RequestMapping("/reservationSubmit")
 	public String healthReservation3(@RequestParam String reservation_user_select,
 			@RequestParam String reservation_user_text, @RequestParam String reservation_user_date,
@@ -319,9 +319,10 @@ public class HealthReservationController {
 		return nValue.getNodeValue();
 	}
 
+	//ajax로 병원 선택하면 DB에 저장하는거
 	@ResponseBody
 	@GetMapping("healthHospital")
-	public String healthReservationHospital(@RequestParam("hosName") String hosName,
+	public void healthReservationHospital(@RequestParam("hosName") String hosName,
 			@RequestParam("hosAddress") String hosAddress, @RequestParam("hosTel") String hosTel,
 			@RequestParam("hosLatitude") String hosLatitude, @RequestParam("hosLongitude") String hosLongitude,
 			HttpSession session) {
@@ -345,18 +346,6 @@ public class HealthReservationController {
 			System.out.println(selectHosName);
 			session.setAttribute("hosNo", selectHosName.getHosNo());
 		}
-
-		String message = "";
-
-		if (result > 0) {
-			message = "성공";
-		} else {
-			message = "실패";
-		}
-
-		session.setAttribute("message", message);
-
-		return message;
 	}
 
 	// 건강검진 기관 조회
