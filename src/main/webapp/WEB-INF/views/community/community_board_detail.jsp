@@ -6,6 +6,9 @@
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>게시글 상세 페이지</title>
+			<!-- jQuery -->
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 			<!-- Bootstrap CSS -->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -16,8 +19,11 @@
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/community/community_board_detail.css"
 				rel="stylesheet">
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/comments.css" rel="stylesheet">
-			<title>게시글 상세 페이지</title>
+			<script
+				src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
+	
 		</head>
+
 
 		<body>
 			<!-- EL 데이터를 JavaScript 변수로 전달 -->
@@ -30,8 +36,14 @@
 				// 로그로 JSP에서 전달된 데이터 확인
 				console.log("로그인 유저 : ${loginUser}");
 				console.log("boardNo: ${b.boardNo}, categoryId: ${b.categoryId}");
+				
+				// 답변하기 버튼 클릭시 URL 확인
+				function handleAnswerClick(url) {
+					console.log("답변하기 버튼 클릭 URL:", url);  // URL을 콘솔에 출력
+					window.location.href = url;
+				}
 			</script>
-
+			
 
 			<!-- Header Section -->
 			<header>
@@ -43,21 +55,22 @@
 				<div id="side-menu">
 					<%@ include file="/WEB-INF/views/community/community_sidemenu.jsp" %>
 				</div>
-			
+
 
 				<!-- Board Container -->
 				<div id="main-wrapper">
 					<div class="navigation-buttons">
 						<!-- 왼쪽 섹션: 수정, 삭제 -->
+						<!-- 왼쪽 섹션: 수정, 삭제 -->
 						<div class="left-section">
-							<!-- 수정 버튼 -->
-							<button class="white-button"
-								onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${b.boardNo}'">수정</button>
-
-							<!-- 삭제 버튼 -->
-							<button class="white-button"
-								onclick="deleteBoard('${b.boardNo}', '${b.categoryId}')">삭제</button>
-
+							<c:if test="${loginUser != null && loginUser.userId eq b.boardWriter}">
+								<!-- 수정 버튼 -->
+								<button class="white-button"
+									onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${b.boardNo}'">수정</button>
+								<!-- 삭제 버튼 -->
+								<button class="white-button"
+									onclick="deleteBoard('${b.boardNo}', '${b.categoryId}')">삭제</button>
+							</c:if>
 						</div>
 
 
@@ -74,7 +87,8 @@
 								<!-- 이전글 -->
 								<c:choose>
 									<c:when test="${prevBoard != null}">
-										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${prevBoard.boardNo}" class="nav-text">
+										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${prevBoard.boardNo}"
+											class="nav-text">
 											&laquo; 이전글
 										</a>
 									</c:when>
@@ -82,11 +96,12 @@
 										<span class="nav-text disabled">&laquo; 이전글이 없습니다.</span>
 									</c:otherwise>
 								</c:choose>
-							
+
 								<!-- 다음글 -->
 								<c:choose>
 									<c:when test="${nextBoard != null}">
-										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${nextBoard.boardNo}" class="nav-text">
+										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${nextBoard.boardNo}"
+											class="nav-text">
 											다음글 &raquo;
 										</a>
 									</c:when>
@@ -95,7 +110,7 @@
 									</c:otherwise>
 								</c:choose>
 							</div>
-							
+
 
 						</div>
 
@@ -149,6 +164,27 @@
 							<c:if test="${not empty fileList}">
 								<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
 							</c:if>
+							
+							<div>
+								<!-- 메디톡 카테고리에서만 답변하기 버튼 표시 -->
+								<c:if test="${categoryName eq '메디톡'}">
+									<div class="request-content">
+										<p class="request-message">
+											<span class="request-title">답변자님,</span><br>
+											정보를 공유해 주세요.
+										</p>
+										<!-- 답변 버튼 -->
+										<a class="round-button" href="#"
+											onclick="handleAnswerClick('${pageContext.request.contextPath}/community/medAnswer?bno=${b.boardNo}')">
+											답변하기
+										</a>
+										
+									</div>
+								</c:if>
+							</div>
+							
+
+
 							<!-- 답변 콘텐츠 -->
 							<c:forEach var="answer" items="${answers}">
 								<div class="board-content answer-content">
@@ -181,8 +217,6 @@
 				<%@ include file="/WEB-INF/views/common/main_footer.jsp" %>
 			</footer>
 
-			<script
-				src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
-		</body>
+			</body>
 
 		</html>
