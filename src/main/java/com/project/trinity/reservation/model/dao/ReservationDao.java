@@ -41,7 +41,7 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertgGuest", map);
 	}
 
-	public GeneralReservation selectReservation(String resNo) {
+	public Reservation selectReservation(String resNo) {
 		return sqlSession.selectOne("reservationMapper.selectReservation", resNo);
 	}
 

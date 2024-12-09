@@ -70,8 +70,16 @@ public class RerservationServiceImpl implements ReservationService{
 	@Override
 	public Reservation selectReservation(String resNo) {
 		System.out.println("[DEBUG] Service - selectReservation: " + resNo);
-		Reservation result = rDao.selectReservationResNo(resNo);
+		Reservation result = rDao.selectReservation(resNo);
 		System.out.println("[DEBUG] Service - selectReservation result : " + result);
+		return result;
+	}
+	
+	@Override
+	public Reservation selectReservationResNo(String resNo) {
+		System.out.println("[DEBUG] Service - selectReservationResNo: " + resNo);
+		Reservation result = rDao.selectReservationResNo(resNo);
+		System.out.println("[DEBUG] Service - selectReservationResNo result : " + result);
 		return result;
 	}
 
