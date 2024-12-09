@@ -38,10 +38,17 @@
 					id="reservation_check">건강검진 확인</a></th>
 
 			</tr>
-			<tr>
+			<tr>	
 				<th><a
 					href="${pageContext.request.contextPath}/member/vaccinereservationconfirmation"
 					id="reservation_check">백신예약 확인</a></th>
+
+			</tr>
+
+			<tr>
+				<th><a
+					href="${pageContext.request.contextPath}/member/mypost"
+					id="mypost_check">내가 쓴 게시글 확인</a></th>
 
 			</tr>
 
