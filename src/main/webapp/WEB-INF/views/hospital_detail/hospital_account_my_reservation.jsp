@@ -27,7 +27,7 @@
         </div>
         <div class="reservation-list">
             <c:forEach var="myRes" items="${resList}">
-            <a href="reservationDetail" class="reservation-item">
+            <a href="myReservation/detail?resNo=${myRes.resNo}" class="reservation-item">
                 <p>
                     <span>${myRes.patientName}</span> 
                     <span>${myRes.patientBirthday}</span> 
