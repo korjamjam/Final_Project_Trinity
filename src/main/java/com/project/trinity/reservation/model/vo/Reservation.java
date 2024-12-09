@@ -20,6 +20,7 @@ public class Reservation {
     private String resNo;          // 예약 번호
     private String userNo;         // 사용자 번호
     private String hosNo;          // 병원 번호
+    private String gstNo;
     private String patientName;    // 환자 이름
     private String patientBirthday;// 환자 생년월일
     private String resDate;        // 예약 날짜
@@ -29,6 +30,7 @@ public class Reservation {
     private String hosName;        // 병원 이름
     private String hosAddress;     // 병원 주소
     private String phone;     	   // 환자 번호
+    private String gender;
 }
 
 
