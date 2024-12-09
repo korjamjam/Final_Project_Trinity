@@ -14,6 +14,8 @@ import com.project.trinity.admin.service.AdminService;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Controller
 @RequestMapping("/admin")
@@ -55,8 +57,7 @@ public class AdminController {
         model.addAttribute("selectedRole", role); // 선택된 역할 전달
         return "admin/admin_member";
     }
-
-    
+   
     //회원관리 상세페이지
     @RequestMapping("/memberDetail")
     public String showAdminMemberDetail(@RequestParam("userNo") String userNo, Model model) {
@@ -66,6 +67,7 @@ public class AdminController {
         return "admin/admin_member_detail";
     }
     
+    //회원 상세페이지 수정기능
     @RequestMapping("updateMember")
     public String updateMember(
     		@RequestParam("userNo") String userNo,
@@ -192,8 +194,12 @@ public class AdminController {
 
     
     //----------------------------------예약관리 페이지----------------------------------
+ // AdminController.java
     @RequestMapping("/reservation")
-    public String showAdminReservation() {
+    public String showAllReservations(Model model) {
+        List<Reservation> reservations = adminService.getAllReservations();
+        System.out.println("Reservations: " + reservations); // 디버깅 로그
+        model.addAttribute("reservations", reservations);
         return "admin/admin_reservation";
     }
     

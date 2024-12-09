@@ -21,6 +21,7 @@ public class VaccineReservation {
 	private String vresNo;          // 예약 번호
     private String userNo;          // 사용자 번호
     private String hosNo;           // 병원 번호
+    private String hosName;
     private String gstNo;           // 게스트 번호
     private String patientName;     // 접종자 이름
     private String patientBirthday;    // 생년월일

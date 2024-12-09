@@ -42,6 +42,10 @@ public class VaccineReservationController {
 
         // 병원 목록 가져오기
         List<HospitalInfo> hospitalList = vaccineReservationService.getAllHospitals(); // 병원 정보를 서비스에서 가져옴
+        
+     // 디버깅 로그
+        System.out.println("DEBUG: hospitalList 데이터 확인 -> " + hospitalList);
+        
         model.addAttribute("vaccineReservation", vaccineReservation); // 전달받은 예약 데이터를 모델에 추가
         model.addAttribute("hospitalList", hospitalList); // 병원 목록을 모델에 추가
 

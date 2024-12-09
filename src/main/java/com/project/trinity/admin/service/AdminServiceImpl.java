@@ -10,6 +10,7 @@ import com.project.trinity.admin.model.dao.AdminDao;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -112,5 +113,11 @@ public class AdminServiceImpl implements AdminService {
 	    int accountResult = adminDao.updateHospitalAccount(sqlSession, hospital);
 	    return infoResult > 0 && accountResult > 0; // 두 업데이트가 모두 성공해야 true 반환
 	}
-
+	
+	//---------------------------------병원관리---------------------------------
+	@Override
+	public List<Reservation> getAllReservations() {
+	    return adminDao.getAllReservations(sqlSession);
+	}
+	
 }

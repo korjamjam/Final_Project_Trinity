@@ -51,10 +51,15 @@
 						<p>
 							<span>${member.userName}</span> <span>${member.userId}</span> <span>
 								<c:choose>
-									<c:when
-										test="${not empty member.medKey && member.isAdmin == 'N'}">의사</c:when>
-									<c:when test="${member.isAdmin == 'Y'}">관리자</c:when>
-									<c:otherwise>일반</c:otherwise>
+									<c:when test="${not empty member.medKey && member.isAdmin == 'N'}">
+									<span class="role-doctor">의사</span>
+									</c:when>
+									<c:when test="${member.isAdmin == 'Y'}">
+									<span class="role-admin">관리자</span>
+									</c:when>
+									<c:otherwise>
+									<span class="role-general">일반</span>
+									</c:otherwise>
 								</c:choose>
 							</span> <span>등록일: <fmt:formatDate value="${member.enrollDate}"
 									pattern="yyyy-MM-dd" /></span>
