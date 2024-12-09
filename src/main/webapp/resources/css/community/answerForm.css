@@ -1,0 +1,96 @@
+#answer-section {
+    position: relative; /* 내부 요소의 절대 위치 기준 */
+    margin-top: 20px; /* 전체 섹션 위쪽 여백 */
+}
+
+#summernote-1 {
+    width: 100%; /* 에디터 너비를 부모 요소에 맞춤 */
+    min-height: 300px; /* 에디터 최소 높이 */
+    resize: vertical; /* 세로 크기만 조절 가능 */
+}
+
+
+
+#submit-answer-btn:hover {
+    background-color: #218838; /* 버튼 호버 시 배경색 */
+}
+.expert-card {
+    width: 40%;
+    /* 전체 너비의 40%를 차지하도록 설정 */
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
+    /* 왼쪽 정렬 */
+    display: flex;
+    /* 내부 요소들을 가로 정렬 */
+    align-items: center;
+    /* 내부 요소의 세로 가운데 정렬 */
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.expert-name {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    width: 100%;
+    /* 부모의 전체 너비 사용 */
+}
+
+.expert-name h2 {
+    font-size: 14px;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+
+.expert-photo {
+    width: 35%;
+    /* 부모 컨테이너 너비의 20%를 차지 */
+    height: 100%;
+    /* 부모 컨테이너 높이를 모두 차지 */
+}
+
+.expert-photo img {
+    border-radius: 50%;
+    width: 100%;
+    /* 부모 컨테이너의 너비를 모두 차지 */
+    height: 100%;
+    /* 부모 컨테이너의 높이를 모두 차지 */
+
+}
+
+.expert-info-summary {
+    width: 65%;
+    /* expert-card의 50% 너비 */
+    height: 100%;
+    /* expert-card의 100% 높이 */
+    display: flex;
+    flex-direction: column;
+    /* 수직 정렬 */
+    justify-content: center;
+    /* 세로 가운데 정렬 */
+}
+
+.expert-name {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+
+}
+
+.expert-info-summary .small-text {
+    margin: 0;
+    /* 위아래 여백 제거 */
+    font-size: 10px;
+    color: #6cc24a;
+}
+
+.expert-info-summary p {
+    margin: 0;
+    /* 위아래 여백 제거 */
+    font-size: 10px;
+
+}

@@ -13,6 +13,7 @@ import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.common.vo.PageInfo;
 
@@ -312,6 +313,26 @@ public class BoardDao {
     public List<Board> getPostsByUserNo(SqlSessionTemplate sqlSession, String userNo) {
         return sqlSession.selectList("boardMapper.getPostsByUserNo", userNo);
     }
+
+
+
+
+    // 답변 저장
+    public int insertAnswer(SqlSessionTemplate sqlSession, MedAnswer answer) {
+        return sqlSession.insert("boardMapper.insertAnswer", answer);
+    }
+
+
+
+
+    public List<MedAnswer> selectAnswersByBoardNo(SqlSessionTemplate sqlSession, String bno) {
+        return sqlSession.selectList("boardMapper.selectAnswersByBoardNo", bno);
+    }
+
+
+
+
+	
 
     
 

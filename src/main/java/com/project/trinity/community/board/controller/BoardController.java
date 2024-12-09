@@ -2,6 +2,9 @@ package com.project.trinity.community.board.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +50,11 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	   // 날짜를 yyyy-MM-dd 형식으로 변환하는 메서드
+    public String formatDate(LocalDate date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(dateFormat);
+    }
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
@@ -167,36 +175,27 @@ public class BoardController {
 	
 	@PostMapping("/submitAnswer")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> submitAnswer(@RequestParam("boardId") String boardId,
-	                                                         @RequestParam("answerContent") String answerContent) {
-	    // 답변 작성 시 boardId와 answerContent를 받아 처리
+	public Map<String, Object> submitAnswer(@RequestBody MedAnswer answer, HttpSession session) {
+	    // MedAnswer 객체 출력 (디버깅용)
+	    System.out.println("MedAnswer 객체: " + answer);
+
+	    // 로그인 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    answer.setUserNo(loginUser.getUserNo());
+
+	    // 데이터 저장
+	    boardService.saveAnswer(answer);
+
+	   
+	    // 반환할 데이터 준비
 	    Map<String, Object> response = new HashMap<>();
-	    
-	    try {
-	        // 답변 저장 처리 (boardId와 answerContent를 사용하여 DB에 저장)
-	    	MedAnswer answer = new MedAnswer();
-	        answer.setBoardNo(boardId);
-	        answer.setAnswerContent(answerContent);
-	        answer.setWriter("의료진"); // 예시로 "의료진"이라고 설정, 실제 작성자 정보는 세션 등을 통해 가져와야 할 수 있음
-	        
-	        // 답변 DB에 저장
-	        boolean result = boardService.saveAnswer(answer);  // 답변 저장 메서드 호출 (서비스 계층)
-	        
-	        if (result) {
-	            response.put("status", "success");
-	            response.put("newAnswerContent", answerContent); // 새로운 답변 내용을 클라이언트로 반환
-	        } else {
-	            response.put("status", "error");
-	            response.put("message", "답변 저장에 실패했습니다.");
-	        }
-	    } catch (Exception e) {
-	        response.put("status", "error");
-	        response.put("message", "서버 오류가 발생했습니다. 다시 시도해주세요.");
-	        e.printStackTrace();
-	    }
-	    
-	    return ResponseEntity.ok(response);  // JSON 형태로 클라이언트에 응답
+	    response.put("doctorName", loginUser.getUserName()); // 세션에서 바로 가져온 userName
+	    response.put("answerDate", answer.getEnrollDate());
+	    response.put("answerContent", answer.getAnswerContent());
+
+	    return response; // JSON 반환
 	}
+
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
@@ -206,6 +205,7 @@ public class BoardController {
 
 	    // 현재 게시글 조회
 	    Board b = boardService.selectBoard(bno);
+	    List<MedAnswer> answers = boardService.getAnswersByBoardNo(bno);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
@@ -238,6 +238,7 @@ public class BoardController {
 	    m.addAttribute("categories", categories); // 카테고리 목록
 	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
 	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
+	    m.addAttribute("answers", answers); // 답변 리스트 추가
 	  
 	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}
@@ -269,6 +270,9 @@ public class BoardController {
 	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
 	        return "/common/errorPage";
 	    }
+	 // 게시글 작성일을 출력할 때
+	    String formattedEnrollDate = formatDate(b.getEnrollDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+	    m.addAttribute("formattedEnrollDate", formattedEnrollDate);
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
@@ -406,12 +410,11 @@ public class BoardController {
 	
 	// 수정 완료 처리
 	@PostMapping("/update")
-	
 	public String updateBoard(Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
 			Model m) {
-		 
+		
 		 
 		//게시글 수정
 		// -> 새로운 파일로 변경
@@ -425,17 +428,17 @@ public class BoardController {
 			System.out.println("수정완료 후 userNo : " + b);
 			// 3. 새 파일 업로드 처리
 			if (newFiles != null && !newFiles.isEmpty()) {
-				for (MultipartFile file : newFiles) {
-					if (!file.isEmpty()) {
-						String changeName = Template.saveFile(file, session, "/resources/uploadFile/");
+				for (int i=0; i < newFiles.size(); i++) {
+					if (!newFiles.get(i).isEmpty()) {
+						String changeName = Template.saveFile(newFiles.get(i), session, "/resources/uploadFile/");
 						if (changeName != null) {
 							BoardFile bf = new BoardFile();
 							bf.setBoardNo(b.getBoardNo());
 							bf.setUserNo(b.getUserNo());
-							bf.setOriginName(file.getOriginalFilename());
+							bf.setOriginName(newFiles.get(i).getOriginalFilename());
 							bf.setChangeName("/resources/uploadFile/" + changeName);
-							bf.setFileSize(file.getSize());
-							bf.setAllowDownload("Y");
+							bf.setFileSize(newFiles.get(i).getSize());
+							bf.setAllowDownload(allowDownload.get(i));
 							fileList.add(bf);
 						}
 					}
@@ -450,7 +453,6 @@ public class BoardController {
 			
 			// 수정 성공 시 상세 페이지로 리다이렉트
 			return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("errorMsg", "게시글 수정 중 오류가 발생했습니다.");
@@ -566,23 +568,23 @@ public class BoardController {
 		return boardService.insertComment(r) > 0 ? "success" : "fail";
 	}
 
+	
 	// 특정 게시물의 댓글목록을 json형식으로 반환
-	@ResponseBody
-	@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
-	public String ajaxSelectReplyList(String bno) {
-		System.out.println("댓글 목록 요청 - 게시글 번호: " + bno);
+		@ResponseBody
+		@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
+		public String ajaxSelectReplyList(String bno) {
+			System.out.println("댓글 목록 요청 - 게시글 번호: " + bno);
 
-		try {
-			ArrayList<Comment> list = boardService.selectReply(bno);
-			System.out.println("댓글 목록: " + list);
-			return new Gson().toJson(list);
-		} catch (Exception e) {
-			System.err.println("댓글 목록 조회 중 오류 발생: " + e.getMessage());
-			e.printStackTrace();
-			return null;
+			try {
+				ArrayList<Comment> list = boardService.selectReply(bno);
+				System.out.println("댓글 목록: " + list);
+				return new Gson().toJson(list);
+			} catch (Exception e) {
+				System.err.println("댓글 목록 조회 중 오류 발생: " + e.getMessage());
+				e.printStackTrace();
+				return null;
+			}
 		}
-	}
-
 	@ResponseBody
 	@RequestMapping("toggleLike.bo")
 	public Map<String, Object> toggleLike(@RequestParam("commentNo") String commentNo,
