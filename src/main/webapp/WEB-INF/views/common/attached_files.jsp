@@ -11,9 +11,10 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <!-- Custom CSS -->
-            <link rel="stylesheet"
-                href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
+            <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css">
+            <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/attached_files.css">
         </head>
+        
 
         <body>
             <div class="container my-5">
@@ -21,7 +22,7 @@
                 <c:if test="${not empty fileList}">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">첨부파일 목록</h5>
+                            <p class="mb-0">첨부파일 목록</p>
                             <button class="btn btn-outline-primary btn-sm" onclick="downloadAllFiles()">
                                 <i class="bi bi-cloud-download"></i> 모두 저장
                             </button>
