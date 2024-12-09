@@ -100,8 +100,8 @@ public class HospitalController {
 					avg += doctorReviews.get(j).getReviewRating();
 				}
 				avg /= doctorReviews.size();
+				avg = Math.round(avg * 100) / 100.0;
 			}
-			
 			rating[i] = avg;
 			System.out.println(rating[i]); 
 		}
@@ -113,6 +113,13 @@ public class HospitalController {
 	
 		return "hospital_detail/hospital_detail";
 	}
+	@RequestMapping("/detail/doctorReview")
+    @ResponseBody
+    public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
+		System.out.println("doctorNo : " + doctorNo);
+		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
+		return doctorReviews;
+    }
 	
 	@RequestMapping("/list/openHos")
 	public String OpenHospitalList(Model m) {
