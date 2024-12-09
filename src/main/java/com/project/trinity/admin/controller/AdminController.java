@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.admin.service.AdminService;
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
-import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Controller
@@ -211,7 +211,9 @@ public class AdminController {
     
     //----------------------------------게시글관리 페이지----------------------------------
     @RequestMapping("/post")
-    public String showAdminPost() {
+    public String showAdminPost(Model model) {
+        List<Board> postList = adminService.getAllPosts();
+        model.addAttribute("postList", postList);
         return "admin/admin_post";
     }
     

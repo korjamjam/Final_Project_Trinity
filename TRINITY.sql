@@ -429,6 +429,17 @@ VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '
 INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
 VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
 -- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
+
+-- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT01', '자유게시판', 1, 'Y');
+    
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT02', '메디톡', 2, 'Y');
+    
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT03', '이벤트게시판', 3, 'Y');
+
 DECLARE
     CURSOR c_user_no IS
         SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
@@ -475,21 +486,6 @@ BEGIN
             'Y'                                  -- STATUS (항상 Y)
         );
     END LOOP;
-    COMMIT;
-END;
-
-
--- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
-BEGIN
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT01', '자유게시판', 1, 'Y');
-    
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT02', '메디톡', 2, 'Y');
-    
-    INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-    VALUES ('CAT03', '이벤트게시판', 3, 'Y');
-    
     COMMIT;
 END;
 
