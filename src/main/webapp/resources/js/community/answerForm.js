@@ -24,7 +24,8 @@ $(document).ready(function () {
                 boardNo: boardNo,  // 원본 게시글 번호
                 answerContent: answerContent, // 작성한 답변 내용
                 userNo: loginUserNo,  // 로그인 사용자 ID (변수명 맞게 수정)
-                isMedicalField: 'Y'  // 의료 전문가 여부
+                isMedicalField: 'Y',  // 의료 전문가 여부
+              
             }),
 
             success: function (response) {
@@ -40,12 +41,9 @@ $(document).ready(function () {
                                 </div>
                                 <div class="expert-info-summary">
                                     <div class="expert-name"><strong>작성자 : </strong> ${response.doctorName}</div>
-                                    <p class="small-text">사원약국</p>
+                                     <p class="small-text">${response.medicalFieldId}</p>
                                     <div class="answer-date"><strong>작성일 : </strong> ${response.answerDate}</div>
-                                    <div class="expert-name">
-                                        <h6>전문분야 : &nbsp;</h6>
-                                        <p class="small-text"> 내과, 편도염</p>
-                                    </div>
+                                  
                                 </div>
                             </div>
                             ${response.answerContent}
@@ -73,7 +71,7 @@ $(document).ready(function () {
         });
 
         $('#summernote-1').summernote({
-            minHeight: 400,
+            minHeight: 300,
             maxHeight: null,
             placeholder: '글을 입력하세요.',
             tabsize: 2,
@@ -86,7 +84,7 @@ $(document).ready(function () {
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ],
-            height: 400, // 고정 높이 설정
+            height: 300, // 고정 높이 설정
             callbacks: {
                 onInit: function () {
                     $('#summernote-1').next('.note-editor').find('.note-editable').focus(); // 에디터 포커스

@@ -3,7 +3,6 @@ package com.project.trinity.community.board.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,11 +49,7 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	   // 날짜를 yyyy-MM-dd 형식으로 변환하는 메서드
-    public String formatDate(LocalDate date) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(dateFormat);
-    }
+	
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
@@ -175,26 +170,33 @@ public class BoardController {
 	
 	@PostMapping("/submitAnswer")
 	@ResponseBody
-	public Map<String, Object> submitAnswer(@RequestBody MedAnswer answer, HttpSession session) {
-	    // MedAnswer 객체 출력 (디버깅용)
-	    System.out.println("MedAnswer 객체: " + answer);
-
-	    // 로그인 사용자 정보 가져오기
+	public Map<String, Object> submitAnswer(@RequestBody Map<String, Object> answerData, HttpSession session) {
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    answer.setUserNo(loginUser.getUserNo());
+	    if (loginUser == null) {
+	        throw new RuntimeException("로그인 정보가 없습니다.");
+	    }
 
-	    // 데이터 저장
-	    boardService.saveAnswer(answer);
+	    // 답글 저장 로직
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("boardNo", answerData.get("boardNo"));
+	    params.put("answerContent", answerData.get("answerContent"));
+	    params.put("status", "Y");
+	    params.put("isMedicalField", "Y");
+	    params.put("userNo", loginUser.getUserNo());
 
-	   
-	    // 반환할 데이터 준비
+	    boardService.saveAnswer(params);
+
+	    // 반환할 데이터
 	    Map<String, Object> response = new HashMap<>();
-	    response.put("doctorName", loginUser.getUserName()); // 세션에서 바로 가져온 userName
-	    response.put("answerDate", answer.getEnrollDate());
-	    response.put("answerContent", answer.getAnswerContent());
+	    response.put("doctorName", loginUser.getUserName());
+	    response.put("answerDate", answerData.get("answerDate")); 
+	    response.put("answerContent", answerData.get("answerContent"));
 
 	    return response; // JSON 반환
 	}
+
+
+
 
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
@@ -270,9 +272,7 @@ public class BoardController {
 	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
 	        return "/common/errorPage";
 	    }
-	 // 게시글 작성일을 출력할 때
-	    String formattedEnrollDate = formatDate(b.getEnrollDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-	    m.addAttribute("formattedEnrollDate", formattedEnrollDate);
+	 
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());

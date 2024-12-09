@@ -50,6 +50,8 @@
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
 			const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+			
+			
 		</script>
 		<header>
 			<%@ include file="/WEB-INF/views/common/main_header.jsp" %>

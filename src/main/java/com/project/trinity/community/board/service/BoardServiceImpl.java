@@ -3,6 +3,7 @@ package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -272,13 +273,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int saveAnswer(MedAnswer answer) {
-	    int result = boardDao.insertAnswer(sqlSession, answer); // boardDao에서 INSERT 작업 수행
-	    if (result <= 0) {
-	        throw new RuntimeException("답변 저장 실패");
-	    }
-	    return result; // 영향 받은 행의 수 반환 (일반적으로 1)
+	public int saveAnswer(Map<String, Object> answerData) {
+	   
+	    return boardDao.insertAnswer(sqlSession, answerData);  // boardDao에서 insert 쿼리 실행
 	}
+
 
 	@Override
 	public List<MedAnswer> getAnswersByBoardNo(String bno) {

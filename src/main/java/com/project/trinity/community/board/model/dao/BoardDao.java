@@ -317,10 +317,8 @@ public class BoardDao {
 
 
 
-    // 답변 저장
-    public int insertAnswer(SqlSessionTemplate sqlSession, MedAnswer answer) {
-        return sqlSession.insert("boardMapper.insertAnswer", answer);
-    }
+    
+
 
 
 
@@ -328,6 +326,15 @@ public class BoardDao {
     public List<MedAnswer> selectAnswersByBoardNo(SqlSessionTemplate sqlSession, String bno) {
         return sqlSession.selectList("boardMapper.selectAnswersByBoardNo", bno);
     }
+
+
+
+
+    public int insertAnswer(SqlSessionTemplate sqlSession, Map<String, Object> answerData) {
+        
+        return sqlSession.insert("boardMapper.insertAnswer", answerData);
+    }
+
 
 
 
