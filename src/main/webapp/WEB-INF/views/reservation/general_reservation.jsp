@@ -61,6 +61,7 @@
 
     <br><br>
     
+    <input type="hidden" id="curTime" value="${curTime}">
     <!-- Caution -->
     <div class="reservation_caution_wrapper">
         <div class="reservation_caution">
@@ -76,7 +77,7 @@
     <!-- Subject Select -->
     <form action="${pageContext.request.contextPath}/reservation/gReservation" class="general_reservation_form" method="POST">
         <div class="reservation_subject_select">
-            <div class="reservation_subject_select_title reservation_subject_select_title" onclick="openContent(this)">
+            <div class="reservation_subject_select_title reservation_notNullDate" onclick="openContent(this)">
                 <p>예약 과목 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
@@ -97,7 +98,7 @@
                 <div id="datepicker"></div>
                 <input type="hidden" id="gReservation_date" name="gReservation_date">
             </div>
-            <div class="reservation_subject_select_title" onclick="openContent(this)">
+            <div class="reservation_subject_select_title reservation_notNullDate" onclick="openContent(this)">
                 <p>예약 시간 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>
@@ -126,7 +127,7 @@
                 </ul>
                 <input type="hidden" id="resTime" name="resTime">
             </div>
-            <div class="reservation_subject_select_title" onclick="openContent(this)">
+            <div class="reservation_subject_select_title reservation_notNullDate" onclick="openContent(this)">
                 <p>예약자 선택</p>
                 <img src="${ pageContext.servletContext.contextPath }/resources/img/down_arrow.png" alt="down_arrow">
             </div>

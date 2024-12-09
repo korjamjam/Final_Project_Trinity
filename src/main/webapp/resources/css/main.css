@@ -336,6 +336,9 @@ button {
 }
 
 @media (min-width: 768px) {
+    .shortCutButton{
+        display: none;
+    }
     /* SearchBar */
     .searchBar_wrapper{
         display: flex;

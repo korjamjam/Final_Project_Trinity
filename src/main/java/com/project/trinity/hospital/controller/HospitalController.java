@@ -113,6 +113,7 @@ public class HospitalController {
 	
 		return "hospital_detail/hospital_detail";
 	}
+	
 	@RequestMapping("/detail/doctorReview")
     @ResponseBody
     public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
@@ -120,6 +121,15 @@ public class HospitalController {
 		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
 		System.out.println("doctorReviews : " + doctorReviews);
 		return doctorReviews;
+    }
+	
+	@RequestMapping("/detail/todayWaitingList")
+    @ResponseBody
+    public ArrayList<Reservation> waitingList(@RequestParam(value = "hosNo") String hosNo) {
+		System.out.println("hosNo : " + hosNo);
+		ArrayList<Reservation> watingList = reservationService.selectTodayWaitingList(hosNo);
+		System.out.println("watingList : " + watingList);
+		return watingList;
     }
 	
 	@RequestMapping("/list/openHos")

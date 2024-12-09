@@ -17,8 +17,29 @@ function initHospitalDetail(hosLatitude, hosLongitude) {
     }
 
     kakaoInit(hosLatitude, hosLongitude);
+    setImg();
+    getTime();
 }
+function getTime() {
+    const curDate = new Date();
+    let month = `${curDate.getMonth() + 1}`
+    let date = `${curDate.getDate()}`;
+    let year = `${curDate.getFullYear()}`;
+    if(month < 10){
+        month = '0' + month.toString();
+    }
+    if(date < 10){
+        date = '0' + date.toString();
+    }
 
+    let curTime = month + '/' +
+    date + '/' +
+    year;
+    console.log(curTime);
+    return encodeURIComponent(month + '/' +
+                              date + '/' +
+                              year);
+}
 //시간 변환
 function createDate(timeString) {
     if (!timeString) return null;
@@ -81,7 +102,7 @@ function copyTel() {
 
 const getDoctorReviews = function () {
     let doctorNo = document.getElementById('doctorNo').value;
-    
+
     $.ajax({
         url: contextPath + ('/hospital/detail/doctorReview'),
         type: "GET",
@@ -102,33 +123,94 @@ const getDoctorReviews = function () {
         }
     });
 };
-
 function addReviewList(reviews) {
-    $('.reviewContent').remove();
+    $('.reviewContainer').remove();
+    const star = contextPath + '/resources/img/star.png';
     reviews.forEach(review => {
         if(review == null){
             $('.reviewNavi').append(`리뷰가 존재하지 않습니다.`);
         }
         else{
             $('.reviewNavi').append(`
-                <div class="reviewContent">
-                    이름 : ${review.userName}<br>
-                    사진 : ${review.userProfile}<br>
-                    제목 : ${review.reviewTitle}<br>
-                    내용 : ${review.reviewContent}<br>
-                    작성일 : ${review.reviewCreatedAt}<br>
-                    점수 : ${review.reviewRating}<br>
-                <div>
+                <div class="reviewContainer">
+                    <div class="reviewHeader">
+                        <img src="/trinity${review.userProfile}" alt="User Profile" class="userAvatar">
+                        <div class="userInfo">
+                            <h3 class="userName">${review.userName}</h3>
+                            <span class="reviewDate">${review.reviewCreatedAt}</span>
+                        </div>
+                        <div class="reviewRating">
+                            <c:forEach begin="1" end="${review.reviewRating}">
+                                <img id="star" src="${star}" alt="star" class="star-icon">
+                            </c:forEach>
+                            &nbsp;
+                            <span class="ratingScore">${review.reviewRating}</span>
+                            <span class="ratingLabel">/ 5</span>
+                        </div>
+                    </div>
+                    <div class="reviewBody">
+                        <h4 class="reviewTitle">${review.reviewTitle}</h4>
+                        <p class="reviewContent">${review.reviewContent}</p>
+                    </div>
+                </div>
             `);
         }
     });
 }
 
 
-// function hosNoToNum(hosNo) {
-//     let result = hosNo.substr(1,2);
-//     result = parseInt(result);
-//     result = result % 4;
-//     console.log(result);
-//     return result;
-// }
+function hosNoToNum(hosNo) {
+    let result = hosNo.substr(1);
+    result = parseInt(result);
+    result = result % 4;
+    console.log(result);
+    return result;
+}
+
+function setImg(){
+    let num = Math.floor(Math.random() * 4);
+    console.log(num);
+    let imgEl = document.getElementById('commercial');
+    switch(num){
+        case 0: 
+            imgEl.src = contextPath + '/resources/img/ad6.jpg'; 
+            imgEl.id = 'ad1';
+            break;
+        case 1: 
+            imgEl.src = contextPath + '/resources/img/ad3.jpg'; 
+            imgEl.id = 'ad2';
+            break;
+        case 2: 
+            imgEl.src = contextPath + '/resources/img/ad4.jpg'; 
+            imgEl.id = 'ad3';
+            break;
+        case 3: 
+            imgEl.src = contextPath + '/resources/img/ad5.jpg'; 
+            imgEl.id = 'ad4';
+            break;
+    }
+}
+
+const getReservationInfoList = function () {
+    let hosNo = document.getElementById('hosNo').value;
+
+    $.ajax({
+        url: contextPath + ('/hospital/detail/doctorReview'),
+        type: "GET",
+        data: { 
+                doctorNo: doctorNo
+            },
+        dataType: "json",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addReviewList(response); // 데이터를 리뷰창에 추가
+            } else {
+                console.log("리뷰가 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            // console.log(url);
+            console.log("데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+};

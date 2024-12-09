@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,12 +33,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
 	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
-
 </head>
 <body>
-	
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
+	<input type="hidden" id="general_reservation_ok" value="${Msg}">
+
 
 	<div class="wrapper">
 		<br>
