@@ -78,3 +78,45 @@ function copyTel() {
     // 복사완료에 대해 Alert으로 띄우기
     alert("복사되었습니다.");
 }
+
+const func = function () {
+    let doctorNo = document.getElementById('doctorNo').value;
+    console.log(contextPath);
+
+    $.ajax({
+        url: contextPath + ('/hospital/detail/doctorReview'),
+        type: "GET",
+        data: { 
+                doctorNo: doctorNo
+            },
+        dataType: "json",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addReviewList(response); // 데이터를 리뷰창에 추가
+            } else {
+                console.log("리뷰가 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            // console.log(url);
+            console.log("데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+};
+function addReviewList(reviews) {
+    reviews.forEach(review => {
+        $('.reviewNavi').append(`
+            ${review.reviewTitle}<br>
+            ${review.reviewContent}<br>
+            ${review.reviewCreatedAt}<br>
+            ${review.reviewRating}<br>
+        `);
+    });
+}
+function hosNoToNum(hosNo) {
+    let result = hosNo.substr(1,2);
+    result = parseInt(result);
+    result = result % 4;
+    console.log(result);
+    return result;
+}
