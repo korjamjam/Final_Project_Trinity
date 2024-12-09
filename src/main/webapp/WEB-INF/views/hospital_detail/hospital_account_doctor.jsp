@@ -18,6 +18,15 @@
 <body>
 	<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
+	<!-- 메시지 알림 -->
+	<script>
+		const message = "${message}";
+		if (message) {
+			alert(message); // 안내 문구를 띄움
+			console.log(message)
+		}
+	</script>
+
 	<div class="member-management">
 		<div class="content">
 			<h2>의사 관리</h2>
@@ -28,19 +37,12 @@
 			</c:if>
 
 			<div class="button-container">
-				<div class="sort-dropdown">
-					<select>
-						<option value="전체">전체 보기</option>
-						<option value="의사">의사</option>
-						<option value="일반">일반</option>
-					</select>
-				</div>
-				<a href="insertDr" class="rankup-button">의사 추가</a>
+				<a href="${pageContext.servletContext.contextPath}/hospital/account/insertDr" class="rankup-button">의사 추가</a>
 			</div>
 
 			<div class="member-list">
 				<c:forEach var="doctor" items="${hosDrList}">
-					<a href="memberDetail" class="member-item">
+					<a href="doctor/detail?userId=${doctor.userId}" class="member-item">
 						<p>
 							<span>${doctor.userName}</span>
 							<span>

@@ -8,9 +8,11 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
+import com.project.trinity.reservation.model.vo.Reservation;
 
 @Repository
 public class AdminDao {
@@ -103,4 +105,16 @@ public class AdminDao {
     public int updateHospitalAccount(SqlSessionTemplate sqlSession, HospitalInfo hospital) {
         return sqlSession.update("adminMapper.updateHospitalAccount", hospital);
     }
+    
+    //-------------------------------예약 관리-------------------------------
+    
+    public List<Reservation> getAllReservations(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("adminMapper.getAllReservations");
+    }
+    
+  //-------------------------------게시글 관리-------------------------------
+    public List<Board> getAllPosts(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("adminMapper.getAllPosts");
+    }
+    
 }

@@ -15,18 +15,18 @@
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 		
+			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
 			<!-- Summernote CSS -->
 			<link href="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.css" rel="stylesheet">
 		
-			<!-- Custom CSS -->
-			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
+	
 			<link href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css" rel="stylesheet">
-		
-			<!-- Bootstrap JS (이 부분은 jQuery보다 후에 로드해야 합니다.) -->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 		
 			<!-- Summernote JS (이 부분도 jQuery 이후에 로드해야 합니다.) -->
 			<script src="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.js"></script>
+
+			<!-- Bootstrap JS (이 부분은 jQuery보다 후에 로드해야 합니다.) -->
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 		
 			<!-- Custom JS -->
 			<script src="${pageContext.servletContext.contextPath}/resources/js/community/board_Update_Form.js"></script>
@@ -43,6 +43,7 @@
 				const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
 				const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
 				const boardContent = `${b.boardContent}`
+				console.log('${b}')
 			</script>
 
 
@@ -89,8 +90,7 @@
 							<input type="text" name="boardTitle" value="${b.boardTitle}" placeholder="제목을 입력해 주세요."
 								class="form-control mt-3" required>
 
-							<textarea id="summernote" name="boardContent"
-								class="post-textarea form-control mt-3"></textarea>
+							<textarea id="summernote" name="boardContent" class="post-textarea form-control mt-3"></textarea>
 							
 								<div class="mt-4">
 								<label for="upfile" class="form-label">첨부파일</label> 

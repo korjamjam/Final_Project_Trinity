@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.EmailService;
@@ -58,6 +60,10 @@ public class MemberController {
 	
 	@Autowired
 	private VaccineReservationService vaccineReservationService;
+	
+	@Autowired
+	private BoardService boardService;
+
 
 
 
@@ -73,6 +79,12 @@ public class MemberController {
 	    String userPwdConfirm = request.getParameter("userPwdConfirm");
 	    if (userPwdConfirm == null || !member.getUserPwd().equals(userPwdConfirm)) {
 	        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+	        return "redirect:/member/sign_up";
+	    }
+
+	    // 비밀번호 유효성 검사
+	    if (!isValidPassword(member.getUserPwd())) {
+	        redirectAttributes.addFlashAttribute("message", "비밀번호는 8~16자 이내로 영문, 숫자, 특수문자를 포함해야 합니다.");
 	        return "redirect:/member/sign_up";
 	    }
 
@@ -99,6 +111,10 @@ public class MemberController {
 	    String phoneLast = request.getParameter("phoneLast");
 	    member.setPhone(phonePrefix + "-" + phoneMiddle + "-" + phoneLast);
 
+	    // 기본 프로필 이미지 설정
+	    String defaultProfileImage = "/resources/images/default_profile.png";
+	    member.setUserProfile(defaultProfileImage);
+
 	    // 회원 가입 처리
 	    int result = memberService.insertMember(member);
 	    if (result > 0) {
@@ -109,6 +125,10 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 	}
+
+
+
+
 
 
 
@@ -536,6 +556,22 @@ public class MemberController {
         // 예약 확인 페이지 반환
         return "account/vaccinereservationconfirmation";
     }
+	
+	@GetMapping("/mypost")
+	public String getMyPosts(HttpSession session, Model model) {
+	    // 로그인된 사용자 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    // 사용자 번호로 내가 쓴 게시글 조회
+	    List<Board> myposts = boardService.getPostsByUserNo(loginUser.getUserNo());
+	    model.addAttribute("myposts", myposts);
+
+	    return "account/mypost";
+	}
+
 
 
 }

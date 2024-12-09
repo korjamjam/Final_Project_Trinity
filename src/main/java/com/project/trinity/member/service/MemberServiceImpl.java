@@ -123,8 +123,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<DoctorReview> selectDoctorReview(String userNo) {
-		return memberDao.selectDoctorReview(sqlSession, userNo);
+	public ArrayList<DoctorReview> selectDoctorReview(String doctorNo) {
+		return memberDao.selectDoctorReview(sqlSession, doctorNo);
 	}
 
 	@Override
@@ -132,6 +132,14 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("[DEBUG] updateHospitalDoctor 호출 - 업데이트 대상: " + hmap);
 		int result = memberDao.updateHospitalDoctor(sqlSession, hmap);
 		System.out.println("[DEBUG] updateHospitalDoctor 결과: " + result);
+		return result;
+	}
+
+	@Override
+	public int hospitalAccountDeleteDoctor(String userNo) {
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 호출 - 업데이트 대상: " + userNo);
+		int result = memberDao.hospitalAccountDeleteDoctor(sqlSession, userNo);
+		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 결과: " + result);
 		return result;
 	}
 

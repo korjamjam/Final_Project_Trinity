@@ -22,10 +22,6 @@
                     <span class="hamburger-login-text" onclick="navigateToLogin()">로그인</span>
                     <button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
                 </c:when>
-                <c:when test="${not empty loginHosAccount }">
-                	<span class="hamburger-login-text" onclick="navigateToHcLogout()">로그아웃</span>
-                    <button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
-                </c:when>
                 <c:otherwise> <%-- 로그인된 경우 --%>
                     <span class="hamburger-login-text" onclick="navigateToLogout()">로그아웃</span>
                     <button class="hamburger-close-btn" onclick="toggleSidebar()">✕</button>
@@ -137,11 +133,6 @@
         // 로그아웃 처리
         function navigateToLogout() {
             window.location.href = "${pageContext.request.contextPath}/member/logout";
-        }
-        
-     // 기업 로그아웃 처리
-        function navigateToLogout() {
-            window.location.href = "${pageContext.request.contextPath}/hospital/account/logout";
         }
     </script>
 

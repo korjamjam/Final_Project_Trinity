@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -32,17 +33,20 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/gForm")
-	public String generalReservation(String hosNo, Model m) {
-		HospitalInfo hInfo = hService.selectHosName(hosNo);
+	public String generalReservation(String hosNo, String curTime, Model m) {
+		HospitalInfo hInfo = hService.selectHospitalInfo(hosNo);
 		System.out.println(hInfo);
+		System.out.println(curTime);
 		m.addAttribute("hInfo", hInfo);
+		m.addAttribute("curTime", curTime);
 		return "reservation/general_reservation";
 	}
 
 	@RequestMapping("/gReservation")
 	public String gReservation(String userNo, String hosNo, String gReservation_date, String resTime, String subject,
-			String content, String userName, String birthday, String phone, String email, String gender) {
+			String content, String userName, String birthday, String phone, String email, String gender, RedirectAttributes r) {
 		String resDate = gReservation_date;
+		System.out.println(resDate);
 		if (userNo.equals("")) { // 게스트 예약
 			int resultG = rService.insertgGuest(userName, birthday, phone, email, gender);
 			Guest g = rService.selectGuest(phone, email);
@@ -50,14 +54,28 @@ public class ReservationController {
 			if (resultG != 0) { // 게스트 입력 성공
 				int resultR = rService.insertgGuestReservation(hosNo, guestNo, userName, birthday, resDate, resTime,
 						subject, content, gender);
+				if(resultR != 0) {
+					System.out.println("게스트 일반 진료 예약 완료");
+					r.addFlashAttribute("Msg", "예약이 완료되었습니다.");
+				} else {
+					System.out.println("게스트 일반 진료 예약 실패");
+					r.addFlashAttribute("Msg", "예약 실패");
+				}
 			} else { // 게스트 입력 실패
 				System.out.println("게스트 입력 실패");
 			}
 		} else { // 회원 예약
 			System.out.println("회원 예약");
 			int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
+			if(result == 1) {
+				System.out.println("회원 일반 진료 예약 완료");
+				r.addFlashAttribute("Msg", "예약이 완료되었습니다.");
+			} else {
+				System.out.println("회원 일반 진료 예약 실패");
+				r.addFlashAttribute("Msg", "예약 실패");
+			}
 		}
-		return "/main";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping("/cancel")

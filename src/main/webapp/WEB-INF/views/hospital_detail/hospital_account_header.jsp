@@ -16,15 +16,15 @@
     <header class="header">
         <div class="logo">
             <img src="${pageContext.servletContext.contextPath}/resources/img/Doctoring.png" alt="주사기 아이콘" class="icon">
-            <a href="main" class="logo-text">닥터링</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/main" class="logo-text">닥터링</a>
         </div>
 
         <!-- a태그 클릭시 페이지 이동 -->
         <nav class="nav-links">
-            <a href="doctor">의사관리</a>
-            <a href="myHospital">병원관리</a>
-            <a href="myReservation">예약관리</a>
-            <a href="post">게시글관리</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/doctor">의사관리</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/myHospital">병원관리</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/myReservation">예약관리</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/post">게시글관리</a>
         </nav>
         <div class="login-menu">
             <div class="right-rect"></div>
@@ -32,7 +32,7 @@
         </div>
     </header>
 
-    <!-- admin_sidebar.jsp를 포함 -->
+    <!-- hospital_account_sidebar.jsp를 포함 -->
     <jsp:include page="hospital_account_side_bar.jsp" />
 
     <script>

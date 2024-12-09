@@ -17,9 +17,9 @@
     <jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
 	<script>
-		const alertMsg = '${alertMsg}';
-		if (alertMsg) {
-			alert(alertMsg);
+		const message = '${message}';
+		if (message) {
+			alert(message);
 		}
 	</script>
 	<div class="rankup-management">
@@ -39,7 +39,7 @@
                         <td>아직 개발중입니다</td>
                     </tr>
 				</table>
-				<button type="submit" class="save-button">보내기</button>
+				<button type="submit" class="save-button">추가 하기</button>
 			</form>
 		</div>
 	</div>

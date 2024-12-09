@@ -41,7 +41,7 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertgGuest", map);
 	}
 
-	public GeneralReservation selectReservation(String resNo) {
+	public Reservation selectReservation(String resNo) {
 		return sqlSession.selectOne("reservationMapper.selectReservation", resNo);
 	}
 
@@ -88,6 +88,13 @@ public class ReservationDao {
 
 	public ArrayList<Reservation> selectReservationHosNo(String hosNo) {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationHosNo", hosNo);
+	}
+
+	public Reservation selectReservationResNo(String resNo) {
+		System.out.println("[DEBUG] DAO - selectReservationResNo : " + resNo);
+		Reservation result = sqlSession.selectOne("reservationMapper.selectReservationResNo", resNo);
+		System.out.println("[DEBUG] DAO - selectReservationResNo result : " + result);
+		return result;
 	}
 
 

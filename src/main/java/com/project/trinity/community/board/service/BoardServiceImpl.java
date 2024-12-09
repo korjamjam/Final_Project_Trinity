@@ -14,6 +14,7 @@ import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.common.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -264,7 +265,25 @@ public class BoardServiceImpl implements BoardService {
 	public int restoreBoard(String bno) {
 	    return boardDao.restoreBoard(sqlSession, bno);
 	}
+	
+	@Override
+	public List<Board> getPostsByUserNo(String userNo) {
+	    return boardDao.getPostsByUserNo(sqlSession, userNo);
+	}
 
+	@Override
+	public int saveAnswer(MedAnswer answer) {
+	    int result = boardDao.insertAnswer(sqlSession, answer); // boardDao에서 INSERT 작업 수행
+	    if (result <= 0) {
+	        throw new RuntimeException("답변 저장 실패");
+	    }
+	    return result; // 영향 받은 행의 수 반환 (일반적으로 1)
+	}
+
+	@Override
+	public List<MedAnswer> getAnswersByBoardNo(String bno) {
+	    return boardDao.selectAnswersByBoardNo(sqlSession, bno);
+	}
 
 
 
