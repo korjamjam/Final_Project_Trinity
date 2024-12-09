@@ -6,7 +6,7 @@
 <mapper namespace="memberMapper">
 
 	<!-- 단축 설정 -->
-	<resultMap type="com.project.trinity.member.model.vo.Member"
+	<resultMap type="Member"
 		id="memberResultSet">
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_ID" property="userId" />
@@ -99,7 +99,7 @@
 
 	<!-- userId로 회원 정보 조회 -->
 	<select id="findByUserId" parameterType="string"
-		resultType="member">
+		resultMap="memberResultSet">
 		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
 	</select>
 
@@ -231,5 +231,5 @@
 	    WHERE USER_ID = #{userId}
 	</update>
 
-	<!-- 변경해야 되는 병원 번호를 안보냄 시발 -->
+	
 </mapper>

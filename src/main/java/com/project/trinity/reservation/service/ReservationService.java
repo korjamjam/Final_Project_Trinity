@@ -13,7 +13,7 @@ public interface ReservationService {
 
 	int insertgGuest(String userName, String birthday, String phone, String email, String gender);
 	
-    GeneralReservation selectReservation(String resNo);
+    Reservation selectReservation(String resNo);
 
 	Guest selectGuest(String phone, String email);
 

@@ -71,6 +71,9 @@ public interface BoardService {
 	int adminDeleteBoard(String bno);
 
 	int restoreBoard(String bno);
+	
+	List<Board> getPostsByUserNo(String userNo);
+
 
 
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,17 +34,20 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a013e1a252e3b3abf4367f97dc7d23f"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/common/kakaomap.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/hospital_detail/hospital_detail.js"></script>
+    <script>
+        const contextPath = "${ pageContext.servletContext.contextPath }";
+        const commercialNo = hosNoToNum('${hospitalInfo.hosNo }');
+    </script>
 </head>
-<body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}')">
+<body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
     <br><br>
 	<div class="hospital_detail_page_wrapper">
     <div class="hospital_detail_event_wrapper">
-
         <!-- event -->
         <div class="hospital_detail_event_img">
-            이벤트 사진영역
+
         </div>
     </div>
 	
@@ -252,7 +256,8 @@
                                 </div>
                             </div>
                             <div class="hospital_detail_share">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal">
+                                <input type="hidden" id="doctorNo" value="${i.userNo}">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="func()">
                                     의사 리뷰보기
                                 </button>
                             </div>
@@ -268,12 +273,7 @@
                                     <h4 class="modal-title">의사 리뷰</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <c:choose>
-                                            <c:when test="">
-
-                                            </c:when>
-                                        </c:choose>
-                                        <p>등록된 리뷰가 없습니다.</p>
+                                        <div class="reviewNavi"></div>
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

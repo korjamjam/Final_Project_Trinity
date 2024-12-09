@@ -79,29 +79,31 @@
 		</if>
 	</select>
 
-<select id="getPreviousBoard" parameterType="String" resultType="String">
-    SELECT BOARD_NO
-    FROM (
-        SELECT BOARD_NO
-        FROM BOARD
-        WHERE BOARD_NO &lt; #{bno}
-          AND STATUS = 'Y'
-        ORDER BY BOARD_NO DESC
-    )
-    WHERE ROWNUM = 1
-</select>
+	<select id="getPreviousBoard" parameterType="String"
+		resultType="String">
+		SELECT BOARD_NO
+		FROM (
+		SELECT BOARD_NO
+		FROM BOARD
+		WHERE BOARD_NO &lt; #{bno}
+		AND STATUS = 'Y'
+		ORDER BY BOARD_NO DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
 
-<select id="getNextBoard" parameterType="String" resultType="String">
-    SELECT BOARD_NO
-    FROM (
-        SELECT BOARD_NO
-        FROM BOARD
-        WHERE BOARD_NO &gt; #{bno}
-          AND STATUS = 'Y'
-        ORDER BY BOARD_NO ASC
-    )
-    WHERE ROWNUM = 1
-</select>
+	<select id="getNextBoard" parameterType="String"
+		resultType="String">
+		SELECT BOARD_NO
+		FROM (
+		SELECT BOARD_NO
+		FROM BOARD
+		WHERE BOARD_NO &gt; #{bno}
+		AND STATUS = 'Y'
+		ORDER BY BOARD_NO ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
 
 
 
@@ -564,40 +566,41 @@
 	</select>
 
 
-<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
-    SELECT *
-    FROM (
-        SELECT
-            b.BOARD_NO,
-            b.BOARD_TYPE,
-            b.BOARD_TITLE,
-            b.USER_NO,
-            m.USER_ID AS BOARD_WRITER,
-            b.BOARD_CONTENT,
-            TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-            b.MODIFIED_DATE,
-            b.BOARD_VIEWS,
-            c.CATEGORY_NAME AS CATEGORY_NAME,
-            b.STATUS,
-            ROW_NUMBER() OVER (
-                ORDER BY
-                <if test="categoryId != null">
-                    b.ENROLL_DATE DESC
-                </if>
-                <if test="categoryId == null">
-                    b.BOARD_VIEWS DESC
-                </if>
-            ) AS RN
-        FROM BOARD b
-        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
-        LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
-        WHERE b.STATUS = 'Y'
-        <if test="categoryId != null">
-            AND b.CATEGORY_ID = #{categoryId}
-        </if>
-    )
-    WHERE RN BETWEEN #{startRow} AND #{endRow}
-</select>
+	<select id="selectListByCategory" parameterType="map"
+		resultMap="boardResult">
+		SELECT *
+		FROM (
+		SELECT
+		b.BOARD_NO,
+		b.BOARD_TYPE,
+		b.BOARD_TITLE,
+		b.USER_NO,
+		m.USER_ID AS BOARD_WRITER,
+		b.BOARD_CONTENT,
+		TO_CHAR(b.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		b.MODIFIED_DATE,
+		b.BOARD_VIEWS,
+		c.CATEGORY_NAME AS CATEGORY_NAME,
+		b.STATUS,
+		ROW_NUMBER() OVER (
+		ORDER BY
+		<if test="categoryId != null">
+			b.ENROLL_DATE DESC
+		</if>
+		<if test="categoryId == null">
+			b.BOARD_VIEWS DESC
+		</if>
+		) AS RN
+		FROM BOARD b
+		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+		LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
+		WHERE b.STATUS = 'Y'
+		<if test="categoryId != null">
+			AND b.CATEGORY_ID = #{categoryId}
+		</if>
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
 
 
 
@@ -649,6 +652,15 @@
 		b.CATEGORY_ID = c.CATEGORY_ID
 		WHERE b.STATUS = 'Y' AND c.CATEGORY_ID =
 		#{type}
+	</select>
+
+	<select id="getPostsByUserNo" parameterType="string"
+		resultMap="boardResult">
+		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS, STATUS
+		FROM BOARD
+		WHERE USER_NO = #{userNo}
+		AND STATUS = 'Y'
+		ORDER BY ENROLL_DATE DESC
 	</select>
 
 

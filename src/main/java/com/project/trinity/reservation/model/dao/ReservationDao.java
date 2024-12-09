@@ -90,6 +90,13 @@ public class ReservationDao {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationHosNo", hosNo);
 	}
 
+	public Reservation selectReservationResNo(String resNo) {
+		System.out.println("[DEBUG] DAO - selectReservationResNo : " + resNo);
+		Reservation result = sqlSession.selectOne("reservationMapper.selectReservationResNo", resNo);
+		System.out.println("[DEBUG] DAO - selectReservationResNo result : " + result);
+		return result;
+	}
+
 
 
 

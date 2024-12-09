@@ -100,8 +100,8 @@ public class HospitalController {
 					avg += doctorReviews.get(j).getReviewRating();
 				}
 				avg /= doctorReviews.size();
+				avg = Math.round(avg * 100) / 100.0;
 			}
-			
 			rating[i] = avg;
 			System.out.println(rating[i]); 
 		}
@@ -113,6 +113,13 @@ public class HospitalController {
 	
 		return "hospital_detail/hospital_detail";
 	}
+	@RequestMapping("/detail/doctorReview")
+    @ResponseBody
+    public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
+		System.out.println("doctorNo : " + doctorNo);
+		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
+		return doctorReviews;
+    }
 	
 	@RequestMapping("/list/openHos")
 	public String OpenHospitalList(Model m) {
@@ -225,11 +232,12 @@ public class HospitalController {
 		
 		if(result>0) {
 			m.addAttribute("message", "의사 등록 성공");
+			return "hospital_detail/hospital_account_doctor";
 		} else {
-			m.addAttribute("message", "의사 등록 실패");
+			m.addAttribute("message", "의사 등록 실패 아이디를 확인하세요");
+			return "hospital_detail/hospital_account_insert_doctor";
 		}
-		
-		return "hospital_detail/hospital_account_doctor";	
+			
 	}//그냥 회원번호 맞게 입력하면 그거 hos_no만 바꿔줌 아이디 다르면 안되고 의사 아니면 안되게 수정해야함
 	
 	@RequestMapping("/account/myHospital")
@@ -259,11 +267,20 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/account/myReservation/detail")
-	public String HospitalAccountMyReservationDetail(String resNo, HttpSession session) {
+	public String HospitalAccountMyReservationDetail(String resNo, HttpSession session, Model m) {
 		
 		Reservation myReservation = reservationService.selectReservation(resNo);
 		
-		return "hospital_detail/hospital_account_my_reservation_detail";
+		m.addAttribute("myReservation", myReservation);
+		
+		return "hospital_detail/hospital_account_reservation_detail";
+	}
+	
+	@RequestMapping("account/doctor/detail")
+	public String HospitalAccountDoctorDetail(String userId, Model m) {
+		Member doctor = memberService.findByUserId(userId);
+		m.addAttribute("doctor", doctor);
+		return "hospital_detail/hospital_account_doctor_detail";
 	}
 	//화면 이동 하는거
 	
