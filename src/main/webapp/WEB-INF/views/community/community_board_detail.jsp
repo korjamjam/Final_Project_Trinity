@@ -120,7 +120,7 @@
 						<!-- 게시글 상세 정보 -->
 						<table class="board-detail">
 							<tr>
-								<td class="breadcrumb"><span>게시판 &nbsp</span> &gt;
+								<td><span>게시판 &nbsp</span> &gt;
 									<div class="custom-dropdown">
 										<div class="selected-container">
 											<div class="selected-option">${categoryName}</div>
@@ -170,9 +170,13 @@
 								<c:if test="${categoryName eq '메디톡'}">
 									<div class="request-content">
 										<p class="request-message">
-											<span class="request-title">답변자님,</span><br>
+											<span class="request-title">
+												<span class="highlighted-user-id">${loginUser.userId}</span>님,
+											</span><br>
 											정보를 공유해 주세요.
 										</p>
+										
+										
 										<!-- 답변 버튼 -->
 										<a class="round-button" href="#"
 											onclick="handleAnswerClick('${pageContext.request.contextPath}/community/medAnswer?bno=${b.boardNo}')">
@@ -183,28 +187,6 @@
 								</c:if>
 							</div>
 							
-
-
-							<!-- 답변 콘텐츠 -->
-							<c:forEach var="answer" items="${answers}">
-								<div class="board-content answer-content">
-									<div class="expert-container">
-										<%@ include file="/WEB-INF/views/common/expert_card.jsp" %>
-									</div>
-									<div class="response-section">
-										<div class="expert-response">${answer.content}</div>
-										<div class="disclaimer-container">
-											<div class="response-disclaimer">* 본 답변은 참고용입니다.</div>
-											<div class="right-aligned-buttons">
-												<button class="like-button" onclick="incrementLike(${answer.id})">
-													👍 <span id="like-count-${answer.id}">${answer.likes}</span>
-												</button>
-												<button class="white-button">신고하기</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
 						</div>
 					</div>
 

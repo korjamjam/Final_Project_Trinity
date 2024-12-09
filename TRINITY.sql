@@ -17,8 +17,7 @@ DROP TABLE LIKES_TABLE CASCADE CONSTRAINTS;
 DROP TABLE RANKUP CASCADE CONSTRAINTS;
 DROP TABLE BOARD_CATEGORY CASCADE CONSTRAINTS;
 
---시퀀스 초기화----------------------------------------------------------------------------------------------------------
-
+-- 기존 시퀀스 초기화 ------------------------------------------------------------------------------------------------
 DROP SEQUENCE SEQ_HOS_NO;
 DROP SEQUENCE SEQ_HOS_ACCOUNT_NO;
 DROP SEQUENCE SEQ_USER_NO;
@@ -33,9 +32,9 @@ DROP SEQUENCE SEQ_H_RES_NO;
 DROP SEQUENCE SEQ_SUB_KEY;
 DROP SEQUENCE SEQ_COMMENT_NO;
 DROP SEQUENCE SEQ_RANKUP;
+DROP SEQUENCE SEQ_ANSWER_NO; -- 새로 추가된 시퀀스를 삭제 (기존에 있을 경우)
 
--- 시퀀스 생성----------------------------------------------------------------------------------------------------------
-
+-- 시퀀스 생성 -------------------------------------------------------------------------------------------------------
 CREATE SEQUENCE SEQ_HOS_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_HOS_ACCOUNT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_G_RES_NO START WITH 1 INCREMENT BY 1 NOCACHE;
@@ -50,6 +49,9 @@ CREATE SEQUENCE SEQ_GST_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_SUB_KEY START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_COMMENT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_RANKUP START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE SEQ_ANSWER_NO START WITH 1 INCREMENT BY 1 NOCACHE; -- 새로 추가된 시퀀스
+
+
 
 
 -- 테이블 생성 ----------------------------------------------------------------------------------------------------------
@@ -239,6 +241,19 @@ CREATE TABLE COMMENTS (
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO)   -- 사용자 참조키
 
     ); 
+CREATE TABLE MED_ANSWER (
+    ANSWER_NO VARCHAR2(10) PRIMARY KEY,      -- 답글 고유 ID
+    BOARD_NO VARCHAR2(10) NOT NULL,          -- 원본 게시글 번호 (외래키)
+    USER_NO VARCHAR2(10) NOT NULL,           -- 답글 작성자 (USER_NO)
+    ANSWER_CONTENT VARCHAR2(4000) NOT NULL,  -- 답글 내용
+    ENROLL_DATE DATE DEFAULT SYSDATE,        -- 답글 작성일
+    MODIFIED_DATE DATE,                      -- 답글 수정일
+    STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 답글 상태
+    IS_MEDICAL_FIELD CHAR(1) DEFAULT 'N' CHECK (IS_MEDICAL_FIELD IN ('Y', 'N')),  -- 의료 전문가 여부
+    FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO) ON DELETE CASCADE, -- 게시글 삭제 시 관련 답글 삭제
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO) ON DELETE CASCADE  -- 사용자 삭제 시 관련 답글 삭제
+);
+
 
 CREATE TABLE H_SUBJECT (
     SUB_KEY NUMBER PRIMARY KEY,
@@ -10661,4 +10676,5 @@ VALUES ('U6', 'U36', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진�
 SELECT * FROM MEMBER;
 
 --커밋--------------------------------------------------------------------------------------------------------
-COMMIT; 
+COMMIT;
+

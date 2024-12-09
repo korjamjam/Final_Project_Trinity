@@ -11,6 +11,7 @@ import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.common.vo.PageInfo;
 
@@ -73,6 +74,11 @@ public interface BoardService {
 	int restoreBoard(String bno);
 	
 	List<Board> getPostsByUserNo(String userNo);
+
+	int saveAnswer(MedAnswer answer);
+
+	List<MedAnswer> getAnswersByBoardNo(String bno);
+
 
 
 

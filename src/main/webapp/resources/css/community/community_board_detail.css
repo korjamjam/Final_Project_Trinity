@@ -52,7 +52,8 @@
 	display: flex;
 	align-items: center; /* 수직 중앙 정렬 */
 	flex-direction: column;
-	margin-bottom: 3vh;
+	
+	gap:10px;
 }
 
 .navigation-buttons {
@@ -332,7 +333,15 @@
 .highlight-user {
 	color: #265708; /* 원하는 색상 */
 	font-weight: bold; /* 굵게 표시 */
+
 }
+
+.highlighted-user-id {
+    color: #265708;         /* 초록색 */
+    font-weight: bold;      /* 굵은 글씨 */
+    font-size: 1.2em;       /* 글씨 크기 확대 */
+}
+
 
 .board-meta {
 	font-size: 12px;
