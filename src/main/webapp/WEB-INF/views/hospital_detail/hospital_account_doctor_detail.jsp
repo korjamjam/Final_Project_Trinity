@@ -80,8 +80,22 @@
             </tr>
         </table>
         </form>
+        <button  onclick="deleteDoctor()" class="save-button">의사 해제</button>
     </div>
 </div>
+    <script>
+        const userNo = "${doctor.userNo}"
+        console.log(userNo)
+        function deleteDoctor() {
+            const isDelete = confirm("정말 삭제하시겠습니까?")
+            console.log(isDelete)
 
+            if(isDelete){
+                location.href="${pageContext.servletContext.contextPath}/hospital/account/doctor/delete?userNo=${doctor.userNo}"
+            } else{
+                onload
+            }
+        }
+    </script>
 </body>
 </html>

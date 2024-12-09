@@ -18,6 +18,15 @@
 <body>
 	<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
+	<!-- 메시지 알림 -->
+	<script>
+		const message = "${message}";
+		if (message) {
+			alert(message); // 안내 문구를 띄움
+			console.log(message)
+		}
+	</script>
+
 	<div class="member-management">
 		<div class="content">
 			<h2>의사 관리</h2>

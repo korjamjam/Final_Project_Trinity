@@ -72,7 +72,7 @@
 
 	<!-- 로그인 쿼리 -->
 	<select id="loginMember"
-		parameterType="com.project.trinity.member.model.vo.Member"
+		parameterType="Member"
 		resultMap="memberResultSet">
 		SELECT USER_NO,
 		USER_ID,
@@ -235,9 +235,11 @@
 	        HOS_NO = #{hosNo}
 	    WHERE USER_ID = #{userId}
 	</update>
-	
-	
-	
-	
-	
+
+	<update id="hospitalAccountDeleteDoctor">
+		UPDATE MEMBER
+	    SET
+	        HOS_NO = ''
+	    WHERE USER_NO = #{userNo}
+	</update>
 </mapper>
