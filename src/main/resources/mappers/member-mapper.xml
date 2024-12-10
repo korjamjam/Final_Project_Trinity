@@ -23,6 +23,7 @@
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
 		<result column="POSTCODE" property="postcode" />
+		<result column="BIOGRAPHY" property="biography" />
 
 	</resultMap>
 
@@ -85,7 +86,8 @@
 		STATUS,
 		ISADMIN,
 		MED_KEY,
-		HOS_NO
+		HOS_NO,
+		USERPROFILE
 		FROM
 		MEMBER
 		WHERE USER_ID = #{userId}
@@ -273,4 +275,30 @@
 		HOS_NO = ''
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 의사 약력 불러오기 -->
+	<select id="selectDoctorBiography" parameterType="string"
+		resultType="String">
+		SELECT BIOGRAPHY
+		FROM MEMBER
+		WHERE USER_NO = #{doctorNo}
+	</select>
+	
+	<insert id="insertDoctorReview" parameterType="HashMap">
+		INSERT INTO DOCTOR_REVIEW
+			(USER_NO,
+	         DOCTOR_NO,
+	         REVIEW_TITLE,
+	         REVIEW_CONTENT,
+	         REVIEW_RATING
+	        )
+		VALUES (
+				#{writerNo},
+		        #{doctorNo},
+		        #{reviewTitle},
+		        #{reviewContent},
+		        #{reviewRating}
+			   )
+	</insert>
+	
 </mapper>
