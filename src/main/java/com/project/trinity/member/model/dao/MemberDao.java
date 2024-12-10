@@ -136,4 +136,12 @@ public class MemberDao {
 	 public MedicalField selectMedicalFieldByMedNo(SqlSession sqlSession, String medKey) {
 	        return sqlSession.selectOne("memberMapper.selectMedicalFieldByMedNo", medKey);
 	    }
+
+	public String selectDoctorBiography(SqlSessionTemplate sqlSession, String doctorNo) {
+		return sqlSession.selectOne("memberMapper.selectDoctorBiography", doctorNo);
+	}
+
+	public int insertDoctorReview(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("memberMapper.insertDoctorReview", map);
+	}
 }

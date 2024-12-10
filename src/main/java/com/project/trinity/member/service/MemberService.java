@@ -47,6 +47,11 @@ public interface MemberService {
 
 	MedicalField getMedicalFieldByMedNo(String medKey);
 
+	String selectDoctorBiography(String doctorNo);
+
+	int insertDoctorReview(String writerNo, String doctorNo, String reviewTitle, String reviewContent,
+			String reviewRating);
+
     
   
 
