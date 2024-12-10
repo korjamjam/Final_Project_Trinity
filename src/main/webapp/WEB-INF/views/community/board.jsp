@@ -11,11 +11,22 @@
     <link href="${pageContext.servletContext.contextPath}/resources/css/community/board.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
+	<script src="${pageContext.servletContext.contextPath}/resources/js/community/board.js"></script>
+
     <title>${categoryName}게시판</title>
 </head>
 
 
 <body>
+	
+
+	<script>
+			const contextPath = "${pageContext.servletContext.contextPath}";
+			const categoryId = "${categoryId}"; // categoryId 값을 JavaScript 변수로 전달
+		    console.log("Category ID in JSP: ${categoryId}");
+    console.log("Sort Type in JSP: ${sortType}");
+
+		</script>
 	<!-- 헤더 -->
 	<header id="headerSection">
 		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -45,11 +56,14 @@
 					<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서
 						확인하세요.</p>
 					<div id="contentButton">
-						<select id="sortSelect" onchange="sortPosts(this.value)">
-							<option value="조회수">조회수</option>
-							<option value="작성일">작성일</option>
-							<option value="카테고리">카테고리</option>
+						<select id="sortSelect" data-category-id="${categoryId}" onchange="sortPosts(this.value)">
+							<option value="조회수" ${sortType == '조회수' ? 'selected' : ''}>조회수</option>
+							<option value="작성일" ${sortType == '작성일' ? 'selected' : ''}>작성일</option>
+							<option value="카테고리" ${sortType == '카테고리' ? 'selected' : ''}>카테고리</option>
 						</select>
+						
+						
+						
 
 						<c:if test="${not empty sessionScope.loginUser}">
 							<!-- type 값을 설정한 후 글쓰기 버튼에 반영 -->

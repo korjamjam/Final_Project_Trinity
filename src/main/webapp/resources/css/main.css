@@ -164,7 +164,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     height: 60%;
 }
@@ -176,9 +176,16 @@ button {
     height: 33.3%;
     gap: 10px;
     padding: 0px 10px;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
 }
+.board_content-detail {
+    display: flex; /* Flexbox 활성화 */
+    justify-content: space-between; /* 요소 간 간격을 균등 분배 */
+    align-items: center; /* 세로 중앙 정렬 */
+    width: 100%; /* 필수 */
+}
+
 .board_more a{
     display: flex;
     justify-content: center;
