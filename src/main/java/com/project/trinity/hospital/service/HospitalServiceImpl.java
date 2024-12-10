@@ -1,6 +1,7 @@
 package com.project.trinity.hospital.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,16 @@ public class HospitalServiceImpl implements HospitalService{
 	@Override
 	public HospitalAccount loginHosAccount(HospitalAccount hosAccount) {
 		return hpDao.loginHosAccount(sqlSession, hosAccount);
+	}
+
+	@Override
+	public int updateMyHospitalAC(HospitalInfo updateHosInfo) {
+		return hpDao.updateMyHospitalAC(sqlSession, updateHosInfo);
+	}
+	
+	@Override
+	public int updateMyHospitalAI(HospitalInfo updateHosInfo) {
+		return hpDao.updateMyHospitalAI(sqlSession, updateHosInfo);
 	}
 	
 }
