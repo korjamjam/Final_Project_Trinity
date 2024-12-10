@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.trinity.member.model.vo.Guest;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.CountReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Repository
@@ -95,6 +95,10 @@ public class ReservationDao {
 		Reservation result = sqlSession.selectOne("reservationMapper.selectReservationResNo", resNo);
 		System.out.println("[DEBUG] DAO - selectReservationResNo result : " + result);
 		return result;
+	}
+
+	public ArrayList<CountReservation> selectTodayWaitingList(String hosNo) {
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectTodayWaitingList", hosNo);
 	}
 
 

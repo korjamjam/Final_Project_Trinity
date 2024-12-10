@@ -1,46 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 <title>닥터링</title>
 
-	<!-- searchBar icon -->
-    <link rel="favicon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
-    <link rel="icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" type="image/x-icon" />
+<!-- searchBar icon -->
+<link rel="favicon"
+	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico" />
+<link rel="icon"
+	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.ico"
+	type="image/x-icon" />
 
-    <!-- font style -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<!-- font style -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+	rel="stylesheet">
 
-    <!-- icon -->
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<!-- icon -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <!-- css -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
-	<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
+<!-- css -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
+<link rel="stylesheet"
+	href="${ pageContext.servletContext.contextPath }/resources/css/main.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
 
-	<!-- JS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
-	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+<!-- JS -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
 </head>
 <body>
 	<c:if test="${ not empty message}">
 		<script>
 			alert("${message}");
 		</script>
-		<c:remove var="message" scope="session"/>
+		<c:remove var="message" scope="session" />
 	</c:if>
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
@@ -52,51 +64,57 @@
 
 		<!-- SearchBar -->
 		<div class="searchBar_wrapper">
-				<div class="searchBar">
-					<form action="hospital/list" class="searchBar_form">
-						<input type="text" placeholder="검색어를 입력하세요." name="keyword">
-						<button type="submit" id="main_search_btn">
+			<div class="searchBar">
+				<form action="hospital/list" class="searchBar_form">
+					<input type="text" placeholder="검색어를 입력하세요." name="keyword">
+					<button type="submit" id="main_search_btn">
 						<div class="searchBar_img">
-							<img src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
+							<img
+								src="${ pageContext.servletContext.contextPath }/resources/img/search.png"
 								alt="search" width="15" height="15">
 						</div>
-						</button>
-					</form>
-				</div>
+					</button>
+				</form>
+			</div>
 		</div>
-		
-		<br>
-		<br>
+
+		<br> <br>
 
 		<!-- 3 Button -->
 		<div class="shortCutButton">
-			<button class="reservation" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">예약하기</button>
+			<button class="reservation"
+				onclick="location.href='${pageContext.request.contextPath}/hospital/list'">예약하기</button>
 			<div class="find">
-				<button class="findHos" onclick="location.href='${pageContext.request.contextPath}/hospital/list'">병원찾기</button>
+				<button class="findHos"
+					onclick="location.href='${pageContext.request.contextPath}/hospital/list'">병원찾기</button>
 				<button class="findPh">가까운 약국 찾기</button>
 			</div>
 		</div>
 
-		<br>
-		<br>
+		<br> <br>
 
 		<!-- 6 Icon -->
 		<div class="shortCutIcon">
 			<div class="icon">
-				<a href="${pageContext.request.contextPath}/healthReservation/reservationSearch"> <img
+				<a
+					href="${pageContext.request.contextPath}/healthReservation/reservationSearch">
+					<img
 					src="${ pageContext.servletContext.contextPath }/resources/img/checkReservation.png"
 					alt="checkReservation">
 					<p>예약 정보 확인</p>
 				</a>
 			</div>
 			<div class="icon">
-				<a href="${pageContext.request.contextPath}/hospital/list/openHos"> <img src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
+				<a href="${pageContext.request.contextPath}/hospital/list/openHos">
+					<img
+					src="${ pageContext.servletContext.contextPath }/resources/img/openHospital.png"
 					alt="openHospital">
 					<p>열린 병원</p>
 				</a>
 			</div>
 			<div class="icon">
-				<a href=""> <img src="${ pageContext.servletContext.contextPath }/resources/img/checkHistory.png"
+				<a href=""> <img
+					src="${ pageContext.servletContext.contextPath }/resources/img/checkHistory.png"
 					alt="checkHistory">
 					<p>진료기록 확인</p>
 				</a>
@@ -116,7 +134,9 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href="${pageContext.request.contextPath}/healthReservation/reservation1"> <img
+				<a
+					href="${pageContext.request.contextPath}/healthReservation/reservation1">
+					<img
 					src="${ pageContext.servletContext.contextPath }/resources/img/reservationHealthCheck.png"
 					alt="reservationHealthCheck">
 					<p>건강검진 예약</p>
@@ -124,41 +144,56 @@
 			</div>
 		</div>
 
-		<br>
-		<br>
+		<br> <br>
 
 		<!-- Board -->
 		<div class="board">
 			<div class="board_category">
 				<div>
-					<a href="">공지사항</a>
+					<a href="${pageContext.request.contextPath}/notice">공지사항</a>
 				</div>
 				<div>
-					<a href="">이벤트</a>
+					<a href="${pageContext.request.contextPath}/event">이벤트</a>
 				</div>
 			</div>
 			<div class="board_content_wrapper">
+				<!-- 공지사항 -->
 				<div class="board_content">
-					<div class="board_content1">공단 노후 장비 교체 작업 안내</div>
-					<div class="board_content2">2024-11-01</div>
+					<c:forEach var="notice" items="${latestNoticePosts}">
+						<div class="board_content-detail">
+							<div class="board_content1">
+								<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${notice.boardNo}">
+									${notice.boardTitle}
+								</a>
+							</div>
+							<div class="board_content2">${notice.enrollDate}</div>
+						</div>
+					</c:forEach>
 				</div>
+			
+				<!-- 이벤트 -->
 				<div class="board_content">
-					<div class="board_content1">챗봇 상담</div>
-					<div class="board_content2">2024-11-01</div>
-				</div>
-				<div class="board_content">
-					<div class="board_content1">모바일 신분증</div>
-					<div class="board_content2">2024-11-01</div>
+					<c:forEach var="event" items="${latestEventPosts}">
+						<div class="board_content-detail">
+							<div class="board_content1">
+								<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${event.boardNo}">
+									${event.boardTitle}
+								</a>
+							</div>
+							<div class="board_content2">${event.enrollDate}</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
-			<div class="board_more">
-				<a href="">더보기<img src="${ pageContext.servletContext.contextPath }/resources/img/arrow.png"
-					alt=""></a>
+				<!-- 실시간 인기글로 이동하는 더보기 버튼 -->
+				<div class="more-button">
+					<a href="${pageContext.request.contextPath}/community/main">더보기 ></a>
+				</div>
 			</div>
-		</div>
+			
+		
 
-		<br>
-		<br>
+		<br> <br>
 
 		<!-- Commercial -->
 		<!-- Slider main container -->
@@ -167,19 +202,27 @@
 			<div class="swiper-wrapper">
 				<!-- Slides -->
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad6.jpg"alt="ad6"  id="ad1">
+					<img
+						src="${ pageContext.servletContext.contextPath }/resources/img/ad6.jpg"
+						alt="ad6" id="ad1">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad3.jpg" alt="ad3" id="ad2">
+					<img
+						src="${ pageContext.servletContext.contextPath }/resources/img/ad3.jpg"
+						alt="ad3" id="ad2">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad4.jpg" alt="ad4" id="ad3">
+					<img
+						src="${ pageContext.servletContext.contextPath }/resources/img/ad4.jpg"
+						alt="ad4" id="ad3">
 				</div>
 				<div class="swiper-slide">
-					<img src="${ pageContext.servletContext.contextPath }/resources/img/ad5.jpg" alt="ad5"  id="ad4">
+					<img
+						src="${ pageContext.servletContext.contextPath }/resources/img/ad5.jpg"
+						alt="ad5" id="ad4">
 				</div>
 			</div>
-			
+
 			<!-- Pagination -->
 			<div class="swiper-pagination"></div>
 
@@ -188,8 +231,7 @@
 			<div class="swiper-button-next"></div>
 		</div>
 
-		<br>
-		<br>
+		<br> <br>
 
 		<div class="advertise_wrapper">
 			<div class="advertise_wrapper_1">
@@ -212,8 +254,7 @@
 					<div class="advertiseRight">그림</div>
 				</div>
 
-				<br>
-				<br>
+				<br> <br>
 
 				<!-- advertise2 -->
 				<div class="advertise2">
@@ -222,15 +263,16 @@
 						<p class="p2">무료로 병원 광고하세요!</p>
 					</div>
 					<div class="advertise2_2">
-						<a href=""><img src="${ pageContext.servletContext.contextPath }/resources/img/go.png" alt=""></a>
+						<a href=""><img
+							src="${ pageContext.servletContext.contextPath }/resources/img/go.png"
+							alt=""></a>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<br>
-		<br>
+		<br> <br>
 
 		<!-- information -->
 		<div class="inform">
@@ -242,12 +284,10 @@
 			<div class="inform_content">고객센터(1577-0000)</div>
 		</div>
 
-		<br>
-		<br>
+		<br> <br>
 	</div>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
-	
 </body>
 </html>

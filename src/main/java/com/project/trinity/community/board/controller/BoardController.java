@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,77 +61,62 @@ public class BoardController {
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
 	public String getBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId,
-			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m) {
+			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, 
+			  @RequestParam(value = "sortType", defaultValue = "작성일") String sortType, Model m) {
 		
+		  // 디버깅 로그
+	    System.out.println("Received categoryId: " + categoryId);
+	    
 		// 카테고리별 게시글 수 조회
 		int listCount = boardService.selectCountCategoryList(categoryId);
 
 		// 페이징 정보 설정
 		PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
-		// 게시글 목록 조회
-		List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
+		// 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
+		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+
 	
 		// 모델에 데이터 추가
 		m.addAttribute("categoryId", categoryId);
+		m.addAttribute("sortType", sortType);
 		m.addAttribute("boardList", boardList);
 		m.addAttribute("pi", pi);
 
 		return "community/board";
 	}
 
-//@RequestMapping("/board")
-//	public String getBoardPage(
-//	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-//	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//	    Model model
-//	) {
-//	    String categoryId = null;
-//	    String categoryName = null;
-//
-//	    // 'popular' 타입은 카테고리가 아니므로, 실시간 인기글로 고정
-//	    if ("popular".equals(type)) {
-//	        categoryName = "실시간 인기글";  // 인기글 이름
-//	    } else {
-//	        // 카테고리별 type에 맞춰 categoryId 설정
-//	        categoryId = getCategoryIdByType(type);
-//	        categoryName = boardService.getCategoryNameById(categoryId);  // 서비스에서 카테고리 이름 조회
-//	    }
-//
-//	    model.addAttribute("categoryId", categoryId);
-//	    model.addAttribute("categoryName", categoryName);
-//
-//	    // 'popular' 타입일 때는 조회수가 높은 게시글을 가져옴
-//	    if ("popular".equals(type)) {
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//
-//	        // 조회수가 높은 게시글을 가져오는 서비스 호출
-//	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
-//	        model.addAttribute("recentPopularList", recentPopularList);
-//	        System.out.println("최근 인기 게시글: " + recentPopularList);
-//	    } else {
-//	        // 다른 카테고리별 게시글 목록 처리
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//	        params.put("categoryId", categoryId);
-//
-//	        List<Board> boardList = boardService.selectListByCategory(type, params);
-//	        model.addAttribute("boardList", boardList);
-//	    }
-//
-//	    return "community/community_main_popular";
-//	}
+	@RequestMapping("/sideBarToBoard")
+	public String getSideBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId, // 필수 파라미터로 설정
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지
+	    @RequestParam(value = "sortType", defaultValue = "작성일") String sortType,
+	    HttpServletRequest request,
+	    Model m
+	) {
+		  // 디버깅 로그
+	    System.out.println("Received categoryId: " + categoryId);
+	    System.out.println("Received sortType: " + sortType);
+
+	    // 카테고리 이름 설정
+	    String categoryName = boardService.getCategoryNameById(categoryId);
+
+	    // 페이징 정보 설정
+	    int listCount = boardService.selectCountCategoryList(categoryId); // 총 게시글 수 조회
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 페이징 계산
+
+	 // 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
+	 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+	    // 모델에 데이터 추가
+	    m.addAttribute("categoryId", categoryId);
+	    m.addAttribute("categoryName", categoryName);
+	    m.addAttribute("sortType", sortType);
+	    m.addAttribute("boardList", boardList);
+	    m.addAttribute("pi", pi);
+
+	    return "community/board";
+	}
+
+
 
 	// 게시판에서 글쓰기 버튼 누를 때
 	@GetMapping("/write")
@@ -191,16 +177,16 @@ public class BoardController {
 	    if (mf != null) {
 	        ans.setMedicalFieldId(mf.getMedicalFieldId());
 	    }
-
+	    System.out.println("답글 제출 전 ANS Debug: " + ans);
 	    // 답글 저장 로직
 	    boardService.saveAnswer(ans);
-
+	    System.out.println("답글 제출 후 ANS Debug: " + ans);
 	    // 답글 저장 후 게시글 상세보기로 리다이렉트
 	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
 	}
 
 
-
+	
 
 
 
@@ -213,7 +199,8 @@ public class BoardController {
 
 	    // 현재 게시글 조회
 	    Board b = boardService.selectBoard(bno);
-	    List<MedAnswer> answers = boardService.getAnswersByBoardNo(bno);
+	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
+	    System.out.println("상세페이지 ans Debug: " + ans);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
@@ -251,7 +238,7 @@ public class BoardController {
 	    m.addAttribute("categories", categories); // 카테고리 목록
 	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
 	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
-	    m.addAttribute("answers", answers); // 답변 리스트 추가
+	    m.addAttribute("ans", ans); // 답변 리스트 추가
 	  
 	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}

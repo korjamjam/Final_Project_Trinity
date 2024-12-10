@@ -270,20 +270,24 @@ public class BoardDao {
         return (ArrayList) sqlSession.selectList("boardMapper.selectList", sortType, rowBounds);
     }
 
-   
+
     /**
      * 특정 카테고리의 게시글 목록을 페이징 처리하여 조회합니다.
+     * @param sortType 
      */
-    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi) {
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi, String sortType) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
         Map<String, Object> params = new HashMap<>();
         params.put("categoryId", categoryId);
         params.put("startRow", offset + 1);
         params.put("endRow", offset + limit);
+        params.put("sortType", sortType);
         
+        System.out.println("다오 ams for selectListByCategory: " + params);
         
-        return (ArrayList) sqlSession.selectList("boardMapper.selectListByCategory", params);
+        List<Board> result = sqlSession.selectList("boardMapper.selectListByCategory", params);
+        return new ArrayList<>(result);
     }
 
     public List<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -317,14 +321,8 @@ public class BoardDao {
 
 
 
-    
-
-
-
-
-
     public List<MedAnswer> selectAnswersByBoardNo(SqlSessionTemplate sqlSession, String bno) {
-        return sqlSession.selectList("boardMapper.selectAnswersByBoardNo", bno);
+        return sqlSession.selectList("boardMapper.getAnswersByBoardNo", bno);
     }
 
 
@@ -334,6 +332,14 @@ public class BoardDao {
         
         return sqlSession.insert("boardMapper.insertAnswer", ans);
     }
+
+
+
+
+    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String categoryId) {
+        return sqlSession.selectList("boardMapper.getLatestPosts", categoryId);
+    }
+
 
 
 

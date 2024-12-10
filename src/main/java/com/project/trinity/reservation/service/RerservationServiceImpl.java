@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.reservation.model.dao.ReservationDao;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.CountReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 @Service
@@ -81,6 +81,11 @@ public class RerservationServiceImpl implements ReservationService{
 		Reservation result = rDao.selectReservationResNo(resNo);
 		System.out.println("[DEBUG] Service - selectReservationResNo result : " + result);
 		return result;
+	}
+
+	@Override
+	public ArrayList<CountReservation> selectTodayWaitingList(String hosNo) {
+		return rDao.selectTodayWaitingList(hosNo);
 	}
 
 

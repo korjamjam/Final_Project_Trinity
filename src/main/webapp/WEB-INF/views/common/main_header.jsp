@@ -63,7 +63,6 @@
                                     id="meditalk">메디톡</a>
                                 <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT03"
                                     id="event">이벤트게시판</a>
-
                             </div>
                         </div>
                         <div class="dropdown">

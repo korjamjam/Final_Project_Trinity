@@ -129,7 +129,7 @@
 					</div>
 					<!-- 답변 리스트 -->
 					<!-- <div id="answer-list">
-						<c:forEach items="${answers}" var="a">
+						<c:forEach items="${ans}" var="a">
 							<div class="board-content answer-item">
 								<div class="answer-content">
 									<div class="answer-author">작성자: ${a.doctorName}</div>
