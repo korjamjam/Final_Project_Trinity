@@ -228,14 +228,7 @@
                     <div class="hospital_detail_doctor_row">
                         <div class="hospital_detail_doctor_intro">
                             <div class="hospital_detail_doctor_img">
-                                <c:choose>
-                                    <c:when test="${not empty doctorList[status.index].userProfile}">
-                                        <img src="${ pageContext.servletContext.contextPath }${profilePic}" alt="docPic">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/doctorPicDefault.png" alt="docPic">
-                                    </c:otherwise>
-                                </c:choose>
+                                <img src="${ pageContext.servletContext.contextPath }${doctorList[status.index].userProfile}" alt="docPic">
                             </div>
                             <div class="hospital_detail_doctor_name">
                                 이름 : ${i.userName}<br>
