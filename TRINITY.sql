@@ -10352,104 +10352,69 @@ VALUES ('H20', 'hos20', 'pwd20', 'N', '12', '환자의 건강을 책임지는 �
 
 
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1001', 'doc1', 'password1', '김의사', 'doc1@example.com', '010-1111-1111', '801212' , 'M', '서울특별시 강남구', 'M1', 'H1');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M10', 'H4', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1002', 'doc2', 'password2', '이의사', 'doc2@example.com', '010-2222-2222','801212', 'F', '부산광역시 해운대구', 'M2', 'H1');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1011', 'doc11', 'password11', '김윤', 'doc11@example.com', '010-1111-1212', '801212', 'M', '서울특별시 종로구', 'M10', 'H2', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1003', 'doc3', 'password3', '박의사', 'doc3@example.com', '010-3333-3333', '801212', 'M', '대구광역시 중구', 'M3', 'H1');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1012', 'doc12', 'password12', '이지영', 'doc12@example.com', '010-2222-1212', '801212', 'F', '서울특별시 은평구', 'M9', 'H2', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1004', 'doc4', 'password4', '최의사', 'doc4@example.com', '010-4444-4444', '801212', 'F', '인천광역시 남동구', 'M4', 'H2');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1013', 'doc13', 'password13', '박민지', 'doc13@example.com', '010-3333-1313', '801212', 'F', '경기도 고양시', 'M3', 'H3', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1005', 'doc5', 'password5', '정의사', 'doc5@example.com', '010-5555-5555', '801212', 'M', '광주광역시 북구', 'M5', 'H2');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1014', 'doc14', 'password14', '최성민', 'doc14@example.com', '010-4444-1313', '801212', 'M', '경기도 성남시', 'M4', 'H3', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1006', 'doc6', 'password6', '강의사', 'doc6@example.com', '010-6666-6666', '801212', 'F', '대전광역시 서구', 'M6', 'H2');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1015', 'doc15', 'password15', '정현우', 'doc15@example.com', '010-5555-1414', '801212', 'M', '강원도 원주시', 'M5', 'H4', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1007', 'doc7', 'password7', '윤의사', 'doc7@example.com', '010-7777-7777', '801212', 'M', '울산광역시 남구', 'M7', 'H3');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1016', 'doc16', 'password16', '한소희', 'doc16@example.com', '010-6666-1414', '801212', 'F', '강원도 강릉시', 'M6', 'H4', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1008', 'doc8', 'password8', '장은사', 'doc8@example.com', '010-8888-8888', '801212', 'F', '경기도 수원시', 'M8', 'H3');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1017', 'doc17', 'password17', '윤상훈', 'doc17@example.com', '010-7777-1515', '801212', 'M', '전라북도 전주시', 'M7', 'H5', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1009', 'doc9', 'password9', '하의사', 'doc9@example.com', '010-9999-9999', '801212', 'M', '강원도 춘천시', 'M9', 'H4');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1018', 'doc18', 'password18', '장수지', 'doc18@example.com', '010-8888-1515', '801212', 'F', '전라북도 군산시', 'M8', 'H5', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M10', 'H4');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1019', 'doc19', 'password19', '홍지영', 'doc19@example.com', '010-9999-1515', '801212', 'F', '전라남도 순천시', 'M9', 'H5', '/resources/images/doctorPicDefault.png');
 
--- H2 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1011', 'doc11', 'password11', '김윤', 'doc11@example.com', '010-1111-1212', '801212', 'M', '서울특별시 종로구', 'M10', 'H2');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1020', 'doc20', 'password20', '한동민', 'doc20@example.com', '010-1010-1616', '801212', 'M', '전라남도 여수시', 'M2', 'H6', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1012', 'doc12', 'password12', '이지영', 'doc12@example.com', '010-2222-1212', '801212', 'F', '서울특별시 은평구', 'M9', 'H2');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1021', 'doc21', 'password21', '김진아', 'doc21@example.com', '010-1111-1616', '801212', 'F', '전라남도 광양시', 'M1', 'H6', '/resources/images/doctorPicDefault.png');
 
--- H3 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1013', 'doc13', 'password13', '박민지', 'doc13@example.com', '010-3333-1313', '801212', 'F', '경기도 고양시', 'M3', 'H3');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1022', 'doc22', 'password22', '이승훈', 'doc22@example.com', '010-2222-1717', '801212', 'M', '충청북도 청주시', 'M2', 'H7', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1014', 'doc14', 'password14', '최성민', 'doc14@example.com', '010-4444-1313', '801212', 'M', '경기도 성남시', 'M4', 'H3');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1023', 'doc23', 'password23', '송지수', 'doc23@example.com', '010-3333-1717', '801212', 'F', '충청북도 충주시', 'M3', 'H7', '/resources/images/doctorPicDefault.png');
 
--- H4 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1015', 'doc15', 'password15', '정현우', 'doc15@example.com', '010-5555-1414', '801212', 'M', '강원도 원주시', 'M5', 'H4');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1024', 'doc24', 'password24', '이강민', 'doc24@example.com', '010-4444-1818', '801212', 'M', '충청남도 천안시', 'M4', 'H8', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1016', 'doc16', 'password16', '한소희', 'doc16@example.com', '010-6666-1414', '801212', 'F', '강원도 강릉시', 'M6', 'H4');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1025', 'doc25', 'password25', '백지원', 'doc25@example.com', '010-5555-1818', '801212', 'F', '충청남도 공주시', 'M5', 'H8', '/resources/images/doctorPicDefault.png');
 
--- H5 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1017', 'doc17', 'password17', '윤상훈', 'doc17@example.com', '010-7777-1515', '801212', 'M', '전라북도 전주시', 'M7', 'H5');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M6', 'H9', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1018', 'doc18', 'password18', '장수지', 'doc18@example.com', '010-8888-1515', '801212', 'F', '전라북도 군산시', 'M8', 'H5');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M7', 'H9', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1019', 'doc19', 'password19', '홍지영', 'doc19@example.com', '010-9999-1515', '801212', 'F', '전라남도 순천시', 'M9', 'H5');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1028', 'doc28', 'password28', '정성훈', 'doc28@example.com', '010-8888-2020', '801212', 'M', '경상남도 창원시', 'M8', 'H10', '/resources/images/doctorPicDefault.png');
 
--- H6 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1020', 'doc20', 'password20', '한동민', 'doc20@example.com', '010-1010-1616', '801212', 'M', '전라남도 여수시', 'M2', 'H6');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1029', 'doc29', 'password29', '유은지', 'doc29@example.com', '010-9999-2020', '801212', 'F', '경상남도 김해시', 'M9', 'H10', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1021', 'doc21', 'password21', '김진아', 'doc21@example.com', '010-1111-1616', '801212', 'F', '전라남도 광양시', 'M1', 'H6');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
+VALUES ('U1030', 'doc30', 'password30', '김태준', 'doc30@example.com', '010-1010-2020', '801212', 'M', '경상남도 진주시', 'M10', 'H10', '/resources/images/doctorPicDefault.png');
 
--- H7 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1022', 'doc22', 'password22', '이승훈', 'doc22@example.com', '010-2222-1717', '801212', 'M', '충청북도 청주시', 'M2', 'H7');
-
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1023', 'doc23', 'password23', '송지수', 'doc23@example.com', '010-3333-1717', '801212', 'F', '충청북도 충주시', 'M3', 'H7');
-
--- H8 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1024', 'doc24', 'password24', '이강민', 'doc24@example.com', '010-4444-1818', '801212', 'M', '충청남도 천안시', 'M4', 'H8');
-
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1025', 'doc25', 'password25', '백지원', 'doc25@example.com', '010-5555-1818', '801212', 'F', '충청남도 공주시', 'M5', 'H8');
-
--- H9 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M6', 'H9');
-
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M7', 'H9');
-
--- H10 병원
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1028', 'doc28', 'password28', '정성훈', 'doc28@example.com', '010-8888-2020', '801212', 'M', '경상남도 창원시', 'M8', 'H10');
-
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1029', 'doc29', 'password29', '유은지', 'doc29@example.com', '010-9999-2020', '801212', 'F', '경상남도 김해시', 'M9', 'H10');
-
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO)
-VALUES ('U1030', 'doc30', 'password30', '김태준', 'doc30@example.com', '010-1010-2020', '801212', 'M', '경상남도 진주시', 'M10', 'H10');
 
 
 
