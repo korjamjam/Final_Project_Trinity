@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -45,6 +48,7 @@ public class HospitalController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
 	private final ReservationService reservationService;
+	private final BoardService boardService;
 	
 	
 	
@@ -52,11 +56,13 @@ public class HospitalController {
 	public HospitalController(HospitalService hospitalService, 
 			MemberService memberService, 
 			BCryptPasswordEncoder bcryptPasswordEncoder,
-			ReservationService reservationService) {
+			ReservationService reservationService,
+			BoardService boardService) {
 	    this.hospitalService = hospitalService;
 	    this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
 		this.reservationService = reservationService;
+		this.boardService = boardService;
 	}
 
 	
@@ -467,8 +473,27 @@ public class HospitalController {
 		    }
 	    }
 	}
+	
+	@RequestMapping("/account/myPost")
+	public String HospitalAccountMyPost(HttpSession session, Model m) {
+		 // 로그인된 사용자 가져오기
+	    HospitalAccount loginHosAccount = (HospitalAccount) session.getAttribute("loginHosAccount");
+	    if (loginHosAccount == null) {
+	        return "redirect:/hospital/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    // 사용자 번호로 내가 쓴 게시글 조회
+	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosNo());
+	    m.addAttribute("myposts", myposts);
+
+	    return "hospital_detail/hospital_account_my_post";
+	}
 
 	//화면 이동 하는거
+	@RequestMapping("/account/myPost/write")
+	public String HospitalAccountMyPostWrite() {
+		return "hospital_detail/hospital_account_post_write_form";
+	}
 	
 	@RequestMapping("account/insertDr")
 	public String HospitalAccountInsertDoctor() {

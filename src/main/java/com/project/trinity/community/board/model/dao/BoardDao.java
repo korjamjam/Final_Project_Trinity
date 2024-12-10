@@ -343,6 +343,13 @@ public class BoardDao {
 
 
 
+	public List<Board> getPostsByHosNo(SqlSessionTemplate sqlSession, String hosNo) {
+		return sqlSession.selectList("boardMapper.getPostsByHosNo", hosNo);
+	}
+
+
+
+
 
 
 	

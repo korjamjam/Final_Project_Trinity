@@ -283,6 +283,11 @@ public class BoardServiceImpl implements BoardService {
 	        return boardDao.insertAnswer(sqlSession, ans);
 	    }
 
+	@Override
+	public List<Board> getPostsByHosNo(String hosNo) {
+		return boardDao.getPostsByHosNo(sqlSession, hosNo);
+	}
+
 
 
 }

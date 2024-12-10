@@ -608,6 +608,18 @@
 		ORDER BY
 		ENROLL_DATE DESC
 	</select>
+	
+	<!-- 병원 번호 게시글 조회 -->
+	<select id="getPostsByHosNo" parameterType="string"
+		resultMap="boardResult">
+		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS,
+		STATUS
+		FROM BOARD
+		WHERE USER_NO = #{hosNo}
+		AND STATUS = 'Y'
+		ORDER BY
+		ENROLL_DATE DESC
+	</select>
 
 
 	<!-- MedAnswer 추가 -->
