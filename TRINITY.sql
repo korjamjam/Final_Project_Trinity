@@ -56,7 +56,6 @@ CREATE SEQUENCE SEQ_ANSWER_NO START WITH 1 INCREMENT BY 1 NOCACHE; -- 새로 추
 
 
 -- 테이블 생성 ----------------------------------------------------------------------------------------------------------
-
 CREATE TABLE HOSPITAL_INFO (
     HOS_NO VARCHAR2(10) PRIMARY KEY,
     HOS_NAME VARCHAR2(250),
@@ -209,7 +208,7 @@ CREATE TABLE BOARD (
     BOARD_CONTENT VARCHAR2(4000),             -- 게시판 내용
     ENROLL_DATE DATE DEFAULT SYSDATE,         -- 등록 날짜
     MODIFIED_DATE DATE DEFAULT SYSDATE,       -- 수정 날짜
-    BOARD_VIEWS VARCHAR2(10) DEFAULT '0',     -- 조회수 (기본값: 0)
+    BOARD_VIEWS NUMBER(10) DEFAULT '0',     -- 조회수 (기본값: 0)
     CATEGORY_ID VARCHAR2(20),                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
@@ -295,6 +294,7 @@ CREATE TABLE RANKUP (
 );
 
 
+ALTER TABLE MEMBER ADD BIOGRAPHY VARCHAR2(2000);
 
 -- 트리거 생성----------------------------------------------------------------------------------------------------------
 
@@ -623,7 +623,6 @@ BEGIN
             'Y'
         );
     END LOOP;
-    
 END;
 /
 

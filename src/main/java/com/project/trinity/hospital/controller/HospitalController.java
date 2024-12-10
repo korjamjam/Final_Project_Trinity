@@ -33,6 +33,7 @@ import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
+import com.project.trinity.reservation.model.vo.CountReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
@@ -136,10 +137,10 @@ public class HospitalController {
 	
 	@RequestMapping("/detail/todayWaitingList")
     @ResponseBody
-    public ArrayList<Reservation> waitingList(@RequestParam(value = "hosNo") String hosNo) {
+    public ArrayList<CountReservation> waitingList(@RequestParam(value = "hosNo") String hosNo) {
 		System.out.println("hosNo : " + hosNo);
 		//여기서부터
-		ArrayList<Reservation> watingList = reservationService.selectTodayWaitingList(hosNo);
+		ArrayList<CountReservation> watingList = reservationService.selectTodayWaitingList(hosNo);
 		System.out.println("watingList : " + watingList);
 		return watingList;
     }

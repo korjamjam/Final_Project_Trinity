@@ -221,16 +221,14 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+
 	@Override
-	public ArrayList<Board> selectList(PageInfo pi, String sortType) {
-		return boardDao.selectList(sqlSession, pi, sortType);
+	public List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
+	    return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
 	}
-
 	@Override
-	public List<Board> selectListByCategory(String categoryId, PageInfo pi) {
-
-		// 쿼리 실행
-		return boardDao.selectListByCategory(sqlSession, categoryId, pi);
+	public List<Board> getLatestPosts(String categoryId) {
+	    return boardDao.getLatestPosts(sqlSession, categoryId);
 	}
 
 	@Override
@@ -281,7 +279,7 @@ public class BoardServiceImpl implements BoardService {
 
 	  @Override
 	    public int saveAnswer(MedAnswer ans) {
-	     
+		  System.out.println("서비스 Save Answer Debug: " + ans);
 	        return boardDao.insertAnswer(sqlSession, ans);
 	    }
 

@@ -111,6 +111,10 @@ public class AdminDao {
     public List<Reservation> getAllReservations(SqlSessionTemplate sqlSession) {
         return sqlSession.selectList("adminMapper.getAllReservations");
     }
+
+    public Map<String, Object> getReservationDetail(SqlSessionTemplate sqlSession, String reservationNo) {
+        return sqlSession.selectOne("adminMapper.getReservationDetail", reservationNo);
+    }
     
   //-------------------------------게시글 관리-------------------------------
     public List<Board> getAllPosts(SqlSessionTemplate sqlSession) {

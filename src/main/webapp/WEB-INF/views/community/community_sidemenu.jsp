@@ -7,34 +7,34 @@
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/community/community_sidemenu.css">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
 <title>Community SideMenu</title>
-<style>
-    .community-sidemenu .menu-table a.active {
-        color: #6cc24a; /* 연두색 */
-        font-weight: bold;
-    }
-</style>
+
 </head>
 <body>
 
     <div class="community-sidemenu">
         <table class="menu-table">
             <tr>
-                <th><a href="main?type=popular" id="popular">실시간 인기글</a></th>
+                <th><a href="${pageContext.request.contextPath}/community/main">실시간 인기글</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=free" id="free">자유게시판</a></th>
+                <th><a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT01"
+                    id="free">자유게시판</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=meditalk" id="meditalk">메디톡</a></th>
+                <th><a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT02"
+                    id="meditalk">메디톡</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
             <tr>
-                <th><a href="${ pageContext.servletContext.contextPath }/community/board?type=event" id="event">이벤트</a></th>
+                <th> <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT03"
+                    id="event">이벤트게시판</a></th>
                 <td><span class="arrow">&gt;</span></td>
             </tr>
         </table>
+    
+    
         <div class="support-box">
             <p class="support-text">도움이 필요하신가요?</p>
             <a href="inquiry_qna.me" class="support-link">1:1 문의하기</a>

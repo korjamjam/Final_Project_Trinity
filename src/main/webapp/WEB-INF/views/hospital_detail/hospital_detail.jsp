@@ -37,11 +37,12 @@
     <script>
         let contextPath = "${ pageContext.servletContext.contextPath }";
     </script>
+
 </head>
 <body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
-
+    
     <br><br>
 	<div class="hospital_detail_page_wrapper">
     <div class="hospital_detail_event_wrapper">
@@ -58,7 +59,7 @@
         <div class="hospital_detail_status">
             <button class="hospital_detail_btn1">진료중</button>
             <button class="hospital_detail_btn3">진료종료</button>
-            <button class="hospital_detail_btn2" data-toggle="modal" data-target="#viewWaitingModal" onclick="getReservationInfoList()">대기자 수 확인하기</button>
+            <button class="hospital_detail_btn2" data-toggle="modal" data-target="#viewWaitingModal" onclick="getTodayWaitingList()">대기자 수 확인하기</button>
         </div>
         
         <input type="hidden" id="hosNo" value="${hospitalInfo.hosNo}">
@@ -72,8 +73,8 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">당일 예약 정보</h4>
                     </div>
-                    <div class="modal-body">
-                        <p>예약 정보</p>
+                    <div class="modal-body" style="justify-content: space-around !important;">
+                        <div class="waitingNavi"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

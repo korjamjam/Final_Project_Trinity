@@ -12,6 +12,7 @@ $(function() {
       dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
       weekHeader: "주",
       yearSuffix: '년',
+      minDate: 0,
       inline: true,
       onSelect: function(gReservation_date) {
         $("input[name='gReservation_date']").val(gReservation_date);
@@ -27,7 +28,8 @@ $(function() {
 
     const curTime = document.getElementById("curTime").value;
     document.getElementById("gReservation_date").value = curTime;
-    if(curTime != null){
+    console.log(curTime)
+    if(curTime != ""){
         $(".reservation_notNullDate").click();
     } else{
         // console.log($(".reservation_subject_select_title"))
@@ -109,3 +111,4 @@ function updateHiddenInput(value) {
     full = start + middle + end;
     document.getElementById('phone').value = full;
   }
+

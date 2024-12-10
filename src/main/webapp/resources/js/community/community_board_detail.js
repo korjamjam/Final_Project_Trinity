@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 드롭다운 옵션 클릭 시 동작
-    document.querySelectorAll(".option-item").forEach(option => {
+     // 드롭다운 옵션 클릭 시 페이지 이동
+     document.querySelectorAll(".option-item").forEach(option => {
         option.addEventListener("click", function () {
             const categoryId = this.getAttribute("data-url");
             const categoryName = this.textContent.trim(); // 카테고리 이름 가져오기
@@ -30,8 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 선택된 카테고리 ID로 페이지 이동
             if (categoryId) {
-                console.log("선택된 카테고리 URL:", `/boardDetail?categoryId=${categoryId}`);
-                window.location.href = `/trinity/community/board?categoryId=${categoryId}`;
+                const targetUrl = `${contextPath}/community/main?categoryId=${categoryId}`;
+                console.log("선택된 카테고리 URL:", targetUrl);
+                window.location.href = targetUrl;
             }
         });
     });
