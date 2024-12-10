@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.trinity.member.model.vo.Guest;
-import com.project.trinity.reservation.model.vo.GeneralReservation;
+import com.project.trinity.reservation.model.vo.CountReservation;
 import com.project.trinity.reservation.model.vo.Reservation;
 
 public interface ReservationService {
@@ -27,6 +27,8 @@ public interface ReservationService {
 	int cancelReservation(String resNo);
 
 	ArrayList<Reservation> selectReservationHosNo(String hosNo);
+
+	ArrayList<CountReservation> selectTodayWaitingList(String hosNo);
 
 	
 

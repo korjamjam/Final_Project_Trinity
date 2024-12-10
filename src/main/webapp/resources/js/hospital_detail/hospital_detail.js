@@ -212,3 +212,78 @@ const getReservationInfoList = function () {
         }
     });
 };
+
+const getTodayWaitingList = function () {
+    let hosNo = document.getElementById('hosNo').value;
+
+    $.ajax({
+        url: contextPath + ('/hospital/detail/todayWaitingList'),
+        type: "GET",
+        data: { 
+                hosNo: hosNo
+            },
+        dataType: "json",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addTodayWaitingList(response); // 데이터를 리뷰창에 추가
+            } else {
+                console.log("대기가 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            // console.log(url);
+            console.log("데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+};
+
+function addTodayWaitingList(waitings) {
+    $('.waitingContainer').remove();
+    waitings.forEach(waiting => {
+        if(waiting == null){
+            $('.waitingNavi').append(`현재 대기중인 고객이 존재하지 않습니다.`);
+        }
+        else{
+            $('.waitingNavi').append(`
+                <div class="waitingContainer">
+                    <div class="waitingItem">
+                        <div class="waitingItemWrapper">
+                            <div class="waitingIcon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="waitingInfo">
+                                <span class="waitingLabel">시간</span>
+                                <strong class="waitingValue">${waiting.startTime} ~ ${waiting.endTime}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="waitingItem">
+                        <div class="waitingItemWrapper">
+                            <div class="waitingIcon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="waitingInfo">
+                                <span class="waitingLabel">&nbsp;대기자 수</span>
+                                <strong class="waitingValue">${waiting.count}명</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+    });
+}
+// const curDate = new Date();
+//     let month = `${curDate.getMonth() + 1}`
+//     let date = `${curDate.getDate()}`;
+//     let year = `${curDate.getFullYear()}`;
+//     if(month < 10){
+//         month = '0' + month.toString();
+//     }
+//     if(date < 10){
+//         date = '0' + date.toString();
+//     }
+
+//     let curTime = month + '/' +
+//     date + '/' +
+//     year;

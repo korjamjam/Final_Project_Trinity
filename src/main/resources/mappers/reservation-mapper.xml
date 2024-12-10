@@ -32,10 +32,14 @@
 		<result property="hosAddress" column="HOS_ADDRESS" />
 		<result property="phone" column="PHONE" />
 		<result property="gender" column="G_RES_GENDER" />
+		<result property="count" column="COUNT" /> <!-- 예약자 확인용 몇명일때만 사용 -->
 	</resultMap>
-
-
-
+	
+	<resultMap id="CountReservationResultSet" type="CountReservation">
+		<result property="startTime" column="START_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="count" column="COUNT" /> <!-- 예약자 확인용 몇명일때만 사용 -->
+	</resultMap>
 	<!-- 일반 진료 회원 예약 -->
 	<insert id="insertgReservation" parameterType="Reservation">
 		<selectKey keyProperty="resNo" resultType="java.lang.String"
@@ -218,6 +222,17 @@
 		  JOIN MEMBER USING (USER_NO)
 		  LEFT OUTER JOIN GUEST USING (GST_NO)
 		 WHERE G_RES_NO = #{resNo}
+	</select>
+	
+	<select id="selectTodayWaitingList" resultMap="CountReservationResultSet">
+		SELECT G_RES_TIME AS START_TIME, 
+		       TO_CHAR(TO_DATE(G_RES_TIME, 'HH24:MI') + INTERVAL '30' MINUTE, 'HH24:MI') AS END_TIME, 
+		       COUNT(*) AS COUNT
+		FROM GENERAL_RESERVATION
+		WHERE HOS_NO = #{hosNo} AND
+		   	  TO_CHAR(SYSDATE, 'YY/MM/DD') = G_RES_DATE
+		GROUP BY G_RES_TIME
+		ORDER BY G_RES_TIME
 	</select>
 
 </mapper>
