@@ -362,7 +362,9 @@
 	<update id="updateMyHospitalAI">
 		UPDATE HOSPITAL_INFO
 		   SET HOS_ADDRESS = #{hosAddress},
-		       HOS_TEL = #{hosTel}
+		       HOS_TEL = #{hosTel},
+		       HOS_LATITUDE = #{hosLatitude},
+		       HOS_LONGITUDE = #{hosLongitude}
 		 WHERE HOS_NO = #{hosNo}
 	</update>
 </mapper>
