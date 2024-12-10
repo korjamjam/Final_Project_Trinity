@@ -52,6 +52,13 @@ body{
     margin-bottom: 10px;
 }
 
+.waitingNavi{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .waitingLabel {
     font-weight: bold;
     color: #495057;
