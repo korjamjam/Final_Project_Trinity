@@ -432,23 +432,24 @@ VARIABLE var_name VARCHAR2(20);
 EXEC :var_name := 'example_value';
 
 -- 더미데이터 --------------------------------------------------------------------------------------------------------
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender, isadmin) 
-VALUES ('U1','admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111',  '801212', 'Seoul, Korea', 'M', 'Y');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, isadmin, userprofile) 
+VALUES ('U1', 'admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111', '801212', 'Seoul, Korea', 'M', 'Y', '/resources/images/default_profile.png');
 
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U2','user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', '801212', 'Seoul, Korea', 'F');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U2', 'user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', '801212', 'Seoul, Korea', 'F', '/resources/images/default_profile.png');
 
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U3','user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', '801212', 'Busan, Korea', 'M');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U3', 'user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', '801212', 'Busan, Korea', 'M', '/resources/images/default_profile.png');
 
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U4','user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', '801212', 'Incheon, Korea', 'M');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U4', 'user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', '801212', 'Incheon, Korea', 'M', '/resources/images/default_profile.png');
 
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U5','user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '801212', 'Daegu, Korea', 'F');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U5', 'user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '801212', 'Daegu, Korea', 'F', '/resources/images/default_profile.png');
 
-INSERT INTO MEMBER (user_no,user_id, user_pwd, user_name, email, phone, birthday, address, gender) 
-VALUES ('U6','user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M');
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U6', 'user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M', '/resources/images/default_profile.png');
+
 -- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
 
 -- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
@@ -10658,6 +10659,19 @@ INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REV
 VALUES ('U6', 'U36', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
 VALUES ('U6', 'U36', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+
+
+INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('이환자', 'EX1@NAVER.COM', '0101234567', '051211', 'M');
+INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('김방문', 'EX2@GMAIL.COM', '0109876543', '900305', 'F');
+INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('박내원', 'EX3@DAUM.NET', '0102345678', '880712', 'M');
+INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('최진료', 'EX4@NAVER.COM', '0108765432', '950418', 'F');
+INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('정예약', 'EX5@YAHOO.COM', '0103456789', '921103', 'M');
+
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G2', '이환자', '051211', '24/12/10', '09:00', '소아청소년과', '아파요', 'M');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G3', '김방문', '900305', '24/12/11', '10:30', '내과', '두통이 심해요', 'F');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G4', '박내원', '880712', '24/12/12', '14:00', '정형외과', '무릎이 아파요', 'M');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G5', '최진료', '950418', '24/12/13', '11:30', '피부과', '발진이 생겼어요', 'F');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G6', '정예약', '921103', '24/12/14', '15:30', '안과', '시력검사 받고 싶어요', 'M');
 
 
 SELECT * FROM MEMBER;
