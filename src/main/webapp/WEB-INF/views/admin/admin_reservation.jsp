@@ -49,7 +49,7 @@
         <div class="reservation-list">
             <c:forEach var="reservation" items="${reservations}">
                 <!-- 예약 종류를 data-type 속성으로 저장 -->
-                <a href="reservationDetail?resNo=${reservation.gresNo != null ? reservation.gresNo : (reservation.vresNo != null ? reservation.vresNo : reservation.healthResNo)}"
+                <a href="reservationDetail?reservationNo=${reservation.gresNo != null ? reservation.gresNo : (reservation.vresNo != null ? reservation.vresNo : reservation.healthResNo)}"
                    class="reservation-item"
                    data-type="${reservation.gresNo != null ? '진료예약' : (reservation.vresNo != null ? '백신예약' : '검진예약')}">
                     <p>

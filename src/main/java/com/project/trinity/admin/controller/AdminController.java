@@ -1,6 +1,7 @@
 package com.project.trinity.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -205,9 +206,15 @@ public class AdminController {
     
     //예약관리 상세 페이지
     @RequestMapping("/reservationDetail")
-    public String showAdminReservationDetail() {
+    public String showReservationDetail(@RequestParam("reservationNo") String reservationNo, Model model) {
+        // 서비스에서 예약 정보를 가져옴
+        Map<String, Object> reservationDetail = adminService.getReservationDetail(reservationNo);
+
+        // 가져온 데이터를 JSP로 전달
+        model.addAttribute("reservationDetail", reservationDetail);
         return "admin/admin_reservation_detail";
     }
+
     
     //----------------------------------게시글관리 페이지----------------------------------
     @RequestMapping("/post")
