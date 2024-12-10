@@ -79,34 +79,26 @@
             <tr>
                 <th>리뷰</th>
                 <td>
-                    <div class="hospital_detail_doctor_row_wrapper">
-                        <div class="hospital_detail_doctor_row">
-                            <div class="hospital_detail_doctor_detail" style="background-color: #ffffff;">
-                                <div class="hospital_detail_share" style="background-color: #ffffff;">
-                                    <input type="hidden" id="doctorNo" value="${doctor.userNo}">
-                                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews()">
-                                        의사 리뷰보기
-                                    </button>
-                                </div>
-    
-                                <!-- showReview Modal -->
-                                <div class="modal fade" id="showReviewModal" role="dialog">
-                                    <div class="modal-dialog">
-                                    
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">의사 리뷰</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="reviewNavi"></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                                        </div>
-                                    </div>
-                                </div>
+                    <input type="hidden" id="doctorNo" value="${doctor.userNo}">
+                    <button type="button" class="review-button" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews()">
+                        리뷰 조회
+                    </button>
+
+                    <!-- showReview Modal -->
+                    <div class="modal fade" id="showReviewModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">의사 리뷰</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="reviewNavi"></div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                             </div>
                         </div>
                     </div>

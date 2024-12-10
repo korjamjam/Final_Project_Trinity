@@ -3,7 +3,6 @@ package com.project.trinity.community.board.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,22 +39,23 @@ import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("/community")
 public class BoardController {
-	private final BoardService boardService;
+    private final BoardService boardService;
+    private final MemberService memberService;
 
-	@Autowired
-	public BoardController(BoardService boardService) {
-		this.boardService = boardService;
-	}
-	   // 날짜를 yyyy-MM-dd 형식으로 변환하는 메서드
-    public String formatDate(LocalDate date) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(dateFormat);
+    @Autowired
+    public BoardController(BoardService boardService, MemberService memberService) {
+        this.boardService = boardService;
+        this.memberService = memberService; // 초기화
     }
+
+
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
@@ -174,32 +175,39 @@ public class BoardController {
 	}
 	
 	@PostMapping("/submitAnswer")
-	@ResponseBody
-	public Map<String, Object> submitAnswer(@RequestBody MedAnswer answer, HttpSession session) {
-	    // MedAnswer 객체 출력 (디버깅용)
-	    System.out.println("MedAnswer 객체: " + answer);
-
-	    // 로그인 사용자 정보 가져오기
+	public String submitAnswer(@ModelAttribute MedAnswer ans, HttpSession session) {
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    answer.setUserNo(loginUser.getUserNo());
+	    if (loginUser == null) {
+	        throw new RuntimeException("로그인 정보가 없습니다.");
+	    }
 
-	    // 데이터 저장
-	    boardService.saveAnswer(answer);
+	    // 로그인 사용자 정보 설정
+	    ans.setMedNo(loginUser.getMedKey());
+	    ans.setStatus("Y");
+	    ans.setIsMedicalField("Y");
 
-	   
-	    // 반환할 데이터 준비
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("doctorName", loginUser.getUserName()); // 세션에서 바로 가져온 userName
-	    response.put("answerDate", answer.getEnrollDate());
-	    response.put("answerContent", answer.getAnswerContent());
+	    // MedicalField 정보 설정
+	    MedicalField mf = memberService.getMedicalFieldByMedNo(loginUser.getMedKey());
+	    if (mf != null) {
+	        ans.setMedicalFieldId(mf.getMedicalFieldId());
+	    }
 
-	    return response; // JSON 반환
+	    // 답글 저장 로직
+	    boardService.saveAnswer(ans);
+
+	    // 답글 저장 후 게시글 상세보기로 리다이렉트
+	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
 	}
+
+
+
+
+
 
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
-	public String selectBoard(@RequestParam("bno") String bno, Model m) {
+	public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
 	    // 현재 게시글 번호 확인
 	    System.out.println("Received bno: " + bno);
 
@@ -220,6 +228,11 @@ public class BoardController {
 	    // 카테고리 이름 조회
 	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
 
+	    // 로그인 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser != null) {
+	        m.addAttribute("doctorName", loginUser.getUserName()); // 의사 이름을 doctorName으로 전달
+	    }
 	    // 이전 글 번호 조회 후 상세 정보 조회
 	    String prevBno = boardService.getPreviousBoard(bno);
 	    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
@@ -270,9 +283,7 @@ public class BoardController {
 	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
 	        return "/common/errorPage";
 	    }
-	 // 게시글 작성일을 출력할 때
-	    String formattedEnrollDate = formatDate(b.getEnrollDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-	    m.addAttribute("formattedEnrollDate", formattedEnrollDate);
+	 
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());

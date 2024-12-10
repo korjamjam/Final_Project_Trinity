@@ -389,6 +389,16 @@ body{
     height: 20px !important;
 }
 
+/*병원 페이지 의사 리뷰 조회 버튼*/
+.review-button{
+    background-color: #fff;
+    color: black;
+    width: 80px;
+    height: 32px;
+    border-radius: 5px;
+    border: 1px solid #8ccf4e;
+    
+}
 @media (min-width: 600px) {
     .hospital_detail_event_wrapper{
         display: flex;
