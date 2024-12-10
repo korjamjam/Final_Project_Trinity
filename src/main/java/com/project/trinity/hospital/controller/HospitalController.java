@@ -315,9 +315,25 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("account/doctor/detail")
-	public String HospitalAccountDoctorDetail(String userId, Model m) {
+	public String HospitalAccountDoctorDetail(String userId, Model m, HttpSession session) {
 		Member doctor = memberService.findByUserId(userId);
 		m.addAttribute("doctor", doctor);
+		String hosNo = (String)session.getAttribute("hsoNo");
+		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctor.getUserNo());
+//		System.out.println(doctorReviews);
+		double avg = 0;
+		if (doctorReviews.size() > 0) {
+			for(int j = 0; j < doctorReviews.size(); j++) {
+				avg += doctorReviews.get(j).getReviewRating();
+			}
+			avg /= doctorReviews.size();
+			avg = Math.round(avg * 100) / 100.0;
+		}
+		double rating = avg;
+		System.out.println(rating); 
+	
+		m.addAttribute("rating", rating);
+		
 		return "hospital_detail/hospital_account_doctor_detail";
 	}
 	

@@ -30,14 +30,21 @@
 	<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
 
 	<!-- JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
 	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
 </head>
 <body>
+	<c:if test="${ not empty message}">
+		<script>
+			alert("${message}");
+		</script>
+		<c:remove var="message" scope="session"/>
+	</c:if>
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
-	<input type="hidden" id="general_reservation_ok" value="${Msg}">
+	<input type="hidden" id="general_reservation_ok" value="${message}">
 
 
 	<div class="wrapper">
