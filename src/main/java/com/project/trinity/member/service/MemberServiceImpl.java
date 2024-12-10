@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.trinity.member.model.dao.MemberDao;
 import com.project.trinity.member.model.vo.DoctorReview;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
 
 @Service
@@ -141,6 +142,11 @@ public class MemberServiceImpl implements MemberService {
 		int result = memberDao.hospitalAccountDeleteDoctor(sqlSession, userNo);
 		System.out.println("[DEBUG] hospitalAccountDeleteDoctor 결과: " + result);
 		return result;
+	}
+
+	@Override
+	public MedicalField getMedicalFieldByMedNo(String medKey) {
+	    return memberDao.selectMedicalFieldByMedNo(sqlSession, medKey);
 	}
 
 }

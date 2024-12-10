@@ -279,8 +279,8 @@
                                 </div>
                             </div>
                             <div class="hospital_detail_share">
-                                <input type="hidden" id="doctorNo" value="${i.userNo}">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews()">
+                                <input type="hidden" id="${i.userNo}" value="${i.userNo}">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews('${i.userNo}')">
                                     의사 리뷰보기
                                 </button>
                             </div>
@@ -295,7 +295,7 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">의사 리뷰</h4>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body modal-body-review">
                                         <div class="reviewNavi"></div>
                                     </div>
                                     <div class="modal-footer">

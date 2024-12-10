@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.trinity.member.model.vo.DoctorReview;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
 
 public interface MemberService {
@@ -43,6 +44,8 @@ public interface MemberService {
 	int updateHospitalDoctor(HashMap<String, String> hmap);
 
 	int hospitalAccountDeleteDoctor(String userNo);
+
+	MedicalField getMedicalFieldByMedNo(String medKey);
 
     
   

@@ -316,6 +316,7 @@
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
+					<parameters>true</parameters>
 				</configuration>
 			</plugin>
 			<plugin>

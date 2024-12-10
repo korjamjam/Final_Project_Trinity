@@ -309,7 +309,7 @@ body{
 }
 
 /* 의사 리뷰 */
-.modal-body{
+.modal-body-review{
     display: flex;
     align-items: center;
     justify-content: center;
