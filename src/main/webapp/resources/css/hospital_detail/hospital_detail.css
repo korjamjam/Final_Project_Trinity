@@ -427,6 +427,17 @@ body{
     width: 20px !important;
     height: 20px !important;
 }
+.reviewFooter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.reviewBtn{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+}
 
 /*병원 페이지 의사 리뷰 조회 버튼*/
 .review-button{

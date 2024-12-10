@@ -132,12 +132,46 @@ public class HospitalController {
 		return "hospital_detail/hospital_detail";
 	}
 	
+	@RequestMapping(value = "/detail/doctorBiography", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String doctorBiography(@RequestParam(value = "doctorNo") String doctorNo) {
+		System.out.println("doctorNo : " + doctorNo);
+		String doctorBiography = memberService.selectDoctorBiography(doctorNo);
+		System.out.println("doctorBiography : " + doctorBiography);
+		return doctorBiography;
+    }
+	
 	@RequestMapping("/detail/doctorReview")
     @ResponseBody
     public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
 		System.out.println("doctorNo : " + doctorNo);
 		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
 		System.out.println("doctorReviews : " + doctorReviews);
+		return doctorReviews;
+    }
+	
+	@RequestMapping("/detail/uploadReview")
+    @ResponseBody
+    public ArrayList<DoctorReview> uploadReview(@RequestParam(value = "writerNo") String writerNo,
+    											@RequestParam(value = "doctorNo") String doctorNo,
+    											@RequestParam(value = "reviewTitle") String reviewTitle,
+    											@RequestParam(value = "reviewContent") String reviewContent,
+    											@RequestParam(value = "reviewRating") String reviewRating) {
+		System.out.println("writerNo : " + writerNo);
+		System.out.println("doctorNo : " + doctorNo);
+		System.out.println("reviewTitle : " + reviewTitle);
+		System.out.println("reviewContent : " + reviewContent);
+		System.out.println("reviewRating : " + reviewRating);
+		int result = memberService.insertDoctorReview(writerNo, doctorNo, reviewTitle, reviewContent, reviewRating);
+		ArrayList<DoctorReview> doctorReviews = null;
+		if(result != 0) {
+			System.out.println("리뷰 삽입 성공");
+			doctorReviews = memberService.selectDoctorReview(doctorNo);
+		} else {
+			System.out.println("리뷰 삽입 실패");
+		}
+		
+		//다시 리스트 불러오기
 		return doctorReviews;
     }
 	
