@@ -21,7 +21,7 @@
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/comments.css" rel="stylesheet">
 			<script
 				src="${ pageContext.servletContext.contextPath }/resources/js/community/community_board_detail.js"></script>
-	
+
 		</head>
 
 
@@ -36,14 +36,14 @@
 				// 로그로 JSP에서 전달된 데이터 확인
 				console.log("로그인 유저 : ${loginUser}");
 				console.log("boardNo: ${b.boardNo}, categoryId: ${b.categoryId}");
-				
+
 				// 답변하기 버튼 클릭시 URL 확인
 				function handleAnswerClick(url) {
 					console.log("답변하기 버튼 클릭 URL:", url);  // URL을 콘솔에 출력
 					window.location.href = url;
 				}
 			</script>
-			
+
 
 			<!-- Header Section -->
 			<header>
@@ -164,10 +164,10 @@
 							<c:if test="${not empty fileList}">
 								<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
 							</c:if>
-							
+
 							<div>
 								<!-- 메디톡 카테고리에서만 답변하기 버튼 표시 -->
-								<c:if test="${categoryName eq '메디톡'}">
+								<c:if test="${categoryName eq '메디톡' && loginUser != null && loginUser.medKey != null}">
 									<div class="request-content">
 										<p class="request-message">
 											<span class="request-title">
@@ -175,29 +175,38 @@
 											</span><br>
 											정보를 공유해 주세요.
 										</p>
-										
-										
+
+
 										<!-- 답변 버튼 -->
 										<a class="round-button" href="#"
 											onclick="handleAnswerClick('${pageContext.request.contextPath}/community/medAnswer?bno=${b.boardNo}')">
 											답변하기
 										</a>
-										
+
 									</div>
 								</c:if>
 							</div>
 							<div id="answer-list">
-								<c:forEach var="a" items="${answers}">
+								<c:forEach var="a" items="${ans}">
 									<div class="board-content answer-item">
 										<div class="answer-content">
-											<div class="answer-author">작성자: ${loginUser.userName}</div> <!-- 로그인 사용자의 이름 -->
-											<div class="answer-date">작성일: ${a.enrollDate}</div>
+											<div class="doctor-card">
+												<div class="doctor-photo">
+													<img src="${pageContext.servletContext.contextPath}/resources/img/doctor.jpg"
+														alt="의사아이콘">
+												</div>
+												<div class="doctor-info">
+													<div class="answer-author">작성자 : ${a.doctorName}</div>
+													<div class="answer-field">${a.medicalFieldId}</div>
+													<div class="answer-date">작성일 : ${a.enrollDate}</div>
+												</div>
+											</div>
 											<div class="answer-text">${a.answerContent}</div>
 										</div>
 									</div>
 								</c:forEach>
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -210,6 +219,6 @@
 				<%@ include file="/WEB-INF/views/common/main_footer.jsp" %>
 			</footer>
 
-			</body>
+		</body>
 
 		</html>

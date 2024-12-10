@@ -281,7 +281,7 @@ public class BoardServiceImpl implements BoardService {
 
 	  @Override
 	    public int saveAnswer(MedAnswer ans) {
-	     
+		  System.out.println("서비스 Save Answer Debug: " + ans);
 	        return boardDao.insertAnswer(sqlSession, ans);
 	    }
 

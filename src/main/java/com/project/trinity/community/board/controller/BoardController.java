@@ -191,16 +191,16 @@ public class BoardController {
 	    if (mf != null) {
 	        ans.setMedicalFieldId(mf.getMedicalFieldId());
 	    }
-
+	    System.out.println("답글 제출 전 ANS Debug: " + ans);
 	    // 답글 저장 로직
 	    boardService.saveAnswer(ans);
-
+	    System.out.println("답글 제출 후 ANS Debug: " + ans);
 	    // 답글 저장 후 게시글 상세보기로 리다이렉트
 	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
 	}
 
 
-
+	
 
 
 
@@ -213,7 +213,8 @@ public class BoardController {
 
 	    // 현재 게시글 조회
 	    Board b = boardService.selectBoard(bno);
-	    List<MedAnswer> answers = boardService.getAnswersByBoardNo(bno);
+	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
+	    System.out.println("상세페이지 ans Debug: " + ans);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
@@ -251,7 +252,7 @@ public class BoardController {
 	    m.addAttribute("categories", categories); // 카테고리 목록
 	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
 	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
-	    m.addAttribute("answers", answers); // 답변 리스트 추가
+	    m.addAttribute("ans", ans); // 답변 리스트 추가
 	  
 	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}
