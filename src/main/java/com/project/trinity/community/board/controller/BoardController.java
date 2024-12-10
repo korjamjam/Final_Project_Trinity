@@ -68,7 +68,7 @@ public class BoardController {
 		// 페이징 정보 설정
 		PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
-		// 게시글 목록 조회
+		// 게시글 목록 조회, 실시간 인기글 동시 구현
 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
 	
 		// 모델에 데이터 추가
@@ -79,58 +79,32 @@ public class BoardController {
 		return "community/board";
 	}
 
-//@RequestMapping("/board")
-//	public String getBoardPage(
-//	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-//	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//	    Model model
-//	) {
-//	    String categoryId = null;
-//	    String categoryName = null;
-//
-//	    // 'popular' 타입은 카테고리가 아니므로, 실시간 인기글로 고정
-//	    if ("popular".equals(type)) {
-//	        categoryName = "실시간 인기글";  // 인기글 이름
-//	    } else {
-//	        // 카테고리별 type에 맞춰 categoryId 설정
-//	        categoryId = getCategoryIdByType(type);
-//	        categoryName = boardService.getCategoryNameById(categoryId);  // 서비스에서 카테고리 이름 조회
-//	    }
-//
-//	    model.addAttribute("categoryId", categoryId);
-//	    model.addAttribute("categoryName", categoryName);
-//
-//	    // 'popular' 타입일 때는 조회수가 높은 게시글을 가져옴
-//	    if ("popular".equals(type)) {
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//
-//	        // 조회수가 높은 게시글을 가져오는 서비스 호출
-//	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
-//	        model.addAttribute("recentPopularList", recentPopularList);
-//	        System.out.println("최근 인기 게시글: " + recentPopularList);
-//	    } else {
-//	        // 다른 카테고리별 게시글 목록 처리
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//	        params.put("categoryId", categoryId);
-//
-//	        List<Board> boardList = boardService.selectListByCategory(type, params);
-//	        model.addAttribute("boardList", boardList);
-//	    }
-//
-//	    return "community/community_main_popular";
-//	}
+	@RequestMapping("/sideBarToBoard")
+	public String getSideBoardPage(
+	    @RequestParam(value = "categoryId", required = true) String categoryId, // 필수 파라미터로 설정
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지
+	    Model m
+	) {
+	    // 카테고리 이름 설정
+	    String categoryName = boardService.getCategoryNameById(categoryId);
+
+	    // 페이징 정보 설정
+	    int listCount = boardService.selectCountCategoryList(categoryId); // 총 게시글 수 조회
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 페이징 계산
+
+	    // 게시글 목록 조회
+	    List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
+
+	    // 모델에 데이터 추가
+	    m.addAttribute("categoryId", categoryId);
+	    m.addAttribute("categoryName", categoryName);
+	    m.addAttribute("boardList", boardList);
+	    m.addAttribute("pi", pi);
+
+	    return "community/community_main";
+	}
+
+
 
 	// 게시판에서 글쓰기 버튼 누를 때
 	@GetMapping("/write")

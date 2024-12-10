@@ -47,8 +47,6 @@
 	/* 최소 높이 설정 */
 	box-sizing: border-box;
 	/* 추가: padding 포함 */
-	margin-top: 20px; margin-bottom : 3vh;
-	/* 기본 간격 */
 	display: flex;
 	align-items: center; /* 수직 중앙 정렬 */
 	flex-direction: column;
@@ -59,11 +57,10 @@
 .navigation-buttons {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	height: 66px;
+	align-items: center;	
 	width: 100%;
-	padding-bottom: 31px;
 	box-sizing: border-box;
+	padding: 10px 4px;
 }
 
 .left-section {
@@ -84,6 +81,7 @@
 	width: 30%; /* navigation-buttons의 30% 차지 */
 	min-width: 200px; /* 최소 너비 */
 	max-width: 220px;
+	gap: 10px;
 }
 
 .right-section .round-button {
@@ -115,6 +113,20 @@
 .nav-text:hover {
 	color: #28a745;
 	text-decoration: underline;
+}
+
+.board-detail td.board-title {
+    width: 75%;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.board-detail td.board-user-info {
+    width: 8;
+}
+
+.board-detail td.board-meta {
+    width: 17%;
 }
 
 /* 버튼 스타일 */
@@ -310,14 +322,10 @@
 
 .board-detail {
 	width: 100%;
-	border-collapse: collapse;
 	margin-bottom: 2vh;
+	border-bottom: 1px solid #ddd;
 }
 
-.board-detail td {
-	padding: 6px 16px;
-	/* 각 행의 첫 번째 셀에 대해 들여쓰기 */
-}
 
 .board-category {
 	font-size: 16px;
@@ -326,11 +334,6 @@
 	padding: 5px 0;
 }
 
-.board-title {
-	font-size: 20px;
-	font-weight: bold;
-	padding: 10px 0;
-}
 
 .board-user-info {
 	font-size: 14px;
