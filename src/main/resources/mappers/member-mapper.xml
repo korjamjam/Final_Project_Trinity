@@ -153,16 +153,19 @@
 
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER
-		SET USER_NAME = #{userName},
-		EMAIL = #{email},
-		PHONE = NVL(#{phone}, PHONE), <!-- NULL일 경우 기존 값 유지 -->
-		BIRTHDAY = #{birthday},
-		GENDER = #{gender},
-		ADDRESS = #{address},
-		USERPROFILE = #{userProfile},
-		BIOGRAPHY = #{biography}
+		SET
+		USER_NAME = NVL(#{userName}, USER_NAME),
+		EMAIL = NVL(#{email}, EMAIL),
+		PHONE = NVL(#{phone}, PHONE),
+		BIRTHDAY = NVL(#{birthday}, BIRTHDAY),
+		GENDER = NVL(#{gender}, GENDER),
+		ADDRESS = NVL(#{address}, ADDRESS),
+		USERPROFILE = NVL(#{userProfile}, USERPROFILE),
+		BIOGRAPHY = NVL(#{biography}, BIOGRAPHY)
 		WHERE USER_NO = #{userNo}
 	</update>
+
+
 
 
 

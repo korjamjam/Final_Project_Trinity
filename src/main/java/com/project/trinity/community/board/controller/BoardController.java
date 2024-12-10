@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,19 +61,25 @@ public class BoardController {
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
 	public String getBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId,
-			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m) {
+			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, 
+			  @RequestParam(value = "sortType", defaultValue = "작성일") String sortType, Model m) {
 		
+		  // 디버깅 로그
+	    System.out.println("Received categoryId: " + categoryId);
+	    
 		// 카테고리별 게시글 수 조회
 		int listCount = boardService.selectCountCategoryList(categoryId);
 
 		// 페이징 정보 설정
 		PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
-		// 게시글 목록 조회, 실시간 인기글 동시 구현
-		List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
+		// 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
+		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+
 	
 		// 모델에 데이터 추가
 		m.addAttribute("categoryId", categoryId);
+		m.addAttribute("sortType", sortType);
 		m.addAttribute("boardList", boardList);
 		m.addAttribute("pi", pi);
 
@@ -80,11 +87,16 @@ public class BoardController {
 	}
 
 	@RequestMapping("/sideBarToBoard")
-	public String getSideBoardPage(
-	    @RequestParam(value = "categoryId", required = true) String categoryId, // 필수 파라미터로 설정
+	public String getSideBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId, // 필수 파라미터로 설정
 	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지
+	    @RequestParam(value = "sortType", defaultValue = "작성일") String sortType,
+	    HttpServletRequest request,
 	    Model m
 	) {
+		  // 디버깅 로그
+	    System.out.println("Received categoryId: " + categoryId);
+	    System.out.println("Received sortType: " + sortType);
+
 	    // 카테고리 이름 설정
 	    String categoryName = boardService.getCategoryNameById(categoryId);
 
@@ -92,16 +104,16 @@ public class BoardController {
 	    int listCount = boardService.selectCountCategoryList(categoryId); // 총 게시글 수 조회
 	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 페이징 계산
 
-	    // 게시글 목록 조회
-	    List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
-
+	 // 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
+	 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
 	    // 모델에 데이터 추가
 	    m.addAttribute("categoryId", categoryId);
 	    m.addAttribute("categoryName", categoryName);
+	    m.addAttribute("sortType", sortType);
 	    m.addAttribute("boardList", boardList);
 	    m.addAttribute("pi", pi);
 
-	    return "community/community_main";
+	    return "community/board";
 	}
 
 

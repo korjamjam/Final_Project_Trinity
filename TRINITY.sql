@@ -433,34 +433,26 @@ EXEC :var_name := 'example_value';
 
 -- 더미데이터 --------------------------------------------------------------------------------------------------------
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, isadmin, userprofile) 
-VALUES ('U1', 'admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111', '801212', 'Seoul, Korea', 'M', 'Y', '/resources/images/default_profile.png');
+VALUES ('U1', 'admin1', 'pass1', '관리자', 'admin@example.com', '010-1111-1111', '801212', 'Seoul, Korea', 'M', 'Y', '/resources/img/default_profile.png');
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
-VALUES ('U2', 'user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', '801212', 'Seoul, Korea', 'F', '/resources/images/default_profile.png');
+VALUES ('U2', 'user01', 'pwd01', 'Alice', 'alice@example.com', '010-1234-5678', '801212', 'Seoul, Korea', 'F', '/resources/img/default_profile.png');
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
-VALUES ('U3', 'user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', '801212', 'Busan, Korea', 'M', '/resources/images/default_profile.png');
+VALUES ('U3', 'user02', 'pwd02', 'Bob', 'bob@example.com', '010-2345-6789', '801212', 'Busan, Korea', 'M', '/resources/img/default_profile.png');
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
-VALUES ('U4', 'user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', '801212', 'Incheon, Korea', 'M', '/resources/images/default_profile.png');
+VALUES ('U4', 'user03', 'pwd03', 'Charlie', 'charlie@example.com', '010-3456-7890', '801212', 'Incheon, Korea', 'M', '/resources/img/default_profile.png');
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
-VALUES ('U5', 'user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '801212', 'Daegu, Korea', 'F', '/resources/images/default_profile.png');
+VALUES ('U5', 'user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', '801212', 'Daegu, Korea', 'F', '/resources/img/default_profile.png');
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
-VALUES ('U6', 'user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M', '/resources/images/default_profile.png');
+VALUES ('U6', 'user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M', '/resources/img/default_profile.png');
 
 -- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
 
--- BOARD_CATEGORY 데이터 삽입 (기존 데이터가 없을 경우 삽입)
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT01', '자유게시판', 1, 'Y');
-    
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT02', '메디톡', 2, 'Y');
-    
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT03', '이벤트게시판', 3, 'Y');
+
 
 DECLARE
     CURSOR c_user_no IS
@@ -520,7 +512,7 @@ BEGIN
     FOR i IN 1..10 LOOP
         INSERT INTO BOARD (
             BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
-            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS, 
         ) VALUES (
             'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- 게시글 번호
             4, -- 공지사항
@@ -738,7 +730,7 @@ INSERT INTO HOSPITAL_INFO (HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, HOS_START
 VALUES ('21세기소아청소년과의원', '강원특별자치도 원주시 봉화로 27, (단계동)', '033-745-0815', '소아청소년과', '09:00', '18:00', '10:00', '15:00', 37.3469332, 127.9282649);
 
 INSERT INTO HOSPITAL_INFO (HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, HOS_START_TIME1, HOS_CLOSE_TIME1, HOS_START_TIME2, HOS_CLOSE_TIME2, HOS_LATITUDE, HOS_LONGITUDE) 
-VALUES ('365별소아청소년과의원', '인천광역시 서구 가정로 375, 3층 302호 (신현동, 금강아미움)', '032-581-9900', '소아청소년과', '09:00', '18:00', '10:00', '15:00', 37.5184643, 126.6726009);
+VALUES ('365별소아청소년과의원', '인천광역시 서구 가정로 375, 3층 302호 (신현동, 금강아미움)', '032-581-9900', '소아청소년과', '18:00', '06:00', '10:00', '15:00', 37.5184643, 126.6726009);
 
 INSERT INTO HOSPITAL_INFO (HOS_NAME, HOS_ADDRESS, HOS_TEL, DEPARTMENT, HOS_START_TIME1, HOS_CLOSE_TIME1, HOS_START_TIME2, HOS_CLOSE_TIME2, HOS_LATITUDE, HOS_LONGITUDE) 
 VALUES ('365삼성i소아청소년과의원', '경기도 파주시 교하로 87, 8층 (목동동, 삼성프라자)', '031-945-7545', '소아청소년과', '09:00', '18:00', '10:00', '15:00', 37.7276519, 126.7339335);
@@ -10352,68 +10344,70 @@ VALUES ('H20', 'hos20', 'pwd20', 'N', '12', '환자의 건강을 책임지는 �
 
 
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M10', 'H4', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M10', 'H4', '/resources/img/doctorPicDefault.png', '20년 경력의 피부과 전문의입니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1011', 'doc11', 'password11', '김윤', 'doc11@example.com', '010-1111-1212', '801212', 'M', '서울특별시 종로구', 'M10', 'H2', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1011', 'doc11', 'password11', '김윤', 'doc11@example.com', '010-1111-1212', '801212', 'M', '서울특별시 종로구', 'M10', 'H2', '/resources/img/doctorPicDefault.png', '10년 경력의 정형외과 전문의입니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1012', 'doc12', 'password12', '이지영', 'doc12@example.com', '010-2222-1212', '801212', 'F', '서울특별시 은평구', 'M9', 'H2', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1012', 'doc12', 'password12', '이지영', 'doc12@example.com', '010-2222-1212', '801212', 'F', '서울특별시 은평구', 'M9', 'H2', '/resources/img/doctorPicDefault.png', '소아과 전문의로 15년 경력을 보유하고 있습니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1013', 'doc13', 'password13', '박민지', 'doc13@example.com', '010-3333-1313', '801212', 'F', '경기도 고양시', 'M3', 'H3', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1013', 'doc13', 'password13', '박민지', 'doc13@example.com', '010-3333-1313', '801212', 'F', '경기도 고양시', 'M3', 'H3', '/resources/img/doctorPicDefault.png', '내과 전문의로 환자 맞춤형 진료를 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1014', 'doc14', 'password14', '최성민', 'doc14@example.com', '010-4444-1313', '801212', 'M', '경기도 성남시', 'M4', 'H3', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1014', 'doc14', 'password14', '최성민', 'doc14@example.com', '010-4444-1313', '801212', 'M', '경기도 성남시', 'M4', 'H3', '/resources/img/doctorPicDefault.png', '신경외과 전문의로 최신 치료법을 연구하고 있습니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1015', 'doc15', 'password15', '정현우', 'doc15@example.com', '010-5555-1414', '801212', 'M', '강원도 원주시', 'M5', 'H4', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1015', 'doc15', 'password15', '정현우', 'doc15@example.com', '010-5555-1414', '801212', 'M', '강원도 원주시', 'M5', 'H4', '/resources/img/doctorPicDefault.png', '정신건강의학과 전문의로 심리치료를 전문으로 합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1016', 'doc16', 'password16', '한소희', 'doc16@example.com', '010-6666-1414', '801212', 'F', '강원도 강릉시', 'M6', 'H4', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1016', 'doc16', 'password16', '한소희', 'doc16@example.com', '010-6666-1414', '801212', 'F', '강원도 강릉시', 'M6', 'H4', '/resources/img/doctorPicDefault.png', '산부인과 전문의로 여성 건강을 책임집니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1017', 'doc17', 'password17', '윤상훈', 'doc17@example.com', '010-7777-1515', '801212', 'M', '전라북도 전주시', 'M7', 'H5', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1017', 'doc17', 'password17', '윤상훈', 'doc17@example.com', '010-7777-1515', '801212', 'M', '전라북도 전주시', 'M7', 'H5', '/resources/img/doctorPicDefault.png', '10년 경력의 소화기내과 전문의입니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1018', 'doc18', 'password18', '장수지', 'doc18@example.com', '010-8888-1515', '801212', 'F', '전라북도 군산시', 'M8', 'H5', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1018', 'doc18', 'password18', '장수지', 'doc18@example.com', '010-8888-1515', '801212', 'F', '전라북도 군산시', 'M8', 'H5', '/resources/img/doctorPicDefault.png', '비뇨기과 전문의로 환자 중심 진료를 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1019', 'doc19', 'password19', '홍지영', 'doc19@example.com', '010-9999-1515', '801212', 'F', '전라남도 순천시', 'M9', 'H5', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1019', 'doc19', 'password19', '홍지영', 'doc19@example.com', '010-9999-1515', '801212', 'F', '전라남도 순천시', 'M9', 'H5', '/resources/img/doctorPicDefault.png', '안과 전문의로 최신 기술을 사용한 진료를 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1020', 'doc20', 'password20', '한동민', 'doc20@example.com', '010-1010-1616', '801212', 'M', '전라남도 여수시', 'M2', 'H6', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1020', 'doc20', 'password20', '한동민', 'doc20@example.com', '010-1010-1616', '801212', 'M', '전라남도 여수시', 'M2', 'H6', '/resources/img/doctorPicDefault.png', '정형외과 전문의로 다양한 수술 경험을 보유하고 있습니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1021', 'doc21', 'password21', '김진아', 'doc21@example.com', '010-1111-1616', '801212', 'F', '전라남도 광양시', 'M1', 'H6', '/resources/images/doctorPicDefault.png');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1022', 'doc22', 'password22', '이승훈', 'doc22@example.com', '010-2222-1717', '801212', 'M', '충청북도 청주시', 'M2', 'H7', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1021', 'doc21', 'password21', '김진아', 'doc21@example.com', '010-1111-1616', '801212', 'F', '전라남도 광양시', 'M1', 'H6', '/resources/img/doctorPicDefault.png', '피부과 전문의로 최신 트렌드 진료를 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1023', 'doc23', 'password23', '송지수', 'doc23@example.com', '010-3333-1717', '801212', 'F', '충청북도 충주시', 'M3', 'H7', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1022', 'doc22', 'password22', '이승훈', 'doc22@example.com', '010-2222-1717', '801212', 'M', '충청북도 청주시', 'M2', 'H7', '/resources/img/doctorPicDefault.png', '정형외과 전문의로 관절 수술 경험이 풍부합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1024', 'doc24', 'password24', '이강민', 'doc24@example.com', '010-4444-1818', '801212', 'M', '충청남도 천안시', 'M4', 'H8', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1023', 'doc23', 'password23', '송지수', 'doc23@example.com', '010-3333-1717', '801212', 'F', '충청북도 충주시', 'M3', 'H7', '/resources/img/doctorPicDefault.png', '내과 전문의로 환자 맞춤형 치료를 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1025', 'doc25', 'password25', '백지원', 'doc25@example.com', '010-5555-1818', '801212', 'F', '충청남도 공주시', 'M5', 'H8', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1024', 'doc24', 'password24', '이강민', 'doc24@example.com', '010-4444-1818', '801212', 'M', '충청남도 천안시', 'M4', 'H8', '/resources/img/doctorPicDefault.png', '신경외과 전문의로 척추 및 뇌수술을 전문으로 합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M6', 'H9', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1025', 'doc25', 'password25', '백지원', 'doc25@example.com', '010-5555-1818', '801212', 'F', '충청남도 공주시', 'M5', 'H8', '/resources/img/doctorPicDefault.png', '정신건강의학과 전문의로 우울증 및 불안 치료를 전문으로 합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M7', 'H9', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M6', 'H9', '/resources/img/doctorPicDefault.png', '산부인과 전문의로 여성 건강 및 출산을 지원합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1028', 'doc28', 'password28', '정성훈', 'doc28@example.com', '010-8888-2020', '801212', 'M', '경상남도 창원시', 'M8', 'H10', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M7', 'H9', '/resources/img/doctorPicDefault.png', '소아과 전문의로 아동 건강 진료를 전문으로 합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1029', 'doc29', 'password29', '유은지', 'doc29@example.com', '010-9999-2020', '801212', 'F', '경상남도 김해시', 'M9', 'H10', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1028', 'doc28', 'password28', '정성훈', 'doc28@example.com', '010-8888-2020', '801212', 'M', '경상남도 창원시', 'M8', 'H10', '/resources/img/doctorPicDefault.png', '비뇨기과 전문의로 최신 치료 기술을 제공합니다.');
 
-INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE)
-VALUES ('U1030', 'doc30', 'password30', '김태준', 'doc30@example.com', '010-1010-2020', '801212', 'M', '경상남도 진주시', 'M10', 'H10', '/resources/images/doctorPicDefault.png');
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1029', 'doc29', 'password29', '유은지', 'doc29@example.com', '010-9999-2020', '801212', 'F', '경상남도 김해시', 'M9', 'H10', '/resources/img/doctorPicDefault.png', '안과 전문의로 시력 교정 및 안구 질환 치료를 전문으로 합니다.');
+
+INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
+VALUES ('U1030', 'doc30', 'password30', '김태준', 'doc30@example.com', '010-1010-2020', '801212', 'M', '경상남도 진주시', 'M10', 'H10', '/resources/img/doctorPicDefault.png', '정형외과 전문의로 스포츠 재활 치료 경험이 풍부합니다.');
+
 
 
 
@@ -10672,7 +10666,62 @@ INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTH
 INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G5', '최진료', '950418', '24/12/13', '11:30', '피부과', '발진이 생겼어요', 'F');
 INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G6', '정예약', '921103', '24/12/14', '15:30', '안과', '시력검사 받고 싶어요', 'M');
 
+-- BOARD_CATEGORY 테이블 더미 데이터 생성
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT01', '공지사항', 1, 'Y');
 
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT02', '알림판', 2, 'Y');
+
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT03', 'FAQ', 3, 'Y');
+
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT04', 'Q&A', 4, 'Y');
+
+
+
+-- BOARD 테이블 더미 데이터 생성
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B101', 1, 'U10', '공지사항 제목 1', '공지사항 내용 1', SYSDATE, SYSDATE, '10', 'CAT01', 'Y', '공지사항');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B102', 1, 'U11', '알림판 제목 1', '알림판 내용 1', SYSDATE, SYSDATE, '5', 'CAT02', 'Y', '알림판');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B103', 1, 'U12', 'FAQ 제목 1', 'FAQ 내용 1', SYSDATE, SYSDATE, '20', 'CAT03', 'Y', 'FAQ');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B104', 1, 'U13', 'Q&A 제목 1', 'Q&A 내용 1', SYSDATE, SYSDATE, '15', 'CAT04', 'Y', 'Q&A');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B105', 1, 'U14', '공지사항 제목 2', '공지사항 내용 2', SYSDATE, SYSDATE, '30', 'CAT01', 'Y', '공지사항');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B106', 1, 'U15', '알림판 제목 2', '알림판 내용 2', SYSDATE, SYSDATE, '25', 'CAT02', 'Y', '알림판');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B107', 1, 'U15', 'FAQ 제목 2', 'FAQ 내용 2', SYSDATE, SYSDATE, '40', 'CAT03', 'Y', 'FAQ');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B108', 1, 'U1', 'Q&A 제목 2', 'Q&A 내용 2', SYSDATE, SYSDATE, '35', 'CAT04', 'Y', 'Q&A');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B109', 1, 'U2', '공지사항 제목 3', '공지사항 내용 3', SYSDATE, SYSDATE, '50', 'CAT01', 'Y', '공지사항');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B110', 1, 'U3', '알림판 제목 3', '알림판 내용 3', SYSDATE, SYSDATE, '45', 'CAT02', 'Y', '알림판');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B111', 1, 'U4', 'FAQ 제목 3', 'FAQ 내용 3', SYSDATE, SYSDATE, '60', 'CAT03', 'Y', 'FAQ');
+
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+VALUES ('B112', 1, 'U5', 'Q&A 제목 3', 'Q&A 내용 3', SYSDATE, SYSDATE, '55', 'CAT04', 'Y', 'Q&A');
+
+
+
+
+SELECT * FROM BOARD_CATEGORY;
 SELECT * FROM MEMBER;
 
 --커밋--------------------------------------------------------------------------------------------------------
