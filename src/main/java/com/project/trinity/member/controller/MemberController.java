@@ -226,23 +226,23 @@ public class MemberController {
 	    member.setUserNo(loginUser.getUserNo());
 	    member.setUserId(loginUser.getUserId());
 	    member.setUserPwd(loginUser.getUserPwd());
-	    
-	    // 필수 값이 누락되지 않도록 기본값 처리
+
+	    // 필수 값 기본값 처리
 	    if (member.getPhone() == null || member.getPhone().isEmpty()) {
 	        member.setPhone(loginUser.getPhone()); // 기존 전화번호 유지
 	    }
-	    
-	    // **추가: 의사 약력 처리**
-	    if (loginUser.getMedKey() != null) {
+
+	    // **의사 약력 처리**
+	    if (loginUser.getMedKey() != null) { 
 	        String biography = member.getBiography();
 	        if (biography != null && !biography.trim().isEmpty()) {
-	            member.setBiography(biography); // 의사 약력 저장
+	            member.setBiography(biography); // 새 약력 저장
 	        } else {
 	            member.setBiography(loginUser.getBiography()); // 기존 약력 유지
 	        }
 	    }
 
-	    // 프로필 이미지 업로드 처리
+	    // **프로필 이미지 업로드 처리**
 	    if (profileImage != null && !profileImage.isEmpty()) {
 	        String savePath = "/resources/upload/profile/";
 	        String realPath = session.getServletContext().getRealPath(savePath);
@@ -258,23 +258,23 @@ public class MemberController {
 
 	        try {
 	            profileImage.transferTo(new File(realPath + newFilename));
-	            member.setUserProfile(savePath + newFilename);
+	            member.setUserProfile(savePath + newFilename); // 프로필 이미지 경로 저장
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            return "redirect:/member/profile_edit?error=uploadFailed";
 	        }
 	    } else {
-	        member.setUserProfile(loginUser.getUserProfile());
+	        member.setUserProfile(loginUser.getUserProfile()); // 기존 프로필 이미지 유지
 	    }
 
 	    // 생년월일 데이터 변환 (YYYY-MM-DD -> YYMMDD)
-	    String birthday = member.getBirthday(); // YYYY-MM-DD 형식의 데이터
+	    String birthday = member.getBirthday();
 	    if (birthday != null && !birthday.isEmpty()) {
 	        try {
 	            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
 	            SimpleDateFormat targetFormat = new SimpleDateFormat("yyMMdd");
-	            Date date = originalFormat.parse(birthday); // YYYY-MM-DD 형식을 Date로 변환
-	            member.setBirthday(targetFormat.format(date)); // YYMMDD 형식으로 변환 후 저장
+	            Date date = originalFormat.parse(birthday);
+	            member.setBirthday(targetFormat.format(date));
 	        } catch (ParseException e) {
 	            e.printStackTrace();
 	            return "redirect:/member/profile_edit?error=dateFormatError";
@@ -284,12 +284,15 @@ public class MemberController {
 	    // 회원 정보 업데이트 처리
 	    int result = memberService.updateMember(member);
 	    if (result > 0) {
-	        session.setAttribute("loginUser", member);
+	        // 세션 갱신
+	        Member updatedUser = memberService.findByUserId(loginUser.getUserId());
+	        session.setAttribute("loginUser", updatedUser); // 갱신된 사용자 정보 저장
 	        return "redirect:/member/profile_edit?success=updated";
 	    } else {
 	        return "redirect:/member/profile_edit?error=updateFailed";
 	    }
 	}
+
 
 
 	@PostMapping("/find_id_email")
