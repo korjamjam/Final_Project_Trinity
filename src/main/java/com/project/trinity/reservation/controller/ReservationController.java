@@ -1,21 +1,17 @@
 package com.project.trinity.reservation.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
 import com.project.trinity.member.model.vo.Guest;
 import com.project.trinity.member.model.vo.Member;
-import com.project.trinity.reservation.model.vo.Reservation;
 import com.project.trinity.reservation.service.ReservationService;
 
 @Controller
@@ -43,8 +39,8 @@ public class ReservationController {
 	}
 
 	@RequestMapping("/gReservation")
-	public String gReservation(String userNo, String hosNo, String gReservation_date, String resTime, String subject,
-			String content, String userName, String birthday, String phone, String email, String gender, RedirectAttributes r) {
+    public String gReservation(String userNo, String hosNo, String gReservation_date, String resTime, String subject,
+            String content, String userName, String birthday, String phone, String email, String gender, HttpSession session) {
 		String resDate = gReservation_date;
 		System.out.println(resDate);
 		if (userNo.equals("")) { // 게스트 예약
@@ -56,10 +52,10 @@ public class ReservationController {
 						subject, content, gender);
 				if(resultR != 0) {
 					System.out.println("게스트 일반 진료 예약 완료");
-					r.addFlashAttribute("Msg", "예약이 완료되었습니다.");
+					session.setAttribute("message", "예약이 완료되었습니다.");
 				} else {
 					System.out.println("게스트 일반 진료 예약 실패");
-					r.addFlashAttribute("Msg", "예약 실패");
+					session.setAttribute("message", "예약 실패");
 				}
 			} else { // 게스트 입력 실패
 				System.out.println("게스트 입력 실패");
@@ -69,10 +65,10 @@ public class ReservationController {
 			int result = rService.insertgReservation(userNo, hosNo, resDate, resTime, subject, content);
 			if(result == 1) {
 				System.out.println("회원 일반 진료 예약 완료");
-				r.addFlashAttribute("Msg", "예약이 완료되었습니다.");
+				session.setAttribute("message", "예약이 완료되었습니다.");
 			} else {
 				System.out.println("회원 일반 진료 예약 실패");
-				r.addFlashAttribute("Msg", "예약 실패");
+				session.setAttribute("message", "예약 실패");
 			}
 		}
 		return "redirect:/main";

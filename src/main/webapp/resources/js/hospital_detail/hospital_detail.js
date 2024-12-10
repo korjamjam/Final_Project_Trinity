@@ -100,9 +100,7 @@ function copyTel() {
     alert("복사되었습니다.");
 }
 
-const getDoctorReviews = function () {
-    let doctorNo = document.getElementById('doctorNo').value;
-
+const getDoctorReviews = function (doctorNo) {
     $.ajax({
         url: contextPath + ('/hospital/detail/doctorReview'),
         type: "GET",
