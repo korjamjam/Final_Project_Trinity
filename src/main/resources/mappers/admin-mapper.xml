@@ -299,6 +299,44 @@
         HEALTH_RESERVATION H ON G.USER_NO = H.USER_NO OR G.GST_NO = H.GST_NO
 </select>
 
+<select id="getReservationDetail" parameterType="string" resultType="map">
+    SELECT G.G_RES_NO AS RESERVATION_NO,
+           G.G_PATIENT_NAME AS NAME,
+           G.G_PATIENT_BIRTHDAY AS BIRTHDAY,
+           TO_CHAR(G.G_RES_DATE, 'YYYY-MM-DD') AS RES_DATE,
+           G.G_RES_TIME AS RES_TIME,
+           G.G_RES_CONTENT AS NOTES,
+           'GENERAL' AS RESERVATION_TYPE
+    FROM GENERAL_RESERVATION G
+    WHERE G.G_RES_NO = #{reservationNo}
+
+    UNION ALL
+
+    SELECT V.V_RES_NO AS RESERVATION_NO,
+           V.PATIENT_NAME AS NAME,
+           V.PATIENT_BIRTHDAY AS BIRTHDAY,
+           TO_CHAR(V.V_RES_DATE, 'YYYY-MM-DD') AS RES_DATE,
+           V.V_RES_TIME AS RES_TIME,
+           V.RES_CONTENT AS NOTES,
+           'VACCINE' AS RESERVATION_TYPE
+    FROM VACCINE_RESERVATION V
+    WHERE V.V_RES_NO = #{reservationNo}
+
+    UNION ALL
+
+    SELECT H.H_RES_NO AS RESERVATION_NO,
+           H.PATIENT_NAME AS NAME,
+           H.PATIENT_BIRTH AS BIRTHDAY,
+           TO_CHAR(H.RES_DATE, 'YYYY-MM-DD') AS RES_DATE,
+           H.RES_TIME AS RES_TIME,
+           H.RES_COMMENT AS NOTES,
+           'HEALTH' AS RESERVATION_TYPE
+    FROM HEALTH_RESERVATION H
+    WHERE H.H_RES_NO = #{reservationNo}
+</select>
+
+
+
 <!-- 게시글 관리  페이지 -->
 <select id="getAllPosts" resultMap="BoardResultMap">
     SELECT
