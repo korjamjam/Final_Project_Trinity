@@ -38,9 +38,6 @@ window.onload = function(){
         mousewheel: true,
         keyboard: true,
     });
-    let Msg = document.getElementById('general_reservation_ok').value
-    if(Msg != ""){
-      console.log(Msg);
-      alert(Msg);
-    }
+
+
 }
