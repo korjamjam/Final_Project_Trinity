@@ -1,6 +1,9 @@
 package com.project.trinity.hospital.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -11,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -45,8 +45,8 @@ public class HospitalController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
 	private final ReservationService reservationService;
-	private static String GEOCODE_URL="http://dapi.kakao.com/v2/local/search/address.json?query=";
-    private static String GEOCODE_USER_INFO="a0793b4d67a4236cf4900bc98535d171"; 
+	
+	
 	
 	@Autowired
 	public HospitalController(HospitalService hospitalService, 
@@ -402,42 +402,49 @@ public class HospitalController {
 	public String HospitalAccountMyHospitalUpdate(@ModelAttribute HospitalInfo hosInfo, Model m) {
 	    String hosLatitude = "";
 	    String hosLongitude = "";
+	    String result = "";
+	    String url="https://dapi.kakao.com/v2/local/search/address.json?query=";
+	    String restKey ="a0793b4d67a4236cf4900bc98535d171"; 
 	    
 	    try {
-	        // 주소를 UTF-8로 인코딩
-	        String address = URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
+			url += URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
+			
+			URL requestURL = new URL(url);
+			
+			HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
+			
+			urlConnection.setRequestMethod("GET");
+			
+			urlConnection.setRequestProperty("Authorization", "KakaoAK " + restKey);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			
+			String line;
+			while((line = br.readLine()) != null) {
+				result += line;
+			}
+			
+			br.close();
+			urlConnection.disconnect();
+			
+			// JSON 파싱
+	        JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+	        JsonArray documents = jsonObject.getAsJsonArray("documents");
 	        
-	        // Kakao API URL 생성
-	        String url = GEOCODE_URL + address;
-	        
-	        // RestTemplate 생성
-	        RestTemplate restTemplate = new RestTemplate();
-	        Gson gson = new Gson();
-	        
-	        // HTTP 헤더 설정
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.set("Authorization", "KakaoAK " + GEOCODE_USER_INFO); // 올바른 헤더 키로 수정
-	        
-	        // HTTP 요청 생성
-	        HttpEntity<String> entity = new HttpEntity<>(headers);
-	        
-	        // API 호출
-	        String response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
-	        
-	        // JSON 응답 파싱
-	        JsonObject jObj = gson.fromJson(response, JsonObject.class);
-	        
-	        // Kakao API 응답에서 coordinates 추출
-	        JsonObject document = jObj.getAsJsonArray("documents").get(0).getAsJsonObject(); // "documents"로 수정
-	        hosLatitude = document.get("y").getAsString();
-	        hosLongitude = document.get("x").getAsString();
-	        
-	    } catch (UnsupportedEncodingException e) {
-	        e.printStackTrace();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
+	        // 첫 번째 documents 객체에서 x, y 값 추출
+	        if (documents.size() > 0) {
+	            JsonObject firstDocument = documents.get(0).getAsJsonObject();
+	            hosLatitude = firstDocument.get("y").getAsString(); // 위도
+	            hosLongitude = firstDocument.get("x").getAsString(); // 경도
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("Latitude (y): " + hosLatitude);
+	    System.out.println("Longitude (x): " + hosLongitude);
+	    System.out.println(result);
 	    // 위도와 경도를 HospitalInfo 객체에 설정
 	    hosInfo.setHosLatitude(hosLatitude);
 	    hosInfo.setHosLongitude(hosLongitude);
@@ -446,13 +453,18 @@ public class HospitalController {
 	    int resultAC = hospitalService.updateMyHospitalAC(hosInfo);
 	    int resultAI = hospitalService.updateMyHospitalAI(hosInfo);
 	    
-	    // 결과 처리
-	    if ((resultAC > 0) && (resultAI > 0)) {
-	        m.addAttribute("message", "수정 성공");
-	        return "hospital_detail/hospital_account_main";
-	    } else {
-	        m.addAttribute("message", "수정 실패");
+	    if(hosLatitude.equals("")) {
+	    	m.addAttribute("message", "올바르지 않은 주소입니다.");
 	        return "hospital_detail/hospital_account_my_hospital";
+	    } else {
+	    	// 결과 처리
+		    if ((resultAC > 0) && (resultAI > 0)) {
+		        m.addAttribute("message", "수정 성공");
+		        return "hospital_detail/hospital_account_main";
+		    } else {
+		        m.addAttribute("message", "수정 실패");
+		        return "hospital_detail/hospital_account_my_hospital";
+		    }
 	    }
 	}
 

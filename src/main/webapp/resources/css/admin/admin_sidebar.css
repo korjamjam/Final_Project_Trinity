@@ -10,13 +10,13 @@
     width: 250px;
     height: 100vh;
     background-color: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     padding-top: 20px;
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
     overflow-y: auto;
-    transform: translateX(-100%); /* 사이드바를 화면 밖으로 이동 */
+    transform: translateX(100%); /* 사이드바를 화면 밖으로 이동 (오른쪽) */
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
