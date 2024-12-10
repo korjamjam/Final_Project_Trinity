@@ -17,49 +17,60 @@
     <h2>병원 관리</h2>
 
     <div class="hospital-info">
-    <!-- DB연동 후 수정 -->
-        <table>
-            <tr>
-                <th>병원 사진</th>
-                <td>이미지.jpg</td>
-            </tr>
-            <tr>
-                <th>병원명</th>
-                <td>${hosInfo.hosName}</td>
-            </tr>
-            <tr>
-                <th>병원아이디</th>
-                <td>${hosInfo.hosId}</td>
-            </tr>
-            <tr>
-                <th>전화번호</th>
-                <td>${hosInfo.hosTel}</td>
-            </tr>
-            <tr>
-                <th>개업일</th>
-                <td>${hosInfo.hosYear}</td>
-            </tr>
-            <tr>
-                <th>진료시간</th>
-                <td>
-                    <p>월~금: ${hosInfo.hosStartTime1} ~ ${hosInfo.hosEndTime1}</p><br>
-                    <p>토~일: ${hosInfo.hosStartTime2} ~ ${hosInfo.hosEndTime2}</p>
-                </td>
-            </tr>
-            <tr>
-                <th>주소</th>
-                <td>
-	                ${hosInfo.hosAddress}
-                </td>
-            </tr>
-            <tr>
-                <th>소개내용</th>
-                <td>${hosInfo.hosInfo}</td>
-            </tr>
-        </table>
-        <button class="save-button">저장하기</button>
+        <form action="${ pageContext.servletContext.contextPath }/hospital/account/myHospital/update" method="post" onsubmit="return confirmAndSubmit();">
+            <input type="hidden" name="hosNo" value="${hosInfo.hosNo}">
+            <table>
+                <tr>
+                    <th>병원명</th>
+                    <td>${hosInfo.hosName}</td>
+                </tr>
+                <tr>
+                    <th>병원아이디</th>
+                    <td>${hosInfo.hosId}</td>
+                </tr>
+                <tr>
+                    <th>전화번호</th>
+                    <td>
+                        <input type="text" name="hosTel" value="${hosInfo.hosTel}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>개업일</th>
+                    <td>${hosInfo.hosYear}</td>
+                </tr>
+                <tr>
+                    <th>진료시간</th>
+                    <td>
+                        <p>월~금: ${hosInfo.hosStartTime1} ~ ${hosInfo.hosEndTime1}</p><br>
+                        <p>토~일: ${hosInfo.hosStartTime2} ~ ${hosInfo.hosEndTime2}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>주소</th>
+                    <td>
+                        <input type="text" name="hosAddress" value="${hosInfo.hosAddress}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>소개내용</th>
+                    <td>
+                        <input type="text" name="hosInfo" value="${hosInfo.hosInfo}">
+                    </td>
+                </tr>
+            </table>
+            <button class="save-button">저장하기</button>
+        </form>
     </div>
 </div>
-
+    <script>
+        function confirmAndSubmit() {
+        const userConfirmed = confirm("수정하시겠습니까?");
+        if (userConfirmed) {
+            return true; // 폼이 제출됨
+        } else {
+            return false; // 폼 제출 취소
+        }
+    }
+    </script>
 </body>
 </html>

@@ -21,19 +21,19 @@
 	</script>
 	<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
     <main class="admin-container">
-        <button class="admin-button" onClick="location.href='doctor'">
+        <button class="admin-button" onClick="location.href='${ pageContext.servletContext.contextPath }/hospital/account/doctor'">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/MemberManagement_img.png" alt="회원관리 아이콘">
             <p>의사관리</p>
         </button>
-        <button class="admin-button" onClick="location.href='myHospital'">
+        <button class="admin-button" onClick="location.href='${ pageContext.servletContext.contextPath }/hospital/account/myHospital'">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/HospitalManagement_img.png" alt="병원관리 아이콘">
             <p>병원관리</p>
         </button>
-        <button class="admin-button" onClick="location.href='myReservation'">
+        <button class="admin-button" onClick="location.href='${ pageContext.servletContext.contextPath }/hospital/account/myReservation'">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/ReservationManagement_img.png" alt="예약관리 아이콘">
             <p>예약관리</p>
         </button>
-        <button class="admin-button" onClick="location.href='myPost'">
+        <button class="admin-button" onClick="location.href='${ pageContext.servletContext.contextPath }/hospital/account/myPost'">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/PostManagement_img.png" alt="게시글관리 아이콘">
             <p>이벤트 게시글관리</p>
         </button>

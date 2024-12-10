@@ -81,4 +81,12 @@ public class HospitalDao {
 		return sqlSession.selectOne("hospitalMapper.loginHosAccount", hosAccount);
 	}
 
+	public int updateMyHospitalAC(SqlSessionTemplate sqlSession, HospitalInfo updateHosInfo) {
+		return sqlSession.update("hospitalMapper.updateMyHospitalAC", updateHosInfo);
+	}
+	
+	public int updateMyHospitalAI(SqlSessionTemplate sqlSession, HospitalInfo updateHosInfo) {
+		return sqlSession.update("hospitalMapper.updateMyHospitalAI", updateHosInfo);
+	}
+
 }

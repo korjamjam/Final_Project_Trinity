@@ -352,5 +352,17 @@
 			select 'H' || SEQ_HOS_NO.CURRVAL FROM DUAL
 		</selectKey>
    </insert>
-
+	
+	<update id="updateMyHospitalAC">
+		UPDATE HOSPITAL_ACCOUNT
+		   SET HOS_INFO = #{hosInfo}
+		 WHERE HOS_NO = #{hosNo}
+	</update>
+	
+	<update id="updateMyHospitalAI">
+		UPDATE HOSPITAL_INFO
+		   SET HOS_ADDRESS = #{hosAddress},
+		       HOS_TEL = #{hosTel}
+		 WHERE HOS_NO = #{hosNo}
+	</update>
 </mapper>
