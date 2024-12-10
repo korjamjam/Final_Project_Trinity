@@ -22,11 +22,9 @@ public interface BoardService {
 
 	int getListCount(String categoryId); // 특정 카테고리 게시글 개수 조회
 
-	ArrayList<Board> selectList(PageInfo pi, String sortType); // 게시글 목록 조회 (페이징 + 정렬)
-
 	List<Board> selectRecentPopularList(PageInfo pi); // 실시간 인기 게시글 목록 조회
 
-	List<Board> selectListByCategory(String categoryId, PageInfo pi); // 카테고리별 게시글 목록 조회 (페이징 포함)
+	List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType);
 
 	int selectCountCategoryList(String type); // 카테고리별 게시글 수 조회
 
@@ -80,6 +78,9 @@ public interface BoardService {
 	List<MedAnswer> getAnswersByBoardNo(String bno);
 
 	int saveAnswer(MedAnswer ans);
+
+
+	List<Board> getLatestPosts(String string);
 
 
 

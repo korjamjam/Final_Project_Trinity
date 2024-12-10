@@ -71,17 +71,17 @@
             <!-- 커뮤니티 메뉴 -->
             <div class="sidebar-item" onclick="toggleSubmenu(this)">
                 <div class="sidebar-main">
-                    <a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
+                    <a href="${pageContext.request.contextPath}/community/sideBarToBoard">커뮤니티</a>
                     <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
                 </div>
                 <div class="sidebar-submenu">
-                    <a href="${pageContext.request.contextPath}/community/main">인기 게시글</a>
+                    <a href="${pageContext.request.contextPath}/community/sideBarToBoard">인기 게시글</a>
 
-                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT01"
+                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT01"
                         id="free">자유게시판</a>
-                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT02"
+                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT02"
                         id="meditalk">메디톡</a>
-                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT03"
+                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT03"
                         id="event">이벤트게시판</a>
                 </div>
             </div>

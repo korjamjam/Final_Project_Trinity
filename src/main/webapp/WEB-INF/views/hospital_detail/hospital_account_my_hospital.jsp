@@ -48,7 +48,7 @@
                 <tr>
                     <th>주소</th>
                     <td>
-                        <input type="text" name="hosAddress" value="${hosInfo.hosAddress}">
+                        <input type="text" id="hosAddress" name="hosAddress" value="${hosInfo.hosAddress}">
                     </td>
                 </tr>
                 <tr>
@@ -63,12 +63,10 @@
     </div>
 </div>
     <script>
-        function confirmAndSubmit() {
+    async function confirmAndSubmit() {
         const userConfirmed = confirm("수정하시겠습니까?");
-        if (userConfirmed) {
-            return true; // 폼이 제출됨
-        } else {
-            return false; // 폼 제출 취소
+        if (!userConfirmed) {
+            return false;
         }
     }
     </script>
