@@ -613,26 +613,20 @@
 
 
 <!-- 특정 게시글에 대한 MedAnswer 조회 -->
-<select id="selectAnswersByBoardNo" parameterType="String" resultMap="medAnswerResult">
-   SELECT 
-      a.ANSWER_NO, 
-      a.BOARD_NO, 
-      a.MED_NO, 
-      a.ANSWER_CONTENT, 
-      TO_CHAR(a.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE, 
-      a.MODIFIED_DATE, 
-      a.STATUS, 
-      a.IS_MEDICAL_FIELD, 
-      m.USER_NAME AS DOCTOR_NAME, 
-      mf.MEDICAL_FIELD_ID 
-   FROM 
-      MED_ANSWERS a
-   JOIN 
-      MEMBER m ON a.MED_NO = m.MED_KEY  -- MED_NO와 MED_KEY를 기준으로 MEMBER 테이블과 연결
-   JOIN 
-      MEDICAL_FIELD mf ON a.MED_NO = mf.MED_NO  -- MED_NO를 기준으로 MEDICAL_FIELD와 연결
-   WHERE 
-      a.BOARD_NO = #{bno}
+<select id="selectAnswersByBoardNo" parameterType="String" resultType="MedAnswer">
+    SELECT
+        ANSWER_NO,
+        BOARD_NO,
+        MED_NO,
+        ANSWER_CONTENT,
+        TO_CHAR(ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE, <!-- 날짜 형식 변환 -->
+        TO_CHAR(MODIFIED_DATE, 'YYYY/MM/DD') AS MODIFIED_DATE,
+        STATUS,
+        IS_MEDICAL_FIELD
+    FROM
+        MED_ANSWERS
+    WHERE
+        BOARD_NO = #{boardNo}
 </select>
 
 
@@ -640,7 +634,7 @@
 
 
 	<!-- MedAnswer 추가 -->
-<insert id="insertAnswer" parameterType="map">
+<insert id="insertAnswer" parameterType="MedAnswer">
     INSERT INTO MED_ANSWERS (
         ANSWER_NO,
         BOARD_NO,
@@ -649,27 +643,22 @@
         ENROLL_DATE,
         MODIFIED_DATE,
         STATUS,
-        IS_MEDICAL_FIELD,
-        MEDICAL_FIELD_ID
+        IS_MEDICAL_FIELD
+    ) VALUES (
+        SEQ_ANSWER_NO.NEXTVAL,
+        #{boardNo},
+        #{medNo},
+        #{answerContent},
+        SYSDATE,  <!-- 현재 날짜와 시간을 저장 -->
+        NULL,
+        #{status},
+        #{isMedicalField}
     )
-    SELECT 
-        SEQ_ANSWER_NO.NEXTVAL, 
-        #{boardNo}, 
-        m.MED_KEY, 
-        #{answerContent}, 
-        TO_CHAR(SYSDATE, 'YYYY/MM/DD'), -- 날짜를 'YYYY/MM/DD' 형식으로 변환
-        NULL, 
-        #{status}, 
-        #{isMedicalField}, 
-        mf.MEDICAL_FIELD_ID
-    FROM 
-        MEMBER m
-    JOIN 
-        MEDICAL_FIELD mf ON m.MED_KEY = mf.MED_NO
-    WHERE 
-        m.USER_NO = #{userNo}
-    AND ROWNUM = 1
 </insert>
+
+
+
+
 
 
 

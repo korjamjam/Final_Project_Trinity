@@ -125,6 +125,15 @@
 		)
 	</insert>
 
+<select id="selectMedicalFieldByMedNo" parameterType="String" resultType="MedicalField">
+    SELECT 
+        MED_NO,
+        JOB,
+        MEDICAL_FIELD_ID
+    FROM MEDICAL_FIELD
+    WHERE MED_NO = #{medKey}
+</select>
+
 
 
 	<update id="updateMember" parameterType="member">

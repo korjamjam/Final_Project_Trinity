@@ -272,17 +272,18 @@ public class BoardServiceImpl implements BoardService {
 	    return boardDao.getPostsByUserNo(sqlSession, userNo);
 	}
 
-	@Override
-	public int saveAnswer(Map<String, Object> answerData) {
-	   
-	    return boardDao.insertAnswer(sqlSession, answerData);  // boardDao에서 insert 쿼리 실행
-	}
 
 
 	@Override
 	public List<MedAnswer> getAnswersByBoardNo(String bno) {
 	    return boardDao.selectAnswersByBoardNo(sqlSession, bno);
 	}
+
+	  @Override
+	    public int saveAnswer(MedAnswer ans) {
+	     
+	        return boardDao.insertAnswer(sqlSession, ans);
+	    }
 
 
 

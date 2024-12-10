@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,18 +39,23 @@ import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("/community")
 public class BoardController {
-	private final BoardService boardService;
+    private final BoardService boardService;
+    private final MemberService memberService;
 
-	@Autowired
-	public BoardController(BoardService boardService) {
-		this.boardService = boardService;
-	}
-	
+    @Autowired
+    public BoardController(BoardService boardService, MemberService memberService) {
+        this.boardService = boardService;
+        this.memberService = memberService; // 초기화
+    }
+
+
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
@@ -169,31 +175,31 @@ public class BoardController {
 	}
 	
 	@PostMapping("/submitAnswer")
-	@ResponseBody
-	public Map<String, Object> submitAnswer(@RequestBody Map<String, Object> answerData, HttpSession session) {
+	public String submitAnswer(@ModelAttribute MedAnswer ans, HttpSession session) {
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 	    if (loginUser == null) {
 	        throw new RuntimeException("로그인 정보가 없습니다.");
 	    }
 
+	    // 로그인 사용자 정보 설정
+	    ans.setMedNo(loginUser.getMedKey());
+	    ans.setStatus("Y");
+	    ans.setIsMedicalField("Y");
+
+	    // MedicalField 정보 설정
+	    MedicalField mf = memberService.getMedicalFieldByMedNo(loginUser.getMedKey());
+	    if (mf != null) {
+	        ans.setMedicalFieldId(mf.getMedicalFieldId());
+	    }
+
 	    // 답글 저장 로직
-	    Map<String, Object> params = new HashMap<>();
-	    params.put("boardNo", answerData.get("boardNo"));
-	    params.put("answerContent", answerData.get("answerContent"));
-	    params.put("status", "Y");
-	    params.put("isMedicalField", "Y");
-	    params.put("userNo", loginUser.getUserNo());
+	    boardService.saveAnswer(ans);
 
-	    boardService.saveAnswer(params);
-
-	    // 반환할 데이터
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("doctorName", loginUser.getUserName());
-	    response.put("answerDate", answerData.get("answerDate")); 
-	    response.put("answerContent", answerData.get("answerContent"));
-
-	    return response; // JSON 반환
+	    // 답글 저장 후 게시글 상세보기로 리다이렉트
+	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
 	}
+
+
 
 
 
@@ -201,7 +207,7 @@ public class BoardController {
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
-	public String selectBoard(@RequestParam("bno") String bno, Model m) {
+	public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
 	    // 현재 게시글 번호 확인
 	    System.out.println("Received bno: " + bno);
 
@@ -222,6 +228,11 @@ public class BoardController {
 	    // 카테고리 이름 조회
 	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
 
+	    // 로그인 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser != null) {
+	        m.addAttribute("doctorName", loginUser.getUserName()); // 의사 이름을 doctorName으로 전달
+	    }
 	    // 이전 글 번호 조회 후 상세 정보 조회
 	    String prevBno = boardService.getPreviousBoard(bno);
 	    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;

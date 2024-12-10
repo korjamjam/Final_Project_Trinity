@@ -79,7 +79,7 @@ public interface BoardService {
 
 	List<MedAnswer> getAnswersByBoardNo(String bno);
 
-	int saveAnswer(Map<String, Object> answerData);
+	int saveAnswer(MedAnswer ans);
 
 
 

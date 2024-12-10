@@ -186,6 +186,17 @@
 									</div>
 								</c:if>
 							</div>
+							<div id="answer-list">
+								<c:forEach var="a" items="${answers}">
+									<div class="board-content answer-item">
+										<div class="answer-content">
+											<div class="answer-author">작성자: ${loginUser.userName}</div> <!-- 로그인 사용자의 이름 -->
+											<div class="answer-date">작성일: ${a.enrollDate}</div>
+											<div class="answer-text">${a.answerContent}</div>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
 							
 						</div>
 					</div>

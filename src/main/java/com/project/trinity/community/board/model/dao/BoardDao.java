@@ -298,7 +298,7 @@ public class BoardDao {
 
 
     public List<BoardCategory> selectList(SqlSessionTemplate sqlSession) {
-        return sqlSession.selectList("boardMapper.selectAllCategories");  // boardMapper의 쿼리 호출
+        return sqlSession.selectList("boardMapper.selectAllCategories");  
     }
 
 
@@ -330,9 +330,9 @@ public class BoardDao {
 
 
 
-    public int insertAnswer(SqlSessionTemplate sqlSession, Map<String, Object> answerData) {
+    public int insertAnswer(SqlSessionTemplate sqlSession, MedAnswer ans) {
         
-        return sqlSession.insert("boardMapper.insertAnswer", answerData);
+        return sqlSession.insert("boardMapper.insertAnswer", ans);
     }
 
 
