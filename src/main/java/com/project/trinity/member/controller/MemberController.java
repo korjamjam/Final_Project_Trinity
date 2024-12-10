@@ -82,11 +82,11 @@ public class MemberController {
 	        return "redirect:/member/sign_up";
 	    }
 
-	    // 비밀번호 유효성 검사
-	    if (!isValidPassword(member.getUserPwd())) {
-	        redirectAttributes.addFlashAttribute("message", "비밀번호는 8~16자 이내로 영문, 숫자, 특수문자를 포함해야 합니다.");
-	        return "redirect:/member/sign_up";
-	    }
+	    // // 비밀번호 유효성 검사
+	    // if (!isValidPassword(member.getUserPwd())) {
+	    //     redirectAttributes.addFlashAttribute("message", "비밀번호는 8~16자 이내로 영문, 숫자, 특수문자를 포함해야 합니다.");
+	    //     return "redirect:/member/sign_up";
+	    // }
 
 	    // 비밀번호 암호화
 	    member.setUserPwd(bcryptPasswordEncoder.encode(member.getUserPwd()));
@@ -394,11 +394,11 @@ public class MemberController {
 			return "redirect:/member/reset_pwd";
 		}
 
-		if (!isValidPassword(newPassword)) {
-			System.out.println("[DEBUG] 비밀번호 유효성 검사 실패");
-			redirectAttributes.addFlashAttribute("error", "비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
-			return "redirect:/member/reset_pwd";
-		}
+		// if (!isValidPassword(newPassword)) {
+		// 	System.out.println("[DEBUG] 비밀번호 유효성 검사 실패");
+		// 	redirectAttributes.addFlashAttribute("error", "비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
+		// 	return "redirect:/member/reset_pwd";
+		// }
 
 		String encryptedPassword = bcryptPasswordEncoder.encode(newPassword);
 		System.out.println("[DEBUG] 암호화된 비밀번호: " + encryptedPassword);

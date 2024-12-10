@@ -75,9 +75,11 @@ public interface BoardService {
 	
 	List<Board> getPostsByUserNo(String userNo);
 
-	int saveAnswer(MedAnswer answer);
+	
 
 	List<MedAnswer> getAnswersByBoardNo(String bno);
+
+	int saveAnswer(MedAnswer ans);
 
 
 
