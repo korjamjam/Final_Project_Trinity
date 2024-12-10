@@ -82,6 +82,8 @@ public interface BoardService {
 
 	List<Board> getLatestPosts(String string);
 
+	List<Board> getPostsByHosNo(String hosNo);
+
 
 
 
