@@ -19,8 +19,8 @@ public class Board {
     private String userNo;                // 작성자의 고유 번호
     private String boardWriter;           // 작성자의 ID
     private String boardContent;          // 게시글 내용
-    private Date enrollDate;            // 등록일
-    private Date modifiedDate;          // 수정일
+    private String enrollDate;            // 등록일
+    private String modifiedDate;          // 수정일
     private int boardViews;               // 조회수
     private String status;                // 상태 (Y/N)
     private String categoryId;  // 카테고리 ID만 필요

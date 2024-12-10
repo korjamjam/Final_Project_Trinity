@@ -1,6 +1,7 @@
 package com.project.trinity.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
@@ -19,6 +20,7 @@ public interface AdminService {
     
     boolean updateMember(Member member); //회원 상세정보 수정
     
+    //-------등업 신청 페이지-------
     List<Rankup> getAllRankups(); // 등업 신청 목록 조회
     
     public Rankup getRankupDetail(String seqNo);
@@ -40,6 +42,8 @@ public interface AdminService {
     
     //-------예약 관리 페이지-------
     List<Reservation> getAllReservations(); // 모든 예약 조회
+    
+    Map<String, Object> getReservationDetail(String reservationNo);
     
     //-------게시글 관리 페이지-------
     List<Board> getAllPosts();

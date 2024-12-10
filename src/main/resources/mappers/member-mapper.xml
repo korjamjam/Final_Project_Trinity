@@ -6,8 +6,7 @@
 <mapper namespace="memberMapper">
 
 	<!-- 단축 설정 -->
-	<resultMap type="Member"
-		id="memberResultSet">
+	<resultMap type="Member" id="memberResultSet">
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_ID" property="userId" />
 		<result column="USER_PWD" property="userPwd" />
@@ -71,8 +70,7 @@
 	</resultMap>
 
 	<!-- 로그인 쿼리 -->
-	<select id="loginMember"
-		parameterType="Member"
+	<select id="loginMember" parameterType="Member"
 		resultMap="memberResultSet">
 		SELECT USER_NO,
 		USER_ID,
@@ -101,15 +99,30 @@
 	</select>
 
 	<!-- userId로 회원 정보 조회 -->
-	<select id="findByUserId" parameterType="string"
-		resultMap="memberResultSet">
-		SELECT * FROM MEMBER WHERE USER_ID = #{userId}
+	<select id="findByUserId" parameterType="String"
+		resultType="Member">
+		SELECT USER_NO,
+		USER_ID,
+		USER_PWD,
+		USER_NAME,
+		EMAIL,
+		PHONE,
+		BIRTHDAY,
+		GENDER,
+		ADDRESS,
+		USERPROFILE,
+		MED_KEY,
+		BIOGRAPHY <!-- 약력 필드 추가 -->
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
 	</select>
+
 
 
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO MEMBER
-		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, POSTCODE, USERPROFILE, ADDRESS,
+		(USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE,
+		BIRTHDAY, POSTCODE, USERPROFILE, ADDRESS,
 		GENDER)
 		VALUES (
 		#{userId},
@@ -125,20 +138,34 @@
 		)
 	</insert>
 
+	<select id="selectMedicalFieldByMedNo" parameterType="String"
+		resultType="MedicalField">
+		SELECT
+		MED_NO,
+		JOB,
+		MEDICAL_FIELD_ID
+		FROM MEDICAL_FIELD
+		WHERE
+		MED_NO = #{medKey}
+	</select>
 
 
-	<update id="updateMember" parameterType="member">
+
+	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER
-		SET
-		USER_NAME = #{userName},
-		BIRTHDAY = #{birthday},
+		SET USER_NAME = #{userName},
 		EMAIL = #{email},
-		POSTCODE = #{postcode}, <!-- 추가 -->
+		PHONE = NVL(#{phone}, PHONE), <!-- NULL일 경우 기존 값 유지 -->
+		BIRTHDAY = #{birthday},
+		GENDER = #{gender},
 		ADDRESS = #{address},
 		USERPROFILE = #{userProfile},
-		USER_PWD = #{userPwd}
-		WHERE USER_ID = #{userId}
+		BIOGRAPHY = #{biography}
+		WHERE USER_NO = #{userNo}
 	</update>
+
+
+
 
 
 
@@ -218,28 +245,29 @@
 	<select id="selectDoctorReview" parameterType="string"
 		resultMap="DoctorReviewResultSet">
 		SELECT M.USER_NAME,
-       		   M.USERPROFILE,
-       		   D.DOCTOR_NO,
-       		   D.REVIEW_TITLE,
-       		   D.REVIEW_CONTENT,
-       		   D.REVIEW_CREATED_AT,
-       		   D.REVIEW_RATING
+		M.USERPROFILE,
+		D.DOCTOR_NO,
+		D.REVIEW_TITLE,
+		D.REVIEW_CONTENT,
+		D.REVIEW_CREATED_AT,
+		D.REVIEW_RATING
 		FROM MEMBER M
-        JOIN DOCTOR_REVIEW D USING(USER_NO)
-		WHERE DOCTOR_NO = #{doctorNo}
+		JOIN DOCTOR_REVIEW D USING(USER_NO)
+		WHERE DOCTOR_NO =
+		#{doctorNo}
 	</select>
 
 	<update id="updateHospitalDoctor" parameterType="HashMap">
-	    UPDATE MEMBER
-	    SET
-	        HOS_NO = #{hosNo}
-	    WHERE USER_ID = #{userId}
+		UPDATE MEMBER
+		SET
+		HOS_NO = #{hosNo}
+		WHERE USER_ID = #{userId}
 	</update>
 
 	<update id="hospitalAccountDeleteDoctor">
 		UPDATE MEMBER
-	    SET
-	        HOS_NO = ''
-	    WHERE USER_NO = #{userNo}
+		SET
+		HOS_NO = ''
+		WHERE USER_NO = #{userNo}
 	</update>
 </mapper>

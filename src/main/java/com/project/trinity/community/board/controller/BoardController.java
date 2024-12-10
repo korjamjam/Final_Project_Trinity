@@ -3,7 +3,6 @@ package com.project.trinity.community.board.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,22 +39,23 @@ import com.project.trinity.community.board.model.vo.Comment;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
+import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("/community")
 public class BoardController {
-	private final BoardService boardService;
+    private final BoardService boardService;
+    private final MemberService memberService;
 
-	@Autowired
-	public BoardController(BoardService boardService) {
-		this.boardService = boardService;
-	}
-	   // 날짜를 yyyy-MM-dd 형식으로 변환하는 메서드
-    public String formatDate(LocalDate date) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(dateFormat);
+    @Autowired
+    public BoardController(BoardService boardService, MemberService memberService) {
+        this.boardService = boardService;
+        this.memberService = memberService; // 초기화
     }
+
+
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
 	@RequestMapping("/main")
@@ -67,7 +68,7 @@ public class BoardController {
 		// 페이징 정보 설정
 		PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
-		// 게시글 목록 조회
+		// 게시글 목록 조회, 실시간 인기글 동시 구현
 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
 	
 		// 모델에 데이터 추가
@@ -78,58 +79,32 @@ public class BoardController {
 		return "community/board";
 	}
 
-//@RequestMapping("/board")
-//	public String getBoardPage(
-//	    @RequestParam(name = "type", required = false, defaultValue = "popular") String type,
-//	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//	    Model model
-//	) {
-//	    String categoryId = null;
-//	    String categoryName = null;
-//
-//	    // 'popular' 타입은 카테고리가 아니므로, 실시간 인기글로 고정
-//	    if ("popular".equals(type)) {
-//	        categoryName = "실시간 인기글";  // 인기글 이름
-//	    } else {
-//	        // 카테고리별 type에 맞춰 categoryId 설정
-//	        categoryId = getCategoryIdByType(type);
-//	        categoryName = boardService.getCategoryNameById(categoryId);  // 서비스에서 카테고리 이름 조회
-//	    }
-//
-//	    model.addAttribute("categoryId", categoryId);
-//	    model.addAttribute("categoryName", categoryName);
-//
-//	    // 'popular' 타입일 때는 조회수가 높은 게시글을 가져옴
-//	    if ("popular".equals(type)) {
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//
-//	        // 조회수가 높은 게시글을 가져오는 서비스 호출
-//	        List<Board> recentPopularList = boardService.selectRecentPopularList(params);
-//	        model.addAttribute("recentPopularList", recentPopularList);
-//	        System.out.println("최근 인기 게시글: " + recentPopularList);
-//	    } else {
-//	        // 다른 카테고리별 게시글 목록 처리
-//	        int boardLimit = 20;
-//	        int startRow = (currentPage - 1) * boardLimit + 1;
-//	        int endRow = startRow + boardLimit - 1;
-//
-//	        Map<String, Object> params = new HashMap<>();
-//	        params.put("startRow", startRow);
-//	        params.put("endRow", endRow);
-//	        params.put("categoryId", categoryId);
-//
-//	        List<Board> boardList = boardService.selectListByCategory(type, params);
-//	        model.addAttribute("boardList", boardList);
-//	    }
-//
-//	    return "community/community_main_popular";
-//	}
+	@RequestMapping("/sideBarToBoard")
+	public String getSideBoardPage(
+	    @RequestParam(value = "categoryId", required = true) String categoryId, // 필수 파라미터로 설정
+	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지
+	    Model m
+	) {
+	    // 카테고리 이름 설정
+	    String categoryName = boardService.getCategoryNameById(categoryId);
+
+	    // 페이징 정보 설정
+	    int listCount = boardService.selectCountCategoryList(categoryId); // 총 게시글 수 조회
+	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 페이징 계산
+
+	    // 게시글 목록 조회
+	    List<Board> boardList = boardService.selectListByCategory(categoryId, pi);
+
+	    // 모델에 데이터 추가
+	    m.addAttribute("categoryId", categoryId);
+	    m.addAttribute("categoryName", categoryName);
+	    m.addAttribute("boardList", boardList);
+	    m.addAttribute("pi", pi);
+
+	    return "community/community_main";
+	}
+
+
 
 	// 게시판에서 글쓰기 버튼 누를 때
 	@GetMapping("/write")
@@ -174,38 +149,46 @@ public class BoardController {
 	}
 	
 	@PostMapping("/submitAnswer")
-	@ResponseBody
-	public Map<String, Object> submitAnswer(@RequestBody MedAnswer answer, HttpSession session) {
-	    // MedAnswer 객체 출력 (디버깅용)
-	    System.out.println("MedAnswer 객체: " + answer);
-
-	    // 로그인 사용자 정보 가져오기
+	public String submitAnswer(@ModelAttribute MedAnswer ans, HttpSession session) {
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    answer.setUserNo(loginUser.getUserNo());
+	    if (loginUser == null) {
+	        throw new RuntimeException("로그인 정보가 없습니다.");
+	    }
 
-	    // 데이터 저장
-	    boardService.saveAnswer(answer);
+	    // 로그인 사용자 정보 설정
+	    ans.setMedNo(loginUser.getMedKey());
+	    ans.setStatus("Y");
+	    ans.setIsMedicalField("Y");
 
-	   
-	    // 반환할 데이터 준비
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("doctorName", loginUser.getUserName()); // 세션에서 바로 가져온 userName
-	    response.put("answerDate", answer.getEnrollDate());
-	    response.put("answerContent", answer.getAnswerContent());
-
-	    return response; // JSON 반환
+	    // MedicalField 정보 설정
+	    MedicalField mf = memberService.getMedicalFieldByMedNo(loginUser.getMedKey());
+	    if (mf != null) {
+	        ans.setMedicalFieldId(mf.getMedicalFieldId());
+	    }
+	    System.out.println("답글 제출 전 ANS Debug: " + ans);
+	    // 답글 저장 로직
+	    boardService.saveAnswer(ans);
+	    System.out.println("답글 제출 후 ANS Debug: " + ans);
+	    // 답글 저장 후 게시글 상세보기로 리다이렉트
+	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
 	}
+
+
+	
+
+
 
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
-	public String selectBoard(@RequestParam("bno") String bno, Model m) {
+	public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
 	    // 현재 게시글 번호 확인
 	    System.out.println("Received bno: " + bno);
 
 	    // 현재 게시글 조회
 	    Board b = boardService.selectBoard(bno);
-	    List<MedAnswer> answers = boardService.getAnswersByBoardNo(bno);
+	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
+	    System.out.println("상세페이지 ans Debug: " + ans);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
@@ -220,6 +203,11 @@ public class BoardController {
 	    // 카테고리 이름 조회
 	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
 
+	    // 로그인 사용자 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser != null) {
+	        m.addAttribute("doctorName", loginUser.getUserName()); // 의사 이름을 doctorName으로 전달
+	    }
 	    // 이전 글 번호 조회 후 상세 정보 조회
 	    String prevBno = boardService.getPreviousBoard(bno);
 	    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
@@ -238,7 +226,7 @@ public class BoardController {
 	    m.addAttribute("categories", categories); // 카테고리 목록
 	    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
 	    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
-	    m.addAttribute("answers", answers); // 답변 리스트 추가
+	    m.addAttribute("ans", ans); // 답변 리스트 추가
 	  
 	    return "community/community_board_detail"; // 상세 페이지로 이동
 	}
@@ -270,9 +258,7 @@ public class BoardController {
 	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
 	        return "/common/errorPage";
 	    }
-	 // 게시글 작성일을 출력할 때
-	    String formattedEnrollDate = formatDate(b.getEnrollDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-	    m.addAttribute("formattedEnrollDate", formattedEnrollDate);
+	 
 
 	    // 게시글 저장
 	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());

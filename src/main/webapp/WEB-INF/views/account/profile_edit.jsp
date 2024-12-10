@@ -69,6 +69,14 @@
                     <input type="text" name="address" value="${loginUser.address}" disabled>
                 </div>
 
+                <!-- 의사 약력 입력 필드 -->
+                <c:if test="${not empty loginUser.medKey}">
+                    <div class="input-group">
+                        <label>의사 약력</label>
+                        <textarea name="biography" rows="5" placeholder="의사 약력을 작성해주세요">${loginUser.biography}</textarea>
+                    </div>
+                </c:if>
+
                 <!-- 수정 활성화/저장 버튼 -->
                 <button type="button" id="edit-save-button" class="edit-button" onclick="toggleEditSave()">수정 활성화</button>
             </form>
@@ -97,7 +105,7 @@
         function toggleEditSave() {
             const button = document.getElementById('edit-save-button');
             const form = document.getElementById('profile-form');
-            const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"]');
+            const editableFields = document.querySelectorAll('input[name="userName"], input[name="email"], input[name="birthday"], input[name="address"], textarea[name="biography"]');
 
             if (!isEditing) {
                 // 수정 활성화
@@ -119,32 +127,26 @@
 
         // 회원탈퇴 확인 및 비밀번호 입력
         function confirmWithdrawal() {
-            // 비밀번호를 입력받는 prompt 창
             const password = prompt("정말로 탈퇴하시겠습니까?\n비밀번호를 입력해주세요.");
             if (password) {
-                // 동적으로 폼 생성
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = '${pageContext.request.contextPath}/member/withdraw';
 
-                // 비밀번호 필드 추가
                 const passwordInput = document.createElement('input');
                 passwordInput.type = 'hidden';
                 passwordInput.name = 'password';
                 passwordInput.value = password;
 
-                // CSRF 토큰 추가 (Spring Security 사용 시)
                 const csrfToken = '${_csrf.token}';
                 const csrfInput = document.createElement('input');
                 csrfInput.type = 'hidden';
                 csrfInput.name = '${_csrf.parameterName}';
                 csrfInput.value = csrfToken;
 
-                // 폼에 필드 추가
                 form.appendChild(passwordInput);
                 form.appendChild(csrfInput);
 
-                // 폼을 문서에 추가한 뒤 전송
                 document.body.appendChild(form);
                 form.submit();
             } else {

@@ -31,4 +31,6 @@ public class Member {
     private String medKey;
     private String hosNo;
     private String userProfile;
+    private String biography; // 의사 약력
+
 }

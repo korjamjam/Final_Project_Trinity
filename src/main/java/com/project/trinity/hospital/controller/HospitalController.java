@@ -353,6 +353,23 @@ public class HospitalController {
 		
 		
 	}
+	
+	@RequestMapping("account/myHospital/update")
+	public String HospitalAccountMyHospitalUpdate(@ModelAttribute HospitalInfo hosInfo, Model m) {
+		
+		System.out.println(hosInfo);
+		
+		int resultAC = hospitalService.updateMyHospitalAC(hosInfo);
+		int resultAI = hospitalService.updateMyHospitalAI(hosInfo);
+		
+		if((resultAC > 0)&&(resultAI > 0)) {
+			m.addAttribute("message", "수정 성공");
+			return "hospital_detail/hospital_account_main";
+		} else {
+			m.addAttribute("message", "수정 실패");
+			return "hospital_detail/hospital_account_my_hospital";
+		}
+	}
 	//화면 이동 하는거
 	
 	@RequestMapping("account/insertDr")

@@ -37,8 +37,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 		<!-- Custom JS -->
-		<link rel="stylesheet"
-		href="${ pageContext.servletContext.contextPath }/resources/css/common/expert_card.css">
+		<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/expert_card.css">
 		<script
 			src="${pageContext.servletContext.contextPath}/resources/js/community/community_board_detail.js"></script>
 		<script src="${pageContext.servletContext.contextPath}/resources/js/community/answerForm.js"></script>
@@ -50,6 +49,8 @@
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
 			const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+
+
 		</script>
 		<header>
 			<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
@@ -107,33 +108,42 @@
 						</c:if>
 					</div>
 
-					<!-- 답변 폼 -->
-					<div id="answer-section">
-						<textarea id="summernote-1" name="boardContent"
-							class="post-textarea form-control mt-3"></textarea>
-					</div>
-					<div class="button-container">
-						<button type="button" id="submit-answer-btn" class="round-button">답변 작성</button>
-					</div>
-				</div>
 
-				<!-- 답변 리스트 -->
-				<div id="answer-list">
-					<c:forEach items="${answers}" var="a">
-						<div class="board-content answer-item">
-							<div class="answer-content"> 
-								<div class="answer-author">작성자: ${a.doctorName}</div>
-								<div class="answer-date">작성일: ${a.answerDate}</div>
-								${a.answerContent}
+					<div class="answer-section">
+						<!-- 답변 작성 폼 -->
+						<form id="answer-form" action="${pageContext.servletContext.contextPath}/community/submitAnswer"
+							method="post">
+							<input type="hidden" name="boardNo" value="${b.boardNo}" /> <!-- 게시글 번호 -->
+							<input type="hidden" name="doctorName" value="${loginUser.userName}" /> <!-- 작성자 이름 -->
+							<input type="hidden" name="isMedicalField" value="Y" /> <!-- 의료 전문가 여부 -->
+
+							<!-- Summernote 에디터 -->
+							<textarea id="summernote-1" name="answerContent" class="post-textarea form-control mt-3"
+								placeholder="답변을 입력하세요."></textarea>
+
+							<!-- 작성 버튼 -->
+							<div class="button-container">
+								<button type="submit" class="round-button">답변 작성</button>
 							</div>
-						</div>
-					</c:forEach>
+						</form>
+					</div>
+					<!-- 답변 리스트 -->
+					<!-- <div id="answer-list">
+						<c:forEach items="${ans}" var="a">
+							<div class="board-content answer-item">
+								<div class="answer-content">
+									<div class="answer-author">작성자: ${a.doctorName}</div>
+									<div class="answer-date">작성일: ${a.answerDate}</div>
+									${a.answerContent}
+								</div>
+							</div>
+						</c:forEach>
+					</div> -->
+
+
+					<%@ include file="/WEB-INF/views/common/comments.jsp" %>
 				</div>
-
-
-				<%@ include file="/WEB-INF/views/common/comments.jsp" %>
-			</div>
-			<div class="empty-space"></div>
+				<div class="empty-space"></div>
 		</main>
 
 		<footer>

@@ -182,7 +182,6 @@ function toggleLikeDislike(button, commentNo, isLike, currentState) {
 
     $.ajax({
         url: "toggleLike.bo",
-
         type: "POST",
         data: {
 

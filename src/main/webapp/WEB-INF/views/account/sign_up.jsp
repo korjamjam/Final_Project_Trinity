@@ -132,11 +132,11 @@
                 return false;
             }
 
-            const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,16}$/;
-            if (!passwordRegex.test(userPwd)) {
-                alert("비밀번호는 8~16자로 영문, 숫자, 특수문자를 포함해야 합니다.");
-                return false;
-            }
+            // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,16}$/;
+            // if (!passwordRegex.test(userPwd)) {
+            //     alert("비밀번호는 8~16자로 영문, 숫자, 특수문자를 포함해야 합니다.");
+            //     return false;
+            // }
 
             // 전화번호 유효성 검사
             if (!phonePrefix || !phoneMiddle || !phoneLast) {

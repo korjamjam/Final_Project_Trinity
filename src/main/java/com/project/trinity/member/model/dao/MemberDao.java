@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.trinity.member.model.vo.DoctorReview;
+import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
 
 @Repository
@@ -132,4 +133,7 @@ public class MemberDao {
 		return result;
 	}
 
+	 public MedicalField selectMedicalFieldByMedNo(SqlSession sqlSession, String medKey) {
+	        return sqlSession.selectOne("memberMapper.selectMedicalFieldByMedNo", medKey);
+	    }
 }
