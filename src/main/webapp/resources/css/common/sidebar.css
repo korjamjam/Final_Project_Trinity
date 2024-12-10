@@ -5,23 +5,31 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+
 /* 사이드바 기본 스타일 */
 .hamburger-sidebar {
     width: 250px;
     height: 100vh;
     background-color: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* 그림자 방향 조정 */
     padding-top: 20px;
     position: fixed;
-    left: 0;
+    right: 0; /* 오른쪽에서 열리도록 설정 */
+    left: auto; /* 왼쪽 설정 제거 */
     top: 0;
     overflow-y: auto;
-    transform: translateX(-100%); /* 사이드바를 화면 밖으로 이동 */
+    transform: translateX(100%); /* 오른쪽 밖으로 숨김 */
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
     z-index: 1000;
 }
+
+/* 사이드바 보이기 */
+.hamburger-show-sidebar {
+    transform: translateX(0); /* 화면에 나타나도록 설정 */
+}
+
 
 .hamburger-show-sidebar {
     transform: translateX(0); /* 사이드바가 화면에 나타나도록 설정 */

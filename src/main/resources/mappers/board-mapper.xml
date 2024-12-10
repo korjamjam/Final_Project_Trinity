@@ -548,45 +548,42 @@
 	</select>
 
 
-	<select id="selectListByCategory" parameterType="map"
-		resultMap="boardResult">
-		SELECT *
-		FROM (
-		SELECT
-		b.BOARD_NO,
-		b.BOARD_TYPE,
-		b.BOARD_TITLE,
-		b.USER_NO,
-		m.USER_ID AS BOARD_WRITER,
-		b.BOARD_CONTENT,
-		TO_CHAR(b.ENROLL_DATE,
-		'YYYY/MM/DD') AS ENROLL_DATE,  <!-- TO_CHAR 추가 -->
-		TO_CHAR(b.MODIFIED_DATE, 'YYYY/MM/DD') AS MODIFIED_DATE, <!-- TO_CHAR 추가 -->
-		b.BOARD_VIEWS,
-		c.CATEGORY_NAME AS CATEGORY_NAME,
-		b.STATUS,
-		ROW_NUMBER()
-		OVER (
-		ORDER BY
-		<if test="categoryId != null">
-			b.ENROLL_DATE DESC
-		</if>
-		<if test="categoryId == null">
-			b.BOARD_VIEWS DESC
-		</if>
-		) AS RN
-		FROM BOARD b
-		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
-		LEFT
-		JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
-		WHERE b.STATUS =
-		'Y'
-		<if test="categoryId != null">
-			AND b.CATEGORY_ID = #{categoryId}
-		</if>
-		)
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
-	</select>
+	<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
+    SELECT *
+    FROM (
+        SELECT
+            b.BOARD_NO,
+            b.BOARD_TYPE,
+            b.BOARD_TITLE,
+            b.USER_NO,
+            m.USER_ID AS BOARD_WRITER,
+            b.BOARD_CONTENT,
+            TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+            TO_CHAR(b.MODIFIED_DATE, 'YYYY/MM/DD') AS MODIFIED_DATE,
+            b.BOARD_VIEWS,
+            c.CATEGORY_NAME AS CATEGORY_NAME,
+            b.STATUS,
+            ROW_NUMBER() OVER (
+                ORDER BY
+                <choose>
+                    <when test="categoryId != null">
+                        b.ENROLL_DATE DESC
+                    </when>
+                    <otherwise>
+                        b.BOARD_VIEWS DESC
+                    </otherwise>
+                </choose>
+            ) AS RN
+        FROM BOARD b
+        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+        LEFT JOIN BOARD_CATEGORY c ON b.CATEGORY_ID = c.CATEGORY_ID
+        WHERE b.STATUS = 'Y'
+        <if test="categoryId != null">
+            AND b.CATEGORY_ID = #{categoryId}
+        </if>
+    )
+    WHERE RN BETWEEN #{startRow} AND #{endRow}
+</select>
 
 
 	<!-- 카테고리별 게시글 수 조회 -->
@@ -610,27 +607,6 @@
 		ORDER BY
 		ENROLL_DATE DESC
 	</select>
-
-
-<!-- 특정 게시글에 대한 MedAnswer 조회 -->
-<select id="selectAnswersByBoardNo" parameterType="String" resultType="MedAnswer">
-    SELECT
-        ANSWER_NO,
-        BOARD_NO,
-        MED_NO,
-        ANSWER_CONTENT,
-        TO_CHAR(ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE, <!-- 날짜 형식 변환 -->
-        TO_CHAR(MODIFIED_DATE, 'YYYY/MM/DD') AS MODIFIED_DATE,
-        STATUS,
-        IS_MEDICAL_FIELD
-    FROM
-        MED_ANSWERS
-    WHERE
-        BOARD_NO = #{boardNo}
-</select>
-
-
-
 
 
 	<!-- MedAnswer 추가 -->
@@ -658,10 +634,27 @@
 
 
 
-
-
-
-
+<select id="getAnswersByBoardNo" parameterType="String" resultType="MedAnswer">
+    SELECT
+        MA.ANSWER_NO AS answerNo,
+        MA.BOARD_NO AS boardNo,
+        MA.MED_NO AS medNo,
+        MA.ANSWER_CONTENT AS answerContent,
+        TO_CHAR(MA.ENROLL_DATE, 'YYYY/MM/DD') AS enrollDate,
+        TO_CHAR(MA.MODIFIED_DATE, 'YYYY/MM/DD') AS modifiedDate,
+        MA.STATUS AS status,
+        MA.IS_MEDICAL_FIELD AS isMedicalField,
+        M.USER_NAME AS doctorName,  -- MEMBER 테이블에서 작성자 이름 가져오기
+        MF.MEDICAL_FIELD_ID AS medicalFieldId  -- MEDICAL_FIELD 테이블에서 medicalFieldId 가져오기
+    FROM
+        MED_ANSWERS MA
+    JOIN
+        MEMBER M ON MA.MED_NO = M.MED_KEY  -- MEMBER 테이블과 연결
+    JOIN
+        MEDICAL_FIELD MF ON M.MED_KEY = MF.MED_NO  -- MEDICAL_FIELD 테이블과 연결
+    WHERE
+        MA.BOARD_NO = #{bno}
+</select>
 
 
 

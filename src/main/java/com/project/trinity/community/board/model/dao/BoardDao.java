@@ -324,7 +324,7 @@ public class BoardDao {
 
 
     public List<MedAnswer> selectAnswersByBoardNo(SqlSessionTemplate sqlSession, String bno) {
-        return sqlSession.selectList("boardMapper.selectAnswersByBoardNo", bno);
+        return sqlSession.selectList("boardMapper.getAnswersByBoardNo", bno);
     }
 
 
