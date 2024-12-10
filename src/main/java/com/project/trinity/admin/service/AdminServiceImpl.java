@@ -1,6 +1,7 @@
 package com.project.trinity.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +122,12 @@ public class AdminServiceImpl implements AdminService {
 	    return adminDao.getAllReservations(sqlSession);
 	}
 	
-	//---------------------------------예약 관리---------------------------------
+	@Override
+    public Map<String, Object> getReservationDetail(String reservationNo) {
+        return adminDao.getReservationDetail(sqlSession, reservationNo);
+    }
+	
+	//---------------------------------게시글 관리---------------------------------
 	@Override
     public List<Board> getAllPosts() {
         return adminDao.getAllPosts(sqlSession);

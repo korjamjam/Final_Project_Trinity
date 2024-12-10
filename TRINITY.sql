@@ -56,7 +56,6 @@ CREATE SEQUENCE SEQ_ANSWER_NO START WITH 1 INCREMENT BY 1 NOCACHE; -- 새로 추
 
 
 -- 테이블 생성 ----------------------------------------------------------------------------------------------------------
-
 CREATE TABLE HOSPITAL_INFO (
     HOS_NO VARCHAR2(10) PRIMARY KEY,
     HOS_NAME VARCHAR2(250),
@@ -624,7 +623,6 @@ BEGIN
             'Y'
         );
     END LOOP;
-    
 END;
 /
 

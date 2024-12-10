@@ -1,6 +1,7 @@
 package com.project.trinity.hospital.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
@@ -28,5 +29,9 @@ public interface HospitalService {
 	int insertHospital(HospitalAccount hosAccount);
 
 	HospitalAccount loginHosAccount(HospitalAccount hosAccount);
+
+	int updateMyHospitalAC(HospitalInfo hosInfo);
+	
+	int updateMyHospitalAI(HospitalInfo hosInfo);
 
 }
