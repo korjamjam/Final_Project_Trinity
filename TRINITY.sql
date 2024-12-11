@@ -482,6 +482,127 @@ VALUES ('U15','user14','pwd14','Nina','nina@example.com','010-4567-8901','820909
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile)
 VALUES ('U16','user15','pwd15','Oscar','oscar@example.com','010-5678-9012','810101' ,'Jeju,Korea' ,'M' ,'/resources/img/default_profile.png');
 
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U17', 'user16', 'pwd16', 'Penny', 'penny@example.com', '010-6789-0123', '800202', 'Bucheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U18', 'user17', 'pwd17', 'Quentin', 'quentin@example.com', '010-7890-1234', '790303', 'Ansan, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U19', 'user18', 'pwd18', 'Rachel', 'rachel@example.com', '010-8901-2345', '780404', 'Anyang, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U20', 'user19', 'pwd19', 'Steve', 'steve@example.com', '010-9012-3456', '770505', 'Gimhae, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U21', 'user20', 'pwd20', 'Tina', 'tina@example.com', '010-0123-4567', '760606', 'Pyeongtaek, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U22', 'user21', 'pwd21', 'Ulysses', 'ulysses@example.com', '010-1234-5678', '750707', 'Cheonan, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U23', 'user22', 'pwd22', 'Vera', 'vera@example.com', '010-2345-6789', '740808', 'Jeonju, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U24', 'user23', 'pwd23', 'William', 'william@example.com', '010-3456-7890', '730909', 'Cheongju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U25', 'user24', 'pwd24', 'Xena', 'xena@example.com', '010-4567-8901', '721010', 'Gimpo, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U26', 'user25', 'pwd25', 'Yannick', 'yannick@example.com', '010-5678-9012', '711111', 'Wonju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U27', 'user26', 'pwd26', 'Zoe', 'zoe@example.com', '010-6789-0123', '701212', 'Gyeongsan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U28', 'user27', 'pwd27', 'Adam', 'adam@example.com', '010-7890-1234', '690101', 'Gunpo, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U29', 'user28', 'pwd28', 'Bella', 'bella@example.com', '010-8901-2345', '680202', 'Iksan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U30', 'user29', 'pwd29', 'Cameron', 'cameron@example.com', '010-9012-3456', '670303', 'Yangju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U31', 'user30', 'pwd30', 'Daisy', 'daisy@example.com', '010-0123-4567', '660404', 'Guri, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U32', 'user31', 'pwd31', 'Ethan', 'ethan@example.com', '010-1234-5678', '650505', 'Namyangju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U33', 'user32', 'pwd32', 'Faye', 'faye@example.com', '010-2345-6789', '640606', 'Paju, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U34', 'user33', 'pwd33', 'Gavin', 'gavin@example.com', '010-3456-7890', '630707', 'Icheon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U35', 'user34', 'pwd34', 'Holly', 'holly@example.com', '010-4567-8901', '620808', 'Asan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U36', 'user35', 'pwd35', 'Isaac', 'isaac@example.com', '010-5678-9012', '610909', 'Jinju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U37', 'user36', 'pwd36', 'Jack', 'jack@example.com', '010-6789-0123', '600101', 'Mokpo, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U38', 'user37', 'pwd37', 'Kate', 'kate@example.com', '010-7890-1234', '590202', 'Yeosu, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U39', 'user38', 'pwd38', 'Leo', 'leo@example.com', '010-8901-2345', '580303', 'Chuncheon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U40', 'user39', 'pwd39', 'Mia', 'mia@example.com', '010-9012-3456', '570404', 'Hwaseong, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U41', 'user40', 'pwd40', 'Noah', 'noah@example.com', '010-0123-4567', '560505', 'Goyang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U42', 'user41', 'pwd41', 'Olivia', 'olivia@example.com', '010-1234-5678', '550606', 'Gwangmyeong, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U43', 'user42', 'pwd42', 'Peter', 'peter@example.com', '010-2345-6789', '540707', 'Siheung, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U44', 'user43', 'pwd43', 'Quinn', 'quinn@example.com', '010-3456-7890', '530808', 'Uiwang, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U45', 'user44', 'pwd44', 'Ryan', 'ryan@example.com', '010-4567-8901', '520909', 'Gwangyang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U46', 'user45', 'pwd45', 'Sophia', 'sophia@example.com', '010-5678-9012', '511010', 'Miryang, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U47', 'user46', 'pwd46', 'Thomas', 'thomas@example.com', '010-6789-0123', '501111', 'Sacheon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U48', 'user47', 'pwd47', 'Uma', 'uma@example.com', '010-7890-1234', '491212', 'Gimcheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U49', 'user48', 'pwd48', 'Victor', 'victor@example.com', '010-8901-2345', '481313', 'Andong, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U50', 'user49', 'pwd49', 'Wendy', 'wendy@example.com', '010-9012-3456', '471414', 'Gumi, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U51', 'user50', 'pwd50', 'Xavier', 'xavier@example.com', '010-0123-4567', '461515', 'Sangju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U52', 'user51', 'pwd51', 'Yara', 'yara@example.com', '010-1234-5678', '451616', 'Yeongcheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U53', 'user52', 'pwd52', 'Zack', 'zack@example.com', '010-2345-6789', '441717', 'Pohang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U54', 'user53', 'pwd53', 'Amber', 'amber@example.com', '010-3456-7890', '431818', 'Gyeongsan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U55', 'user54', 'pwd54', 'Ben', 'ben@example.com', '010-4567-8901', '421919', 'Gunsan, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U56', 'user55', 'pwd55', 'Clara', 'clara@example.com', '010-5678-9012', '412020', 'Iksan, Korea', 'F', '/resources/img/default_profile.png');
+
+
 --Rankup 테이블 더미데이터
 DECLARE
     CURSOR c_user_no IS
