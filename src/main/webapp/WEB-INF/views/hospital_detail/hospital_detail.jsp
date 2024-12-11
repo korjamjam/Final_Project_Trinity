@@ -74,7 +74,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">당일 예약 정보</h4>
                     </div>
-                    <div class="modal-body" style="justify-content: space-around !important;">
+                    <div class="modal-body" style="@media (min-width: 768px) { justify-content: space-around !important; }">
                         <div class="waitingNavi"></div>
                     </div>
                     <div class="modal-footer">
