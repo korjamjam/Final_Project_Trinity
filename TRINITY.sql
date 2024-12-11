@@ -11,6 +11,8 @@ DROP TABLE HEALTH_RESERVATION CASCADE CONSTRAINTS;
 DROP TABLE BOARD CASCADE CONSTRAINTS;
 DROP TABLE FILE_TABLE CASCADE CONSTRAINTS;
 DROP TABLE COMMENTS CASCADE CONSTRAINTS;
+DROP TABLE COMMENTS_TABLE CASCADE CONSTRAINTS;
+DROP TABLE MED_ANSWER CASCADE CONSTRAINTS;
 DROP TABLE MED_ANSWERS CASCADE CONSTRAINTS;
 DROP TABLE GUEST CASCADE CONSTRAINTS;
 DROP TABLE H_SUBJECT CASCADE CONSTRAINTS;
@@ -450,174 +452,35 @@ VALUES ('U5', 'user04', 'pwd04', 'Diana', 'diana@example.com', '010-4567-8901', 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
 VALUES ('U6', 'user05', 'pwd05', 'Evan', 'evan@example.com', '010-5678-9012', '801212', 'Gwangju, Korea', 'M', '/resources/img/default_profile.png');
 
--- 커뮤니티 더미데이터 --------------------------------------------------------------------------------------------------------
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U7', 'user06', 'pwd06', 'Fiona', 'fiona@example.com', '010-6789-0123', '900101', 'Daejeon, Korea', 'F', '/resources/img/default_profile.png');
 
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U8', 'user07', 'pwd07', 'George', 'george@example.com', '010-7890-1234', '890202', 'Ulsan, Korea', 'M', '/resources/img/default_profile.png');
 
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U9', 'user08', 'pwd08', 'Hannah', 'hannah@example.com', '010-8901-2345', '880303', 'Jeonju, Korea', 'F', '/resources/img/default_profile.png');
 
-DECLARE
-    CURSOR c_user_no IS
-        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
-    v_user_no MEMBER.USER_NO%TYPE;
-BEGIN
-    FOR i IN 1..1000 LOOP  -- 1000개의 데이터 생성
-        -- 랜덤한 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N'
-            ORDER BY DBMS_RANDOM.VALUE
-        ) WHERE ROWNUM = 1;
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U10', 'user09', 'pwd09', 'Ian', 'ian@example.com', '010-9012-3456', '870404', 'Gyeongju, Korea', 'M', '/resources/img/default_profile.png');
 
-        -- BOARD 데이터 삽입
-        INSERT INTO BOARD (
-            BOARD_NO, 
-            BOARD_TYPE, 
-            USER_NO, 
-            BOARD_TITLE, 
-            BOARD_CONTENT, 
-            ENROLL_DATE, 
-            MODIFIED_DATE, 
-            BOARD_VIEWS, 
-            CATEGORY_ID, 
-            STATUS
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- BOARD_NO
-            CASE MOD(i, 3)                       -- BOARD_TYPE 매핑 (3가지 종류만 사용)
-                WHEN 0 THEN 1                    -- 자유게시판
-                WHEN 1 THEN 2                    -- 메디톡
-                ELSE 3                           -- 이벤트게시판
-            END,
-            v_user_no,                           -- USER_NO (랜덤 회원)
-            '게시글 제목 ' || i,                  -- BOARD_TITLE
-            '게시글 내용 ' || i || '입니다.',      -- BOARD_CONTENT
-            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- ENROLL_DATE (지난 30일 내 랜덤)
-            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)), -- MODIFIED_DATE (지난 10일 내 랜덤)
-            TRUNC(DBMS_RANDOM.VALUE(0, 1000)),   -- BOARD_VIEWS (0 ~ 999 랜덤)
-            CASE MOD(i, 3)                       -- BOARD_CATEGORY 매핑 (CAT01, CAT02, CAT03만 사용)
-                WHEN 0 THEN 'CAT01'              -- 자유게시판
-                WHEN 1 THEN 'CAT02'              -- 메디톡
-                ELSE 'CAT03'                    -- 이벤트게시판
-            END,
-            'Y'                                  -- STATUS (항상 Y)
-        );
-    END LOOP;
-    COMMIT;
-END;
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U11', 'user10', 'pwd10', 'Jane', 'jane@example.com', '010-0123-4567', '860505', 'Suwon, Korea', 'F', '/resources/img/default_profile.png');
 
--- 고객문의 더미데이터 --------------------------------------------------------------------------------------------------------
-DECLARE
-    v_user_no MEMBER.USER_NO%TYPE; -- 일반 사용자의 USER_NO를 저장할 변수
-    v_admin_no MEMBER.USER_NO%TYPE := 'U1'; -- 관리자 계정
-BEGIN
-    -- 공지사항 (공지사항은 관리자 작성)
-    FOR i IN 1..10 LOOP
-        INSERT INTO BOARD (
-            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
-            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS, 
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL), -- 게시글 번호
-            4, -- 공지사항
-            v_admin_no, -- 관리자
-            '공지사항 제목 ' || i, -- 제목
-            '공지사항 내용 ' || i || '입니다.', -- 내용
-            SYSDATE - DBMS_RANDOM.VALUE(1, 30), -- 등록일
-            SYSDATE - DBMS_RANDOM.VALUE(1, 10), -- 수정일
-            TRUNC(DBMS_RANDOM.VALUE(0, 100)), -- 조회수
-            '공지사항', -- 카테고리
-            'Y' -- 활성화 상태
-        );
-    END LOOP;
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U12', 'user11', 'pwd11', 'Kevin', 'kevin@example.com', '010-1234-5678', '850606', 'Pohang, Korea', 'M', '/resources/img/default_profile.png');
 
-    -- 알림톡 (알림판은 일반 사용자 작성)
-    FOR i IN 1..10 LOOP
-        -- 랜덤 사용자 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO 
-            FROM MEMBER 
-            WHERE ISADMIN = 'N' -- 일반 사용자만
-            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
-        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U13', 'user12', 'pwd12', 'Luna', 'luna@example.com', '010-2345-6789', '840707', 'Changwon, Korea', 'F', '/resources/img/default_profile.png');
 
-        INSERT INTO BOARD (
-            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
-            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, STATUS
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            5, -- 알림판
-            v_user_no, -- 일반 사용자
-            '알림톡 제목 ' || i,
-            '알림톡 내용 ' || i || '입니다.',
-            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
-            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
-            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
-            '알림판',
-            'Y'
-        );
-    END LOOP;
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U14', 'user13', 'pwd13', 'Mike', 'mike@example.com', '010-3456-7890', '830808', 'Cheongju, Korea', 'M', '/resources/img/default_profile.png');
 
-    -- FAQ (FAQ는 관리자 작성)
-    FOR i IN 1..10 LOOP
-        INSERT INTO BOARD (
-            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
-            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
-            INQUIRY_CATEGORY, STATUS
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            6, -- FAQ
-            v_admin_no,
-            'FAQ 제목 ' || i,
-            'FAQ 내용 ' || i || '입니다.',
-            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
-            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
-            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
-            'FAQ',
-            CASE MOD(i, 4)
-                WHEN 0 THEN '회원관련'
-                WHEN 1 THEN '사이트이용'
-                WHEN 2 THEN '커뮤니티'
-                ELSE '이벤트'
-            END,
-            'Y'
-        );
-    END LOOP;
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address , gender, userprofile)
+VALUES ('U15','user14','pwd14','Nina','nina@example.com','010-4567-8901','820909','Sejong,Korea','F','/resources/img/default_profile.png');
 
-    -- Q&A (Q&A는 일반 사용자 작성)
-    FOR i IN 1..10 LOOP
-        -- 랜덤 사용자 USER_NO 가져오기
-        SELECT USER_NO INTO v_user_no
-        FROM (
-            SELECT USER_NO 
-            FROM MEMBER 
-            WHERE ISADMIN = 'N' -- 일반 사용자만
-            ORDER BY DBMS_RANDOM.VALUE -- 랜덤 정렬
-        ) WHERE ROWNUM = 1; -- 하나의 사용자만 가져오기
-
-        INSERT INTO BOARD (
-            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
-            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, BOARD_CATEGORY, 
-            INQUIRY_CATEGORY, STATUS
-        ) VALUES (
-            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
-            7, -- Q&A
-            v_user_no,
-            'QNA 제목 ' || i,
-            'QNA 내용 ' || i || '입니다.',
-            SYSDATE - DBMS_RANDOM.VALUE(1, 30),
-            SYSDATE - DBMS_RANDOM.VALUE(1, 10),
-            TRUNC(DBMS_RANDOM.VALUE(0, 100)),
-            'QNA',
-            CASE MOD(i, 4)
-                WHEN 0 THEN '회원관련'
-                WHEN 1 THEN '사이트이용'
-                WHEN 2 THEN '커뮤니티'
-                ELSE '이벤트'
-            END,
-            'Y'
-        );
-    END LOOP;
-END;
-/
-
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile)
+VALUES ('U16','user15','pwd15','Oscar','oscar@example.com','010-5678-9012','810101' ,'Jeju,Korea' ,'M' ,'/resources/img/default_profile.png');
 
 --Rankup 테이블 더미데이터
 DECLARE
@@ -10364,6 +10227,9 @@ VALUES ('의사', '산부인과');
 INSERT INTO MEDICAL_FIELD (JOB, MEDICAL_FIELD_ID)
 VALUES ('의사', '산부인과');
 
+INSERT INTO MEDICAL_FIELD (JOB, MEDICAL_FIELD_ID)
+VALUES ('의사', '소아과');
+
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
 VALUES ('U1010', 'doc10', 'password10', '황의사', 'doc10@example.com', '010-1010-1010', '801212', 'F', '제주특별자치도 제주시', 'M1', 'H4', '/resources/img/doctorPicDefault.png', '20년 경력의 피부과 전문의입니다.');
 
@@ -10680,29 +10546,234 @@ INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES
 INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('최진료', 'EX4@NAVER.COM', '0108765432', '950418', 'F');
 INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('정예약', 'EX5@YAHOO.COM', '0103456789', '921103', 'M');
 
-INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G2', '이환자', '051211', '24/12/10', '09:00', '소아청소년과', '아파요', 'M');
-INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G3', '김방문', '900305', '24/12/11', '10:30', '내과', '두통이 심해요', 'F');
-INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G4', '박내원', '880712', '24/12/12', '14:00', '정형외과', '무릎이 아파요', 'M');
-INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G5', '최진료', '950418', '24/12/13', '11:30', '피부과', '발진이 생겼어요', 'F');
-INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G6', '정예약', '921103', '24/12/14', '15:30', '안과', '시력검사 받고 싶어요', 'M');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G1', '이환자', '051211', '24/12/10', '09:00', '소아청소년과', '아파요', 'M');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G2', '김방문', '900305', '24/12/11', '10:30', '내과', '두통이 심해요', 'F');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G3', '박내원', '880712', '24/12/12', '14:00', '정형외과', '무릎이 아파요', 'M');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G4', '최진료', '950418', '24/12/13', '11:30', '피부과', '발진이 생겼어요', 'F');
+INSERT INTO GENERAL_RESERVATION (HOS_NO, GST_NO, G_PATIENT_NAME, G_PATIENT_BIRTHDAY, G_RES_DATE, G_RES_TIME, G_RES_SUBJECT, G_RES_CONTENT, G_RES_GENDER) VALUES ('H9', 'G5', '정예약', '921103', '24/12/14', '15:30', '안과', '시력검사 받고 싶어요', 'M');
 
 -- BOARD_CATEGORY 테이블 더미 데이터 생성
 INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT01', '공지사항', 1, 'Y');
+VALUES ('CAT01', '자유게시판', 1, 'Y');
 
 INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT02', '알림판', 2, 'Y');
+VALUES ('CAT02', '메디톡', 2, 'Y');
 
 INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT03', 'FAQ', 3, 'Y');
+VALUES ('CAT03', '이벤트게시판', 3, 'Y');
 
-INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
-VALUES ('CAT04', 'Q&A', 4, 'Y');
+DECLARE
+    -- 외부 변수 선언
+    CURSOR c_user_no IS
+        SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N';
+    v_user_no MEMBER.USER_NO%TYPE;
 
+    v_title VARCHAR2(200);
+    v_content CLOB;
+    v_category_id VARCHAR2(20);
+    v_full_content CLOB;
+    v_image_url VARCHAR2(255);
 
+    -- 데이터 리스트
+    v_free_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '오늘 하루는 어땠나요?', '좋은 영화 추천 부탁드려요', '취미생활 공유해요!',
+        '요즘 읽고 있는 책은?', '여행 가고 싶은 곳이 있나요?'
+    );
+    v_free_contents SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '오늘 하루 있었던 일들을 공유하고 싶습니다. 모두 어떤 하루를 보냈나요?',
+        '최근에 볼만한 영화가 없어서요. 재미있는 영화 추천 부탁드립니다!',
+        '취미생활을 공유하며 즐거움을 나누고 싶어요. 여러분의 취미는 무엇인가요?',
+        '요즘 제가 읽고 있는 책은 정말 재밌습니다. 여러분은 어떤 책을 읽고 있나요?',
+        '여행을 계획 중인데 추천해주실 여행지가 있을까요?'
+    );
+
+    v_meditalk_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '감기 예방 방법은?', '백신 접종 후 주의사항', '건강검진에서 간 수치가 높아요',
+        '무릎 통증 치료법', '치아 건강 유지 방법'
+    );
+    v_meditalk_contents SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '최근 감기가 유행인데 예방할 수 있는 방법이 있을까요?',
+        '백신을 맞고 나서 주의해야 할 점이 있다면 알려주세요.',
+        '건강검진에서 간 수치가 높게 나왔습니다. 어떻게 해야 할까요?',
+        '무릎 통증이 자주 생기는데 어떤 치료법이 효과적일까요?',
+        '치아 건강을 유지하기 위해 좋은 방법이 있을까요?'
+    );
+
+    v_event_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '새해 이벤트 참여하세요!', '건강검진 할인 행사 안내', '무료 백신 접종 이벤트',
+        '여름맞이 체력 증진 이벤트', '커뮤니티 활동 이벤트 공지'
+    );
+    v_event_contents SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '새해를 맞아 다양한 이벤트를 준비했습니다. 참여 방법은 본문을 확인해주세요!',
+        '이번 달 동안 건강검진 할인 행사가 진행됩니다. 많은 참여 부탁드립니다.',
+        '무료 백신 접종 이벤트가 열립니다. 자세한 내용은 본문을 확인해주세요.',
+        '여름맞이 체력 증진 이벤트가 시작됩니다. 자세한 정보는 본문 참고!',
+        '커뮤니티 활성화를 위해 특별한 이벤트를 준비했습니다. 많은 관심 부탁드립니다!'
+    );
+
+    v_additional_sentences SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '이와 관련된 경험을 공유해주세요.', '더 많은 정보는 댓글로 알려주세요.',
+        '다양한 의견을 듣고 싶습니다.', '앞으로도 이런 게시글을 작성하겠습니다.',
+        '관련 이미지도 첨부해봤습니다.'
+    );
+BEGIN
+    FOR i IN 1..1000 LOOP
+        -- 랜덤 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N' ORDER BY DBMS_RANDOM.VALUE
+        ) WHERE ROWNUM = 1;
+
+        -- 게시판 유형 설정
+        CASE MOD(i, 3)
+            WHEN 0 THEN
+                v_title := v_free_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_free_titles.COUNT + 1)));
+                v_content := v_free_contents(TRUNC(DBMS_RANDOM.VALUE(1, v_free_contents.COUNT + 1)));
+                v_category_id := 'CAT01';
+            WHEN 1 THEN
+                v_title := v_meditalk_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_meditalk_titles.COUNT + 1)));
+                v_content := v_meditalk_contents(TRUNC(DBMS_RANDOM.VALUE(1, v_meditalk_contents.COUNT + 1)));
+                v_category_id := 'CAT02';
+            ELSE
+                v_title := v_event_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_event_titles.COUNT + 1)));
+                v_content := v_event_contents(TRUNC(DBMS_RANDOM.VALUE(1, v_event_contents.COUNT + 1)));
+                v_category_id := 'CAT03';
+        END CASE;
+
+        -- 추가 문장 및 이미지 설정
+        v_full_content := v_content;
+        FOR j IN 1..TRUNC(DBMS_RANDOM.VALUE(0, 6)) LOOP
+            v_full_content := v_full_content || ' ' || v_additional_sentences(TRUNC(DBMS_RANDOM.VALUE(1, v_additional_sentences.COUNT + 1)));
+        END LOOP;
+
+        IF DBMS_RANDOM.VALUE(0, 1) < 0.3 THEN
+            v_image_url := 'https://dummyimage.com/600x400/' || LPAD(TO_CHAR(TRUNC(DBMS_RANDOM.VALUE(111111, 999999))), 6, '0') || '/fff.png';
+            v_full_content := v_full_content || ' [이미지 첨부: ' || v_image_url || ']';
+        END IF;
+
+        -- 데이터 삽입
+        INSERT INTO BOARD (
+            BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, 
+            ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS
+        ) VALUES (
+            'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL),
+            MOD(i, 3) + 1,
+            v_user_no,
+            v_title,
+            v_full_content,
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)),
+            SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 10)),
+            TRUNC(DBMS_RANDOM.VALUE(0, 1000)),
+            v_category_id,
+            'Y'
+        );
+    END LOOP;
+
+    COMMIT;
+END;
+
+/
+-- 메디톡 답글 더미데이터--
+
+DECLARE
+    -- 메디톡 게시글 번호와 카테고리 ID를 가져올 커서
+    CURSOR c_meditalk_boards IS
+        SELECT BOARD_NO 
+        FROM BOARD 
+        WHERE CATEGORY_ID = 'CAT02';
+
+    -- 의사 목록을 가져올 커서
+    CURSOR c_doctors IS
+        SELECT MED_KEY 
+        FROM MEMBER 
+        WHERE MED_KEY IS NOT NULL; -- MED_KEY가 있는 사용자만 의사
+
+    -- 변수 선언
+    v_board_no BOARD.BOARD_NO%TYPE; -- 메디톡 게시글 번호
+    v_doctor_id MEMBER.MED_KEY%TYPE; -- 의사 MED_KEY
+    v_answer_content VARCHAR2(4000);
+    v_is_image_attached CHAR(1);
+    v_image_url VARCHAR2(255);
+
+    -- 답글 내용 목록
+    v_short_answers SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '충분한 휴식과 수분 섭취가 중요합니다.',
+        '전문의 상담을 받아보세요.',
+        '건강검진을 추천드립니다.',
+        '무리한 운동은 피하세요.',
+        '양치질을 철저히 하세요.'
+    );
+
+    v_long_answers SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '감기에 걸렸다면 체온을 유지하며 충분한 수면을 취하는 것이 매우 중요합니다. 따뜻한 차를 마시고 목을 따뜻하게 감싸주세요. 필요시 가까운 병원을 방문하여 추가 진료를 받는 것이 좋습니다.',
+        '백신 접종 후에는 일시적인 발열, 근육통 등이 나타날 수 있습니다. 이는 일반적인 면역 반응이므로 걱정하지 마세요. 다만, 증상이 심하거나 지속될 경우 병원을 방문하세요. 또한 하루 이상 무리한 운동을 삼가고 충분한 수분을 섭취하세요.',
+        '간 건강은 전반적인 생활 습관과 밀접하게 연관됩니다. 알코올 섭취를 제한하고, 신선한 과일과 채소를 충분히 섭취하세요. 간이 부담되지 않도록 튀긴 음식과 기름진 음식을 피하는 것도 중요합니다.',
+        '무릎 통증이 계속된다면 근육 강화 운동을 시작하기 전에 전문의의 상담을 받아보세요. 통증 완화를 위해 냉찜질과 온찜질을 번갈아 하며 통증 관리에 신경 쓰는 것이 좋습니다.',
+        '치아 건강 유지를 위해 올바른 칫솔질과 치실 사용은 필수입니다. 치과를 정기적으로 방문하여 검진받고, 플라크를 제거하세요. 특히 설탕이 많은 음식을 줄이는 것도 도움이 됩니다.'
+    );
+BEGIN
+    -- 메디톡 게시글 반복 처리
+    FOR board_rec IN c_meditalk_boards LOOP
+        v_board_no := board_rec.BOARD_NO;
+
+        -- 각 게시글에 대해 1~5개의 답글 생성
+        FOR i IN 1..TRUNC(DBMS_RANDOM.VALUE(1, 6)) LOOP
+            -- 랜덤 의사 ID 선택
+            SELECT MED_KEY 
+            INTO v_doctor_id
+            FROM (
+                SELECT MED_KEY 
+                FROM MEMBER 
+                WHERE MED_KEY IS NOT NULL 
+                ORDER BY DBMS_RANDOM.VALUE
+            ) WHERE ROWNUM = 1;
+
+            -- 답글 내용 랜덤 선택
+            IF DBMS_RANDOM.VALUE(0, 1) < 0.5 THEN
+                v_answer_content := v_short_answers(TRUNC(DBMS_RANDOM.VALUE(1, v_short_answers.COUNT + 1)));
+            ELSE
+                v_answer_content := v_long_answers(TRUNC(DBMS_RANDOM.VALUE(1, v_long_answers.COUNT + 1)));
+            END IF;
+
+            -- 이미지 첨부 여부 랜덤 결정
+            IF DBMS_RANDOM.VALUE(0, 1) < 0.5 THEN
+                v_is_image_attached := 'Y';
+                v_image_url := 'https://dummyimage.com/600x400/' || LPAD(TO_CHAR(TRUNC(DBMS_RANDOM.VALUE(111111, 999999))), 6, '0') || '/fff.png';
+                v_answer_content := v_answer_content || CHR(10) || '첨부 이미지: ' || v_image_url;
+            ELSE
+                v_is_image_attached := 'N';
+                v_image_url := NULL;
+            END IF;
+
+            -- 답글 데이터 삽입
+            INSERT INTO MED_ANSWERS (
+                ANSWER_NO, 
+                BOARD_NO, 
+                MED_NO, 
+                ANSWER_CONTENT, 
+                ENROLL_DATE, 
+                MODIFIED_DATE, 
+                STATUS, 
+                IS_MEDICAL_FIELD
+            ) VALUES (
+                'A' || TO_CHAR(SEQ_ANSWER_NO.NEXTVAL), -- ANSWER_NO
+                v_board_no,                           -- 게시글 번호
+                v_doctor_id,                          -- 의사 ID
+                v_answer_content,                     -- 답글 내용
+                SYSDATE - TRUNC(DBMS_RANDOM.VALUE(0, 30)), -- 등록 날짜 (30일 내 랜덤)
+                NULL,                                 -- 수정 날짜 (초기 NULL)
+                'Y',                                  -- STATUS (활성화)
+                'Y'                                   -- IS_MEDICAL_FIELD (의료 전문가 여부)
+            );
+        END LOOP;
+    END LOOP;
+
+    COMMIT;
+END;
+/
 
 -- BOARD 테이블 더미 데이터 생성
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B101', 1, 'U1', '연말연시 병원 운영 시간 안내 및 건강관리 유의사항', '안녕하세요. 저희 병원을 이용해 주시는 환자 여러분께 감사드립니다.
 연말연시 병원 운영 시간과 건강관리 유의사항에 대해 안내 드리고자 합니다.
 연말연시 운영 시간
@@ -10717,9 +10788,9 @@ VALUES ('B101', 1, 'U1', '연말연시 병원 운영 시간 안내 및 건강관
 손 씻기: 감염병 예방을 위해 손 씻기를 생활화해 주세요.
 균형 잡힌 식사: 연말 모임이 많아지는 시기, 과식과 과음을 피하고 균형 잡힌 식사를 해주세요.
 충분한 수면: 피로 회복과 면역력 강화를 위해 충분한 수면을 취하세요.
-건강하고 행복한 연말연시 보내시기 바랍니다. 감사합니다.', SYSDATE, SYSDATE, '10', 'CAT01', 'Y', '공지사항');
+건강하고 행복한 연말연시 보내시기 바랍니다. 감사합니다.', SYSDATE, SYSDATE, '10', 'Y', '공지사항');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B105', 1, 'U1', '겨울철 건강 관리 및 응급실 이용 안내', '
 안녕하세요. 환자 여러분, 겨울철 건강 관리에 대한 중요성을 다시 한번 강조하고자 합니다.
 겨울철 건강 관리
@@ -10731,9 +10802,9 @@ VALUES ('B105', 1, 'U1', '겨울철 건강 관리 및 응급실 이용 안내', 
 증상 기록: 방문 전에 증상을 간단히 정리해 오시면 진료에 도움이 됩니다.
 대기 시간: 응급실은 증상의 심각도에 따라 대기 시간이 달라질 수 있습니다. 양해 부탁드립니다.
 비상 연락처: 긴급 상황 발생 시, 119에 연락하여 도움을 요청하세요.
-여러분의 건강과 안전이 최우선입니다. 항상 주의 깊게 건강 관리하시기 바랍니다. 감사합니다. 제목: 새해 맞이 건강 검진 할인 이벤트 안내', SYSDATE, SYSDATE, '30', 'CAT01', 'Y', '공지사항');
+여러분의 건강과 안전이 최우선입니다. 항상 주의 깊게 건강 관리하시기 바랍니다. 감사합니다. 제목: 새해 맞이 건강 검진 할인 이벤트 안내', SYSDATE, SYSDATE, '30', 'Y', '공지사항');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B109', 1, 'U19', '새해 맞이 이벤트 안내', '안녕하세요. 새해를 맞아 저희 병원에서는 특별한 건강 검진 할인 이벤트를 진행합니다!
 이벤트 내용
 기간: 2024년 1월 2일(목)부터 1월 31일(수)까지
@@ -10744,9 +10815,9 @@ VALUES ('B109', 1, 'U19', '새해 맞이 이벤트 안내', '안녕하세요. �
 지속적인 피로감
 체중 변화 (갑작스런 증가 또는 감소)
 소화 불량이나 복통
-건강은 소중한 자산입니다. 이번 기회를 통해 자신의 건강 상태를 점검하고, 더 나은 삶을 위해 노력해 보세요. 많은 참여 부탁드립니다! 감사합니다.', SYSDATE, SYSDATE, '50', 'CAT01', 'Y', '공지사항');
+건강은 소중한 자산입니다. 이번 기회를 통해 자신의 건강 상태를 점검하고, 더 나은 삶을 위해 노력해 보세요. 많은 참여 부탁드립니다! 감사합니다.', SYSDATE, SYSDATE, '50', 'Y', '공지사항');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B102', 1, 'U11', '병원 주소 이전 안내', '안녕하세요. 환자 여러분,
 저희 병원이 더 나은 서비스 제공을 위해 주소를 이전하게 되었습니다. 아래의 내용을 확인하시어 혼동 없으시길 바랍니다.
 새로운 주소
@@ -10759,9 +10830,9 @@ VALUES ('B102', 1, 'U11', '병원 주소 이전 안내', '안녕하세요. 환�
 이전 기간 동안 일부 진료 및 서비스에 제한이 있을 수 있습니다. 이 점 양해 부탁드립니다.
 새로운 위치는 대중교통 접근성이 좋으며, 주차 공간도 마련되어 있습니다.
 환자 여러분의 건강과 안전을 최우선으로 생각하며, 새로운 환경에서 더욱 향상된 서비스를 제공할 수 있도록 최선을 다하겠습니다. 많은 관심과 성원 부탁드립니다.
-감사합니다.', SYSDATE, SYSDATE, '5', 'CAT02', 'Y', '알림판');
+감사합니다.', SYSDATE, SYSDATE, '5', 'Y', '알림판');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B106', 1, 'U16', '병원 주소 이전에 따른 진료 일정 변경 안내', '안녕하세요. 환자 여러분,
 저희 병원이 새로운 주소로 이전하게 되어, 이에 따른 진료 일정 변경을 안내드립니다. 환자 여러분의 양해를 부탁드립니다.
 새로운 주소
@@ -10774,9 +10845,9 @@ VALUES ('B106', 1, 'U16', '병원 주소 이전에 따른 진료 일정 변경 �
 추가 안내
 이전 기간 동안 전화 상담 및 예약은 가능합니다. 궁금하신 점이 있으시면 언제든지 연락 주시기 바랍니다.
 새로운 위치에 대한 자세한 정보는 저희 웹사이트에서 확인하실 수 있습니다.
-여러분의 건강을 위해 최선을 다하겠습니다. 감사합니다. ', SYSDATE, SYSDATE, '25', 'CAT02', 'Y', '알림판');
+여러분의 건강을 위해 최선을 다하겠습니다. 감사합니다. ', SYSDATE, SYSDATE, '25', 'Y', '알림판');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B110', 1, 'U21', '병원 주소 이전 기념 이벤트 안내', '안녕하세요. 환자 여러분,
 저희 병원이 새로운 주소로 이전하는 것을 기념하여 특별 이벤트를 진행합니다! 많은 참여 부탁드립니다.
 이벤트 내용
@@ -10787,40 +10858,40 @@ VALUES ('B110', 1, 'U21', '병원 주소 이전 기념 이벤트 안내', '안�
 할인 혜택은 첫 진료에 한하여 적용됩니다.
 건강 관리 팁
 이벤트 참여와 함께 정기적인 건강 검진을 통해 자신의 건강 상태를 점검해 보세요. 조기 발견과 예방이 중요합니다!
-새로운 환경에서 더욱 향상된 서비스를 제공할 수 있도록 노력하겠습니다. 많은 관심과 참여 부탁드립니다. 감사합니다!', SYSDATE, SYSDATE, '45', 'CAT02', 'Y', '알림판');
+새로운 환경에서 더욱 향상된 서비스를 제공할 수 있도록 노력하겠습니다. 많은 관심과 참여 부탁드립니다. 감사합니다!', SYSDATE, SYSDATE, '45', 'Y', '알림판');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B103', 1, 'U13', '온라인 예약은 어떻게 하나요?', '홈페이지 상단 메뉴의 "병원 찾기" 클릭
 원하는 병원 선택
 원하는 의사 선택
 날짜와 시간 선택
-개인정보 입력 후 최종 예약', SYSDATE, SYSDATE, '20', 'CAT03', 'Y', 'FAQ');
+개인정보 입력 후 최종 예약', SYSDATE, SYSDATE, '20', 'Y', 'FAQ');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B107', 1, 'U17', '예약 가능한 시간은 언제인가요?', '평일: 오전 8시 ~ 오후 6시
 토요일: 오전 8시 ~ 오후 12시
-일요일 및 공휴일: 예약 불가', SYSDATE, SYSDATE, '40', 'CAT03', 'Y', 'FAQ');
+일요일 및 공휴일: 예약 불가', SYSDATE, SYSDATE, '40', 'Y', 'FAQ');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B111', 1, 'U22', '예약을 변경하거나 취소하고 싶어요', '홈페이지 "마이페이지"에서 직접 변경 가능
 예약 24시간 전까지 무료 취소
-당일 취소 시 패널티 적용될 수 있음', SYSDATE, SYSDATE, '60', 'CAT03', 'Y', 'FAQ');
+당일 취소 시 패널티 적용될 수 있음', SYSDATE, SYSDATE, '60', 'Y', 'FAQ');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B104', 1, 'U14', '비회원도 예약 가능한가요?', '휴대폰 인증을 통해 비회원 예약 가능
 회원가입 시 더 편리한 서비스 제공
-개인정보 보호를 위해 최소한의 정보만 요구', SYSDATE, SYSDATE, '15', 'CAT04', 'Y', 'Q&A');
+개인정보 보호를 위해 최소한의 정보만 요구', SYSDATE, SYSDATE, '15', 'Y', 'Q&A');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B108', 1, 'U18', '처음 방문하는데 준비물은 무엇인가요?', '신분증
 건강보험증
 이전 진료 기록 (있을 경우)
-복용 중인 약 정보', SYSDATE, SYSDATE, '35', 'CAT04', 'Y', 'Q&A');
+복용 중인 약 정보', SYSDATE, SYSDATE, '35', 'Y', 'Q&A');
 
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, CATEGORY_ID, STATUS, INQUIRY_CATEGORY)
+INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
 VALUES ('B112', 1, 'U23', '온라인으로 모든 진료를 예약할 수 있나요?', '대부분의 일반 진료 예약 가능
 응급, 중증 질환은 직접 내원 필요
-일부 특수 검진은 전화 상담 후 예약 권장', SYSDATE, SYSDATE, '55', 'CAT04', 'Y', 'Q&A');
+일부 특수 검진은 전화 상담 후 예약 권장', SYSDATE, SYSDATE, '55', 'Y', 'Q&A');
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
