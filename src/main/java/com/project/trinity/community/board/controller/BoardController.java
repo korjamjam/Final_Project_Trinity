@@ -56,54 +56,17 @@ public class BoardController {
         this.memberService = memberService; // 초기화
     }
 
-
-
-	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
-    @RequestMapping("/main")
-    public String getBoardPage(
-            @RequestParam(value = "categoryId", required = false, defaultValue = "CAT01") String categoryId, // 기본값 설정
-            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-            @RequestParam(value = "sortType", defaultValue = "작성일") String sortType,
-            Model m) {
-
-        // 디버깅 로그
-        System.out.println("Received categoryId: " + categoryId);
-
-        // 카테고리별 게시글 수 조회
-        int listCount = boardService.selectCountCategoryList(categoryId);
-
-        // 페이징 정보 설정
-        PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
-
-        // 게시글 목록 조회
-        List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
-
-        // 모델에 데이터 추가
-        m.addAttribute("categoryId", categoryId);
-        m.addAttribute("sortType", sortType);
-        m.addAttribute("boardList", boardList);
-        m.addAttribute("pi", pi);
-
-        // 카테고리 분기 처리
-        if ("CAT04".equals(categoryId) || "CAT05".equals(categoryId) || "CAT06".equals(categoryId)) {
-            // 고객문의 관련 페이지
-            return "inquiry/inquiry_board"; // 절대 경로로 설정
-        }
-
-        // 커뮤니티 페이지
-        return "community/board";
-    }
-
-	@RequestMapping("/sideBarToBoard")
-	public String getSideBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId, // 필수 파라미터로 설정
+	@RequestMapping("/main")
+	public String getBoardList(@RequestParam(value = "categoryId", required = false) String categoryId, // 필수 파라미터로 설정
 	    @RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지
 	    @RequestParam(value = "sortType", defaultValue = "작성일") String sortType,
 	    HttpServletRequest request,
 	    Model m
 	) {
-		  // 디버깅 로그
-	    System.out.println("Received categoryId: " + categoryId);
-	    System.out.println("Received sortType: " + sortType);
+	
+	    if(categoryId != null && categoryId.equals("")) {
+ 	    	categoryId = null;
+ 	    }
 
 	    // 카테고리 이름 설정
 	    String categoryName = boardService.getCategoryNameById(categoryId);
@@ -143,71 +106,21 @@ public class BoardController {
 
 		return "community/board_Write_Form";
 	}
-	@GetMapping("/medAnswer")
-	public String showMedAnswer(@RequestParam("bno") String bno, Model m) {
-	    // boardNo를 받아서 해당 게시글에 대한 답변 페이지를 보여주는 로직
-	    System.out.println("의료진 답글 Board No: " + bno);
-	    
-	    // 게시글 정보 가져오기
-	    Board b = boardService.selectBoard(bno);
-	    
-	    // 첨부파일 리스트 가져오기
-	    List<BoardFile> fileList = boardService.getFileList(bno);
-	    System.out.println("Attached files: " + fileList);
-
-	    // 카테고리 이름 조회
-	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
-	    
-	    // 모델에 데이터 추가
-	    m.addAttribute("b", b); // 게시글 정보
-	    m.addAttribute("fileList", fileList); // 첨부파일 리스트
-	    m.addAttribute("categoryName", categoryName); // 카테고리 이름
-	  
-	    
-	    // AnswerForm 페이지로 이동
-	    return "community/AnswerForm";
-	}
-	
-	@PostMapping("/submitAnswer")
-	public String submitAnswer(@ModelAttribute MedAnswer ans, HttpSession session) {
-	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    if (loginUser == null) {
-	        throw new RuntimeException("로그인 정보가 없습니다.");
-	    }
-
-	    // 로그인 사용자 정보 설정
-	    ans.setMedNo(loginUser.getMedKey());
-	    ans.setStatus("Y");
-	    ans.setIsMedicalField("Y");
-
-	    // MedicalField 정보 설정
-	    MedicalField mf = memberService.getMedicalFieldByMedNo(loginUser.getMedKey());
-	    if (mf != null) {
-	        ans.setMedicalFieldId(mf.getMedicalFieldId());
-	    }
-	    System.out.println("답글 제출 전 ANS Debug: " + ans);
-	    // 답글 저장 로직
-	    boardService.saveAnswer(ans);
-	    System.out.println("답글 제출 후 ANS Debug: " + ans);
-	    // 답글 저장 후 게시글 상세보기로 리다이렉트
-	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
-	}
-
-
 	
 
-
+	
 
 
 	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
 	@GetMapping("/boardDetail")
-	public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
+	public String viewDetailPage(@RequestParam("bno") String bno, Model m, HttpSession session) {
 	    // 현재 게시글 번호 확인
 	    System.out.println("Received bno: " + bno);
 
 	    // 현재 게시글 조회
-	    Board b = boardService.selectBoard(bno);
+	    Board b = boardService.viewDetailPage(bno);
 	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
+	    
 	    System.out.println("상세페이지 ans Debug: " + ans);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
@@ -230,11 +143,11 @@ public class BoardController {
 	    }
 	    // 이전 글 번호 조회 후 상세 정보 조회
 	    String prevBno = boardService.getPreviousBoard(bno);
-	    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
+	    Board prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
 
 	    // 다음 글 번호 조회 후 상세 정보 조회
 	    String nextBno = boardService.getNextBoard(bno);
-	    Board nextBoard = (nextBno != null) ? boardService.selectBoard(nextBno) : null;
+	    Board nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
 
 	    // 카테고리 목록 조회 (드롭다운 메뉴용)
 	    List<BoardCategory> categories = boardService.getCategories();
@@ -321,6 +234,55 @@ public class BoardController {
 	        return "/common/errorPage";
 	    }
 	}
+	@GetMapping("/medAnswer")
+	public String showMedAnswer(@RequestParam("bno") String bno, Model m) {
+	    // boardNo를 받아서 해당 게시글에 대한 답변 페이지를 보여주는 로직
+	    System.out.println("의료진 답글 Board No: " + bno);
+	    
+	    // 게시글 정보 가져오기
+	    Board b = boardService.viewDetailPage(bno);
+	    
+	    // 첨부파일 리스트 가져오기
+	    List<BoardFile> fileList = boardService.getFileList(bno);
+	    System.out.println("Attached files: " + fileList);
+
+	    // 카테고리 이름 조회
+	    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+	    
+	    // 모델에 데이터 추가
+	    m.addAttribute("b", b); // 게시글 정보
+	    m.addAttribute("fileList", fileList); // 첨부파일 리스트
+	    m.addAttribute("categoryName", categoryName); // 카테고리 이름
+	  
+	    
+	    // AnswerForm 페이지로 이동
+	    return "community/AnswerForm";
+	}
+	
+	@PostMapping("/submitAnswer")
+	public String submitAnswer(@ModelAttribute MedAnswer ans, HttpSession session) {
+	    Member loginUser = (Member) session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        throw new RuntimeException("로그인 정보가 없습니다.");
+	    }
+
+	    // 로그인 사용자 정보 설정
+	    ans.setMedNo(loginUser.getMedKey());
+	    ans.setStatus("Y");
+	    ans.setIsMedicalField("Y");
+
+	    // MedicalField 정보 설정
+	    MedicalField mf = memberService.getMedicalFieldByMedNo(loginUser.getMedKey());
+	    if (mf != null) {
+	        ans.setMedicalFieldId(mf.getMedicalFieldId());
+	    }
+	    System.out.println("답글 제출 전 ANS Debug: " + ans);
+	    // 답글 저장 로직
+	    boardService.saveAnswer(ans);
+	    System.out.println("답글 제출 후 ANS Debug: " + ans);
+	    // 답글 저장 후 게시글 상세보기로 리다이렉트
+	    return "redirect:/community/boardDetail?bno=" + ans.getBoardNo();
+	}
 
 
 	@ResponseBody
@@ -380,7 +342,7 @@ public class BoardController {
 	@GetMapping("/edit")
 	public String editBoardPage(@RequestParam("bno") String bno, Model m) {
 		// 게시글 정보 조회
-		Board b = boardService.selectBoard(bno);
+		Board b = boardService.viewDetailPage(bno);
 		System.out.println("boardNo: " + bno);
 
 		// 첨부파일 목록 조회

@@ -46,67 +46,65 @@
 		<result property="medicalFieldId" column="MEDICAL_FIELD_ID" />
 	</resultMap>
 
-<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
-    SELECT *
-    FROM (
-        SELECT
-            b.BOARD_NO,
-            b.BOARD_TITLE,
-            b.BOARD_VIEWS,
-            b.CATEGORY_ID,
-            bc.CATEGORY_NAME,        <!-- 카테고리 이름 추가 -->
-            m.USER_NAME AS BOARD_WRITER, <!-- 작성자 이름 추가 -->
-            TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
-            ROW_NUMBER() OVER (
-                ORDER BY
-                <choose>
-                    <when test="sortType == '조회수'">
-                        b.BOARD_VIEWS DESC
-                    </when>
-                    <when test="sortType == '작성일'">
-                        b.ENROLL_DATE DESC
-                    </when>
-                    <otherwise>
-                        b.BOARD_NO DESC
-                    </otherwise>
-                </choose>
-            ) AS RN
-        FROM BOARD b
-        LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID <!-- 카테고리 테이블 조인 -->
-        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
-        WHERE b.STATUS = 'Y'
-        <choose>
-            <!-- categoryId가 null이면 실시간 인기글 (자유게시판, 메디톡, 이벤트 게시판) -->
-            <when test="categoryId == null">
-                AND b.CATEGORY_ID IN ('CAT01', 'CAT02', 'CAT03')
-            </when>
-            <!-- 특정 카테고리의 글 조회 -->
-            <otherwise>
-                AND b.CATEGORY_ID = #{categoryId}
-            </otherwise>
-        </choose>
-    ) subquery
-    WHERE RN BETWEEN #{startRow} AND #{endRow}
-</select>
+
+
+	<select id="selectListByCategory" parameterType="map"
+		resultMap="boardResult">
+		SELECT *
+		FROM (
+		SELECT
+		b.BOARD_NO,
+		b.BOARD_TITLE,
+		b.BOARD_VIEWS,
+		b.CATEGORY_ID,
+		bc.CATEGORY_NAME,
+		m.USER_NAME AS BOARD_WRITER,
+		TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+		ROW_NUMBER() OVER (
+		ORDER BY
+		<choose>
+			<when test="sortType == '조회수'">
+				b.BOARD_VIEWS DESC
+			</when>
+			<when test="sortType == '작성일'">
+				b.ENROLL_DATE DESC
+			</when>
+			<otherwise>
+				b.BOARD_NO DESC
+			</otherwise>
+		</choose>
+		) AS RN
+		FROM BOARD b
+		LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID <!-- 카테고리 테이블 
+			조인 -->
+		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
+
+		WHERE b.STATUS = 'Y'
+		<if test="categoryId != null">
+			AND b.CATEGORY_ID = #{categoryId}
+		</if>
+		) subquery
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
 
 
 
 
-
-<select id="getLatestPosts" parameterType="string" resultMap="boardResult">
-    SELECT *
-    FROM (
-        SELECT
-            BOARD_NO,
-            BOARD_TITLE,
-            TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-            ROWNUM
-        FROM BOARD
-        WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
-        ORDER BY ENROLL_DATE DESC
-    )
-    WHERE ROWNUM &lt;= 3
-</select>
+	<select id="getLatestPosts" parameterType="string"
+		resultMap="boardResult">
+		SELECT *
+		FROM (
+		SELECT
+		BOARD_NO,
+		BOARD_TITLE,
+		TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		ROWNUM
+		FROM BOARD
+		WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
+		ORDER BY ENROLL_DATE DESC
+		)
+		WHERE ROWNUM &lt;= 3
+	</select>
 
 
 
@@ -379,7 +377,7 @@
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
 	<!-- 게시글 + 첨부파일 정보 조회 -->
-	<select id="selectBoard" resultMap="boardResult">
+	<select id="viewDetailPage" resultMap="boardResult">
 		SELECT
 		B.BOARD_NO,
 		B.BOARD_TYPE,
@@ -406,12 +404,11 @@
 		FILE_TABLE F ON
 		B.BOARD_NO = F.BOARD_NO
 		LEFT JOIN
-		BOARD_CATEGORY C ON B.CATEGORY_ID =
-		C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'
+		BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID
+		AND C.IS_ACTIVE = 'Y'
 		WHERE
 		B.STATUS = 'Y'
-		AND B.BOARD_NO =
-		#{bno}
+		AND B.BOARD_NO =#{bno}
 
 	</select>
 
@@ -620,7 +617,7 @@
 		ORDER BY
 		ENROLL_DATE DESC
 	</select>
-	
+
 	<!-- 병원 번호 게시글 조회 -->
 	<select id="getPostsByHosNo" parameterType="string"
 		resultMap="boardResult">
