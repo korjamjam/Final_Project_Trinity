@@ -10,14 +10,17 @@
     <result property="userNo" column="USER_NO" />
     <result property="inquiryWriter" column="INQUIRY_WRITER" />
     <result property="categoryId" column="CATEGORY_ID" />
+     <result property="categoryName" column="CATEGORY_NAME" />
     <result property="inquiryTitle" column="INQUIRY_TITLE" />
     <result property="inquiryContent" column="INQUIRY_CONTENT" />
     <result property="adminReply" column="ADMIN_REPLY" />
     <result property="status" column="STATUS" />
-    <result property="createDate" column="CREATE_DATE" />
+    <result property="enrollDate" column="ENROLL_DATE" />
     <result property="updateDate" column="UPDATE_DATE" />
     <result property="inquiryViews" column="INQUIRY_VIEWS" />
+   
 </resultMap>
+
 
 
     
@@ -36,33 +39,34 @@
             i.USER_NO AS USER_NO,
             m.USER_NAME AS INQUIRY_WRITER,
             i.CATEGORY_ID AS CATEGORY_ID,
+            bc.CATEGORY_NAME AS CATEGORY_NAME, 
             i.INQUIRY_TITLE AS INQUIRY_TITLE,
             i.INQUIRY_CONTENT AS INQUIRY_CONTENT,
             i.ADMIN_REPLY AS ADMIN_REPLY,
             i.STATUS AS STATUS,
-            TO_CHAR(i.CREATE_DATE, 'YYYY/MM/DD') AS CREATE_DATE,
+            TO_CHAR(i.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
             TO_CHAR(i.UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
             i.INQUIRY_VIEWS AS INQUIRY_VIEWS,
             ROW_NUMBER() OVER (
                 ORDER BY
-                <choose>
-                    <when test="sortType == '작성일'">
-                        i.CREATE_DATE DESC
-                    </when>
-                    <otherwise>
-                        i.INQUIRY_NO DESC
-                    </otherwise>
-                </choose>
+                CASE
+                    WHEN #{sortType} = '작성일' THEN i.ENROLL_DATE DESC
+                    ELSE i.INQUIRY_NO DESC
+                END
             ) AS RN
         FROM INQUIRY i
-        LEFT JOIN MEMBER m ON i.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
+        LEFT JOIN MEMBER m ON i.USER_NO = m.USER_NO
+        LEFT JOIN BOARD_CATEGORY bc ON i.CATEGORY_ID = bc.CATEGORY_ID
         WHERE i.STATUS = 'Y'
         <if test="categoryId != null and categoryId != ''">
-            AND i.CATEGORY_ID = #{categoryId}
+            AND (i.CATEGORY_ID = #{categoryId} OR bc.PARENT_ID = #{categoryId}) <!-- 수정된 조건 -->
         </if>
-    ) subquery
+    )
     WHERE RN BETWEEN #{startRow} AND #{endRow}
 </select>
+
+
+
 
 
 

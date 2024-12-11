@@ -17,7 +17,7 @@ public class Inquiry {
 	    private String inquiryContent;   // INQUIRY_CONTENT
 	    private String adminReply;       // ADMIN_REPLY
 	    private String status;           // STATUS
-	    private String createDate;       // CREATE_DATE
+	    private String enrollDate;       // CREATE_DATE
 	    private String updateDate;       // UPDATE_DATE
 	    private int inquiryViews;               // 조회수
 	    private String categoryName;

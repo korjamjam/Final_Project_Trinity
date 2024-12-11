@@ -71,7 +71,7 @@
 							<option value="카테고리" ${sortType == '카테고리' ? 'selected' : ''}>카테고리</option>
 						</select>
 
-						<c:out value="${inquiryList}" escapeXml="false" />
+						
 
 
 
@@ -118,11 +118,11 @@
 						<tr>
 							<td class="category">${inq.categoryName}</td>
 							<td class="title"><a
-								href="${pageContext.request.contextPath}/community/boardDetail?bno=${inq.boardNo}">${inq.inquiryTitle}
+								href="${pageContext.request.contextPath}/community/boardDetail?bno=${inq.inquiryNo}">${inq.inquiryTitle}
 							</a></td>
 							<td class="author">${inq.inquiryWriter}</td>
 							<td class="date">${inq.enrollDate}</td>
-							<td class="views">${inq.boardViews}</td>
+							<td class="views">${inq.inquiryViews}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

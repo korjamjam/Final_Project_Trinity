@@ -35,10 +35,11 @@ public class InquiryDao {
 	        params.put("startRow", offset + 1);
 	        params.put("endRow", offset + limit);
 	        params.put("sortType", sortType);
-	        
+	       
 	        System.out.println("다오 ams for selectListByCategory: " + params);
-	        System.out.println("DAO Inquiry List: " + inquiryList);
+	     
 	        List<Inquiry> result = sqlSession.selectList("inquiryMapper.selectListByCategory", params);
+	        System.out.println("DAO 결과: " + result); // 결과 출력 
 	        return new ArrayList<>(result);
 	    }
 }
