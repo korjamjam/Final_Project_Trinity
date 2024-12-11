@@ -106,6 +106,7 @@ public class HealthReservationController {
 	@RequestMapping("reservationSearchAll")
 	public String ReservationSearchAll(@RequestParam("reservationCategory") String reservationCategory,
 			@RequestParam("resNo") String resNo, Model m) {
+		
 		switch (reservationCategory) {
 		case "general":
 			Reservation generealReservation = reservationService.selectReservation(resNo);

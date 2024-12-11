@@ -67,6 +67,22 @@
     background-color: #f9f9f9;
 }
 
+.blue-text {
+    color: #0080ff;
+    font-weight: bold; /* 강조 효과를 위해 추가 (선택 사항) */
+}
+
+.pink-text {
+    color: #ff80c0;
+    font-weight: bold; /* 강조 효과를 위해 추가 (선택 사항) */
+}
+
+.default-text {
+    color: black; /* 기본 색상 */
+}
+
+
+
 
 /* 큰 화면 (800px 이상) */
 @media (min-width: 768px) {
