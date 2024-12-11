@@ -1,6 +1,7 @@
 //현재시간 가져오기
 let curDate = new Date();
 let currentTime = curDate.getHours() + ':' + curDate.getMinutes();
+let currentDoctorNo;
 
 //DB에 저장되어있는 병원의 영업시간 가져오기
 let startTime;
@@ -101,6 +102,7 @@ function copyTel() {
 }
 
 const getDoctorReviews = function (doctorNo) {
+    currentDoctorNo = doctorNo;
     $.ajax({
         url: contextPath + ('/hospital/detail/doctorReview'),
         type: "GET",
@@ -273,17 +275,143 @@ function addTodayWaitingList(waitings) {
         }
     });
 }
-// const curDate = new Date();
-//     let month = `${curDate.getMonth() + 1}`
-//     let date = `${curDate.getDate()}`;
-//     let year = `${curDate.getFullYear()}`;
-//     if(month < 10){
-//         month = '0' + month.toString();
-//     }
-//     if(date < 10){
-//         date = '0' + date.toString();
-//     }
 
-//     let curTime = month + '/' +
-//     date + '/' +
-//     year;
+const getDoctorBiography = function (doctorNo) {
+    $.ajax({
+        url: contextPath + ('/hospital/detail/doctorBiography'),
+        type: "GET",
+        data: { 
+                doctorNo: doctorNo
+            },
+        dataType: "text",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addDoctorBiography(response); // 데이터를 리뷰창에 추가
+            } else {
+                console.log("약력이 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            // console.log(url);
+            console.log("데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+};
+function addDoctorBiography(biography) {
+    $('.biographyContainer').remove();
+    if(biography == null){
+        $('.biographyNavi').append(`
+            <div class="biographyContainer">
+                약력이 존재하지 않습니다.
+            </div>
+        `);
+    }
+    else{
+        $('.biographyNavi').append(`
+            <div class="biographyContainer">
+                ${biography}
+            </div>
+        `);
+    };
+}
+
+function changeHiddenTitle(){
+    const titleValue = document.getElementById('reviewTitle').value;
+    document.getElementById('hiddenReviewTitle').value = titleValue;
+}
+
+function changeHiddenContent(){
+    const titleValue = document.getElementById('reviewContent').value;
+    document.getElementById('hiddenReviewContent').value = titleValue;
+}
+
+function writeReview() {
+    const writerNo = document.getElementById('writerNo').value;
+    
+    if(writerNo == ""){
+        alert("로그인 후 사용할 수 있습니다.");
+        return null;
+    }
+
+    const button = document.getElementById('listReview');
+    button.disabled = true;
+
+    const writerName = document.getElementById('writerName').value;
+    const writerProfile = document.getElementById('writerProfile').value;
+    console.log(writerProfile);
+    const curDate = new Date();
+    let month = `${curDate.getMonth() + 1}`
+    let date = `${curDate.getDate()}`;
+    let year = `${curDate.getFullYear()}`;
+    if(month < 10){
+        month = '0' + month.toString();
+    }
+    if(date < 10){
+        date = '0' + date.toString();
+    }
+
+    let curTime = year + '-' +
+    month + '-' +
+    date;
+
+    const star = contextPath + '/resources/img/star.png';
+
+    $('.reviewNavi').append(`
+        <div class="reviewContainer">
+            <div class="reviewHeader">
+                <img src="/trinity${writerProfile}" alt="writer Profile" class="userAvatar">
+                <div class="userInfo">
+                    <h3 class="userName">${writerName}</h3>
+                    <span class="reviewDate">${curTime}</span>
+                </div>
+                <div class="reviewRating">
+                    <img id="star" src="${star}" alt="star" class="star-icon">
+                    &nbsp;
+                    <span class="ratingScore"><input type="number" id="reviewRating" style="width: 30px; height: 18px; color: #4CAF50;"></span>
+                    <span class="ratingLabel">/ 5</span>
+                </div>
+            </div>
+            <div class="reviewBody">
+                <h4 class="reviewTitle"><input type="text" id="reviewTitle" placeholder="제목을 입력해 주세요." style="width: 362px;" onchange="changeHiddenTitle()"></h4>
+                <input type="hidden" id="hiddenReviewTitle">
+                <p class="reviewContent"><input type="text" id="reviewContent" placeholder="내용을 입력해 주세요." style="width: 362px; height: 44px;" onchange="changeHiddenContent()"></p>
+                <input type="hidden" id="hiddenReviewContent">
+            </div>
+            <div class="reviewBtn">
+                <button type="button" class="btn btn-default" id="uploadReview" onclick="uploadReview()">댓글 올리기</button>
+            <div>
+        </div>
+    `);
+}
+
+function uploadReview(){
+    let writerNo = document.getElementById('writerNo').value;
+    let doctorNo = currentDoctorNo;
+    let reviewTitle = document.getElementById('reviewTitle').value;
+    let reviewContent = document.getElementById('reviewContent').value;
+    let reviewRating = document.getElementById('reviewRating').value;
+
+    $.ajax({
+        url: contextPath + ('/hospital/detail/uploadReview'),
+        type: "GET",
+        data: { 
+                writerNo: writerNo,
+                doctorNo: doctorNo,
+                reviewTitle: reviewTitle,
+                reviewContent: reviewContent,
+                reviewRating: reviewRating
+            },
+        dataType: "json",
+        success: function(response) {
+            if (response && response.length > 0) {
+                addReviewList(response); // 데이터를 리뷰창에 올린것 까지 다시 써주기
+            } else {
+                console.log("데이터가 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            // console.log(url);
+            console.log("데이터를 가져오는데 실패했습니다:", error);
+        }
+    });
+}

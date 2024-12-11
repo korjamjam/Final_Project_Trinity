@@ -13,6 +13,13 @@
 <body>
     <jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
+<script>
+    const message = "${message}";
+    if (message) {
+        alert(message); // 안내 문구를 띄움
+        console.log(message)
+    }
+</script>
 <div class="hospital-management">
     <h2>병원 관리</h2>
 
@@ -35,10 +42,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>개업일</th>
-                    <td>${hosInfo.hosYear}</td>
-                </tr>
-                <tr>
                     <th>진료시간</th>
                     <td>
                         <p>월~금: ${hosInfo.hosStartTime1} ~ ${hosInfo.hosEndTime1}</p><br>
@@ -48,7 +51,7 @@
                 <tr>
                     <th>주소</th>
                     <td>
-                        <input type="text" name="hosAddress" value="${hosInfo.hosAddress}">
+                        <input type="text" id="hosAddress" name="hosAddress" value="${hosInfo.hosAddress}">
                     </td>
                 </tr>
                 <tr>
@@ -63,12 +66,10 @@
     </div>
 </div>
     <script>
-        function confirmAndSubmit() {
+    async function confirmAndSubmit() {
         const userConfirmed = confirm("수정하시겠습니까?");
-        if (userConfirmed) {
-            return true; // 폼이 제출됨
-        } else {
-            return false; // 폼 제출 취소
+        if (!userConfirmed) {
+            return false;
         }
     }
     </script>

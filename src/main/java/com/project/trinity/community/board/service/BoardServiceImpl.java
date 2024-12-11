@@ -168,34 +168,34 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getLikeCount(String answerNo) {
-		return boardDao.getLikeCount(sqlSession, answerNo);
+	public int getLikeCount(String commentNo) {
+		return boardDao.getLikeCount(sqlSession, commentNo);
 	}
 
 	@Override
-	public int getDislikeCount(String answerNo) {
-		return boardDao.getDislikeCount(sqlSession, answerNo); // 싫어요 처리
+	public int getDislikeCount(String commentNo) {
+		return boardDao.getDislikeCount(sqlSession, commentNo); // 싫어요 처리
 	}
 
 	@Override
-	public Like getCurrentLikeState(String answerNo, String userNo) {
-		return boardDao.getCurrentLikeState(sqlSession, answerNo, userNo);
+	public Like getCurrentLikeState(String commentNo, String userNo) {
+		return boardDao.getCurrentLikeState(sqlSession, commentNo, userNo);
 	}
 
 	@Override
-	public void updateLikeDislike(String answerNo, String userNo, int isLike) {
-		
-		boardDao.updateLikeDislike(sqlSession, answerNo, userNo, isLike);
+	public void updateLikeDislike(String commentNo, String userNo, int isLike) {
+		// DAO의 updateLikeDislike 메서드 호출
+		boardDao.updateLikeDislike(sqlSession, commentNo, userNo, isLike);
 	}
 
 	@Override
-	public void deleteLikeDislike(String answerNo, String userNo) {
-		boardDao.deleteLikeDislike(sqlSession, answerNo, userNo);
+	public void deleteLikeDislike(String commentNo, String userNo) {
+		boardDao.deleteLikeDislike(sqlSession, commentNo, userNo);
 	}
 
 	@Override
-	public void insertLikeDislike(String answerNo, String userNo, int isLike) {
-		boardDao.insertLikeDislike(sqlSession, answerNo, userNo, isLike);
+	public void insertLikeDislike(String commentNo, String userNo, int isLike) {
+		boardDao.insertLikeDislike(sqlSession, commentNo, userNo, isLike);
 	}
 
 	@Override
@@ -282,6 +282,11 @@ public class BoardServiceImpl implements BoardService {
 		  System.out.println("서비스 Save Answer Debug: " + ans);
 	        return boardDao.insertAnswer(sqlSession, ans);
 	    }
+
+	@Override
+	public List<Board> getPostsByHosNo(String hosNo) {
+		return boardDao.getPostsByHosNo(sqlSession, hosNo);
+	}
 
 
 

@@ -23,6 +23,7 @@
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
 		<result column="POSTCODE" property="postcode" />
+		<result column="BIOGRAPHY" property="biography" />
 
 	</resultMap>
 
@@ -85,7 +86,8 @@
 		STATUS,
 		ISADMIN,
 		MED_KEY,
-		HOS_NO
+		HOS_NO,
+		USERPROFILE
 		FROM
 		MEMBER
 		WHERE USER_ID = #{userId}
@@ -100,7 +102,7 @@
 
 	<!-- userId로 회원 정보 조회 -->
 	<select id="findByUserId" parameterType="String"
-		resultType="Member">
+		resultMap="memberResultSet">
 		SELECT USER_NO,
 		USER_ID,
 		USER_PWD,
@@ -153,16 +155,19 @@
 
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER
-		SET USER_NAME = #{userName},
-		EMAIL = #{email},
-		PHONE = NVL(#{phone}, PHONE), <!-- NULL일 경우 기존 값 유지 -->
-		BIRTHDAY = #{birthday},
-		GENDER = #{gender},
-		ADDRESS = #{address},
-		USERPROFILE = #{userProfile},
-		BIOGRAPHY = #{biography}
+		SET
+		USER_NAME = NVL(#{userName}, USER_NAME),
+		EMAIL = NVL(#{email}, EMAIL),
+		PHONE = NVL(#{phone}, PHONE),
+		BIRTHDAY = NVL(#{birthday}, BIRTHDAY),
+		GENDER = NVL(#{gender}, GENDER),
+		ADDRESS = NVL(#{address}, ADDRESS),
+		USERPROFILE = NVL(#{userProfile}, USERPROFILE),
+		BIOGRAPHY = NVL(#{biography}, BIOGRAPHY)
 		WHERE USER_NO = #{userNo}
 	</update>
+
+
 
 
 
@@ -270,4 +275,30 @@
 		HOS_NO = ''
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 의사 약력 불러오기 -->
+	<select id="selectDoctorBiography" parameterType="string"
+		resultType="String">
+		SELECT BIOGRAPHY
+		FROM MEMBER
+		WHERE USER_NO = #{doctorNo}
+	</select>
+	
+	<insert id="insertDoctorReview" parameterType="HashMap">
+		INSERT INTO DOCTOR_REVIEW
+			(USER_NO,
+	         DOCTOR_NO,
+	         REVIEW_TITLE,
+	         REVIEW_CONTENT,
+	         REVIEW_RATING
+	        )
+		VALUES (
+				#{writerNo},
+		        #{doctorNo},
+		        #{reviewTitle},
+		        #{reviewContent},
+		        #{reviewRating}
+			   )
+	</insert>
+	
 </mapper>

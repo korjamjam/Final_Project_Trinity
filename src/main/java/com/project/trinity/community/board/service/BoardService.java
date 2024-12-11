@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
@@ -38,57 +39,61 @@ public interface BoardService {
 	int deleteBoard(String bno); // 게시글 삭제
 
 	String getCategoryNameById(String categoryId); // 카테고리 ID로 카테고리 이름 조회
-
 	String getPreviousBoard(String bno);
-
 	String getNextBoard(String bno);
 
-	// 파일 관련 메서드
-	int insertFile(BoardFile bf); // 첨부파일 추가
+   
+    
+    // 파일 관련 메서드
+    int insertFile(BoardFile bf); // 첨부파일 추가
+    BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
+    List<BoardFile> getFileList(String bno); // 특정 게시글의 모든 첨부파일
+    int deleteAllFilesByBoardNo(String bno); // 게시글의 모든 첨부파일 삭제
+    int deleteFile(String fileNo); // 특정 파일 삭제
+    int updateFileAllowDownload(BoardFile bf); // 파일 다운로드 허용 여부 수정
+	
+    // 댓글 관련 메서드
+    ArrayList<Comment> selectReply(String bno); // 댓글 목록 가져오기
+    int insertComment(Comment r); // 댓글 추가
+    int deleteComment(String commentNo); // 댓글 삭제
 
-	BoardFile getSingleFile(String fileNo); // 특정 파일 정보 가져오기
+    // 좋아요/싫어요 관련 메서드
+    int getLikeCount(String commentNo);
+	int getDislikeCount(String commentNo);
+	Like getCurrentLikeState(String commentNo, String userNo); // 좋아요/싫어요 상태 조회
+    void deleteLikeDislike(String commentNo, String userNo); // 좋아요/싫어요 삭제
+    void insertLikeDislike(String commentNo, String userNo, int isLike); // 좋아요/싫어요 추가
+    void updateLikeDislike(String commentNo, String userNo, int isLike);
 
-	List<BoardFile> getFileList(String bno); // 특정 게시글의 모든 첨부파일
-
-	int deleteAllFilesByBoardNo(String bno); // 게시글의 모든 첨부파일 삭제
-
-	int deleteFile(String fileNo); // 특정 파일 삭제
-
-	int updateFileAllowDownload(BoardFile bf); // 파일 다운로드 허용 여부 수정
-
-	// 댓글 관련 메서드
-	ArrayList<Comment> selectReply(String bno); // 댓글 목록 가져오기
-
-	int insertComment(Comment r); // 댓글 추가
-
-	int deleteComment(String commentNo); // 댓글 삭제
-
-	// 좋아요/싫어요 관련 메서드
-
-	Like getCurrentLikeState(String answerNo, String userNo); // 좋아요/싫어요 상태 조회
-
-	void insertLikeDislike(String answerNo, String userNo, int isLike); // 좋아요/싫어요 추가
-
-	void updateLikeDislike(String answerNo, String userNo, int isLike);
-
-	int getLikeCount(String answerNo);
-
-	int getDislikeCount(String answerNo);
-
-	void deleteLikeDislike(String answerNo, String userNo); // 좋아요/싫어요 삭제
-
-	List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
+    List<BoardCategory> getCategories(); // 카테고리 목록 조회 메서드
 
 	int adminDeleteBoard(String bno);
 
 	int restoreBoard(String bno);
-
+	
 	List<Board> getPostsByUserNo(String userNo);
+
+	
 
 	List<MedAnswer> getAnswersByBoardNo(String bno);
 
 	int saveAnswer(MedAnswer ans);
 
+
 	List<Board> getLatestPosts(String string);
 
+	List<Board> getPostsByHosNo(String hosNo);
+
+
+
+
+
+	
+
+	
+	
+	
+	
+
+  
 }

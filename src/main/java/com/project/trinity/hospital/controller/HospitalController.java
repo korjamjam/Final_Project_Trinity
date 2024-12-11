@@ -1,7 +1,14 @@
 package com.project.trinity.hospital.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -36,16 +48,21 @@ public class HospitalController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
 	private final ReservationService reservationService;
+	private final BoardService boardService;
+	
+	
 	
 	@Autowired
 	public HospitalController(HospitalService hospitalService, 
 			MemberService memberService, 
 			BCryptPasswordEncoder bcryptPasswordEncoder,
-			ReservationService reservationService) {
+			ReservationService reservationService,
+			BoardService boardService) {
 	    this.hospitalService = hospitalService;
 	    this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
 		this.reservationService = reservationService;
+		this.boardService = boardService;
 	}
 
 	
@@ -115,12 +132,46 @@ public class HospitalController {
 		return "hospital_detail/hospital_detail";
 	}
 	
+	@RequestMapping(value = "/detail/doctorBiography", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String doctorBiography(@RequestParam(value = "doctorNo") String doctorNo) {
+		System.out.println("doctorNo : " + doctorNo);
+		String doctorBiography = memberService.selectDoctorBiography(doctorNo);
+		System.out.println("doctorBiography : " + doctorBiography);
+		return doctorBiography;
+    }
+	
 	@RequestMapping("/detail/doctorReview")
     @ResponseBody
     public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
 		System.out.println("doctorNo : " + doctorNo);
 		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
 		System.out.println("doctorReviews : " + doctorReviews);
+		return doctorReviews;
+    }
+	
+	@RequestMapping("/detail/uploadReview")
+    @ResponseBody
+    public ArrayList<DoctorReview> uploadReview(@RequestParam(value = "writerNo") String writerNo,
+    											@RequestParam(value = "doctorNo") String doctorNo,
+    											@RequestParam(value = "reviewTitle") String reviewTitle,
+    											@RequestParam(value = "reviewContent") String reviewContent,
+    											@RequestParam(value = "reviewRating") String reviewRating) {
+		System.out.println("writerNo : " + writerNo);
+		System.out.println("doctorNo : " + doctorNo);
+		System.out.println("reviewTitle : " + reviewTitle);
+		System.out.println("reviewContent : " + reviewContent);
+		System.out.println("reviewRating : " + reviewRating);
+		int result = memberService.insertDoctorReview(writerNo, doctorNo, reviewTitle, reviewContent, reviewRating);
+		ArrayList<DoctorReview> doctorReviews = null;
+		if(result != 0) {
+			System.out.println("리뷰 삽입 성공");
+			doctorReviews = memberService.selectDoctorReview(doctorNo);
+		} else {
+			System.out.println("리뷰 삽입 실패");
+		}
+		
+		//다시 리스트 불러오기
 		return doctorReviews;
     }
 	
@@ -281,7 +332,6 @@ public class HospitalController {
 			String hosNo = loginHosAccount.getHosNo(); 
 			
 			HospitalInfo hosInfo = hospitalService.selectHospitalInfo(hosNo);
-			System.out.println(hosInfo);
 			
 			session.setAttribute("hosInfo", hosInfo);
 			
@@ -356,21 +406,94 @@ public class HospitalController {
 	
 	@RequestMapping("account/myHospital/update")
 	public String HospitalAccountMyHospitalUpdate(@ModelAttribute HospitalInfo hosInfo, Model m) {
-		
-		System.out.println(hosInfo);
-		
-		int resultAC = hospitalService.updateMyHospitalAC(hosInfo);
-		int resultAI = hospitalService.updateMyHospitalAI(hosInfo);
-		
-		if((resultAC > 0)&&(resultAI > 0)) {
-			m.addAttribute("message", "수정 성공");
-			return "hospital_detail/hospital_account_main";
-		} else {
-			m.addAttribute("message", "수정 실패");
-			return "hospital_detail/hospital_account_my_hospital";
+	    String hosLatitude = "";
+	    String hosLongitude = "";
+	    String result = "";
+	    String url="https://dapi.kakao.com/v2/local/search/address.json?query=";
+	    String restKey ="a0793b4d67a4236cf4900bc98535d171"; 
+	    
+	    try {
+			url += URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
+			
+			URL requestURL = new URL(url);
+			
+			HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
+			
+			urlConnection.setRequestMethod("GET");
+			
+			urlConnection.setRequestProperty("Authorization", "KakaoAK " + restKey);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			
+			String line;
+			while((line = br.readLine()) != null) {
+				result += line;
+			}
+			
+			br.close();
+			urlConnection.disconnect();
+			
+			// JSON 파싱
+	        JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+	        JsonArray documents = jsonObject.getAsJsonArray("documents");
+	        
+	        // 첫 번째 documents 객체에서 x, y 값 추출
+	        if (documents.size() > 0) {
+	            JsonObject firstDocument = documents.get(0).getAsJsonObject();
+	            hosLatitude = firstDocument.get("y").getAsString(); // 위도
+	            hosLongitude = firstDocument.get("x").getAsString(); // 경도
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	    System.out.println("Latitude (y): " + hosLatitude);
+	    System.out.println("Longitude (x): " + hosLongitude);
+	    System.out.println(result);
+	    // 위도와 경도를 HospitalInfo 객체에 설정
+	    hosInfo.setHosLatitude(hosLatitude);
+	    hosInfo.setHosLongitude(hosLongitude);
+	    
+	    // DB 업데이트
+	    int resultAC = hospitalService.updateMyHospitalAC(hosInfo);
+	    int resultAI = hospitalService.updateMyHospitalAI(hosInfo);
+	    
+	    if(hosLatitude.equals("")) {
+	    	m.addAttribute("message", "올바르지 않은 주소입니다.");
+	        return "hospital_detail/hospital_account_my_hospital";
+	    } else {
+	    	// 결과 처리
+		    if ((resultAC > 0) && (resultAI > 0)) {
+		        m.addAttribute("message", "수정 성공");
+		        return "hospital_detail/hospital_account_main";
+		    } else {
+		        m.addAttribute("message", "수정 실패");
+		        return "hospital_detail/hospital_account_my_hospital";
+		    }
+	    }
 	}
+	
+	@RequestMapping("/account/myPost")
+	public String HospitalAccountMyPost(HttpSession session, Model m) {
+		 // 로그인된 사용자 가져오기
+	    HospitalAccount loginHosAccount = (HospitalAccount) session.getAttribute("loginHosAccount");
+	    if (loginHosAccount == null) {
+	        return "redirect:/hospital/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    // 사용자 번호로 내가 쓴 게시글 조회
+	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosNo());
+	    m.addAttribute("myposts", myposts);
+
+	    return "hospital_detail/hospital_account_my_post";
+	}
+
 	//화면 이동 하는거
+	@RequestMapping("/account/myPost/write")
+	public String HospitalAccountMyPostWrite() {
+		return "hospital_detail/hospital_account_post_write_form";
+	}
 	
 	@RequestMapping("account/insertDr")
 	public String HospitalAccountInsertDoctor() {

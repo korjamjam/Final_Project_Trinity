@@ -52,6 +52,13 @@ body{
     margin-bottom: 10px;
 }
 
+.waitingNavi{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .waitingLabel {
     font-weight: bold;
     color: #495057;
@@ -419,6 +426,17 @@ body{
 #star {
     width: 20px !important;
     height: 20px !important;
+}
+.reviewFooter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.reviewBtn{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
 }
 
 /*병원 페이지 의사 리뷰 조회 버튼*/
