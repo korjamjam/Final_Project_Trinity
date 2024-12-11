@@ -20,10 +20,10 @@
                 검진 절차 안내
             </div>
             <div class="health_reservation_select">
-                <select name="" id="">
-                    <option value="">일반건강검진</option>
-                    <option value="">암검진</option>
-                    <option value="">생애전환기검진</option>
+                <select name="" id="" onchange="window.open(value,'_self');">
+                    <option value="" disabled hidden selected>절차 안내</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/infoNomal">일반건강검진</option>
+                    <option value="${pageContext.request.contextPath}/healthReservation/infoCancer">암검진</option>
                 </select>
             </div>
             <div class="health_reservation_info_wrap">

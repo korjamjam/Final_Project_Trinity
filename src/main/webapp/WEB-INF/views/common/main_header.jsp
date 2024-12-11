@@ -47,9 +47,8 @@
                                 <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/guide">검진 예약 안내</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a>
-                                <a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
+                                <a href="https://www.nhis.or.kr/nhis/index.do" target="_blank">검진 결과 조회</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
-                                <a href="${pageContext.request.contextPath}/healthReservation/search">검진 예약 조회</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -92,7 +91,7 @@
                                             alt="마이페이지 아이콘" class="mypage-icon"
                                             href="${pageContext.request.contextPath}/member/logout"></a>
                                     <%--<a href="${pageContext.request.contextPath}/member/logout"></a>--%>
-                                        <div class="menu-icon" id="sidebar">&#9776;</div>
+                                        <div class="menu-icon" id="sidebar headerSidebarHospitalDetailModify">&#9776;</div>
                             </c:otherwise>
                         </c:choose>
                     </div>
