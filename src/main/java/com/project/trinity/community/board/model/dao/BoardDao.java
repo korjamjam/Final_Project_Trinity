@@ -350,6 +350,20 @@ public class BoardDao {
 
 
 
+	public int insertBoardAC(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoardAC", b);
+	}
+
+
+
+
+	public Board selectBoardAC(SqlSessionTemplate sqlSession, String bno) {
+		return sqlSession.selectOne("boardMapper.selectBoardAC", bno);
+	}
+
+
+
+
 
 
 	

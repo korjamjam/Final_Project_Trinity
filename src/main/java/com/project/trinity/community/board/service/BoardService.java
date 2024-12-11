@@ -84,6 +84,10 @@ public interface BoardService {
 
 	List<Board> getPostsByHosNo(String hosNo);
 
+	int insertBoardAC(Board b);
+
+	Board selectBoardAC(String bno);
+
 
 
 
