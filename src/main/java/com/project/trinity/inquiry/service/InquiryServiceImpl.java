@@ -19,10 +19,7 @@ public class InquiryServiceImpl implements InquiryService {
 	private final SqlSessionTemplate sqlSession;
 	private final InquiryDao inquiryDao;
 	 
-	@Override
-	public String getCategoryNameById(String categoryId) {
-		return inquiryDao.getCategoryNameById(sqlSession, categoryId);
-	}
+	
 	@Override
 	public List<Inquiry> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
 	    return inquiryDao.selectListByCategory(sqlSession, categoryId, pi, sortType);

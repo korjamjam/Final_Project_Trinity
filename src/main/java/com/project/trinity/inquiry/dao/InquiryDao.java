@@ -14,10 +14,7 @@ import com.project.trinity.inquiry.vo.Inquiry;
 
 @Repository
 public class InquiryDao {
-	  public String getCategoryNameById(SqlSessionTemplate sqlSession, String categoryId) {
-	    	System.out.println("Category ID in Dao: " + categoryId);
-	    	return sqlSession.selectOne("inquiryMapper.getCategoryNameById", categoryId);
-	    }
+	 
 	// 게시글의 총 개수 (타입에 따라 필터링 가능)
 	    public int getListCount(SqlSessionTemplate sqlSession, String categoryId) {
 	    	 System.out.println("categoryId value in Dao: " + categoryId);

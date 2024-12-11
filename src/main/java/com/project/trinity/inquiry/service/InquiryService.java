@@ -12,7 +12,6 @@ import com.project.trinity.inquiry.vo.Inquiry;
 
 public interface InquiryService {
 
-	String getCategoryNameById(String categoryId);
 
 	int getListCount(String categoryId);
 

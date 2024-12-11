@@ -41,13 +41,8 @@ public class InquiryController {
             @RequestParam(value = "sortType", required = false, defaultValue = "작성일") String sortType,
             Model model) {
 
-        // 1. 카테고리 이름 가져오기
-        String categoryName = inquiryService.getCategoryNameById(categoryId);
-        model.addAttribute("categoryName", categoryName);
-        System.out.println("Category ID: " + categoryId);
-        if (categoryId == null) {
-            throw new IllegalArgumentException("Category ID is null");
-        }
+      
+       
 
         // 2. Q&A (CAT07) 처리
         if ("CAT07".equals(categoryId)) {
@@ -63,7 +58,6 @@ public class InquiryController {
 
             // 모델에 데이터 추가
             model.addAttribute("categoryId", categoryId);
-            model.addAttribute("categoryName", categoryName);
             model.addAttribute("sortType", sortType);
             model.addAttribute("inquiryList", inquiryList);
             model.addAttribute("pi", pi);
