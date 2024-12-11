@@ -27,21 +27,18 @@
 
 <div class="member-management">
     <h2>병원 의사 관리</h2>
+    ${doctor}
     <div class="member-info">
-    <form action="${pageContext.servletContext.contextPath}/admin/updateMember" method="post">
-    			<input type="hidden" name="userNo" value="${member.userNo}" />
         <table>
             <tr>
                 <th>프로필 이미지</th>
                 <td>
                     <c:choose>
-                        
                         <c:when test="${not empty doctor.userProfile}">
                             <img src="${pageContext.servletContext.contextPath}/${doctor.userProfile}" 
                                  alt="프로필 이미지" 
                                  style="width: 100px; height: 100px; object-fit: cover;" />
                         </c:when>
-                        
                         <c:otherwise>
                             등록된 사진이 없습니다
                         </c:otherwise>
@@ -105,8 +102,6 @@
                 </td>
             </tr>
         </table>
-        </form>
-       
         <button  onclick="deleteDoctor(`${doctor.userNo}`)" class="save-button">의사 해제</button>
     </div>
 </div>
