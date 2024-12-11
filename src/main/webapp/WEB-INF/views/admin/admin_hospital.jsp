@@ -34,17 +34,23 @@
 
 
 			<div class="hospital-list">
-				<c:forEach var="hospital" items="${hospitalList}">
-					<a href="hospitalDetail?hosNo=${hospital.hosNo}"
-						class="hospital-item">
-						<p>
-							<span>${hospital.hosName}</span> <span>${hospital.department}</span>
-						</p>
-						<p>주소: ${hospital.hosAddress}</p>
-						<p>전화번호: ${hospital.hosTel}</p>
-					</a>
-				</c:forEach>
-			</div>
+    <c:forEach var="hospital" items="${hospitalList}">
+        <a href="hospitalDetail?hosNo=${hospital.hosNo}" class="hospital-item">
+            <p>
+                <span>${hospital.hosName}</span>
+                <span class="<c:choose>
+                                <c:when test='${hospital.department == "소아청소년과"}'>blue-text</c:when>
+                                <c:when test='${hospital.department == "산부인과"}'>pink-text</c:when>
+                                <c:otherwise>default-text</c:otherwise>
+                             </c:choose>">
+                    ${hospital.department}
+                </span>
+            </p>
+            <p>주소: ${hospital.hosAddress}</p>
+            <p>전화번호: ${hospital.hosTel}</p>
+        </a>
+    </c:forEach>
+</div>
 		</div>
 	</div>
 
