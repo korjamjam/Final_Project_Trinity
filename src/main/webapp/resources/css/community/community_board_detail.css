@@ -116,13 +116,13 @@
 }
 
 .board-detail td.board-title {
-    width: 75%;
+    width: 65%;
 	font-size: 24px;
 	font-weight: bold;
 }
 
 .board-detail td.board-user-info {
-    width: 8;
+	float: right;
 }
 
 .board-detail td.board-meta {

@@ -537,7 +537,7 @@ public class HospitalController {
 	                        // 파일 정보 설정
 	                        BoardFile bf = new BoardFile();
 	                        bf.setBoardNo(b.getBoardNo());
-	                        bf.setUserNo(loginHosAccount.getHosAcNo());
+	                        bf.setHosAcNo(loginHosAccount.getHosAcNo());
 	                        bf.setOriginName(upfile.getOriginalFilename());
 	                        bf.setChangeName("/resources/uploadFile/" + changeName);
 	                        bf.setFileSize(upfile.getSize());
@@ -545,7 +545,7 @@ public class HospitalController {
 	                        // allowDownload 값 설정
 	                        bf.setAllowDownload((allowDownload != null && allowDownload.size() > i) ? allowDownload.get(i) : "Y");
 
-	                        int fileResult = boardService.insertFile(bf);
+	                        int fileResult = boardService.insertFileAC(bf);
 	                        if (fileResult <= 0) {
 	                            m.addAttribute("errorMsg", "파일 정보를 저장하는 중 오류가 발생했습니다.");
 	                            return "/common/errorPage";
@@ -559,7 +559,7 @@ public class HospitalController {
 	        }
 
 	        session.setAttribute("alertMsg", "게시글 작성 성공");
-	        return "redirect:/hospital/account/boardDetail?bno=" + b.getBoardNo();
+	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
 	    } else {
 	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 	        return "/common/errorPage";

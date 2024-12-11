@@ -15,5 +15,5 @@ public class BoardFile {
     private String changeName;    // CHANGE_NAME
     private String allowDownload; // ALLOW_DOWNLOAD
     private long fileSize;        // FILE_SIZE
-    private String hosName;
+    private String hosAcNo;		  // 병원 계정 번호
 }

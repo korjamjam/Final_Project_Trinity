@@ -199,11 +199,16 @@ public class BoardController {
 
 	    // 현재 게시글 조회
 	    Board b = boardService.selectBoard(bno);
+	    
 	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
 	    System.out.println("상세페이지 ans Debug: " + ans);
 	    if (b == null) {
 	        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 	        return "/common/errorPage";
+	    }
+	    
+	    if(b.getBoardWriter() == null) {
+	    	b.setBoardWriter(b.getHosName());
 	    }
 
 	    // 조회수 증가
@@ -460,7 +465,8 @@ public class BoardController {
 
 	@RequestMapping("/deleteBoard")
 	@ResponseBody
-	public String deleteBoard(HttpSession session, @RequestParam String bno, @RequestParam String categoryId) {
+	public String deleteBoard(HttpSession session, @RequestParam String bno, @RequestParam(value="categoryId", 
+		    required = false, defaultValue="CAT03")String categoryId) {
 	    System.out.println("삭제하려는 게시글 번호: " + bno);  // bno 값 확인
 	    System.out.println("카테고리 ID: " + categoryId);  // categoryId 값 확인   
 
@@ -470,8 +476,11 @@ public class BoardController {
 	    }
 	 // 세션에서 로그인된 사용자 정보 가져오기 (인터셉터로 인증되었음을 전제)
 	    Member loginUser = (Member) session.getAttribute("loginUser");
-	    boolean isAdmin = "Y".equals(loginUser.getIsAdmin());
-
+	    boolean isAdmin = false;
+	    if(loginUser != null) {
+	    	isAdmin = "Y".equals(loginUser.getIsAdmin());
+	    }
+	    
 	    // 게시글에 첨부된 파일 목록 가져오기
 	    List<BoardFile> fileList = boardService.getFileList(bno);	 
 

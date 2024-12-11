@@ -364,6 +364,13 @@ public class BoardDao {
 
 
 
+	public int insertFileAC(SqlSessionTemplate sqlSession, BoardFile bf) {
+		return sqlSession.insert("boardMapper.insertFileAC", bf);
+	}
+
+
+
+
 
 
 	

@@ -31,8 +31,8 @@
 				const contextPath = "${pageContext.servletContext.contextPath}";
 				const boardNo = "${b.boardNo}";
 				const categoryId = "${b.categoryId}";  // categoryId 값을 JavaScript 변수로 전달
-				const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
-				const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+				const loginUserNo = "${loginUser != null ? loginUser.userNo : b.hosAcNo}";
+				const loginUserId = "${loginUser != null ? loginUser.userId : b.hosName}";
 			</script>
 
 			<!-- Header Section -->
