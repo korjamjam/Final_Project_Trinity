@@ -305,6 +305,11 @@ public class HealthReservationController {
 	public String healthReservationInfoNomal() {
 		return "health_reservation/health_reservation_info_nomal";
 	}
+	
+	@GetMapping("/infoCancer")
+	public String healthReservationInfoCancer() {
+		return "health_reservation/health_reservation_info_cancer";
+	}
 
 	@GetMapping("/itemsInfo")
 	public String healthReservationItems() {
