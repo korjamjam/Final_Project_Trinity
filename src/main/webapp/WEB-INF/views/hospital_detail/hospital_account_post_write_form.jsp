@@ -4,7 +4,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>${categoryName}글쓰기</title>
+		<title>이벤트 게시판 글쓰기</title>
 	
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -37,7 +37,6 @@
 			// JSP에서 전달된 데이터를 JavaScript 변수로 전달
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const boardNo = "${b.boardNo}";
-			const categoryId = "${b.categoryId}"; // categoryId 값을 JavaScript 변수로 전달
 			const loginUserNo = "${loginHosAccount != null ? loginHosAccount.hosNo : ''}";
 			const loginUserId = "${loginHosAccount != null ? loginHosAccount.hosId : ''}";
 			
@@ -50,7 +49,7 @@
 		<div class="content-container">
 			<div class="top-bar">
 				<div class="left-section">
-					<h1>${categoryName}
+					<h1>이벤트 게시판
 						<span>글쓰기</span>
 					</h1>
 				</div>
@@ -63,24 +62,18 @@
 			<div class="post-wrapper">
 				<form id="postForm" method="post" action="${pageContext.request.contextPath}/hospital/account/myPost/write/enroll"
 					class="post-form" enctype="multipart/form-data">
-					<input type="hidden" name="hosId" value="${loginUser.userId}">
-					<input type="hidden" id="categoryId" name="categoryId" value="${categoryId}">
 
 					<div class="post-form-container">
 						<select class="form-select" name="categoryName" onchange="changeCategory(this.value)">
-							<option value="메디톡" ${categoryName=='메디톡' ? 'selected' : '' }>메디톡</option>
-							<option value="이벤트게시판" ${categoryName=='이벤트게시판' ? 'selected' : '' }>이벤트게시판</option>
-						</select> <select class="form-select" name="tag">
-							<option>말머리 선택</option>
+							<option value="이벤트게시판">이벤트게시판</option>
 						</select>
 					</div>
 					<input type="text" name="boardTitle" placeholder="제목을 입력해 주세요." class="form-control mt-3" required>
 
-
 					<textarea id="summernote" name="boardContent" class="post-textarea form-control mt-3"></textarea>
 					<div class="mt-4">
-						<label for="upfile" class="form-label">첨부파일</label> <input type="file" id="upfile"
-							name="upfiles" class="form-control" multiple onchange="checkFileValidation(this)">
+						<label for="upfile" class="form-label">첨부파일</label>
+						<input type="file" id="upfile" name="upfiles" class="form-control" multiple onchange="checkFileValidation(this)">
 						<small id="fileHelp" class="form-text">최대 3개의 파일만 업로드할 수 있습니다. (각 파일 최대 5MB)</small>
 						<!-- 파일 개수 표시 -->
 
@@ -95,10 +88,6 @@
 				</form>
 			</div>
 		</div>
-		<!-- Footer -->
-		<%@ include file="/WEB-INF/views/common/main_footer.jsp" %>
-			<!-- JavaScript (at the end of the body) -->
-
 	</body>
 
 	</html>

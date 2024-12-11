@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonArray;
@@ -404,6 +405,7 @@ public class HospitalController {
 		
 	}
 	
+	//병원 정보 업데이트
 	@RequestMapping("account/myHospital/update")
 	public String HospitalAccountMyHospitalUpdate(@ModelAttribute HospitalInfo hosInfo, Model m) {
 	    String hosLatitude = "";
@@ -412,6 +414,7 @@ public class HospitalController {
 	    String url="https://dapi.kakao.com/v2/local/search/address.json?query=";
 	    String restKey ="a0793b4d67a4236cf4900bc98535d171"; 
 	    
+	    //주소 좌표로 변환해서 DB 저장
 	    try {
 			url += URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
 			
@@ -487,6 +490,17 @@ public class HospitalController {
 	    m.addAttribute("myposts", myposts);
 
 	    return "hospital_detail/hospital_account_my_post";
+	}
+	
+	@RequestMapping("/account/myPost/write/enroll")
+	public String HospitalAccountMyPostWriteEnroll(@ModelAttribute Board b,
+			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
+	        Model m) {
+		
+		System.out.println(b);
+		
+		return "hospital_detail/hospital_account_my_post";
 	}
 
 	//화면 이동 하는거
