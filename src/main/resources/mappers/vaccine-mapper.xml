@@ -70,6 +70,7 @@
             HOS_LATITUDE as hosLatitude,
             HOS_LONGITUDE as hosLongitude
         FROM HOSPITAL_INFO
+        WHERE ROWNUM &lt;= 20
     </select>
 
     <!-- 게스트 정보 삽입 -->
