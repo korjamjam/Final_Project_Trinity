@@ -3,7 +3,6 @@ package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -45,9 +44,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board selectBoard(String bno) {
+	public Board viewDetailPage(String bno) {
 		 System.out.println("서비스impl bno: " + bno);  
-		return boardDao.selectBoard(sqlSession, bno);
+		return boardDao.viewDetailPage(sqlSession, bno);
 	}
 
 	@Override
@@ -227,8 +226,8 @@ public class BoardServiceImpl implements BoardService {
 	    return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
 	}
 	@Override
-	public List<Board> getLatestPosts(String categoryId) {
-	    return boardDao.getLatestPosts(sqlSession, categoryId);
+	public List<Board> getLatestPosts(String ct) {
+	    return boardDao.getLatestPosts(sqlSession, ct);
 	}
 
 	@Override

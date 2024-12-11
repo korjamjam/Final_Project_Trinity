@@ -37,7 +37,7 @@ function sortPosts(sortType) {
     console.log("sortType in JS:", sortType);
 
     const currentPage = 1; // 정렬 변경 시 첫 페이지로 이동
-    const url = `${contextPath}/community/sideBarToBoard?categoryId=${categoryId}&sortType=${sortType}&cpage=${currentPage}`;
+    const url = `${contextPath}/community/main?categoryId=${categoryId}&sortType=${sortType}&cpage=${currentPage}`;
     window.location.href = url; // URL 변경
 }
 

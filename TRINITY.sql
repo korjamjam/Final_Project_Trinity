@@ -11,14 +11,15 @@ DROP TABLE HEALTH_RESERVATION CASCADE CONSTRAINTS;
 DROP TABLE BOARD CASCADE CONSTRAINTS;
 DROP TABLE FILE_TABLE CASCADE CONSTRAINTS;
 DROP TABLE COMMENTS CASCADE CONSTRAINTS;
-DROP TABLE COMMENTS_TABLE CASCADE CONSTRAINTS;
-DROP TABLE MED_ANSWER CASCADE CONSTRAINTS;
+DROP TABLE SUBCATEGORY CASCADE CONSTRAINTS;
 DROP TABLE MED_ANSWERS CASCADE CONSTRAINTS;
+DROP TABLE INQUIRY CASCADE CONSTRAINTS;
 DROP TABLE GUEST CASCADE CONSTRAINTS;
 DROP TABLE H_SUBJECT CASCADE CONSTRAINTS;
 DROP TABLE LIKES_TABLE CASCADE CONSTRAINTS;
 DROP TABLE RANKUP CASCADE CONSTRAINTS;
 DROP TABLE BOARD_CATEGORY CASCADE CONSTRAINTS;
+
 
 -- 기존 시퀀스 초기화 ------------------------------------------------------------------------------------------------
 DROP SEQUENCE SEQ_HOS_NO;
@@ -28,6 +29,7 @@ DROP SEQUENCE SEQ_BOARD_NO;
 DROP SEQUENCE SEQ_REVIEW_NO;
 DROP SEQUENCE SEQ_FILE_NO;
 DROP SEQUENCE SEQ_MED_NO;
+DROP SEQUENCE SEQ_INQUIRY_NO;
 DROP SEQUENCE SEQ_GST_NO;
 DROP SEQUENCE SEQ_G_RES_NO;
 DROP SEQUENCE SEQ_V_RES_NO;
@@ -48,6 +50,7 @@ CREATE SEQUENCE SEQ_BOARD_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_REVIEW_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_FILE_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_MED_NO START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE SEQ_INQUIRY_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_GST_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_SUB_KEY START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_COMMENT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
@@ -200,6 +203,15 @@ CREATE TABLE BOARD_CATEGORY (
     IS_ACTIVE CHAR(1) DEFAULT 'Y'             -- 활성화 여부 (Y/N)
 );
 
+CREATE TABLE SUBCATEGORY (
+    SUBCATEGORY_ID VARCHAR2(10) PRIMARY KEY,
+    CATEGORY_ID VARCHAR2(10) NOT NULL,
+    SUBCATEGORY_NAME VARCHAR2(50) NOT NULL,
+    SORT_ORDER NUMBER(10) DEFAULT 0,
+    IS_ACTIVE CHAR(1) DEFAULT 'Y',
+    CONSTRAINT FK_CATEGORY FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY(CATEGORY_ID)
+);
+
 
 -- BOARD 테이블: 게시글 정보
 CREATE TABLE BOARD (
@@ -258,6 +270,21 @@ CREATE TABLE MED_ANSWERS (
     IS_MEDICAL_FIELD CHAR(1) DEFAULT 'N' CHECK (IS_MEDICAL_FIELD IN ('Y', 'N')),  -- 의료 전문가 여부
     FOREIGN KEY (BOARD_NO) REFERENCES BOARD (BOARD_NO) ON DELETE CASCADE, -- 게시글 삭제 시 관련 답글 삭제
     FOREIGN KEY (MED_NO) REFERENCES MEMBER (MED_KEY)  -- 의사 고유 ID가 MEMBER 테이블의 MED_KEY를 참조
+);
+
+CREATE TABLE INQUIRY (
+    INQUIRY_NO VARCHAR2(10) PRIMARY KEY,           -- 문의 고유 번호
+    USER_NO VARCHAR2(10) NOT NULL,                -- 사용자 번호
+    CATEGORY_ID VARCHAR2(10) NOT NULL,            -- 카테고리 ID
+    INQUIRY_TITLE VARCHAR2(200) NOT NULL,         -- 문의 제목
+    INQUIRY_CONTENT VARCHAR2(4000) NOT NULL,      -- 문의 내용
+    ADMIN_REPLY VARCHAR2(4000),                   -- 관리자 답변
+    STATUS CHAR(1) DEFAULT 'Y' NOT NULL CHECK (STATUS IN ('Y', 'N')), -- 상태 (Y: 활성, N: 비활성)
+    ENROLL_DATE DATE DEFAULT SYSDATE,             -- 생성 날짜
+    UPDATE_DATE DATE DEFAULT SYSDATE,             -- 수정 날짜
+    INQUIRY_VIEWS NUMBER(10) DEFAULT '0',     -- 조회수 (기본값: 0)
+    FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),     -- 사용자 참조 키
+    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID) -- 카테고리 참조 키
 );
 
 
@@ -10806,6 +10833,36 @@ VALUES ('CAT02', '메디톡', 2, 'Y');
 INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
 VALUES ('CAT03', '이벤트게시판', 3, 'Y');
 
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT04', '공지사항', 4, 'Y');
+
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT05', '알림판', 5, 'Y');
+
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT06', 'FAQ', 6, 'Y');
+
+INSERT INTO BOARD_CATEGORY (CATEGORY_ID, CATEGORY_NAME, SORT_ORDER, IS_ACTIVE)
+VALUES ('CAT07', 'Q&A', 7, 'Y');
+
+-- SUBCATEGORY 테이블 더미 데이터 생성
+INSERT INTO SUBCATEGORY (SUBCATEGORY_ID, CATEGORY_ID, SUBCATEGORY_NAME, SORT_ORDER, IS_ACTIVE) 
+VALUES ('SC001', 'CAT06', '회원/정보관리', 1, 'Y');
+
+INSERT INTO SUBCATEGORY (SUBCATEGORY_ID, CATEGORY_ID, SUBCATEGORY_NAME, SORT_ORDER, IS_ACTIVE) 
+VALUES ('SC002', 'CAT06', '사이트이용', 2, 'Y');
+
+INSERT INTO SUBCATEGORY (SUBCATEGORY_ID, CATEGORY_ID, SUBCATEGORY_NAME, SORT_ORDER, IS_ACTIVE) 
+VALUES ('SC003', 'CAT06', '커뮤니티', 3, 'Y');
+
+INSERT INTO SUBCATEGORY (SUBCATEGORY_ID, CATEGORY_ID, SUBCATEGORY_NAME, SORT_ORDER, IS_ACTIVE) 
+VALUES ('SC004', 'CAT06', '이벤트', 4, 'Y');
+
+INSERT INTO SUBCATEGORY (SUBCATEGORY_ID, CATEGORY_ID, SUBCATEGORY_NAME, SORT_ORDER, IS_ACTIVE) 
+VALUES ('SC005', 'CAT06', '예약', 5, 'Y');
+
+-- BOARD 더미데이터--
+
 DECLARE
     -- 외부 변수 선언
     CURSOR c_user_no IS
@@ -10861,7 +10918,7 @@ DECLARE
         '관련 이미지도 첨부해봤습니다.'
     );
 BEGIN
-    FOR i IN 1..1000 LOOP
+    FOR i IN 1..300 LOOP
         -- 랜덤 USER_NO 가져오기
         SELECT USER_NO INTO v_user_no
         FROM (
@@ -11015,6 +11072,91 @@ BEGIN
     COMMIT;
 END;
 /
+--INQUIRY 더미데이터 --
+DECLARE
+    v_inquiry_no VARCHAR2(10);
+    v_user_no VARCHAR2(10);
+    v_category_id VARCHAR2(10);
+    v_subcategory_id VARCHAR2(10);
+    v_inquiry_title VARCHAR2(200);
+    v_inquiry_content VARCHAR2(4000);
+    v_admin_reply VARCHAR2(4000);
+    v_status CHAR(1);
+    v_enroll_date DATE;
+    v_update_date DATE;
+    v_inquiry_views NUMBER(10);
+    v_faq_subcategories SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+        'SC001', 'SC002', 'SC003', 'SC004', 'SC005'
+    ); -- FAQ의 SUBCATEGORY_ID 목록
+BEGIN
+    -- 문의 데이터 삽입
+    FOR i IN 1..300 LOOP
+        -- 무작위 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N' ORDER BY DBMS_RANDOM.VALUE
+        )
+        WHERE ROWNUM = 1;
+
+        -- Generate inquiry data
+        v_inquiry_no := 'INQ' || LPAD(i, 3, '0');
+        v_inquiry_title := CASE MOD(i, 5)
+            WHEN 0 THEN '문의사항'
+            WHEN 1 THEN '계정 문제'
+            WHEN 2 THEN '사용법 문의'
+            WHEN 3 THEN '기능 요청'
+            ELSE '버그 리포트'
+        END;
+        v_inquiry_content := CASE MOD(i, 5)
+            WHEN 0 THEN '이 기능이 작동하지 않습니다.'
+            WHEN 1 THEN '계정 정보를 수정하고 싶습니다.'
+            WHEN 2 THEN '사이트 이용 중 문제가 발생했습니다.'
+            WHEN 3 THEN '새로운 기능을 추가할 계획이 있나요?'
+            ELSE '버그가 발견되었습니다.'
+        END;
+        v_admin_reply := CASE MOD(i, 3)
+            WHEN 0 THEN '확인 후 답변 드리겠습니다.'
+            WHEN 1 THEN '답변 드립니다.'
+            ELSE NULL
+        END;
+        v_status := CASE MOD(i, 2)
+            WHEN 0 THEN 'Y'
+            ELSE 'N'
+        END;
+        v_enroll_date := SYSDATE - DBMS_RANDOM.VALUE(1, 365);
+        v_update_date := v_enroll_date + DBMS_RANDOM.VALUE(0, 30);
+        v_inquiry_views := TRUNC(DBMS_RANDOM.VALUE(0, 101));
+
+        -- Assign CATEGORY_ID and SUBCATEGORY_ID
+        IF MOD(i, 3) = 0 THEN
+            -- CAT06: FAQ with subcategories
+            v_category_id := 'CAT06';
+            v_subcategory_id := v_faq_subcategories(MOD(i, 5) + 1); -- 하위 카테고리 ID 무작위 선택
+        ELSE
+            -- Other categories (공지사항, 알림판)
+            v_category_id := CASE MOD(i, 3)
+                WHEN 1 THEN 'CAT04' -- 공지사항
+                ELSE 'CAT05' -- 알림판
+            END;
+            v_subcategory_id := NULL; -- 하위 카테고리 없음
+        END IF;
+
+        -- Insert into INQUIRY table
+        INSERT INTO INQUIRY (
+            INQUIRY_NO, USER_NO, CATEGORY_ID, SUBCATEGORY_ID, INQUIRY_TITLE, 
+            INQUIRY_CONTENT, ADMIN_REPLY, STATUS, ENROLL_DATE, 
+            UPDATE_DATE, INQUIRY_VIEWS
+        ) VALUES (
+            v_inquiry_no, v_user_no, v_category_id, v_subcategory_id, v_inquiry_title,
+            v_inquiry_content, v_admin_reply, v_status, v_enroll_date,
+            v_update_date, v_inquiry_views
+        );
+    END LOOP;
+
+    COMMIT;
+END;
+/
+
 
 -- BOARD 테이블 더미 데이터 생성
 INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)

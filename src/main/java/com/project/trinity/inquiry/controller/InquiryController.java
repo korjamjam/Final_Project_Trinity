@@ -1,65 +1,74 @@
 package com.project.trinity.inquiry.controller;
 
-import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.community.common.vo.Template;
+import com.project.trinity.inquiry.service.InquiryService;
+import com.project.trinity.inquiry.vo.Inquiry;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.trinity.community.board.model.vo.Board;
-import com.project.trinity.inquiry.service.InquiryService;
+import java.util.List;
+
+  
 
 @Controller
 @RequestMapping("/inquiry")
 public class InquiryController {
-	
-	@Autowired
+
+   
     private InquiryService inquiryService;
-	
-	 // 캐시 비활성화 메서드
-    private void disableCache(HttpServletResponse response) {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-    }
+
+
     
-  //커뮤니티 페이지 연결
-    @RequestMapping("/notice")
-    public String showInquiryNoticePage(HttpServletResponse response, Model model) {
-        disableCache(response); // 캐시 비활성화
-        List<Board> noticeList = inquiryService.getNotices(); // 공지사항 목록 가져오기
-        model.addAttribute("noticeList", noticeList); // 모델에 데이터 추가
-        return "inquiry/inquiry_notice"; // JSP 경로
+    @Autowired
+    public InquiryController(InquiryService inquiryService) {
+        this.inquiryService = inquiryService;
+       
     }
 
-	
-	@RequestMapping("/report")
-    public String showInquiryReportPage(HttpServletResponse response, Model model) {
-		disableCache(response); // 캐시 비활성화
-		List<Board> noticeList = inquiryService.getNotices(); // 공지사항 목록 가져오기
-        model.addAttribute("noticeList", noticeList); 
-        return "inquiry/inquiry_report";
+
+    @GetMapping("/main")
+    public String getInquiryBoard(
+            @RequestParam(value = "categoryId", required = false) String categoryId,
+            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
+            @RequestParam(value = "sortType", required = false, defaultValue = "작성일") String sortType,
+            Model model) {
+
+      
+       
+
+        // 2. Q&A (CAT07) 처리
+        if ("CAT07".equals(categoryId)) {
+            return "/inquiry/inquiry_qna"; // Q&A 전용 JSP 반환
+        }
+
+        // 3. 일반 게시판 처리 (CAT04, CAT05, CAT06)
+        if (categoryId != null && (categoryId.equals("CAT04") || categoryId.equals("CAT05") || categoryId.equals("CAT06"))) {
+            int listCount = inquiryService.getListCount(categoryId); // 전체 게시물 수 조회
+            PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 공통 페이지네이션 유틸리티 사용
+            List<Inquiry> inquiryList = inquiryService.selectListByCategory(categoryId, pi, sortType); // 데이터 조회
+            System.out.println("Inquiry List: " + inquiryList); // 컨트롤러에서 데이터 확인
+
+            // 모델에 데이터 추가
+            model.addAttribute("categoryId", categoryId);
+            model.addAttribute("sortType", sortType);
+            model.addAttribute("inquiryList", inquiryList);
+            model.addAttribute("pi", pi);
+
+            return "/inquiry/inquiry_board";
+        }
+
+        // 4. 잘못된 카테고리 ID 처리
+        model.addAttribute("errorMsg", "잘못된 카테고리입니다.");
+        return "/common/errorPage";
     }
-    
-    @RequestMapping("/faq")
-    public String showInquiryFaqPage() {
-        // "community_main" JSP로 포워딩
-        return "inquiry/inquiry_faq";
-    }
-   
-    
-    @RequestMapping("/qna")
-    public String showInquiryQnaPage() {
-        // "community_main" JSP로 포워딩
-        return "inquiry/inquiry_qna";
-    }
-    
-    @RequestMapping("/qnawrite")
-    public String showInquiryQnaWritePage() {
-        // "community_main" JSP로 포워딩
-        return "inquiry/inquiry_qna_write";
-    }
+
+
 }

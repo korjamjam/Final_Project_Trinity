@@ -595,11 +595,11 @@ public class HospitalController {
 		    }
 		    // 이전 글 번호 조회 후 상세 정보 조회
 		    String prevBno = boardService.getPreviousBoard(bno);
-		    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
+		    Board prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
 
 		    // 다음 글 번호 조회 후 상세 정보 조회
 		    String nextBno = boardService.getNextBoard(bno);
-		    Board nextBoard = (nextBno != null) ? boardService.selectBoard(nextBno) : null;
+		    Board nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
 
 		    // 카테고리 목록 조회 (드롭다운 메뉴용)
 		    List<BoardCategory> categories = boardService.getCategories();
