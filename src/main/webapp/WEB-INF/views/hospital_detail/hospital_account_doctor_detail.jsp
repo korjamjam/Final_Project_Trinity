@@ -27,7 +27,6 @@
 
 <div class="member-management">
     <h2>병원 의사 관리</h2>
-    ${doctor}
     <div class="member-info">
         <table>
             <tr>
@@ -77,7 +76,7 @@
                 <th>리뷰</th>
                 <td>
                     <input type="hidden" id="doctorNo" value="${doctor.userNo}">
-                    <button type="button" class="review-button" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews()">
+                    <button type="button" class="review-button" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews(`${doctor.userNo}`)">
                         리뷰 조회
                     </button>
 

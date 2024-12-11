@@ -10,7 +10,7 @@
 <body>
     <div class="mypost-container">
         <h1>내가 쓴 게시글</h1>
-        <a href="${pageContext.servletContext.contextPath}/hospital/account/myPost/write" class="edit-btn">글쓰기</a>
+        <a href="${pageContext.servletContext.contextPath}/hospital/account/myPost/write" class="edit-btn" style="float: right;">글쓰기</a>
         <table class="mypost-table">
             <thead>
                 <tr>
