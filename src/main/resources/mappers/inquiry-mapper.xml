@@ -24,7 +24,7 @@
     
     <select id="selectNotices" resultMap="noticeResult">
    		SELECT * FROM BOARD
-    	WHERE BOARD_CATEGORY = '공지사항' AND STATUS = 'Y'
+    	WHERE CATEGORY_ID = '공지사항' AND STATUS = 'Y'
    		ORDER BY ENROLL_DATE DESC
 	</select>
 

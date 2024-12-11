@@ -80,7 +80,7 @@ public interface BoardService {
 	int saveAnswer(MedAnswer ans);
 
 
-	List<Board> getLatestPosts(String string);
+	List<Board> getLatestPosts(String ct);
 
 	List<Board> getPostsByHosNo(String hosNo);
 

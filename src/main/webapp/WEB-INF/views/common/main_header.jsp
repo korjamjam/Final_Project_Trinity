@@ -66,12 +66,12 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <a href="${pageContext.request.contextPath}/inquiry/notice">고객문의</a>
+                            <a href="${pageContext.servletContext.contextPath}/main?categoryId=CAT04">고객문의</a>
                             <div class="dropdown-content">
-                                <a href="${pageContext.request.contextPath}/inquiry/notice">공지사항</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/report">알림판</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
+                                <a href="${pageContext.servletContext.contextPath}/main?categoryId=CAT04">공지사항</a>
+                                <a href="${pageContext.servletContext.contextPath}/main?categoryId=CAT05">알림판</a>
+                                <a href="${pageContext.servletContext.contextPath}/main?categoryId=CAT06">FAQ</a>
+                                <a href="${pageContext.servletContext.contextPath}/main?categoryId=CAT07">Q&A</a>
                             </div>
                         </div>
                     </nav>

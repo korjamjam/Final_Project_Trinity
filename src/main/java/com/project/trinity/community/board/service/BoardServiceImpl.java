@@ -227,8 +227,8 @@ public class BoardServiceImpl implements BoardService {
 	    return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
 	}
 	@Override
-	public List<Board> getLatestPosts(String categoryId) {
-	    return boardDao.getLatestPosts(sqlSession, categoryId);
+	public List<Board> getLatestPosts(String ct) {
+	    return boardDao.getLatestPosts(sqlSession, ct);
 	}
 
 	@Override

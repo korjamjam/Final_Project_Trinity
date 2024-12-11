@@ -59,32 +59,40 @@ public class BoardController {
 
 
 	// 동적으로 커뮤니티 페이지 연결 및 게시글 목록 + 페이징 처리
-	@RequestMapping("/main")
-	public String getBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId,
-			@RequestParam(value = "cpage", defaultValue = "1") int currentPage, 
-			  @RequestParam(value = "sortType", defaultValue = "작성일") String sortType, Model m) {
-		
-		  // 디버깅 로그
-	    System.out.println("Received categoryId: " + categoryId);
-	    
-		// 카테고리별 게시글 수 조회
-		int listCount = boardService.selectCountCategoryList(categoryId);
+    @RequestMapping("/main")
+    public String getBoardPage(
+            @RequestParam(value = "categoryId", required = false, defaultValue = "CAT01") String categoryId, // 기본값 설정
+            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "sortType", defaultValue = "작성일") String sortType,
+            Model m) {
 
-		// 페이징 정보 설정
-		PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
+        // 디버깅 로그
+        System.out.println("Received categoryId: " + categoryId);
 
-		// 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
-		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+        // 카테고리별 게시글 수 조회
+        int listCount = boardService.selectCountCategoryList(categoryId);
 
-	
-		// 모델에 데이터 추가
-		m.addAttribute("categoryId", categoryId);
-		m.addAttribute("sortType", sortType);
-		m.addAttribute("boardList", boardList);
-		m.addAttribute("pi", pi);
+        // 페이징 정보 설정
+        PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20);
 
-		return "community/board";
-	}
+        // 게시글 목록 조회
+        List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+
+        // 모델에 데이터 추가
+        m.addAttribute("categoryId", categoryId);
+        m.addAttribute("sortType", sortType);
+        m.addAttribute("boardList", boardList);
+        m.addAttribute("pi", pi);
+
+        // 카테고리 분기 처리
+        if ("CAT04".equals(categoryId) || "CAT05".equals(categoryId) || "CAT06".equals(categoryId)) {
+            // 고객문의 관련 페이지
+            return "inquiry/inquiry_board"; // 절대 경로로 설정
+        }
+
+        // 커뮤니티 페이지
+        return "community/board";
+    }
 
 	@RequestMapping("/sideBarToBoard")
 	public String getSideBoardPage(@RequestParam(value = "categoryId", required = false) String categoryId, // 필수 파라미터로 설정

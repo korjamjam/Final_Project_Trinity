@@ -53,6 +53,9 @@
             b.BOARD_NO,
             b.BOARD_TITLE,
             b.BOARD_VIEWS,
+            b.CATEGORY_ID,
+            bc.CATEGORY_NAME,        <!-- 카테고리 이름 추가 -->
+            m.USER_NAME AS BOARD_WRITER, <!-- 작성자 이름 추가 -->
             TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
             ROW_NUMBER() OVER (
                 ORDER BY
@@ -69,10 +72,19 @@
                 </choose>
             ) AS RN
         FROM BOARD b
+        LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID <!-- 카테고리 테이블 조인 -->
+        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
         WHERE b.STATUS = 'Y'
-        <if test="categoryId != null">
-            AND b.CATEGORY_ID = #{categoryId}
-        </if>
+        <choose>
+            <!-- categoryId가 null이면 실시간 인기글 (자유게시판, 메디톡, 이벤트 게시판) -->
+            <when test="categoryId == null">
+                AND b.CATEGORY_ID IN ('CAT01', 'CAT02', 'CAT03')
+            </when>
+            <!-- 특정 카테고리의 글 조회 -->
+            <otherwise>
+                AND b.CATEGORY_ID = #{categoryId}
+            </otherwise>
+        </choose>
     ) subquery
     WHERE RN BETWEEN #{startRow} AND #{endRow}
 </select>
@@ -233,21 +245,25 @@
 
 	<!-- 게시글 추가 -->
 	<insert id="insertBoard" parameterType="Board">
-    INSERT INTO BOARD (
-        BOARD_NO,
-        USER_NO,
-        BOARD_TITLE,
-        BOARD_CONTENT,
-        CATEGORY_ID
-    ) VALUES (
-        SEQ_BOARD_NO.NEXTVAL,  -- 시퀀스를 사용하여 BOARD_NO 생성
-        #{userNo},
-        #{boardTitle},
-        #{boardContent},
-        #{categoryId}
-    )
-</insert>
-
+		INSERT INTO BOARD (
+		USER_NO,
+		BOARD_TITLE,
+		BOARD_CONTENT,
+		CATEGORY_ID
+		)
+		VALUES (
+		#{userNo},
+		#{boardTitle},
+		#{boardContent},
+		#{categoryId} <!-- 카테고리 
+			ID 수정 -->
+		)
+		<selectKey keyProperty="boardNo"
+			resultType="java.lang.String" order="AFTER">
+			SELECT 'B' ||
+			SEQ_BOARD_NO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
 
 	<select id="getCategoryNameById" resultType="String">
 		SELECT category_name

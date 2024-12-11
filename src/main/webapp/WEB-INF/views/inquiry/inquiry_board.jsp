@@ -23,7 +23,8 @@
 	<script>
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const categoryId = "${categoryId}"; // categoryId 값을 JavaScript 변수로 전달
-		  
+		    console.log("Category ID in JSP: ${categoryId}");
+    console.log("Sort Type in JSP: ${sortType}");
 
 		</script>
 	<!-- 헤더 -->
@@ -43,14 +44,14 @@
 		<!-- 메인 콘텐츠 -->
 		<div id="mainWrapper">
 			<div id="contentHeader">
-				<h2 class="content-title">
-					<c:choose>
-						<c:when test="${categoryId == 'CAT01'}">자유게시판</c:when>
-						<c:when test="${categoryId == 'CAT02'}">메디톡</c:when>
-						<c:when test="${categoryId == 'CAT03'}">이벤트게시판</c:when>
-						<c:otherwise>실시간 인기글</c:otherwise>
-					</c:choose>
-				</h2>
+				 <h2 class="content-title">
+            <c:choose>
+                <c:when test="${categoryId == 'CAT04'}">공지사항</c:when>
+                <c:when test="${categoryId == 'CAT05'}">알림판</c:when>
+                <c:when test="${categoryId == 'CAT06'}">FAQ</c:when>
+                <c:otherwise>공지사항</c:otherwise>
+            </c:choose>
+        </h2>
 				<div id="contentControls">
 					<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서
 						확인하세요.</p>
@@ -62,6 +63,8 @@
 						</select>
 						
 						
+						
+
 						<c:if test="${not empty sessionScope.loginUser}">
 							<!-- type 값을 설정한 후 글쓰기 버튼에 반영 -->
 							<c:choose>
@@ -84,6 +87,8 @@
 							<a class="round-button"
 								href="${pageContext.request.contextPath}/community/write?categoryId=${categoryId}">글쓰기</a>
 						</c:if>
+
+
 					</div>
 				</div>
 			</div>
@@ -166,8 +171,7 @@
 	<footer id="footerSection">
 		<%@ include file="/WEB-INF/views/common/main_footer.jsp"%>
 	</footer>
-	<script
-		src="${pageContext.servletContext.contextPath}/resources/js/community/board.js"></script>
+
 
 </body>
 

@@ -25,7 +25,7 @@ public class CommonController {
     @GetMapping("/main")
     public String main(Model m) {
     	 // 최신 공지사항 게시글 3개 가져오기
-        List<Board> latestNoticePosts = boardService.getLatestPosts("CAT01"); // CAT01: 공지사항 ID
+        List<Board> latestNoticePosts = boardService.getLatestPosts("CAT04"); // CAT01: 공지사항 ID
         // 최신 이벤트 게시글 3개 가져오기
         List<Board> latestEventPosts = boardService.getLatestPosts("CAT03"); // CAT03: 이벤트 ID
 

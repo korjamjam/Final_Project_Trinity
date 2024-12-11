@@ -336,8 +336,8 @@ public class BoardDao {
 
 
 
-    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String categoryId) {
-        return sqlSession.selectList("boardMapper.getLatestPosts", categoryId);
+    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String ct) {
+        return sqlSession.selectList("boardMapper.getLatestPosts", ct);
     }
 
 
