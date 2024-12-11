@@ -1,6 +1,5 @@
 package com.project.trinity.community.board.model.vo;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

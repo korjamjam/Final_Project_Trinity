@@ -20,6 +20,10 @@ public class MedAnswer {
     private String isMedicalField; // 의료 전문가 여부
     private String medicalFieldId; // 의료 분야 ID
     private String doctorName;     // 작성자 이름 추가
+    private int likeCount;        // 좋아요 수 (LIKE 테이블에서 조인)
+    private int dislikeCount;     // 싫어요 수 (DISLIKE 테이블에서 조인)
+    private boolean isLiked;      // 사용자가 이 댓글에 좋아요를 눌렀는지 여부
+    private boolean isDisliked;   // 사용자가 이 댓글에 싫어요를 눌렀는지 여부
 
-    // Getters and Setters
+  
 }

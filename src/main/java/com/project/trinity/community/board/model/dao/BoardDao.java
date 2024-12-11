@@ -192,9 +192,9 @@ public class BoardDao {
     /**
      * 현재 사용자의 특정 댓글에 대한 좋아요/싫어요 상태를 조회합니다.
      */
-    public Like getCurrentLikeState(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+    public Like getCurrentLikeState(SqlSessionTemplate sqlSession, String answerNo, String userNo) {
         Map<String, Object> params = new HashMap<>();
-        params.put("commentNo", commentNo);
+        params.put("commentNo", answerNo);
         params.put("userNo", userNo);
         return sqlSession.selectOne("boardMapper.getCurrentLikeState", params);
     }
@@ -204,21 +204,28 @@ public class BoardDao {
     /**
      * 특정 댓글에 좋아요 또는 싫어요를 추가합니다.
      */
-    public void insertLikeDislike(SqlSessionTemplate sqlSession, String commentNo, String userNo, int isLike) {
+    public void insertLikeDislike(SqlSessionTemplate sqlSession, String answerNo, String userNo, int isLike) {
         Map<String, Object> params = new HashMap<>();
-        params.put("commentNo", commentNo);
+        params.put("answerNo", answerNo);
         params.put("userNo", userNo);
         params.put("isLike", isLike); 
         sqlSession.insert("boardMapper.insertLikeDislike", params);
     }
 
+    public void updateLikeDislike(SqlSessionTemplate sqlSession, String answerNo, String userNo, int isLike) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("answerNo", answerNo);
+        params.put("userNo", userNo);
+        params.put("isLike", isLike);
 
+        sqlSession.update("boardMapper.updateLikeDislike", params);
+    }
     /**
      * 특정 댓글의 좋아요/싫어요를 삭제합니다.
      */
-    public void deleteLikeDislike(SqlSessionTemplate sqlSession, String commentNo, String userNo) {
+    public void deleteLikeDislike(SqlSessionTemplate sqlSession, String answerNo, String userNo) {
         Map<String, Object> params = new HashMap<>();
-        params.put("commentNo", commentNo);
+        params.put("answerNo", answerNo);
         params.put("userNo", userNo);
         sqlSession.delete("boardMapper.deleteLikeDislike", params);
     }
@@ -226,26 +233,19 @@ public class BoardDao {
     /**
      * 특정 댓글에 대한 좋아요 수를 조회합니다.
      */
-    public int getLikeCount(SqlSessionTemplate sqlSession, String commentNo) {
-        return sqlSession.selectOne("boardMapper.getLikeCount", commentNo);
+    public int getLikeCount(SqlSessionTemplate sqlSession, String answerNo) {
+        return sqlSession.selectOne("boardMapper.getLikeCount", answerNo);
     }
 
     /**
      * 특정 댓글에 대한 싫어요 수를 조회합니다.
      */
-    public int getDislikeCount(SqlSessionTemplate sqlSession, String commentNo) {
-        return sqlSession.selectOne("boardMapper.getDislikeCount", commentNo);
+    public int getDislikeCount(SqlSessionTemplate sqlSession, String answerNo) {
+        return sqlSession.selectOne("boardMapper.getDislikeCount", answerNo);
     }
 
     
-    public void updateLikeDislike(SqlSessionTemplate sqlSession, String commentNo, String userNo, int isLike) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("commentNo", commentNo);
-        params.put("userNo", userNo);
-        params.put("isLike", isLike);
-
-        sqlSession.update("boardMapper.updateLikeDislike", params);
-    }
+ 
 
     public String getCategoryNameById(SqlSessionTemplate sqlSession, String categoryId) {
     	System.out.println("Category ID in Dao: " + categoryId);

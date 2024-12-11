@@ -584,28 +584,32 @@ public class BoardController {
 			}
 		}
 	@ResponseBody
-	@RequestMapping("toggleLike.bo")
-	public Map<String, Object> toggleLike(@RequestParam("commentNo") String commentNo,
+	@RequestMapping("/likeDislike")
+	public Map<String, Object> toggleLike(@RequestParam("answerNo") String answerNo,
 			@RequestParam("userNo") String userNo, @RequestParam("isLike") int isLike) {
 		Map<String, Object> response = new HashMap<>();
+		
+		System.out.println("answerNo: " + answerNo + ", userNo: " + userNo + ", isLike: " + isLike);
+
 		try {
 			// 파라미터 유효성 검사
-			if (commentNo == null || userNo == null || (isLike != 0 && isLike != 1)) {
+			if (answerNo == null || userNo == null || (isLike != 0 && isLike != 1)) {
 				response.put("success", false);
 				response.put("message", "잘못된 요청 데이터입니다.");
 				return response;
 			}
 
 			// 좋아요/싫어요 로우데이터 가져오기
-			Like existingLike = boardService.getCurrentLikeState(commentNo, userNo);
+			Like existingLike = boardService.getCurrentLikeState(answerNo, userNo);
+			System.out.println("existingLike: " + existingLike);
 
 			if (existingLike == null) {
 				// 데이터가 없으면 새로 추가
-				boardService.insertLikeDislike(commentNo, userNo, isLike);
+				boardService.insertLikeDislike(answerNo, userNo, isLike);
 
 				response.put("success", true);
-				response.put("likeCount", boardService.getLikeCount(commentNo));
-				response.put("dislikeCount", boardService.getDislikeCount(commentNo));
+				response.put("likeCount", boardService.getLikeCount(answerNo));
+				response.put("dislikeCount", boardService.getDislikeCount(answerNo));
 				response.put("message", isLike == 1 ? "좋아요가 추가되었습니다." : "싫어요가 추가되었습니다.");
 				return response;
 			}
@@ -618,11 +622,11 @@ public class BoardController {
 			}
 
 			// 상태 업데이트
-			boardService.updateLikeDislike(commentNo, userNo, isLike);
+			boardService.updateLikeDislike(answerNo, userNo, isLike);
 
 			response.put("success", true);
-			response.put("likeCount", boardService.getLikeCount(commentNo));
-			response.put("dislikeCount", boardService.getDislikeCount(commentNo));
+			response.put("likeCount", boardService.getLikeCount(answerNo));
+			response.put("dislikeCount", boardService.getDislikeCount(answerNo));
 			response.put("message", isLike == 1 ? "좋아요로 변경되었습니다." : "싫어요로 변경되었습니다.");
 
 		} catch (Exception e) {
