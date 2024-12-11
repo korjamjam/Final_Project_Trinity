@@ -2,6 +2,7 @@ package com.project.trinity.member.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -164,6 +165,11 @@ public class MemberServiceImpl implements MemberService {
 		map.put("reviewContent", reviewContent);
 		map.put("reviewRating", reviewRating);
 		return memberDao.insertDoctorReview(sqlSession, map);
+	}
+
+	@Override
+	public List<Integer> selectCountList() {
+		return memberDao.selectCountList(sqlSession);
 	}
 
 }

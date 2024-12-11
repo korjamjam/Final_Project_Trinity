@@ -2,6 +2,7 @@ package com.project.trinity.member.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.project.trinity.member.model.vo.DoctorReview;
 import com.project.trinity.member.model.vo.MedicalField;
@@ -51,6 +52,8 @@ public interface MemberService {
 
 	int insertDoctorReview(String writerNo, String doctorNo, String reviewTitle, String reviewContent,
 			String reviewRating);
+
+	List<Integer> selectCountList();
 
     
   

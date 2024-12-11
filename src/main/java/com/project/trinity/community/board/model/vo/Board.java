@@ -30,4 +30,5 @@ public class Board {
     
     // 첨부파일 목록
     private ArrayList<BoardFile> fileList; // 특정 게시글의 첨부파일 정보
+    private String inquiryCategory;
 }
