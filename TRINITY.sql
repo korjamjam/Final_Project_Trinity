@@ -205,7 +205,7 @@ CREATE TABLE BOARD_CATEGORY (
 CREATE TABLE BOARD (
     BOARD_NO VARCHAR2(10) PRIMARY KEY,        -- 게시판 번호 (고유값)
     BOARD_TYPE NUMBER,                        -- 게시판 타입
-    USER_NO VARCHAR2(10) NOT NULL,            -- 사용자 번호 (외래키로 연결)
+    USER_NO VARCHAR2(10),            -- 사용자 번호 (외래키로 연결)
     BOARD_TITLE VARCHAR2(200) NOT NULL,       -- 게시판 제목
     BOARD_CONTENT VARCHAR2(4000),             -- 게시판 내용
     ENROLL_DATE DATE DEFAULT SYSDATE,         -- 등록 날짜
@@ -214,8 +214,10 @@ CREATE TABLE BOARD (
     CATEGORY_ID VARCHAR2(20),                 -- 카테고리 ID (BOARD_CATEGORY 테이블의 외래키)
     STATUS CHAR(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),  -- 상태 (활성/비활성)
     INQUIRY_CATEGORY VARCHAR2(30),            -- 고객 문의 카테고리
+    HOS_ACCOUNT_NO VARCHAR2(10),               -- 병원 계정 번호
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),         -- 사용자와 연결
-    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID)  -- 카테고리와 연결
+    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID),  -- 카테고리와 연결
+    FOREIGN KEY (HOS_ACCOUNT_NO) REFERENCES HOSPITAL_ACCOUNT (HOS_ACCOUNT_NO)   -- 병원 연결
 );
 
 
@@ -601,6 +603,127 @@ VALUES ('U55', 'user54', 'pwd54', 'Ben', 'ben@example.com', '010-4567-8901', '42
 
 INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
 VALUES ('U56', 'user55', 'pwd55', 'Clara', 'clara@example.com', '010-5678-9012', '412020', 'Iksan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U57', 'user56', 'pwd56', 'Daniel', 'daniel@example.com', '010-6789-0123', '402121', 'Jeongeup, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U58', 'user57', 'pwd57', 'Emma', 'emma@example.com', '010-7890-1234', '392222', 'Namwon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U59', 'user58', 'pwd58', 'Frank', 'frank@example.com', '010-8901-2345', '382323', 'Gimje, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U60', 'user59', 'pwd59', 'Grace', 'grace@example.com', '010-9012-3456', '372424', 'Suncheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U61', 'user60', 'pwd60', 'Henry', 'henry@example.com', '010-0123-4567', '362525', 'Naju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U62', 'user61', 'pwd61', 'Iris', 'iris@example.com', '010-1234-5678', '352626', 'Gwangju, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U63', 'user62', 'pwd62', 'Jason', 'jason@example.com', '010-2345-6789', '342727', 'Mokpo, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U64', 'user63', 'pwd63', 'Kelly', 'kelly@example.com', '010-3456-7890', '332828', 'Yeosu, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U65', 'user64', 'pwd64', 'Liam', 'liam@example.com', '010-4567-8901', '322929', 'Suwon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U66', 'user65', 'pwd65', 'Megan', 'megan@example.com', '010-5678-9012', '313030', 'Seongnam, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U67', 'user66', 'pwd66', 'Nathan', 'nathan@example.com', '010-6789-0123', '303131', 'Anyang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U68', 'user67', 'pwd67', 'Olivia', 'olivia@example.com', '010-7890-1234', '293232', 'Bucheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U69', 'user68', 'pwd68', 'Paul', 'paul@example.com', '010-8901-2345', '283333', 'Goyang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U70', 'user69', 'pwd69', 'Quinn', 'quinn@example.com', '010-9012-3456', '273434', 'Ansan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U71', 'user70', 'pwd70', 'Robert', 'robert@example.com', '010-0123-4567', '263535', 'Yongin, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U72', 'user71', 'pwd71', 'Sarah', 'sarah@example.com', '010-1234-5678', '253636', 'Hwaseong, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U73', 'user72', 'pwd72', 'Tom', 'tom@example.com', '010-2345-6789', '243737', 'Uijeongbu, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U74', 'user73', 'pwd73', 'Uma', 'uma@example.com', '010-3456-7890', '233838', 'Siheung, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U75', 'user74', 'pwd74', 'Victor', 'victor@example.com', '010-4567-8901', '223939', 'Pyeongtaek, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U76', 'user75', 'pwd75', 'Wendy', 'wendy@example.com', '010-5678-9012', '214040', 'Gunpo, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U77', 'user76', 'pwd76', 'Xavier', 'xavier@example.com', '010-6789-0123', '204141', 'Gwangmyeong, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U78', 'user77', 'pwd77', 'Yara', 'yara@example.com', '010-7890-1234', '194242', 'Gwangju, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U79', 'user78', 'pwd78', 'Zack', 'zack@example.com', '010-8901-2345', '184343', 'Changwon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U80', 'user79', 'pwd79', 'Alice', 'alice@example.com', '010-9012-3456', '174444', 'Jinhae, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U81', 'user80', 'pwd80', 'Brian', 'brian@example.com', '010-0123-4567', '164545', 'Tongyeong, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U82', 'user81', 'pwd81', 'Clara', 'clara@example.com', '010-1234-5678', '154646', 'Sacheon, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U83', 'user82', 'pwd82', 'Daniel', 'daniel@example.com', '010-2345-6789', '144747', 'Geoje, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U84', 'user83', 'pwd83', 'Elena', 'elena@example.com', '010-3456-7890', '134848', 'Gimhae, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U85', 'user84', 'pwd84', 'Frank', 'frank@example.com', '010-4567-8901', '124949', 'Miryang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U86', 'user85', 'pwd85', 'Grace', 'grace@example.com', '010-5678-9012', '115050', 'Yangsan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U87', 'user86', 'pwd86', 'Henry', 'henry@example.com', '010-6789-0123', '105151', 'Jinju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U88', 'user87', 'pwd87', 'Iris', 'iris@example.com', '010-7890-1234', '095252', 'Masan, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U89', 'user88', 'pwd88', 'Jack', 'jack@example.com', '010-8901-2345', '085353', 'Kimhae, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U90', 'user89', 'pwd89', 'Kate', 'kate@example.com', '010-9012-3456', '075454', 'Yeosu, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U91', 'user90', 'pwd90', 'Leo', 'leo@example.com', '010-0123-4567', '065555', 'Suncheon, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U92', 'user91', 'pwd91', 'Mia', 'mia@example.com', '010-1234-5678', '055656', 'Mokpo, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U93', 'user92', 'pwd92', 'Noah', 'noah@example.com', '010-2345-6789', '045757', 'Naju, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U94', 'user93', 'pwd93', 'Olivia', 'olivia@example.com', '010-3456-7890', '035858', 'Gwangyang, Korea', 'F', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U95', 'user94', 'pwd94', 'Paul', 'paul@example.com', '010-4567-8901', '025959', 'Damyang, Korea', 'M', '/resources/img/default_profile.png');
+
+INSERT INTO MEMBER (user_no, user_id, user_pwd, user_name, email, phone, birthday, address, gender, userprofile) 
+VALUES ('U96', 'user95', 'pwd95', 'Quinn', 'quinn@example.com', '010-5678-9012', '016060', 'Boseong, Korea', 'F', '/resources/img/default_profile.png');
+
 
 
 --Rankup 테이블 더미데이터
@@ -10422,243 +10545,243 @@ VALUES ('U1030', 'doc30', 'password30', '김태준', 'doc30@example.com', '010-1
 
 -- 의사 U1001
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U7', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U1', 'U97', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U7', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U2', 'U97', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U7', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U3', 'U97', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1002
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U8', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U4', 'U98', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U8', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U5', 'U98', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U8', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U6', 'U98', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1003
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U9', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U7', 'U99', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U9', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U8', 'U99', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U1', 'U9', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U9', 'U99', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1004
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U10', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U10', 'U100', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U10', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U11', 'U100', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U10', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U12', 'U100', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1005
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U11', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U13', 'U101', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U11', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U14', 'U101', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U11', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U15', 'U101', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1006
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U12', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U16', 'U102', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U12', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U17', 'U102', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U2', 'U12', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U18', 'U102', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1007
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U13', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U19', 'U103', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U13', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U20', 'U103', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U13', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U21', 'U103', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1008
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U14', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U22', 'U104', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U14', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U23', 'U104', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U14', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U24', 'U104', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1009
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U15', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U25', 'U105', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U15', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U26', 'U105', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U15', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U27', 'U105', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1010
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U16', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U28', 'U106', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U16', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U29', 'U106', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U16', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U30', 'U106', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1011
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U17', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U31', 'U107', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U17', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U32', 'U107', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U3', 'U17', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U33', 'U107', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1012
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U18', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U34', 'U108', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U18', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U35', 'U108', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U18', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U36', 'U108', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1013
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U19', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U37', 'U109', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U19', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U38', 'U109', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U19', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U39', 'U109', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1014
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U20', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U40', 'U110', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U20', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U41', 'U110', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U20', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U42', 'U110', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1015
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U21', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U43', 'U111', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U21', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U44', 'U111', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U21', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U45', 'U111', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1016
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U22', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U46', 'U112', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U22', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U47', 'U112', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U22', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U48', 'U112', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1017
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U23', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U49', 'U113', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U23', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U50', 'U113', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U4', 'U23', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U51', 'U113', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1018
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U24', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U52', 'U114', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U24', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U53', 'U114', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U24', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U54', 'U114', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1019
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U25', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U55', 'U115', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U25', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U56', 'U115', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U25', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U57', 'U115', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1020
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U26', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U58', 'U116', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U26', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U59', 'U116', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U26', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U60', 'U116', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1021
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U27', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U61', 'U117', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U27', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U62', 'U117', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U27', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U63', 'U117', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1022
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U28', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U64', 'U97', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U28', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U65', 'U98', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U28', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U66', 'U99', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1023
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U29', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U67', 'U100', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U29', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U68', 'U101', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U29', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U69', 'U102', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1024
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U30', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U70', 'U103', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U30', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U71', 'U104', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U30', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U72', 'U105', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1025
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U31', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U73', 'U106', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U31', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U74', 'U107', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U31', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U75', 'U108', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1026
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U32', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U76', 'U109', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U32', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U77', 'U110', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U5', 'U32', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U78', 'U111', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1027
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U33', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U79', 'U112', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U33', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U80', 'U113', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U33', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U81', 'U114', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1028
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U34', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U82', 'U115', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U34', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U83', 'U116', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U34', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U84', 'U117', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1029
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U35', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U85', 'U117', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U35', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U86', 'U116', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U35', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U87', 'U115', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 -- 의사 U1030
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U36', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U88', 'U114', '최고의 진료 경험', '의사 선생님께서 정말 친절하고 전문적으로 상담해 주셨습니다.', SYSDATE, SYSDATE, 5);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U36', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
+VALUES ('U89', 'U113', '만족스러운 진료', '대체로 만족스러웠으나 대기 시간이 조금 길었습니다.', SYSDATE, SYSDATE, 4);
 INSERT INTO DOCTOR_REVIEW (USER_NO, DOCTOR_NO, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_CREATED_AT, REVIEW_UPDATED_AT, REVIEW_RATING)
-VALUES ('U6', 'U36', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
+VALUES ('U90', 'U112', '꼼꼼한 진료', '의사 선생님께서 꼼꼼히 진료해 주셔서 안심이 되었습니다.', SYSDATE, SYSDATE, 5);
 
 
 INSERT INTO GUEST (GST_NAME, GST_EMAIL, GST_PHONE, GST_BIRTH, GST_GENDER) VALUES ('이환자', 'EX1@NAVER.COM', '0101234567', '051211', 'M');
