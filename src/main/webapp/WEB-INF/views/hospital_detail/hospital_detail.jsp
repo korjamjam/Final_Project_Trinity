@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
-
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -41,7 +40,7 @@
 </head>
 <body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
-	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
+	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
     
     <br><br>
 	<div class="hospital_detail_page_wrapper">

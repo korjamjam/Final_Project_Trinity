@@ -62,9 +62,8 @@
                     <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가검진예약</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/guide">검진예약안내</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진절차예약</a>
-                    <a href="${pageContext.request.contextPath}/healthReservation/result">검진결과 조회</a>
+                    <a href="https://www.nhis.or.kr/nhis/index.do" target="_blank">검진결과 조회</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사항목 정보</a>
-                	<a href="${pageContext.request.contextPath}/healthReservation/search">검진 예약 조회</a>
                 </div>
             </div>
             
