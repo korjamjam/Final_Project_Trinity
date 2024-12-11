@@ -49,19 +49,27 @@
             i.INQUIRY_VIEWS AS INQUIRY_VIEWS,
             ROW_NUMBER() OVER (
                 ORDER BY
-                CASE
-                    WHEN #{sortType} = '작성일' THEN i.ENROLL_DATE DESC
-                    ELSE i.INQUIRY_NO DESC
-                END
+                <choose>
+                    <when test="sortType == '작성일'">
+                        i.ENROLL_DATE DESC
+                    </when>
+                    <otherwise>
+                        i.INQUIRY_NO DESC
+                    </otherwise>
+                </choose>
             ) AS RN
         FROM INQUIRY i
         LEFT JOIN MEMBER m ON i.USER_NO = m.USER_NO
         LEFT JOIN BOARD_CATEGORY bc ON i.CATEGORY_ID = bc.CATEGORY_ID
         WHERE i.STATUS = 'Y'
         <if test="categoryId != null and categoryId != ''">
-            AND (i.CATEGORY_ID = #{categoryId} OR bc.PARENT_ID = #{categoryId}) <!-- 수정된 조건 -->
+            AND (
+                (i.CATEGORY_ID = #{categoryId} AND i.CATEGORY_ID NOT IN ('CAT04', 'CAT05')) <!-- Exclude CAT04 and CAT05 subcategories -->
+                OR (i.CATEGORY_ID LIKE 'FAQ%' AND i.CATEGORY_ID BETWEEN 'FAQ01' AND 'FAQ05') <!-- Include FAQ01 to FAQ05 -->
+                OR bc.CATEGORY_ID LIKE 'FAQ%' -- Include subcategories for FAQ (FAQ01~FAQ05)
+            )
         </if>
-    )
+    ) subquery
     WHERE RN BETWEEN #{startRow} AND #{endRow}
 </select>
 
