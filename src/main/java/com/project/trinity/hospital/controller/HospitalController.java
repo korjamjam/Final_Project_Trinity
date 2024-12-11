@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
@@ -487,31 +490,42 @@ public class HospitalController {
 	    }
 
 	    // 사용자 번호로 내가 쓴 게시글 조회
-	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosNo());
+	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosAcNo());
 	    m.addAttribute("myposts", myposts);
 
 	    return "hospital_detail/hospital_account_my_post";
 	}
-	
+
+	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@RequestMapping("/account/myPost/write/enroll")
-	public String HospitalAccountMyPostWriteEnroll(@ModelAttribute Board b,
-			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
-	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, 
-	        HttpSession session, Model m) {
-		System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
+	public String insertBoardHosAccount(@ModelAttribute Board b,
+	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
+	        Model m) {
+
+	    System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
 	    System.out.println("-------------------------");
 	    System.out.println("allowDownload : " + allowDownload);
 	    System.out.println("-------------------------");
 	    System.out.println("insert b : " + b);
-	    
-	 // 게시글 제목 검증
+
+	    HospitalAccount loginHosAccount = (HospitalAccount) session.getAttribute("loginHosAccount");
+	    System.out.println("loginHosAccount board : " + loginHosAccount);
+	    // 게시글 제목 검증
 	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
 	        m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
 	        return "/common/errorPage";
 	    }
-	    
-	 // 게시글 저장
-	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
+
+	    // 게시글에 categoryId가 설정되어 있는지 확인
+	    if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
+	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
+	        return "/common/errorPage";
+	    }
+	 
+
+	    // 게시글 저장
+	    int boardResult = boardService.insertBoardAC(b);
 	    if (boardResult > 0) {
 	        // 파일 업로드 처리
 	        if (successUpfiles != null && !successUpfiles.isEmpty()) {
@@ -523,7 +537,7 @@ public class HospitalController {
 	                        // 파일 정보 설정
 	                        BoardFile bf = new BoardFile();
 	                        bf.setBoardNo(b.getBoardNo());
-	                        bf.setUserNo(loginUser.getUserNo());
+	                        bf.setUserNo(loginHosAccount.getHosAcNo());
 	                        bf.setOriginName(upfile.getOriginalFilename());
 	                        bf.setChangeName("/resources/uploadFile/" + changeName);
 	                        bf.setFileSize(upfile.getSize());
@@ -545,14 +559,61 @@ public class HospitalController {
 	        }
 
 	        session.setAttribute("alertMsg", "게시글 작성 성공");
-	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
+	        return "redirect:/hospital/account/boardDetail?bno=" + b.getBoardNo();
 	    } else {
 	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 	        return "/common/errorPage";
 	    }
-		//d이거 수정하기 
-		return "hospital_detail/hospital_account_my_post";
 	}
+	
+	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
+		@GetMapping("/account/boardDetail")
+		public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
+		    // 현재 게시글 번호 확인
+		    System.out.println("Received bno: " + bno);
+
+		    // 현재 게시글 조회
+		    Board b = boardService.selectBoardAC(bno);
+		    if (b == null) {
+		        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
+		        return "/common/errorPage";
+		    }
+
+		    // 조회수 증가
+		    int countResult = boardService.increaseCount(bno);
+		   
+		    // 첨부파일 리스트 가져오기
+		    List<BoardFile> fileList = boardService.getFileList(bno);   
+
+		    // 카테고리 이름 조회
+		    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+
+		    // 로그인 사용자 정보 가져오기
+		    Member loginUser = (Member) session.getAttribute("loginUser");
+		    if (loginUser != null) {
+		        m.addAttribute("doctorName", loginUser.getUserName()); // 의사 이름을 doctorName으로 전달
+		    }
+		    // 이전 글 번호 조회 후 상세 정보 조회
+		    String prevBno = boardService.getPreviousBoard(bno);
+		    Board prevBoard = (prevBno != null) ? boardService.selectBoard(prevBno) : null;
+
+		    // 다음 글 번호 조회 후 상세 정보 조회
+		    String nextBno = boardService.getNextBoard(bno);
+		    Board nextBoard = (nextBno != null) ? boardService.selectBoard(nextBno) : null;
+
+		    // 카테고리 목록 조회 (드롭다운 메뉴용)
+		    List<BoardCategory> categories = boardService.getCategories();
+
+		    // 모델에 데이터 추가
+		    m.addAttribute("b", b); // 현재 게시글
+		    m.addAttribute("fileList", fileList); // 첨부파일
+		    m.addAttribute("categoryName", categoryName); // 카테고리 이름
+		    m.addAttribute("categories", categories); // 카테고리 목록
+		    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
+		    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
+		  
+		    return "community/community_board_detail"; // 상세 페이지로 이동
+		}
 
 	//화면 이동 하는거
 	@RequestMapping("/account/myPost/write")

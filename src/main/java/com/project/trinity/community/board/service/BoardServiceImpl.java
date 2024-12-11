@@ -288,6 +288,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getPostsByHosNo(sqlSession, hosNo);
 	}
 
+	@Override
+	public int insertBoardAC(Board b) {
+		return boardDao.insertBoardAC(sqlSession, b);
+	}
+
+	@Override
+	public Board selectBoardAC(String bno) {
+		return boardDao.selectBoardAC(sqlSession, bno);
+	}
+
+
+
 
 
 }

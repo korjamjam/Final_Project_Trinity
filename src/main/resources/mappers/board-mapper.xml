@@ -27,6 +27,8 @@
 			<result property="changeName" column="CHANGE_NAME" />
 			<result property="allowDownload" column="ALLOW_DOWNLOAD" />
 			<result property="fileSize" column="FILE_SIZE" />
+			<result property="hosAcNo" column="HOSPITAL_ACCOUNT_NO" />
+			<result property="hosName" column="HOS_NAME" />
 		</collection>
 	</resultMap>
 
@@ -253,6 +255,28 @@
 		</selectKey>
 	</insert>
 
+	<!-- 병원 이벤트 게시글 추가 -->
+	<insert id="insertBoardAC" parameterType="Board">
+		INSERT INTO BOARD (
+		HOS_ACCOUNT_NO,
+		BOARD_TITLE,
+		BOARD_CONTENT,
+		CATEGORY_ID
+		)
+		VALUES (
+		#{hosAcNo},
+		#{boardTitle},
+		#{boardContent},
+		#{categoryId} <!-- 카테고리 
+			ID 수정 -->
+		)
+		<selectKey keyProperty="boardNo"
+			resultType="java.lang.String" order="AFTER">
+			SELECT 'B' ||
+			SEQ_BOARD_NO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+
 	<select id="getCategoryNameById" resultType="String">
 		SELECT category_name
 		FROM BOARD_CATEGORY
@@ -390,6 +414,47 @@
 		BOARD B
 		JOIN
 		MEMBER M ON B.USER_NO = M.USER_NO
+		LEFT JOIN
+		FILE_TABLE F ON
+		B.BOARD_NO = F.BOARD_NO
+		LEFT JOIN
+		BOARD_CATEGORY C ON B.CATEGORY_ID =
+		C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'
+		WHERE
+		B.STATUS = 'Y'
+		AND B.BOARD_NO =
+		#{bno}
+
+	</select>
+	
+	<!-- bno로 게시글 + 첨부파일 정보 조회 병원거-->
+	<!-- 게시글 + 첨부파일 정보 조회 -->
+	<select id="selectBoardAC" resultMap="boardResult">
+		SELECT
+		B.BOARD_NO,
+		B.BOARD_TYPE,
+		B.BOARD_TITLE,
+		B.USER_NO,
+		B.BOARD_CONTENT,
+		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
+		TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+		B.BOARD_VIEWS,
+		C.CATEGORY_ID,
+		C.CATEGORY_NAME,
+		B.STATUS,
+		F.FILE_NO,
+		F.ORIGIN_NAME,
+		F.CHANGE_NAME,
+		F.ALLOW_DOWNLOAD,
+		F.FILE_SIZE,
+        HI.HOS_NAME,
+        HA.HOS_ACCOUNT_NO
+		FROM
+		BOARD B
+		LEFT JOIN
+		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
+		LEFT JOIN
+		HOSPITAL_INFO HI ON HA.HOS_NO = HI.HOS_NO
 		LEFT JOIN
 		FILE_TABLE F ON
 		B.BOARD_NO = F.BOARD_NO
@@ -615,7 +680,7 @@
 		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS,
 		STATUS
 		FROM BOARD
-		WHERE USER_NO = #{hosNo}
+		WHERE HOS_ACCOUNT_NO = #{hosAcNo}
 		AND STATUS = 'Y'
 		ORDER BY
 		ENROLL_DATE DESC

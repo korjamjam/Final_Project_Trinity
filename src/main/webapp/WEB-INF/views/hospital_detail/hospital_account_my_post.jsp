@@ -27,7 +27,7 @@
                 <c:forEach var="post" items="${myposts}">
                     <tr>
                         <td>${post.boardNo}</td>
-                        <td><a href="${pageContext.request.contextPath}/community/boardDetail?bno=${post.boardNo}">${post.boardTitle}</a></td>
+                        <td><a href="${pageContext.request.contextPath}/hospital/account/boardDetail?bno=${post.boardNo}">${post.boardTitle}</a></td>
                         <td>${post.enrollDate}</td>
                         <td>${post.boardViews}</td>
                         <td>${post.status == 'Y' ? '활성화' : '비활성화'}</td>

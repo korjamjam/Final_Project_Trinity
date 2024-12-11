@@ -41,6 +41,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/reservation/form"/>
             <mvc:mapping path="/community/write"/>
+            <mvc:exclude-mapping path="hospital/account/myPost/**"/>
             <bean class="com.project.trinity.common.interceptor.LoginInterceptor" id="loginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
