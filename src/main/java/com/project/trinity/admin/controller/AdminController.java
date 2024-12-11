@@ -71,14 +71,13 @@ public class AdminController {
     //회원 상세페이지 수정기능
     @RequestMapping("updateMember")
     public String updateMember(
-    		@RequestParam("userNo") String userNo,
+            @RequestParam("userNo") String userNo,
             @RequestParam("postcode") String postcode,
             @RequestParam("address") String address,
             @RequestParam("status") String status,
             @RequestParam("isAdmin") String isAdmin,
             RedirectAttributes redirectAttributes) {
-    	
-    	// 업데이트를 위한 Member 객체 생성
+        
         Member updatedMember = new Member();
         updatedMember.setUserNo(userNo);
         updatedMember.setPostcode(postcode);
@@ -86,16 +85,15 @@ public class AdminController {
         updatedMember.setStatus(status);
         updatedMember.setIsAdmin(isAdmin);
 
-        // 업데이트 수행
         boolean isUpdated = adminService.updateMember(updatedMember);
 
-        // 성공/실패 메시지 설정
         String message = isUpdated ? "회원 정보가 성공적으로 수정되었습니다." : "회원 정보 수정에 실패하였습니다.";
         redirectAttributes.addFlashAttribute("alertMsg", message);
 
-        // 다시 상세 페이지로 리다이렉트
+
         return "redirect:/admin/memberDetail?userNo=" + userNo;
     }
+
     
     // 등업 신청 페이지
     @RequestMapping("/rankup")
@@ -171,7 +169,8 @@ public class AdminController {
             @RequestParam("hosOnduty") String hosOnduty,
             @RequestParam("hosParking") String hosParking,
             RedirectAttributes redirectAttributes) {
-
+        
+        // HospitalInfo 객체 생성 및 데이터 설정
         HospitalInfo hospital = new HospitalInfo();
         hospital.setHosNo(hosNo);
         hospital.setHosTel(hosTel);
@@ -179,18 +178,17 @@ public class AdminController {
         hospital.setHosOnduty(hosOnduty);
         hospital.setHosParking(hosParking);
 
+        // 업데이트 로직 실행
         boolean isUpdated = adminService.updateHospital(hospital);
 
-     // 성공/실패 메시지 설정
-        if (isUpdated) {
-            redirectAttributes.addFlashAttribute("successMessage", "병원 정보가 성공적으로 수정되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "병원 정보 수정에 실패하였습니다.");
-        }
+        // 업데이트 성공 여부에 따라 메시지 설정
+        String alertMsg = isUpdated ? "병원 정보가 성공적으로 수정되었습니다." : "병원 정보 수정에 실패하였습니다.";
+        redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
 
-        // 병원 리스트 페이지로 리다이렉트
-        return "redirect:/admin/hospital";
+        // 리다이렉트 처리 (다시 상세 페이지로 이동)
+        return "redirect:/admin/hospitalDetail?hosNo=" + hosNo;
     }
+
 
 
     

@@ -60,4 +60,22 @@ public interface BoardService {
     // 6. 답변 관련 메서드
     List<MedAnswer> getAnswersByBoardNo(String bno); // 특정 게시글의 답변 조회
     int saveAnswer(MedAnswer ans); // 답변 저장
+    
+
+	int insertBoardAC(Board b);
+
+	Board selectBoardAC(String bno);
+
+
+
+
+
+	
+
+	
+	
+	
+	
+
+  
 }

@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/mypost.css">
 </head>
 <body>
+    <jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
     <div class="mypost-container">
         <h1>내가 쓴 게시글</h1>
-        <a href="${pageContext.servletContext.contextPath}/hospital/account/myPost/write" class="edit-btn">글쓰기</a>
+        <a href="${pageContext.servletContext.contextPath}/hospital/account/myPost/write" class="edit-btn" style="float: right;">글쓰기</a>
         <table class="mypost-table">
             <thead>
                 <tr>
@@ -26,7 +27,7 @@
                 <c:forEach var="post" items="${myposts}">
                     <tr>
                         <td>${post.boardNo}</td>
-                        <td><a href="${pageContext.request.contextPath}/community/boardDetail?bno=${post.boardNo}">${post.boardTitle}</a></td>
+                        <td><a href="${pageContext.request.contextPath}/hospital/account/boardDetail?bno=${post.boardNo}">${post.boardTitle}</a></td>
                         <td>${post.enrollDate}</td>
                         <td>${post.boardViews}</td>
                         <td>${post.status == 'Y' ? '활성화' : '비활성화'}</td>

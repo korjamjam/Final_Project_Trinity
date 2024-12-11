@@ -1,4 +1,6 @@
-
+html{
+    font-size: 16px;
+}
 .header {
     display: flex;
     align-items: center;
@@ -115,6 +117,12 @@
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
+}
+
+#headerSidebarHospitalDetailModify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 1000px) {

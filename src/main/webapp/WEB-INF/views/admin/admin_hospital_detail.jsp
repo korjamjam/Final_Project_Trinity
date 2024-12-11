@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,6 +13,14 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"/>
+
+<!-- Alert 메시지 표시 -->
+<c:if test="${not empty alertMsg}">
+    <script>
+        alert("${alertMsg}");
+        history.replaceState({}, null, location.pathname); // URL 상태 초기화
+    </script>
+</c:if>
 
 <div class="hospital-management">
     <h2>병원관리</h2>

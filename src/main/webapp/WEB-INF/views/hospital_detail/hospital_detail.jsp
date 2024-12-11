@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
-
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -41,7 +40,7 @@
 </head>
 <body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
-	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
+	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
     
     <br><br>
 	<div class="hospital_detail_page_wrapper">
@@ -75,7 +74,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">당일 예약 정보</h4>
                     </div>
-                    <div class="modal-body" style="justify-content: space-around !important;">
+                    <div class="modal-body" style="@media (min-width: 768px) { justify-content: space-around !important; }">
                         <div class="waitingNavi"></div>
                     </div>
                     <div class="modal-footer">
