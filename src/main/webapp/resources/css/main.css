@@ -248,7 +248,7 @@ button {
 .advertise1{
     display: flex;
     justify-content: center;
-    border: 1px solid grey;
+    border: 1px solid #F5F5F5;
     border-radius: 10px;
     width: 80%;
     height: 250px;
@@ -259,6 +259,10 @@ button {
 }
 .advertiseRight{
     width: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .advertiseLeft div{
     height: 33%;
@@ -271,11 +275,8 @@ button {
     font-size: 15px;
     gap: 10px;
 }
-.advertiseRight{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.advertiseRight img{
+    width: 91px;
 }
 .advertise2{
     display: flex;
@@ -418,7 +419,7 @@ button {
     .advertise1{
         display: flex;
         justify-content: center;
-        border: 1px solid grey;
+        border: 1px solid #F5F5F5;
         border-radius: 10px;
         width: 45%;
         height: 250px;
@@ -430,6 +431,13 @@ button {
     }
     .advertiseRight{
         width: 50%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .advertiseRight img{
+        width: 128px;
     }
     .advertiseLeft div{
         height: 33%;
@@ -441,12 +449,6 @@ button {
         color: rgb(185, 185, 185);
         font-size: 15px;
         gap: 10px;
-    }
-    .advertiseRight{
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     .advertise2{
         display: flex;
