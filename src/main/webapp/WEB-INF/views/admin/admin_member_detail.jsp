@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,6 +13,15 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"/>
+
+<!-- alertMsg 확인 및 알림 표시 -->
+<c:if test="${not empty alertMsg}">
+    <script>
+        alert("${alertMsg}");
+        <%-- alertMsg 초기화 --%>
+        history.replaceState({}, null, location.pathname);
+    </script>
+</c:if>
 
 <div class="member-management">
     <h2>회원관리</h2>
