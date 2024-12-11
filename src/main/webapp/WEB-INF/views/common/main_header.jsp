@@ -91,7 +91,7 @@
                                             alt="마이페이지 아이콘" class="mypage-icon"
                                             href="${pageContext.request.contextPath}/member/logout"></a>
                                     <%--<a href="${pageContext.request.contextPath}/member/logout"></a>--%>
-                                        <div class="menu-icon" id="sidebar">&#9776;</div>
+                                        <div class="menu-icon" id="sidebar headerSidebarHospitalDetailModify">&#9776;</div>
                             </c:otherwise>
                         </c:choose>
                     </div>
