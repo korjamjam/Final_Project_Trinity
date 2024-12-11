@@ -301,4 +301,24 @@
 			   )
 	</insert>
 	
+	<!-- 메인페이지 숫자 가져오기 -->
+	<select id="selectReviewCount" resultType="_int">
+		SELECT SUM(COUNT) AS REVIEW_COUNT
+		FROM (
+		    SELECT COUNT(REVIEW_NO) AS COUNT
+		    FROM DOCTOR_REVIEW
+		    UNION ALL
+		    SELECT COUNT(ANSWER_NO) AS COUNT
+		    FROM MED_ANSWERS
+		)
+	</select>
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(USER_NO) AS USER_AMOUNT
+		FROM MEMBER
+	</select>
+	<select id="selectDoctorCount" resultType="_int">
+		SELECT COUNT(MED_KEY) AS DOCTOR_AMOUNT
+		FROM MEMBER
+	</select>
+	
 </mapper>

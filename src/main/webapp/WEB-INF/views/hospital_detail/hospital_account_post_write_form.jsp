@@ -38,13 +38,13 @@
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const boardNo = "${b.boardNo}";
 			const categoryId = "${b.categoryId}"; // categoryId 값을 JavaScript 변수로 전달
-			const loginUserNo = "${loginHosAccount != null ? loginHosAccount.hosNo : ''}";
-			const loginUserId = "${loginHosAccount != null ? loginHosAccount.hosId : ''}";
+			const loginUserNo = "${loginHosAccount != null ? loginHosAccount.hosAcNo : ''}";
+			const loginUserId = "${loginHosAccount != null ? loginUser.hosId : ''}";
 			
 		</script>
 
 		<header>
-			<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+			<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
 		</header>
 
 		<div class="content-container">
@@ -63,12 +63,11 @@
 			<div class="post-wrapper">
 				<form id="postForm" method="post" action="${pageContext.request.contextPath}/hospital/account/myPost/write/enroll"
 					class="post-form" enctype="multipart/form-data">
-					<input type="hidden" name="hosId" value="${loginUser.userId}">
-					<input type="hidden" id="categoryId" name="categoryId" value="${categoryId}">
+					<input type="hidden" name="hosAcNo" value="${loginHosAccount.hosAcNo}">
+					<input type="hidden" id="categoryId" name="categoryId" value="CAT03">
 
 					<div class="post-form-container">
 						<select class="form-select" name="categoryName" onchange="changeCategory(this.value)">
-							<option value="메디톡" ${categoryName=='메디톡' ? 'selected' : '' }>메디톡</option>
 							<option value="이벤트게시판" ${categoryName=='이벤트게시판' ? 'selected' : '' }>이벤트게시판</option>
 						</select> <select class="form-select" name="tag">
 							<option>말머리 선택</option>
@@ -95,10 +94,6 @@
 				</form>
 			</div>
 		</div>
-		<!-- Footer -->
-		<%@ include file="/WEB-INF/views/common/main_footer.jsp" %>
-			<!-- JavaScript (at the end of the body) -->
-
 	</body>
 
 	</html>

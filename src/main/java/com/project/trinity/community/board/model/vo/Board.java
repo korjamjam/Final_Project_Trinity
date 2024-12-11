@@ -25,7 +25,10 @@ public class Board {
     private String status;                // 상태 (Y/N)
     private String categoryId;  // 카테고리 ID만 필요
     private String categoryName;
+    private String hosAcNo;
+    private String hosName;
     
     // 첨부파일 목록
     private ArrayList<BoardFile> fileList; // 특정 게시글의 첨부파일 정보
+    private String inquiryCategory;
 }

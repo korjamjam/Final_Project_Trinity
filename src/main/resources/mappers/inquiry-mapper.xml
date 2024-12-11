@@ -19,12 +19,13 @@
         <result property="boardViews" column="BOARD_VIEWS" />
         <result property="boardCategory" column="BOARD_CATEGORY" />
         <result property="status" column="STATUS" />
+        <result property="inquiryCategory" column="INQUIRY_CATEGORY" />
     </resultMap>
     
     
     <select id="selectNotices" resultMap="noticeResult">
    		SELECT * FROM BOARD
-    	WHERE BOARD_CATEGORY = '공지사항' AND STATUS = 'Y'
+    	WHERE INQUIRY_CATEGORY = '공지사항' AND STATUS = 'Y'
    		ORDER BY ENROLL_DATE DESC
 	</select>
 
