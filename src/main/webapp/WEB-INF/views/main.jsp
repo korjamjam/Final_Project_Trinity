@@ -251,7 +251,7 @@
 							<p>${amountCount[2]}명</p>
 						</div>
 					</div>
-					<div class="advertiseRight">그림</div>
+					<div class="advertiseRight"><img src="${ pageContext.servletContext.contextPath }/resources/img/reviewSkeleton.png" alt="reviewSkeleton"></div>
 				</div>
 
 				<br> <br>
