@@ -30,7 +30,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.service.BoardService;
+import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -206,7 +208,6 @@ public class HospitalController {
 	@RequestMapping("/account/insert")
 	public String insertHospitalAccount(@ModelAttribute HospitalAccount hosAccount,
 										 HttpServletRequest request,
-										 RedirectAttributes redirectAttributes,
 										 Model m
 			) {
 		HospitalInfo h = hospitalService.selectHospitalInfo(hosAccount.getHosNo());
@@ -217,7 +218,7 @@ public class HospitalController {
 			String userPwdConfirm = request.getParameter("userPwdConfirm");
 
 		    if (userPwdConfirm == null || !hosAccount.getHosPwd().equals(userPwdConfirm)) {
-		        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+		        m.addAttribute("message", "비밀번호가 일치하지 않습니다.");
 		        return "redirect:/hospital/account/sign_up";
 		    }
 		    
@@ -227,14 +228,14 @@ public class HospitalController {
 		    m.addAttribute("hosAcNo", hosAccount.getHosAcNo());
 		    System.out.println(hosAccount.getHosAcNo());
 		    if (result > 0) {
-		        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
+		        m.addAttribute("message", "회원가입에 성공했습니다.");
 		        return "redirect:/hospital/account/login";
 		    } else {
-		        redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+		        m.addAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
 		        return "redirect:/hospital/account/sign_up";
 		    }
 		} else {
-			redirectAttributes.addFlashAttribute("message", "이미 등록된 병원입니다.");
+			m.addAttribute("message", "이미 등록된 병원입니다.");
 			return "redirect:/hospital/account/sign_up";
 		}
 	}
@@ -495,11 +496,61 @@ public class HospitalController {
 	@RequestMapping("/account/myPost/write/enroll")
 	public String HospitalAccountMyPostWriteEnroll(@ModelAttribute Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
-	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
-	        Model m) {
-		
-		System.out.println(b);
-		
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, 
+	        HttpSession session, Model m) {
+		System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
+	    System.out.println("-------------------------");
+	    System.out.println("allowDownload : " + allowDownload);
+	    System.out.println("-------------------------");
+	    System.out.println("insert b : " + b);
+	    
+	 // 게시글 제목 검증
+	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
+	        m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
+	        return "/common/errorPage";
+	    }
+	    
+	 // 게시글 저장
+	    int boardResult = boardService.insertBoard(b, loginUser.getUserNo());
+	    if (boardResult > 0) {
+	        // 파일 업로드 처리
+	        if (successUpfiles != null && !successUpfiles.isEmpty()) {
+	            for (int i = 0; i < successUpfiles.size(); i++) {
+	                MultipartFile upfile = successUpfiles.get(i);
+	                if (!upfile.isEmpty()) {
+	                    String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
+	                    if (changeName != null) {
+	                        // 파일 정보 설정
+	                        BoardFile bf = new BoardFile();
+	                        bf.setBoardNo(b.getBoardNo());
+	                        bf.setUserNo(loginUser.getUserNo());
+	                        bf.setOriginName(upfile.getOriginalFilename());
+	                        bf.setChangeName("/resources/uploadFile/" + changeName);
+	                        bf.setFileSize(upfile.getSize());
+
+	                        // allowDownload 값 설정
+	                        bf.setAllowDownload((allowDownload != null && allowDownload.size() > i) ? allowDownload.get(i) : "Y");
+
+	                        int fileResult = boardService.insertFile(bf);
+	                        if (fileResult <= 0) {
+	                            m.addAttribute("errorMsg", "파일 정보를 저장하는 중 오류가 발생했습니다.");
+	                            return "/common/errorPage";
+	                        }
+	                    } else {
+	                        m.addAttribute("errorMsg", "파일 업로드 중 문제가 발생했습니다.");
+	                        return "/common/errorPage";
+	                    }
+	                }
+	            }
+	        }
+
+	        session.setAttribute("alertMsg", "게시글 작성 성공");
+	        return "redirect:/community/boardDetail?bno=" + b.getBoardNo();
+	    } else {
+	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
+	        return "/common/errorPage";
+	    }
+		//d이거 수정하기 
 		return "hospital_detail/hospital_account_my_post";
 	}
 
