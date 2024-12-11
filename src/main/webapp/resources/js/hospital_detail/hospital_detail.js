@@ -367,7 +367,16 @@ function writeReview() {
                 <div class="reviewRating">
                     <img id="star" src="${star}" alt="star" class="star-icon">
                     &nbsp;
-                    <span class="ratingScore"><input type="number" id="reviewRating" style="width: 30px; height: 18px; color: #4CAF50;"></span>
+                    <span class="ratingScore">
+                    <!-- <input type="number" id="reviewRating" style="width: 30px; height: 18px; color: #4CAF50;"> -->
+                        <select name="reviewRating" id="reviewRating">
+                            <option value="5" selected>5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                    </span>
                     <span class="ratingLabel">/ 5</span>
                 </div>
             </div>

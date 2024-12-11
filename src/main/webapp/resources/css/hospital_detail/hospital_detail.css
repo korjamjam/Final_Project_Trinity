@@ -389,6 +389,22 @@ body{
     color: #777;
 }
 
+#reviewRating {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 35px;
+    background-color: #4CAF50;
+}
+
+#reviewTitle{
+    background-color: #f9f9f9;
+}
+
+#reviewContent{
+    background-color: #f9f9f9;
+}
+
 .reviewRating {
     display: flex;
     justify-content: center;
