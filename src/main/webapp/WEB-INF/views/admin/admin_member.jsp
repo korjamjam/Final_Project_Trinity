@@ -21,7 +21,7 @@
 	<div class="member-management">
 		<div class="content">
 			<h2>회원관리</h2>
-			<p class="total-members">총 회원수: ${memberList.size()}명</p>
+			<p class="total-members">총 회원수: ${memberList.size()}명</p>	
 
 			<c:if test="${empty memberList}">
 				<p>회원 정보가 없습니다.</p>
@@ -34,8 +34,7 @@
 						method="get">
 						<select name="role"
 							onchange="document.getElementById('filterForm').submit();">
-							<option value="전체" ${param.role == '전체' ? 'selected' : ''}>전체
-								보기</option>
+							<option value="전체" ${param.role == '전체' ? 'selected' : ''}>전체</option>
 							<option value="의사" ${param.role == '의사' ? 'selected' : ''}>의사</option>
 							<option value="관리자" ${param.role == '관리자' ? 'selected' : ''}>관리자</option>
 							<option value="일반" ${param.role == '일반' ? 'selected' : ''}>일반</option>

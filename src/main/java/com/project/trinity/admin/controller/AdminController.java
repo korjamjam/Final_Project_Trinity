@@ -71,14 +71,13 @@ public class AdminController {
     //회원 상세페이지 수정기능
     @RequestMapping("updateMember")
     public String updateMember(
-    		@RequestParam("userNo") String userNo,
+            @RequestParam("userNo") String userNo,
             @RequestParam("postcode") String postcode,
             @RequestParam("address") String address,
             @RequestParam("status") String status,
             @RequestParam("isAdmin") String isAdmin,
             RedirectAttributes redirectAttributes) {
-    	
-    	// 업데이트를 위한 Member 객체 생성
+        
         Member updatedMember = new Member();
         updatedMember.setUserNo(userNo);
         updatedMember.setPostcode(postcode);
@@ -86,16 +85,15 @@ public class AdminController {
         updatedMember.setStatus(status);
         updatedMember.setIsAdmin(isAdmin);
 
-        // 업데이트 수행
         boolean isUpdated = adminService.updateMember(updatedMember);
 
-        // 성공/실패 메시지 설정
         String message = isUpdated ? "회원 정보가 성공적으로 수정되었습니다." : "회원 정보 수정에 실패하였습니다.";
         redirectAttributes.addFlashAttribute("alertMsg", message);
 
-        // 다시 상세 페이지로 리다이렉트
+
         return "redirect:/admin/memberDetail?userNo=" + userNo;
     }
+
     
     // 등업 신청 페이지
     @RequestMapping("/rankup")
