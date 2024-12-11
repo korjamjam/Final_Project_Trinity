@@ -240,15 +240,15 @@
 					<div class="advertiseLeft">
 						<div>
 							<p>인증된 리뷰</p>
-							<p>0개</p>
+							<p>${amountCount[0]}개</p>
 						</div>
 						<div>
 							<p>회원 수</p>
-							<p>0명</p>
+							<p>${amountCount[1]}명</p>
 						</div>
 						<div>
 							<p>의사 수</p>
-							<p>0명</p>
+							<p>${amountCount[2]}명</p>
 						</div>
 					</div>
 					<div class="advertiseRight">그림</div>

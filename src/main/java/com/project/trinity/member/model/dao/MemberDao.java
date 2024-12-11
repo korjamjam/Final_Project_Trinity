@@ -2,6 +2,7 @@ package com.project.trinity.member.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -143,5 +144,13 @@ public class MemberDao {
 
 	public int insertDoctorReview(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.insert("memberMapper.insertDoctorReview", map);
+	}
+
+	public List<Integer> selectCountList(SqlSessionTemplate sqlSession) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(sqlSession.selectOne("memberMapper.selectReviewCount"));
+		list.add(sqlSession.selectOne("memberMapper.selectMemberCount"));
+		list.add(sqlSession.selectOne("memberMapper.selectDoctorCount"));
+		return list;
 	}
 }
