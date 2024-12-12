@@ -1,4 +1,4 @@
-package com.project.trinity.inquiry.vo;
+package com.project.trinity.inquiry.model.vo;
 
 
 import lombok.Data;
