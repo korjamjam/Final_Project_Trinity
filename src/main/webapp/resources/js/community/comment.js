@@ -82,18 +82,18 @@ function getReplyList(data, callback) {
             if (Array.isArray(res)) {
                 callback(res);
             } else {
-                console.error("댓글 목록이 배열이 아닙니다. 서버 응답을 확인하세요:", res);
+               
                 alert("댓글 목록을 불러오는 데 실패했습니다. 서버 응답을 확인하세요.");
             }
         },
         error: function () {
-            console.error("댓글 목록을 가져오는 데 실패했습니다.");
+          
             alert("댓글 목록을 가져오는 중 문제가 발생했습니다.");
         }
     });
 }
 $(document).off('click', '#addReplyButton').on('click', '#addReplyButton', function () {
-    console.log("댓글 등록 버튼 클릭");
+
     addReply();
 });
 
