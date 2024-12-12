@@ -2,32 +2,77 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="inquirymapper">
+<mapper namespace="inquiryMapper">
 
-    <!-- 게시글 ResultMap 정의 -->
-    <resultMap id="noticeResult" type="Board">
-        <!-- 게시글 정보 -->
-        <id property="boardNo" column="BOARD_NO" />
-        <result property="boardType" column="BOARD_TYPE" />
-        <result property="boardTitle" column="BOARD_TITLE" />
-         <result property="tag" column="TAG" />
-        <result property="userNo" column="USER_NO" />
-        <result property="boardWriter" column="BOARD_WRITER" />
-        <result property="boardContent" column="BOARD_CONTENT" />
-        <result property="enrollDate" column="ENROLL_DATE" />
-        <result property="modifiedDate" column="MODIFIED_DATE" />
-        <result property="boardViews" column="BOARD_VIEWS" />
-        <result property="boardCategory" column="BOARD_CATEGORY" />
-        <result property="status" column="STATUS" />
-        <result property="inquiryCategory" column="INQUIRY_CATEGORY" />
-    </resultMap>
-    
-    
-    <select id="selectNotices" resultMap="noticeResult">
-   		SELECT * FROM BOARD
-    	WHERE INQUIRY_CATEGORY = '공지사항' AND STATUS = 'Y'
-   		ORDER BY ENROLL_DATE DESC
-	</select>
+
+<resultMap id="inquiryResult" type="com.project.trinity.inquiry.vo.Inquiry">
+    <result property="inquiryNo" column="INQUIRY_NO" />
+    <result property="userNo" column="USER_NO" />
+    <result property="inquiryWriter" column="INQUIRY_WRITER" />
+    <result property="categoryId" column="CATEGORY_ID" />
+    <result property="subcategoryId" column="SUBCATEGORY_ID" /> <!-- 하위 카테고리 ID 매핑 -->
+    <result property="categoryName" column="CATEGORY_NAME" />
+    <result property="subcategoryName" column="SUBCATEGORY_NAME" /> <!-- 하위 카테고리명 매핑 -->
+    <result property="inquiryTitle" column="INQUIRY_TITLE" />
+    <result property="inquiryContent" column="INQUIRY_CONTENT" />
+    <result property="adminReply" column="ADMIN_REPLY" />
+    <result property="status" column="STATUS" />
+    <result property="enrollDate" column="ENROLL_DATE" />
+    <result property="updateDate" column="UPDATE_DATE" />
+    <result property="inquiryViews" column="INQUIRY_VIEWS" />
+</resultMap>
+
+
+
+<select id="selectListByCategory" parameterType="map" resultMap="inquiryResult">
+    SELECT
+        i.INQUIRY_NO AS INQUIRY_NO,
+        i.USER_NO AS USER_NO,
+        m.USER_NAME AS INQUIRY_WRITER,
+        i.CATEGORY_ID AS CATEGORY_ID,
+        CASE 
+            WHEN i.CATEGORY_ID = 'CAT06' THEN sc.SUBCATEGORY_NAME -- FAQ 하위 카테고리명
+            ELSE bc.CATEGORY_NAME -- 기본 상위 카테고리명
+        END AS CATEGORY_NAME,
+        i.INQUIRY_TITLE AS INQUIRY_TITLE,
+        i.INQUIRY_CONTENT AS INQUIRY_CONTENT,
+        i.ADMIN_REPLY AS ADMIN_REPLY,
+        i.STATUS AS STATUS,
+        TO_CHAR(i.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+        TO_CHAR(i.UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
+        i.INQUIRY_VIEWS AS INQUIRY_VIEWS,
+        ROW_NUMBER() OVER (
+            ORDER BY
+            <choose>
+                <when test="sortType == '작성일'">
+                    i.ENROLL_DATE DESC
+                </when>
+                <otherwise>
+                    i.INQUIRY_NO DESC
+                </otherwise>
+            </choose>
+        ) AS RN
+    FROM INQUIRY i
+    LEFT JOIN MEMBER m ON i.USER_NO = m.USER_NO
+    LEFT JOIN BOARD_CATEGORY bc ON i.CATEGORY_ID = bc.CATEGORY_ID -- 상위 카테고리 조인
+    LEFT JOIN SUBCATEGORY sc ON i.SUBCATEGORY_ID = sc.SUBCATEGORY_ID -- 수정된 하위 카테고리 조인
+    WHERE i.STATUS = 'Y'
+        <if test="categoryId != null and categoryId != ''">
+            AND i.CATEGORY_ID = #{categoryId}
+        </if>
+</select>
+
+
+	
+   <select id="getListCount" resultType="int">
+    SELECT COUNT(*)
+    FROM INQUIRY
+    WHERE STATUS = 'Y'
+    <if test="categoryId != null">
+        AND CATEGORY_ID = #{categoryId}
+    </if>
+</select>
+
 
     
 </mapper>

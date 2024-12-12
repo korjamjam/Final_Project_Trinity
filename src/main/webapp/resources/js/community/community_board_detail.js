@@ -138,5 +138,30 @@ function moveSelectPage(page) {
             console.error("URL이 정의되지 않았습니다.");
         }
     }
-
-
+    function toggleLike(answerNo, userNo, isLike) {
+        $.ajax({
+            url: `${contextPath}/likeDislike`,
+            type: 'POST',
+            data: {
+                answerNo: answerNo,
+                userNo: userNo,
+                isLike: isLike
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+                    // 좋아요/싫어요 카운트 업데이트
+                    $(`button[data-answer-no="${answerNo}"] .like-count`).text(response.likeCount);
+                    $(`button[data-answer-no="${answerNo}"] .dislike-count`).text(response.dislikeCount);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("서버와 통신 중 오류가 발생했습니다.");
+            }
+        });
+    }
+    
+    
+    
