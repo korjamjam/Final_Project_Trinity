@@ -81,22 +81,25 @@
 		WHERE INQUIRY_NO = #{ino}
 	</update>
 
-	<select id="selectInquiryDetail" resultMap="inquiryResult">
-		SELECT
-		INQUIRY_NO,
-		USER_NO,
-		CATEGORY_ID,
-		SUBCATEGORY_ID,
-		INQUIRY_TITLE,
-		INQUIRY_CONTENT,
-		ADMIN_REPLY,
-		STATUS,
-		TO_CHAR(ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
-		TO_CHAR(UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
-		INQUIRY_VIEWS
-		FROM INQUIRY
-		WHERE INQUIRY_NO = #{ino}
-	</select>
+<select id="selectInquiryDetail" resultMap="inquiryResult">
+    SELECT
+        i.INQUIRY_NO,
+        i.USER_NO,
+        i.CATEGORY_ID,
+        c.CATEGORY_NAME, -- 조인된 카테고리 이름
+        i.SUBCATEGORY_ID,
+        i.INQUIRY_TITLE,
+        i.INQUIRY_CONTENT,
+        i.ADMIN_REPLY,
+        i.STATUS,
+        TO_CHAR(i.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+        TO_CHAR(i.UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
+        i.INQUIRY_VIEWS
+    FROM INQUIRY i
+    LEFT JOIN BOARD_CATEGORY c ON i.CATEGORY_ID = c.CATEGORY_ID
+    WHERE i.INQUIRY_NO = #{ino}
+</select>
+
 <select id="getLatestInquiryPosts" parameterType="string" resultMap="inquiryResult">
     SELECT *
     FROM (

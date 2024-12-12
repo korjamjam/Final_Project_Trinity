@@ -322,9 +322,11 @@
 }
 
 .board-detail {
-	width: 100%;
-	margin-bottom: 2vh;
-	border-bottom: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 2vh; /* 테이블 외부 여백 */
+    border-bottom: 1px solid #ddd;
+    border-spacing: 0 10px; /* 열 간격: 0, 행 간격: 10px */
+    border-collapse: separate; /* border-spacing을 적용하려면 필요 */
 }
 
 

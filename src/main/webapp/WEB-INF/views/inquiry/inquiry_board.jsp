@@ -49,8 +49,7 @@
 
 		<!-- 메인 콘텐츠 -->
 		<div id="mainWrapper">
-			<div id="contentHeader">
-				<h2 class="content-title">
+			<div id="contentHeader">		
 					<h2 class="content-title">
 						<c:choose>
 							<c:when test="${categoryId == 'CAT04'}">공지사항</c:when>
@@ -58,8 +57,7 @@
 							<c:when test="${categoryId == 'CAT06'}">FAQ</c:when>
 						</c:choose>
 					</h2>
-
-				</h2>
+				
 				<div id="contentControls">
 					<p class="content-description">닥터링의 새로운 소식들과 유용한 정보들을 한곳에서
 						확인하세요.</p>

@@ -77,7 +77,7 @@ function deleteBoard(bno, categoryId) {
             success: function(response) {
                 // 게시글 삭제 후, 해당 게시판으로 이동
                 if (response === "ok") {
-                    alert("게시글 삭제완료.");
+                    alert("게시글 삭제되었습니다.");
                     // categoryId를 사용하여 해당 게시판 페이지로 이동
                     window.location.href = contextPath + "/community/main?categoryId=" + categoryId;
                 } else {
