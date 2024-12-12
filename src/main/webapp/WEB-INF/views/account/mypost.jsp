@@ -22,6 +22,9 @@
         const loginUserId = "${loginUser != null ? loginUser.userId : b.hosName}";
     </script>
 
+
+	
+	
     <div class="mypost-container">
         <h1>내가 쓴 게시글</h1>
         <table class="mypost-table">
