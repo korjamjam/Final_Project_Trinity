@@ -1,0 +1,10 @@
+diff a/src/main/java/com/project/trinity/vaccine/service/VaccineReservationServiceImpl.java b/src/main/java/com/project/trinity/vaccine/service/VaccineReservationServiceImpl.java	(rejected hunks)
+@@ -23,7 +23,7 @@
+ 
+     @Autowired
+     private VaccineReservationDao vaccineReservationDao; // 데이터베이스 작업을 처리하는 DAO 객체
+-    
++
+     /**
+      * 백신 예약 정보를 데이터베이스에 삽입하는 메서드
+      *
