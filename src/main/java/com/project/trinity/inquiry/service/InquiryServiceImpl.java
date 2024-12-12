@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.inquiry.dao.InquiryDao;
 import com.project.trinity.inquiry.vo.Inquiry;
@@ -46,5 +47,10 @@ public class InquiryServiceImpl implements InquiryService {
         System.out.println("서비스 impl categoryId 값: " + categoryId);  // categoryId 출력
         return inquiryDao.getListCount(sqlSession, categoryId);  // DAO 호출
     }
+    @Override
+	public List<Board> getLatestInquiryPosts(String ct) {
+		
+	    return inquiryDao.getLatestInquiryPosts(sqlSession, ct);
+	}
 }
 

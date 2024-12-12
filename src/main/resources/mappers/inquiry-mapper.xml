@@ -4,24 +4,22 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="inquiryMapper">
 
-
-	<resultMap id="inquiryResult"
-		type="com.project.trinity.inquiry.vo.Inquiry">
-		<result property="inquiryNo" column="INQUIRY_NO" />
-		<result property="userNo" column="USER_NO" />
-		<result property="inquiryWriter" column="INQUIRY_WRITER" />
-		<result property="categoryId" column="CATEGORY_ID" />
-		<result property="subcategoryId" column="SUBCATEGORY_ID" /> <!-- 하위 카테고리 ID 매핑 -->
-		<result property="categoryName" column="CATEGORY_NAME" />
-		<result property="subcategoryName" column="SUBCATEGORY_NAME" /> <!-- 하위 카테고리명 매핑 -->
-		<result property="inquiryTitle" column="INQUIRY_TITLE" />
-		<result property="inquiryContent" column="INQUIRY_CONTENT" />
-		<result property="adminReply" column="ADMIN_REPLY" />
-		<result property="status" column="STATUS" />
-		<result property="enrollDate" column="ENROLL_DATE" />
-		<result property="updateDate" column="UPDATE_DATE" />
-		<result property="inquiryViews" column="INQUIRY_VIEWS" />
-	</resultMap>
+<resultMap id="inquiryResult" type="com.project.trinity.inquiry.vo.Inquiry">
+    <result property="inquiryNo" column="INQUIRY_NO" />
+    <result property="userNo" column="USER_NO" />
+    <result property="inquiryWriter" column="INQUIRY_WRITER" />
+    <result property="categoryId" column="CATEGORY_ID" />
+    <result property="subcategoryId" column="SUBCATEGORY_ID" />
+    <result property="categoryName" column="CATEGORY_NAME" />
+    <result property="subcategoryName" column="SUBCATEGORY_NAME" />
+    <result property="inquiryTitle" column="INQUIRY_TITLE" />
+    <result property="inquiryContent" column="INQUIRY_CONTENT" />
+    <result property="adminReply" column="ADMIN_REPLY" />
+    <result property="status" column="STATUS" />
+    <result property="enrollDate" column="ENROLL_DATE" />
+    <result property="updateDate" column="UPDATE_DATE" />
+    <result property="inquiryViews" column="INQUIRY_VIEWS" />
+</resultMap>
 
 
 	<select id="getListCount" resultType="int">
@@ -99,5 +97,19 @@
 		FROM INQUIRY
 		WHERE INQUIRY_NO = #{ino}
 	</select>
+<select id="getLatestInquiryPosts" parameterType="string" resultMap="inquiryResult">
+    SELECT *
+    FROM (
+        SELECT 
+            INQUIRY_NO,   <!-- INQUIRY_NO로 변경 -->
+            INQUIRY_TITLE,  <!-- INQUIRY_TITLE로 변경 -->
+            TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+        FROM INQUIRY
+        WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
+        ORDER BY ENROLL_DATE DESC
+    )
+    WHERE ROWNUM &lt;= 3
+    </select>
+
 
 </mapper>

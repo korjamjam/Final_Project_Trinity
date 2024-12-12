@@ -30,7 +30,7 @@ public interface BoardService {
     String getPreviousBoard(String bno); // 이전 게시글 조회
     String getNextBoard(String bno); // 다음 게시글 조회
     List<Board> getPostsByUserNo(String userNo); // 특정 사용자의 게시글 조회
-    List<Board> getLatestPosts(String ct); // 최신 게시글 목록 조회
+    List<Board> getLatestBoardPosts(String ct); // 최신 게시글 목록 조회
     List<Board> getPostsByHosNo(String hosNo); // 특정 병원의 게시글 조회
 
     // 2. 파일 관련 메서드
@@ -67,6 +67,7 @@ public interface BoardService {
 	Board selectBoardAC(String bno);
 
 	int insertFileAC(BoardFile bf);
+
 
 
 
