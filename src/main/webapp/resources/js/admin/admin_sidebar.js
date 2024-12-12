@@ -7,5 +7,5 @@ function toggleSidebar() {
 // 로그아웃 처리
 function navigateToLogout() {
     // 로그아웃 요청
-    window.location.href = "${pageContext.servletContext.contextPath}/member/logout";
+    window.location.href = contextPath + "/member/logout";
 }
