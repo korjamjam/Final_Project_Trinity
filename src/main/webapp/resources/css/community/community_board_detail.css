@@ -228,8 +228,9 @@
 	text-align: right;
 	color: #888;
 }
-.board-content{
-	min-height: 200px;
+.board-content {
+    min-height: 200px;
+    line-height: 1.6; /* 줄 간격을 1.6배로 설정 (값은 필요에 따라 조정) */
 }
 
 .board-content-wrapper {

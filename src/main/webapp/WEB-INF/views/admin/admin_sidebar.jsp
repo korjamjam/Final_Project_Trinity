@@ -10,6 +10,10 @@
 	href="${pageContext.servletContext.contextPath}/resources/css/admin/admin_sidebar.css">
 </head>
 <body>
+	<script>
+		const contextPath = '${pageContext.servletContext.contextPath}';
+		</script>
+
 	<!-- 사이드바 -->
 	<div class="hamburger-sidebar" id="sidebar">
 		<div class="hamburger-sidebar-header">
