@@ -297,6 +297,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectBoardAC(sqlSession, bno);
 	}
 
+	@Override
+	public int insertFileAC(BoardFile bf) {
+		return boardDao.insertFileAC(sqlSession, bf);
+	}
 
 
 

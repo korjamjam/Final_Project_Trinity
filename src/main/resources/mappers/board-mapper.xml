@@ -19,6 +19,8 @@
 		<result property="status" column="STATUS" />
 		<result property="categoryId" column="CATEGORY_ID" />
 		<result property="categoryName" column="CATEGORY_NAME" />
+		<result property="hosAcNo" column="HOSPITAL_ACCOUNT_NO" />
+		<result property="hosName" column="HOS_NAME" />
 		<collection property="fileList"
 			ofType="com.project.trinity.community.board.model.vo.BoardFile"
 			javaType="java.util.List">
@@ -27,8 +29,6 @@
 			<result property="changeName" column="CHANGE_NAME" />
 			<result property="allowDownload" column="ALLOW_DOWNLOAD" />
 			<result property="fileSize" column="FILE_SIZE" />
-			<result property="hosAcNo" column="HOSPITAL_ACCOUNT_NO" />
-			<result property="hosName" column="HOS_NAME" />
 		</collection>
 	</resultMap>
 
@@ -308,6 +308,20 @@
 		#{fileSize}
 		)
 	</insert>
+	
+	<!-- 첨부파일 저장 병원 -->
+	<insert id="insertFileAC" parameterType="BoardFile">
+		INSERT INTO FILE_TABLE (
+		FILE_NO, BOARD_NO, HOS_ACCOUNT_NO, ORIGIN_NAME, CHANGE_NAME, ALLOW_DOWNLOAD,
+		FILE_SIZE
+		) VALUES (
+		SEQ_FILE_NO.NEXTVAL, #{boardNo}, #{hosAcNo},
+		#{originName}, #{changeName},
+		CASE WHEN #{allowDownload} IS NULL THEN
+		'Y' ELSE #{allowDownload} END,
+		#{fileSize}
+		)
+	</insert>
 
 	<update id="updateFileAllowDownload" parameterType="BoardFile">
 		UPDATE
@@ -419,7 +433,9 @@
 		F.ORIGIN_NAME,
 		F.CHANGE_NAME,
 		F.ALLOW_DOWNLOAD,
-		F.FILE_SIZE
+		F.FILE_SIZE,
+        HI.HOS_NAME,
+        HA.HOS_ACCOUNT_NO
 		FROM
 		BOARD B
 		JOIN
@@ -444,6 +460,7 @@
 		B.BOARD_TYPE,
 		B.BOARD_TITLE,
 		B.USER_NO,
+		M.USER_ID AS BOARD_WRITER,
 		B.BOARD_CONTENT,
 		TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
 		TO_CHAR(B.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
@@ -461,19 +478,21 @@
 		FROM
 		BOARD B
 		LEFT JOIN
-		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
-		LEFT JOIN
-		HOSPITAL_INFO HI ON HA.HOS_NO = HI.HOS_NO
+		MEMBER M ON B.USER_NO = M.USER_NO
 		LEFT JOIN
 		FILE_TABLE F ON
 		B.BOARD_NO = F.BOARD_NO
 		LEFT JOIN
 		BOARD_CATEGORY C ON B.CATEGORY_ID =
 		C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'
+        LEFT JOIN
+		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
+		LEFT JOIN
+		HOSPITAL_INFO HI ON HA.HOS_NO = HI.HOS_NO
 		WHERE
 		B.STATUS = 'Y'
 		AND B.BOARD_NO =
-		#{bno}
+		'B2015';
 
 	</select>
 

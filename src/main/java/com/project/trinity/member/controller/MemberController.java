@@ -46,23 +46,37 @@ import com.project.trinity.vaccine.service.VaccineReservationService;
 @RequestMapping("/member") // 모든 경로에 /member를 붙여 구조화
 public class MemberController {
 
-	@Autowired
-	private EmailService emailService;
-	private final MemberService memberService;
-	private final BCryptPasswordEncoder bcryptPasswordEncoder;
-	private ReservationService reservationService;
-	private HealthReservationService healthReservationService;
-	private VaccineReservationService vaccineReservationService;
-	private BoardService boardService;
+    @Autowired
+    private EmailService emailService;
+
+    private final MemberService memberService;
+    private final BCryptPasswordEncoder bcryptPasswordEncoder;
+    private final ReservationService reservationService;
+    private final HealthReservationService healthReservationService;
+    private final VaccineReservationService vaccineReservationService;
+    private final BoardService boardService;
+
+    // 생성자 주입을 통해 의존성 주입
+    @Autowired
+    public MemberController(
+            MemberService memberService,
+            BCryptPasswordEncoder bcryptPasswordEncoder,
+            ReservationService reservationService,
+            HealthReservationService healthReservationService,
+            VaccineReservationService vaccineReservationService,
+            BoardService boardService
+    ) {
+        this.memberService = memberService;
+        this.bcryptPasswordEncoder = bcryptPasswordEncoder;
+        this.reservationService = reservationService;
+        this.healthReservationService = healthReservationService;
+        this.vaccineReservationService = vaccineReservationService;
+        this.boardService = boardService;
+    }
+
+    
 
 
-
-
-	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder bcryptPasswordEncoder) {
-		this.memberService = memberService;
-		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
-	}
 
 	@PostMapping("/insert")
 	public String insertMember(Member member, HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -500,16 +514,17 @@ public class MemberController {
 	@GetMapping("/reservationconfirmation")
 	public String reservationConfirmationPage(Model model, HttpSession session) {
 		// 로그인된 사용자 가져오기
+		System.out.println("sdvsdv"); 
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		if (loginUser == null) {
 			return "redirect:/member/login"; // 로그인 페이지로 리다이렉트
 		}
-
+		System.out.println(loginUser);
 		// 사용자 번호를 이용해 예약 정보 가져오기
 		String userNo = loginUser.getUserNo();
 		List<Reservation> reservations = reservationService.getReservationsByUserNo(userNo);
 		System.out.println(reservations);
-		System.out.println("Reservations: " + reservations);
+		System.out.println("Reservations: " + reservations); 
 
 		// 모델에 예약 정보 추가
 		model.addAttribute("reservations", reservations);
