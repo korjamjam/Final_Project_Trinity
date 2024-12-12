@@ -12,7 +12,7 @@
 <body>
 
 <!-- Header -->
-<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
 
 <!-- 메시지 알림 -->
 <script>
@@ -20,7 +20,6 @@
         if (message) {
             alert(message); // 안내 문구를 띄움
         }
-        message = null
 </script>
 
 <div class="login-page">
@@ -41,7 +40,8 @@
             <button type="submit" class="login-button">로그인</button>
         </form>
         <div class="login-footer-links">
-            <a href="${pageContext.request.contextPath}/hospital/account/sign_up">기업 회원가입</a>
+            <a href="${pageContext.request.contextPath}/hospital/account/sign_up">기업 회원가입</a> |
+            <a href="${pageContext.request.contextPath}/member/login">일반 로그인</a>
         </div>
     </div>
 </div>

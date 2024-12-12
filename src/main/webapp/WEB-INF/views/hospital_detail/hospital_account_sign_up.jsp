@@ -27,7 +27,7 @@
     </script>
 
 	<!-- Header -->
-<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+    <jsp:include page="/WEB-INF/views/common/main_header.jsp" />
 
 	<div class="signup-container">
 		<h2>기업 회원 가입</h2>
