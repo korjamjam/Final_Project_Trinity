@@ -14,8 +14,7 @@
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_dropdown.css"
 				rel="stylesheet">
-			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
-				rel="stylesheet">
+
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/community/community_board_detail.css"
 				rel="stylesheet">
 			<link href="${ pageContext.servletContext.contextPath }/resources/css/common/comments.css" rel="stylesheet">

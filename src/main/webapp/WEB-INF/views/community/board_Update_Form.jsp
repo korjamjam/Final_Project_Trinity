@@ -14,8 +14,6 @@
 			<!-- Bootstrap CSS -->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-		
-			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
 			<!-- Summernote CSS -->
 			<link href="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.css" rel="stylesheet">
 		

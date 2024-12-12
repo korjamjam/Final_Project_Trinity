@@ -5,13 +5,12 @@
 <mapper namespace="inquiryMapper">
 
 <resultMap id="inquiryResult" type="com.project.trinity.inquiry.model.vo.Inquiry">
-    <result property="inquiryNo" column="INQUIRY_NO" />
+    <id property="inquiryNo" column="INQUIRY_NO" />
     <result property="userNo" column="USER_NO" />
-    <result property="inquiryWriter" column="INQUIRY_WRITER" />
+    <result property="inquiryWriter" column="USER_ID" /> <!-- 매핑 추가 -->
     <result property="categoryId" column="CATEGORY_ID" />
-    <result property="subcategoryId" column="SUBCATEGORY_ID" />
     <result property="categoryName" column="CATEGORY_NAME" />
-    <result property="subcategoryName" column="SUBCATEGORY_NAME" />
+    <result property="subcategoryId" column="SUBCATEGORY_ID" />
     <result property="inquiryTitle" column="INQUIRY_TITLE" />
     <result property="inquiryContent" column="INQUIRY_CONTENT" />
     <result property="adminReply" column="ADMIN_REPLY" />
@@ -20,6 +19,8 @@
     <result property="updateDate" column="UPDATE_DATE" />
     <result property="inquiryViews" column="INQUIRY_VIEWS" />
 </resultMap>
+
+
 
 
 	<select id="getListCount" resultType="int">
@@ -36,7 +37,7 @@
     SELECT
         i.INQUIRY_NO AS INQUIRY_NO,
         i.USER_NO AS USER_NO,
-        m.USER_NAME AS INQUIRY_WRITER,
+        m.USER_ID AS INQUIRY_WRITER,
         i.CATEGORY_ID AS CATEGORY_ID,
         CASE
             WHEN i.CATEGORY_ID = 'CAT06' THEN sc.SUBCATEGORY_NAME 
@@ -85,6 +86,7 @@
     SELECT
         INQ.INQUIRY_NO,
         INQ.USER_NO,
+        M.USER_ID, -- MEMBER 테이블에서 USER_ID 가져오기
         INQ.CATEGORY_ID,
         BC.CATEGORY_NAME, -- JOIN으로 CATEGORY_NAME 가져오기
         INQ.SUBCATEGORY_ID,
@@ -97,6 +99,7 @@
         INQ.INQUIRY_VIEWS
     FROM INQUIRY INQ
     LEFT JOIN BOARD_CATEGORY BC ON INQ.CATEGORY_ID = BC.CATEGORY_ID
+    LEFT JOIN MEMBER M ON INQ.USER_NO = M.USER_NO -- MEMBER 테이블 조인
     WHERE INQ.INQUIRY_NO = #{ino}
 </select>
 

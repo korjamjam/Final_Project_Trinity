@@ -9,9 +9,6 @@
 
 <link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/common/main_footer_style.css">
-<link
-	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css"
-	rel="stylesheet">
 
 <script src="${pageContext.servletContext.contextPath}/resources/js/community/comment.js"></script>
 </head>

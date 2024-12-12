@@ -12,6 +12,7 @@
 
                 <link rel="stylesheet"
                     href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
+                    <link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
                 <link rel="stylesheet"
                     href="${pageContext.servletContext.contextPath}/resources/css/common/main_header_style.css">
                 <link rel="stylesheet"

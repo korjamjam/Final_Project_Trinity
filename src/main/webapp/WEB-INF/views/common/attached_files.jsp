@@ -11,7 +11,7 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
             <!-- Custom CSS -->
-            <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css">
+
             <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/attached_files.css">
         </head>
         

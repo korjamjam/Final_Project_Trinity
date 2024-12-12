@@ -59,7 +59,6 @@
 	justify-content: space-between;
 	align-items: center;	
 	width: 100%;
-	box-sizing: border-box;
 	padding: 10px 4px;
 }
 
@@ -68,9 +67,10 @@
 	justify-content: space-evenly; /* 균등 분배 */
 	align-items: center; /* 수직 중앙 정렬 */
 	height: 100%; /* 부모 높이 */
-	width: 15%; /* navigation-buttons의 15% 차지 */
+	width: 20%; /* navigation-buttons의 15% 차지 */
 	min-width: 95px; /* 최소 너비 */
 	max-width: 110px;
+	gap: 5px;
 }
 
 .right-section {
@@ -82,11 +82,6 @@
 	min-width: 200px; /* 최소 너비 */
 	max-width: 220px;
 	gap: 10px;
-}
-
-.right-section .round-button {
-    flex: 0 1 auto; /* 유연하게 크기 조정 */
-    text-align: center;
 }
 
 
@@ -127,101 +122,6 @@
 
 .board-detail td.board-meta {
     width: 17%;
-}
-
-/* 버튼 스타일 */
-.round-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #6cc24a;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	font-weight: bold;
-	height: 100%; /* 부모 높이 */
-	text-align: center;
-	cursor: pointer;
-}
-
-.round-button:hover {
-	background-color: #5aa33c;
-}
-
-.white-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #f5f5f5;
-	border: 1px solid #ccc;
-	color: #333;
-	border-radius: 4px;
-	height: 100%; /* 부모 높이 */
-	padding: 0 10px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.white-button:hover {
-	background-color: #e0e0e0;
-}
-
-/* 버튼 스타일 */
-.round-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #6cc24a;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	font-weight: bold;
-	height: 100%; /* 부모 높이 채움 */
-	text-align: center;
-	cursor: pointer;
-	min-width: 80px; /* 최소 너비 설정 */
-}
-
-.round-button:hover {
-	background-color: #5aa33c;
-}
-
-.white-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #f5f5f5;
-	border: 1px solid #ccc;
-	color: #333;
-	border-radius: 4px;
-	height: 100%; /* 부모 높이 채움 */
-	padding: 0 10px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.white-button:hover {
-	background-color: #e0e0e0;
-}
-
-
-
-.white-button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #f5f5f5;
-	border: 1px solid #ccc;
-	color: #333;
-	border-radius: 4px;
-	height: 100%; /* 부모 높이 채움 */
-	padding: 0 10px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.white-button:hover {
-	background-color: #e0e0e0;
 }
 
 .board-actions {

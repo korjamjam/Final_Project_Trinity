@@ -17,7 +17,7 @@
 		<link href="${pageContext.servletContext.contextPath}/resources/css/community/summernote/summernote-bs5.min.css" rel="stylesheet">
 	
 		<!-- Custom CSS -->
-		<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css" rel="stylesheet">
+
 		<link href="${pageContext.servletContext.contextPath}/resources/css/community/custom_summernote.css" rel="stylesheet">
 	
 		<!-- Summernote JS -->

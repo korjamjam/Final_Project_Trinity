@@ -7,12 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-<link rel="stylesheet"
 	href="${ pageContext.servletContext.contextPath }/resources/css/inquiry/inquiry_sidemenu.css">
-<link rel="stylesheet"
-	href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_public.css">
-<title>Community SideMenu</title>
+
 </head>
 <body>
 	<aside class="inquiry-sidebar">
