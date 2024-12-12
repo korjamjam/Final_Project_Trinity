@@ -224,6 +224,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	@Override
 	public List<Board> getLatestPosts(String ct) {
+		
 	    return boardDao.getLatestPosts(sqlSession, ct);
 	}
 
