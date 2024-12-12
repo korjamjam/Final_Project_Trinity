@@ -117,7 +117,7 @@ public class MemberController {
 	    member.setPhone(phonePrefix + "-" + phoneMiddle + "-" + phoneLast);
 
 	    // 기본 프로필 이미지 설정
-	    String defaultProfileImage = "/resources/images/default_profile.png";
+	    String defaultProfileImage = "/resources/img/default_profile.png";
 	    member.setUserProfile(defaultProfileImage);
 
 	    // 회원 가입 처리
