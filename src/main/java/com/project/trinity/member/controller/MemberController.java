@@ -470,8 +470,8 @@ public class MemberController {
 			redirectAttributes.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
 			return "redirect:/main";
 		} else {
-			redirectAttributes.addFlashAttribute("errorMessage", "회원탈퇴에 실패했습니다. 다시 시도해주세요.");
-			return "redirect:/member/profile_edit";
+			redirectAttributes.addFlashAttribute("errorMessage ", "회원탈퇴에 실패했습니다. 다시 시도해주세요.");
+			return "redirect:/member/profile_edit"; 
 		}
 	}
 
