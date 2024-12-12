@@ -204,9 +204,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getListCount(String categoryId) {
-		// categoryId 값 확인
-		System.out.println("서비스 impl categoryId value: " + categoryId); // 여기서 categoryId 값을 출력
-
 		// 'categoryId'를 사용하여 게시글의 총 개수를 가져오는 쿼리 실행
 		Integer count = sqlSession.selectOne("boardMapper.getListCount", categoryId);
 

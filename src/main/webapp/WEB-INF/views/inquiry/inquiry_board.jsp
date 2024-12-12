@@ -118,7 +118,7 @@
 						<tr>
 							<td class="category">${inq.categoryName}</td>
 							<td class="title"><a
-								href="${pageContext.request.contextPath}/community/boardDetail?bno=${inq.inquiryNo}">${inq.inquiryTitle}
+								href="${pageContext.request.contextPath}/inquiry/inquiryDetail?ino=${inq.inquiryNo}">${inq.inquiryTitle}
 							</a></td>
 							<td class="author">${inq.inquiryWriter}</td>
 							<td class="date">${inq.enrollDate}</td>

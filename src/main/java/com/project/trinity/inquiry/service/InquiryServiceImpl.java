@@ -2,10 +2,10 @@ package com.project.trinity.inquiry.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
-
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.inquiry.dao.InquiryDao;
@@ -16,31 +16,35 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class InquiryServiceImpl implements InquiryService {
-	private final SqlSessionTemplate sqlSession;
-	private final InquiryDao inquiryDao;
-	 
-	
-	@Override
-	public List<Inquiry> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
-	    return inquiryDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
-	}
-	@Override
-	public int getListCount(String categoryId) {
-		// categoryId 값 확인
-		System.out.println("서비스 impl categoryId value: " + categoryId); // 여기서 categoryId 값을 출력
+    private final SqlSessionTemplate sqlSession;
+    private final InquiryDao inquiryDao;
 
-		// 'categoryId'를 사용하여 게시글의 총 개수를 가져오는 쿼리 실행
-		Integer count = sqlSession.selectOne("inquiryMapper.getListCount", categoryId);
+    @Transactional(rollbackFor = {Exception.class}) // 트랜잭션 적용
+    @Override
+    public Inquiry viewDetailPageWithCount(String ino) {
+        // 조회수 증가
+        inquiryDao.updateInquiryViews(sqlSession, ino);
 
-		// 쿼리 결과 확인
-		if (count == null) {
-			System.out.println("Query Result is null");
-			return 0; // null일 경우 0을 반환
-		} else {
-			System.out.println("Query Result: " + count);
-			return count;
-		}
-	}
+        // 게시글 상세 조회
+        Inquiry inq = inquiryDao.selectInquiryDetail(sqlSession, ino);
 
-	
+        // 조회된 게시글이 없으면 예외 처리
+        if (inq == null) {
+            throw new RuntimeException("게시글을 찾을 수 없습니다.");
+        }
+
+        return inq;
+    }
+
+    @Override
+    public List<Inquiry> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
+        return inquiryDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
+    }
+
+    @Override
+    public int getListCount(String categoryId) {
+        System.out.println("서비스 impl categoryId 값: " + categoryId);  // categoryId 출력
+        return inquiryDao.getListCount(sqlSession, categoryId);  // DAO 호출
+    }
 }
+

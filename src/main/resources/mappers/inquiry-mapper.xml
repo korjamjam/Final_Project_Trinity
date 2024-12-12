@@ -5,34 +5,44 @@
 <mapper namespace="inquiryMapper">
 
 
-<resultMap id="inquiryResult" type="com.project.trinity.inquiry.vo.Inquiry">
-    <result property="inquiryNo" column="INQUIRY_NO" />
-    <result property="userNo" column="USER_NO" />
-    <result property="inquiryWriter" column="INQUIRY_WRITER" />
-    <result property="categoryId" column="CATEGORY_ID" />
-    <result property="subcategoryId" column="SUBCATEGORY_ID" /> <!-- 하위 카테고리 ID 매핑 -->
-    <result property="categoryName" column="CATEGORY_NAME" />
-    <result property="subcategoryName" column="SUBCATEGORY_NAME" /> <!-- 하위 카테고리명 매핑 -->
-    <result property="inquiryTitle" column="INQUIRY_TITLE" />
-    <result property="inquiryContent" column="INQUIRY_CONTENT" />
-    <result property="adminReply" column="ADMIN_REPLY" />
-    <result property="status" column="STATUS" />
-    <result property="enrollDate" column="ENROLL_DATE" />
-    <result property="updateDate" column="UPDATE_DATE" />
-    <result property="inquiryViews" column="INQUIRY_VIEWS" />
-</resultMap>
+	<resultMap id="inquiryResult"
+		type="com.project.trinity.inquiry.vo.Inquiry">
+		<result property="inquiryNo" column="INQUIRY_NO" />
+		<result property="userNo" column="USER_NO" />
+		<result property="inquiryWriter" column="INQUIRY_WRITER" />
+		<result property="categoryId" column="CATEGORY_ID" />
+		<result property="subcategoryId" column="SUBCATEGORY_ID" /> <!-- 하위 카테고리 ID 매핑 -->
+		<result property="categoryName" column="CATEGORY_NAME" />
+		<result property="subcategoryName" column="SUBCATEGORY_NAME" /> <!-- 하위 카테고리명 매핑 -->
+		<result property="inquiryTitle" column="INQUIRY_TITLE" />
+		<result property="inquiryContent" column="INQUIRY_CONTENT" />
+		<result property="adminReply" column="ADMIN_REPLY" />
+		<result property="status" column="STATUS" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+		<result property="inquiryViews" column="INQUIRY_VIEWS" />
+	</resultMap>
 
 
-
-<select id="selectListByCategory" parameterType="map" resultMap="inquiryResult">
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM INQUIRY
+		WHERE STATUS = 'Y'
+		<if test="categoryId != null">
+			AND CATEGORY_ID = #{categoryId}
+		</if>
+	</select>
+	
+	
+	<select id="selectListByCategory" parameterType="map" resultMap="inquiryResult">
     SELECT
         i.INQUIRY_NO AS INQUIRY_NO,
         i.USER_NO AS USER_NO,
         m.USER_NAME AS INQUIRY_WRITER,
         i.CATEGORY_ID AS CATEGORY_ID,
-        CASE 
-            WHEN i.CATEGORY_ID = 'CAT06' THEN sc.SUBCATEGORY_NAME -- FAQ 하위 카테고리명
-            ELSE bc.CATEGORY_NAME -- 기본 상위 카테고리명
+        CASE
+            WHEN i.CATEGORY_ID = 'CAT06' THEN sc.SUBCATEGORY_NAME 
+            ELSE bc.CATEGORY_NAME 
         END AS CATEGORY_NAME,
         i.INQUIRY_TITLE AS INQUIRY_TITLE,
         i.INQUIRY_CONTENT AS INQUIRY_CONTENT,
@@ -54,25 +64,40 @@
         ) AS RN
     FROM INQUIRY i
     LEFT JOIN MEMBER m ON i.USER_NO = m.USER_NO
-    LEFT JOIN BOARD_CATEGORY bc ON i.CATEGORY_ID = bc.CATEGORY_ID -- 상위 카테고리 조인
-    LEFT JOIN SUBCATEGORY sc ON i.SUBCATEGORY_ID = sc.SUBCATEGORY_ID -- 수정된 하위 카테고리 조인
+    LEFT JOIN BOARD_CATEGORY bc ON i.CATEGORY_ID = bc.CATEGORY_ID -- 상위 카테고리
+    LEFT JOIN SUBCATEGORY sc ON i.SUBCATEGORY_ID = sc.SUBCATEGORY_ID -- 수정된 하위 카테고리
     WHERE i.STATUS = 'Y'
-        <if test="categoryId != null and categoryId != ''">
-            AND i.CATEGORY_ID = #{categoryId}
-        </if>
-</select>
-
-
-	
-   <select id="getListCount" resultType="int">
-    SELECT COUNT(*)
-    FROM INQUIRY
-    WHERE STATUS = 'Y'
-    <if test="categoryId != null">
-        AND CATEGORY_ID = #{categoryId}
+    <if test="categoryId != null and categoryId != ''">
+        AND i.CATEGORY_ID = #{categoryId}
     </if>
 </select>
 
 
-    
+
+
+
+
+	<update id="updateInquiryViews">
+		UPDATE INQUIRY
+		SET INQUIRY_VIEWS = INQUIRY_VIEWS + 1
+		WHERE INQUIRY_NO = #{ino}
+	</update>
+
+	<select id="selectInquiryDetail" resultMap="inquiryResult">
+		SELECT
+		INQUIRY_NO,
+		USER_NO,
+		CATEGORY_ID,
+		SUBCATEGORY_ID,
+		INQUIRY_TITLE,
+		INQUIRY_CONTENT,
+		ADMIN_REPLY,
+		STATUS,
+		TO_CHAR(ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+		TO_CHAR(UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
+		INQUIRY_VIEWS
+		FROM INQUIRY
+		WHERE INQUIRY_NO = #{ino}
+	</select>
+
 </mapper>
