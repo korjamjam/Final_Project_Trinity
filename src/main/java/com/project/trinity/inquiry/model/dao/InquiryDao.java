@@ -50,5 +50,20 @@ public class InquiryDao {
 	public List<Board> getLatestInquiryPosts(SqlSessionTemplate sqlSession, String ct) {
 		 return sqlSession.selectList("inquiryMapper.getLatestInquiryPosts", ct);
 	}
+
+	   /**
+     * 특정 게시글의 이전 게시글 번호를 조회합니다.
+     */
+    public String getPreviousBoard(SqlSessionTemplate sqlSession, String ino) {
+        return sqlSession.selectOne("inquiryMapper.getPreviousBoard", ino);
+    }
+
+    /**
+     * 특정 게시글의 다음 게시글 번호를 조회합니다.
+     */
+    public String getNextBoard(SqlSessionTemplate sqlSession, String ino) {
+        return sqlSession.selectOne("inquiryMapper.getNextBoard", ino);
+    }
+
 	
 }
