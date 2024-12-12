@@ -16,13 +16,13 @@
  		<typeAlias type="com.project.trinity.member.model.vo.DoctorReview" alias="DoctorReview" />
  		<typeAlias type="com.project.trinity.member.model.vo.Guest" alias="Guest" />
  		<typeAlias type="com.project.trinity.member.model.vo.Rankup" alias="Rankup" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.Board" alias="Board" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.BoardCategory" alias="BoardCategory" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.BoardFile" alias="BoardFile" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.Comment" alias="Comment" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.Like" alias="Like" />
- 		<typeAlias type="com.project.trinity.community.board.model.vo.MedAnswer" alias="MedAnswer" />
- 		<typeAlias type="com.project.trinity.inquiry.vo.Inquiry" alias="Inquiry" />
+ 		<typeAlias type="com.project.trinity.board.common.vo.BoardCategory" alias="BoardCategory" />
+ 		<typeAlias type="com.project.trinity.community.model.vo.Community" alias="Community" />		
+ 		<typeAlias type="com.project.trinity.community.model.vo.BoardFile" alias="BoardFile" />
+ 		<typeAlias type="com.project.trinity.community.model.vo.Comment" alias="Comment" />
+ 		<typeAlias type="com.project.trinity.community.model.vo.Like" alias="Like" />
+ 		<typeAlias type="com.project.trinity.community.model.vo.MedAnswer" alias="MedAnswer" />
+ 		<typeAlias type="com.project.trinity.inquiry.model.vo.Inquiry" alias="Inquiry" />
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalAccount" alias="HospitalAccount" />
  		<typeAlias type="com.project.trinity.hospital.model.vo.HospitalInfo" alias="HospitalInfo" />
  		<typeAlias type="com.project.trinity.reservation.model.vo.Reservation" alias="Reservation" /> 			

@@ -3,7 +3,7 @@ package com.project.trinity.admin.service;
 import java.util.List;
 import java.util.Map;
 
-import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.model.vo.Community;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
@@ -46,7 +46,7 @@ public interface AdminService {
     Map<String, Object> getReservationDetail(String reservationNo);
     
     //-------게시글 관리 페이지-------
-    List<Board> getAllPosts();
+    List<Community> getAllPosts();
 
     
 }

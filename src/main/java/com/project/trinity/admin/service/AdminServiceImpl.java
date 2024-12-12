@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.trinity.admin.model.dao.AdminDao;
-import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.model.vo.Community;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
@@ -129,7 +129,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	//---------------------------------게시글 관리---------------------------------
 	@Override
-    public List<Board> getAllPosts() {
+    public List<Community> getAllPosts() {
         return adminDao.getAllPosts(sqlSession);
     }
 

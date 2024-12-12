@@ -5,8 +5,8 @@
 <mapper namespace="boardMapper">
 
 	<!-- 게시글 ResultMap 정의 -->
-	<resultMap id="boardResult"
-		type="com.project.trinity.community.board.model.vo.Board">
+	<resultMap id="communityResult"
+		type="com.project.trinity.community.model.vo.Community">
 		<id property="boardNo" column="BOARD_NO" />
 		<result property="boardType" column="BOARD_TYPE" />
 		<result property="boardTitle" column="BOARD_TITLE" />
@@ -22,7 +22,7 @@
 		<result property="hosAcNo" column="HOSPITAL_ACCOUNT_NO" />
 		<result property="hosName" column="HOS_NAME" />
 		<collection property="fileList"
-			ofType="com.project.trinity.community.board.model.vo.BoardFile"
+			ofType="com.project.trinity.community.model.vo.BoardFile"
 			javaType="java.util.List">
 			<id property="fileNo" column="FILE_NO" />
 			<result property="originName" column="ORIGIN_NAME" />
@@ -35,7 +35,7 @@
 
 	<!-- MedAnswer ResultMap 정의 -->
 	<resultMap id="medAnswerResult"
-		type="com.project.trinity.community.board.model.vo.MedAnswer">
+		type="com.project.trinity.community.model.vo.MedAnswer">
 		<result property="answerNo" column="ANSWER_NO" />
 		<result property="boardNo" column="BOARD_NO" />
 		<result property="userNo" column="USER_NO" />
@@ -49,7 +49,7 @@
 	</resultMap>
 
 
-<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
+<select id="selectListByCategory" parameterType="map" resultMap="communityResult">
     SELECT *
     FROM (
         SELECT
@@ -91,7 +91,7 @@
 
 
 	<select id="getLatestBoardPosts" parameterType="string"
-		resultMap="boardResult">
+		resultMap="communityResult">
 		SELECT *
 		FROM (
 		SELECT BOARD_NO, BOARD_TITLE, TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS
@@ -105,7 +105,7 @@
 
 
 	<select id="selectAllCategories"
-		resultType="com.project.trinity.community.board.model.vo.BoardCategory">
+		resultType="com.project.trinity.board.common.vo.BoardCategory">
 		SELECT category_id AS categoryId, category_name AS
 		categoryName, sort_order
 		AS sortOrder, is_active AS isActive
@@ -407,7 +407,7 @@
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 -->
 	<!-- 게시글 + 첨부파일 정보 조회 -->
-	<select id="viewDetailPage" resultMap="boardResult">
+	<select id="viewDetailPage" resultMap="communityResult">
 		SELECT
 		B.BOARD_NO,
 		B.BOARD_TYPE,
@@ -454,7 +454,7 @@
 
 	<!-- bno로 게시글 + 첨부파일 정보 조회 병원거 -->
 	<!-- 게시글 + 첨부파일 정보 조회 -->
-	<select id="selectBoardAC" resultMap="boardResult">
+	<select id="selectBoardAC" resultMap="communityResult">
 		SELECT
 		B.BOARD_NO,
 		B.BOARD_TYPE,
@@ -581,7 +581,7 @@
 	</select>
 
 
-	<select id="selectTopBoardList" resultMap="boardResult">
+	<select id="selectTopBoardList" resultMap="communityResult">
 		SELECT *
 		FROM (
 		SELECT
@@ -695,7 +695,7 @@
 	</select>
 
 	<select id="getPostsByUserNo" parameterType="string"
-		resultMap="boardResult">
+		resultMap="communityResult">
 		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS, CATEGORY_ID,
 		STATUS
 		FROM BOARD
@@ -707,7 +707,7 @@
 
 	<!-- 병원 번호 게시글 조회 -->
 	<select id="getPostsByHosNo" parameterType="string"
-		resultMap="boardResult">
+		resultMap="communityResult">
 		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS,
 		STATUS
 		FROM BOARD
