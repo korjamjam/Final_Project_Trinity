@@ -75,7 +75,7 @@ function setReplyCount(count) {
 function getReplyList(data, callback) {
 
     $.ajax({
-        url: "rlist.bo",
+        url: "rlist",
         data: data,
         success: function (res) {
             console.log("서버 응답 데이터:", res); // 서버에서 반환된 데이터 출력

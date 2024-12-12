@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
+   
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/inquiry/inquiry_qna.css">
     <title>Customer Center</title>
 </head>

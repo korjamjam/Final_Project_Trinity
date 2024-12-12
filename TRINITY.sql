@@ -39,6 +39,7 @@ DROP SEQUENCE SEQ_COMMENT_NO;
 DROP SEQUENCE SEQ_RANKUP;
 DROP SEQUENCE SEQ_ANSWER_NO; 
 
+
 -- 시퀀스 생성 -------------------------------------------------------------------------------------------------------
 CREATE SEQUENCE SEQ_HOS_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_HOS_ACCOUNT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
@@ -56,6 +57,7 @@ CREATE SEQUENCE SEQ_SUB_KEY START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_COMMENT_NO START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_RANKUP START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE SEQ_ANSWER_NO START WITH 1 INCREMENT BY 1 NOCACHE; -- 새로 추가된 시퀀스
+
 
 
 
@@ -11078,25 +11080,114 @@ BEGIN
     COMMIT;
 END;
 /
+
 --INQUIRY 더미데이터 --
 DECLARE
     v_inquiry_no VARCHAR2(10);
-    v_user_no VARCHAR2(10);
-    v_category_id VARCHAR2(10);
-    v_subcategory_id VARCHAR2(10);
+    v_user_no VARCHAR2(10) := 'U1'; -- 공지사항은 관리자만 작성
+    v_category_id VARCHAR2(10) := 'CAT04'; -- 공지사항 카테고리
     v_inquiry_title VARCHAR2(200);
-    v_inquiry_content VARCHAR2(4000);
+    v_inquiry_content CLOB;
     v_admin_reply VARCHAR2(4000);
     v_status CHAR(1);
     v_enroll_date DATE;
     v_update_date DATE;
     v_inquiry_views NUMBER(10);
-    v_faq_subcategories SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
-        'SC001', 'SC002', 'SC003', 'SC004', 'SC005'
-    ); -- FAQ의 SUBCATEGORY_ID 목록
+
+    -- 공지사항 제목과 내용
+    v_notice_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '휴진 안내: 공휴일 휴진 일정',
+        '병원 주차장 이용 안내',
+        '온라인 예약 시스템 업데이트 공지',
+        '코로나19 예방접종 안내',
+        '병원 내 응급진료 절차 변경 안내',
+        '여름 휴가 시즌 운영 시간 변경',
+        '전문의 상담 가능 시간 변경 안내',
+        '장마철 건강 관리 팁 제공',
+        '의료비 할인 행사 공지',
+        '신규 의료 장비 도입 소식'
+    );
+
+    v_notice_contents SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '병원은 공휴일 동안 모든 진료가 중단됩니다. 진료 예약 시 참고 바랍니다. 자세한 일정은 홈페이지에서 확인하세요.',
+        '주차장이 새롭게 확장되었습니다. 기존 공간 부족 문제를 해결하기 위해 새로운 구역이 추가되었습니다. 대중교통 이용을 권장드립니다.',
+        '새로운 온라인 예약 시스템이 도입되었습니다. 이전 예약 내역은 그대로 유지되며, 추가된 기능을 사용해 보세요.',
+        '코로나19 예방접종이 병원에서 가능합니다. 온라인 사전 예약 후 방문 부탁드립니다.',
+        '응급진료 절차가 간소화되었습니다. 자세한 내용은 병원 안내 데스크에서 확인 가능합니다.',
+        '여름 휴가 기간 동안 병원 운영 시간이 평소와 달라집니다. 평일은 오전 10시부터 오후 4시까지만 운영됩니다.',
+        '전문의 상담 가능 시간이 기존 오후 6시에서 오후 5시로 변경되었습니다. 불편을 드려 죄송합니다.',
+        '장마철에는 감염병 예방을 위해 손 씻기와 개인 위생 관리에 주의해야 합니다. 병원에서 제공하는 건강 관리 가이드를 참고하세요.',
+        '의료비 할인 행사가 진행됩니다. 행사 기간 동안 특정 진료 항목에 한해 20% 할인이 제공됩니다.',
+        '최신 의료 장비가 도입되었습니다. 이를 통해 더욱 정확한 진단과 치료가 가능해졌습니다.'
+    );
 BEGIN
-    -- 문의 데이터 삽입
-    FOR i IN 1..300 LOOP
+    FOR i IN 1..100 LOOP
+        -- INQUIRY_NO 시퀀스 생성
+        SELECT 'INQ' || LPAD(SEQ_INQUIRY_NO.NEXTVAL, 7, '0')
+        INTO v_inquiry_no
+        FROM DUAL;
+
+        -- 제목과 내용 랜덤 선택
+        v_inquiry_title := v_notice_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_notice_titles.COUNT + 1)));
+        v_inquiry_content := v_notice_contents(TRUNC(DBMS_RANDOM.VALUE(1, v_notice_contents.COUNT + 1)));
+
+        -- 랜덤 데이터 생성
+        v_admin_reply := NULL;
+        v_status := 'Y'; -- 활성화 상태
+        v_enroll_date := SYSDATE - DBMS_RANDOM.VALUE(1, 365);
+        v_update_date := v_enroll_date + DBMS_RANDOM.VALUE(0, 30);
+        v_inquiry_views := TRUNC(DBMS_RANDOM.VALUE(50, 500));
+
+        -- 공지사항 데이터 삽입
+        INSERT INTO INQUIRY (
+            INQUIRY_NO, USER_NO, CATEGORY_ID, INQUIRY_TITLE, 
+            INQUIRY_CONTENT, ADMIN_REPLY, STATUS, ENROLL_DATE, 
+            UPDATE_DATE, INQUIRY_VIEWS
+        ) VALUES (
+            v_inquiry_no, v_user_no, v_category_id, v_inquiry_title,
+            v_inquiry_content, v_admin_reply, v_status, v_enroll_date,
+            v_update_date, v_inquiry_views
+        );
+    END LOOP;
+
+    COMMIT;
+END;
+/
+
+-- FAQ 더미데이터 --
+DECLARE
+    v_inquiry_no VARCHAR2(10);
+    v_user_no VARCHAR2(10);
+    v_category_id VARCHAR2(10) := 'CAT06'; -- FAQ 카테고리
+    v_subcategory_id VARCHAR2(10);
+    v_inquiry_title VARCHAR2(200);
+    v_inquiry_content CLOB;
+    v_admin_reply VARCHAR2(4000);
+    v_status CHAR(1);
+    v_enroll_date DATE;
+    v_update_date DATE;
+    v_inquiry_views NUMBER(10);
+    v_faq_subcategories SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        'SC001', 'SC002', 'SC003', 'SC004', 'SC005'
+    ); -- FAQ 하위 카테고리 목록
+
+    v_faq_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '회원 가입 방법은?',
+        '비밀번호를 잊어버렸어요.',
+        '병원 운영 시간은 언제인가요?',
+        '온라인 예약은 어떻게 하나요?',
+        '환불 정책에 대해 알고 싶어요.'
+    );
+
+    v_faq_contents SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '회원 가입은 홈페이지 오른쪽 상단의 "회원가입" 버튼을 클릭하여 진행할 수 있습니다.',
+        '비밀번호를 잊으셨다면 "비밀번호 찾기" 기능을 이용하세요. 가입 시 등록한 이메일로 임시 비밀번호를 전송해 드립니다.',
+        '병원은 월요일부터 금요일까지 오전 9시부터 오후 6시까지 운영됩니다. 토요일은 오전 9시부터 오후 1시까지 운영하며, 일요일과 공휴일은 휴무입니다.',
+        '홈페이지에서 "예약" 메뉴를 클릭한 후 원하는 진료 과목과 날짜를 선택하면 됩니다. 예약이 완료되면 확인 이메일이 발송됩니다.',
+        '환불은 예약 취소 후 7일 이내에 처리됩니다. 다만, 당일 취소 시 일부 금액이 공제될 수 있습니다. 환불 절차는 "고객센터"를 통해 진행됩니다.'
+    );
+BEGIN
+    FOR i IN 1..200 LOOP
         -- 무작위 USER_NO 가져오기
         SELECT USER_NO INTO v_user_no
         FROM (
@@ -11104,50 +11195,24 @@ BEGIN
         )
         WHERE ROWNUM = 1;
 
-        -- Generate inquiry data
-        v_inquiry_no := 'INQ' || LPAD(i, 3, '0');
-        v_inquiry_title := CASE MOD(i, 5)
-            WHEN 0 THEN '문의사항'
-            WHEN 1 THEN '계정 문제'
-            WHEN 2 THEN '사용법 문의'
-            WHEN 3 THEN '기능 요청'
-            ELSE '버그 리포트'
-        END;
-        v_inquiry_content := CASE MOD(i, 5)
-            WHEN 0 THEN '이 기능이 작동하지 않습니다.'
-            WHEN 1 THEN '계정 정보를 수정하고 싶습니다.'
-            WHEN 2 THEN '사이트 이용 중 문제가 발생했습니다.'
-            WHEN 3 THEN '새로운 기능을 추가할 계획이 있나요?'
-            ELSE '버그가 발견되었습니다.'
-        END;
-        v_admin_reply := CASE MOD(i, 3)
-            WHEN 0 THEN '확인 후 답변 드리겠습니다.'
-            WHEN 1 THEN '답변 드립니다.'
-            ELSE NULL
-        END;
-        v_status := CASE MOD(i, 2)
-            WHEN 0 THEN 'Y'
-            ELSE 'N'
-        END;
+        -- INQUIRY_NO 시퀀스 생성
+        SELECT 'INQ' || LPAD(SEQ_INQUIRY_NO.NEXTVAL, 7, '0')
+        INTO v_inquiry_no
+        FROM DUAL;
+
+        -- 제목과 내용 랜덤 선택
+        v_inquiry_title := v_faq_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_faq_titles.COUNT + 1)));
+        v_inquiry_content := v_faq_contents(TRUNC(DBMS_RANDOM.VALUE(1, v_faq_contents.COUNT + 1)));
+        v_subcategory_id := v_faq_subcategories(TRUNC(DBMS_RANDOM.VALUE(1, v_faq_subcategories.COUNT + 1)));
+
+        -- 랜덤 데이터 생성
+        v_admin_reply := NULL;
+        v_status := 'Y'; -- 활성화 상태
         v_enroll_date := SYSDATE - DBMS_RANDOM.VALUE(1, 365);
         v_update_date := v_enroll_date + DBMS_RANDOM.VALUE(0, 30);
-        v_inquiry_views := TRUNC(DBMS_RANDOM.VALUE(0, 101));
+        v_inquiry_views := TRUNC(DBMS_RANDOM.VALUE(10, 300));
 
-        -- Assign CATEGORY_ID and SUBCATEGORY_ID
-        IF MOD(i, 3) = 0 THEN
-            -- CAT06: FAQ with subcategories
-            v_category_id := 'CAT06';
-            v_subcategory_id := v_faq_subcategories(MOD(i, 5) + 1); -- 하위 카테고리 ID 무작위 선택
-        ELSE
-            -- Other categories (공지사항, 알림판)
-            v_category_id := CASE MOD(i, 3)
-                WHEN 1 THEN 'CAT04' -- 공지사항
-                ELSE 'CAT05' -- 알림판
-            END;
-            v_subcategory_id := NULL; -- 하위 카테고리 없음
-        END IF;
-
-        -- Insert into INQUIRY table
+        -- FAQ 데이터 삽입
         INSERT INTO INQUIRY (
             INQUIRY_NO, USER_NO, CATEGORY_ID, SUBCATEGORY_ID, INQUIRY_TITLE, 
             INQUIRY_CONTENT, ADMIN_REPLY, STATUS, ENROLL_DATE, 
@@ -11164,5 +11229,97 @@ END;
 /
 
 
+
+--알림판 더미데이터 --
+DECLARE
+    v_inquiry_no VARCHAR2(10);
+    v_user_no VARCHAR2(10);
+    v_category_id VARCHAR2(10) := 'CAT05'; -- 알림판 카테고리
+    v_inquiry_title VARCHAR2(200);
+    v_inquiry_content CLOB;
+    v_admin_reply VARCHAR2(4000);
+    v_status CHAR(1);
+    v_enroll_date DATE;
+    v_update_date DATE;
+    v_inquiry_views NUMBER(10);
+
+    -- 알림판 제목 및 내용
+    v_notice_titles SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '트리니티병원 운영시간 변경 안내',
+        '주차 불편 사항 공유',
+        '화장실 위생 상태',
+        '여의사 근무 일정',
+        '진료 대기 시간 문제'
+    );
+    v_notice_sentences SYS.DBMS_DEBUG_VC2COLL := SYS.DBMS_DEBUG_VC2COLL(
+        '트리니티병원이 평일 8시까지 운영한다고 안내했지만, 수요일은 오후 3시까지만 영업한다고 합니다.',
+        '진료 예약에 참고하세요.',
+        '주차 공간이 매우 부족하여 주차하는 데 어려움이 많았습니다.',
+        '병원을 방문하실 때 대중교통을 추천드립니다.',
+        '화장실이 너무 더럽다는 소식이 있습니다.',
+        '병원에서 위생 관리가 필요할 것으로 보입니다.',
+        '여의사가 항상 상주한다고 안내되었으나, 실제로는 주 3회만 근무한다고 합니다.',
+        '방문 전 확인이 필요합니다.',
+        '진료 대기 시간이 너무 길다는 후기가 많습니다.',
+        '예약 시스템 개선이 필요할 것 같습니다.',
+        '의사 상담은 친절했지만 대기 시간이 길었습니다.',
+        '병원 근처에 편의점이 없어 불편합니다.',
+        '치료 과정에 대해 상세한 설명이 부족하다는 의견이 있습니다.',
+        '진료실은 청결하지만 대기실 환경은 개선이 필요합니다.',
+        '병원 내 카페테리아 음식이 맛이 없다는 불만이 있습니다.'
+    );
+BEGIN
+    FOR i IN 1..100 LOOP
+        -- 무작위 USER_NO 가져오기
+        SELECT USER_NO INTO v_user_no
+        FROM (
+            SELECT USER_NO FROM MEMBER WHERE ISADMIN = 'N' ORDER BY DBMS_RANDOM.VALUE
+        )
+        WHERE ROWNUM = 1;
+
+        -- 고유 INQUIRY_NO 생성
+        SELECT 'INQ' || LPAD(SEQ_INQUIRY_NO.NEXTVAL, 7, '0')
+        INTO v_inquiry_no
+        FROM DUAL;
+
+        -- 제목 랜덤 선택
+        v_inquiry_title := v_notice_titles(TRUNC(DBMS_RANDOM.VALUE(1, v_notice_titles.COUNT + 1)));
+
+        -- 내용 랜덤 생성 (1줄 ~ 20줄)
+        v_inquiry_content := '';
+        FOR j IN 1..TRUNC(DBMS_RANDOM.VALUE(1, 21)) LOOP
+            v_inquiry_content := v_inquiry_content || ' ' || v_notice_sentences(TRUNC(DBMS_RANDOM.VALUE(1, v_notice_sentences.COUNT + 1)));
+        END LOOP;
+
+        -- 랜덤 데이터 생성
+        v_admin_reply := NULL; -- 알림판은 관리자 답변 없음
+        v_status := CASE WHEN DBMS_RANDOM.VALUE(0, 1) > 0.8 THEN 'N' ELSE 'Y' END; -- 비활성화 상태 확률 추가
+        v_enroll_date := SYSDATE - TRUNC(DBMS_RANDOM.VALUE(1, 365));
+        v_update_date := v_enroll_date + TRUNC(DBMS_RANDOM.VALUE(1, 30));
+        v_inquiry_views := TRUNC(DBMS_RANDOM.VALUE(10, 300));
+
+        -- 데이터 삽입
+        BEGIN
+            INSERT INTO INQUIRY (
+                INQUIRY_NO, USER_NO, CATEGORY_ID, INQUIRY_TITLE, 
+                INQUIRY_CONTENT, ADMIN_REPLY, STATUS, ENROLL_DATE, 
+                UPDATE_DATE, INQUIRY_VIEWS
+            ) VALUES (
+                v_inquiry_no, v_user_no, v_category_id, v_inquiry_title,
+                v_inquiry_content, v_admin_reply, v_status, v_enroll_date,
+                v_update_date, v_inquiry_views
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                DBMS_OUTPUT.PUT_LINE('오류 발생: ' || SQLERRM);
+        END;
+    END LOOP;
+
+    COMMIT;
+END;
+/
+
+
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;
+

@@ -11,7 +11,8 @@ a:visited {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px; /* 버튼 텍스트 크기 증가 */
+    font-size: 16px;
+    /* 버튼 텍스트 크기 증가 */
     color: #fff !important;
     background-color: #6cc24a;
     border: none;
@@ -19,10 +20,13 @@ a:visited {
     cursor: pointer;
     font-weight: bold;
     width: max-content;
-    min-width: 60px; /* 버튼 최소 너비 */
-  min-height: 30px;
-    padding: 0.5em 1em; /* 내부 여백 */
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    min-width: 60px;
+    /* 버튼 최소 너비 */
+    min-height: 30px;
+    padding: 0.5em 1em;
+    /* 내부 여백 */
+    white-space: nowrap;
+    /* 텍스트 줄바꿈 방지 */
     transition: background-color 0.3s ease;
 }
 
@@ -32,136 +36,143 @@ a:visited {
 
 
 .white-button {
-    display: inline-block;
-    padding: 0.3em 0.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f5f5f5;
     font-size: 14px;
     color: #333;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s, border-color 0.3s;
+    width: max-content;
+    min-width: 20px;
+    /* 버튼 최소 너비 */
+    min-height: 30px;
+    padding: 0.5em 1em;
+    /* 내부 여백 */
     white-space: nowrap;
-}
-
-.white-button:hover {
-    background-color: #e0e0e0;
-    border-color: #999;
-}
-
-
-@media (min-width: 769px) {
-    .mobile-only {
-        display: none;
-    }
-     
-    a :visited {
-        color: #ffffff;
-    }
-    
-    .navigation-links {
-        width: 25%;
-        /* 부모 요소인 navigation-buttons의 35% 차지 */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    
-    }
-
-    .nav-links-group {
-
-        flex: 0 0 60%;
-        /* navigation-links의 55% 너비 차지 */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        overflow: hidden;
-        /* 내용이 넘치지 않도록 설정 */
-        white-space: nowrap;
-        /* 텍스트가 줄 바꿈되지 않도록 설정 */
-        font-size: 14px;
-    }
-
-    .nav-text {
-        flex-shrink: 0;
-        /* 요소가 축소되지 않도록 설정 */
-        overflow: hidden;
-        /* 요소의 내용이 넘치지 않도록 설정 */
-        white-space: nowrap;
-        /* 텍스트가 줄 바꿈되지 않도록 설정 */
-    }
-
-    .nav-text:hover {
-        color: #28a745;
-    }
-
-    #custom-round-button {
-        flex: 0 0 40%;
-        /* navigation-links의 40% 너비 차지 */
-    }
-
-    .board-category-select {
-        color: #265708;
-        font-weight: bold;   
-        border: none;    
-        background: transparent;
-        font-size: 16px;
-        outline: none;
-        /* 포커스 시 생기는 테두리 제거 */
-    }
-
-    .board-category-select option {
-        color: #000;
-    }
-
-    .board-category-select {
-        color: #265708;     
-        font-size: 14px;   
-        cursor: pointer;
-       
-    }
-
-    .board-category-select:hover {
-        background-color: #f0f0f5;
-        color: #265708;
-    }
-
-    .board-category-select:focus {
-        outline: none;
-        /* 포커스 시 기본 아웃라인 제거 */
-    }
-
-    .like-button {
-        width: 50%;
-        /* td의 50% 너비 */
-        display: inline-flex;
-        /* 내용 정렬을 위해 사용 */
-        justify-content: space-between;
-        align-items: center;
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        padding: 5px;
-        font-size: 14px;
-    }
-
-    .like-button span {
-        margin-left: 5px;
-    }
-}
-
-@media (max-width: 768px) {
-
-    /* 글쓰기 버튼 */
-    .round-button {
-        font-size: 12px;
-        height: 100%;
-       
-    }
-
-    .white-button {
-        font-size: 12px;
-    }
+    /* 텍스트 줄바꿈 방지 */
+    transition: background-color 0.3s ease;
+    text-align: center;
 
 }
+    .white-button:hover {
+        background-color: #e0e0e0;
+        border-color: #999;
+    }
+
+
+    @media (min-width: 769px) {
+        .mobile-only {
+            display: none;
+        }
+
+        a :visited {
+            color: #ffffff;
+        }
+
+        .navigation-links {
+            width: 25%;
+            /* 부모 요소인 navigation-buttons의 35% 차지 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .nav-links-group {
+
+            flex: 0 0 60%;
+            /* navigation-links의 55% 너비 차지 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            /* 내용이 넘치지 않도록 설정 */
+            white-space: nowrap;
+            /* 텍스트가 줄 바꿈되지 않도록 설정 */
+            font-size: 14px;
+        }
+
+        .nav-text {
+            flex-shrink: 0;
+            /* 요소가 축소되지 않도록 설정 */
+            overflow: hidden;
+            /* 요소의 내용이 넘치지 않도록 설정 */
+            white-space: nowrap;
+            /* 텍스트가 줄 바꿈되지 않도록 설정 */
+        }
+
+        .nav-text:hover {
+            color: #28a745;
+        }
+
+        #custom-round-button {
+            flex: 0 0 40%;
+            /* navigation-links의 40% 너비 차지 */
+        }
+
+        .board-category-select {
+            color: #265708;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            /* 포커스 시 생기는 테두리 제거 */
+        }
+
+        .board-category-select option {
+            color: #000;
+        }
+
+        .board-category-select {
+            color: #265708;
+            font-size: 14px;
+            cursor: pointer;
+
+        }
+
+        .board-category-select:hover {
+            background-color: #f0f0f5;
+            color: #265708;
+        }
+
+        .board-category-select:focus {
+            outline: none;
+            /* 포커스 시 기본 아웃라인 제거 */
+        }
+
+        .like-button {
+            width: 50%;
+            /* td의 50% 너비 */
+            display: inline-flex;
+            /* 내용 정렬을 위해 사용 */
+            justify-content: space-between;
+            align-items: center;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .like-button span {
+            margin-left: 5px;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        /* 글쓰기 버튼 */
+        .round-button {
+            font-size: 12px;
+            height: 100%;
+
+        }
+
+        .white-button {
+            font-size: 12px;
+        }
+
+    }

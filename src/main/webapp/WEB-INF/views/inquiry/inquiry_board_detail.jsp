@@ -17,8 +17,7 @@
 			<!-- Custom CSS -->
 			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_dropdown.css"
 				rel="stylesheet">
-			<link href="${pageContext.servletContext.contextPath}/resources/css/common/custom_public.css"
-				rel="stylesheet">
+		
 			<link href="${pageContext.servletContext.contextPath}/resources/css/community/community_board_detail.css"
 				rel="stylesheet">
 			<link href="${pageContext.servletContext.contextPath}/resources/css/common/comments.css" rel="stylesheet">
@@ -39,6 +38,8 @@
 				const categoryId = "${categoryId}"; // JavaScript 변수에 할당
 				console.log("Category ID: " + categoryId); // 로그 출력
 				console.log("Category Name: " + "${categoryName}"); // 로그 출력
+				console.log("loginUser.userId : " + "${loginUser.userId}"); // 로그 출력
+				console.log("Inquiry Writer: ${inq.inquiryWriter}");
 			</script>
 
 

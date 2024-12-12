@@ -543,7 +543,7 @@ public class BoardController {
 	
 	// 특정 게시물의 댓글목록을 json형식으로 반환
 		@ResponseBody
-		@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
+		@RequestMapping(value = "rlist", produces = "application/json; charset=UTF-8")
 		public String ajaxSelectReplyList(String bno) {
 			System.out.println("댓글 목록 요청 - 게시글 번호: " + bno);
 
