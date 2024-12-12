@@ -1,4 +1,4 @@
-package com.project.trinity.inquiry.service;
+package com.project.trinity.inquiry.model.service;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.common.vo.PageInfo;
-import com.project.trinity.inquiry.dao.InquiryDao;
-import com.project.trinity.inquiry.vo.Inquiry;
+import com.project.trinity.inquiry.model.dao.InquiryDao;
+import com.project.trinity.inquiry.model.vo.Inquiry;
 
 import lombok.RequiredArgsConstructor;
 
