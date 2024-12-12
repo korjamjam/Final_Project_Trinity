@@ -62,7 +62,8 @@
 		bc.CATEGORY_NAME,
 		m.USER_NAME AS BOARD_WRITER,
 		TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
-		ROW_NUMBER() OVER (
+		ROW_NUMBER() OVER
+		(
 		ORDER BY
 		<choose>
 			<when test="sortType == '조회수'">
@@ -77,8 +78,8 @@
 		</choose>
 		) AS RN
 		FROM BOARD b
-		LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID <!-- 카테고리 테이블 
-			조인 -->
+		LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID =
+		bc.CATEGORY_ID <!-- 카테고리 테이블 조인 -->
 		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
 
 		WHERE b.STATUS = 'Y'
@@ -91,27 +92,18 @@
 
 
 
-
-	<select id="getLatestPosts" parameterType="string"
+	<select id="getLatestBoardPosts" parameterType="string"
 		resultMap="boardResult">
 		SELECT *
 		FROM (
-		SELECT
-		BOARD_NO,
-		BOARD_TITLE,
-		TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-		ROWNUM
+		SELECT BOARD_NO, BOARD_TITLE, TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS
+		ENROLL_DATE
 		FROM BOARD
 		WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
 		ORDER BY ENROLL_DATE DESC
 		)
 		WHERE ROWNUM &lt;= 3
 	</select>
-
-
-
-
-
 
 
 	<select id="selectAllCategories"
@@ -277,8 +269,7 @@
 		#{hosAcNo},
 		#{boardTitle},
 		#{boardContent},
-		#{categoryId} <!-- 카테고리 
-			ID 수정 -->
+		#{categoryId} <!-- 카테고리 ID 수정 -->
 		)
 		<selectKey keyProperty="boardNo"
 			resultType="java.lang.String" order="AFTER">
@@ -308,16 +299,19 @@
 		#{fileSize}
 		)
 	</insert>
-	
+
 	<!-- 첨부파일 저장 병원 -->
 	<insert id="insertFileAC" parameterType="BoardFile">
 		INSERT INTO FILE_TABLE (
-		FILE_NO, BOARD_NO, HOS_ACCOUNT_NO, ORIGIN_NAME, CHANGE_NAME, ALLOW_DOWNLOAD,
+		FILE_NO, BOARD_NO, HOS_ACCOUNT_NO, ORIGIN_NAME, CHANGE_NAME,
+		ALLOW_DOWNLOAD,
 		FILE_SIZE
 		) VALUES (
-		SEQ_FILE_NO.NEXTVAL, #{boardNo}, #{hosAcNo},
+		SEQ_FILE_NO.NEXTVAL, #{boardNo},
+		#{hosAcNo},
 		#{originName}, #{changeName},
-		CASE WHEN #{allowDownload} IS NULL THEN
+		CASE WHEN #{allowDownload} IS
+		NULL THEN
 		'Y' ELSE #{allowDownload} END,
 		#{fileSize}
 		)
@@ -434,25 +428,33 @@
 		F.CHANGE_NAME,
 		F.ALLOW_DOWNLOAD,
 		F.FILE_SIZE,
-        HI.HOS_NAME,
-        HA.HOS_ACCOUNT_NO
+		HI.HOS_NAME,
+		HA.HOS_ACCOUNT_NO
 		FROM
 		BOARD B
-		JOIN
+		LEFT JOIN
 		MEMBER M ON B.USER_NO = M.USER_NO
 		LEFT JOIN
-		FILE_TABLE F ON
+		FILE_TABLE F
+		ON
 		B.BOARD_NO = F.BOARD_NO
 		LEFT JOIN
-		BOARD_CATEGORY C ON B.CATEGORY_ID = C.CATEGORY_ID
+		BOARD_CATEGORY C ON B.CATEGORY_ID =
+		C.CATEGORY_ID
 		AND C.IS_ACTIVE = 'Y'
+		LEFT JOIN
+		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
+
+		LEFT JOIN
+		HOSPITAL_INFO HI ON HA.HOS_NO = HI.HOS_NO
 		WHERE
 		B.STATUS = 'Y'
-		AND B.BOARD_NO =#{bno}
+		AND B.BOARD_NO
+		=#{bno}
 
 	</select>
-	
-	<!-- bno로 게시글 + 첨부파일 정보 조회 병원거-->
+
+	<!-- bno로 게시글 + 첨부파일 정보 조회 병원거 -->
 	<!-- 게시글 + 첨부파일 정보 조회 -->
 	<select id="selectBoardAC" resultMap="boardResult">
 		SELECT
@@ -473,8 +475,8 @@
 		F.CHANGE_NAME,
 		F.ALLOW_DOWNLOAD,
 		F.FILE_SIZE,
-        HI.HOS_NAME,
-        HA.HOS_ACCOUNT_NO
+		HI.HOS_NAME,
+		HA.HOS_ACCOUNT_NO
 		FROM
 		BOARD B
 		LEFT JOIN
@@ -483,15 +485,18 @@
 		FILE_TABLE F ON
 		B.BOARD_NO = F.BOARD_NO
 		LEFT JOIN
-		BOARD_CATEGORY C ON B.CATEGORY_ID =
+		BOARD_CATEGORY C ON
+		B.CATEGORY_ID =
 		C.CATEGORY_ID AND C.IS_ACTIVE = 'Y'
-        LEFT JOIN
-		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
 		LEFT JOIN
+		HOSPITAL_ACCOUNT HA ON B.HOS_ACCOUNT_NO = HA.HOS_ACCOUNT_NO
+		LEFT
+		JOIN
 		HOSPITAL_INFO HI ON HA.HOS_NO = HI.HOS_NO
 		WHERE
 		B.STATUS = 'Y'
-		AND B.BOARD_NO =
+		AND
+		B.BOARD_NO =
 		'B2015';
 
 	</select>

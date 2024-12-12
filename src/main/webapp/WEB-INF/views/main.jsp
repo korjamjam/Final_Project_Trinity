@@ -87,7 +87,8 @@
 			<div class="find">
 				<button class="findHos"
 					onclick="location.href='${pageContext.request.contextPath}/hospital/list'">병원찾기</button>
-				<button class="findPh">가까운 약국 찾기</button>
+				<button class="findPh"
+					onclick="location.href='${pageContext.request.contextPath}/community/main'">커뮤니티 바로가기</button>
 			</div>
 		</div>
 
@@ -113,21 +114,22 @@
 				</a>
 			</div>
 			<div class="icon">
-				<a href=""> <img
+				<a href="${pageContext.request.contextPath}/member/reservationconfirmation"> 
+					<img
 					src="${ pageContext.servletContext.contextPath }/resources/img/checkHistory.png"
 					alt="checkHistory">
-					<p>진료기록 확인</p>
+					<p>예약 확인</p>
 				</a>
 			</div>
 			<div class="icon">
-				<a href=""> <img
+				<a href="https://www.nhis.or.kr/nhis/index.do"> <img
 					src="${ pageContext.servletContext.contextPath }/resources/img/checkHealthChart.png"
 					alt="checkHealthChart">
 					<p>건강검진기록</p>
 				</a>
 			</div>
 			<div class="icon">
-				<a href=""> <img
+				<a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1"> <img
 					src="${ pageContext.servletContext.contextPath }/resources/img/reservationVaccine.png"
 					alt="reservationVaccine">
 					<p>백신예약</p>
@@ -162,8 +164,8 @@
 					<c:forEach var="notice" items="${latestNoticePosts}">
 						<div class="board_content-detail">
 							<div class="board_content1">
-								<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${notice.boardNo}">
-									${notice.boardTitle}
+								<a href="${pageContext.request.contextPath}/inquiry/inquiryDetail?ino=${notice.inquiryNo}">
+									${notice.inquiryTitle}
 								</a>
 							</div>
 							<div class="board_content2">${notice.enrollDate}</div>

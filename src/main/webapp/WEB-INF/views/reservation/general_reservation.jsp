@@ -35,8 +35,8 @@
 
     <!-- css -->
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reservation/general_reservation.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/custom_datepicker.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/reservation/general_reservation.css">
 
     <!-- jQuery -->
     <script 

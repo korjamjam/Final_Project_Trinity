@@ -42,13 +42,6 @@ public class BoardDao {
 
    
     /**
-     * 인기 게시글 목록을 조회합니다.
-     */
-    public ArrayList<Board> selectPopularList(SqlSessionTemplate sqlSession, Map<String, Object> params) {
-        return (ArrayList) sqlSession.selectList("boardMapper.selectPopularList", params);
-    }
-
-    /**
      * 특정 게시글의 상세 내용을 조회합니다.
      */
     public Board viewDetailPage(SqlSessionTemplate sqlSession, String bno) {
@@ -336,10 +329,9 @@ public class BoardDao {
 
 
 
-    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String ct) {
-        return sqlSession.selectList("boardMapper.getLatestPosts", ct);
+    public List<Board> getLatestBoardPosts(SqlSessionTemplate sqlSession, String ct) {
+        return sqlSession.selectList("boardMapper.getLatestBoardPosts", ct);
     }
-
 
 
 
