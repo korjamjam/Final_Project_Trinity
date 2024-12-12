@@ -77,8 +77,8 @@
     <result property="resTime" column="RES_TIME" />
 </resultMap>
 
-<!-- CommunityResultMap 정의 -->
-<resultMap id="CommunityResultMap" type="com.project.trinity.community.model.vo.Community">
+<!-- BoardResultMap 정의 -->
+<resultMap id="BoardResultMap" type="com.project.trinity.community.board.model.vo.Board">
     <result property="boardNo" column="BOARD_NO"/>
     <result property="boardType" column="BOARD_TYPE"/>
     <result property="boardTitle" column="BOARD_TITLE"/>
@@ -338,7 +338,7 @@
 
 
 <!-- 게시글 관리  페이지 -->
-<select id="getAllPosts" resultMap="CommunityResultMap">
+<select id="getAllPosts" resultMap="BoardResultMap">
     SELECT
         B.BOARD_NO,
         B.BOARD_TYPE,

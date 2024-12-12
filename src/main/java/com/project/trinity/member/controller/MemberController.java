@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.trinity.community.model.service.CommunityService;
-import com.project.trinity.community.model.vo.Community;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
 import com.project.trinity.healthreservation.service.HealthReservationService;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.EmailService;
@@ -54,7 +54,7 @@ public class MemberController {
     private final ReservationService reservationService;
     private final HealthReservationService healthReservationService;
     private final VaccineReservationService vaccineReservationService;
-    private final CommunityService boardService;
+    private final BoardService boardService;
 
     // 생성자 주입을 통해 의존성 주입
     @Autowired
@@ -64,7 +64,7 @@ public class MemberController {
             ReservationService reservationService,
             HealthReservationService healthReservationService,
             VaccineReservationService vaccineReservationService,
-            CommunityService boardService
+            BoardService boardService
     ) {
         this.memberService = memberService;
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
@@ -588,7 +588,7 @@ public class MemberController {
 	    }
 
 	    // 사용자 번호로 내가 쓴 게시글 조회
-	    List<Community> myposts = boardService.getPostsByUserNo(loginUser.getUserNo());
+	    List<Board> myposts = boardService.getPostsByUserNo(loginUser.getUserNo());
 	    model.addAttribute("myposts", myposts);
 
 	    return "account/mypost";

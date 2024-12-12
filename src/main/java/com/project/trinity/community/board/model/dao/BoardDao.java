@@ -1,4 +1,4 @@
-package com.project.trinity.community.model.dao;
+package com.project.trinity.community.board.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,16 +9,16 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.project.trinity.board.common.vo.BoardCategory;
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.vo.BoardFile;
-import com.project.trinity.community.model.vo.Comment;
-import com.project.trinity.community.model.vo.Like;
-import com.project.trinity.community.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.common.vo.PageInfo;
 
 @Repository
-public class CommunityDao {
+public class BoardDao {
 
     // 1. 게시글 관리
 
@@ -44,7 +44,7 @@ public class CommunityDao {
     /**
      * 특정 게시글의 상세 내용을 조회합니다.
      */
-    public Community viewDetailPage(SqlSessionTemplate sqlSession, String bno) {
+    public Board viewDetailPage(SqlSessionTemplate sqlSession, String bno) {
     	 System.out.println("다오 bno: " + bno);  
         return sqlSession.selectOne("boardMapper.viewDetailPage", bno);
     }
@@ -52,14 +52,14 @@ public class CommunityDao {
     /**
      * 새 게시글을 추가합니다.
      */
-    public int insertBoard(SqlSessionTemplate sqlSession, Community b) {
+    public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
         return sqlSession.insert("boardMapper.insertBoard", b);
     }
 
     /**
      * 기존 게시글을 수정합니다.
      */
-    public int updateBoard(SqlSessionTemplate sqlSession, Community b) {
+    public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
         return sqlSession.update("boardMapper.updateBoard", b);
     }
 
@@ -257,7 +257,7 @@ public class CommunityDao {
     /**
      * 페이징 처리를 적용하여 게시글 목록을 조회합니다.
      */
-    public ArrayList<Community> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
+    public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String sortType) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         return (ArrayList) sqlSession.selectList("boardMapper.selectList", sortType, rowBounds);
@@ -268,7 +268,7 @@ public class CommunityDao {
      * 특정 카테고리의 게시글 목록을 페이징 처리하여 조회합니다.
      * @param sortType 
      */
-    public ArrayList<Community> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi, String sortType) {
+    public ArrayList<Board> selectListByCategory(SqlSessionTemplate sqlSession, String categoryId, PageInfo pi, String sortType) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
         Map<String, Object> params = new HashMap<>();
@@ -279,11 +279,11 @@ public class CommunityDao {
         
         System.out.println("다오 ams for selectListByCategory: " + params);
         
-        List<Community> result = sqlSession.selectList("boardMapper.selectListByCategory", params);
+        List<Board> result = sqlSession.selectList("boardMapper.selectListByCategory", params);
         return new ArrayList<>(result);
     }
 
-    public List<Community> selectRecentPopularList(SqlSessionTemplate sqlSession, PageInfo pi) {
+    public List<Board> selectRecentPopularList(SqlSessionTemplate sqlSession, PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
         Map<String, Object> params = new HashMap<>();
@@ -307,7 +307,7 @@ public class CommunityDao {
         return sqlSession.selectOne("boardMapper.getNextBoard", bno);
     }
     
-    public List<Community> getPostsByUserNo(SqlSessionTemplate sqlSession, String userNo) {
+    public List<Board> getPostsByUserNo(SqlSessionTemplate sqlSession, String userNo) {
         return sqlSession.selectList("boardMapper.getPostsByUserNo", userNo);
     }
 
@@ -329,27 +329,27 @@ public class CommunityDao {
 
 
 
-    public List<Community> getLatestBoardPosts(SqlSessionTemplate sqlSession, String ct) {
+    public List<Board> getLatestBoardPosts(SqlSessionTemplate sqlSession, String ct) {
         return sqlSession.selectList("boardMapper.getLatestBoardPosts", ct);
     }
 
 
 
-	public List<Community> getPostsByHosNo(SqlSessionTemplate sqlSession, String hosNo) {
+	public List<Board> getPostsByHosNo(SqlSessionTemplate sqlSession, String hosNo) {
 		return sqlSession.selectList("boardMapper.getPostsByHosNo", hosNo);
 	}
 
 
 
 
-	public int insertBoardAC(SqlSessionTemplate sqlSession, Community b) {
+	public int insertBoardAC(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.insert("boardMapper.insertBoardAC", b);
 	}
 
 
 
 
-	public Community selectBoardAC(SqlSessionTemplate sqlSession, String bno) {
+	public Board selectBoardAC(SqlSessionTemplate sqlSession, String bno) {
 		return sqlSession.selectOne("boardMapper.selectBoardAC", bno);
 	}
 

@@ -1,4 +1,4 @@
-package com.project.trinity.community.model.service;
+package com.project.trinity.community.board.service;
 
 
 import java.util.ArrayList;
@@ -8,23 +8,23 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.trinity.board.common.vo.BoardCategory;
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.dao.CommunityDao;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.vo.BoardFile;
-import com.project.trinity.community.model.vo.Comment;
-import com.project.trinity.community.model.vo.Like;
-import com.project.trinity.community.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.dao.BoardDao;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.common.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CommunityServiceImpl implements CommunityService {
+public class BoardServiceImpl implements BoardService {
 
 	private final SqlSessionTemplate sqlSession;
-	private final CommunityDao boardDao;
+	private final BoardDao boardDao;
 
 	// 게시글 관련 메서드
 	@Override
@@ -44,20 +44,20 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public Community viewDetailPage(String bno) {
+	public Board viewDetailPage(String bno) {
 		 System.out.println("서비스impl bno: " + bno);  
 		return boardDao.viewDetailPage(sqlSession, bno);
 	}
 
 	@Override
-	public int insertBoard(Community b, String userNo) {
+	public int insertBoard(Board b, String userNo) {
 		b.setUserNo(userNo); // 작성자 설정
 		return boardDao.insertBoard(sqlSession, b);
 	}
 
 	@Transactional(rollbackFor = {Exception.class})
 	@Override
-	public int updateBoard(Community b, ArrayList<BoardFile> newFiles) {
+	public int updateBoard(Board b, ArrayList<BoardFile> newFiles) {
 	    // 1. 게시글 내용 수정
 	    int boardUpdateResult = boardDao.updateBoard(sqlSession, b);
 	    if (boardUpdateResult <= 0) {
@@ -219,17 +219,17 @@ public class CommunityServiceImpl implements CommunityService {
 
 
 	@Override
-	public List<Community> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
+	public List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
 	    return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
 	}
 	@Override
-	public List<Community> getLatestBoardPosts(String ct) {
+	public List<Board> getLatestBoardPosts(String ct) {
 		
 	    return boardDao.getLatestBoardPosts(sqlSession, ct);
 	}
 
 	@Override
-	public List<Community> selectRecentPopularList(PageInfo pi) {
+	public List<Board> selectRecentPopularList(PageInfo pi) {
 		// 실시간 인기 게시글 목록을 조회
 		return boardDao.selectRecentPopularList(sqlSession, pi);
 	}
@@ -263,7 +263,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
-	public List<Community> getPostsByUserNo(String userNo) {
+	public List<Board> getPostsByUserNo(String userNo) {
 	    return boardDao.getPostsByUserNo(sqlSession, userNo);
 	}
 
@@ -281,17 +281,17 @@ public class CommunityServiceImpl implements CommunityService {
 	    }
 
 	@Override
-	public List<Community> getPostsByHosNo(String hosNo) {
+	public List<Board> getPostsByHosNo(String hosNo) {
 		return boardDao.getPostsByHosNo(sqlSession, hosNo);
 	}
 
 	@Override
-	public int insertBoardAC(Community b) {
+	public int insertBoardAC(Board b) {
 		return boardDao.insertBoardAC(sqlSession, b);
 	}
 
 	@Override
-	public Community selectBoardAC(String bno) {
+	public Board selectBoardAC(String bno) {
 		return boardDao.selectBoardAC(sqlSession, bno);
 	}
 

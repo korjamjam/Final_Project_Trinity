@@ -1,4 +1,4 @@
-package com.project.trinity.community.model.vo;
+package com.project.trinity.community.board.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Community {
+public class Board {
 
     private String boardNo;               // 게시글 번호
     private int boardType;                // 게시글 유형(일반 : 1 / 사진 : 2)

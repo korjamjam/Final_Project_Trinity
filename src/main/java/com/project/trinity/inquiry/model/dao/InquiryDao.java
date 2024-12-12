@@ -8,8 +8,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.vo.Community;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.inquiry.model.vo.Inquiry;
 
 @Repository
@@ -47,7 +47,7 @@ public class InquiryDao {
         return sqlSession.selectOne("inquiryMapper.selectInquiryDetail", ino);
     }
 
-	public List<Community> getLatestInquiryPosts(SqlSessionTemplate sqlSession, String ct) {
+	public List<Board> getLatestInquiryPosts(SqlSessionTemplate sqlSession, String ct) {
 		 return sqlSession.selectList("inquiryMapper.getLatestInquiryPosts", ct);
 	}
 	

@@ -1,7 +1,7 @@
 package com.project.trinity.inquiry.model.controller;
 
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.board.common.vo.Template;
+import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.inquiry.model.service.InquiryService;
 import com.project.trinity.inquiry.model.vo.Inquiry;
 import com.project.trinity.member.model.vo.Member;

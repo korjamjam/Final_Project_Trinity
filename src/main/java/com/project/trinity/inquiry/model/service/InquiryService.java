@@ -2,8 +2,8 @@ package com.project.trinity.inquiry.model.service;
 
 import java.util.List;
 
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.vo.Community;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.inquiry.model.vo.Inquiry;
 
 
@@ -19,6 +19,6 @@ public interface InquiryService {
 
 	Inquiry viewDetailPageWithCount(String ino);
 
-	List<Community> getLatestInquiryPosts(String ct);
+	List<Board> getLatestInquiryPosts(String ct);
    
 }

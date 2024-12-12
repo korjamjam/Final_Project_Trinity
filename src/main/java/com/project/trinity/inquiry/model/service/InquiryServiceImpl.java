@@ -7,8 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.vo.Community;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.inquiry.model.dao.InquiryDao;
 import com.project.trinity.inquiry.model.vo.Inquiry;
 
@@ -48,7 +48,7 @@ public class InquiryServiceImpl implements InquiryService {
         return inquiryDao.getListCount(sqlSession, categoryId);  // DAO 호출
     }
     @Override
-	public List<Community> getLatestInquiryPosts(String ct) {
+	public List<Board> getLatestInquiryPosts(String ct) {
 		
 	    return inquiryDao.getLatestInquiryPosts(sqlSession, ct);
 	}

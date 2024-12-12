@@ -1,4 +1,4 @@
-package com.project.trinity.board.common.vo;
+package com.project.trinity.community.board.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,37 +1,37 @@
-package com.project.trinity.community.model.service;
+package com.project.trinity.community.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.project.trinity.board.common.vo.BoardCategory;
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.vo.BoardFile;
-import com.project.trinity.community.model.vo.Comment;
-import com.project.trinity.community.model.vo.Like;
-import com.project.trinity.community.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.common.vo.PageInfo;
 
-public interface CommunityService {
+public interface BoardService {
 
     // 1. 게시글 관련 메서드
     int selectListCount(); // 전체 게시글 수 조회
     int getListCount(String categoryId); // 특정 카테고리 게시글 수 조회
-    List<Community> selectRecentPopularList(PageInfo pi); // 실시간 인기 게시글 목록 조회
-    List<Community> selectListByCategory(String categoryId, PageInfo pi, String sortType); // 카테고리별 게시글 목록 조회
+    List<Board> selectRecentPopularList(PageInfo pi); // 실시간 인기 게시글 목록 조회
+    List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType); // 카테고리별 게시글 목록 조회
 	int selectCountCategoryList(String type);
-    Community viewDetailPage(String bno); // 특정 게시글 상세 조회
+    Board viewDetailPage(String bno); // 특정 게시글 상세 조회
     int increaseCount(String bno); // 게시글 조회수 증가
-    int insertBoard(Community b, String userNo); // 새 게시글 추가
-    int updateBoard(Community b, ArrayList<BoardFile> fileList); // 게시글 수정
+    int insertBoard(Board b, String userNo); // 새 게시글 추가
+    int updateBoard(Board b, ArrayList<BoardFile> fileList); // 게시글 수정
     int deleteBoard(String bno); // 게시글 삭제
     int adminDeleteBoard(String bno); // 관리자에 의한 게시글 삭제
     int restoreBoard(String bno); // 삭제된 게시글 복구
     String getCategoryNameById(String categoryId); // 카테고리 ID로 카테고리 이름 조회
     String getPreviousBoard(String bno); // 이전 게시글 조회
     String getNextBoard(String bno); // 다음 게시글 조회
-    List<Community> getPostsByUserNo(String userNo); // 특정 사용자의 게시글 조회
-    List<Community> getLatestBoardPosts(String ct); // 최신 게시글 목록 조회
-    List<Community> getPostsByHosNo(String hosNo); // 특정 병원의 게시글 조회
+    List<Board> getPostsByUserNo(String userNo); // 특정 사용자의 게시글 조회
+    List<Board> getLatestBoardPosts(String ct); // 최신 게시글 목록 조회
+    List<Board> getPostsByHosNo(String hosNo); // 특정 병원의 게시글 조회
 
     // 2. 파일 관련 메서드
     int insertFile(BoardFile bf); // 첨부파일 추가
@@ -62,9 +62,9 @@ public interface CommunityService {
     int saveAnswer(MedAnswer ans); // 답변 저장
     
 
-	int insertBoardAC(Community b);
+	int insertBoardAC(Board b);
 
-	Community selectBoardAC(String bno);
+	Board selectBoardAC(String bno);
 
 	int insertFileAC(BoardFile bf);
 

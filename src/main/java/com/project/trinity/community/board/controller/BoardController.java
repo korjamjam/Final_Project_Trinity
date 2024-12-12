@@ -1,7 +1,9 @@
-package com.project.trinity.community.model.controller;
+package com.project.trinity.community.board.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,27 +31,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.project.trinity.board.common.vo.BoardCategory;
-import com.project.trinity.board.common.vo.PageInfo;
-import com.project.trinity.board.common.vo.Template;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.service.CommunityService;
-import com.project.trinity.community.model.vo.BoardFile;
-import com.project.trinity.community.model.vo.Comment;
-import com.project.trinity.community.model.vo.Like;
-import com.project.trinity.community.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.Like;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Comment;
+import com.project.trinity.community.board.service.BoardService;
+import com.project.trinity.community.common.vo.Template;
+import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.member.model.vo.MedicalField;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.service.MemberService;
 
 @Controller
 @RequestMapping("/community")
-public class CommunityController {
-    private final CommunityService boardService;
+public class BoardController {
+    private final BoardService boardService;
     private final MemberService memberService;
 
     @Autowired
-    public CommunityController(CommunityService boardService, MemberService memberService) {
+    public BoardController(BoardService boardService, MemberService memberService) {
         this.boardService = boardService;
         this.memberService = memberService; // 초기화
     }
@@ -74,7 +76,7 @@ public class CommunityController {
 	    PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 페이징 계산
 
 	 // 게시글 목록 조회, 실시간 인기글 동시 구현, 셀렉트박스 정렬
-	 		List<Community> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
+	 		List<Board> boardList = boardService.selectListByCategory(categoryId, pi, sortType);
 	    // 모델에 데이터 추가
 	    m.addAttribute("categoryId", categoryId);
 	    m.addAttribute("categoryName", categoryName);
@@ -116,7 +118,7 @@ public class CommunityController {
 	    System.out.println("Received bno: " + bno);
 
 	    // 현재 게시글 조회
-	    Community b = boardService.viewDetailPage(bno);
+	    Board b = boardService.viewDetailPage(bno);
 
 	    List<MedAnswer> ans = boardService.getAnswersByBoardNo(bno);
 	    
@@ -146,11 +148,11 @@ public class CommunityController {
 	    }
 	    // 이전 글 번호 조회 후 상세 정보 조회
 	    String prevBno = boardService.getPreviousBoard(bno);
-	    Community prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
+	    Board prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
 
 	    // 다음 글 번호 조회 후 상세 정보 조회
 	    String nextBno = boardService.getNextBoard(bno);
-	    Community nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
+	    Board nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
 
 	    // 카테고리 목록 조회 (드롭다운 메뉴용)
 	    List<BoardCategory> categories = boardService.getCategories();
@@ -170,7 +172,7 @@ public class CommunityController {
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@PostMapping("/write")
-	public String insertBoard(Community b,
+	public String insertBoard(Board b,
 	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
 	        Model m) {
@@ -238,7 +240,7 @@ public class CommunityController {
 	    System.out.println("의료진 답글 Board No: " + bno);
 	    
 	    // 게시글 정보 가져오기
-	    Community b = boardService.viewDetailPage(bno);
+	    Board b = boardService.viewDetailPage(bno);
 	    
 	    // 첨부파일 리스트 가져오기
 	    List<BoardFile> fileList = boardService.getFileList(bno);
@@ -340,7 +342,7 @@ public class CommunityController {
 	@GetMapping("/edit")
 	public String editBoardPage(@RequestParam("bno") String bno, Model m) {
 		// 게시글 정보 조회
-		Community b = boardService.viewDetailPage(bno);
+		Board b = boardService.viewDetailPage(bno);
 		System.out.println("boardNo: " + bno);
 
 		// 첨부파일 목록 조회
@@ -376,7 +378,7 @@ public class CommunityController {
 	
 	// 수정 완료 처리
 	@PostMapping("/update")
-	public String updateBoard(Community b,
+	public String updateBoard(Board b,
 			@RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 			@RequestParam(value = "upfiles", required = false) List<MultipartFile> newFiles, HttpSession session,
 			Model m) {

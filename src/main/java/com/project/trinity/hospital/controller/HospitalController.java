@@ -30,12 +30,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.project.trinity.board.common.vo.Template;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.vo.Community;
-import com.project.trinity.community.model.service.CommunityService;
-import com.project.trinity.community.model.vo.BoardFile;
-import com.project.trinity.community.model.vo.MedAnswer;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.board.service.BoardService;
+import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -54,7 +53,7 @@ public class HospitalController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
 	private final ReservationService reservationService;
-	private final CommunityService boardService;
+	private final BoardService boardService;
 	
 	
 	
@@ -63,7 +62,7 @@ public class HospitalController {
 			MemberService memberService, 
 			BCryptPasswordEncoder bcryptPasswordEncoder,
 			ReservationService reservationService,
-			CommunityService boardService) {
+			BoardService boardService) {
 	    this.hospitalService = hospitalService;
 	    this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
@@ -490,7 +489,7 @@ public class HospitalController {
 	    }
 
 	    // 사용자 번호로 내가 쓴 게시글 조회
-	    List<Community> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosAcNo());
+	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosAcNo());
 	    m.addAttribute("myposts", myposts);
 
 	    return "hospital_detail/hospital_account_my_post";
@@ -498,7 +497,7 @@ public class HospitalController {
 
 	// showSummernote 후에 작성완료 버튼 클릭하면 작동
 	@RequestMapping("/account/myPost/write/enroll")
-	public String insertBoardHosAccount(@ModelAttribute Community b,
+	public String insertBoardHosAccount(@ModelAttribute Board b,
 	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
 	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
 	        Model m) {
@@ -573,7 +572,7 @@ public class HospitalController {
 		    System.out.println("Received bno: " + bno);
 
 		    // 현재 게시글 조회
-		    Community b = boardService.selectBoardAC(bno);
+		    Board b = boardService.selectBoardAC(bno);
 		    if (b == null) {
 		        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
 		        return "/common/errorPage";
@@ -595,11 +594,11 @@ public class HospitalController {
 		    }
 		    // 이전 글 번호 조회 후 상세 정보 조회
 		    String prevBno = boardService.getPreviousBoard(bno);
-		    Community prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
+		    Board prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
 
 		    // 다음 글 번호 조회 후 상세 정보 조회
 		    String nextBno = boardService.getNextBoard(bno);
-		    Community nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
+		    Board nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
 
 		    // 카테고리 목록 조회 (드롭다운 메뉴용)
 		    List<BoardCategory> categories = boardService.getCategories();

@@ -8,7 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.project.trinity.community.model.vo.Community;
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.member.model.vo.Member;
 import com.project.trinity.member.model.vo.Rankup;
@@ -117,7 +117,7 @@ public class AdminDao {
     }
     
   //-------------------------------게시글 관리-------------------------------
-    public List<Community> getAllPosts(SqlSessionTemplate sqlSession) {
+    public List<Board> getAllPosts(SqlSessionTemplate sqlSession) {
         return sqlSession.selectList("adminMapper.getAllPosts");
     }
     
