@@ -36,9 +36,19 @@
 			</script>
 
 			<!-- Header Section -->
-			<header>
-				<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
-			</header>
+			 <c:choose>
+				<c:when test="${not empty loginHosAccount }">
+					<header>
+						<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+					</header>
+				</c:when>
+				<c:otherwise>
+					<header>
+						<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
+					</header>
+				</c:otherwise>
+			 </c:choose>
+			
 
 			<main id="main-content">
 				<!-- Sidebar Menu -->

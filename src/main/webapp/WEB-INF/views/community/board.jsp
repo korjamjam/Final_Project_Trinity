@@ -27,10 +27,19 @@
     console.log("Sort Type in JSP: ${sortType}");
 
 		</script>
-	<!-- 헤더 -->
-	<header id="headerSection">
-		<%@ include file="/WEB-INF/views/common/main_header.jsp"%>
-	</header>
+	<!-- Header Section -->
+	<c:choose>
+		<c:when test="${not empty loginHosAccount }">
+			<header>
+				<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+			</header>
+		</c:when>
+		<c:otherwise>
+			<header>
+				<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
+			</header>
+		</c:otherwise>
+	 </c:choose>
 
 	<main id="mainContent">
 		<div class="empty-space"></div>
