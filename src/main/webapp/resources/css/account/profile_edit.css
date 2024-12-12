@@ -1,174 +1,177 @@
 /* 기본 스타일 */
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
 }
 
 /* 레이아웃 전체 스타일 */
 .layout-container {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px; /* 사이드바와 컨텐츠 사이의 간격 */
-    padding: 20px;
-    box-sizing: border-box;
+	display: flex;
+	max-width: 1200px;
+	margin: 0 auto;
+	gap: 20px; /* 사이드바와 컨텐츠 사이의 간격 */
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 /* 사이드바 스타일 */
 .profile-sidemenu {
-    flex: 0 0 200px; /* 고정 폭 설정 */
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+	flex: 0 0 200px; /* 고정 폭 설정 */
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 10px;
 }
 
 /* 메인 컨텐츠 스타일 */
 .profile-container {
-    flex: 1;
-    max-width: 500px; /* 정보 수정 칸의 최대 너비를 고정 */
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    margin: 0 auto; /* 가운데 정렬 */
+	flex: 1;
+	max-width: 500px; /* 정보 수정 칸의 최대 너비를 고정 */
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #f0f0f0;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	margin: 0 auto; /* 가운데 정렬 */
 }
 
 /* 타이틀 스타일 */
 .profile-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #8DCE4E;
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 1.5rem;
+	color: #8DCE4E;
 }
 
 /* 프로필 사진 스타일 */
 .profile-picture {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 40px;
-    position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 40px;
+	position: relative;
 }
 
 .profile-picture img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
 }
 
 .upload-button {
-    background-color: #8CCF4E;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.8rem;
+	background-color: #8CCF4E;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 0.8rem;
 }
 
 #profile-upload {
-    display: none; /* 파일 입력을 숨김 */
+	display: none; /* 파일 입력을 숨김 */
 }
 
 /* 입력 그룹 스타일 */
 .input-group {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
 }
 
 .input-group label {
-    flex: 0 0 100%;
-    margin-bottom: 5px;
-    font-size: 1rem;
+	flex: 0 0 100%;
+	margin-bottom: 5px;
+	font-size: 1rem;
 }
 
 .input-group input {
-    flex: 1 1 auto;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 100%;
+	flex: 1 1 auto;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 1rem;
+	width: 100%;
 }
 
 .input-group input:disabled {
-    background-color: #f9f9f9;
-    color: #666;
-    border-color: #ddd;
-    cursor: not-allowed;
+	background-color: #f9f9f9;
+	color: #666;
+	border-color: #ddd;
+	cursor: not-allowed;
 }
 
 /* 버튼 스타일 */
 .password-change {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 15px 0 10px;
-    background-color: #e0e0e0;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	margin: 15px 0 10px;
+	background-color: #e0e0e0;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
 }
 
 form .password-change {
-    background-color: #ff6b6b; /* 기존 버튼 색상 */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
+	background-color: #ff6b6b; /* 기존 버튼 색상 */
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
 }
 
 form .password-change:hover {
-    background-color: #e63e3e;
+	background-color: #e63e3e;
 }
-
 
 .submit-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #8CCF4E;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 10px 0 0;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	background-color: #8CCF4E;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	margin: 10px 0 0;
 }
+
 .edit-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+	display: block;
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	background-color: #007BFF;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 textarea[name="biography"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    resize: none;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 1rem;
+	resize: none;
 }
-
