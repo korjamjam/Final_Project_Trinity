@@ -696,7 +696,7 @@
 
 	<select id="getPostsByUserNo" parameterType="string"
 		resultMap="boardResult">
-		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS,
+		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS, CATEGORY_ID,
 		STATUS
 		FROM BOARD
 		WHERE USER_NO = #{userNo}
