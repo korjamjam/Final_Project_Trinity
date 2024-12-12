@@ -39,7 +39,7 @@
 			const boardNo = "${b.boardNo}";
 			const categoryId = "${b.categoryId}"; // categoryId 값을 JavaScript 변수로 전달
 			const loginUserNo = "${loginHosAccount != null ? loginHosAccount.hosAcNo : ''}";
-			const loginUserId = "${loginHosAccount != null ? loginUser.hosId : ''}";
+			const loginUserId = "${loginHosAccount != null ? loginHosAccount.hosId : ''}";
 			
 		</script>
 

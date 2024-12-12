@@ -66,6 +66,8 @@ public interface BoardService {
 
 	Board selectBoardAC(String bno);
 
+	int insertFileAC(BoardFile bf);
+
 
 
 

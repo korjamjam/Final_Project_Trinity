@@ -31,14 +31,24 @@
 				const contextPath = "${pageContext.servletContext.contextPath}";
 				const boardNo = "${b.boardNo}";
 				const categoryId = "${b.categoryId}";  // categoryId 값을 JavaScript 변수로 전달
-				const loginUserNo = "${loginUser != null ? loginUser.userNo : ''}";
-				const loginUserId = "${loginUser != null ? loginUser.userId : ''}";
+				const loginUserNo = "${loginUser != null ? loginUser.userNo : b.hosAcNo}";
+				const loginUserId = "${loginUser != null ? loginUser.userId : b.hosName}";
 			</script>
 
 			<!-- Header Section -->
-			<header>
-				<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
-			</header>
+			 <c:choose>
+				<c:when test="${not empty loginHosAccount }">
+					<header>
+						<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
+					</header>
+				</c:when>
+				<c:otherwise>
+					<header>
+						<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
+					</header>
+				</c:otherwise>
+			 </c:choose>
+			
 
 			<main id="main-content">
 				<!-- Sidebar Menu -->
