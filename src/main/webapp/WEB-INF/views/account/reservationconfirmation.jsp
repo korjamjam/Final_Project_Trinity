@@ -58,6 +58,9 @@
 							</div>
 							<button class="cancel-btn" onclick="cancelReservation('${reservation.resNo}')">예약 취소</button>
 						</div>
+						<br><br>
+						<hr>
+						<br><br>
 					</c:forEach>
 
 
