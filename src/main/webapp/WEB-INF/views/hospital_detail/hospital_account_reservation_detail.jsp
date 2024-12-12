@@ -57,16 +57,6 @@
                 <th>증상</th>
                 <td>${myReservation.resContent}</td>
             </tr>
-            <tr>
-                <th>예약상태</th>
-                <td>
-                    <select>
-                        <option value="예약완료">예약완료</option>
-                        <option value="확인중">확인중</option>
-                        <option value="진료완료">진료완료</option>
-                    </select>
-                </td>
-            </tr>
         </table>
     </div>
 </div>

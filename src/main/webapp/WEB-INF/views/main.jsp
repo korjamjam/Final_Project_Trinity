@@ -279,10 +279,10 @@
 		<!-- information -->
 		<div class="inform">
 			<div class="inform_title">상담 및 안내</div>
-			<div class="inform_content">상담/문의</div>
-			<div class="inform_content">국민제안</div>
-			<div class="inform_content">칭찬해요/속상해요</div>
-			<div class="inform_content">자주묻는 질문</div>
+			<div class="inform_content" onclick="location.href='${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04'">공지사항</div>
+			<div class="inform_content" onclick="location.href='${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT05'">알림판</div>
+			<div class="inform_content" onclick="location.href='${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT06'">FAQ</div>
+			<div class="inform_content" onclick="location.href='${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT07'">Q&A</div>
 			<div class="inform_content">고객센터(1577-0000)</div>
 		</div>
 

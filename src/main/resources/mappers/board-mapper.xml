@@ -53,6 +53,8 @@
     SELECT *
     FROM (
         SELECT
+        	HI.HOS_NAME,
+        	B.HOS_ACCOUNT_NO,
             b.BOARD_NO,
             b.BOARD_TITLE,
             b.BOARD_VIEWS,
@@ -77,6 +79,8 @@
         FROM BOARD b
         LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID
         LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+        LEFT JOIN HOSPITAL_ACCOUNT HA ON HA.HOS_ACCOUNT_NO = B.HOS_ACCOUNT_NO
+        LEFT JOIN HOSPITAL_INFO HI ON HI.HOS_NO = HA.HOS_NO
         WHERE b.STATUS = 'Y'
         <if test="categoryId != null">
             AND b.CATEGORY_ID = #{categoryId}

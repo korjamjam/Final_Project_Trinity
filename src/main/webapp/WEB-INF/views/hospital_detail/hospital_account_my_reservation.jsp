@@ -34,10 +34,6 @@
                     <span>예약일: ${myRes.resDate}</span>
                 </p>
                 <p class="time-style">${myRes.resTime}</p>
-                <p>
-                    <span>예약상태:</span>
-                    <span class="status pending">대기</span>
-                </p>
             </a>
             </c:forEach>
         </div>

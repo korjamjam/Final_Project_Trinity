@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctoring Admin Header</title>
 
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/admin/admin_header_style.css">
 </head>
 <body>
@@ -24,7 +23,7 @@
             <a href="${pageContext.servletContext.contextPath}/hospital/account/doctor">의사관리</a>
             <a href="${pageContext.servletContext.contextPath}/hospital/account/myHospital">병원관리</a>
             <a href="${pageContext.servletContext.contextPath}/hospital/account/myReservation">예약관리</a>
-            <a href="${pageContext.servletContext.contextPath}/hospital/account/post">게시글관리</a>
+            <a href="${pageContext.servletContext.contextPath}/hospital/account/myPost">게시글관리</a>
         </nav>
         <div class="login-menu">
             <div class="right-rect"></div>
