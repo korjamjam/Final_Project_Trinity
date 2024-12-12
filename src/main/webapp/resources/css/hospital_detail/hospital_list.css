@@ -113,19 +113,16 @@ body{
     height: 120px;
     animation: spin 2s linear infinite;
 }
+.hospitalList_list_wrapper2{
+    width: 90%;
+}
+.hospitalList_order_wrapper{
+    width: 90%;
+}
 
 @keyframes spin {
 0% { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
-}
-
-@media (min-width: 425px) {
-    .hospitalList_list_wrapper2{
-        width: 90%;
-    }
-    .hospitalList_order_wrapper{
-        width: 90%;
-    }
 }
 
 @media (min-width: 768px) {
