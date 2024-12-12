@@ -31,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.service.BoardService;
