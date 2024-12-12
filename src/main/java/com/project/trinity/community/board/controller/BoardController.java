@@ -177,11 +177,6 @@ public class BoardController {
 	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
 	        Model m) {
 
-	    System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
-	    System.out.println("-------------------------");
-	    System.out.println("allowDownload : " + allowDownload);
-	    System.out.println("-------------------------");
-	    System.out.println("insert b : " + b);
 	    // 로그인 사용자 확인 -> 인터셉터
 	    Member loginUser = (Member) session.getAttribute("loginUser");
 

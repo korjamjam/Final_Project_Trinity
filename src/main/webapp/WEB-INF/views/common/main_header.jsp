@@ -54,7 +54,7 @@
                         <div class="dropdown">
                             <a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
                             <div class="dropdown-content">
-                               <a href="${pageContext.request.contextPath}/community/main">인기 게시글</a>
+                               <a href="${pageContext.request.contextPath}/community/main">실시간 인기글</a>
 
                                 <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT01"
                                     id="free">자유게시판</a>

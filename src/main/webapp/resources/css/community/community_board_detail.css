@@ -228,8 +228,9 @@
 	text-align: right;
 	color: #888;
 }
-.board-content{
-	min-height: 200px;
+.board-content {
+    min-height: 200px;
+    line-height: 1.6; /* 줄 간격을 1.6배로 설정 (값은 필요에 따라 조정) */
 }
 
 .board-content-wrapper {
@@ -321,9 +322,11 @@
 }
 
 .board-detail {
-	width: 100%;
-	margin-bottom: 2vh;
-	border-bottom: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 2vh; /* 테이블 외부 여백 */
+    border-bottom: 1px solid #ddd;
+    border-spacing: 0 10px; /* 열 간격: 0, 행 간격: 10px */
+    border-collapse: separate; /* border-spacing을 적용하려면 필요 */
 }
 
 

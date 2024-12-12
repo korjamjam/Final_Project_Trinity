@@ -94,17 +94,6 @@ public class VaccineReservationServiceImpl implements VaccineReservationService 
         System.out.println("DEBUG: getReservationsByUserNo 호출됨");
         System.out.println("DEBUG: 사용자 번호 - " + userNo);
 
-        List<VaccineReservation> reservations = sqlSession.selectList("vaccineMapper.selectVaccineReservations", userNo);
-
-        if (reservations == null || reservations.isEmpty()) {
-            System.out.println("DEBUG: 백신 예약 데이터가 없습니다.");
-        } else {
-            System.out.println("DEBUG: 백신 예약 데이터 개수 - " + reservations.size());
-            for (VaccineReservation reservation : reservations) {
-                System.out.println("DEBUG: 예약 정보 - " + reservation);
-            }
-        }
-
-        return reservations;
+        return vaccineReservationDao.getReservationsByUserNo(sqlSession, userNo);
     }
 }

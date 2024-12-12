@@ -36,8 +36,8 @@
 
             <!-- 백신 예약 데이터 처리 -->
             <c:choose>
-                <c:when test="${not empty vaccineReservations}">
-                    <c:forEach var="vaccineReservation" items="${vaccineReservations}">
+                <c:when test="${not empty reservations}">
+                    <c:forEach var="vaccineReservation" items="${reservations}">
                         <div class="reservation-item">
                             <h3>백신 예약 번호: ${vaccineReservation.vresNo}</h3>
                             <div class="input-group">
@@ -68,13 +68,19 @@
                                 <label>특이 사항</label>
                                 <textarea name="resContent" disabled>${vaccineReservation.resContent}</textarea>
                             </div>
-                            <!-- 수정 활성화/저장 버튼 -->
-                            <button type="button" class="edit-button">수정 활성화</button>
-                            <!-- 예약 변경 요청 버튼 -->
-                            <button type="button" class="password-change">예약변경요청</button>
+                            <button class="cancel-btn" onclick="cancelReservation('${reservation.resNo}')">예약 취소</button>
                         </div>
                         <hr />
                     </c:forEach>
+                    <script>
+						function cancelReservation(resNo) {
+							if (confirm("예약을 취소하시겠습니까?")) {
+								// 예약 취소 요청 전송
+								console.log("취소 요청 - 예약 번호: " + resNo); // 디버깅용
+								location.href = `${pageContext.request.contextPath}/reservation/cancel?resNo=` + resNo;
+							}
+						}
+					</script>
                 </c:when>
                 <c:otherwise>
                     <div class="reservation-item">

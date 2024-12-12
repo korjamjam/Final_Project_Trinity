@@ -49,46 +49,44 @@
 	</resultMap>
 
 
-
-	<select id="selectListByCategory" parameterType="map"
-		resultMap="boardResult">
-		SELECT *
-		FROM (
-		SELECT
-		b.BOARD_NO,
-		b.BOARD_TITLE,
-		b.BOARD_VIEWS,
-		b.CATEGORY_ID,
-		bc.CATEGORY_NAME,
-		m.USER_NAME AS BOARD_WRITER,
-		TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
-		ROW_NUMBER() OVER
-		(
-		ORDER BY
-		<choose>
-			<when test="sortType == '조회수'">
-				b.BOARD_VIEWS DESC
-			</when>
-			<when test="sortType == '작성일'">
-				b.ENROLL_DATE DESC
-			</when>
-			<otherwise>
-				b.BOARD_NO DESC
-			</otherwise>
-		</choose>
-		) AS RN
-		FROM BOARD b
-		LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID =
-		bc.CATEGORY_ID <!-- 카테고리 테이블 조인 -->
-		LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO <!-- 작성자 정보 조인 -->
-
-		WHERE b.STATUS = 'Y'
-		<if test="categoryId != null">
-			AND b.CATEGORY_ID = #{categoryId}
-		</if>
-		) subquery
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
-	</select>
+<select id="selectListByCategory" parameterType="map" resultMap="boardResult">
+    SELECT *
+    FROM (
+        SELECT
+            b.BOARD_NO,
+            b.BOARD_TITLE,
+            b.BOARD_VIEWS,
+            b.CATEGORY_ID,
+            bc.CATEGORY_NAME,
+            m.USER_NAME AS BOARD_WRITER,
+            TO_CHAR(b.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+            ROW_NUMBER() OVER (
+                ORDER BY
+                <choose>
+                    <when test="sortType == '조회수'">
+                        b.BOARD_VIEWS DESC
+                    </when>
+                    <when test="sortType == '작성일'">
+                        b.ENROLL_DATE DESC
+                    </when>
+                    <otherwise>
+                        b.BOARD_NO DESC
+                    </otherwise>
+                </choose>
+            ) AS RN
+        FROM BOARD b
+        LEFT JOIN BOARD_CATEGORY bc ON b.CATEGORY_ID = bc.CATEGORY_ID
+        LEFT JOIN MEMBER m ON b.USER_NO = m.USER_NO
+        WHERE b.STATUS = 'Y'
+        <if test="categoryId != null">
+            AND b.CATEGORY_ID = #{categoryId}
+        </if>
+        <if test="categoryId == null">
+            AND b.CATEGORY_ID IN ('CAT01', 'CAT02', 'CAT03') <!-- 자유게시판, 메디톡, 이벤트게시판 -->
+        </if>
+    ) subquery
+    WHERE RN BETWEEN #{startRow} AND #{endRow}
+</select>
 
 
 
@@ -237,25 +235,25 @@
 
 	<!-- 게시글 추가 -->
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO BOARD (
-		USER_NO,
-		BOARD_TITLE,
-		BOARD_CONTENT,
-		CATEGORY_ID
-		)
-		VALUES (
-		#{userNo},
-		#{boardTitle},
-		#{boardContent},
-		#{categoryId} <!-- 카테고리 
-			ID 수정 -->
-		)
-		<selectKey keyProperty="boardNo"
-			resultType="java.lang.String" order="AFTER">
-			SELECT 'B' ||
-			SEQ_BOARD_NO.CURRVAL FROM DUAL
-		</selectKey>
-	</insert>
+    <selectKey keyProperty="boardNo" resultType="java.lang.String" order="BEFORE">
+        SELECT 'B' || TO_CHAR(SEQ_BOARD_NO.NEXTVAL) FROM DUAL
+    </selectKey>
+    INSERT INTO BOARD (
+        BOARD_NO,
+        USER_NO,
+        BOARD_TITLE,
+        BOARD_CONTENT,
+        CATEGORY_ID
+    )
+    VALUES (
+        #{boardNo},
+        #{userNo},
+        #{boardTitle},
+        #{boardContent},
+        #{categoryId}
+    )
+</insert>
+
 
 	<!-- 병원 이벤트 게시글 추가 -->
 	<insert id="insertBoardAC" parameterType="Board">
@@ -698,7 +696,7 @@
 
 	<select id="getPostsByUserNo" parameterType="string"
 		resultMap="boardResult">
-		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS,
+		SELECT BOARD_NO, BOARD_TITLE, ENROLL_DATE, BOARD_VIEWS, CATEGORY_ID,
 		STATUS
 		FROM BOARD
 		WHERE USER_NO = #{userNo}

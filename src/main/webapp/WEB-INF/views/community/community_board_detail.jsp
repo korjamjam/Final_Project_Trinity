@@ -36,7 +36,7 @@
 			</script>
 
 			<!-- Header Section -->
-			 <c:choose>
+			<c:choose>
 				<c:when test="${not empty loginHosAccount }">
 					<header>
 						<jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
@@ -47,8 +47,8 @@
 						<%@ include file="/WEB-INF/views/common/main_header.jsp" %>
 					</header>
 				</c:otherwise>
-			 </c:choose>
-			
+			</c:choose>
+
 
 			<main id="main-content">
 				<!-- Sidebar Menu -->
@@ -70,7 +70,7 @@
 									onclick="deleteBoard('${b.boardNo}', '${b.categoryId}')">삭제</button>
 							</c:if>
 						</div>
-						
+
 						<!-- 오른쪽 섹션: 목록 보기, 이전글, 다음글 -->
 						<div class="right-section">
 							<!-- 목록 보기 버튼 -->
@@ -112,13 +112,10 @@
 											<!-- 컨트롤러에서 넘겨준 첫 번째 카테고리 이름 -->
 											<div class="dropdown-arrow">▼</div>
 										</div>
-
 										<div class="option-list" id="community-options">
 											<c:forEach var="category" items="${categories}">
-												<div class="option-item" data-url="${category.categoryId}">
-													<!-- CATEGORY_ID를 URL로 사용한다면 category.categoryId 사용 -->
-													${category.categoryName}
-													<!-- CATEGORY_NAME을 표시 -->
+												<div class="option-item" data-url="${category.categoryId}">				
+													${category.categoryName}									
 												</div>
 											</c:forEach>
 										</div>
@@ -129,11 +126,12 @@
 							<tr>
 								<td class="board-title">${b.boardTitle}</td>
 								<td class="board-user-info">
-									<span class="${sessionScope.loginUser != null && sessionScope.loginUser.userId == b.boardWriter ? 'highlight-user' : ''}">
+									<span
+										class="${sessionScope.loginUser != null && sessionScope.loginUser.userId == b.boardWriter ? 'highlight-user' : ''}">
 										${b.boardWriter} </span>
 								</td>
 								<td class="board-meta">
-									<span>${b.enrollDate}</span> | 
+									<span>${b.enrollDate}</span> |
 									<span>조회 ${b.boardViews}</span>
 								</td>
 							</tr>

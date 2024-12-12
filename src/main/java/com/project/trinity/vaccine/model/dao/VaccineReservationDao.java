@@ -47,4 +47,11 @@ public class VaccineReservationDao {
 		VaccineReservation vaccineReservation = sqlSession.selectOne("vaccineMapper.selectReservation", resNo);
 		return vaccineReservation;
 	}
+
+	public List<VaccineReservation> getReservationsByUserNo(SqlSessionTemplate sqlSession, String userNo) {
+		List<VaccineReservation> reservations = sqlSession.selectList("vaccineMapper.selectVaccineReservations", userNo);
+
+        System.out.println(reservations);
+		return reservations;
+	}
 }

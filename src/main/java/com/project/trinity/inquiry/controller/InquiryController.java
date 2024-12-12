@@ -89,8 +89,9 @@ public class InquiryController {
         m.addAttribute("inq", inq);               // 현재 게시글 정보
 //        m.addAttribute("prevBoard", prevBoard);       // 이전 게시글
 //        m.addAttribute("nextBoard", nextBoard);       // 다음 게시글
-        m.addAttribute("doctorName", loginUser != null ? loginUser.getUserName() : null); // 의사 이름
-
+        m.addAttribute("categoryId", inq.getCategoryId());
+        m.addAttribute("categoryName", inq.getCategoryName());
+       
         return "inquiry/inquiry_board_detail"; // 상세 페이지로 이동
     }
 
