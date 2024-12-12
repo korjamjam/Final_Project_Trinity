@@ -30,7 +30,7 @@
 }
 
 #reservation_btn{
-    background-color: #2D5EFF;
+    background-color: #8CCF4E;
     width: 80px;
     height: 30px;
     border-radius: 5px;
@@ -342,10 +342,6 @@
     font-weight: bold;
     text-align: center;
     padding: 10px;
-}
-
-.health_reservation1_tos > table td{
-    
 }
 
 

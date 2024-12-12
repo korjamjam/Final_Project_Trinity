@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/account/sign_up.css">
 <link
@@ -47,50 +48,11 @@
 					id="userPwdConfirm" name="userPwdConfirm" placeholder="비밀번호 재입력"
 					required>
 			</div>
-
-            <!-- 병원 명
-            <div class="input-group">
-				<label for="userName">병원명</label> <input type="text" id="userName"
-					name="hosName" placeholder="이름 입력" required>
-			</div> -->
-
-			<!-- 병원 주소 입력
-			<div class="input-group">
-				<label for="sample6_postcode">우편번호</label> <input type="text"
-					id="sample6_postcode" name="postcode" placeholder="우편번호" required>
-				<button type="button" class="address-button"
-					onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-			</div>
-			<div class="input-group">
-				<label for="sample6_address">주소</label> <input type="text"
-					id="sample6_address" name="hosAddress" placeholder="주소" required>
-			</div>
-			<div class="input-group">
-				<label for="sample6_detailAddress">상세주소</label> <input type="text"
-					id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
-			</div>
-
-			<div class="input-group">
-				<input type="text" id="sample6_extraAddress" name="extraAddress"
-					placeholder="참고항목">
-			</div> -->
-
-            <!-- 병원 번호 입력
-			<div class="input-group">
-				<label for="phone">대표 번호</label> <input type="text" id="phone"
-					name="hosTel" placeholder="전화번호 입력" required>
-			</div> -->
-
-            <!-- 병원 개업일
-            <div class="input-group">
-				<label for="userName">개업일</label> <input type="text" id="userName"
-					name="hosYear" placeholder="개업일 입력">
-			</div> -->
 			
 			<!--병원 연결-->
             <div class="input-group">
 				<label for="userName">병원 코드 입력</label> <input type="text" id="userName"
-					name="hosNo" placeholder="등록된 병원일 경우 코드 입력">
+					name="hosNo" placeholder="병원 코드 입력 미등록 병원은 관리자에게 문의" required>
 			</div>
 
             <!--병원 소개-->
@@ -101,10 +63,13 @@
 
             <!--응급실 운영 여부-->
             <div class="input-group">
-                <label for="hosInfo">응급실 여부</label>
-                    운영<input type="radio" id="hosInfo" name="hosOnduty" value="Y" placeholder="병원 정보 입력">  
-                    
-                    미운영 <input type="radio" id="hosInfo" name="hosOnduty" value="N" placeholder="병원 정보 입력">
+                <label for="hosOnduty">응급실 운영</label>
+                <label>
+                    운영<input type="radio" name="hosOnduty" value="Y" placeholder="병원 정보 입력">  
+                </label>
+                <label>
+                    미운영 <input type="radio" name="hosOnduty" value="N" placeholder="병원 정보 입력">
+                </label>
             </div>
 
             <!--주차장 관련-->
