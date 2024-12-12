@@ -42,11 +42,11 @@
             <!-- 종합예약 메뉴 -->
             <div class="sidebar-item">
                 <div class="sidebar-main">
-                    <a href="${pageContext.request.contextPath}/reservation/form">종합예약</a> <!-- 종합예약 링크 -->
+                    <a href="${pageContext.request.contextPath}/hospital/list">종합예약</a> <!-- 종합예약 링크 -->
                     <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button> <!-- 서브메뉴 토글 버튼 -->
                 </div>
                 <div class="sidebar-submenu"> <!-- 종합예약의 서브메뉴 -->
-                    <a href="${pageContext.request.contextPath}/reservation/form" onclick="checkLogin()">진료예약</a>
+                    <a href="${pageContext.request.contextPath}/hospital/list" onclick="checkLogin()">진료예약</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/reservationSearch">예약확인</a>
                 </div>
@@ -93,9 +93,9 @@
                 </div>
                 <div class="sidebar-submenu">
                     <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">공지사항</a>
-                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT05">알림판</a>
-                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT06">FAQ</a>
-                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT07">Q&A</a>
+                    <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT05">알림판</a>
+                    <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT06">FAQ</a>
+                    <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT07">Q&A</a>
                 </div>
             </div>
              

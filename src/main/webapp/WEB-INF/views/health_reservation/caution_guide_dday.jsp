@@ -22,9 +22,8 @@
             </div>
             <div class="caution_guide_select">
                 <select name="" id="caution_guide_select" onchange="window.open(value,'_self');">
-                    <option value="" disabled hidden selected>주의사항</option>
                     <option value="${pageContext.request.contextPath}/healthReservation/guideEven">건강검진 전날</option>
-                    <option value="${pageContext.request.contextPath}/healthReservation/guideDday">건강검진 당일</option>
+                    <option value="" disabled hidden selected>건강검진 당일</option>
                     <option value="${pageContext.request.contextPath}/healthReservation/guideEndo">위/대장내시경</option>
                     <option value="${pageContext.request.contextPath}/healthReservation/guideCt">CT/MRI</option>
                 </select>
@@ -101,7 +100,7 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-                <button id="reservation_btn" onclick="location.href='health.reservation1'">
+                <button id="reservation_btn" onclick="location.href='${pageContext.request.contextPath}/healthReservation/reservation1'">
                     예약하기
                 </button>
             </div>

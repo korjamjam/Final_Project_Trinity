@@ -31,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
 import com.project.trinity.community.board.model.vo.BoardFile;
 import com.project.trinity.community.board.model.vo.MedAnswer;
 import com.project.trinity.community.board.service.BoardService;
@@ -215,13 +216,18 @@ public class HospitalController {
 		HospitalInfo h = hospitalService.selectHospitalInfo(hosAccount.getHosNo());
 		System.out.println(hosAccount);
 		System.out.println(h);
+		if(h == null) {
+			m.addAttribute("message", "잘못된 병원 코드입니다.");
+			return "hospital_detail/hospital_account_sign_up";
+		} 
+		
 		if(h.getHosId() == null) {
 			
 			String userPwdConfirm = request.getParameter("userPwdConfirm");
 
 		    if (userPwdConfirm == null || !hosAccount.getHosPwd().equals(userPwdConfirm)) {
 		        m.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-		        return "redirect:/hospital/account/sign_up";
+		        return "hospital_detail/hospital_account_sign_up";
 		    }
 		    
 		    hosAccount.setHosPwd(bcryptPasswordEncoder.encode(hosAccount.getHosPwd()));
@@ -231,14 +237,14 @@ public class HospitalController {
 		    System.out.println(hosAccount.getHosAcNo());
 		    if (result > 0) {
 		        m.addAttribute("message", "회원가입에 성공했습니다.");
-		        return "redirect:/hospital/account/login";
+		        return "hospital_detail/hospital_account_login";
 		    } else {
 		        m.addAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
-		        return "redirect:/hospital/account/sign_up";
+		        return "hospital_detail/hospital_account_sign_up";
 		    }
 		} else {
 			m.addAttribute("message", "이미 등록된 병원입니다.");
-			return "redirect:/hospital/account/sign_up";
+			return "hospital_detail/hospital_account_sign_up";
 		}
 	}
 	

@@ -76,7 +76,7 @@
 						<input type="text" id="sample6_postcode" name="postcode"
 							placeholder="우편번호">
 						<button type="button" class="address-button"
-							onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+							onclick="sample6_execDaumPostcode()">우편번호</button>
 					</div>
 					<div class="health_reservation1_content input_address">
 						<input type="text" id="sample6_address" name="address"
@@ -98,10 +98,13 @@
                     </div>
                     <div class="use_tos">
                         <p> 개인정보 수집 및 이용에 동의 하십니까?</p>
-                        <label for="">
-                            <input type="radio" name="use_tos_ans1" value="yes">동의함
-                            <input type="radio" name="use_tos_ans1" value="no">동의 안함
+                        <label>
+                            <input type="radio" name="use_tos_ans1" value="yes"> 동의함
                         </label>
+                        <label>
+                            <input type="radio" name="use_tos_ans1" value="no"> 동의 안함
+                        </label>
+                        
                     </div>
                     <p>
                         ※ 건강검진예약 서비스는 본 서비스의 원활한 활용을 위해 필요한 이용자의 신상정보를 수집할 수 있습니다.
@@ -136,10 +139,13 @@
                     </p>
                     <div class="use_tos">
                         <p>국가건강검진 대상 조회에 동의하십니까?</p>
-                        <label for="">
-                            <input type="radio" name="use_tos_ans2" value="yes">동의함
-                            <input type="radio" name="use_tos_ans2" value="no">동의 안함
+                        <label>
+                            <input type="radio" name="use_tos_ans2" value="yes"> 동의함
                         </label>
+                        <label>
+                            <input type="radio" name="use_tos_ans2" value="no"> 동의 안함
+                        </label>
+                        
                     </div>
                 </div>
                 <div class="reservation_btn_area">

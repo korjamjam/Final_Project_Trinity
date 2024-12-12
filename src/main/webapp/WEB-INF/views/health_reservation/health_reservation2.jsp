@@ -99,10 +99,12 @@
                         7. 결과 수령 방법
                     </div>
                     <div class="health_reservation1_checkbox">
-                        <label for="">
+                        <label>
                             <input type="radio" name="reservation_user_result" value="이메일"> 이메일
-                            <input type="radio" name="reservation_user_result" value="직접 수령"> 직접수령(주소로 배송)
                         </label>
+                        <label>
+                            <input type="radio" name="reservation_user_result" value="직접 수령"> 직접수령(주소로 배송)
+                        </label>                        
                     </div>
                 </div>
                 <div class="reservation_btn_area">
