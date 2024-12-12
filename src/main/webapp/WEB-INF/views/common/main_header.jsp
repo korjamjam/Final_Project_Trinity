@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
+                            <a>커뮤니티</a>
                             <div class="dropdown-content">
                                <a href="${pageContext.request.contextPath}/community/main">실시간 인기글</a>
 
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">고객문의</a>
+                            <a>고객문의</a>
                             <div class="dropdown-content">
                                 <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">공지사항</a>
                                 <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT05">알림판</a>
