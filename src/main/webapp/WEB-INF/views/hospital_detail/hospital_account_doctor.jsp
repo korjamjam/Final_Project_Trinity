@@ -10,8 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>병원 의사 관리</title>
 <link rel="stylesheet"
-	href="${pageContext.servletContext.contextPath}/resources/css/common/default.css">
-<link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/admin/member_management.css">
 
 </head>
@@ -45,12 +43,6 @@
 					<a href="doctor/detail?userId=${doctor.userId}" class="member-item">
 						<p>
 							<span>${doctor.userName}</span>
-							<span>
-								<c:choose>
-									<c:when test="${doctor.medKey == '1'}">의사</c:when>
-									<c:otherwise>일반</c:otherwise>
-								</c:choose>
-							</span>
 							<span>등록일: <fmt:formatDate value="${doctor.enrollDate}" pattern="yyyy-MM-dd" /></span>
 						</p>
 						<p>${doctor.phone}</p>

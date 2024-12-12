@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>기업 회원 사이드바</title>
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
 <link rel="stylesheet"
 	href="${pageContext.servletContext.contextPath}/resources/css/admin/admin_sidebar.css">
 </head>
@@ -21,25 +20,25 @@
 		<div class="hamburger-sidebar-menu">
 			<!-- 회원관리 -->
 			<div class="sidebar-item">
-				<a href="doctor">
+				<a href="${pageContext.servletContext.contextPath}/hospital/account/doctor">
 					<p>의사관리</p>
 				</a>
 			</div>
 			<!-- 병원관리 -->
 			<div class="sidebar-item">
-				<a href="myHospital">
+				<a href="${pageContext.servletContext.contextPath}/hospital/account/myHospital">
 					<p>병원관리</p>
 				</a>
 			</div>
 			<!-- 예약관리 -->
 			<div class="sidebar-item">
-				<a href="myReservation">
+				<a href="${pageContext.servletContext.contextPath}/hospital/account/myReservation">
 					<p>예약관리</p>
 				</a>
 			</div>
 			<!-- 게시글관리 -->
 			<div class="sidebar-item">
-				<a href="post">
+				<a href="${pageContext.servletContext.contextPath}/hospital/account/myPost">
 					<p>게시글관리</p>
 				</a>
 			</div>

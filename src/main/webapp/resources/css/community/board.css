@@ -97,7 +97,8 @@
 }
 
 .notice-table th.title-header,
-.notice-table td.title {
+.notice-table td.title,
+.notice-table td.author {
     width: 55%;
     /* 명확히 너비 설정 */
     text-overflow: ellipsis;
