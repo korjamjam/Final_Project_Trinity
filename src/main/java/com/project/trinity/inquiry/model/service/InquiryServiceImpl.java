@@ -52,5 +52,17 @@ public class InquiryServiceImpl implements InquiryService {
 		
 	    return inquiryDao.getLatestInquiryPosts(sqlSession, ct);
 	}
+    @Override
+    public String getPreviousBoard(String ino) {
+        // 이전 게시글 번호 조회
+        return inquiryDao.getPreviousBoard(sqlSession, ino);
+    }
+
+    @Override
+    public String getNextBoard(String ino) {
+        // 다음 게시글 번호 조회
+        return inquiryDao.getNextBoard(sqlSession, ino);
+    }
+       
 }
 

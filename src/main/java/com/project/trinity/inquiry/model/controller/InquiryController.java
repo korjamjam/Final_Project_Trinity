@@ -1,5 +1,6 @@
 package com.project.trinity.inquiry.model.controller;
 
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.inquiry.model.service.InquiryService;
@@ -44,8 +45,7 @@ public class InquiryController {
 			int listCount = inquiryService.getListCount(categoryId); // 전체 게시물 수 조회
 			PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 공통 페이지네이션 유틸리티 사용
 			List<Inquiry> inquiryList = inquiryService.selectListByCategory(categoryId, pi, sortType); // 데이터 조회
-
-			// 모델에 데이터 추가
+			
 			m.addAttribute("categoryId", categoryId);
 			m.addAttribute("sortType", sortType);
 			m.addAttribute("inquiryList", inquiryList);
@@ -72,23 +72,25 @@ public class InquiryController {
             m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
             return "/common/errorPage";
         }
-
+        System.out.println("Received inq: " + inq);
         // 로그인 사용자 정보 가져오기
         Member loginUser = (Member) session.getAttribute("loginUser");
 
-//        // 이전 글 번호와 다음 글 번호 조회
-//        String prevBno = inquiryService.getPreviousBoard(bno);
-//        Inquiry prevBoard = (prevBno != null) ? inquiryService.viewDetailPageWithCount(prevBno) : null;
-//
-//        String nextBno = inquiryService.getNextBoard(bno);
-//        Inquiry nextBoard = (nextBno != null) ? inquiryService.viewDetailPageWithCount(nextBno) : null;
+        // 이전 글 번호와 다음 글 번호 조회
+        String prevBno = inquiryService.getPreviousBoard(ino);
+        Inquiry prevBoard = (prevBno != null) ? inquiryService.viewDetailPageWithCount(prevBno) : null;
 
- 
+        String nextBno = inquiryService.getNextBoard(ino);
+        Inquiry nextBoard = (nextBno != null) ? inquiryService.viewDetailPageWithCount(nextBno) : null;
+
+        System.out.println("Prev board number: " + prevBno);
+        System.out.println("Next board number: " + nextBno);
+
 
         // 모델에 데이터 추가
         m.addAttribute("inq", inq);               // 현재 게시글 정보
-//        m.addAttribute("prevBoard", prevBoard);       // 이전 게시글
-//        m.addAttribute("nextBoard", nextBoard);       // 다음 게시글
+        m.addAttribute("prevBoard", prevBoard);       // 이전 게시글
+        m.addAttribute("nextBoard", nextBoard);       // 다음 게시글
         m.addAttribute("categoryId", inq.getCategoryId());
         m.addAttribute("categoryName", inq.getCategoryName());
        

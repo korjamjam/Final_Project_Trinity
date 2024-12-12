@@ -16,7 +16,6 @@ public interface BoardService {
     // 1. 게시글 관련 메서드
     int selectListCount(); // 전체 게시글 수 조회
     int getListCount(String categoryId); // 특정 카테고리 게시글 수 조회
-    List<Board> selectRecentPopularList(PageInfo pi); // 실시간 인기 게시글 목록 조회
     List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType); // 카테고리별 게시글 목록 조회
 	int selectCountCategoryList(String type);
     Board viewDetailPage(String bno); // 특정 게시글 상세 조회

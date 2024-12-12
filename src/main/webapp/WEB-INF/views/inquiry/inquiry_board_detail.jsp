@@ -61,7 +61,7 @@
 							<c:if test="${loginUser != null && loginUser.userId eq inq.inquiryWriter}">
 								<!-- 수정 버튼 -->
 								<button class="white-button"
-									onclick="location.href='${pageContext.request.contextPath}/community/edit?bno=${inq.inquiryNo}'">수정</button>
+									onclick="location.href='${pageContext.request.contextPath}/inquiry/edit?bno=${inq.inquiryNo}'">수정</button>
 								<!-- 삭제 버튼 -->
 								<button class="white-button"
 									onclick="deleteBoard('${inq.inquiryNo}', '${inq.categoryId}')">삭제</button>
@@ -71,20 +71,20 @@
 						<!-- 오른쪽 섹션: 목록 보기, 이전글, 다음글 -->
 						<div class="right-section">
 							<!-- 목록 보기 버튼 -->
-							<a href="${pageContext.request.contextPath}/community/main?categoryId=${inq.categoryId}"
+							<a href="${pageContext.request.contextPath}/inquiry/main?categoryId=${inq.categoryId}"
 								class="round-button"> 목록 보기 </a>
 							<div class="nav-links-group">
 								<!-- 이전글 -->
 								<c:choose>
 									<c:when test="${prevBoard != null}">
-										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${prevBoard.boardNo}"
+										<a href="${pageContext.request.contextPath}/inquiry/inquiryDetail?ino=${prevBoard.inquiryNo}"
 											class="nav-text"> &laquo; 이전글 </a>
 									</c:when>
 								</c:choose>
 								<!-- 다음글 -->
 								<c:choose>
 									<c:when test="${nextBoard != null}">
-										<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${nextBoard.boardNo}"
+										<a href="${pageContext.request.contextPath}/inquiry/inquiryDetail?ino=${nextBoard.inquiryNo}"
 											class="nav-text"> 다음글 &raquo; </a>
 									</c:when>
 								</c:choose>
@@ -137,23 +137,6 @@
 								<%@ include file="/WEB-INF/views/common/attached_files.jsp" %>
 							</c:if>
 
-							<div>
-								<!-- 메디톡 카테고리에서만 답변하기 버튼 표시 -->
-								<c:if test="${categoryName eq '메디톡' && loginUser != null && loginUser.medKey != null}">
-									<div class="request-content">
-										<p class="request-message">
-											<span class="request-title"> <span
-													class="highlighted-user-id">${loginUser.userId}</span>님,
-											</span><br> 정보를 공유해 주세요.
-										</p>
-
-										<!-- 답변 버튼 -->
-										<a class="round-button" href="#"
-											onclick="handleAnswerClick('${pageContext.request.contextPath}/community/medAnswer?bno=${inq.inquiryNo}')">
-											답변하기 </a>
-									</div>
-								</c:if>
-							</div>
 							<div id="answer-list">
 								<c:forEach var="a" items="${ans}">
 									<div class="board-content answer-item">

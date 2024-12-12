@@ -1,6 +1,5 @@
 package com.project.trinity.community.board.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,284 +22,264 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
-	private final SqlSessionTemplate sqlSession;
-	private final BoardDao boardDao;
+    private final SqlSessionTemplate sqlSession;
+    private final BoardDao boardDao;
 
-	// 게시글 관련 메서드
-	@Override
-	public int selectListCount() {
-		return boardDao.selectListCount(sqlSession);
-	}
+    // 게시글 관련 메서드
+    @Override
+    public int selectListCount() {
+        // 게시글 총 개수 조회
+        return boardDao.selectListCount(sqlSession);
+    }
 
-	// 조회수 증가 메서드
+    @Override
+    public int selectCountCategoryList(String type) {
+        // 특정 카테고리 게시글 개수 조회
+        return boardDao.selectCountCategoryList(sqlSession, type);
+    }
+
+    @Override
+    public Board viewDetailPage(String bno) {
+        // 게시글 상세보기
+        return boardDao.viewDetailPage(sqlSession, bno);
+    }
+
+    @Override
+    public int insertBoard(Board b, String userNo) {
+        // 게시글 작성
+        b.setUserNo(userNo); // 작성자 설정
+        return boardDao.insertBoard(sqlSession, b);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public int updateBoard(Board b, ArrayList<BoardFile> newFiles) {
+        // 게시글 수정 (첨부파일 포함)
+        int boardUpdateResult = boardDao.updateBoard(sqlSession, b);
+        if (boardUpdateResult <= 0) {
+            throw new RuntimeException("게시글 수정에 실패했습니다.");
+        }
+
+        // 기존 파일 삭제 후 새 파일 등록
+        if (newFiles != null && !newFiles.isEmpty()) {
+            boardDao.deleteAllFilesByBoardNo(sqlSession, b.getBoardNo());
+            for (BoardFile bf : newFiles) {
+                int fileInsertResult = boardDao.insertFile(sqlSession, bf);
+                if (fileInsertResult < 0) {
+                    throw new RuntimeException("첨부파일 등록에 실패했습니다.");
+                }
+            }
+        }
+        return boardUpdateResult;
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public int adminDeleteBoard(String bno) {
+        // 관리자 권한으로 게시글 삭제 (댓글 및 파일도 삭제)
+        boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
+        boardDao.deleteCommentsByBoardNo(sqlSession, bno);
+        int boardDeleteResult = boardDao.adminDeleteBoard(sqlSession, bno);
+        if (boardDeleteResult <= 0) {
+            throw new RuntimeException("게시글 삭제에 실패했습니다.");
+        }
+        return boardDeleteResult;
+    }
+
+    @Override
+    public int deleteBoard(String bno) {
+        // 게시글 삭제
+        return boardDao.deleteBoard(sqlSession, bno);
+    }
+
+    // 첨부파일 관련 메서드
+    @Override
+    public int insertFile(BoardFile bf) {
+        // 첨부파일 등록
+        return boardDao.insertFile(sqlSession, bf);
+    }
+
+    @Override
+    public BoardFile getSingleFile(String fileNo) {
+        // 특정 첨부파일 조회
+        return boardDao.getSingleFile(sqlSession, fileNo);
+    }
+
+    @Override
+    public List<BoardFile> getFileList(String bno) {
+        // 게시글에 첨부된 파일 목록 조회
+        List<BoardFile> fileList = sqlSession.selectList("boardMapper.getFileList", bno);
+        return fileList;
+    }
+
+    @Override
+    public int deleteFile(String fileNo) {
+        // 첨부파일 삭제
+        return boardDao.deleteFile(sqlSession, fileNo);
+    }
+
+    @Override
+    public int deleteAllFilesByBoardNo(String bno) {
+        // 게시글에 첨부된 모든 파일 삭제
+        return boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
+    }
+
+    @Override
+    public int updateFileAllowDownload(BoardFile bf) {
+        // 첨부파일 다운로드 허용 여부 수정
+        return boardDao.updateFileAllowDownload(sqlSession, bf);
+    }
+
+    // 댓글 관련 메서드
+    @Override
+    public ArrayList<Comment> selectReply(String bno) {
+        // 게시글에 대한 댓글 조회
+        return boardDao.selectReply(sqlSession, bno);
+    }
+
+    @Override
+    public int insertComment(Comment r) {
+        // 댓글 작성
+        return boardDao.insertComment(sqlSession, r);
+    }
+
+    @Override
+    public int deleteComment(String commentNo) {
+        // 댓글 삭제
+        return boardDao.deleteComment(sqlSession, commentNo);
+    }
+
+    @Override
+    public int getLikeCount(String commentNo) {
+        // 댓글의 좋아요 개수 조회
+        return boardDao.getLikeCount(sqlSession, commentNo);
+    }
+
+    @Override
+    public int getDislikeCount(String commentNo) {
+        // 댓글의 싫어요 개수 조회
+        return boardDao.getDislikeCount(sqlSession, commentNo);
+    }
+
+    @Override
+    public Like getCurrentLikeState(String commentNo, String userNo) {
+        // 댓글에 대한 사용자의 좋아요/싫어요 상태 조회
+        return boardDao.getCurrentLikeState(sqlSession, commentNo, userNo);
+    }
+
+    @Override
+    public void updateLikeDislike(String commentNo, String userNo, int isLike) {
+        // 좋아요/싫어요 상태 업데이트
+        boardDao.updateLikeDislike(sqlSession, commentNo, userNo, isLike);
+    }
+
+    @Override
+    public void deleteLikeDislike(String commentNo, String userNo) {
+        // 좋아요/싫어요 상태 삭제
+        boardDao.deleteLikeDislike(sqlSession, commentNo, userNo);
+    }
+
+    @Override
+    public void insertLikeDislike(String commentNo, String userNo, int isLike) {
+        // 좋아요/싫어요 상태 삽입
+        boardDao.insertLikeDislike(sqlSession, commentNo, userNo, isLike);
+    }
+
+    @Override
+    public String getCategoryNameById(String categoryId) {
+        // 카테고리 ID로 카테고리명 조회
+        return boardDao.getCategoryNameById(sqlSession, categoryId);
+    }
+
+    @Override
+    public int getListCount(String categoryId) {
+        // 카테고리별 게시글 개수 조회
+        Integer count = sqlSession.selectOne("boardMapper.getListCount", categoryId);
+        return count == null ? 0 : count;
+    }
+
+    @Override
+    public List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
+        // 카테고리별 게시글 목록 조회
+        return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
+    }
+
+    @Override
+    public List<Board> getLatestBoardPosts(String ct) {
+        // 최신 게시글 목록 조회
+        return boardDao.getLatestBoardPosts(sqlSession, ct);
+    }
+
+ 
+    @Override
+    public List<BoardCategory> getCategories() {
+        // 카테고리 목록 조회
+        return boardDao.selectList(sqlSession);
+    }
+
+    @Override
+    public String getPreviousBoard(String bno) {
+        // 이전 게시글 번호 조회
+        return boardDao.getPreviousBoard(sqlSession, bno);
+    }
+
+    @Override
+    public String getNextBoard(String bno) {
+        // 다음 게시글 번호 조회
+        return boardDao.getNextBoard(sqlSession, bno);
+    }
+
+    @Override
+    public int restoreBoard(String bno) {
+        // 삭제된 게시글 복구
+        return boardDao.restoreBoard(sqlSession, bno);
+    }
+
+    @Override
+    public List<Board> getPostsByUserNo(String userNo) {
+        // 특정 사용자 작성 게시글 조회
+        return boardDao.getPostsByUserNo(sqlSession, userNo);
+    }
+
+    @Override
+    public List<MedAnswer> getAnswersByBoardNo(String bno) {
+        // 게시글에 달린 의학적 답변 조회
+        return boardDao.getAnswersByBoardNo(sqlSession, bno);
+    }
+
+    @Override
+    public int saveAnswer(MedAnswer ans) {
+        // 의학적 답변 저장
+        return boardDao.insertAnswer(sqlSession, ans);
+    }
+
+    @Override
+    public List<Board> getPostsByHosNo(String hosNo) {
+        // 특정 병원 작성 게시글 조회
+        return boardDao.getPostsByHosNo(sqlSession, hosNo);
+    }
+
+    @Override
+    public int insertBoardAC(Board b) {
+        // 게시글 AC(인증) 작성
+        return boardDao.insertBoardAC(sqlSession, b);
+    }
+
+    @Override
+    public Board selectBoardAC(String bno) {
+        // 게시글 AC(인증) 상세 조회
+        return boardDao.selectBoardAC(sqlSession, bno);
+    }
+
+    @Override
+    public int insertFileAC(BoardFile bf) {
+        // 게시글 AC(인증) 파일 첨부
+        return boardDao.insertFileAC(sqlSession, bf);
+    }
+
 	@Override
 	public int increaseCount(String bno) {
-		return boardDao.increaseCount(sqlSession, bno);
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
-	@Override
-	public int selectCountCategoryList(String type) {
-		return boardDao.selectCountCategoryList(sqlSession, type);
-	}
-
-	@Override
-	public Board viewDetailPage(String bno) {
-		 System.out.println("서비스impl bno: " + bno);  
-		return boardDao.viewDetailPage(sqlSession, bno);
-	}
-
-	@Override
-	public int insertBoard(Board b, String userNo) {
-		b.setUserNo(userNo); // 작성자 설정
-		return boardDao.insertBoard(sqlSession, b);
-	}
-
-	@Transactional(rollbackFor = {Exception.class})
-	@Override
-	public int updateBoard(Board b, ArrayList<BoardFile> newFiles) {
-	    // 1. 게시글 내용 수정
-	    int boardUpdateResult = boardDao.updateBoard(sqlSession, b);
-	    if (boardUpdateResult <= 0) {
-	        throw new RuntimeException("게시글 수정에 실패했습니다.");
-	    }
-
-	    // 2. 기존 파일 삭제 (첨부파일이 있을 경우)
-	    if (newFiles != null && !newFiles.isEmpty()) {
-	        // 기존 파일 삭제
-	        boardDao.deleteAllFilesByBoardNo(sqlSession, b.getBoardNo());
-	        
-	     // 새 파일 등록
-	        if (newFiles != null && !newFiles.isEmpty()) {
-	            for (BoardFile bf : newFiles) {
-	                int fileInsertResult = boardDao.insertFile(sqlSession, bf);
-	                if (fileInsertResult < 0) {
-	                    throw new RuntimeException("첨부파일 등록에 실패했습니다.");
-	                }
-	            }
-	        }
-
-	    }
-	    return boardUpdateResult; // 성공적으로 수정된 게시글 갯수 반환
-	}
-
-
-	@Transactional(rollbackFor = {Exception.class})
-	@Override
-	//boardService.deleteBoard
-	public int adminDeleteBoard(String bno) {
-	    // 첨부파일 삭제
-	    boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
-	   
-	    // 댓글 삭제 (예시로 댓글 삭제하는 메서드)
-	    boardDao.deleteCommentsByBoardNo(sqlSession, bno);
-	  
-
-	    // 게시글 삭제
-	    //boardDao.deleteBoard
-	    int boardDeleteResult = boardDao.adminDeleteBoard(sqlSession, bno);
-	    if (boardDeleteResult <= 0) {
-	        throw new RuntimeException("게시글 삭제에 실패했습니다.");
-	    }
- 
-
-	    // 모든 작업이 성공하면 성공적으로 처리
-	    return boardDeleteResult;
-	}
-	@Override
-	public int deleteBoard(String bno) {
-			return boardDao.deleteBoard(sqlSession, bno);
-	}
-
-
-	// 첨부파일 관련 메서드
-	@Override
-	public int insertFile(BoardFile bf) {
-		return boardDao.insertFile(sqlSession, bf);
-	}
-
-	@Override
-	public BoardFile getSingleFile(String fileNo) {
-		return boardDao.getSingleFile(sqlSession, fileNo);
-	}
-
-	@Override
-	public List<BoardFile> getFileList(String bno) {
-		List<BoardFile> fileList  = sqlSession.selectList("boardMapper.getFileList", bno);
-		if (fileList  != null) {
-			for (BoardFile file : fileList ) {
-				System.out.println("서비스impl 파일: " + file);
-			}
-		}
-		return fileList ;
-	}
-
-	@Override
-	public int deleteFile(String fileNo) {
-		return boardDao.deleteFile(sqlSession, fileNo);
-	}
-
-	@Override
-	public int deleteAllFilesByBoardNo(String bno) {
-		return boardDao.deleteAllFilesByBoardNo(sqlSession, bno);
-	}
-
-	@Override
-	public int updateFileAllowDownload(BoardFile bf) {
-		return boardDao.updateFileAllowDownload(sqlSession, bf);
-	}
-
-	// 댓글 관련 메서드
-	@Override
-	public ArrayList<Comment> selectReply(String bno) {
-		return boardDao.selectReply(sqlSession, bno);
-	}
-
-	@Override
-	public int insertComment(Comment r) {
-		return boardDao.insertComment(sqlSession, r);
-	}
-
-
-	@Override
-	public int deleteComment(String commentNo) {
-		return boardDao.deleteComment(sqlSession, commentNo);
-	}
-
-	@Override
-	public int getLikeCount(String commentNo) {
-		return boardDao.getLikeCount(sqlSession, commentNo);
-	}
-
-	@Override
-	public int getDislikeCount(String commentNo) {
-		return boardDao.getDislikeCount(sqlSession, commentNo); // 싫어요 처리
-	}
-
-	@Override
-	public Like getCurrentLikeState(String commentNo, String userNo) {
-		return boardDao.getCurrentLikeState(sqlSession, commentNo, userNo);
-	}
-
-	@Override
-	public void updateLikeDislike(String commentNo, String userNo, int isLike) {
-		// DAO의 updateLikeDislike 메서드 호출
-		boardDao.updateLikeDislike(sqlSession, commentNo, userNo, isLike);
-	}
-
-	@Override
-	public void deleteLikeDislike(String commentNo, String userNo) {
-		boardDao.deleteLikeDislike(sqlSession, commentNo, userNo);
-	}
-
-	@Override
-	public void insertLikeDislike(String commentNo, String userNo, int isLike) {
-		boardDao.insertLikeDislike(sqlSession, commentNo, userNo, isLike);
-	}
-
-	@Override
-	public String getCategoryNameById(String categoryId) {
-		return boardDao.getCategoryNameById(sqlSession, categoryId);
-	}
-
-	@Override
-	public int getListCount(String categoryId) {
-		// 'categoryId'를 사용하여 게시글의 총 개수를 가져오는 쿼리 실행
-		Integer count = sqlSession.selectOne("boardMapper.getListCount", categoryId);
-
-		// 쿼리 결과 확인
-		if (count == null) {
-			System.out.println("Query Result is null");
-			return 0; // null일 경우 0을 반환
-		} else {
-			System.out.println("Query Result: " + count);
-			return count;
-		}
-	}
-
-
-	@Override
-	public List<Board> selectListByCategory(String categoryId, PageInfo pi, String sortType) {
-	    return boardDao.selectListByCategory(sqlSession, categoryId, pi, sortType);
-	}
-	@Override
-	public List<Board> getLatestBoardPosts(String ct) {
-		
-	    return boardDao.getLatestBoardPosts(sqlSession, ct);
-	}
-
-	@Override
-	public List<Board> selectRecentPopularList(PageInfo pi) {
-		// 실시간 인기 게시글 목록을 조회
-		return boardDao.selectRecentPopularList(sqlSession, pi);
-	}
-
-	@Override
-	public List<BoardCategory> getCategories() {
-		return boardDao.selectList(sqlSession); // DB에서 카테고리 목록을 조회
-	}
-
-	@Override
-	public String getPreviousBoard(String bno) {
-	    // DAO에서 이전글의 게시글 번호 조회
-	    String prevBno = boardDao.getPreviousBoard(sqlSession, bno);
-	    System.out.println("이전 게시글 번호: " + prevBno);
-	    return prevBno;
-	}
-
-	@Override
-	public String getNextBoard(String bno) {
-	    // DAO에서 다음글의 게시글 번호 조회
-	    String nextBno = boardDao.getNextBoard(sqlSession, bno);
-	    System.out.println("다음 게시글 번호: " + nextBno);
-	    return nextBno;
-	}
-
-
-
-	@Override
-	public int restoreBoard(String bno) {
-	    return boardDao.restoreBoard(sqlSession, bno);
-	}
-	
-	@Override
-	public List<Board> getPostsByUserNo(String userNo) {
-	    return boardDao.getPostsByUserNo(sqlSession, userNo);
-	}
-
-
-
-	@Override
-	public List<MedAnswer> getAnswersByBoardNo(String bno) {
-	    return boardDao.selectAnswersByBoardNo(sqlSession, bno);
-	}
-
-	  @Override
-	    public int saveAnswer(MedAnswer ans) {
-		  System.out.println("서비스 Save Answer Debug: " + ans);
-	        return boardDao.insertAnswer(sqlSession, ans);
-	    }
-
-	@Override
-	public List<Board> getPostsByHosNo(String hosNo) {
-		return boardDao.getPostsByHosNo(sqlSession, hosNo);
-	}
-
-	@Override
-	public int insertBoardAC(Board b) {
-		return boardDao.insertBoardAC(sqlSession, b);
-	}
-
-	@Override
-	public Board selectBoardAC(String bno) {
-		return boardDao.selectBoardAC(sqlSession, bno);
-	}
-
-	@Override
-	public int insertFileAC(BoardFile bf) {
-		return boardDao.insertFileAC(sqlSession, bf);
-	}
-
-
-
-
 }

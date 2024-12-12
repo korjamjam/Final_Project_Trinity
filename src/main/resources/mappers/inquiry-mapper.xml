@@ -115,5 +115,37 @@
     WHERE ROWNUM &lt;= 3
     </select>
 
+	<select id="getPreviousBoard" parameterType="String"
+		resultType="String">
+		SELECT INQUIRY_NO
+		FROM (
+		SELECT INQUIRY_NO
+		FROM INQUIRY
+		WHERE
+		INQUIRY_NO &lt; #{ino}
+		 AND CATEGORY_ID = (SELECT CATEGORY_ID FROM INQUIRY WHERE INQUIRY_NO = #{ino})
+		AND STATUS = 'Y'
+		ORDER BY INQUIRY_NO DESC
+		)
+		WHERE
+		ROWNUM = 1
+	</select>
 
+	<select id="getNextBoard" parameterType="String"
+		resultType="String">
+		SELECT INQUIRY_NO
+		FROM (
+		SELECT INQUIRY_NO
+		FROM INQUIRY
+		WHERE
+		INQUIRY_NO &gt; #{ino}
+		 AND CATEGORY_ID = (SELECT CATEGORY_ID FROM INQUIRY WHERE INQUIRY_NO = #{ino})
+		AND STATUS = 'Y'
+		ORDER BY INQUIRY_NO ASC
+		)
+		WHERE ROWNUM
+		= 1
+	</select>
+
+	
 </mapper>

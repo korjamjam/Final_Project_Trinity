@@ -20,5 +20,8 @@ public interface InquiryService {
 	Inquiry viewDetailPageWithCount(String ino);
 
 	List<Board> getLatestInquiryPosts(String ct);
+
+	String getPreviousBoard(String ino); // 이전 게시글 조회
+    String getNextBoard(String ino); // 다음 게시글 조회
    
 }
