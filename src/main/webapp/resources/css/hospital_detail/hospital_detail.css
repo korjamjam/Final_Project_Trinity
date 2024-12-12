@@ -61,6 +61,7 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
 }
 
 .waitingLabel {
@@ -510,6 +511,9 @@ body{
 
     .hospital_detail_map{
         height: 400px;
+    }
+    .waitingNavi{
+        flex-direction: row;
     }
 
     /* 의사 리뷰 */
