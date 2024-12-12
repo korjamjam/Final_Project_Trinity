@@ -276,16 +276,19 @@ CREATE TABLE INQUIRY (
     INQUIRY_NO VARCHAR2(10) PRIMARY KEY,           -- 문의 고유 번호
     USER_NO VARCHAR2(10) NOT NULL,                -- 사용자 번호
     CATEGORY_ID VARCHAR2(10) NOT NULL,            -- 카테고리 ID
+    SUBCATEGORY_ID VARCHAR2(10),                  -- 하위 카테고리 ID
     INQUIRY_TITLE VARCHAR2(200) NOT NULL,         -- 문의 제목
     INQUIRY_CONTENT VARCHAR2(4000) NOT NULL,      -- 문의 내용
     ADMIN_REPLY VARCHAR2(4000),                   -- 관리자 답변
     STATUS CHAR(1) DEFAULT 'Y' NOT NULL CHECK (STATUS IN ('Y', 'N')), -- 상태 (Y: 활성, N: 비활성)
     ENROLL_DATE DATE DEFAULT SYSDATE,             -- 생성 날짜
     UPDATE_DATE DATE DEFAULT SYSDATE,             -- 수정 날짜
-    INQUIRY_VIEWS NUMBER(10) DEFAULT '0',     -- 조회수 (기본값: 0)
+    INQUIRY_VIEWS NUMBER(10) DEFAULT '0',         -- 조회수 (기본값: 0)
     FOREIGN KEY (USER_NO) REFERENCES MEMBER (USER_NO),     -- 사용자 참조 키
-    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID) -- 카테고리 참조 키
+    FOREIGN KEY (CATEGORY_ID) REFERENCES BOARD_CATEGORY (CATEGORY_ID), -- 카테고리 참조 키
+    FOREIGN KEY (SUBCATEGORY_ID) REFERENCES SUBCATEGORY (SUBCATEGORY_ID) -- 하위 카테고리 참조 키
 );
+
 
 
 
@@ -11157,127 +11160,6 @@ BEGIN
 END;
 /
 
-
--- BOARD 테이블 더미 데이터 생성
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B101', 1, 'U1', '연말연시 병원 운영 시간 안내 및 건강관리 유의사항', '안녕하세요. 저희 병원을 이용해 주시는 환자 여러분께 감사드립니다.
-연말연시 병원 운영 시간과 건강관리 유의사항에 대해 안내 드리고자 합니다.
-연말연시 운영 시간
-12월 24일(화): 오전 9시 - 오후 1시 (응급실 24시간 운영)
-12월 25일(수): 휴무 (응급실만 24시간 운영)
-12월 31일(화): 오전 9시 - 오후 3시
-1월 1일(수): 휴무 (응급실만 24시간 운영)
-1월 2일(목)부터 정상 운영
-건강관리 유의사항
-독감 예방접종: 아직 독감 예방접종을 하지 않으신 분들은 서둘러 접종하시기 바랍니다.
-실내 환기: 실내 활동이 늘어나는 계절, 주기적인 환기로 실내 공기질을 관리해 주세요.
-손 씻기: 감염병 예방을 위해 손 씻기를 생활화해 주세요.
-균형 잡힌 식사: 연말 모임이 많아지는 시기, 과식과 과음을 피하고 균형 잡힌 식사를 해주세요.
-충분한 수면: 피로 회복과 면역력 강화를 위해 충분한 수면을 취하세요.
-건강하고 행복한 연말연시 보내시기 바랍니다. 감사합니다.', SYSDATE, SYSDATE, '10', 'Y', '공지사항');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B105', 1, 'U1', '겨울철 건강 관리 및 응급실 이용 안내', '
-안녕하세요. 환자 여러분, 겨울철 건강 관리에 대한 중요성을 다시 한번 강조하고자 합니다.
-겨울철 건강 관리
-체온 유지: 추운 날씨에 체온을 잘 유지하는 것이 중요합니다. 외출 시 따뜻한 옷을 착용하고, 실내에서는 적절한 온도를 유지하세요.
-수분 섭취: 겨울철에도 충분한 수분을 섭취하여 탈수를 예방하세요. 따뜻한 차나 수프도 좋은 선택입니다.
-운동: 날씨가 추워도 가벼운 실내 운동이나 스트레칭을 통해 신체 활동을 유지하세요.
-응급실 이용 안내
-응급 상황 발생 시, 저희 병원의 응급실은 24시간 운영됩니다. 응급실 방문 시 다음 사항을 유의해 주세요:
-증상 기록: 방문 전에 증상을 간단히 정리해 오시면 진료에 도움이 됩니다.
-대기 시간: 응급실은 증상의 심각도에 따라 대기 시간이 달라질 수 있습니다. 양해 부탁드립니다.
-비상 연락처: 긴급 상황 발생 시, 119에 연락하여 도움을 요청하세요.
-여러분의 건강과 안전이 최우선입니다. 항상 주의 깊게 건강 관리하시기 바랍니다. 감사합니다. 제목: 새해 맞이 건강 검진 할인 이벤트 안내', SYSDATE, SYSDATE, '30', 'Y', '공지사항');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B109', 1, 'U19', '새해 맞이 이벤트 안내', '안녕하세요. 새해를 맞아 저희 병원에서는 특별한 건강 검진 할인 이벤트를 진행합니다!
-이벤트 내용
-기간: 2024년 1월 2일(목)부터 1월 31일(수)까지
-대상: 모든 성인 환자
-할인 혜택: 기본 건강 검진 패키지 20% 할인
-건강 검진의 중요성
-정기적인 건강 검진은 조기 발견과 예방의 첫걸음입니다. 아래와 같은 증상이 있으신 분들은 꼭 검진을 받으시길 권장합니다:
-지속적인 피로감
-체중 변화 (갑작스런 증가 또는 감소)
-소화 불량이나 복통
-건강은 소중한 자산입니다. 이번 기회를 통해 자신의 건강 상태를 점검하고, 더 나은 삶을 위해 노력해 보세요. 많은 참여 부탁드립니다! 감사합니다.', SYSDATE, SYSDATE, '50', 'Y', '공지사항');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B102', 1, 'U11', '병원 주소 이전 안내', '안녕하세요. 환자 여러분,
-저희 병원이 더 나은 서비스 제공을 위해 주소를 이전하게 되었습니다. 아래의 내용을 확인하시어 혼동 없으시길 바랍니다.
-새로운 주소
-이전 주소: [구주소 입력]
-새로운 주소: [신주소 입력]
-이전 일정
-이전 날짜: 2024년 1월 15일(월)
-이전 후 운영 시작일: 2024년 1월 16일(화)부터 정상 운영
-주의 사항
-이전 기간 동안 일부 진료 및 서비스에 제한이 있을 수 있습니다. 이 점 양해 부탁드립니다.
-새로운 위치는 대중교통 접근성이 좋으며, 주차 공간도 마련되어 있습니다.
-환자 여러분의 건강과 안전을 최우선으로 생각하며, 새로운 환경에서 더욱 향상된 서비스를 제공할 수 있도록 최선을 다하겠습니다. 많은 관심과 성원 부탁드립니다.
-감사합니다.', SYSDATE, SYSDATE, '5', 'Y', '알림판');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B106', 1, 'U16', '병원 주소 이전에 따른 진료 일정 변경 안내', '안녕하세요. 환자 여러분,
-저희 병원이 새로운 주소로 이전하게 되어, 이에 따른 진료 일정 변경을 안내드립니다. 환자 여러분의 양해를 부탁드립니다.
-새로운 주소
-이전 주소: [구주소 입력]
-새로운 주소: [신주소 입력]
-진료 일정 변경
-2024년 1월 14일(일): 마지막 진료일 (정상 운영)
-2024년 1월 15일(월): 이전 작업으로 인한 휴진
-2024년 1월 16일(화): 새로운 주소에서 정상 진료 시작
-추가 안내
-이전 기간 동안 전화 상담 및 예약은 가능합니다. 궁금하신 점이 있으시면 언제든지 연락 주시기 바랍니다.
-새로운 위치에 대한 자세한 정보는 저희 웹사이트에서 확인하실 수 있습니다.
-여러분의 건강을 위해 최선을 다하겠습니다. 감사합니다. ', SYSDATE, SYSDATE, '25', 'Y', '알림판');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B110', 1, 'U21', '병원 주소 이전 기념 이벤트 안내', '안녕하세요. 환자 여러분,
-저희 병원이 새로운 주소로 이전하는 것을 기념하여 특별 이벤트를 진행합니다! 많은 참여 부탁드립니다.
-이벤트 내용
-이벤트 기간: 2024년 1월 16일(화)부터 2월 15일(목)까지
-혜택: 새로 오신 환자분들께는 첫 진료 시 10% 할인 혜택을 드립니다.
-참여 방법
-새로운 주소로 방문하신 후, 접수 시 "주소 이전 이벤트"라고 말씀해 주세요.
-할인 혜택은 첫 진료에 한하여 적용됩니다.
-건강 관리 팁
-이벤트 참여와 함께 정기적인 건강 검진을 통해 자신의 건강 상태를 점검해 보세요. 조기 발견과 예방이 중요합니다!
-새로운 환경에서 더욱 향상된 서비스를 제공할 수 있도록 노력하겠습니다. 많은 관심과 참여 부탁드립니다. 감사합니다!', SYSDATE, SYSDATE, '45', 'Y', '알림판');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B103', 1, 'U13', '온라인 예약은 어떻게 하나요?', '홈페이지 상단 메뉴의 "병원 찾기" 클릭
-원하는 병원 선택
-원하는 의사 선택
-날짜와 시간 선택
-개인정보 입력 후 최종 예약', SYSDATE, SYSDATE, '20', 'Y', 'FAQ');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B107', 1, 'U17', '예약 가능한 시간은 언제인가요?', '평일: 오전 8시 ~ 오후 6시
-토요일: 오전 8시 ~ 오후 12시
-일요일 및 공휴일: 예약 불가', SYSDATE, SYSDATE, '40', 'Y', 'FAQ');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B111', 1, 'U22', '예약을 변경하거나 취소하고 싶어요', '홈페이지 "마이페이지"에서 직접 변경 가능
-예약 24시간 전까지 무료 취소
-당일 취소 시 패널티 적용될 수 있음', SYSDATE, SYSDATE, '60', 'Y', 'FAQ');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B104', 1, 'U14', '비회원도 예약 가능한가요?', '휴대폰 인증을 통해 비회원 예약 가능
-회원가입 시 더 편리한 서비스 제공
-개인정보 보호를 위해 최소한의 정보만 요구', SYSDATE, SYSDATE, '15', 'Y', 'Q&A');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B108', 1, 'U18', '처음 방문하는데 준비물은 무엇인가요?', '신분증
-건강보험증
-이전 진료 기록 (있을 경우)
-복용 중인 약 정보', SYSDATE, SYSDATE, '35', 'Y', 'Q&A');
-
-INSERT INTO BOARD (BOARD_NO, BOARD_TYPE, USER_NO, BOARD_TITLE, BOARD_CONTENT, ENROLL_DATE, MODIFIED_DATE, BOARD_VIEWS, STATUS, INQUIRY_CATEGORY)
-VALUES ('B112', 1, 'U23', '온라인으로 모든 진료를 예약할 수 있나요?', '대부분의 일반 진료 예약 가능
-응급, 중증 질환은 직접 내원 필요
-일부 특수 검진은 전화 상담 후 예약 권장', SYSDATE, SYSDATE, '55', 'Y', 'Q&A');
 
 --커밋--------------------------------------------------------------------------------------------------------
 COMMIT;

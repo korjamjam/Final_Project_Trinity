@@ -94,19 +94,19 @@
 
 	<select id="getLatestPosts" parameterType="string"
 		resultMap="boardResult">
-		SELECT *
-		FROM (
-		SELECT
-		BOARD_NO,
-		BOARD_TITLE,
-		TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE,
-		ROWNUM
-		FROM BOARD
-		WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
-		ORDER BY ENROLL_DATE DESC
-		)
-		WHERE ROWNUM &lt;= 3
+	SELECT *
+FROM (
+    SELECT
+        BOARD_NO,
+        BOARD_TITLE,
+        TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE
+    FROM BOARD
+    WHERE CATEGORY_ID = #{categoryId} AND STATUS = 'Y'
+    ORDER BY ENROLL_DATE DESC
+)
+WHERE ROWNUM &lt;= 3
 	</select>
+
 
 
 

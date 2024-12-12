@@ -31,14 +31,14 @@ public class CommonController {
         List<Board> latestEventPosts = boardService.getLatestPosts("CAT03"); // CAT03: 이벤트 ID
         // 인증된 리뷰 수, 회원 수, 의사 수 가져오기
         List<Integer> amountCount = memberService.selectCountList();
+    
 
         // 모델에 데이터 추가
         m.addAttribute("latestNoticePosts", latestNoticePosts);
         m.addAttribute("latestEventPosts", latestEventPosts);
         m.addAttribute("amountCount", amountCount);
-        System.out.println("Latest Notice Posts: " + latestNoticePosts);
-        System.out.println("Latest Event Posts: " + latestEventPosts);
-
+    
+      
         // main.jsp로 이동
         return "main";
     }
