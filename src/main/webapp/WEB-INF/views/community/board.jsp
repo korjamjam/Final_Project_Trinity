@@ -23,7 +23,8 @@
 	<script>
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const categoryId = "${categoryId}"; // categoryId 값을 JavaScript 변수로 전달
-		  
+			const loginUserNo = "${loginUser != null ? loginUser.userNo : b.hosAcNo}";
+			const loginUserId = "${loginUser != null ? loginUser.userId : b.hosName}";
 
 		</script>
 	<!-- Header Section -->
@@ -112,15 +113,27 @@
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<td class="category">${board.categoryName}</td>
-							<td class="title"><a
-								href="${pageContext.request.contextPath}/community/boardDetail?bno=${board.boardNo}">${board.boardTitle}
-							</a></td>
-							<td class="author">${board.boardWriter}</td>
+							<td class="title">
+								<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${board.boardNo}">
+									${board.boardTitle}
+								</a>
+							</td>
+							<td class="author">
+								<c:choose>
+									<c:when test="${empty board.boardWriter}">
+										${board.hosName}
+									</c:when>
+									<c:otherwise>
+										${board.boardWriter}
+									</c:otherwise>
+								</c:choose>
+							</td>
 							<td class="date">${board.enrollDate}</td>
 							<td class="comment">${board.boardViews}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
+				
 			</table>
 
 			<!-- 페이지네이션 -->
