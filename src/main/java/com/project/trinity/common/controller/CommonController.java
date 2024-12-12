@@ -1,9 +1,9 @@
 package com.project.trinity.common.controller;
 
-import com.project.trinity.community.board.service.BoardService;
-import com.project.trinity.inquiry.service.InquiryService;
-import com.project.trinity.member.service.MemberService;
 import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.service.BoardService;
+import com.project.trinity.inquiry.model.service.InquiryService;
+import com.project.trinity.member.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

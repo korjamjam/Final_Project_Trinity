@@ -1,4 +1,4 @@
-package com.project.trinity.inquiry.dao;
+package com.project.trinity.inquiry.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.common.vo.PageInfo;
-import com.project.trinity.inquiry.vo.Inquiry;
+import com.project.trinity.inquiry.model.vo.Inquiry;
 
 @Repository
 public class InquiryDao {

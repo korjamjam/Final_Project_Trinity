@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="inquiryMapper">
 
-<resultMap id="inquiryResult" type="com.project.trinity.inquiry.vo.Inquiry">
+<resultMap id="inquiryResult" type="com.project.trinity.inquiry.model.vo.Inquiry">
     <result property="inquiryNo" column="INQUIRY_NO" />
     <result property="userNo" column="USER_NO" />
     <result property="inquiryWriter" column="INQUIRY_WRITER" />
@@ -83,22 +83,23 @@
 
 <select id="selectInquiryDetail" resultMap="inquiryResult">
     SELECT
-        i.INQUIRY_NO,
-        i.USER_NO,
-        i.CATEGORY_ID,
-        c.CATEGORY_NAME, -- 조인된 카테고리 이름
-        i.SUBCATEGORY_ID,
-        i.INQUIRY_TITLE,
-        i.INQUIRY_CONTENT,
-        i.ADMIN_REPLY,
-        i.STATUS,
-        TO_CHAR(i.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
-        TO_CHAR(i.UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
-        i.INQUIRY_VIEWS
-    FROM INQUIRY i
-    LEFT JOIN BOARD_CATEGORY c ON i.CATEGORY_ID = c.CATEGORY_ID
-    WHERE i.INQUIRY_NO = #{ino}
+        INQ.INQUIRY_NO,
+        INQ.USER_NO,
+        INQ.CATEGORY_ID,
+        BC.CATEGORY_NAME, -- JOIN으로 CATEGORY_NAME 가져오기
+        INQ.SUBCATEGORY_ID,
+        INQ.INQUIRY_TITLE,
+        INQ.INQUIRY_CONTENT,
+        INQ.ADMIN_REPLY,
+        INQ.STATUS,
+        TO_CHAR(INQ.ENROLL_DATE, 'YYYY/MM/DD') AS ENROLL_DATE,
+        TO_CHAR(INQ.UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
+        INQ.INQUIRY_VIEWS
+    FROM INQUIRY INQ
+    LEFT JOIN BOARD_CATEGORY BC ON INQ.CATEGORY_ID = BC.CATEGORY_ID
+    WHERE INQ.INQUIRY_NO = #{ino}
 </select>
+
 
 <select id="getLatestInquiryPosts" parameterType="string" resultMap="inquiryResult">
     SELECT *

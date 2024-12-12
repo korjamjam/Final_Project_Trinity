@@ -88,7 +88,7 @@
             <!-- 고객문의 메뉴 -->
             <div class="sidebar-item" onclick="toggleSubmenu(this)">
                 <div class="sidebar-main">
-                    <a href="${pageContext.request.contextPath}/inquiry/notification">고객문의</a>
+                     <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">고객문의</a>
                     <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
                 </div>
                 <div class="sidebar-submenu">
@@ -98,7 +98,7 @@
                     <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT07">Q&A</a>
                 </div>
             </div>
-            
+             
             <!-- 관리자 메뉴 (관리자 계정일 경우에만 보임) -->
             <c:choose>
                 <c:when test="${loginUser != null && loginUser.isAdmin == 'Y'}">
