@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/account/mypost.css">
 </head>
 <body>
+    <!-- Header -->
+    <%@ include file="../common/main_header.jsp" %>
+    
     <div class="mypost-container">
         <h1>내가 쓴 게시글</h1>
         <table class="mypost-table">
@@ -30,7 +33,6 @@
                         <td>${post.boardViews}</td>
                         <td>${post.status == 'Y' ? '활성화' : '비활성화'}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/community/edit?bno=${post.boardNo}" class="edit-btn">수정</a>
                             <a href="${pageContext.request.contextPath}/community/deleteBoard?bno=${post.boardNo}" class="delete-btn">삭제</a>
                         </td>
                     </tr>
@@ -41,5 +43,8 @@
             <p class="no-posts-message">작성한 게시글이 없습니다.</p>
         </c:if>
     </div>
+    
+    <!-- Footer -->
+    <%@ include file="../common/main_footer.jsp" %>
 </body>
 </html>
