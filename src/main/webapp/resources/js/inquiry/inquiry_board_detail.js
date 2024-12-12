@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const selectedContainer = document.querySelector(".selected-container");
     const optionList = document.querySelector("#community-options");
 
