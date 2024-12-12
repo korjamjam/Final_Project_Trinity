@@ -23,8 +23,7 @@
 	<script>
 			const contextPath = "${pageContext.servletContext.contextPath}";
 			const categoryId = "${categoryId}"; // categoryId 값을 JavaScript 변수로 전달
-		    console.log("Category ID in JSP: ${categoryId}");
-    console.log("Sort Type in JSP: ${sortType}");
+		  
 
 		</script>
 	<!-- 헤더 -->
@@ -63,8 +62,6 @@
 						</select>
 						
 						
-						
-
 						<c:if test="${not empty sessionScope.loginUser}">
 							<!-- type 값을 설정한 후 글쓰기 버튼에 반영 -->
 							<c:choose>
@@ -87,8 +84,6 @@
 							<a class="round-button"
 								href="${pageContext.request.contextPath}/community/write?categoryId=${categoryId}">글쓰기</a>
 						</c:if>
-
-
 					</div>
 				</div>
 			</div>

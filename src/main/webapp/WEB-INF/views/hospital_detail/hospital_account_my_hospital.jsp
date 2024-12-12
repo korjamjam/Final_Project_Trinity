@@ -13,6 +13,13 @@
 <body>
     <jsp:include page="/WEB-INF/views/hospital_detail/hospital_account_header.jsp" />
 
+<script>
+    const message = "${message}";
+    if (message) {
+        alert(message); // 안내 문구를 띄움
+        console.log(message)
+    }
+</script>
 <div class="hospital-management">
     <h2>병원 관리</h2>
 
@@ -33,10 +40,6 @@
                     <td>
                         <input type="text" name="hosTel" value="${hosInfo.hosTel}">
                     </td>
-                </tr>
-                <tr>
-                    <th>개업일</th>
-                    <td>${hosInfo.hosYear}</td>
                 </tr>
                 <tr>
                     <th>진료시간</th>

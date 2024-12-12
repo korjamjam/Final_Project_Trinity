@@ -1,32 +1,41 @@
 package com.project.trinity.hospital.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.project.trinity.community.board.model.vo.Board;
+import com.project.trinity.community.board.model.vo.BoardCategory;
+import com.project.trinity.community.board.model.vo.BoardFile;
+import com.project.trinity.community.board.model.vo.MedAnswer;
+import com.project.trinity.community.board.service.BoardService;
+import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.hospital.model.vo.HospitalAccount;
 import com.project.trinity.hospital.model.vo.HospitalInfo;
 import com.project.trinity.hospital.service.HospitalService;
@@ -45,18 +54,21 @@ public class HospitalController {
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
 	private final MemberService memberService;
 	private final ReservationService reservationService;
-	private static String GEOCODE_URL="http://dapi.kakao.com/v2/local/search/address.json?query=";
-    private static String GEOCODE_USER_INFO="a0793b4d67a4236cf4900bc98535d171"; 
+	private final BoardService boardService;
+	
+	
 	
 	@Autowired
 	public HospitalController(HospitalService hospitalService, 
 			MemberService memberService, 
 			BCryptPasswordEncoder bcryptPasswordEncoder,
-			ReservationService reservationService) {
+			ReservationService reservationService,
+			BoardService boardService) {
 	    this.hospitalService = hospitalService;
 	    this.memberService = memberService;
 		this.bcryptPasswordEncoder = bcryptPasswordEncoder;
 		this.reservationService = reservationService;
+		this.boardService = boardService;
 	}
 
 	
@@ -126,12 +138,46 @@ public class HospitalController {
 		return "hospital_detail/hospital_detail";
 	}
 	
+	@RequestMapping(value = "/detail/doctorBiography", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public String doctorBiography(@RequestParam(value = "doctorNo") String doctorNo) {
+		System.out.println("doctorNo : " + doctorNo);
+		String doctorBiography = memberService.selectDoctorBiography(doctorNo);
+		System.out.println("doctorBiography : " + doctorBiography);
+		return doctorBiography;
+    }
+	
 	@RequestMapping("/detail/doctorReview")
     @ResponseBody
     public ArrayList<DoctorReview> doctorReviewList(@RequestParam(value = "doctorNo") String doctorNo) {
 		System.out.println("doctorNo : " + doctorNo);
 		ArrayList<DoctorReview> doctorReviews = memberService.selectDoctorReview(doctorNo);
 		System.out.println("doctorReviews : " + doctorReviews);
+		return doctorReviews;
+    }
+	
+	@RequestMapping("/detail/uploadReview")
+    @ResponseBody
+    public ArrayList<DoctorReview> uploadReview(@RequestParam(value = "writerNo") String writerNo,
+    											@RequestParam(value = "doctorNo") String doctorNo,
+    											@RequestParam(value = "reviewTitle") String reviewTitle,
+    											@RequestParam(value = "reviewContent") String reviewContent,
+    											@RequestParam(value = "reviewRating") String reviewRating) {
+		System.out.println("writerNo : " + writerNo);
+		System.out.println("doctorNo : " + doctorNo);
+		System.out.println("reviewTitle : " + reviewTitle);
+		System.out.println("reviewContent : " + reviewContent);
+		System.out.println("reviewRating : " + reviewRating);
+		int result = memberService.insertDoctorReview(writerNo, doctorNo, reviewTitle, reviewContent, reviewRating);
+		ArrayList<DoctorReview> doctorReviews = null;
+		if(result != 0) {
+			System.out.println("리뷰 삽입 성공");
+			doctorReviews = memberService.selectDoctorReview(doctorNo);
+		} else {
+			System.out.println("리뷰 삽입 실패");
+		}
+		
+		//다시 리스트 불러오기
 		return doctorReviews;
     }
 	
@@ -165,7 +211,6 @@ public class HospitalController {
 	@RequestMapping("/account/insert")
 	public String insertHospitalAccount(@ModelAttribute HospitalAccount hosAccount,
 										 HttpServletRequest request,
-										 RedirectAttributes redirectAttributes,
 										 Model m
 			) {
 		HospitalInfo h = hospitalService.selectHospitalInfo(hosAccount.getHosNo());
@@ -176,7 +221,7 @@ public class HospitalController {
 			String userPwdConfirm = request.getParameter("userPwdConfirm");
 
 		    if (userPwdConfirm == null || !hosAccount.getHosPwd().equals(userPwdConfirm)) {
-		        redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+		        m.addAttribute("message", "비밀번호가 일치하지 않습니다.");
 		        return "redirect:/hospital/account/sign_up";
 		    }
 		    
@@ -186,14 +231,14 @@ public class HospitalController {
 		    m.addAttribute("hosAcNo", hosAccount.getHosAcNo());
 		    System.out.println(hosAccount.getHosAcNo());
 		    if (result > 0) {
-		        redirectAttributes.addFlashAttribute("message", "회원가입에 성공했습니다.");
+		        m.addAttribute("message", "회원가입에 성공했습니다.");
 		        return "redirect:/hospital/account/login";
 		    } else {
-		        redirectAttributes.addFlashAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
+		        m.addAttribute("message", "회원가입에 실패했습니다. 다시 시도해주세요.");
 		        return "redirect:/hospital/account/sign_up";
 		    }
 		} else {
-			redirectAttributes.addFlashAttribute("message", "이미 등록된 병원입니다.");
+			m.addAttribute("message", "이미 등록된 병원입니다.");
 			return "redirect:/hospital/account/sign_up";
 		}
 	}
@@ -364,46 +409,55 @@ public class HospitalController {
 		
 	}
 	
+	//병원 정보 업데이트
 	@RequestMapping("account/myHospital/update")
 	public String HospitalAccountMyHospitalUpdate(@ModelAttribute HospitalInfo hosInfo, Model m) {
 	    String hosLatitude = "";
 	    String hosLongitude = "";
+	    String result = "";
+	    String url="https://dapi.kakao.com/v2/local/search/address.json?query=";
+	    String restKey ="a0793b4d67a4236cf4900bc98535d171"; 
 	    
+	    //주소 좌표로 변환해서 DB 저장
 	    try {
-	        // 주소를 UTF-8로 인코딩
-	        String address = URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
+			url += URLEncoder.encode(hosInfo.getHosAddress(), "UTF-8");
+			
+			URL requestURL = new URL(url);
+			
+			HttpURLConnection urlConnection = (HttpURLConnection)requestURL.openConnection();
+			
+			urlConnection.setRequestMethod("GET");
+			
+			urlConnection.setRequestProperty("Authorization", "KakaoAK " + restKey);
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			
+			
+			String line;
+			while((line = br.readLine()) != null) {
+				result += line;
+			}
+			
+			br.close();
+			urlConnection.disconnect();
+			
+			// JSON 파싱
+	        JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+	        JsonArray documents = jsonObject.getAsJsonArray("documents");
 	        
-	        // Kakao API URL 생성
-	        String url = GEOCODE_URL + address;
-	        
-	        // RestTemplate 생성
-	        RestTemplate restTemplate = new RestTemplate();
-	        Gson gson = new Gson();
-	        
-	        // HTTP 헤더 설정
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.set("Authorization", "KakaoAK " + GEOCODE_USER_INFO); // 올바른 헤더 키로 수정
-	        
-	        // HTTP 요청 생성
-	        HttpEntity<String> entity = new HttpEntity<>(headers);
-	        
-	        // API 호출
-	        String response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
-	        
-	        // JSON 응답 파싱
-	        JsonObject jObj = gson.fromJson(response, JsonObject.class);
-	        
-	        // Kakao API 응답에서 coordinates 추출
-	        JsonObject document = jObj.getAsJsonArray("documents").get(0).getAsJsonObject(); // "documents"로 수정
-	        hosLatitude = document.get("y").getAsString();
-	        hosLongitude = document.get("x").getAsString();
-	        
-	    } catch (UnsupportedEncodingException e) {
-	        e.printStackTrace();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
+	        // 첫 번째 documents 객체에서 x, y 값 추출
+	        if (documents.size() > 0) {
+	            JsonObject firstDocument = documents.get(0).getAsJsonObject();
+	            hosLatitude = firstDocument.get("y").getAsString(); // 위도
+	            hosLongitude = firstDocument.get("x").getAsString(); // 경도
+	        }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("Latitude (y): " + hosLatitude);
+	    System.out.println("Longitude (x): " + hosLongitude);
+	    System.out.println(result);
 	    // 위도와 경도를 HospitalInfo 객체에 설정
 	    hosInfo.setHosLatitude(hosLatitude);
 	    hosInfo.setHosLongitude(hosLongitude);
@@ -412,17 +466,160 @@ public class HospitalController {
 	    int resultAC = hospitalService.updateMyHospitalAC(hosInfo);
 	    int resultAI = hospitalService.updateMyHospitalAI(hosInfo);
 	    
-	    // 결과 처리
-	    if ((resultAC > 0) && (resultAI > 0)) {
-	        m.addAttribute("message", "수정 성공");
-	        return "hospital_detail/hospital_account_main";
-	    } else {
-	        m.addAttribute("message", "수정 실패");
+	    if(hosLatitude.equals("")) {
+	    	m.addAttribute("message", "올바르지 않은 주소입니다.");
 	        return "hospital_detail/hospital_account_my_hospital";
+	    } else {
+	    	// 결과 처리
+		    if ((resultAC > 0) && (resultAI > 0)) {
+		        m.addAttribute("message", "수정 성공");
+		        return "hospital_detail/hospital_account_main";
+		    } else {
+		        m.addAttribute("message", "수정 실패");
+		        return "hospital_detail/hospital_account_my_hospital";
+		    }
 	    }
 	}
+	
+	@RequestMapping("/account/myPost")
+	public String HospitalAccountMyPost(HttpSession session, Model m) {
+		 // 로그인된 사용자 가져오기
+	    HospitalAccount loginHosAccount = (HospitalAccount) session.getAttribute("loginHosAccount");
+	    if (loginHosAccount == null) {
+	        return "redirect:/hospital/login"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    // 사용자 번호로 내가 쓴 게시글 조회
+	    List<Board> myposts = boardService.getPostsByHosNo(loginHosAccount.getHosAcNo());
+	    m.addAttribute("myposts", myposts);
+
+	    return "hospital_detail/hospital_account_my_post";
+	}
+
+	// showSummernote 후에 작성완료 버튼 클릭하면 작동
+	@RequestMapping("/account/myPost/write/enroll")
+	public String insertBoardHosAccount(@ModelAttribute Board b,
+	        @RequestParam(value = "allowDownload", required = false) List<String> allowDownload,
+	        @RequestParam(value = "upfiles", required = false) ArrayList<MultipartFile> successUpfiles, HttpSession session,
+	        Model m) {
+
+	    System.out.println("successUpfiles : " + successUpfiles); // 변수명 일치
+	    System.out.println("-------------------------");
+	    System.out.println("allowDownload : " + allowDownload);
+	    System.out.println("-------------------------");
+	    System.out.println("insert b : " + b);
+
+	    HospitalAccount loginHosAccount = (HospitalAccount) session.getAttribute("loginHosAccount");
+	    System.out.println("loginHosAccount board : " + loginHosAccount);
+	    // 게시글 제목 검증
+	    if (b.getBoardTitle() == null || b.getBoardTitle().trim().isEmpty()) {
+	        m.addAttribute("errorMsg", "제목을 입력해야 합니다.");
+	        return "/common/errorPage";
+	    }
+
+	    // 게시글에 categoryId가 설정되어 있는지 확인
+	    if (b.getCategoryId() == null || b.getCategoryId().isEmpty()) {
+	        m.addAttribute("errorMsg", "카테고리가 지정되지 않았습니다.");
+	        return "/common/errorPage";
+	    }
+	 
+
+	    // 게시글 저장
+	    int boardResult = boardService.insertBoardAC(b);
+	    if (boardResult > 0) {
+	        // 파일 업로드 처리
+	        if (successUpfiles != null && !successUpfiles.isEmpty()) {
+	            for (int i = 0; i < successUpfiles.size(); i++) {
+	                MultipartFile upfile = successUpfiles.get(i);
+	                if (!upfile.isEmpty()) {
+	                    String changeName = Template.saveFile(upfile, session, "/resources/uploadFile/");
+	                    if (changeName != null) {
+	                        // 파일 정보 설정
+	                        BoardFile bf = new BoardFile();
+	                        bf.setBoardNo(b.getBoardNo());
+	                        bf.setUserNo(loginHosAccount.getHosAcNo());
+	                        bf.setOriginName(upfile.getOriginalFilename());
+	                        bf.setChangeName("/resources/uploadFile/" + changeName);
+	                        bf.setFileSize(upfile.getSize());
+
+	                        // allowDownload 값 설정
+	                        bf.setAllowDownload((allowDownload != null && allowDownload.size() > i) ? allowDownload.get(i) : "Y");
+
+	                        int fileResult = boardService.insertFile(bf);
+	                        if (fileResult <= 0) {
+	                            m.addAttribute("errorMsg", "파일 정보를 저장하는 중 오류가 발생했습니다.");
+	                            return "/common/errorPage";
+	                        }
+	                    } else {
+	                        m.addAttribute("errorMsg", "파일 업로드 중 문제가 발생했습니다.");
+	                        return "/common/errorPage";
+	                    }
+	                }
+	            }
+	        }
+
+	        session.setAttribute("alertMsg", "게시글 작성 성공");
+	        return "redirect:/hospital/account/boardDetail?bno=" + b.getBoardNo();
+	    } else {
+	        m.addAttribute("errorMsg", "게시글 작성에 실패했습니다.");
+	        return "/common/errorPage";
+	    }
+	}
+	
+	// insertBoard하면서 동시에 작동해서 상세페이지를 바로 보여줌
+		@GetMapping("/account/boardDetail")
+		public String selectBoard(@RequestParam("bno") String bno, Model m, HttpSession session) {
+		    // 현재 게시글 번호 확인
+		    System.out.println("Received bno: " + bno);
+
+		    // 현재 게시글 조회
+		    Board b = boardService.selectBoardAC(bno);
+		    if (b == null) {
+		        m.addAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
+		        return "/common/errorPage";
+		    }
+
+		    // 조회수 증가
+		    int countResult = boardService.increaseCount(bno);
+		   
+		    // 첨부파일 리스트 가져오기
+		    List<BoardFile> fileList = boardService.getFileList(bno);   
+
+		    // 카테고리 이름 조회
+		    String categoryName = boardService.getCategoryNameById(b.getCategoryId());
+
+		    // 로그인 사용자 정보 가져오기
+		    Member loginUser = (Member) session.getAttribute("loginUser");
+		    if (loginUser != null) {
+		        m.addAttribute("doctorName", loginUser.getUserName()); // 의사 이름을 doctorName으로 전달
+		    }
+		    // 이전 글 번호 조회 후 상세 정보 조회
+		    String prevBno = boardService.getPreviousBoard(bno);
+		    Board prevBoard = (prevBno != null) ? boardService.viewDetailPage(prevBno) : null;
+
+		    // 다음 글 번호 조회 후 상세 정보 조회
+		    String nextBno = boardService.getNextBoard(bno);
+		    Board nextBoard = (nextBno != null) ? boardService.viewDetailPage(nextBno) : null;
+
+		    // 카테고리 목록 조회 (드롭다운 메뉴용)
+		    List<BoardCategory> categories = boardService.getCategories();
+
+		    // 모델에 데이터 추가
+		    m.addAttribute("b", b); // 현재 게시글
+		    m.addAttribute("fileList", fileList); // 첨부파일
+		    m.addAttribute("categoryName", categoryName); // 카테고리 이름
+		    m.addAttribute("categories", categories); // 카테고리 목록
+		    m.addAttribute("prevBoard", prevBoard); // 이전 게시글
+		    m.addAttribute("nextBoard", nextBoard); // 다음 게시글
+		  
+		    return "community/community_board_detail"; // 상세 페이지로 이동
+		}
 
 	//화면 이동 하는거
+	@RequestMapping("/account/myPost/write")
+	public String HospitalAccountMyPostWrite() {
+		return "hospital_detail/hospital_account_post_write_form";
+	}
 	
 	@RequestMapping("account/insertDr")
 	public String HospitalAccountInsertDoctor() {

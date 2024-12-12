@@ -2,6 +2,7 @@ package com.project.trinity.member.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -147,6 +148,28 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MedicalField getMedicalFieldByMedNo(String medKey) {
 	    return memberDao.selectMedicalFieldByMedNo(sqlSession, medKey);
+	}
+
+	@Override
+	public String selectDoctorBiography(String doctorNo) {
+		return memberDao.selectDoctorBiography(sqlSession, doctorNo);
+	}
+
+	@Override
+	public int insertDoctorReview(String writerNo, String doctorNo, String reviewTitle, String reviewContent,
+			String reviewRating) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("writerNo", writerNo);
+		map.put("doctorNo", doctorNo);
+		map.put("reviewTitle", reviewTitle);
+		map.put("reviewContent", reviewContent);
+		map.put("reviewRating", reviewRating);
+		return memberDao.insertDoctorReview(sqlSession, map);
+	}
+
+	@Override
+	public List<Integer> selectCountList() {
+		return memberDao.selectCountList(sqlSession);
 	}
 
 }

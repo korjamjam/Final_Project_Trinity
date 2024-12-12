@@ -29,11 +29,12 @@
 }
 
 .sort-dropdown select {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 5px;
     width: 100px;
-    border: 1px solid black;
+    border: 1px solid #c0c0c0;
     border-radius: 5px;
+    padding: 10px 15px;
 }
 
 .hospital-list {
@@ -65,6 +66,22 @@
 .hospital-item:hover {
     background-color: #f9f9f9;
 }
+
+.blue-text {
+    color: #0080ff;
+    font-weight: bold; /* 강조 효과를 위해 추가 (선택 사항) */
+}
+
+.pink-text {
+    color: #ff80c0;
+    font-weight: bold; /* 강조 효과를 위해 추가 (선택 사항) */
+}
+
+.default-text {
+    color: black; /* 기본 색상 */
+}
+
+
 
 
 /* 큰 화면 (800px 이상) */

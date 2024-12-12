@@ -48,20 +48,11 @@ public class MemberController {
 
 	@Autowired
 	private EmailService emailService;
-
 	private final MemberService memberService;
 	private final BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	@Autowired
 	private ReservationService reservationService;
-	
-	@Autowired
 	private HealthReservationService healthReservationService;
-	
-	@Autowired
 	private VaccineReservationService vaccineReservationService;
-	
-	@Autowired
 	private BoardService boardService;
 
 

@@ -2,11 +2,19 @@ package com.project.trinity.inquiry.service;
 
 import java.util.List;
 
-import com.project.trinity.community.board.model.vo.Board;
+
+import com.project.trinity.community.common.vo.PageInfo;
+import com.project.trinity.inquiry.vo.Inquiry;
+
+
+
+
 
 public interface InquiryService {
-    List<Board> getNotices();
-    List<Board> getReportes();
-    List<Board> getFaqs();
-    List<Board> getQnas();
+
+
+	int getListCount(String categoryId);
+
+	List<Inquiry> selectListByCategory(String categoryId, PageInfo pi, String sortType);
+   
 }

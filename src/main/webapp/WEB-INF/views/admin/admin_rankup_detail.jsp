@@ -16,12 +16,14 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/admin_header.jsp" />
 
-	<script>
-		const alertMsg = '${alertMsg}';
-		if (alertMsg) {
-			alert(alertMsg);
-		}
-	</script>
+	< <!-- Alert 메시지 표시 -->
+    <c:if test="${not empty alertMsg}">
+        <script>
+            alert("${alertMsg}");
+            history.replaceState({}, null, location.pathname); // URL 상태 초기화
+        </script>
+    </c:if>
+    
 	<div class="rankup-management">
 		<h2>등업 신청 상세</h2>
 		<div class="rankup-info">

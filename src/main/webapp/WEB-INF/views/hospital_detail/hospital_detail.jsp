@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/hospital_detail/hospital_detail.css">
 
-
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -41,7 +40,7 @@
 </head>
 <body onload="initHospitalDetail('${hospitalInfo.hosLatitude}', '${hospitalInfo.hosLongitude}');">
     <!-- Header -->
-	<%@ include file="/WEB-INF/views/common/main_header.jsp"%> 
+	<jsp:include page="/WEB-INF/views/common/main_header.jsp" />
     
     <br><br>
 	<div class="hospital_detail_page_wrapper">
@@ -51,7 +50,9 @@
             <img src="" id="commercial">
         </div>
     </div>
-	
+    <input type="hidden" id="writerNo" value="${loginUser.userNo }">
+    <input type="hidden" id="writerName" value="${loginUser.userName }">
+    <input type="hidden" id="writerProfile" value="${loginUser.userProfile }">
     <input type="hidden" id="hosStartTime1" value="${hospitalInfo.hosStartTime1 }">
     <input type="hidden" id="hosEndTime1" value="${hospitalInfo.hosEndTime1 }">
     <!-- inform -->
@@ -73,7 +74,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">당일 예약 정보</h4>
                     </div>
-                    <div class="modal-body" style="justify-content: space-around !important;">
+                    <div class="modal-body" style="@media (min-width: 768px) { justify-content: space-around !important; }">
                         <div class="waitingNavi"></div>
                     </div>
                     <div class="modal-footer">
@@ -228,14 +229,7 @@
                     <div class="hospital_detail_doctor_row">
                         <div class="hospital_detail_doctor_intro">
                             <div class="hospital_detail_doctor_img">
-                                <c:choose>
-                                    <c:when test="${not empty doctorList[status.index].userProfile}">
-                                        <img src="${ pageContext.servletContext.contextPath }${profilePic}" alt="docPic">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/img/doctorPicDefault.png" alt="docPic">
-                                    </c:otherwise>
-                                </c:choose>
+                                <img src="${ pageContext.servletContext.contextPath }${doctorList[status.index].userProfile}" alt="docPic">
                             </div>
                             <div class="hospital_detail_doctor_name">
                                 이름 : ${i.userName}<br>
@@ -253,7 +247,7 @@
                         </div>
                         <div class="hospital_detail_doctor_detail">
                             <div class="hospital_detail_share">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#backgroundModal">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#backgroundModal" onclick="getDoctorBiography('${i.userNo}')">
                                     약력보기
                                 </button>
                             </div>
@@ -269,8 +263,7 @@
                                     <h4 class="modal-title">약력</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p>등록된 약력이 없습니다.</p>
-                                        <!-- JSTL로 약력을 가져와서 쓰는곳 -->
+                                        <div class="biographyNavi"></div>
                                     </div>
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -281,7 +274,7 @@
                             </div>
                             <div class="hospital_detail_share">
                                 <input type="hidden" id="${i.userNo}" value="${i.userNo}">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews('${i.userNo}')">
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#showReviewModal" onclick="getDoctorReviews('${i.userNo}')" data-doctor-no="${i.userNo}">
                                     의사 리뷰보기
                                 </button>
                             </div>
@@ -293,14 +286,14 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">의사 리뷰</h4>
+                                        <h4 class="modal-title">의사 리뷰</h4>
                                     </div>
                                     <div class="modal-body modal-body-review">
                                         <div class="reviewNavi"></div>
                                     </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    <div class="modal-footer reviewFooter">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                        <button type="button" class="btn btn-default" id="listReview" onclick="writeReview()">댓글 달기</button>
                                     </div>
                                 </div>
 

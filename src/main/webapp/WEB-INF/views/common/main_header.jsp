@@ -47,9 +47,8 @@
                                 <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가 검진 예약</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/guide">검진 예약 안내</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진 절차 예약</a>
-                                <a href="${pageContext.request.contextPath}/healthReservation/result">검진 결과 조회</a>
+                                <a href="https://www.nhis.or.kr/nhis/index.do" target="_blank">검진 결과 조회</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사 항목 정보</a>
-                                <a href="${pageContext.request.contextPath}/healthReservation/search">검진 예약 조회</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -66,14 +65,15 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <a href="${pageContext.request.contextPath}/inquiry/notice">고객문의</a>
+                            <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">고객문의</a>
                             <div class="dropdown-content">
-                                <a href="${pageContext.request.contextPath}/inquiry/notice">공지사항</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/report">알림판</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/faq">FAQ</a>
-                                <a href="${pageContext.request.contextPath}/inquiry/qna">Q&A</a>
+                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT04">공지사항</a>
+                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT05">알림판</a>
+                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT06">FAQ</a>
+                                <a href="${pageContext.servletContext.contextPath}/inquiry/main?categoryId=CAT07">Q&A</a>
                             </div>
                         </div>
+                        
                     </nav>
                     <div class="login-menu">
                         <c:choose>
@@ -92,7 +92,7 @@
                                             alt="마이페이지 아이콘" class="mypage-icon"
                                             href="${pageContext.request.contextPath}/member/logout"></a>
                                     <%--<a href="${pageContext.request.contextPath}/member/logout"></a>--%>
-                                        <div class="menu-icon" id="sidebar">&#9776;</div>
+                                        <div class="menu-icon" id="sidebar headerSidebarHospitalDetailModify">&#9776;</div>
                             </c:otherwise>
                         </c:choose>
                     </div>

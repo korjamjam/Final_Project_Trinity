@@ -23,6 +23,7 @@
 		<result column="HOS_NO" property="hosNo" />
 		<result column="USERPROFILE" property="userProfile" />
 		<result column="POSTCODE" property="postcode" />
+		<result column="BIOGRAPHY" property="biography" />
 
 	</resultMap>
 
@@ -85,7 +86,8 @@
 		STATUS,
 		ISADMIN,
 		MED_KEY,
-		HOS_NO
+		HOS_NO,
+		USERPROFILE
 		FROM
 		MEMBER
 		WHERE USER_ID = #{userId}
@@ -100,7 +102,7 @@
 
 	<!-- userId로 회원 정보 조회 -->
 	<select id="findByUserId" parameterType="String"
-		resultType="Member">
+		resultMap="memberResultSet">
 		SELECT USER_NO,
 		USER_ID,
 		USER_PWD,
@@ -273,4 +275,50 @@
 		HOS_NO = ''
 		WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 의사 약력 불러오기 -->
+	<select id="selectDoctorBiography" parameterType="string"
+		resultType="String">
+		SELECT BIOGRAPHY
+		FROM MEMBER
+		WHERE USER_NO = #{doctorNo}
+	</select>
+	
+	<insert id="insertDoctorReview" parameterType="HashMap">
+		INSERT INTO DOCTOR_REVIEW
+			(USER_NO,
+	         DOCTOR_NO,
+	         REVIEW_TITLE,
+	         REVIEW_CONTENT,
+	         REVIEW_RATING
+	        )
+		VALUES (
+				#{writerNo},
+		        #{doctorNo},
+		        #{reviewTitle},
+		        #{reviewContent},
+		        #{reviewRating}
+			   )
+	</insert>
+	
+	<!-- 메인페이지 숫자 가져오기 -->
+	<select id="selectReviewCount" resultType="_int">
+		SELECT SUM(COUNT) AS REVIEW_COUNT
+		FROM (
+		    SELECT COUNT(REVIEW_NO) AS COUNT
+		    FROM DOCTOR_REVIEW
+		    UNION ALL
+		    SELECT COUNT(ANSWER_NO) AS COUNT
+		    FROM MED_ANSWERS
+		)
+	</select>
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(USER_NO) AS USER_AMOUNT
+		FROM MEMBER
+	</select>
+	<select id="selectDoctorCount" resultType="_int">
+		SELECT COUNT(MED_KEY) AS DOCTOR_AMOUNT
+		FROM MEMBER
+	</select>
+	
 </mapper>

@@ -62,26 +62,25 @@
                     <a href="${pageContext.request.contextPath}/healthReservation/reservation1">국가검진예약</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/guide">검진예약안내</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/infoNomal">검진절차예약</a>
-                    <a href="${pageContext.request.contextPath}/healthReservation/result">검진결과 조회</a>
+                    <a href="https://www.nhis.or.kr/nhis/index.do" target="_blank">검진결과 조회</a>
                     <a href="${pageContext.request.contextPath}/healthReservation/itemsInfo">검사항목 정보</a>
-                	<a href="${pageContext.request.contextPath}/healthReservation/search">검진 예약 조회</a>
                 </div>
             </div>
             
             <!-- 커뮤니티 메뉴 -->
             <div class="sidebar-item" onclick="toggleSubmenu(this)">
                 <div class="sidebar-main">
-                    <a href="${pageContext.request.contextPath}/community/sideBarToBoard">커뮤니티</a>
+                    <a href="${pageContext.request.contextPath}/community/main">커뮤니티</a>
                     <button class="submenu-toggle" onclick="toggleSubmenu(this)"></button>
                 </div>
                 <div class="sidebar-submenu">
-                    <a href="${pageContext.request.contextPath}/community/sideBarToBoard">인기 게시글</a>
+                    <a href="${pageContext.request.contextPath}/community/main">인기 게시글</a>
 
-                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT01"
+                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT01"
                         id="free">자유게시판</a>
-                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT02"
+                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT02"
                         id="meditalk">메디톡</a>
-                    <a href="${pageContext.servletContext.contextPath}/community/sideBarToBoard?categoryId=CAT03"
+                    <a href="${pageContext.servletContext.contextPath}/community/main?categoryId=CAT03"
                         id="event">이벤트게시판</a>
                 </div>
             </div>

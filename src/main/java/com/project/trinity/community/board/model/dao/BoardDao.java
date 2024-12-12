@@ -51,9 +51,9 @@ public class BoardDao {
     /**
      * 특정 게시글의 상세 내용을 조회합니다.
      */
-    public Board selectBoard(SqlSessionTemplate sqlSession, String bno) {
+    public Board viewDetailPage(SqlSessionTemplate sqlSession, String bno) {
     	 System.out.println("다오 bno: " + bno);  
-        return sqlSession.selectOne("boardMapper.selectBoard", bno);
+        return sqlSession.selectOne("boardMapper.viewDetailPage", bno);
     }
 
     /**
@@ -336,9 +336,30 @@ public class BoardDao {
 
 
 
-    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String categoryId) {
-        return sqlSession.selectList("boardMapper.getLatestPosts", categoryId);
+    public List<Board> getLatestPosts(SqlSessionTemplate sqlSession, String ct) {
+        return sqlSession.selectList("boardMapper.getLatestPosts", ct);
     }
+
+
+
+
+	public List<Board> getPostsByHosNo(SqlSessionTemplate sqlSession, String hosNo) {
+		return sqlSession.selectList("boardMapper.getPostsByHosNo", hosNo);
+	}
+
+
+
+
+	public int insertBoardAC(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoardAC", b);
+	}
+
+
+
+
+	public Board selectBoardAC(SqlSessionTemplate sqlSession, String bno) {
+		return sqlSession.selectOne("boardMapper.selectBoardAC", bno);
+	}
 
 
 

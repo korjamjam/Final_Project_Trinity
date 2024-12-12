@@ -35,15 +35,7 @@
     <!-- admin_sidebar.jsp를 포함 -->
     <jsp:include page="admin_sidebar.jsp" />
 
-    <script>
-        function toggleSidebar() {
-            var sidebar = document.querySelector('.hamburger-sidebar');
-            if (sidebar) {
-                sidebar.classList.toggle('hamburger-show-sidebar');
-            } else {
-                console.error("Sidebar element with class 'hamburger-sidebar' not found.");
-            }
-        }
-    </script>
+    <!-- 분리된 JavaScript 파일 로드 -->
+    <script src="${pageContext.servletContext.contextPath}/resources/js/admin/admin_header.js"></script>
 </body>
 </html>

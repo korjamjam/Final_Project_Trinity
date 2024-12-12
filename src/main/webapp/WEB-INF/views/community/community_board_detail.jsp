@@ -175,6 +175,7 @@
 												</div>
 											</div>
 											<div class="answer-text">${a.answerContent}</div>
+											<!--좋아요 싫어요 버튼 -->
 										</div>
 									</div>
 								</c:forEach>
