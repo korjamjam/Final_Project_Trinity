@@ -21,9 +21,8 @@
             </div>
             <div class="health_reservation_select">
                 <select name="" id="" onchange="window.open(value,'_self');">
-                    <option value="" disabled hidden selected>절차 안내</option>
                     <option value="${pageContext.request.contextPath}/healthReservation/infoNomal">일반건강검진</option>
-                    <option value="${pageContext.request.contextPath}/healthReservation/infoCancer">암검진</option>
+                    <option value=""  disabled hidden selected>암검진</option>
                 </select>
             </div>
             <div class="health_reservation_info_wrap">
@@ -110,7 +109,9 @@
                 </div>
             </div>
             <div class="reservation_btn_area">
-            	<button id="reservation_btn">예약하기</button>
+                <button id="reservation_btn" onclick="location.href='${pageContext.request.contextPath}/healthReservation/reservation1'">
+                    예약하기
+                </button>
             </div>
         </div>
     </div>

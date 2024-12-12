@@ -35,7 +35,7 @@
                         <div class="dropdown">
                             <a href="#">종합예약</a>
                             <div class="dropdown-content">
-                                <a href="${pageContext.request.contextPath}/reservation/gForm">진료예약</a>
+                                <a href="${pageContext.request.contextPath}/hospital/list">진료예약</a>
                                 <a href="${pageContext.request.contextPath}/healthReservation/vaccinepage1">백신예약</a>
                                 <a
                                     href="${pageContext.request.contextPath}/healthReservation/reservationSearch">예약확인</a>
