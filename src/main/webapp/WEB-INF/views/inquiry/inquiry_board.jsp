@@ -17,9 +17,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- jQuery 추가 -->
-<script
-	src="${pageContext.servletContext.contextPath}/resources/js/community/board.js"></script>
-
+	<script
+	src="${pageContext.servletContext.contextPath}/resources/js/inquiry/inquiry_board.js"></script>
 <title>${categoryName}게시판</title>
 </head>
 

@@ -1,5 +1,6 @@
 package com.project.trinity.inquiry.model.controller;
 
+import com.project.trinity.community.board.model.vo.Board;
 import com.project.trinity.community.common.vo.PageInfo;
 import com.project.trinity.community.common.vo.Template;
 import com.project.trinity.inquiry.model.service.InquiryService;
@@ -44,8 +45,7 @@ public class InquiryController {
 			int listCount = inquiryService.getListCount(categoryId); // 전체 게시물 수 조회
 			PageInfo pi = Template.getPageInfo(listCount, currentPage, 10, 20); // 공통 페이지네이션 유틸리티 사용
 			List<Inquiry> inquiryList = inquiryService.selectListByCategory(categoryId, pi, sortType); // 데이터 조회
-
-			// 모델에 데이터 추가
+			
 			m.addAttribute("categoryId", categoryId);
 			m.addAttribute("sortType", sortType);
 			m.addAttribute("inquiryList", inquiryList);
