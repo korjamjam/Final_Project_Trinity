@@ -164,8 +164,8 @@
 					<c:forEach var="notice" items="${latestNoticePosts}">
 						<div class="board_content-detail">
 							<div class="board_content1">
-								<a href="${pageContext.request.contextPath}/community/boardDetail?bno=${notice.boardNo}">
-									${notice.boardTitle}
+								<a href="${pageContext.request.contextPath}/inquiry/inquiryDetail?ino=${notice.inquiryNo}">
+									${notice.inquiryTitle}
 								</a>
 							</div>
 							<div class="board_content2">${notice.enrollDate}</div>
