@@ -10559,10 +10559,48 @@ INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDA
 VALUES ('U1025', 'doc25', 'password25', '백지원', 'doc25@example.com', '010-5555-1818', '801212', 'F', '충청남도 공주시', 'M16', 'H8', '/resources/img/doctorPicDefault.png', '정신건강의학과 전문의로 우울증 및 불안 치료를 전문으로 합니다.');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
-VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M17', 'H9', '/resources/img/doctorPicDefault.png', '산부인과 전문의로 여성 건강 및 출산을 지원합니다.');
+VALUES ('U1026', 'doc26', 'password26', '조승연', 'doc26@example.com', '010-6666-1919', '801212', 'M', '경상북도 포항시', 'M17', 'H9', '/resources/img/doctorPicDefault.png', '조승연<br>
+소아청소년과 전문의 (강남세브란스병원)<br>
+진료분야:<br>
+소아청소년 신경질환 (뇌전증, 두통, 근육병, 중추신경계 감염성 질환, 신경계 중환자질환, 발달지연, 유전대사질환, 희귀신경근육계질환)<br>
+학력:<br>
+부산대학교 의학과 학사 (2010)<br>
+연세대학교 대학원 의학박사 (2019)<br>
+경력:<br>
+2021~현재: 연세대학교 의과대학 소아과학교실 임상조교수<br>
+2020~2021: 이화여자대학교 의과대학 소아청소년과 임상조교수<br>
+2019~2020: 연세대학교 세브란스병원 소아신경과 임상연구조교수<br>
+2015~2018: 공중보건의 복무<br>
+수상 및 학술활동:<br>
+대한유전성대사질환학회 젊은 의학자상 (2023)<br>
+대한소아신경학회 최우수논문상 (2023)<br>
+대한소아응급의학회 평생회원 등<br>');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
-VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M18', 'H9', '/resources/img/doctorPicDefault.png', '소아과 전문의로 아동 건강 진료를 전문으로 합니다.');
+VALUES ('U1027', 'doc27', 'password27', '황수진', 'doc27@example.com', '010-7777-1919', '801212', 'F', '경상북도 경주시', 'M18', 'H9', '/resources/img/doctorPicDefault.png', '황수진 소아청소년과 전문의 약력<br>
+개인 정보<br>
+이름: 황수진<br>
+생년월일: 1985년 3월 15일<br>
+성별: 여성<br>
+학력<br>
+2003-2009: 서울대학교 의과대학 의학사 졸업<br>
+2014-2016: 연세대학교 대학원 소아청소년과학 석사 과정 수료<br>
+전문의 자격<br>
+2012년: 소아청소년과 전문의 취득<br>
+2015년: 소아내분비 세부전문의 자격<br>
+주요 경력<br>
+2009-2012: 서울대학교병원 수련의<br>
+2012-2015: 서울대학교병원 소아청소년과 전임의<br>
+2015-현재: 서울아산병원 소아내분비 클리닉 주임교수<br>
+연구 및 학술 활동<br>
+소아 당뇨병, 성장 호르몬 분야 SCI 논문 30여편 발표<br>
+대한소아내분비학회 이사<br>
+국제 소아당뇨병 학회 정회원<br>
+주요 진료 분야<br>
+소아 당뇨병<br>
+성장 및 내분비 질환<br>
+소아 비만<br>
+유전성 내분비 질환<br>');
 
 INSERT INTO MEMBER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, PHONE, BIRTHDAY, GENDER, ADDRESS, MED_KEY, HOS_NO, USERPROFILE, BIOGRAPHY)
 VALUES ('U1028', 'doc28', 'password28', '정성훈', 'doc28@example.com', '010-8888-2020', '801212', 'M', '경상남도 창원시', 'M19', 'H10', '/resources/img/doctorPicDefault.png', '비뇨기과 전문의로 최신 치료 기술을 제공합니다.');
