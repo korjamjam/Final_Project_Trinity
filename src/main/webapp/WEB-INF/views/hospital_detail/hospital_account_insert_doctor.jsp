@@ -36,7 +36,7 @@
 					</tr>
                     <tr>
                         <th>미등록 회원 의사 추가</th>
-                        <td>아직 개발중입니다</td>
+                        <td>관리자에게 문의해주세요</td>
                     </tr>
 				</table>
 				<button type="submit" class="save-button">추가 하기</button>

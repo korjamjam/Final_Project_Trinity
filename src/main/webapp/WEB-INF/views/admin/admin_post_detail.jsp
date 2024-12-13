@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Post Management Detail</title>
      <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/default.css">
-    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/post_management_detail.css">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/Post_Management_Detail.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"/>
