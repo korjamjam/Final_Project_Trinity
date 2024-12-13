@@ -3,6 +3,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedContainer = document.querySelector(".selected-container");
     const optionList = document.querySelector("#community-options");
 
+    // 드롭다운 옵션 하드코딩: 실시간 인기글, 자유게시판, 메디톡, 이벤트게시판만 보이게 함
+    const dropdownOptions = [
+        { name: "실시간 인기글", categoryId: "" },  // categoryId가 없는 항목
+        { name: "자유게시판", categoryId: "cat01" },
+        { name: "메디톡", categoryId: "cat02" },
+        { name: "이벤트게시판", categoryId: "cat03" }
+    ];
+
+    // 기존 드롭다운 항목을 모두 제거
+    optionList.innerHTML = "";
+
+    // 옵션 목록에 하드코딩 항목 추가
+    dropdownOptions.forEach(option => {
+        const optionItem = document.createElement("div");
+        optionItem.classList.add("option-item");
+        optionItem.textContent = option.name;
+        optionItem.setAttribute("data-url", option.categoryId); // categoryId를 data-url 속성으로 설정
+
+        optionList.appendChild(optionItem);  // 드롭다운 리스트에 추가
+    });
+
     if (selectedContainer && optionList) {
         console.log("드롭다운 요소 발견");
 
@@ -19,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-     // 드롭다운 옵션 클릭 시 페이지 이동
-     document.querySelectorAll(".option-item").forEach(option => {
+    // 드롭다운 옵션 클릭 시 페이지 이동
+    document.querySelectorAll(".option-item").forEach(option => {
         option.addEventListener("click", function () {
             const categoryId = this.getAttribute("data-url");
             const categoryName = this.textContent.trim(); // 카테고리 이름 가져오기
@@ -33,10 +54,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 const targetUrl = `${contextPath}/community/main?categoryId=${categoryId}`;
                 console.log("선택된 카테고리 URL:", targetUrl);
                 window.location.href = targetUrl;
+            } else {
+                // categoryId가 없으면 실시간 인기글로 이동
+                const targetUrl = `${contextPath}/community/main`;
+                console.log("실시간 인기글 URL:", targetUrl);
+                window.location.href = targetUrl;
             }
         });
     });
 });
+
 
 // 게시글 데이터를 로드하는 함수
 function loadPosts(categoryUrl) {
