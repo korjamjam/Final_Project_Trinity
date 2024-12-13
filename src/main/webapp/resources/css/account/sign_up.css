@@ -60,6 +60,7 @@ body {
     flex-wrap: wrap;
     gap: 8px;
     flex: 1;
+    align-items: center;
 }
 
 .email-input-container input[type="text"],
