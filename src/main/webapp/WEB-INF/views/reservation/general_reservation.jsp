@@ -140,9 +140,9 @@
                     <input type="hidden" id="userNo" name="userNo" data-checkvalue="${loginUser.userNo}">
                 </div>
                 <br><br>
-                <input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName" data-checkvalue="${loginUser.userName}">
+                <input type="text" placeholder="이름을 입력해주세요" id="userName" name="userName" data-checkvalue="${loginUser.userName}" required>
                 <br><br>
-                <input type="text" placeholder="생년월일 ex) 991201" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}">
+                <input type="text" placeholder="생년월일 ex) 991201" id="birthday" name="birthday" data-checkvalue="${loginUser.birthday}" required>
                 <br><br>
                 <div class="reservation_phone">
                     <input type="hidden" id="phone0" value="${loginUser.phone}" data-checkvalue="${loginUser.phone}">
@@ -152,12 +152,12 @@
                         <option id="013" value="013">013</option>
                         <option id="015" value="015">015</option>
                     </select>
-                    <input type="text" id="phone2" name="phone2" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)">
-                    <input type="text" id="phone3" name="phone3" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)">
+                    <input type="text" id="phone2" name="phone2" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)" required>
+                    <input type="text" id="phone3" name="phone3" data-checkvalue="${loginUser.phone}" oninput="updateHiddenInput(this.value)" required>
                     <input type="hidden" id="phone" name="phone">
                 </div>
                 <br><br>
-                <input type="text" placeholder="이메일을 입력해주세요" id="email" name="email" data-checkvalue="${loginUser.email}">
+                <input type="text" placeholder="이메일을 입력해주세요" id="email" name="email" data-checkvalue="${loginUser.email}" required>
                 <br><br>
                 <select id="gender" name="gender" data-checkvalue="${loginUser.gender}">
                     <option id="select" selected disabled>성별</option>
