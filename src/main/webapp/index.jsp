@@ -33,6 +33,7 @@
 </head>
 
 <body>
-    <jsp:forward page="/WEB-INF/views/main.jsp" />
+	<jsp:forward page="/WEB-INF/views/main.jsp" />
+    <!--<jsp:forward page="/WEB-INF/views/hospital_api_view.jsp" />-->
 </body>
 </html>

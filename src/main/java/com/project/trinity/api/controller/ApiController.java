@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ApiController {
-    public static final String SERVICE_KEY = "HKb7iVYQRtzR%2FuEZ1Vsv4sWyTa7YRFead%2BZQkrp15xBVAuqSFv0CtG0ihJb1DhRh%2BP7FryyPkgdxnIV2y%2FqBSA%3D%3D"; // 실제 서비스 키로 교체하세요.
+    public static final String SERVICE_KEY = "CgW4Hiix9takPucR5PSLrWfmoZ%2FkSPM%2FEpLAL8pcWJYFWb5qFCLs8%2BgU5m0ArTekGGo4m3e4JZ9SESlwpa3jXw%3D%3D"; // 실제 서비스 키로 교체하세요.
 
     @ResponseBody
     @GetMapping(value = "/hospital", produces = "application/json; charset=UTF-8")
@@ -26,8 +26,10 @@ public class ApiController {
             @RequestParam(defaultValue = "200") String numOfRows) throws Exception {
 
     	// API 요청 URL 생성
-    	// API 요청 URL 생성
     	StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire");
+    	
+    	System.out.println(urlBuilder.toString());
+    	
     	urlBuilder.append("?serviceKey=").append(SERVICE_KEY);
     	urlBuilder.append("&returnType=json");
     	urlBuilder.append("&Q0=").append(URLEncoder.encode(sido, "UTF-8")); // 시도 파라미터 설정
