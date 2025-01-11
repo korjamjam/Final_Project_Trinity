@@ -20,9 +20,9 @@ public class Reservation {
     private String resTime;        // 예약 시간 
     private String hosNo;          // 병원 번호
     private String resContent;     // 예약 내용
-    private String resCategory;     // 예약 내용
+    private String resCategory;    // 예약 종류
     private String hosName;        // 병원 이름
     private String hosAddress;     // 병원 주소
     private String phone;     	   // 환자 번호
-    private String gender;         //
+    private String gender;         // 성별
 }
