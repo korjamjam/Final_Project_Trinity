@@ -8,7 +8,7 @@ import java.net.URL; // **API 요청을 위한 URL 객체**
 import java.net.URLEncoder; // **한글 및 특수문자를 URL에서 안전하게 변환하는 클래스**
 
 /**
- * **API 서비스 클래스**
+ * API 서비스 클래스
  * - 외부 공공 데이터 포털(API)에서 병원 정보를 조회하는 서비스
  * - OpenAPI를 사용하여 JSON 데이터를 가져오는 기능 포함
  */
