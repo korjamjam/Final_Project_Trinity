@@ -28,6 +28,7 @@ public class VaccineReservationController {
 
     /**
      * 백신 예약 페이지 1로 이동
+     * 사용자가 처음 접속하는 페이지
      */
     @GetMapping("/vaccinepage1")
     public String vaccineReservation1() {
@@ -40,43 +41,44 @@ public class VaccineReservationController {
     @PostMapping("/vaccinepage2")
     public String vaccineReservation2(VaccineReservation vaccineReservation, Model model) {
 
-        // 병원 목록 가져오기
-        List<HospitalInfo> hospitalList = vaccineReservationService.getAllHospitals(); // 병원 정보를 서비스에서 가져옴
+        // 모든 병원 목록을 가져옴 (DB 조회)
+        List<HospitalInfo> hospitalList = vaccineReservationService.getAllHospitals();
         
-     // 디버깅 로그
+        // 디버깅 로그 출력
         System.out.println("DEBUG: hospitalList 데이터 확인 -> " + hospitalList);
         
-        model.addAttribute("vaccineReservation", vaccineReservation); // 전달받은 예약 데이터를 모델에 추가
-        model.addAttribute("hospitalList", hospitalList); // 병원 목록을 모델에 추가
+        // 예약 정보와 병원 목록을 JSP로 전달
+        model.addAttribute("vaccineReservation", vaccineReservation);
+        model.addAttribute("hospitalList", hospitalList);
 
-        return "health_reservation/vaccine_reservation2"; // 예약 페이지 2로 이동
+        return "health_reservation/vaccine_reservation2"; // 백신 예약 페이지 2로 이동
     }
 
     /**
-     * 예약 처리 - 일반 폼 방식
+     * 예약 처리 - 일반 폼 방식 (동기)
      */
     @PostMapping("/submitReservation")
     public String submitReservation(
         VaccineReservation vaccineReservation,
         HttpSession session,
-        @RequestParam("gender") String genderInput,
-        @RequestParam("phoneCode") String phoneCode,
-        @RequestParam("phoneNumber") String phoneNumber,
-        @RequestParam("emailLocal") String emailLocal,
-        @RequestParam("emailDomain") String emailDomain
+        @RequestParam("gender") String genderInput, // **성별 정보 (M/F)**
+        @RequestParam("phoneCode") String phoneCode, // **전화번호 앞자리**
+        @RequestParam("phoneNumber") String phoneNumber, // **전화번호 뒷자리**
+        @RequestParam("emailLocal") String emailLocal, // **이메일 아이디**
+        @RequestParam("emailDomain") String emailDomain // **이메일 도메인**
     ) {
         System.out.println("DEBUG: 일반 폼 예약 처리 시작");
 
         try {
-            // 로그인 여부 확인
+            //로그인 여부 확인
             Member loginUser = (Member) session.getAttribute("loginUser");
             if (loginUser != null) {
-                // 로그인 상태: USER_NO 설정, GST_NO는 null로 설정
+                // **회원일 경우 - USER_NO 설정, GST_NO는 null**
                 vaccineReservation.setUserNo(loginUser.getUserNo());
                 vaccineReservation.setGstNo(null);
                 System.out.println("DEBUG: 로그인 상태 - USER_NO: " + loginUser.getUserNo());
             } else {
-                // 비회원 상태: GST_NO 설정, USER_NO는 null로 설정
+                //비회원일 경우 - Guest 테이블에 정보 삽입
                 System.out.println("DEBUG: 비회원 상태, GUEST 테이블에 데이터 삽입 시작");
 
                 Guest guest = new Guest();
@@ -86,30 +88,34 @@ public class VaccineReservationController {
                 guest.setGstBirth(vaccineReservation.getPatientBirthday());
                 guest.setGstGender(genderInput);
 
+                //비회원 정보 DB 저장 후 GST_NO 설정
                 String guestNo = vaccineReservationService.insertGuest(guest);
                 vaccineReservation.setGstNo(guestNo);
                 vaccineReservation.setUserNo(null);
                 System.out.println("DEBUG: 삽입된 GST_NO: " + guestNo);
             }
 
-            // 이메일 설정
+            //이메일 설정
             vaccineReservation.setEmail(emailLocal + "@" + emailDomain);
 
-            // 예약 정보 삽입
+            //예약 정보 DB 저장
             vaccineReservationService.insertReservation(vaccineReservation);
             System.out.println("DEBUG: 예약 정보 삽입 완료");
 
-            return "redirect:/main"; // 성공 시 리다이렉트
+            return "redirect:/main"; // **메인 페이지로 리다이렉트**
         } catch (IllegalArgumentException e) {
             System.err.println("ERROR: 입력 검증 실패 - " + e.getMessage());
-            return "error/error_page"; // 오류 시 에러 페이지
+            return "error/error_page"; // **입력 검증 실패 시 에러 페이지로 이동**
         } catch (Exception e) {
             System.err.println("ERROR: 서버 오류 발생");
             e.printStackTrace();
-            return "error/error_page"; // 서버 오류 시 에러 페이지
+            return "error/error_page"; // **서버 오류 발생 시 에러 페이지로 이동**
         }
     }
 
+    /**
+     * 예약 처리 - Ajax 방식 (비동기)
+     */
     @PostMapping("/submitReservationAjax")
     @ResponseBody
     public String submitReservationAjax(
@@ -121,7 +127,7 @@ public class VaccineReservationController {
         @RequestParam("emailDomain") String emailDomain
     ) {
         try {
-            // 이메일 값 설정
+            // 이메일 설정
             vaccineReservation.setEmail(emailLocal + "@" + emailDomain);
 
             // 성별 검증 및 변환
@@ -135,13 +141,13 @@ public class VaccineReservationController {
             }
             System.out.println("DEBUG: 변환된 성별 값 - " + gender);
 
+            // 로그인 여부 확인
             Member loginUser = (Member) session.getAttribute("loginUser");
             if (loginUser != null) {
-                // 로그인 상태: USER_NO 설정, GST_NO는 null로 설정
                 vaccineReservation.setUserNo(loginUser.getUserNo());
                 vaccineReservation.setGstNo(null);
             } else {
-                // 비회원 상태: GST_NO 설정, USER_NO는 null로 설정
+                // 비회원 정보 DB 저장
                 Guest guest = new Guest();
                 guest.setGstName(vaccineReservation.getPatientName());
                 guest.setGstEmail(emailLocal + "@" + emailDomain);
@@ -154,11 +160,11 @@ public class VaccineReservationController {
                 vaccineReservation.setUserNo(null);
             }
 
-            // 예약 정보 삽입
+            // 예약 정보 DB 저장
             vaccineReservationService.insertReservation(vaccineReservation);
             System.out.println("DEBUG: 최종 vaccineReservation 객체 - " + vaccineReservation);
 
-            return "success";
+            return "success"; // **Ajax 성공 응답**
         } catch (IllegalArgumentException e) {
             return "fail: " + e.getMessage();
         } catch (Exception e) {
