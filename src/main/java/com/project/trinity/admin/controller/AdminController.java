@@ -31,53 +31,67 @@ public class AdminController {
         return "admin/admin_main_page";
     }
 
-    // 회원관리 페이지
+    //----------------------------------회원 관리 페이지----------------------------------
     @RequestMapping("/member")
     public String showAdminMember(
-            @RequestParam(name = "role", defaultValue = "전체") String role,
-            Model model) {
-        
+            @RequestParam(name = "role", defaultValue = "전체") String role, // 역할(role) 파라미터를 받아옴 (기본값: 전체)
+            Model model) { // JSP로 데이터를 전달하기 위한 Model 객체
+    
         List<Member> memberList;
 
-        // 조건에 따라 회원 목록 필터링
+        //회원 역할(role)에 따라 회원 목록을 필터링
         switch (role) {
             case "의사":
-                memberList = adminService.getMembersByRole("medKey"); // 의사는 medKey가 있는 회원
+                memberList = adminService.getMembersByRole("medKey"); // "medKey"가 있는 회원은 의사로 분류
                 break;
             case "관리자":
-                memberList = adminService.getMembersByRole("isAdmin"); // 관리자는 isAdmin = 'Y'
+                memberList = adminService.getMembersByRole("isAdmin"); // "isAdmin" 값이 'Y'인 경우 관리자
                 break;
             case "일반":
-                memberList = adminService.getMembersByRole("general"); // 일반 회원은 medKey 없음 & isAdmin = 'N'
+                memberList = adminService.getMembersByRole("general"); // "medKey"가 없고 "isAdmin"이 'N'이면 일반 회원
                 break;
             default:
-                memberList = adminService.getAllMembers(); // 전체 회원
+                memberList = adminService.getAllMembers(); // 역할 필터 없이 전체 회원 조회
         }
 
-        model.addAttribute("memberList", memberList); // JSP에 전달
-        model.addAttribute("selectedRole", role); // 선택된 역할 전달
-        return "admin/admin_member";
+        // 조회된 회원 목록을 JSP로 전달
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("selectedRole", role); // 현재 선택된 역할(role) 정보 전달
+
+        return "admin/admin_member"; // 회원 관리 JSP 페이지로 이동
     }
+
    
-    //회원관리 상세페이지
+    // 회원관리 상세페이지
     @RequestMapping("/memberDetail")
-    public String showAdminMemberDetail(@RequestParam("userNo") String userNo, Model model) {
-        Member member = adminService.getMemberDetail(userNo); // 특정 회원 정보 가져오기
-        System.out.println("Member: " + member); // 디버깅용 로그
-        model.addAttribute("member", member); // JSP에 전달
-        return "admin/admin_member_detail";
-    }
+    public String showAdminMemberDetail(
+            @RequestParam("userNo") String userNo, // 회원의 고유번호(userNo) 파라미터로 받음
+            Model model) { // JSP로 데이터를 전달하는 Model 객체
     
-    //회원 상세페이지 수정기능
+        //특정 회원의 상세 정보 조회
+        Member member = adminService.getMemberDetail(userNo); 
+
+        //디버깅 로그 (콘솔 출력)
+        System.out.println("Member: " + member);
+
+        //조회된 회원 정보를 JSP에 전달
+        model.addAttribute("member", member); 
+
+        return "admin/admin_member_detail"; // 회원 상세 정보 JSP 페이지로 이동
+    }
+
+    
+    // 회원 상세페이지 수정기능
     @RequestMapping("updateMember")
     public String updateMember(
-            @RequestParam("userNo") String userNo,
-            @RequestParam("postcode") String postcode,
-            @RequestParam("address") String address,
-            @RequestParam("status") String status,
-            @RequestParam("isAdmin") String isAdmin,
-            RedirectAttributes redirectAttributes) {
-        
+            @RequestParam("userNo") String userNo, // 회원 고유번호
+            @RequestParam("postcode") String postcode, // 우편번호
+            @RequestParam("address") String address, // 주소
+            @RequestParam("status") String status, // 회원 상태 (활성, 비활성 등)
+            @RequestParam("isAdmin") String isAdmin, // 관리자 여부 (Y/N)
+            RedirectAttributes redirectAttributes) { // 리다이렉트 시 메시지를 전달하기 위한 객체
+    
+        //수정할 회원 정보를 Member 객체에 저장
         Member updatedMember = new Member();
         updatedMember.setUserNo(userNo);
         updatedMember.setPostcode(postcode);
@@ -85,92 +99,122 @@ public class AdminController {
         updatedMember.setStatus(status);
         updatedMember.setIsAdmin(isAdmin);
 
+        //회원 정보 업데이트 실행
         boolean isUpdated = adminService.updateMember(updatedMember);
 
+        //업데이트 성공 여부에 따라 알림 메시지 설정
         String message = isUpdated ? "회원 정보가 성공적으로 수정되었습니다." : "회원 정보 수정에 실패하였습니다.";
         redirectAttributes.addFlashAttribute("alertMsg", message);
 
-
+        //수정 후 다시 회원 상세 페이지로 리다이렉트
         return "redirect:/admin/memberDetail?userNo=" + userNo;
     }
+
 
     
     // 등업 신청 페이지
     @RequestMapping("/rankup")
-    public String showAdminRankUp(Model model) {
+    public String showAdminRankUp(Model model) { 
+        //등업 신청 목록을 가져옴
         List<Rankup> rankupList = adminService.getAllRankups();
-        model.addAttribute("rankupList", rankupList);
-        return "admin/admin_rankup";
+    
+        //조회된 등업 신청 목록을 JSP에 전달
+        model.addAttribute("rankupList", rankupList); 
+
+        return "admin/admin_rankup"; // 등업 신청 목록 페이지로 이동
     }
-    //등업 상세페이지
+
+    // 등업 상세페이지
     @RequestMapping("/rankupDetail")
-    public String showAdminRankUpDetail(@RequestParam(name = "seqNo", required = true) String seqNo, Model model) {
-        Rankup rankupDetail = adminService.getRankupDetail(seqNo); // 모든 정보 가져오기      
+    public String showAdminRankUpDetail(
+            @RequestParam(name = "seqNo", required = true) String seqNo, // 등업 신청 번호(seqNo) 받아오기
+            Model model) { // JSP에 데이터를 전달하는 Model 객체
+    
+        //특정 등업 신청의 상세 정보 조회
+        Rankup rankupDetail = adminService.getRankupDetail(seqNo); 
+
+        //조회된 등업 신청 정보를 JSP에 전달
         model.addAttribute("rankupDetail", rankupDetail);
-        return "admin/admin_rankup_detail";
+
+        return "admin/admin_rankup_detail"; // 등업 상세 페이지로 이동
     }
+
     
     // 회원 등업하기
     @RequestMapping("/updateRankup")
-    public String updateRankup(@RequestParam("seqNo") String seqNo, 
-                               @RequestParam("status") String status, 
-                               RedirectAttributes redirectAttributes) {
-        String alertMsg = "";
-        if ("A".equals(status)) { // 승인일 경우
-            adminService.approveRankup(seqNo); // 등업 승인 처리
+    public String updateRankup(
+            @RequestParam("seqNo") String seqNo, // 등업 신청 번호
+            @RequestParam("status") String status, // 등업 신청 상태 (승인, 거부, 대기)
+            RedirectAttributes redirectAttributes) { // 리다이렉트 시 메시지 전달
+    
+        String alertMsg = ""; // 등업 처리 결과 메시지
+
+        // 등업 상태 변경 로직
+        if ("A".equals(status)) { // 승인 처리
+            adminService.approveRankup(seqNo); 
             alertMsg = "등업이 승인되었습니다.";
-        } else if ("D".equals(status)) { // 거부일 경우
-            adminService.rejectRankup(seqNo); // 등업 거부 처리
+        } else if ("D".equals(status)) { // 거부 처리
+            adminService.rejectRankup(seqNo);
             alertMsg = "등업이 거부되었습니다.";
-        } else if ("W".equals(status)) { // 대기일 경우
-            adminService.setRankupToWaiting(seqNo); // 대기 상태 처리
+        } else if ("W".equals(status)) { // 대기 상태로 변경
+            adminService.setRankupToWaiting(seqNo);
             alertMsg = "등업 상태가 대기로 설정되었습니다.";
         }
 
+        //처리 결과 메시지를 추가하고 리스트 페이지로 리다이렉트
         redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
-        return "redirect:/admin/rankup"; // 등업 리스트 페이지로 이동
+        return "redirect:/admin/rankup"; 
     }
 
-    //----------------------------------병원관리 페이지----------------------------------
+    //----------------------------------병원 관리 페이지----------------------------------
     @RequestMapping("/hospital")
     public String showAdminHospital(
-            @RequestParam(name = "department", defaultValue = "전체") String department,
-            Model model) {
-        
+            @RequestParam(name = "department", defaultValue = "전체") String department, // 진료과목(department) 필터링 (기본값: 전체)
+            Model model) { // JSP에 데이터를 전달하는 Model 객체
+    
         List<HospitalInfo> hospitalList;
 
-        // 선택된 department에 따라 병원 목록 필터링
+        //선택된 진료과목에 따라 병원 목록 필터링
         if ("전체".equals(department)) {
-            hospitalList = adminService.getAllHospitals(); // 전체 병원 가져오기
+            hospitalList = adminService.getAllHospitals(); // 전체 병원 조회
         } else {
-            hospitalList = adminService.getHospitalsByDepartment(department); // 특정 진료과목 병원
+            hospitalList = adminService.getHospitalsByDepartment(department); // 특정 진료과목 병원 조회
         }
 
-        // hospitalList를 모델에 추가
+        // 조회된 병원 목록을 JSP에 전달
         model.addAttribute("hospitalList", hospitalList);
-        model.addAttribute("selectedDepartment", department); // 선택된 진료과목 유지
+        model.addAttribute("selectedDepartment", department); // 현재 선택된 진료과목을 유지
 
-        return "admin/admin_hospital";
+        return "admin/admin_hospital"; // 병원 관리 페이지로 이동
     }
 
     @RequestMapping("/hospitalDetail")
-    public String showAdminHospitalDetail(@RequestParam("hosNo") String hosNo, Model model) {
-        HospitalInfo hospitalinfo = adminService.getHospitalDetail(hosNo); // 데이터 가져오기
-        System.out.println("HospitalInfo: " + hospitalinfo); // 디버깅 로그 추가
-        model.addAttribute("hospital", hospitalinfo); // JSP로 전달
-        return "admin/admin_hospital_detail";
+    public String showAdminHospitalDetail(
+            @RequestParam("hosNo") String hosNo, // 병원 고유번호(hosNo) 받아오기
+            Model model) { // JSP에 데이터를 전달하는 Model 객체
+    
+        //특정 병원의 상세 정보 조회
+        HospitalInfo hospitalinfo = adminService.getHospitalDetail(hosNo);
+
+        //디버깅 로그 출력 (콘솔)
+        System.out.println("HospitalInfo: " + hospitalinfo);
+
+        //조회된 병원 정보를 JSP에 전달
+        model.addAttribute("hospital", hospitalinfo);
+
+        return "admin/admin_hospital_detail"; // 병원 상세 페이지로 이동
     }
     
     @RequestMapping(value = "/updateHospital", method = RequestMethod.POST)
     public String updateHospital(
-            @RequestParam("hosNo") String hosNo,
-            @RequestParam("hosTel") String hosTel,
-            @RequestParam("hosAddress") String hosAddress,
-            @RequestParam("hosOnduty") String hosOnduty,
-            @RequestParam("hosParking") String hosParking,
-            RedirectAttributes redirectAttributes) {
-        
-        // HospitalInfo 객체 생성 및 데이터 설정
+            @RequestParam("hosNo") String hosNo, // 병원 고유번호
+            @RequestParam("hosTel") String hosTel, // 병원 전화번호
+            @RequestParam("hosAddress") String hosAddress, // 병원 주소
+            @RequestParam("hosOnduty") String hosOnduty, // 병원 운영 여부 (Y/N)
+            @RequestParam("hosParking") String hosParking, // 주차 가능 여부 (Y/N)
+            RedirectAttributes redirectAttributes) { // 리다이렉트 시 메시지 전달
+    
+        //수정할 병원 정보를 HospitalInfo 객체에 저장
         HospitalInfo hospital = new HospitalInfo();
         hospital.setHosNo(hosNo);
         hospital.setHosTel(hosTel);
@@ -178,39 +222,46 @@ public class AdminController {
         hospital.setHosOnduty(hosOnduty);
         hospital.setHosParking(hosParking);
 
-        // 업데이트 로직 실행
+        //병원 정보 업데이트 실행
         boolean isUpdated = adminService.updateHospital(hospital);
 
-        // 업데이트 성공 여부에 따라 메시지 설정
+        //업데이트 성공 여부에 따라 알림 메시지 설정
         String alertMsg = isUpdated ? "병원 정보가 성공적으로 수정되었습니다." : "병원 정보 수정에 실패하였습니다.";
         redirectAttributes.addFlashAttribute("alertMsg", alertMsg);
 
-        // 리다이렉트 처리 (다시 상세 페이지로 이동)
+        //수정 후 다시 병원 상세 페이지로 리다이렉트
         return "redirect:/admin/hospitalDetail?hosNo=" + hosNo;
     }
 
-
-
     
-    //----------------------------------예약관리 페이지----------------------------------
- // AdminController.java
+    //----------------------------------예약 관리 페이지----------------------------------
     @RequestMapping("/reservation")
-    public String showAllReservations(Model model) {
+    public String showAllReservations(Model model) { 
+        //전체 예약 목록 조회
         List<Reservation> reservations = adminService.getAllReservations();
-        System.out.println("Reservations: " + reservations); // 디버깅 로그
+    
+        //디버깅 로그 출력
+        System.out.println("Reservations: " + reservations);
+
+        //조회된 예약 목록을 JSP에 전달
         model.addAttribute("reservations", reservations);
-        return "admin/admin_reservation";
+
+        return "admin/admin_reservation"; // 예약 관리 페이지로 이동
     }
     
-    //예약관리 상세 페이지
+    // 예약 관리 상세 페이지
     @RequestMapping("/reservationDetail")
-    public String showReservationDetail(@RequestParam("reservationNo") String reservationNo, Model model) {
-        // 서비스에서 예약 정보를 가져옴
+    public String showReservationDetail(
+            @RequestParam("reservationNo") String reservationNo, // 예약 번호 받아오기
+            Model model) { // JSP에 데이터를 전달하는 Model 객체
+    
+        //특정 예약 정보 조회
         Map<String, Object> reservationDetail = adminService.getReservationDetail(reservationNo);
 
-        // 가져온 데이터를 JSP로 전달
+        //조회된 예약 정보를 JSP에 전달
         model.addAttribute("reservationDetail", reservationDetail);
-        return "admin/admin_reservation_detail";
+
+        return "admin/admin_reservation_detail"; // 예약 상세 페이지로 이동
     }
 
     
@@ -221,10 +272,27 @@ public class AdminController {
         model.addAttribute("postList", postList);
         return "admin/admin_post";
     }
-    
-    //게시글관리 상세 페이지
+
+    //게시글 상세 정보 조회 페이지
     @RequestMapping("/postDetail")
-    public String showAdminPostDetail() {
-        return "admin/admin_post_detail";
-    }   
+    public String showAdminPostDetail(@RequestParam("postNo") String postNo, Model model) {
+        //특정 게시글 정보 조회
+        Board postDetail = adminService.getPostDetail(postNo);
+        model.addAttribute("postDetail", postDetail); // JSP로 데이터 전달
+        return "admin/admin_post_detail"; // 게시글 상세 페이지로 이동
+    }
+
+
+    //게시글 삭제 
+    @RequestMapping("/deletePost")
+    public String deletePost(@RequestParam("postNo") String postNo, RedirectAttributes redirectAttributes) {
+        //게시글 삭제 실행
+        boolean isDeleted = adminService.deletePost(postNo);
+
+        //성공 여부에 따라 메시지 설정
+        String message = isDeleted ? "게시글이 성공적으로 삭제되었습니다." : "게시글 삭제에 실패하였습니다.";
+        redirectAttributes.addFlashAttribute("alertMsg", message);
+
+        return "redirect:/admin/post"; // 삭제 후 게시글 목록 페이지로 이동
+    }
 }
